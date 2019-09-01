@@ -1,0 +1,26 @@
+{
+  "name": "magick.wasm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "demo": "npx tsc && node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlemstra/Magick.WASM.git"
+  },
+  "author": "Dirk Lemstra",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/dlemstra/Magick.WASM/issues"
+  },
+  "homepage": "https://github.com/dlemstra/Magick.WASM",
+  "devDependencies": {
+    "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "magick.native": "file:src/Magick.Native/magick.native-1.0.0.tgz"
+  }
+}
