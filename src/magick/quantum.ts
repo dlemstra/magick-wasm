@@ -2,7 +2,10 @@ import { MagickNative } from "../wasm/magick";
 
 export class Quantum
 {
-    constructor(private im : MagickNative) { }
+    private constructor(private im : MagickNative) { }
+
+    /** @internal */
+    static create = (im: MagickNative) => new Quantum(im);
 
     get depth()
     {

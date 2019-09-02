@@ -3,7 +3,10 @@ import { getString } from "../util/string";
 
 export class Magick
 {
-    constructor(private im : MagickNative) { }
+    private constructor(private im : MagickNative) { }
+
+    /** @internal */
+    static create = (im: MagickNative) => new Magick(im);
 
     get imageMagickVersion()
     {

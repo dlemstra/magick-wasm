@@ -7,9 +7,10 @@ export class ImageMagick {
     readonly quantum: Quantum;
     readonly magick: Magick;
 
+    /** @internal */
     constructor(im : MagickNative)
     {
-        this.quantum = new Quantum(im);
-        this.magick = new Magick(im);
+        this.quantum = Quantum.create(im);
+        this.magick = Magick.create(im);
     }
 }

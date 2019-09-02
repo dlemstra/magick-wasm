@@ -1,5 +1,6 @@
 declare const MagickNative : () => Promise<MagickNative>;
 
+/** @internal */
 export interface MagickNative
 {
     HEAP8: Int8Array;
