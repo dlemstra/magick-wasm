@@ -20,7 +20,5 @@
   "devDependencies": {
     "typescript": "^3.6.2"
   },
-  "dependencies": {
-    "magick.native": "file:src/Magick.Native/magick.native-1.0.0.tgz"
-  }
+  "dependencies": {}
 }
