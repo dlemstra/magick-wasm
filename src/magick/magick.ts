@@ -1,4 +1,4 @@
-import { MagickNative } from "../wasm/magick";
+import { MagickNative } from "../../lib/wasm/magick";
 import { getString } from "../util/string";
 
 export class Magick

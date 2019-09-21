@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "demo": "npx tsc && node src/index.js",
+    "demo": "npx tsc && node lib/index.js",
     "prepare": "cpy ./node_modules/magick.native/wasm/magick-Q8.js ./src/wasm --rename=magick.js"
   },
   "repository": {

@@ -1,4 +1,4 @@
-import { MagickNative } from '../wasm/magick.js';
+import { MagickNative } from '../../lib/wasm/magick.js';
 import { Quantum } from "./quantum";
 import { Magick } from './magick.js';
 

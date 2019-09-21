@@ -1,4 +1,4 @@
-import { MagickNative } from "../wasm/magick";
+import { MagickNative } from "../../lib/wasm/magick";
 
 /** @internal */
 export function getString(native: MagickNative, offset: number)
