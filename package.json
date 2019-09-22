@@ -1,7 +1,7 @@
 {
   "name": "magick.wasm",
   "version": "1.0.0",
-  "description": "",
+  "description": "The WASM library for ImageMagick",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
