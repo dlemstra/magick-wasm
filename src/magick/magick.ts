@@ -1,5 +1,4 @@
 import { MagickNative } from "../../lib/wasm/magick";
-import { getString } from "../util/string";
 
 export class Magick
 {
@@ -8,5 +7,5 @@ export class Magick
     /** @internal */
     static create = (im: MagickNative) => new Magick(im);
 
-    get imageMagickVersion() { return getString(this.im, this.im._Magick_ImageMagickVersion_Get()); }
+    get imageMagickVersion() { return this.im.UTF8ToString(this.im._Magick_ImageMagickVersion_Get()); }
 }
