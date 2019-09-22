@@ -1,5 +1,5 @@
-import { MagickNative } from "../../../lib/wasm/magick";
-import { withString } from "../../util/string";
+import { MagickNative } from "../../lib/wasm/magick";
+import { withString } from "../util/string";
 
 export class MagickSettings
 {
