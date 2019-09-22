@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "demo": "npx tsc && node lib/index.js",
-    "prepare": "cpy ./node_modules/magick.native/wasm/magick-Q8.js ./src/wasm --rename=magick.js"
+    "prepare": "cpy ./node_modules/magick.native/wasm/magick-Q8.js ./lib/wasm --rename=magick.js && cpy ./node_modules/magick.native/wasm/magick-Q8.d.ts ./lib/wasm --rename=magick.d.ts"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "homepage": "https://github.com/dlemstra/Magick.WASM",
   "devDependencies": {
     "typescript": "~3.6.2",
-    "magick.native": "https://dl.dropboxusercontent.com/s/s9j2smr5wl8uerp/magick.native-0.201908.311553.tgz",
+    "magick.native": "https://dl.dropboxusercontent.com/s/11fh33xf1iesgo3/magick.native-0.201909.220446.tgz",
     "cpy-cli": "~2.0.0"
   },
   "dependencies": {}

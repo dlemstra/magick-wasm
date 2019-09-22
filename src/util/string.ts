@@ -1,14 +1,7 @@
 import { MagickNative } from "../../lib/wasm/magick";
 
 /** @internal */
-export function getString(native: MagickNative, offset: number)
+export function getString(im: MagickNative, offset: number)
 {
-    let result = '';
-    let i = offset;
-    while (native.HEAP8[i] != 0)
-    {
-        result += String.fromCharCode(native.HEAP8[i++]);
-    }
-
-    return result;
+    return im.UTF8ToString(offset);
 }
