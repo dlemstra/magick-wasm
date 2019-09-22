@@ -4,17 +4,13 @@ import { ImageMagick } from './magick/image-magick';
 let loader: Promise<void>;
 let api: ImageMagick;
 
-export async function imageMagick()
-{
+export async function imageMagick() {
     if (api !== undefined)
         return api;
 
-    if (loader === undefined)
-    {
-        loader = new Promise(resolve =>
-        {
-            MagickNative().then((native) =>
-            {
+    if (loader === undefined) {
+        loader = new Promise(resolve => {
+            MagickNative().then((native) => {
                 api = new ImageMagick(native);
                 resolve();
             });
@@ -25,8 +21,7 @@ export async function imageMagick()
     return api;
 }
 
-imageMagick().then((im) =>
-{
+imageMagick().then((im) => {
     console.log('Quantum depth', im.quantum.depth);
     console.log('ImageMagick version', im.magick.imageMagickVersion);
 });

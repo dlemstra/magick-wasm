@@ -8,8 +8,7 @@ export class ImageMagick {
     readonly magick: Magick;
 
     /** @internal */
-    constructor(im : MagickNative)
-    {
+    constructor(im : MagickNative) {
         this.quantum = Quantum.create(im);
         this.magick = Magick.create(im);
     }
