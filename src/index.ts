@@ -22,6 +22,8 @@ export async function imageMagick() {
 }
 
 imageMagick().then((im) => {
-    console.log('Quantum depth', im.quantum.depth);
-    console.log('ImageMagick version', im.magick.imageMagickVersion);
+    console.log(im.magick.imageMagickVersion);
+    console.log('Delegates:', im.magick.delegates);
+    console.log('Features:', im.magick.features);
+    console.log('Quantum:', im.quantum.depth);
 });
