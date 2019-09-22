@@ -1,7 +1,7 @@
-import { MagickNative } from "../../lib/wasm/magick";
+import { MagickNative } from "../lib/wasm/magick";
 import { ColorSpace } from "./color-space";
-import { Exception } from "../exception/exception";
-import { MagickSettings } from "../settings/magick-settings";
+import { Exception } from "./exception/exception";
+import { MagickSettings } from "./settings/magick-settings";
 
 export class MagickImage 
 {

@@ -1,5 +1,5 @@
 import MagickNative from '../lib/wasm/magick.js';
-import { ImageMagick } from './magick/image-magick';
+import { ImageMagick } from './image-magick';
 
 let loader: Promise<void>;
 let api: ImageMagick;
