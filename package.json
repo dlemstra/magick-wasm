@@ -4,8 +4,8 @@
   "description": "The WASM library for ImageMagick",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
-    "demo": "npx tsc && node lib/index.js",
+    "build": "tsc",
+    "demo": "tsc && node lib/demo.js",
     "prepare": "cpy ./node_modules/magick.native/wasm/magick-Q8.js ./lib/wasm --rename=magick.js && cpy ./node_modules/magick.native/wasm/magick-Q8.d.ts ./lib/wasm --rename=magick.d.ts"
   },
   "repository": {

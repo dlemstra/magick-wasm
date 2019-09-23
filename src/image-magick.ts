@@ -3,8 +3,8 @@ import { Quantum } from "./quantum";
 import { Magick } from './magick.js';
 import { MagickImage } from './magick-image.js';
 
-export class ImageMagick {
-
+export class ImageMagick
+{
     readonly quantum: Quantum;
     readonly magick: Magick;
 
