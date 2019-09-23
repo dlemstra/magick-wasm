@@ -1,4 +1,3 @@
-*.js
-*.d.ts
 node_modules
+lib
 src/magick-native/package-lock.json
