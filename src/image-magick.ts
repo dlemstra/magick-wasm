@@ -2,6 +2,7 @@ import { MagickNative } from '../lib/wasm/magick.js';
 import { Quantum } from "./quantum";
 import { Magick } from './magick.js';
 import { MagickImage } from './magick-image.js';
+import { withString } from './util/string.js';
 
 export class ImageMagick
 {
@@ -10,6 +11,12 @@ export class ImageMagick
 
     /** @internal */
     constructor(private im : MagickNative) {
+        withString(im, 'MAGICK_CONFIGURE_PATH', name => {
+            withString(im, '/xml', value => {
+                im._Environment_SetEnv(name, value);
+            });
+        })
+
         this.quantum = Quantum.create(im);
         this.magick = Magick.create(im);
     }
