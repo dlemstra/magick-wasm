@@ -1,4 +1,5 @@
-export enum ColorSpace {
+export enum ColorSpace
+{
     Undefined,
     CMY,
     CMYK,

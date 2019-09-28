@@ -3,8 +3,7 @@ import { LogEvents } from "./log-events";
 
 imageMagick().then((im) => {
     let messages: string[] = [];
-    im.magick.logEvents(LogEvents.Trace | LogEvents.Coder, (type, message) =>
-    {
+    im.magick.logEvents(LogEvents.Trace | LogEvents.Coder, (type, message) => {
         messages.push(message);
     });
 

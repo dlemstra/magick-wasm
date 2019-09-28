@@ -37,14 +37,12 @@ export class Magick
 
     private onLog(type: number, ptr: number) {
         const message = this.im.UTF8ToString(ptr);
-        this.logDelegates.forEach((delegate) =>
-        {
+        this.logDelegates.forEach((delegate) => {
             delegate(type, message);
         });
     }
 
-    private getEventNames(logEvents: LogEvents)
-    {
+    private getEventNames(logEvents: LogEvents) {
         if (logEvents === LogEvents.All)
             return 'All,Trace'
 
