@@ -13,7 +13,7 @@ export class MagickSettings
     getPointer = () => this.instance;
 
     /** @internal */
-    static create<TReturnType>(im: MagickNative, func: (settings: MagickSettings) => any): TReturnType {
+    static create<TReturnType>(im: MagickNative, func: (settings: MagickSettings) => TReturnType): TReturnType {
         const settings = new MagickSettings(im);
         try {
             return func(settings);

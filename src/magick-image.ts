@@ -11,7 +11,7 @@ export class MagickImage
     private constructor(private im : MagickNative) { }
 
     /** @internal */
-    static create<TReturnType>(im: MagickNative, func: (settings: MagickImage) => any): TReturnType {
+    static create<TReturnType>(im: MagickNative, func: (settings: MagickImage) => TReturnType): TReturnType {
         const image = new MagickImage(im);
         try {
             return func(image);
