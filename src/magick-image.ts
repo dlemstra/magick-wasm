@@ -2,6 +2,7 @@ import { MagickNative } from "../lib/wasm/magick";
 import { ColorSpace } from "./color-space";
 import { Exception } from "./exception/exception";
 import { MagickSettings } from "./settings/magick-settings";
+import { withString } from "./util/string";
 
 export class MagickImage 
 {
@@ -26,8 +27,10 @@ export class MagickImage
     }
 
     get depth(): ColorSpace { return this.im._MagickImage_Depth_Get(this.instance); }
+    set depth(value) { this.im._MagickImage_Depth_Set(this.instance, value); }
 
     get format() { return this.im.UTF8ToString(this.im._MagickImage_Format_Get(this.instance)); }
+    set format(value) { withString(this.im, value, (instance) => this.im._MagickImage_Format_Set(this.instance, instance)); }
 
     get height() { return this.im._MagickImage_Height_Get(this.instance); }
 
