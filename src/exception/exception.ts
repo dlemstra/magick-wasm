@@ -23,6 +23,8 @@ export class Exception
             if (severity >= ExceptionSeverity.Error) {
                 return true;
             }
+
+            Exception.dispose(im, exception);
         }
 
         return false;
@@ -30,7 +32,7 @@ export class Exception
 
     private static throw(im: MagickNative, exception: Pointer) {
         const errorMessage = Exception.getMessage(im, exception);
-        im._MagickExceptionHelper_Dispose(exception.value);
+        Exception.dispose(im, exception);
 
         throw errorMessage;
     }
@@ -45,5 +47,9 @@ export class Exception
         }
 
         return errorMessage;
+    }
+
+    private static dispose(im: MagickNative, exception: Pointer) {
+        im._MagickExceptionHelper_Dispose(exception.value);
     }
 }
