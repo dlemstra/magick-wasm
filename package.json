@@ -19,9 +19,9 @@
   },
   "homepage": "https://github.com/dlemstra/Magick.WASM",
   "devDependencies": {
-    "typescript": "~3.6.2",
     "magick.native": "https://dl.dropboxusercontent.com/s/i0zh9tp7lsji28k/magick.native-0.201910.270525.tgz",
-    "cpy-cli": "~2.0.0"
+    "cpy-cli": "~2.0.0",
+    "typescript": "~3.6.4"
   },
   "dependencies": {}
 }
