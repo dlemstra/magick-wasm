@@ -1,4 +1,4 @@
-import MagickNative from '../lib/wasm/magick.js';
+import MagickNative from './wasm/magick.js';
 import { ImageMagick } from './image-magick';
 
 let loader: Promise<void>;
