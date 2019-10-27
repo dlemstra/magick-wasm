@@ -16,7 +16,7 @@ export class Magick
 
     get delegates() { return this.im.UTF8ToString(this.im._Magick_Delegates_Get()); }
 
-    get features() { return this.im.UTF8ToString(this.im._Magick_Features_Get()); }
+    get features() { return this.im.UTF8ToString(this.im._Magick_Features_Get()).slice(0, -1); }
 
     get imageMagickVersion() { return this.im.UTF8ToString(this.im._Magick_ImageMagickVersion_Get()); }
 
