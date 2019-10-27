@@ -2,7 +2,7 @@ import { imageMagick } from "./index";
 import { LogEvents } from "./log-events";
 
 imageMagick().then((im) => {
-    let messages: string[] = [];
+    const messages: string[] = [];
     im.magick.logEvents(LogEvents.Trace | LogEvents.Coder, (type, message) => {
         messages.push(message);
     });
@@ -19,7 +19,7 @@ imageMagick().then((im) => {
 
     console.log(messages.length, messages.pop());
 
-    im.read('foobar:', (_) => { });
+    im.read('foobar:', () => { });
 }).catch((err) => {
     console.error(err);
 });

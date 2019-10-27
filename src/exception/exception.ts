@@ -5,7 +5,7 @@ import { Pointer } from "../pointer/pointer";
 /** @internal */
 export class Exception
 {
-    static create<TReturnType>(im: MagickNative, func: (exception: number) => TReturnType) {
+    static create<TReturnType>(im: MagickNative, func: (exception: number) => TReturnType): TReturnType {
         return Pointer.create(im, (exception) => {
             const result = func(exception.ptr);
 
@@ -17,9 +17,9 @@ export class Exception
         });
     }
 
-    private static shouldThrow(im: MagickNative, exception: Pointer) {
+    private static shouldThrow(im: MagickNative, exception: Pointer): boolean {
         if (exception.value !== 0) {
-            const severity = <ExceptionSeverity>im._MagickExceptionHelper_Severity(exception.value);
+            const severity = im._MagickExceptionHelper_Severity(exception.value) as ExceptionSeverity;
             if (severity >= ExceptionSeverity.Error) {
                 return true;
             }
@@ -30,14 +30,14 @@ export class Exception
         return false;
     }
 
-    private static throw(im: MagickNative, exception: Pointer) {
+    private static throw(im: MagickNative, exception: Pointer): void {
         const errorMessage = Exception.getMessage(im, exception);
         Exception.dispose(im, exception);
 
         throw errorMessage;
     }
 
-    private static getMessage(im: MagickNative, exception: Pointer) {
+    private static getMessage(im: MagickNative, exception: Pointer): string {
         const message = im._MagickExceptionHelper_Message(exception.value);
         const description = im._MagickExceptionHelper_Description(exception.value);
 
@@ -49,7 +49,7 @@ export class Exception
         return errorMessage;
     }
 
-    private static dispose(im: MagickNative, exception: Pointer) {
+    private static dispose(im: MagickNative, exception: Pointer): void {
         im._MagickExceptionHelper_Dispose(exception.value);
     }
 }

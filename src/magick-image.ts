@@ -4,11 +4,11 @@ import { Exception } from "./exception/exception";
 import { MagickSettings } from "./settings/magick-settings";
 import { withString } from "./util/string";
 
-export class MagickImage 
+export class MagickImage
 {
-    private instance : number = 0;
+    private instance = 0;
 
-    private constructor(private im : MagickNative) { }
+    private constructor(private im: MagickNative) { }
 
     /** @internal */
     static create<TReturnType>(im: MagickNative, func: (settings: MagickImage) => TReturnType): TReturnType {
@@ -20,23 +20,23 @@ export class MagickImage
         }
     }
 
-    get colorSpace() {
+    get colorSpace(): ColorSpace {
         return Exception.create(this.im, (exception) => {
             return this.im._MagickImage_ColorSpace_Get(this.instance, exception);
         });
     }
 
-    get depth(): ColorSpace { return this.im._MagickImage_Depth_Get(this.instance); }
+    get depth(): number { return this.im._MagickImage_Depth_Get(this.instance); }
     set depth(value) { this.im._MagickImage_Depth_Set(this.instance, value); }
 
-    get format() { return this.im.UTF8ToString(this.im._MagickImage_Format_Get(this.instance)); }
+    get format(): string { return this.im.UTF8ToString(this.im._MagickImage_Format_Get(this.instance)); }
     set format(value) { withString(this.im, value, (instance) => this.im._MagickImage_Format_Set(this.instance, instance)); }
 
-    get height() { return this.im._MagickImage_Height_Get(this.instance); }
+    get height(): number { return this.im._MagickImage_Height_Get(this.instance); }
 
-    get width() { return this.im._MagickImage_Width_Get(this.instance); }
+    get width(): number { return this.im._MagickImage_Width_Get(this.instance); }
 
-    read(fileName: string) {
+    read(fileName: string): void {
         Exception.create(this.im, (exception) => {
             MagickSettings.create(this.im, (settings) => {
                 settings.setFileName(fileName);
@@ -45,12 +45,12 @@ export class MagickImage
         });
     }
 
-    dispose() {
+    dispose(): void {
         if (this.instance !== 0) {
             this.im._MagickImage_Dispose(this.instance);
             this.instance = 0;
         }
     }
 
-    toString = () => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
+    toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
 }

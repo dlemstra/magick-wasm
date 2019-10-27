@@ -6,23 +6,23 @@ export type logDelegate = (type: LogEvents, message: string) => void;
 
 export class Magick
 {
-    private logDelegate: number = 0;
+    private logDelegate = 0;
     private logDelegates: logDelegate[] = [];
 
-    private constructor(private im : MagickNative) {}
+    private constructor(private im: MagickNative) {}
 
     /** @internal */
-    static create = (im: MagickNative) => new Magick(im);
+    static create = (im: MagickNative): Magick => new Magick(im);
 
-    get delegates() { return this.im.UTF8ToString(this.im._Magick_Delegates_Get()); }
+    get delegates(): string { return this.im.UTF8ToString(this.im._Magick_Delegates_Get()); }
 
-    get features() { return this.im.UTF8ToString(this.im._Magick_Features_Get()).slice(0, -1); }
+    get features(): string { return this.im.UTF8ToString(this.im._Magick_Features_Get()).slice(0, -1); }
 
-    get imageMagickVersion() { return this.im.UTF8ToString(this.im._Magick_ImageMagickVersion_Get()); }
+    get imageMagickVersion(): string { return this.im.UTF8ToString(this.im._Magick_ImageMagickVersion_Get()); }
 
-    setRandomSeed = (seed: number) => this.im._Magick_SetRandomSeed(seed);
+    setRandomSeed = (seed: number): void => this.im._Magick_SetRandomSeed(seed);
 
-    logEvents(logEvents: LogEvents, func: logDelegate) {
+    logEvents(logEvents: LogEvents, func: logDelegate): void {
         this.logDelegates.push(func);
         if (this.logDelegate === 0) {
             this.logDelegate = this.im.addFunction((type: number, ptr: number) => this.onLog(type, ptr), 'vii');
@@ -35,21 +35,21 @@ export class Magick
         }
     }
 
-    private onLog(type: number, ptr: number) {
+    private onLog(type: number, ptr: number): void {
         const message = this.im.UTF8ToString(ptr);
         this.logDelegates.forEach((delegate) => {
             delegate(type, message);
         });
     }
 
-    private getEventNames(logEvents: LogEvents) {
+    private getEventNames(logEvents: LogEvents): string {
         if (logEvents === LogEvents.All)
             return 'All,Trace'
 
         if (logEvents === LogEvents.Detailed)
             return 'All'
 
-        let values = [];
+        const values = [];
         for (const value of Object.keys(LogEvents).map(item => Number(item)).filter(item => !isNaN(item) && item > 0))
         {
             if ((value & logEvents) === value)

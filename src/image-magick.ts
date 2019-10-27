@@ -10,7 +10,7 @@ export class ImageMagick
     readonly magick: Magick;
 
     /** @internal */
-    constructor(private im : MagickNative) {
+    constructor(private im: MagickNative) {
         withString(im, 'MAGICK_CONFIGURE_PATH', name => {
             withString(im, '/xml', value => {
                 im._Environment_SetEnv(name, value);
@@ -21,7 +21,7 @@ export class ImageMagick
         this.magick = Magick.create(im);
     }
 
-    read(fileName: string, func: (image: MagickImage) => void) {
+    read(fileName: string, func: (image: MagickImage) => void): void {
         MagickImage.create(this.im, (image) =>  {
             image.read(fileName);
             func(image);

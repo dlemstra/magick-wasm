@@ -4,7 +4,7 @@ import { ImageMagick } from './image-magick';
 let loader: Promise<void>;
 let api: ImageMagick;
 
-export async function imageMagick() {
+export async function imageMagick(): Promise<ImageMagick> {
     if (api !== undefined)
         return api;
 

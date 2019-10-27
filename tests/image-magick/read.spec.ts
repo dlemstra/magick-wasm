@@ -1,9 +1,9 @@
 import { ImageMagick } from '../../src/image-magick';
 
-let imageMagick : ImageMagick;
+let imageMagick: ImageMagick;
 
 beforeAll(() => {
-    imageMagick = new ImageMagick((<any>global).native);
+    imageMagick = new ImageMagick((global as any).native);
 });
 
 describe('ImageMagick#read', () => {

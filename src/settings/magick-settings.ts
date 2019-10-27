@@ -5,12 +5,12 @@ export class MagickSettings
 {
     private instance: number;
 
-    private constructor(private im : MagickNative) {
+    private constructor(private im: MagickNative) {
         this.instance = im._MagickSettings_Create();
     }
 
     /** @internal */
-    getPointer = () => this.instance;
+    getPointer = (): number => this.instance;
 
     /** @internal */
     static create<TReturnType>(im: MagickNative, func: (settings: MagickSettings) => TReturnType): TReturnType {
@@ -23,13 +23,13 @@ export class MagickSettings
     }
 
     /** @internal */
-    setFileName(value: string) {
+    setFileName(value: string): void {
         withString(this.im, value, (instance) => {
             this.im._MagickSettings_SetFileName(this.instance, instance);
         });
     }
 
-    dispose() {
+    dispose(): void {
         if (this.instance !== 0) {
             this.im._MagickSettings_Dispose(this.instance);
             this.instance = 0;

@@ -1,9 +1,9 @@
 import { Magick } from '../../src/magick';
 
-let magick : Magick;
+let magick: Magick;
 
 beforeAll(() => {
-    magick = Magick.create((<any>global).native);
+    magick = Magick.create((global as any).native);
 });
 
 describe('Magick#features', () => {

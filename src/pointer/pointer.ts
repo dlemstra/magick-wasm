@@ -10,9 +10,9 @@ export class Pointer
         im.setValue(this.instance, 0, "i64");
     }
 
-    get ptr() { return this.instance; }
+    get ptr(): number { return this.instance; }
 
-    get value() { return this.im.getValue(this.instance, "i64"); }
+    get value(): number { return this.im.getValue(this.instance, "i64"); }
 
     static create<TReturnType>(im: MagickNative, func: (ptr: Pointer) => TReturnType): TReturnType {
         const ptr = new Pointer(im);
