@@ -1,4 +1,4 @@
-import { imageMagick } from "./index"
+import { imageMagick } from "./index";
 import { LogEvents } from "./log-events";
 
 imageMagick().then((im) => {

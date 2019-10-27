@@ -1,8 +1,8 @@
 import { MagickNative } from '../lib/wasm/magick.js';
 import { Quantum } from "./quantum";
-import { Magick } from './magick.js';
-import { MagickImage } from './magick-image.js';
-import { withString } from './util/string.js';
+import { Magick } from './magick';
+import { MagickImage } from './magick-image';
+import { withString } from './util/string';
 
 export class ImageMagick
 {
