@@ -36,6 +36,13 @@ export class MagickImage
 
     get width(): number { return this.im._MagickImage_Width_Get(this.instance); }
 
+    dispose(): void {
+        if (this.instance !== 0) {
+            this.im._MagickImage_Dispose(this.instance);
+            this.instance = 0;
+        }
+    }
+
     read(fileName: string): void {
         Exception.create(this.im, (exception) => {
             MagickSettings.create(this.im, (settings) => {
@@ -43,13 +50,6 @@ export class MagickImage
                 this.instance = this.im._MagickImage_ReadFile(settings.getPointer(), exception);
             });
         });
-    }
-
-    dispose(): void {
-        if (this.instance !== 0) {
-            this.im._MagickImage_Dispose(this.instance);
-            this.instance = 0;
-        }
     }
 
     toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
