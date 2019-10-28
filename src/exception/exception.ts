@@ -9,18 +9,39 @@ export class Exception
         return Pointer.create(im, (exception) => {
             const result = func(exception.ptr);
 
-            if (!Exception.isRaised(exception)) {
-                return result;
-            }
-
-            if (Exception.isErrorSeverity(im, exception)) {
-                Exception.throw(im, exception);
-            } else {
-                Exception.dispose(im, exception);
-            }
-
-            return result;
+            return Exception.checkException(im, exception, result);
         });
+    }
+
+    static createWithPointer<TReturnType>(im: MagickNative, func: (exception: Pointer) => TReturnType): TReturnType {
+        return Pointer.create(im, (exception) => {
+            const result = func(exception);
+
+            return Exception.checkException(im, exception, result);
+        });
+    }
+
+    static isError(im: MagickNative, exception: Pointer): boolean {
+        if (!Exception.isRaised(exception)) {
+            return false;
+        }
+
+        return Exception.isErrorSeverity(im, exception);
+    }
+
+    private static checkException<TReturnType>(im: MagickNative, exception: Pointer, result: TReturnType): TReturnType {
+        if (!Exception.isRaised(exception)) {
+            return result;
+        }
+
+        if (Exception.isErrorSeverity(im, exception)) {
+            Exception.throw(im, exception);
+        } else {
+            Exception.dispose(im, exception);
+        }
+
+        return result;
+
     }
 
     private static isErrorSeverity(im: MagickNative, exception: Pointer): boolean {

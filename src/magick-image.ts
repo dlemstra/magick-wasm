@@ -3,6 +3,8 @@ import { ColorSpace } from "./color-space";
 import { Exception } from "./exception/exception";
 import { MagickSettings } from "./settings/magick-settings";
 import { withString } from "./util/string";
+import { MagickGeometry } from "./types/magick-geometry";
+import { Pointer } from "./pointer/pointer";
 
 export class MagickImage
 {
@@ -18,6 +20,11 @@ export class MagickImage
         } finally {
             image.dispose();
         }
+    }
+
+    /** @internal */
+    static createImage(im: MagickNative): MagickImage {
+        return new MagickImage(im);
     }
 
     get colorSpace(): ColorSpace {
@@ -52,5 +59,33 @@ export class MagickImage
         });
     }
 
+    resize(geometry: MagickGeometry): void;
+    resize(width: number, height: number): void;
+    resize(widthOrGeometry: number | MagickGeometry, height?: number): void {
+        const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
+        Exception.createWithPointer(this.im, (exception) => {
+            withString(this.im, geometry.toString(), (geometryPtr) => {
+                const image = this.im._MagickImage_Resize(this.instance, geometryPtr, exception.ptr);
+                this.setInstance(image, exception);
+            });
+        });
+    }
+
     toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
+
+    private disposeInstance(instance: number): number {
+        if (instance !== 0) {
+            this.im._MagickImage_Dispose(instance);
+        }
+        return 0;
+    }
+
+    private setInstance(instance: number, exception: Pointer): void {
+        if (Exception.isError(this.im, exception)) {
+            this.disposeInstance(instance);
+        } else {
+            this.disposeInstance(this.instance);
+            this.instance = instance;
+        }
+    }
 }
