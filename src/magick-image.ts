@@ -65,7 +65,7 @@ export class MagickImage
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
         Exception.createWithPointer(this.im, (exception) => {
             withString(this.im, geometry.toString(), (geometryPtr) => {
-                const image = this.im._MagickImage_Resize(this.instance, geometryPtr, exception.ptr);
+                const image = this.im._MagickImage_Resize(this.getInstance(), geometryPtr, exception.ptr);
                 this.setInstance(image, exception);
             });
         });
@@ -78,6 +78,14 @@ export class MagickImage
             this.im._MagickImage_Dispose(instance);
         }
         return 0;
+    }
+
+    private getInstance(): number {
+        if (this.instance === 0) {
+            throw new Error('image is disposed');
+        }
+
+        return this.instance;
     }
 
     private setInstance(instance: number, exception: Pointer): void {

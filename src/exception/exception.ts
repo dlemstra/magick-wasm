@@ -57,7 +57,7 @@ export class Exception
         const errorMessage = Exception.getMessage(im, exception);
         Exception.dispose(im, exception);
 
-        throw errorMessage;
+        throw new Error(errorMessage);
     }
 
     private static getMessage(im: MagickNative, exception: Pointer): string {
