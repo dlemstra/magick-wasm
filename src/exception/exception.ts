@@ -9,25 +9,27 @@ export class Exception
         return Pointer.create(im, (exception) => {
             const result = func(exception.ptr);
 
-            if (Exception.shouldThrow(im, exception)) {
+            if (!Exception.isRaised(exception)) {
+                return result;
+            }
+
+            if (Exception.isErrorSeverity(im, exception)) {
                 Exception.throw(im, exception);
+            } else {
+                Exception.dispose(im, exception);
             }
 
             return result;
         });
     }
 
-    private static shouldThrow(im: MagickNative, exception: Pointer): boolean {
-        if (exception.value !== 0) {
-            const severity = im._MagickExceptionHelper_Severity(exception.value) as ExceptionSeverity;
-            if (severity >= ExceptionSeverity.Error) {
-                return true;
-            }
+    private static isErrorSeverity(im: MagickNative, exception: Pointer): boolean {
+        const severity = im._MagickExceptionHelper_Severity(exception.value) as ExceptionSeverity;
+        return severity >= ExceptionSeverity.Error;
+    }
 
-            Exception.dispose(im, exception);
-        }
-
-        return false;
+    private static isRaised(exception: Pointer): boolean {
+        return exception.value !== 0;
     }
 
     private static throw(im: MagickNative, exception: Pointer): void {
