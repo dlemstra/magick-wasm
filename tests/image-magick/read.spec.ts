@@ -7,10 +7,10 @@ beforeAll(() => {
 });
 
 describe('ImageMagick#read', () => {
-    it('should read built-in image', () => {
-        imageMagick.read('logo:', (image) => {
+    it('should read built-in image', async () => {
+        await imageMagick.read('logo:', async (image) => {
             expect(image.width).toEqual(640);
             expect(image.height).toEqual(480);
         });
-    }); 
+    });
 });

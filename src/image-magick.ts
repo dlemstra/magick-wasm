@@ -21,10 +21,10 @@ export class ImageMagick
         this.magick = Magick.create(im);
     }
 
-    read(fileName: string, func: (image: MagickImage) => void): void {
-        MagickImage.create(this.im, (image) =>  {
+    async read(fileName: string, func: (image: MagickImage) => Promise<void>): Promise<void> {
+        await MagickImage.create(this.im, async (image) => {
             image.read(fileName);
-            func(image);
+            await func(image);
         });
     }
 }

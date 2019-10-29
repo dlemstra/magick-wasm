@@ -13,7 +13,9 @@ export class MagickImage
     private constructor(private im: MagickNative) { }
 
     /** @internal */
-    static create<TReturnType>(im: MagickNative, func: (settings: MagickImage) => TReturnType): TReturnType {
+    static create<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType): TReturnType;
+    static create<TReturnType>(im: MagickNative, func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static create<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         const image = new MagickImage(im);
         try {
             return func(image);
