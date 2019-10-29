@@ -1,7 +1,7 @@
 import { imageMagick } from "./index";
 import { LogEvents } from "./log-events";
 
-imageMagick().then((im) => {
+imageMagick().then(async (im) => {
     const messages: string[] = [];
     im.magick.logEvents(LogEvents.Trace | LogEvents.Coder, (type, message) => {
         messages.push(message);
@@ -13,13 +13,13 @@ imageMagick().then((im) => {
     console.log('Quantum:', im.quantum.depth);
 
     console.log('');
-    im.read('logo:', (image) => {
+    await im.read('logo:', async (image) => {
         console.log(image.toString());
     });
 
     console.log(messages.length, messages.pop());
 
-    im.read('foobar:', () => { });
+    await im.read('foobar:', async () => { });
 }).catch((err) => {
     console.error(err);
 });
