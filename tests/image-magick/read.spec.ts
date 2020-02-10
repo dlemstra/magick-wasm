@@ -1,16 +1,20 @@
+import { nativeApi } from '../../src/image-magick';
 import { ImageMagick } from '../../src/image-magick';
 
-let imageMagick: ImageMagick;
-
-beforeAll(() => {
-    imageMagick = new ImageMagick((global as any).native);
-});
+beforeAll(() => { nativeApi((global as any).native); });
 
 describe('ImageMagick#read', () => {
-    it('should read built-in image', async () => {
-        await imageMagick.read('logo:', async (image) => {
+    it('should read built-in image async', async () => {
+        await ImageMagick.read('logo:', async (image) => {
             expect(image.width).toEqual(640);
             expect(image.height).toEqual(480);
+        });
+    });
+
+    it('should read built-in image', () => {
+        ImageMagick.read('wizard:', (image) => {
+            expect(image.width).toEqual(480);
+            expect(image.height).toEqual(640);
         });
     });
 });

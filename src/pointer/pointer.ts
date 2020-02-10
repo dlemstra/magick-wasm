@@ -1,25 +1,25 @@
-import { MagickNative } from "../../lib/wasm/magick";
+import { nativeApi } from "../image-magick";
 
 /** @internal */
 export class Pointer
 {
     private readonly instance: number;
 
-    private constructor(private im: MagickNative) {
-        this.instance = im._malloc(8);
-        im.setValue(this.instance, 0, "i64");
+    private constructor() {
+        this.instance = nativeApi()._malloc(8);
+        nativeApi().setValue(this.instance, 0, "i64");
     }
 
     get ptr(): number { return this.instance; }
 
-    get value(): number { return this.im.getValue(this.instance, "i64"); }
+    get value(): number { return nativeApi().getValue(this.instance, "i64"); }
 
-    static create<TReturnType>(im: MagickNative, func: (ptr: Pointer) => TReturnType): TReturnType {
-        const ptr = new Pointer(im);
+    static create<TReturnType>(func: (ptr: Pointer) => TReturnType): TReturnType {
+        const ptr = new Pointer();
         try {
             return func(ptr);
         } finally {
-            im._free(ptr.instance);
+            nativeApi()._free(ptr.instance);
         }
     }
 }

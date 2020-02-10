@@ -1,11 +1,6 @@
-import { MagickNative } from "../lib/wasm/magick";
+import { nativeApi } from "./image-magick";
 
 export class Quantum
 {
-    private constructor(private im: MagickNative) {}
-
-    /** @internal */
-    static create = (im: MagickNative): Quantum => new Quantum(im);
-
-    get depth(): number { return this.im._Quantum_Depth_Get(); }
+    static get depth(): number { return nativeApi()._Quantum_Depth_Get(); }
 }

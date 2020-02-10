@@ -1,25 +1,27 @@
-import { imageMagick } from "./index";
+import { initializeImageMagick, ImageMagick } from "./image-magick";
 import { LogEvents } from "./log-events";
+import { Magick } from "./magick";
+import { Quantum } from "./quantum";
 
-imageMagick().then(async (im) => {
+initializeImageMagick().then(async (im) => {
     const messages: string[] = [];
-    im.magick.logEvents(LogEvents.Trace | LogEvents.Coder, (type, message) => {
+    Magick.logEvents(LogEvents.Trace | LogEvents.Coder, (type, message) => {
         messages.push(message);
     });
 
-    console.log(im.magick.imageMagickVersion);
-    console.log('Delegates:', im.magick.delegates);
-    console.log('Features:', im.magick.features);
-    console.log('Quantum:', im.quantum.depth);
+    console.log(Magick.imageMagickVersion);
+    console.log('Delegates:', Magick.delegates);
+    console.log('Features:', Magick.features);
+    console.log('Quantum:', Quantum.depth);
 
     console.log('');
-    await im.read('logo:', async (image) => {
+    ImageMagick.read('logo:', (image) => {
         console.log(image.toString());
     });
 
     console.log(messages.length, messages.pop());
 
-    await im.read('foobar:', async () => { });
+    ImageMagick.read('foobar:', () => { });
 }).catch((err) => {
     console.error(err);
 });

@@ -1,10 +1,12 @@
+import { nativeApi } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
 import { MagickGeometry } from '../../src/types/magick-geometry';
 
 let image: MagickImage;
 
 beforeEach(() => {
-    image = MagickImage.createImage((global as any).native);
+    nativeApi((global as any).native);
+    image = new MagickImage();
 });
 
 afterEach(() => {

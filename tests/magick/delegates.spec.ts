@@ -1,13 +1,10 @@
+import { nativeApi } from '../../src/image-magick';
 import { Magick } from '../../src/magick';
 
-let magick: Magick;
-
-beforeAll(() => {
-    magick = Magick.create((global as any).native);
-});
+beforeAll(() => { nativeApi((global as any).native); });
 
 describe('Magick#delegates', () => {
     it('should return the delegates', () => {
-        expect(magick.delegates).toEqual('freetype heic jng jp2 jpeg lcms png raw tiff webp xml zlib');
+        expect(Magick.delegates).toEqual('freetype heic jng jp2 jpeg lcms png raw tiff webp xml zlib');
     }); 
 });

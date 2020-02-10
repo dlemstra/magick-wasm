@@ -1,14 +1,20 @@
-import { MagickNative } from "../../lib/wasm/magick";
+import { nativeApi } from "../image-magick";
+import { MagickNative } from '../wasm/magick.js';
 
 /** @internal */
-export function withString(im: MagickNative, str: string, func: (instance: number) => void): void {
-    const length = im.lengthBytesUTF8(str) + 1;
-    const instance = im._malloc(length);
+export function withString(str: string, func: (instance: number) => void): void {
+    withNativeString(nativeApi(), str, func);
+}
+
+/** @internal */
+export function withNativeString(native: MagickNative, str: string, func: (instance: number) => void): void {
+    const length = native.lengthBytesUTF8(str) + 1;
+    const instance = native._malloc(length);
     try {
-        im.stringToUTF8(str, instance, length);
+        native.stringToUTF8(str, instance, length);
         func(instance);
     }
     finally {
-        im._free(instance);
+        native._free(instance);
     }
 }

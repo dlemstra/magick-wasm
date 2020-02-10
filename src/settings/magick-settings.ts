@@ -1,20 +1,20 @@
-import { MagickNative } from "../../lib/wasm/magick";
+import { nativeApi } from "../image-magick";
 import { withString } from "../util/string";
 
 export class MagickSettings
 {
     private instance: number;
 
-    private constructor(private im: MagickNative) {
-        this.instance = im._MagickSettings_Create();
+    private constructor() {
+        this.instance = nativeApi()._MagickSettings_Create();
     }
 
     /** @internal */
     getPointer = (): number => this.instance;
 
     /** @internal */
-    static create<TReturnType>(im: MagickNative, func: (settings: MagickSettings) => TReturnType): TReturnType {
-        const settings = new MagickSettings(im);
+    static create<TReturnType>(func: (settings: MagickSettings) => TReturnType): TReturnType {
+        const settings = new MagickSettings();
         try {
             return func(settings);
         } finally {
@@ -24,14 +24,14 @@ export class MagickSettings
 
     /** @internal */
     setFileName(value: string): void {
-        withString(this.im, value, (instance) => {
-            this.im._MagickSettings_SetFileName(this.instance, instance);
+        withString(value, (instance) => {
+            nativeApi()._MagickSettings_SetFileName(this.instance, instance);
         });
     }
 
     dispose(): void {
         if (this.instance !== 0) {
-            this.im._MagickSettings_Dispose(this.instance);
+            nativeApi()._MagickSettings_Dispose(this.instance);
             this.instance = 0;
         }
     }

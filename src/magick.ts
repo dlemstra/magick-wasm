@@ -1,4 +1,4 @@
-import { MagickNative } from "../lib/wasm/magick";
+import { nativeApi } from "./image-magick";
 import { LogEvents } from "./log-events";
 import { withString } from "./util/string";
 
@@ -6,43 +6,38 @@ export type logDelegate = (type: LogEvents, message: string) => void;
 
 export class Magick
 {
-    private logDelegate = 0;
-    private logDelegates: logDelegate[] = [];
+    private static LogDelegate = 0;
+    private static LogDelegates: logDelegate[] = [];
 
-    private constructor(private im: MagickNative) {}
+    static get delegates(): string { return nativeApi().UTF8ToString(nativeApi()._Magick_Delegates_Get()); }
 
-    /** @internal */
-    static create = (im: MagickNative): Magick => new Magick(im);
+    static get features(): string { return nativeApi().UTF8ToString(nativeApi()._Magick_Features_Get()).slice(0, -1); }
 
-    get delegates(): string { return this.im.UTF8ToString(this.im._Magick_Delegates_Get()); }
+    static get imageMagickVersion(): string { return nativeApi().UTF8ToString(nativeApi()._Magick_ImageMagickVersion_Get()); }
 
-    get features(): string { return this.im.UTF8ToString(this.im._Magick_Features_Get()).slice(0, -1); }
+    static setRandomSeed = (seed: number): void => nativeApi()._Magick_SetRandomSeed(seed);
 
-    get imageMagickVersion(): string { return this.im.UTF8ToString(this.im._Magick_ImageMagickVersion_Get()); }
+    static logEvents(logEvents: LogEvents, func: logDelegate): void {
+        Magick.LogDelegates.push(func);
+        if (Magick.LogDelegate === 0) {
+            Magick.LogDelegate = nativeApi().addFunction((type: number, ptr: number) => Magick.onLog(type, ptr), 'vii');
+            nativeApi()._Magick_SetLogDelegate(Magick.LogDelegate);
 
-    setRandomSeed = (seed: number): void => this.im._Magick_SetRandomSeed(seed);
-
-    logEvents(logEvents: LogEvents, func: logDelegate): void {
-        this.logDelegates.push(func);
-        if (this.logDelegate === 0) {
-            this.logDelegate = this.im.addFunction((type: number, ptr: number) => this.onLog(type, ptr), 'vii');
-            this.im._Magick_SetLogDelegate(this.logDelegate);
-
-            const eventNames = this.getEventNames(logEvents);
-            withString(this.im, eventNames, (events: number) => {
-                this.im._Magick_SetLogEvents(events);
+            const eventNames = Magick.getEventNames(logEvents);
+            withString(eventNames, (events: number) => {
+                nativeApi()._Magick_SetLogEvents(events);
             });
         }
     }
 
-    private onLog(type: number, ptr: number): void {
-        const message = this.im.UTF8ToString(ptr);
-        this.logDelegates.forEach((delegate) => {
+    private static onLog(type: number, ptr: number): void {
+        const message = nativeApi().UTF8ToString(ptr);
+        Magick.LogDelegates.forEach((delegate) => {
             delegate(type, message);
         });
     }
 
-    private getEventNames(logEvents: LogEvents): string {
+    private static getEventNames(logEvents: LogEvents): string {
         if (logEvents === LogEvents.All)
             return 'All,Trace'
 

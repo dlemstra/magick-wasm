@@ -1,5 +1,5 @@
 const NodeEnvironment = require('jest-environment-node');
-const MagickNative = require('../src/wasm/magick.js');
+const ImageMagick = require('../lib/image-magick.js');
 
 let native = undefined;
 
@@ -12,14 +12,10 @@ class CustomEnvironment extends NodeEnvironment {
             return;
         }
 
-        const loader = new Promise(function(resolve) {
-            MagickNative().then((result) => {
-                native = result;
-                resolve.apply();
-            })
-        });
+        await ImageMagick.initializeImageMagick();
 
-        await loader;
+        native = ImageMagick.nativeApi();
+
         this.global.native = native;
     }
 }
