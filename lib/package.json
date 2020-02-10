@@ -1,0 +1,16 @@
+{
+  "name": "magick-wasm",
+  "version": "0.0.1",
+  "main": "index.js",
+  "description": "The WASM library for ImageMagick",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlemstra/Magick.WASM.git"
+  },
+  "author": "Dirk Lemstra",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/dlemstra/Magick.WASM/issues"
+  },
+  "homepage": "https://github.com/dlemstra/Magick.WASM"
+}
