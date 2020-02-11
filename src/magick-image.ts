@@ -13,9 +13,6 @@ export class MagickImage
     private native = nativeApi();
 
     /** @internal */
-    constructor() { }
-
-    /** @internal */
     static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType): TReturnType;
     static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {

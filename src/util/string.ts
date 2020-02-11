@@ -2,19 +2,19 @@ import { nativeApi } from "../image-magick";
 import { MagickNative } from '../wasm/magick.js';
 
 /** @internal */
-export function withString(str: string, func: (instance: number) => void): void {
-    withNativeString(nativeApi(), str, func);
-}
-
-/** @internal */
-export function withNativeString(native: MagickNative, str: string, func: (instance: number) => void): void {
+export function withNativeString<TReturnType>(native: MagickNative, str: string, func: (instance: number) => TReturnType): TReturnType {
     const length = native.lengthBytesUTF8(str) + 1;
     const instance = native._malloc(length);
     try {
         native.stringToUTF8(str, instance, length);
-        func(instance);
+        return func(instance);
     }
     finally {
         native._free(instance);
     }
+}
+
+/** @internal */
+export function withString<TReturnType>(str: string, func: (instance: number) => TReturnType): TReturnType {
+    return withNativeString(nativeApi(), str, func);
 }

@@ -3,7 +3,7 @@ import { LogEvents } from "./log-events";
 import { Magick } from "./magick";
 import { Quantum } from "./quantum";
 
-initializeImageMagick().then(async (im) => {
+initializeImageMagick().then(async () => {
     const messages: string[] = [];
     Magick.logEvents(LogEvents.Trace | LogEvents.Coder, (type, message) => {
         messages.push(message);
