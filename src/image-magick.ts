@@ -27,21 +27,22 @@ export class ImageMagick
     async initialize(): Promise<void> { await this.loader; }
 
     /** @internal */
-    setNative(native: MagickNativeClass): void { this.native = native; }
-
-    /** @internal */
-    get nativeApi(): MagickNativeClass {
-        if (this.native === undefined)
+    static get api(): MagickNativeClass {
+        if (instance.native === undefined) // eslint-disable-line @typescript-eslint/no-use-before-define
             throw new Error("`await initializeImageMagick` should be called to initialize the library.");
 
-        return this.native;
+        return instance.native; // eslint-disable-line @typescript-eslint/no-use-before-define
+    }
+
+    /** @internal */
+    static set api(value: MagickNativeClass) {
+        instance.native = value; // eslint-disable-line @typescript-eslint/no-use-before-define
     }
 
     static read(fileName: string, func: (image: MagickImage) => void): void;
     static read(fileName: string, func: (image: MagickImage) => Promise<void>): Promise<void>;
     static read(fileName: string, func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        MagickImage.use(imageMagick.nativeApi, (image) => {
+        MagickImage.use(ImageMagick.api, (image) => {
             image.read(fileName);
             return func(image);
         });
@@ -49,14 +50,6 @@ export class ImageMagick
 }
 
 /** @internal */
-const imageMagick = new ImageMagick();
+const instance = new ImageMagick();
 
-/** @internal */
-export function nativeApi(native?: MagickNativeClass): MagickNativeClass {
-    if (native !== undefined) {
-        imageMagick.setNative(native);
-    }
-    return imageMagick.nativeApi
-}
-
-export async function initializeImageMagick(): Promise<void> { await imageMagick.initialize() }
+export async function initializeImageMagick(): Promise<void> { await instance.initialize() }

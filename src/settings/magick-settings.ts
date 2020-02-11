@@ -1,16 +1,14 @@
-import { nativeApi } from "../image-magick";
+import { ImageMagick } from "../image-magick";
 import { withString } from "../util/string";
+import { NativeInstance } from "../native-instance";
 
-export class MagickSettings
+export class MagickSettings extends NativeInstance
 {
-    private instance: number;
-
     private constructor() {
-        this.instance = nativeApi()._MagickSettings_Create();
+        const instance = ImageMagick.api._MagickSettings_Create();
+        const disposeMethod = ImageMagick.api._MagickSettings_Dispose;
+        super(instance, disposeMethod);
     }
-
-    /** @internal */
-    getPointer = (): number => this.instance;
 
     /** @internal */
     static use<TReturnType>(func: (settings: MagickSettings) => TReturnType): TReturnType {
@@ -24,15 +22,8 @@ export class MagickSettings
 
     /** @internal */
     setFileName(value: string): void {
-        withString(value, (instance) => {
-            nativeApi()._MagickSettings_SetFileName(this.instance, instance);
+        withString(value, (valuePtr) => {
+            ImageMagick.api._MagickSettings_SetFileName(this.instance, valuePtr);
         });
-    }
-
-    dispose(): void {
-        if (this.instance !== 0) {
-            nativeApi()._MagickSettings_Dispose(this.instance);
-            this.instance = 0;
-        }
     }
 }

@@ -1,4 +1,4 @@
-import { nativeApi } from "../image-magick";
+import { ImageMagick } from "../image-magick";
 import { MagickNative } from '../wasm/magick.js';
 
 /** @internal */
@@ -16,5 +16,5 @@ export function withNativeString<TReturnType>(native: MagickNative, str: string,
 
 /** @internal */
 export function withString<TReturnType>(str: string, func: (instance: number) => TReturnType): TReturnType {
-    return withNativeString(nativeApi(), str, func);
+    return withNativeString(ImageMagick.api, str, func);
 }

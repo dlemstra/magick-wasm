@@ -1,4 +1,4 @@
-import { nativeApi } from "../image-magick";
+import { ImageMagick } from "../image-magick";
 
 /** @internal */
 export class Pointer
@@ -6,20 +6,20 @@ export class Pointer
     private readonly instance: number;
 
     private constructor() {
-        this.instance = nativeApi()._malloc(8);
-        nativeApi().setValue(this.instance, 0, "i64");
+        this.instance = ImageMagick.api._malloc(8);
+        ImageMagick.api.setValue(this.instance, 0, "i64");
     }
 
     get ptr(): number { return this.instance; }
 
-    get value(): number { return nativeApi().getValue(this.instance, "i64"); }
+    get value(): number { return ImageMagick.api.getValue(this.instance, "i64"); }
 
     static use<TReturnType>(func: (ptr: Pointer) => TReturnType): TReturnType {
         const ptr = new Pointer();
         try {
             return func(ptr);
         } finally {
-            nativeApi()._free(ptr.instance);
+            ImageMagick.api._free(ptr.instance);
         }
     }
 }

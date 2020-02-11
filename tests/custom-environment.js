@@ -14,7 +14,7 @@ class CustomEnvironment extends NodeEnvironment {
 
         await ImageMagick.initializeImageMagick();
 
-        native = ImageMagick.nativeApi();
+        native = ImageMagick.ImageMagick.api;
 
         this.global.native = native;
     }

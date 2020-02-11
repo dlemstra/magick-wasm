@@ -1,9 +1,7 @@
-import { nativeApi } from '../../src/image-magick';
+import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
 
-beforeEach(() => {
-    nativeApi((global as any).native);
-});
+beforeEach(() => { ImageMagick.api = (global as any).native; });
 
 describe('MagickImage#dispose', () => {
     it('should dispose the image', () => {
@@ -11,6 +9,6 @@ describe('MagickImage#dispose', () => {
         image.dispose();
         expect(() => {
             image.resize(1, 1);
-        }).toThrowError('image is disposed');
+        }).toThrowError('instance is disposed');
     });
 });
