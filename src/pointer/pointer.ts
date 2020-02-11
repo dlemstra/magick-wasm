@@ -14,7 +14,7 @@ export class Pointer
 
     get value(): number { return nativeApi().getValue(this.instance, "i64"); }
 
-    static create<TReturnType>(func: (ptr: Pointer) => TReturnType): TReturnType {
+    static use<TReturnType>(func: (ptr: Pointer) => TReturnType): TReturnType {
         const ptr = new Pointer();
         try {
             return func(ptr);

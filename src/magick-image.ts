@@ -16,9 +16,9 @@ export class MagickImage
     constructor() { }
 
     /** @internal */
-    static create<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType): TReturnType;
-    static create<TReturnType>(im: MagickNative, func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static create<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType): TReturnType;
+    static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         const image = new MagickImage();
         try {
             return func(image);
@@ -28,7 +28,7 @@ export class MagickImage
     }
 
     get colorSpace(): ColorSpace {
-        return Exception.create((exception) => {
+        return Exception.use((exception) => {
             return this.native._MagickImage_ColorSpace_Get(this.instance, exception);
         });
     }
@@ -51,8 +51,8 @@ export class MagickImage
     }
 
     read(fileName: string): void {
-        Exception.create((exception) => {
-            MagickSettings.create((settings) => {
+        Exception.use((exception) => {
+            MagickSettings.use((settings) => {
                 settings.setFileName(fileName);
                 this.instance = this.native._MagickImage_ReadFile(settings.getPointer(), exception);
             });
@@ -63,7 +63,7 @@ export class MagickImage
     resize(width: number, height: number): void;
     resize(widthOrGeometry: number | MagickGeometry, height?: number): void {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
-        Exception.createWithPointer((exception) => {
+        Exception.useWithPointer((exception) => {
             withString(geometry.toString(), (geometryPtr) => {
                 const image = this.native._MagickImage_Resize(this.getInstance(), geometryPtr, exception.ptr);
                 this.setInstance(image, exception);

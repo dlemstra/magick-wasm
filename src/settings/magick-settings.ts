@@ -13,7 +13,7 @@ export class MagickSettings
     getPointer = (): number => this.instance;
 
     /** @internal */
-    static create<TReturnType>(func: (settings: MagickSettings) => TReturnType): TReturnType {
+    static use<TReturnType>(func: (settings: MagickSettings) => TReturnType): TReturnType {
         const settings = new MagickSettings();
         try {
             return func(settings);

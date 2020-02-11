@@ -5,19 +5,19 @@ import { Pointer } from "../pointer/pointer";
 /** @internal */
 export class Exception
 {
-    static create<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
-        return Pointer.create((exception) => {
-            const result = func(exception.ptr);
+    static use<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
+        return Pointer.use((pointer) => {
+            const result = func(pointer.ptr);
 
-            return Exception.checkException(exception, result);
+            return Exception.checkException(pointer, result);
         });
     }
 
-    static createWithPointer<TReturnType>(func: (exception: Pointer) => TReturnType): TReturnType {
-        return Pointer.create((exception) => {
-            const result = func(exception);
+    static useWithPointer<TReturnType>(func: (exception: Pointer) => TReturnType): TReturnType {
+        return Pointer.use((pointer) => {
+            const result = func(pointer);
 
-            return Exception.checkException(exception, result);
+            return Exception.checkException(pointer, result);
         });
     }
 

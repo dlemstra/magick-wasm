@@ -40,7 +40,7 @@ export class ImageMagick
     static read(fileName: string, func: (image: MagickImage) => void): void;
     static read(fileName: string, func: (image: MagickImage) => Promise<void>): Promise<void>;
     static read(fileName: string, func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
-        MagickImage.create(imageMagick.nativeApi, (image) => {
+        MagickImage.use(imageMagick.nativeApi, (image) => {
             image.read(fileName);
             return func(image);
         });
