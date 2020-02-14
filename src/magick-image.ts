@@ -6,6 +6,7 @@ import { MagickSettings } from "./settings/magick-settings";
 import { withString } from "./util/string";
 import { MagickGeometry } from "./types/magick-geometry";
 import { NativeInstance } from "./native-instance";
+import { PixelCollection } from "./pixels/pixel-collection";
 
 export class MagickImage extends NativeInstance
 {
@@ -38,6 +39,44 @@ export class MagickImage extends NativeInstance
     get height(): number { return ImageMagick.api._MagickImage_Height_Get(this.instance); }
 
     get width(): number { return ImageMagick.api._MagickImage_Width_Get(this.instance); }
+
+    drawOnCanvas(canvas: HTMLCanvasElement): void {
+        canvas.width = this.width;
+        canvas.height = this.height;
+
+        const ctx = canvas.getContext("2d");
+        if (ctx === null)
+            return;
+
+        PixelCollection.use(this, (pixels) => {
+            let data = 0;
+            try {
+                data = pixels.toByteArray(0, 0, this.width, this.height, 'RGBA');
+
+                const imageData = ctx.createImageData(this.width, this.height);
+
+                let p = 0;
+                let q = data;
+                for(let y=0; y < this.height; y++) {
+                    for(let x=0; x < this.width; x++) {
+                        imageData.data[p++] = ImageMagick.api.HEAPU8[q++];
+                        imageData.data[p++] = ImageMagick.api.HEAPU8[q++];
+                        imageData.data[p++] = ImageMagick.api.HEAPU8[q++];
+                        imageData.data[p++] = ImageMagick.api.HEAPU8[q++];
+                    }
+                }
+
+                ImageMagick.api._free(data);
+                data = 0;
+
+                ctx.putImageData(imageData, 0, 0);
+            }
+            catch {
+                if (data !== 0)
+                    ImageMagick.api._free(data);
+            }
+        });
+    }
 
     read(fileName: string): void {
         Exception.useWithPointer((exception) => {
