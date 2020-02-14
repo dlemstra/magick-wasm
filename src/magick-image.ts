@@ -79,7 +79,7 @@ export class MagickImage extends NativeInstance
     }
 
     read(fileName: string): void {
-        Exception.useWithPointer((exception) => {
+        Exception.use((exception) => {
             MagickSettings.use((settings) => {
                 settings.setFileName(fileName);
                 const instance = ImageMagick.api._MagickImage_ReadFile(settings.instance, exception.ptr);
@@ -92,7 +92,7 @@ export class MagickImage extends NativeInstance
     resize(width: number, height: number): void;
     resize(widthOrGeometry: number | MagickGeometry, height?: number): void {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
-        Exception.useWithPointer((exception) => {
+        Exception.use((exception) => {
             withString(geometry.toString(), (geometryPtr) => {
                 const image = ImageMagick.api._MagickImage_Resize(this.instance, geometryPtr, exception.ptr);
                 this.setInstance(image, exception);

@@ -13,7 +13,7 @@ export class Exception
         });
     }
 
-    static useWithPointer<TReturnType>(func: (exception: Pointer) => TReturnType): TReturnType {
+    static use<TReturnType>(func: (exception: Pointer) => TReturnType): TReturnType {
         return Pointer.use((pointer) => {
             const result = func(pointer);
 
