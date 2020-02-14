@@ -8,7 +8,7 @@ export class PixelCollection extends NativeInstance
 {
     /** @internal */
     constructor(image: number) {
-        const instance = Exception.use((exception) => {
+        const instance = Exception.usePointer((exception) => {
             return ImageMagick.api._PixelCollection_Create(image, exception);
         });
         const disposeMethod = ImageMagick.api._PixelCollection_Dispose;
@@ -28,7 +28,7 @@ export class PixelCollection extends NativeInstance
 
     toByteArray(x: number, y: number, width: number, height: number, mapping: string): number {
         return withString(mapping, (mappingPtr) => {
-            return Exception.use((exception) => {
+            return Exception.usePointer((exception) => {
                 return ImageMagick.api._PixelCollection_ToByteArray(this.instance, x, y, width, height, mappingPtr, exception);
             });
         });

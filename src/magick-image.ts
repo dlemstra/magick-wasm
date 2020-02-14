@@ -25,7 +25,7 @@ export class MagickImage extends NativeInstance
     }
 
     get colorSpace(): ColorSpace {
-        return Exception.use((exception) => {
+        return Exception.usePointer((exception) => {
             return ImageMagick.api._MagickImage_ColorSpace_Get(this.instance, exception);
         });
     }

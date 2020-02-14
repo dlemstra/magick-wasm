@@ -5,7 +5,7 @@ import { Pointer } from "../pointer/pointer";
 /** @internal */
 export class Exception
 {
-    static use<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
+    static usePointer<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
         return Pointer.use((pointer) => {
             const result = func(pointer.ptr);
 
