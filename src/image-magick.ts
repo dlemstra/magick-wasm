@@ -3,8 +3,7 @@ import { MagickNative as MagickNativeClass } from './wasm/magick.js';
 import { MagickImage } from './magick-image';
 import { withNativeString } from './util/string';
 
-export class ImageMagick
-{
+export class ImageMagick {
     private loader: Promise<void>;
     private native?: MagickNativeClass;
 

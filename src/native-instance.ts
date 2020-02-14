@@ -2,8 +2,7 @@ import { Exception } from "./exception/exception";
 import { Pointer } from "./pointer/pointer";
 
 /** @internal */
-export abstract class NativeInstance
-{
+export abstract class NativeInstance {
     private readonly disposeMethod: (instance: number) => void;
     private pointer: number;
 

@@ -2,8 +2,7 @@ import { ImageMagick } from "../image-magick";
 import { withString } from "../util/string";
 import { NativeInstance } from "../native-instance";
 
-export class MagickSettings extends NativeInstance
-{
+export class MagickSettings extends NativeInstance {
     private constructor() {
         const instance = ImageMagick.api._MagickSettings_Create();
         const disposeMethod = ImageMagick.api._MagickSettings_Dispose;

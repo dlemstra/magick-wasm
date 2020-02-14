@@ -3,8 +3,7 @@ import { ExceptionSeverity } from "./exception-severity";
 import { Pointer } from "../pointer/pointer";
 
 /** @internal */
-export class Exception
-{
+export class Exception {
     static usePointer<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
         return Pointer.use((pointer) => {
             const result = func(pointer.ptr);

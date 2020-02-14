@@ -8,8 +8,7 @@ import { MagickGeometry } from "./types/magick-geometry";
 import { NativeInstance } from "./native-instance";
 import { PixelCollection } from "./pixels/pixel-collection";
 
-export class MagickImage extends NativeInstance
-{
+export class MagickImage extends NativeInstance {
     constructor() { super(0, ImageMagick.api._MagickImage_Dispose); }
 
     /** @internal */
@@ -57,8 +56,8 @@ export class MagickImage extends NativeInstance
 
                 let p = 0;
                 let q = data;
-                for(let y=0; y < this.height; y++) {
-                    for(let x=0; x < this.width; x++) {
+                for (let y = 0; y < this.height; y++) {
+                    for (let x = 0; x < this.width; x++) {
                         imageData.data[p++] = ImageMagick.api.HEAPU8[q++];
                         imageData.data[p++] = ImageMagick.api.HEAPU8[q++];
                         imageData.data[p++] = ImageMagick.api.HEAPU8[q++];

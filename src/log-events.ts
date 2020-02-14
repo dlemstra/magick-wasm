@@ -1,5 +1,4 @@
-export enum LogEvents
-{
+export enum LogEvents {
     None = 0x000000,
     Accelerate = 0x00001,
     Annotate = 0x00002,

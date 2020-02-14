@@ -4,8 +4,7 @@ import { withString } from "./util/string";
 
 export type logDelegate = (type: LogEvents, message: string) => void;
 
-export class Magick
-{
+export class Magick {
     private static LogDelegate = 0;
     private static LogDelegates: logDelegate[] = [];
 
@@ -45,8 +44,7 @@ export class Magick
             return 'All'
 
         const values = [];
-        for (const value of Object.keys(LogEvents).map(item => Number(item)).filter(item => !isNaN(item) && item > 0))
-        {
+        for (const value of Object.keys(LogEvents).map(item => Number(item)).filter(item => !isNaN(item) && item > 0)) {
             if ((value & logEvents) === value)
                 values.push(LogEvents[value]);
         }

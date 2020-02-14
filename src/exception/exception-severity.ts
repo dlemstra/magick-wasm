@@ -1,6 +1,5 @@
 /** @internal */
-export enum ExceptionSeverity
-{
+export enum ExceptionSeverity {
     Undefined,
     Warning = 300,
     ResourceLimitWarning = 300,

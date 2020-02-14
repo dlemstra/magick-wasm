@@ -4,8 +4,7 @@ import { withString } from "../util/string";
 import { NativeInstance } from "../native-instance";
 import { MagickImage } from "../magick-image";
 
-export class PixelCollection extends NativeInstance
-{
+export class PixelCollection extends NativeInstance {
     /** @internal */
     constructor(image: number) {
         const instance = Exception.usePointer((exception) => {
@@ -17,7 +16,7 @@ export class PixelCollection extends NativeInstance
     }
 
     /** @internal */
-    static use<TReturnType>(image: MagickImage, func: (pixels: PixelCollection) => TReturnType): TReturnType  {
+    static use<TReturnType>(image: MagickImage, func: (pixels: PixelCollection) => TReturnType): TReturnType {
         const pixels = new PixelCollection(image.instance);
         try {
             return func(pixels);

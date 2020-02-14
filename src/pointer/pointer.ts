@@ -1,8 +1,7 @@
 import { ImageMagick } from "../image-magick";
 
 /** @internal */
-export class Pointer
-{
+export class Pointer {
     private readonly instance: number;
 
     private constructor() {
