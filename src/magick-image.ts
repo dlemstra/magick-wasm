@@ -1,12 +1,12 @@
-import { ImageMagick } from "./image-magick";
-import { MagickNative } from "./wasm/magick";
 import { ColorSpace } from "./color-space";
 import { Exception } from "./exception/exception";
-import { MagickSettings } from "./settings/magick-settings";
-import { withString } from "./util/string";
+import { ImageMagick } from "./image-magick";
 import { MagickGeometry } from "./types/magick-geometry";
+import { MagickNative } from "./wasm/magick";
+import { MagickSettings } from "./settings/magick-settings";
 import { NativeInstance } from "./native-instance";
 import { PixelCollection } from "./pixels/pixel-collection";
+import { withString } from "./util/string";
 
 export class MagickImage extends NativeInstance {
     constructor() { super(0, ImageMagick.api._MagickImage_Dispose); }
@@ -22,6 +22,8 @@ export class MagickImage extends NativeInstance {
             image.dispose();
         }
     }
+
+    get channelCount(): number { return ImageMagick.api._MagickImage_ChannelCount_Get(this.instance); }
 
     get colorSpace(): ColorSpace {
         return Exception.usePointer((exception) => {
