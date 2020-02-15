@@ -1,11 +1,11 @@
 import { Exception } from "./exception/exception";
 import { Pointer } from "./pointer/pointer";
 
-/** @internal */
 export abstract class NativeInstance {
     private readonly disposeMethod: (instance: number) => void;
     private pointer: number;
 
+    /** @internal */
     protected constructor(instance: number, disposeMethod: (instance: number) => void) {
         this.pointer = instance;
         this.disposeMethod = disposeMethod;
@@ -23,6 +23,7 @@ export abstract class NativeInstance {
         this.pointer = this.disposeInstance(this.pointer);
     }
 
+    /** @internal */
     protected setInstance(pointer: number, exception: Pointer): void {
         if (Exception.isError(exception)) {
             this.disposeInstance(pointer);
