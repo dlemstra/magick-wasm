@@ -25,6 +25,6 @@ describe('MagickImage#pixels', () => {
         expect(() => {
             if (pixels !== undefined)
                 pixels.instance
-        }).toThrowError('instance is disposed.');
+        }).toThrowError('instance is disposed');
     });
 });

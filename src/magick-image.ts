@@ -126,6 +126,6 @@ export class MagickImage extends NativeInstance {
 
     /** @internal */
     protected instanceNotInitialized(): void {
-        throw new Error('no image has been read.');
+        throw new Error('no image has been read');
     }
 }

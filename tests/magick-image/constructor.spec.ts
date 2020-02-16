@@ -16,6 +16,6 @@ describe('MagickImage#constructor', () => {
     it('should set the instance as unitialized', () => {
         expect(() => {
             image.resize(1, 1);
-        }).toThrowError('no image has been read.');
+        }).toThrowError('no image has been read');
     });
 });

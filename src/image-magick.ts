@@ -28,7 +28,7 @@ export class ImageMagick {
     /** @internal */
     static get api(): MagickNativeClass {
         if (instance.native === undefined) // eslint-disable-line @typescript-eslint/no-use-before-define
-            throw new Error("`await initializeImageMagick` should be called to initialize the library.");
+            throw new Error("`await initializeImageMagick` should be called to initialize the library");
 
         return instance.native; // eslint-disable-line @typescript-eslint/no-use-before-define
     }
