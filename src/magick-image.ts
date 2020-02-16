@@ -69,21 +69,16 @@ export class MagickImage extends NativeInstance {
         if (ctx === null)
             return;
 
-        PixelCollection._use(this, (pixels) => {
-            const data = pixels.toByteArray(0, 0, this.width, this.height, 'RGBA');
-            if (data == null)
-                return;
-
+        PixelCollection._map(this, 'RGBA', (q: number) => {
             const imageData = ctx.createImageData(this.width, this.height);
 
             let p = 0;
-            let q = 0;
             for (let y = 0; y < this.height; y++) {
                 for (let x = 0; x < this.width; x++) {
-                    imageData.data[p++] = data[q++];
-                    imageData.data[p++] = data[q++];
-                    imageData.data[p++] = data[q++];
-                    imageData.data[p++] = data[q++];
+                    imageData.data[p++] = q++;
+                    imageData.data[p++] = q++;
+                    imageData.data[p++] = q++;
+                    imageData.data[p++] = q++;
                 }
             }
 

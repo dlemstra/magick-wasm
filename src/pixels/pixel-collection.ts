@@ -29,22 +29,26 @@ export class PixelCollection extends NativeInstance {
         }
     }
 
-    toByteArray(x: number, y: number, width: number, height: number, mapping: string): Uint8Array | null {
-        return withString(mapping, (mappingPtr) => {
-            return Exception.use((exception) => {
-                const instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception.ptr);
-
-                return exception.check(() => {
-                    return this.createArray(instance, width, height, mapping.length);
-                }, () => {
-                    ImageMagick._api._MagickMemory_Relinquish(instance);
-                    return null;
-                });
+    /** @internal */
+    static _map(image: MagickImage, mapping: string, func: (instance: number) => void): void {
+        const pixels = new PixelCollection(image._instance);
+        try {
+            pixels.use(0, 0, image.width, image.height, mapping, (instance) => {
+                func(instance);
             });
+        }
+        finally {
+            pixels.dispose();
+        }
+    }
+
+    toByteArray(x: number, y: number, width: number, height: number, mapping: string): Uint8Array | null {
+        return this.use(x, y, width, height, mapping, (instance) => {
+            return PixelCollection.createArray(instance, width, height, mapping.length);
         });
     }
 
-    createArray(instance: number, width: number, height: number, channelCount: number): Uint8Array | null {
+    static createArray(instance: number, width: number, height: number, channelCount: number): Uint8Array | null {
         if (instance === 0)
             return null;
 
@@ -55,5 +59,22 @@ export class PixelCollection extends NativeInstance {
         finally {
             ImageMagick._api._MagickMemory_Relinquish(instance);
         }
+    }
+
+    private use<TReturnType>(x: number, y: number, width: number, height: number, mapping: string, func: (instance: number) => TReturnType): TReturnType | null {
+        return withString(mapping, (mappingPtr) => {
+            return Exception.use((exception) => {
+                const instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception.ptr);
+
+                return exception.check(() => {
+                    const result = func(instance);
+                    ImageMagick._api._MagickMemory_Relinquish(instance);
+                    return result;
+                }, () => {
+                    ImageMagick._api._MagickMemory_Relinquish(instance);
+                    return null;
+                });
+            });
+        });
     }
 }
