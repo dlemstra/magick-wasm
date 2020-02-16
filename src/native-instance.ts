@@ -1,5 +1,4 @@
 import { Exception } from "./exception/exception";
-import { Pointer } from "./pointer/pointer";
 
 export abstract class NativeInstance {
     private readonly disposeMethod: (instance: number) => void;
@@ -27,7 +26,7 @@ export abstract class NativeInstance {
     }
 
     /** @internal */
-    protected _setInstance(instance: number, exception: Pointer): void {
+    protected _setInstance(instance: number, exception: Exception): void {
         if (Exception.disposedInstance(exception, instance, this.disposeMethod)) {
             this.disposeInstance(instance);
             return;

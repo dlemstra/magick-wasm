@@ -4,6 +4,14 @@ import { Pointer } from "../pointer/pointer";
 
 /** @internal */
 export class Exception {
+    private readonly pointer: Pointer;
+
+    private constructor(pointer: Pointer) {
+        this.pointer = pointer;
+    }
+
+    get ptr(): number { return this.pointer.ptr }
+
     static usePointer<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
         return Pointer.use((pointer) => {
             const result = func(pointer.ptr);
@@ -12,19 +20,19 @@ export class Exception {
         });
     }
 
-    static use<TReturnType>(func: (exception: Pointer) => TReturnType): TReturnType {
+    static use<TReturnType>(func: (exception: Exception) => TReturnType): TReturnType {
         return Pointer.use((pointer) => {
-            const result = func(pointer);
+            const result = func(new Exception(pointer));
 
             return Exception.checkException(pointer, result);
         });
     }
 
-    static disposedInstance(exception: Pointer, instance: number, func: (instance: number) => void): boolean {
-        if (!Exception.isRaised(exception))
+    static disposedInstance(exception: Exception, instance: number, func: (instance: number) => void): boolean {
+        if (!Exception.isRaised(exception.pointer))
             return false;
 
-        if (Exception.isErrorSeverity(exception))
+        if (Exception.isErrorSeverity(exception.pointer))
             func(instance);
 
         return true;
