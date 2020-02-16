@@ -70,32 +70,24 @@ export class MagickImage extends NativeInstance {
             return;
 
         PixelCollection._use(this, (pixels) => {
-            let data = 0;
-            try {
-                data = pixels.toByteArray(0, 0, this.width, this.height, 'RGBA');
+            const data = pixels.toByteArray(0, 0, this.width, this.height, 'RGBA');
+            if (data == null)
+                return;
 
-                const imageData = ctx.createImageData(this.width, this.height);
+            const imageData = ctx.createImageData(this.width, this.height);
 
-                let p = 0;
-                let q = data;
-                for (let y = 0; y < this.height; y++) {
-                    for (let x = 0; x < this.width; x++) {
-                        imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
-                        imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
-                        imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
-                        imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
-                    }
+            let p = 0;
+            let q = 0;
+            for (let y = 0; y < this.height; y++) {
+                for (let x = 0; x < this.width; x++) {
+                    imageData.data[p++] = data[q++];
+                    imageData.data[p++] = data[q++];
+                    imageData.data[p++] = data[q++];
+                    imageData.data[p++] = data[q++];
                 }
-
-                ImageMagick._api._free(data);
-                data = 0;
-
-                ctx.putImageData(imageData, 0, 0);
             }
-            catch {
-                if (data !== 0)
-                    ImageMagick._api._free(data);
-            }
+
+            ctx.putImageData(imageData, 0, 0);
         });
     }
 
