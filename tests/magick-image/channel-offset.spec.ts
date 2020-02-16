@@ -20,6 +20,9 @@ describe('MagickImage#channelCount', () => {
     });
 
     it('should return the index of the channel', () => {
-        expect(image.channelOffset(PixelChannel.Index)).toEqual(4);
+        expect(image.channelOffset(PixelChannel.Red)).toEqual(0);
+        expect(image.channelOffset(PixelChannel.Green)).toEqual(1);
+        expect(image.channelOffset(PixelChannel.Blue)).toEqual(2);
+        expect(image.channelOffset(PixelChannel.Index)).toEqual(3);
     });
 });

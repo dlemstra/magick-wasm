@@ -53,7 +53,7 @@ export class MagickImage extends NativeInstance {
         if (!ImageMagick.api._MagickImage_HasChannel(this.instance, pixelChannel))
             return -1;
 
-        return ImageMagick.api._MagickImage_ChannelCount_Get(this.instance);
+        return ImageMagick.api._MagickImage_ChannelOffset(this.instance, pixelChannel);
     }
 
     drawOnCanvas(canvas: HTMLCanvasElement): void {
