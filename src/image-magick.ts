@@ -7,8 +7,7 @@ export class ImageMagick {
     private loader: Promise<void>;
     private native?: MagickNativeClass;
 
-    /** @internal */
-    constructor() {
+    private constructor() {
         this.loader = new Promise(resolve => {
             MagickNative().then((native) => {
                 withNativeString(native, 'MAGICK_CONFIGURE_PATH', name => {
@@ -21,6 +20,8 @@ export class ImageMagick {
             });
         });
     }
+
+    static _create(): ImageMagick { return new ImageMagick() }
 
     /** @internal */
     async _initialize(): Promise<void> { await this.loader; }
@@ -49,6 +50,6 @@ export class ImageMagick {
 }
 
 /** @internal */
-const instance = new ImageMagick();
+const instance = ImageMagick._create();
 
 export async function initializeImageMagick(): Promise<void> { await instance._initialize() }

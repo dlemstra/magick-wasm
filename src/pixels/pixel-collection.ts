@@ -5,8 +5,7 @@ import { NativeInstance } from "../native-instance";
 import { MagickImage } from "../magick-image";
 
 export class PixelCollection extends NativeInstance {
-    /** @internal */
-    constructor(image: number) {
+    private constructor(image: number) {
         const instance = Exception.usePointer((exception) => {
             return ImageMagick._api._PixelCollection_Create(image, exception);
         });
