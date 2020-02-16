@@ -27,7 +27,7 @@ export abstract class NativeInstance {
 
     /** @internal */
     protected _setInstance(pointer: number, exception: Pointer): void {
-        if (Exception.isError(exception)) {
+        if (Exception.disposedInstance(exception, pointer, this.disposeMethod)) {
             this.disposeInstance(pointer);
             return;
         }

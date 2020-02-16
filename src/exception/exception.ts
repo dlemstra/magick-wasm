@@ -20,27 +20,26 @@ export class Exception {
         });
     }
 
-    static isError(exception: Pointer): boolean {
-        if (!Exception.isRaised(exception)) {
+    static disposedInstance(exception: Pointer, instance: number, func: (instance: number) => void): boolean {
+        if (!Exception.isRaised(exception))
             return false;
-        }
 
-        return Exception.isErrorSeverity(exception);
+        if (Exception.isErrorSeverity(exception))
+            func(instance);
+
+        return true;
     }
 
     private static checkException<TReturnType>(exception: Pointer, result: TReturnType): TReturnType {
-        if (!Exception.isRaised(exception)) {
+        if (!Exception.isRaised(exception))
             return result;
-        }
 
-        if (Exception.isErrorSeverity(exception)) {
+        if (Exception.isErrorSeverity(exception))
             Exception.throw(exception);
-        } else {
+        else
             Exception.dispose(exception);
-        }
 
         return result;
-
     }
 
     private static isErrorSeverity(exception: Pointer): boolean {
