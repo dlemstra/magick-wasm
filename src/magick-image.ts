@@ -11,7 +11,12 @@ import { withString } from "./util/string";
 import { PixelChannel } from "./pixel-channel";
 
 export class MagickImage extends NativeInstance {
-    constructor() { super(-1, ImageMagick.api._MagickImage_Dispose); }
+    private readonly settings: MagickSettings;
+
+    constructor() {
+        super(-1, ImageMagick.api._MagickImage_Dispose);
+        this.settings = new MagickSettings();
+    }
 
     /** @internal */
     static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType): TReturnType;
@@ -102,8 +107,8 @@ export class MagickImage extends NativeInstance {
 
     read(fileName: string): void {
         Exception.use((exception) => {
-            MagickSettings.use((settings) => {
-                settings.setFileName(fileName);
+            this.settings.fileName = fileName;
+            this.settings.use((settings) => {
                 const instance = ImageMagick.api._MagickImage_ReadFile(settings.instance, exception.ptr);
                 this.setInstance(instance, exception);
             });
