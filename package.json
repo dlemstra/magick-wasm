@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "tsc",
-    "test": "jest --runInBand",
+    "test": "jest --detectOpenHandles",
     "lint": "eslint src tests --ext .ts",
     "demo": "tsc && node lib/demo.js",
     "prepare": "cpy ./node_modules/magick.native/wasm/magick-Q8.js ./lib/wasm --rename=magick.js && cpy ./node_modules/magick.native/wasm/magick-Q8.d.ts ./lib/wasm --rename=magick.d.ts && cpy ./node_modules/magick.native/wasm/magick-Q8.js ./src/wasm --rename=magick.js && cpy ./node_modules/magick.native/wasm/magick-Q8.d.ts ./src/wasm --rename=magick.d.ts"
