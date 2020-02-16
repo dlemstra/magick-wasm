@@ -5,7 +5,7 @@ import { MagickGeometry } from '../../src/types/magick-geometry';
 let image: MagickImage;
 
 beforeEach(() => {
-    ImageMagick.api = (global as any).native;
+    ImageMagick._api = (global as any).native;
     image = new MagickImage();
 });
 

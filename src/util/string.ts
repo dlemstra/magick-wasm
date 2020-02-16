@@ -16,5 +16,5 @@ export function withNativeString<TReturnType>(native: MagickNative, str: string,
 
 /** @internal */
 export function withString<TReturnType>(str: string, func: (instance: number) => TReturnType): TReturnType {
-    return withNativeString(ImageMagick.api, str, func);
+    return withNativeString(ImageMagick._api, str, func);
 }

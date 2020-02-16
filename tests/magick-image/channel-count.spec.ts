@@ -4,7 +4,7 @@ import { MagickImage } from '../../src/magick-image';
 let image: MagickImage;
 
 beforeEach(() => {
-    ImageMagick.api = (global as any).native;
+    ImageMagick._api = (global as any).native;
     image = new MagickImage();
 });
 

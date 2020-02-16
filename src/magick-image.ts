@@ -14,14 +14,14 @@ export class MagickImage extends NativeInstance {
     private readonly settings: MagickSettings;
 
     constructor() {
-        super(-1, ImageMagick.api._MagickImage_Dispose);
+        super(-1, ImageMagick._api._MagickImage_Dispose);
         this.settings = new MagickSettings();
     }
 
     /** @internal */
-    static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType): TReturnType;
-    static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static _use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType): TReturnType;
+    static _use<TReturnType>(im: MagickNative, func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static _use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         const image = new MagickImage();
         try {
             return func(image);
@@ -30,35 +30,35 @@ export class MagickImage extends NativeInstance {
         }
     }
 
-    get channelCount(): number { return ImageMagick.api._MagickImage_ChannelCount_Get(this.instance); }
+    get channelCount(): number { return ImageMagick._api._MagickImage_ChannelCount_Get(this.instance); }
 
     get colorSpace(): ColorSpace {
         return Exception.usePointer((exception) => {
-            return ImageMagick.api._MagickImage_ColorSpace_Get(this.instance, exception);
+            return ImageMagick._api._MagickImage_ColorSpace_Get(this.instance, exception);
         });
     }
 
-    get depth(): number { return ImageMagick.api._MagickImage_Depth_Get(this.instance); }
-    set depth(value) { ImageMagick.api._MagickImage_Depth_Set(this.instance, value); }
+    get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this.instance); }
+    set depth(value) { ImageMagick._api._MagickImage_Depth_Set(this.instance, value); }
 
-    get format(): string { return ImageMagick.api.UTF8ToString(ImageMagick.api._MagickImage_Format_Get(this.instance)); }
-    set format(value) { withString(value, (instance) => ImageMagick.api._MagickImage_Format_Set(this.instance, instance)); }
+    get format(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._MagickImage_Format_Get(this.instance)); }
+    set format(value) { withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this.instance, instance)); }
 
-    get height(): number { return ImageMagick.api._MagickImage_Height_Get(this.instance); }
+    get height(): number { return ImageMagick._api._MagickImage_Height_Get(this.instance); }
 
-    get width(): number { return ImageMagick.api._MagickImage_Width_Get(this.instance); }
+    get width(): number { return ImageMagick._api._MagickImage_Width_Get(this.instance); }
 
     alpha(value: AlphaOption): void {
         Exception.usePointer((exception) => {
-            ImageMagick.api._MagickImage_SetAlpha(this.instance, value, exception);
+            ImageMagick._api._MagickImage_SetAlpha(this.instance, value, exception);
         });
     }
 
     channelOffset(pixelChannel: PixelChannel): number {
-        if (!ImageMagick.api._MagickImage_HasChannel(this.instance, pixelChannel))
+        if (!ImageMagick._api._MagickImage_HasChannel(this.instance, pixelChannel))
             return -1;
 
-        return ImageMagick.api._MagickImage_ChannelOffset(this.instance, pixelChannel);
+        return ImageMagick._api._MagickImage_ChannelOffset(this.instance, pixelChannel);
     }
 
     drawOnCanvas(canvas: HTMLCanvasElement): void {
@@ -69,7 +69,7 @@ export class MagickImage extends NativeInstance {
         if (ctx === null)
             return;
 
-        PixelCollection.use(this, (pixels) => {
+        PixelCollection._use(this, (pixels) => {
             let data = 0;
             try {
                 data = pixels.toByteArray(0, 0, this.width, this.height, 'RGBA');
@@ -80,37 +80,37 @@ export class MagickImage extends NativeInstance {
                 let q = data;
                 for (let y = 0; y < this.height; y++) {
                     for (let x = 0; x < this.width; x++) {
-                        imageData.data[p++] = ImageMagick.api.HEAPU8[q++];
-                        imageData.data[p++] = ImageMagick.api.HEAPU8[q++];
-                        imageData.data[p++] = ImageMagick.api.HEAPU8[q++];
-                        imageData.data[p++] = ImageMagick.api.HEAPU8[q++];
+                        imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
+                        imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
+                        imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
+                        imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
                     }
                 }
 
-                ImageMagick.api._free(data);
+                ImageMagick._api._free(data);
                 data = 0;
 
                 ctx.putImageData(imageData, 0, 0);
             }
             catch {
                 if (data !== 0)
-                    ImageMagick.api._free(data);
+                    ImageMagick._api._free(data);
             }
         });
     }
 
     pixels<TReturnType>(func: (pixels: PixelCollection) => TReturnType): TReturnType {
-        return PixelCollection.use(this, (pixels) => {
+        return PixelCollection._use(this, (pixels) => {
             return func(pixels);
         });
     }
 
     read(fileName: string): void {
         Exception.use((exception) => {
-            this.settings.fileName = fileName;
-            this.settings.use((settings) => {
-                const instance = ImageMagick.api._MagickImage_ReadFile(settings.instance, exception.ptr);
-                this.setInstance(instance, exception);
+            this.settings._fileName = fileName;
+            this.settings._use((settings) => {
+                const instance = ImageMagick._api._MagickImage_ReadFile(settings.instance, exception.ptr);
+                this._setInstance(instance, exception);
             });
         });
     }
@@ -121,8 +121,8 @@ export class MagickImage extends NativeInstance {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
         Exception.use((exception) => {
             withString(geometry.toString(), (geometryPtr) => {
-                const image = ImageMagick.api._MagickImage_Resize(this.instance, geometryPtr, exception.ptr);
-                this.setInstance(image, exception);
+                const image = ImageMagick._api._MagickImage_Resize(this.instance, geometryPtr, exception.ptr);
+                this._setInstance(image, exception);
             });
         });
     }
@@ -130,7 +130,7 @@ export class MagickImage extends NativeInstance {
     toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
 
     /** @internal */
-    protected instanceNotInitialized(): void {
+    protected _instanceNotInitialized(): void {
         throw new Error('no image has been read');
     }
 }

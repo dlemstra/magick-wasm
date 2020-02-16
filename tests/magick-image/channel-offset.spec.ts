@@ -5,7 +5,7 @@ import { PixelChannel } from '../../src/pixel-channel';
 let image: MagickImage;
 
 beforeEach(() => {
-    ImageMagick.api = (global as any).native;
+    ImageMagick._api = (global as any).native;
     image = new MagickImage();
     image.read('logo:');
 });

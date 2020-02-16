@@ -44,7 +44,7 @@ export class Exception {
     }
 
     private static isErrorSeverity(exception: Pointer): boolean {
-        const severity = ImageMagick.api._MagickExceptionHelper_Severity(exception.value) as ExceptionSeverity;
+        const severity = ImageMagick._api._MagickExceptionHelper_Severity(exception.value) as ExceptionSeverity;
         return severity >= ExceptionSeverity.Error;
     }
 
@@ -60,18 +60,18 @@ export class Exception {
     }
 
     private static getMessage(exception: Pointer): string {
-        const message = ImageMagick.api._MagickExceptionHelper_Message(exception.value);
-        const description = ImageMagick.api._MagickExceptionHelper_Description(exception.value);
+        const message = ImageMagick._api._MagickExceptionHelper_Message(exception.value);
+        const description = ImageMagick._api._MagickExceptionHelper_Description(exception.value);
 
-        let errorMessage = ImageMagick.api.UTF8ToString(message);
+        let errorMessage = ImageMagick._api.UTF8ToString(message);
         if (description !== 0) {
-            errorMessage += `(${ImageMagick.api.UTF8ToString(description)})`;
+            errorMessage += `(${ImageMagick._api.UTF8ToString(description)})`;
         }
 
         return errorMessage;
     }
 
     private static dispose(exception: Pointer): void {
-        ImageMagick.api._MagickExceptionHelper_Dispose(exception.value);
+        ImageMagick._api._MagickExceptionHelper_Dispose(exception.value);
     }
 }

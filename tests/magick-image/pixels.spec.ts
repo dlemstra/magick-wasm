@@ -5,7 +5,7 @@ import { PixelCollection } from '../../src/pixels/pixel-collection';
 let image: MagickImage;
 
 beforeEach(() => {
-    ImageMagick.api = (global as any).native;
+    ImageMagick._api = (global as any).native;
     image = new MagickImage();
     image.read('logo:');
 });

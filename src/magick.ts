@@ -8,29 +8,29 @@ export class Magick {
     private static LogDelegate = 0;
     private static LogDelegates: logDelegate[] = [];
 
-    static get delegates(): string { return ImageMagick.api.UTF8ToString(ImageMagick.api._Magick_Delegates_Get()); }
+    static get delegates(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._Magick_Delegates_Get()); }
 
-    static get features(): string { return ImageMagick.api.UTF8ToString(ImageMagick.api._Magick_Features_Get()).slice(0, -1); }
+    static get features(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._Magick_Features_Get()).slice(0, -1); }
 
-    static get imageMagickVersion(): string { return ImageMagick.api.UTF8ToString(ImageMagick.api._Magick_ImageMagickVersion_Get()); }
+    static get imageMagickVersion(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._Magick_ImageMagickVersion_Get()); }
 
-    static setRandomSeed = (seed: number): void => ImageMagick.api._Magick_SetRandomSeed(seed);
+    static setRandomSeed = (seed: number): void => ImageMagick._api._Magick_SetRandomSeed(seed);
 
     static logEvents(logEvents: LogEvents, func: logDelegate): void {
         Magick.LogDelegates.push(func);
         if (Magick.LogDelegate === 0) {
-            Magick.LogDelegate = ImageMagick.api.addFunction((type: number, ptr: number) => Magick.onLog(type, ptr), 'vii');
-            ImageMagick.api._Magick_SetLogDelegate(Magick.LogDelegate);
+            Magick.LogDelegate = ImageMagick._api.addFunction((type: number, ptr: number) => Magick.onLog(type, ptr), 'vii');
+            ImageMagick._api._Magick_SetLogDelegate(Magick.LogDelegate);
 
             const eventNames = Magick.getEventNames(logEvents);
             withString(eventNames, (events: number) => {
-                ImageMagick.api._Magick_SetLogEvents(events);
+                ImageMagick._api._Magick_SetLogEvents(events);
             });
         }
     }
 
     private static onLog(type: number, ptr: number): void {
-        const message = ImageMagick.api.UTF8ToString(ptr);
+        const message = ImageMagick._api.UTF8ToString(ptr);
         Magick.LogDelegates.forEach((delegate) => {
             delegate(type, message);
         });

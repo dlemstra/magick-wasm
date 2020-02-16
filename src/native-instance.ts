@@ -16,7 +16,7 @@ export abstract class NativeInstance {
             return this.pointer;
 
         if (this.pointer === -1)
-            this.instanceNotInitialized();
+            this._instanceNotInitialized();
 
         throw new Error('instance is disposed');
     }
@@ -26,7 +26,7 @@ export abstract class NativeInstance {
     }
 
     /** @internal */
-    protected setInstance(pointer: number, exception: Pointer): void {
+    protected _setInstance(pointer: number, exception: Pointer): void {
         if (Exception.isError(exception)) {
             this.disposeInstance(pointer);
             return;
@@ -37,7 +37,7 @@ export abstract class NativeInstance {
     }
 
     /** @internal */
-    protected instanceNotInitialized(): void {
+    protected _instanceNotInitialized(): void {
         throw new Error('instance is not initialized');
     }
 

@@ -5,13 +5,13 @@ import { NativeInstance } from "../native-instance";
 /** @internal */
 export class NativeMagickSettings extends NativeInstance {
     constructor(settings: MagickSettings) {
-        const instance = ImageMagick.api._MagickSettings_Create();
-        const disposeMethod = ImageMagick.api._MagickSettings_Dispose;
+        const instance = ImageMagick._api._MagickSettings_Create();
+        const disposeMethod = ImageMagick._api._MagickSettings_Dispose;
         super(instance, disposeMethod);
 
-        if (settings.fileName !== undefined) {
-            withString(settings.fileName, (filenamePtr) => {
-                ImageMagick.api._MagickSettings_SetFileName(this.instance, filenamePtr);
+        if (settings._fileName !== undefined) {
+            withString(settings._fileName, (filenamePtr) => {
+                ImageMagick._api._MagickSettings_SetFileName(this.instance, filenamePtr);
             });
         }
     }
@@ -19,10 +19,10 @@ export class NativeMagickSettings extends NativeInstance {
 
 export class MagickSettings {
     /** @internal */
-    fileName?: string;
+    _fileName?: string;
 
     /** @internal */
-    use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {
+    _use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {
         const settings = new NativeMagickSettings(this);
         try {
             return func(settings);

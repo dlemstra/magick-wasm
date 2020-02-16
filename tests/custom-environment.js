@@ -16,7 +16,7 @@ class CustomEnvironment extends NodeEnvironment {
         if (loader === undefined) {
             loader = new Promise(resolve => {
                 ImageMagick.initializeImageMagick().then(() => {
-                    native = ImageMagick.ImageMagick.api;
+                    native = ImageMagick.ImageMagick._api;
                     resolve();
                 });
             });

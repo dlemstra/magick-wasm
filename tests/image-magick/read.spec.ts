@@ -1,6 +1,6 @@
 import { ImageMagick } from '../../src/image-magick';
 
-beforeAll(() => { ImageMagick.api = (global as any).native; });
+beforeAll(() => { ImageMagick._api = (global as any).native; });
 
 describe('ImageMagick#read', () => {
     it('should read built-in image async', async () => {
