@@ -1,3 +1,4 @@
+import { AlphaOption } from "./alpha-option";
 import { ColorSpace } from "./color-space";
 import { Exception } from "./exception/exception";
 import { ImageMagick } from "./image-magick";
@@ -40,6 +41,12 @@ export class MagickImage extends NativeInstance {
     get height(): number { return ImageMagick.api._MagickImage_Height_Get(this.instance); }
 
     get width(): number { return ImageMagick.api._MagickImage_Width_Get(this.instance); }
+
+    alpha(value: AlphaOption) {
+        Exception.usePointer((exception) => {
+            ImageMagick.api._MagickImage_SetAlpha(this.instance, value, exception);
+        });
+    }
 
     drawOnCanvas(canvas: HTMLCanvasElement): void {
         canvas.width = this.width;
@@ -106,5 +113,5 @@ export class MagickImage extends NativeInstance {
     /** @internal */
     protected instanceNotInitialized(): void {
         throw new Error('no image has been read.');
-    } 
+    }
 }
