@@ -43,7 +43,7 @@ export class MagickImage extends NativeInstance {
 
     get width(): number { return ImageMagick.api._MagickImage_Width_Get(this.instance); }
 
-    alpha(value: AlphaOption) {
+    alpha(value: AlphaOption): void {
         Exception.usePointer((exception) => {
             ImageMagick.api._MagickImage_SetAlpha(this.instance, value, exception);
         });
@@ -91,6 +91,12 @@ export class MagickImage extends NativeInstance {
                 if (data !== 0)
                     ImageMagick.api._free(data);
             }
+        });
+    }
+
+    pixels<TReturnType>(func: (pixels: PixelCollection) => TReturnType): TReturnType {
+        return PixelCollection.use(this, (pixels) => {
+            return func(pixels);
         });
     }
 
