@@ -2,6 +2,7 @@ const NodeEnvironment = require('jest-environment-node');
 const ImageMagick = require('../lib/image-magick.js');
 
 let native = undefined;
+let loader = undefined;
 
 class CustomEnvironment extends NodeEnvironment {
     async setup() {
@@ -12,9 +13,16 @@ class CustomEnvironment extends NodeEnvironment {
             return;
         }
 
-        await ImageMagick.initializeImageMagick();
+        if (loader === undefined) {
+            loader = new Promise(resolve => {
+                ImageMagick.initializeImageMagick().then(() => {
+                    native = ImageMagick.ImageMagick.api;
+                    resolve();
+                });
+            });
+        }
 
-        native = ImageMagick.ImageMagick.api;
+        await loader;
 
         this.global.native = native;
     }
