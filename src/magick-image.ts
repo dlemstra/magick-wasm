@@ -30,35 +30,35 @@ export class MagickImage extends NativeInstance {
         }
     }
 
-    get channelCount(): number { return ImageMagick._api._MagickImage_ChannelCount_Get(this.instance); }
+    get channelCount(): number { return ImageMagick._api._MagickImage_ChannelCount_Get(this._instance); }
 
     get colorSpace(): ColorSpace {
         return Exception.usePointer((exception) => {
-            return ImageMagick._api._MagickImage_ColorSpace_Get(this.instance, exception);
+            return ImageMagick._api._MagickImage_ColorSpace_Get(this._instance, exception);
         });
     }
 
-    get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this.instance); }
-    set depth(value) { ImageMagick._api._MagickImage_Depth_Set(this.instance, value); }
+    get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
+    set depth(value) { ImageMagick._api._MagickImage_Depth_Set(this._instance, value); }
 
-    get format(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._MagickImage_Format_Get(this.instance)); }
-    set format(value) { withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this.instance, instance)); }
+    get format(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._MagickImage_Format_Get(this._instance)); }
+    set format(value) { withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
 
-    get height(): number { return ImageMagick._api._MagickImage_Height_Get(this.instance); }
+    get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
 
-    get width(): number { return ImageMagick._api._MagickImage_Width_Get(this.instance); }
+    get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
 
     alpha(value: AlphaOption): void {
         Exception.usePointer((exception) => {
-            ImageMagick._api._MagickImage_SetAlpha(this.instance, value, exception);
+            ImageMagick._api._MagickImage_SetAlpha(this._instance, value, exception);
         });
     }
 
     channelOffset(pixelChannel: PixelChannel): number {
-        if (!ImageMagick._api._MagickImage_HasChannel(this.instance, pixelChannel))
+        if (!ImageMagick._api._MagickImage_HasChannel(this._instance, pixelChannel))
             return -1;
 
-        return ImageMagick._api._MagickImage_ChannelOffset(this.instance, pixelChannel);
+        return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
     }
 
     drawOnCanvas(canvas: HTMLCanvasElement): void {
@@ -109,7 +109,7 @@ export class MagickImage extends NativeInstance {
         Exception.use((exception) => {
             this.settings._fileName = fileName;
             this.settings._use((settings) => {
-                const instance = ImageMagick._api._MagickImage_ReadFile(settings.instance, exception.ptr);
+                const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
                 this._setInstance(instance, exception);
             });
         });
@@ -121,7 +121,7 @@ export class MagickImage extends NativeInstance {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
         Exception.use((exception) => {
             withString(geometry.toString(), (geometryPtr) => {
-                const image = ImageMagick._api._MagickImage_Resize(this.instance, geometryPtr, exception.ptr);
+                const image = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(image, exception);
             });
         });

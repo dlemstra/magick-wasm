@@ -17,7 +17,7 @@ export class PixelCollection extends NativeInstance {
 
     /** @internal */
     static _use<TReturnType>(image: MagickImage, func: (pixels: PixelCollection) => TReturnType): TReturnType {
-        const pixels = new PixelCollection(image.instance);
+        const pixels = new PixelCollection(image._instance);
         try {
             return func(pixels);
         } finally {
@@ -28,7 +28,7 @@ export class PixelCollection extends NativeInstance {
     toByteArray(x: number, y: number, width: number, height: number, mapping: string): number {
         return withString(mapping, (mappingPtr) => {
             return Exception.usePointer((exception) => {
-                return ImageMagick._api._PixelCollection_ToByteArray(this.instance, x, y, width, height, mappingPtr, exception);
+                return ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception);
             });
         });
     }

@@ -3,37 +3,38 @@ import { Pointer } from "./pointer/pointer";
 
 export abstract class NativeInstance {
     private readonly disposeMethod: (instance: number) => void;
-    private pointer: number;
+    private instance: number;
 
     /** @internal */
     protected constructor(instance: number, disposeMethod: (instance: number) => void) {
-        this.pointer = instance;
+        this.instance = instance;
         this.disposeMethod = disposeMethod;
     }
 
-    get instance(): number {
-        if (this.pointer > 0)
-            return this.pointer;
+    /** @internal */
+    get _instance(): number {
+        if (this.instance > 0)
+            return this.instance;
 
-        if (this.pointer === -1)
+        if (this.instance === -1)
             this._instanceNotInitialized();
 
         throw new Error('instance is disposed');
     }
 
     dispose(): void {
-        this.pointer = this.disposeInstance(this.pointer);
+        this.instance = this.disposeInstance(this.instance);
     }
 
     /** @internal */
-    protected _setInstance(pointer: number, exception: Pointer): void {
-        if (Exception.disposedInstance(exception, pointer, this.disposeMethod)) {
-            this.disposeInstance(pointer);
+    protected _setInstance(instance: number, exception: Pointer): void {
+        if (Exception.disposedInstance(exception, instance, this.disposeMethod)) {
+            this.disposeInstance(instance);
             return;
         }
 
         this.dispose();
-        this.pointer = pointer;
+        this.instance = instance;
     }
 
     /** @internal */
@@ -41,9 +42,9 @@ export abstract class NativeInstance {
         throw new Error('instance is not initialized');
     }
 
-    private disposeInstance(pointer: number): number {
-        if (pointer > 0)
-            this.disposeMethod(pointer);
+    private disposeInstance(instance: number): number {
+        if (instance > 0)
+            this.disposeMethod(instance);
 
         return 0;
     }

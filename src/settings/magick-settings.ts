@@ -11,7 +11,7 @@ export class NativeMagickSettings extends NativeInstance {
 
         if (settings._fileName !== undefined) {
             withString(settings._fileName, (filenamePtr) => {
-                ImageMagick._api._MagickSettings_SetFileName(this.instance, filenamePtr);
+                ImageMagick._api._MagickSettings_SetFileName(this._instance, filenamePtr);
             });
         }
     }
