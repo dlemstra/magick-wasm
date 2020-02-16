@@ -8,6 +8,7 @@ import { MagickSettings } from "./settings/magick-settings";
 import { NativeInstance } from "./native-instance";
 import { PixelCollection } from "./pixels/pixel-collection";
 import { withString } from "./util/string";
+import { PixelChannel } from "./pixel-channel";
 
 export class MagickImage extends NativeInstance {
     constructor() { super(-1, ImageMagick.api._MagickImage_Dispose); }
@@ -46,6 +47,13 @@ export class MagickImage extends NativeInstance {
         Exception.usePointer((exception) => {
             ImageMagick.api._MagickImage_SetAlpha(this.instance, value, exception);
         });
+    }
+
+    channelOffset(pixelChannel: PixelChannel): number {
+        if (!ImageMagick.api._MagickImage_HasChannel(this.instance, pixelChannel))
+            return -1;
+
+        return ImageMagick.api._MagickImage_ChannelCount_Get(this.instance);
     }
 
     drawOnCanvas(canvas: HTMLCanvasElement): void {
