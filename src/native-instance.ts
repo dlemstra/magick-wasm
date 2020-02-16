@@ -27,13 +27,12 @@ export abstract class NativeInstance {
 
     /** @internal */
     protected _setInstance(instance: number, exception: Exception): void {
-        if (Exception.disposedInstance(exception, instance, this.disposeMethod)) {
+        exception.check(() => {
+            this.dispose();
+            this.instance = instance;
+        }, () => {
             this.disposeInstance(instance);
-            return;
-        }
-
-        this.dispose();
-        this.instance = instance;
+        });
     }
 
     /** @internal */

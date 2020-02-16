@@ -12,6 +12,13 @@ export class Exception {
 
     get ptr(): number { return this.pointer.ptr }
 
+    check<TReturnType>(success: () => TReturnType, error: () => TReturnType): TReturnType {
+        if (Exception.isRaised(this.pointer) && Exception.isErrorSeverity(this.pointer))
+            return error();
+
+        return success();
+    }
+
     static usePointer<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
         return Pointer.use((pointer) => {
             const result = func(pointer.ptr);
@@ -26,16 +33,6 @@ export class Exception {
 
             return Exception.checkException(pointer, result);
         });
-    }
-
-    static disposedInstance(exception: Exception, instance: number, func: (instance: number) => void): boolean {
-        if (!Exception.isRaised(exception.pointer))
-            return false;
-
-        if (Exception.isErrorSeverity(exception.pointer))
-            func(instance);
-
-        return true;
     }
 
     private static checkException<TReturnType>(exception: Pointer, result: TReturnType): TReturnType {
