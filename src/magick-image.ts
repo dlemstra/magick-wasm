@@ -9,7 +9,7 @@ import { PixelCollection } from "./pixels/pixel-collection";
 import { withString } from "./util/string";
 
 export class MagickImage extends NativeInstance {
-    constructor() { super(0, ImageMagick.api._MagickImage_Dispose); }
+    constructor() { super(-1, ImageMagick.api._MagickImage_Dispose); }
 
     /** @internal */
     static use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType): TReturnType;
@@ -102,4 +102,9 @@ export class MagickImage extends NativeInstance {
     }
 
     toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
+
+    /** @internal */
+    protected instanceNotInitialized(): void {
+        throw new Error('no image has been read.');
+    } 
 }

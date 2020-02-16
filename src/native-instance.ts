@@ -12,11 +12,13 @@ export abstract class NativeInstance {
     }
 
     get instance(): number {
-        if (this.pointer === 0) {
-            throw new Error('instance is disposed.');
-        }
+        if (this.pointer > 0)
+            return this.pointer;
 
-        return this.pointer;
+        if (this.pointer === -1)
+            this.instanceNotInitialized();
+
+        throw new Error('instance is disposed.');
     }
 
     dispose(): void {
@@ -34,8 +36,13 @@ export abstract class NativeInstance {
         this.pointer = pointer;
     }
 
+    /** @internal */
+    protected instanceNotInitialized(): void {
+        throw new Error('instance is not initialized.');
+    }
+
     private disposeInstance(pointer: number): number {
-        if (pointer !== 0)
+        if (pointer > 0)
             this.disposeMethod(pointer);
 
         return 0;
