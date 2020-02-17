@@ -3,7 +3,6 @@ import { ColorSpace } from "./color-space";
 import { Exception } from "./exception/exception";
 import { ImageMagick } from "./image-magick";
 import { MagickGeometry } from "./types/magick-geometry";
-import { MagickNative } from "./wasm/magick";
 import { MagickSettings } from "./settings/magick-settings";
 import { NativeInstance } from "./native-instance";
 import { PixelCollection } from "./pixels/pixel-collection";
@@ -19,9 +18,9 @@ export class MagickImage extends NativeInstance {
     }
 
     /** @internal */
-    static _use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType): TReturnType;
-    static _use<TReturnType>(im: MagickNative, func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static _use<TReturnType>(im: MagickNative, func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static _use<TReturnType>(func: (image: MagickImage) => TReturnType): TReturnType;
+    static _use<TReturnType>(func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static _use<TReturnType>(func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         const image = new MagickImage();
         try {
             return func(image);

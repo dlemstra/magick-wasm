@@ -1,8 +1,8 @@
 import { ImageMagick } from "../image-magick";
-import { MagickNative } from '../wasm/magick.js';
+import { ImageMagickApi } from '../wasm/magick.js';
 
 /** @internal */
-export function withNativeString<TReturnType>(native: MagickNative, str: string, func: (instance: number) => TReturnType): TReturnType {
+export function withNativeString<TReturnType>(native: ImageMagickApi, str: string, func: (instance: number) => TReturnType): TReturnType {
     const length = native.lengthBytesUTF8(str) + 1;
     const instance = native._malloc(length);
     try {
