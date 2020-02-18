@@ -13,12 +13,12 @@ export class Pointer {
 
     get value(): number { return ImageMagick._api.getValue(this.instance, "i64"); }
 
-    static use<TReturnType>(func: (ptr: Pointer) => TReturnType): TReturnType {
-        const ptr = new Pointer();
+    static use<TReturnType>(func: (pointer: Pointer) => TReturnType): TReturnType {
+        const pointer = new Pointer();
         try {
-            return func(ptr);
+            return func(pointer);
         } finally {
-            ImageMagick._api._free(ptr.instance);
+            ImageMagick._api._free(pointer.instance);
         }
     }
 }
