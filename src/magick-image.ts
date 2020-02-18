@@ -91,13 +91,31 @@ export class MagickImage extends NativeInstance {
         });
     }
 
-    read(fileName: string): void {
+    read(fileName: string): void;
+    read(array: Uint8Array): void;
+    read(fileNameOrArray: string | Uint8Array): void {
         Exception.use((exception) => {
-            this.settings._fileName = fileName;
-            this.settings._use((settings) => {
-                const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
-                this._setInstance(instance, exception);
-            });
+            if (typeof fileNameOrArray === 'string') {
+                this.settings._fileName = fileNameOrArray;
+                this.settings._use((settings) => {
+                    const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
+                    this._setInstance(instance, exception);
+                });
+            } else {
+                this.settings._use((settings) => {
+                    const length = fileNameOrArray.byteLength;
+                    let data = 0;
+                    try {
+                        data = ImageMagick._api._malloc(length);
+                        ImageMagick._api.HEAPU8.set(fileNameOrArray, data);
+                        const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, data, 0, length, exception.ptr);
+                        this._setInstance(instance, exception);
+                    } finally {
+                        if (data !== 0)
+                            ImageMagick._api._free(data);
+                    }
+                });
+            }
         });
     }
 
