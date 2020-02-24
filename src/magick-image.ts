@@ -93,6 +93,7 @@ export class MagickImage extends NativeInstance {
 
     read(fileName: string): void;
     read(array: Uint8Array): void;
+    read(fileNameOrArray: string | Uint8Array): void;
     read(fileNameOrArray: string | Uint8Array): void {
         Exception.use((exception) => {
             if (typeof fileNameOrArray === 'string') {

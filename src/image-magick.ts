@@ -41,9 +41,14 @@ export class ImageMagick {
 
     static read(fileName: string, func: (image: MagickImage) => void): void;
     static read(fileName: string, func: (image: MagickImage) => Promise<void>): Promise<void>;
-    static read(fileName: string, func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
+    static read(array: Uint8Array, func: (image: MagickImage) => void): void;
+    static read(array: Uint8Array, func: (image: MagickImage) => Promise<void>): Promise<void>;
+    static read(fileNameOrArray: string | Uint8Array, func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
         MagickImage._use((image) => {
-            image.read(fileName);
+            if (typeof fileNameOrArray === 'string')
+                image.read(fileNameOrArray);
+            else
+                image.read(fileNameOrArray);
             return func(image);
         });
     }
