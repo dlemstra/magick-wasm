@@ -1,6 +1,7 @@
 import { ImageMagick } from "../image-magick";
-import { withString } from "../util/string";
+import { MagickFormat } from "../magick-format";
 import { NativeInstance } from "../native-instance";
+import { withString } from "../util/string";
 
 /** @internal */
 export class NativeMagickSettings extends NativeInstance {
@@ -14,12 +15,20 @@ export class NativeMagickSettings extends NativeInstance {
                 ImageMagick._api._MagickSettings_SetFileName(this._instance, filenamePtr);
             });
         }
+
+        if (settings.format !== undefined) {
+            withString(settings.format, (formatPtr) => {
+                ImageMagick._api._MagickSettings_Format_Set(this._instance, formatPtr);
+            });
+        }
     }
 }
 
 export class MagickSettings {
     /** @internal */
     _fileName?: string;
+
+    format?: MagickFormat;
 
     /** @internal */
     _use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {

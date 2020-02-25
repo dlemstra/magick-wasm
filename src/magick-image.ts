@@ -3,11 +3,13 @@ import { ColorSpace } from "./color-space";
 import { Exception } from "./exception/exception";
 import { ImageMagick } from "./image-magick";
 import { MagickGeometry } from "./types/magick-geometry";
+import { MagickFormat } from "./magick-format";
 import { MagickSettings } from "./settings/magick-settings";
 import { NativeInstance } from "./native-instance";
 import { PixelCollection } from "./pixels/pixel-collection";
 import { withString } from "./util/string";
 import { PixelChannel } from "./pixel-channel";
+import { Pointer } from "./pointer/pointer";
 
 export class MagickImage extends NativeInstance {
     private readonly settings: MagickSettings;
@@ -100,6 +102,7 @@ export class MagickImage extends NativeInstance {
                 this.settings._fileName = fileNameOrArray;
                 this.settings._use((settings) => {
                     const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
+                    this.settings._fileName = undefined;
                     this._setInstance(instance, exception);
                 });
             } else {
@@ -133,6 +136,32 @@ export class MagickImage extends NativeInstance {
     }
 
     toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
+
+    write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
+    write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
+    write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void> {
+        let bytes = new Uint8Array();
+
+        Exception.use((exception) => {
+            Pointer.use((pointer) => {
+                if (format !== undefined)
+                    this.settings.format = format;
+
+                this.settings._use((settings) => {
+                    let data = 0;
+                    try {
+                        data = ImageMagick._api._MagickImage_WriteBlob(this._instance, settings._instance, pointer.ptr, exception.ptr);
+                        bytes = ImageMagick._api.HEAPU8.subarray(data, data + pointer.value);
+                    } catch {
+                        if (data !== 0)
+                            ImageMagick._api._MagickMemory_Relinquish(data);
+                    }
+                });
+            });
+        });
+
+        return func(bytes);
+    }
 
     /** @internal */
     protected _instanceNotInitialized(): void {
