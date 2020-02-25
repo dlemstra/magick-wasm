@@ -67,7 +67,7 @@ export class PixelCollection extends NativeInstance {
 
         try {
             const count = width * height * channelCount;
-            return ImageMagick._api.HEAPU8.subarray(instance, instance + count);
+            return ImageMagick._api.HEAPU8.slice(instance, instance + count);
         }
         finally {
             ImageMagick._api._MagickMemory_Relinquish(instance);
