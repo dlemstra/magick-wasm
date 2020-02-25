@@ -16,15 +16,15 @@ export class MagickFormatInfo {
         this._isWritable = isWritable;
     }
 
-    public get description(): string { return this._description; }
+    get description(): string { return this._description; }
 
-    public get format(): MagickFormat { return this._format; }
+    get format(): MagickFormat { return this._format; }
 
-    public get isReadable(): boolean { return this._isReadable; }
+    get isReadable(): boolean { return this._isReadable; }
 
-    public get isWritable(): boolean { return this._isWritable; }
+    get isWritable(): boolean { return this._isWritable; }
 
-    public static get all(): MagickFormatInfo[] {
+    static get all(): MagickFormatInfo[] {
         return Exception.usePointer(exception => {
             return Pointer.use(pointer => {
                 const list = ImageMagick._api._MagickFormatInfo_CreateList(pointer.ptr, exception);

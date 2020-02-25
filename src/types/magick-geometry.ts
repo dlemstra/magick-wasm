@@ -4,7 +4,7 @@ export class MagickGeometry {
     private _x: number;
     private _y: number;
 
-    public constructor(width: number, height: number, x = 0, y = 0) {
+    constructor(width: number, height: number, x = 0, y = 0) {
         this._width = width;
         this._height = height;
         this._x = x;
