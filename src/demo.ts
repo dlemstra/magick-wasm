@@ -13,7 +13,9 @@ initializeImageMagick().then(async () => {
         console.log(image.toString());
     });
 
-    ImageMagick.read('foobar:', () => { });
+    ImageMagick.read('foobar:', (image) => {
+        console.log(image.toString());
+    });
 }).catch((err) => {
     console.error(err);
 });
