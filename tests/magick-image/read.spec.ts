@@ -2,6 +2,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
+import { TestFiles } from '../test-files';
 import * as fs from "fs";
 
 let image: MagickImage;
@@ -23,7 +24,7 @@ describe('MagickImage#read', () => {
     });
 
     it('should read image from array', () => {
-        const data = fs.readFileSync('tests/images/ImageMagick.jpg');
+        const data = fs.readFileSync(TestFiles.imageMagickJpg);
         image.read(data);
         expect(image.width).toEqual(123);
         expect(image.height).toEqual(118);

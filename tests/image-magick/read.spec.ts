@@ -1,6 +1,7 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from '../../src/image-magick';
+import { TestFiles } from '../test-files';
 import * as fs from "fs";
 import * as util from "util";
 
@@ -23,7 +24,7 @@ describe('ImageMagick#read', () => {
 
     it('should read image from array async', async () => {
         const readFile = util.promisify(fs.readFile);
-        const data = await readFile('tests/images/ImageMagick.jpg');
+        const data = await readFile(TestFiles.imageMagickJpg);
         await ImageMagick.read(data, (image) => {
             expect(image.width).toEqual(123);
             expect(image.height).toEqual(118);
@@ -31,7 +32,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array', () => {
-        const data = fs.readFileSync('tests/images/ImageMagick.jpg');
+        const data = fs.readFileSync(TestFiles.imageMagickJpg);
         ImageMagick.read(data, (image) => {
             expect(image.width).toEqual(123);
             expect(image.height).toEqual(118);
