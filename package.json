@@ -13,7 +13,7 @@
     "cpy-cli": "~2.0.0",
     "eslint": "^6.8.0",
     "jest": "^25.3.0",
-    "magick-native": "https://dl.dropboxusercontent.com/s/7zcz8ov0yb91vrm/magick-native-0.202002.252052.tgz",
+    "magick-native": "https://dl.dropboxusercontent.com/s/n74m34wdevjwbak/magick-native-0.202005.71911.tgz",
     "ts-jest": "^25.3.1",
     "typescript": "^3.8.3"
   }
