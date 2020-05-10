@@ -1,4 +1,5 @@
 import { AlphaOption } from "./alpha-option";
+import { Channels } from "./channels";
 import { ColorSpace } from "./color-space";
 import { Exception } from "./exception/exception";
 import { ImageMagick } from "./image-magick";
@@ -52,6 +53,26 @@ export class MagickImage extends NativeInstance {
     alpha(value: AlphaOption): void {
         Exception.usePointer((exception) => {
             ImageMagick._api._MagickImage_SetAlpha(this._instance, value, exception);
+        });
+    }
+
+    blur(): void;
+    blur(channels: Channels): void;
+    blur(radius: number, sigma: number): void;
+    blur(radius: number, sigma: number, channels: Channels): void;
+    blur(radiusOrChannel?: number | Channels, sigma?: number, channels?: Channels): void {
+        let radius = 0;
+        const sigmaValue = this.valueOrDefault(sigma, 1);
+        let channelsValue = this.valueOrDefault(channels, Channels.Composite);
+
+        if (typeof radiusOrChannel === 'number')
+            radius = radiusOrChannel;
+        else if (radiusOrChannel !== undefined)
+            channelsValue = radiusOrChannel;
+
+        Exception.use((exception) => {
+            const instance = ImageMagick._api._MagickImage_Blur(this._instance, radius, sigmaValue, channelsValue, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
@@ -166,5 +187,12 @@ export class MagickImage extends NativeInstance {
     /** @internal */
     protected _instanceNotInitialized(): void {
         throw new Error('no image has been read');
+    }
+
+    private valueOrDefault<TType>(value: TType | undefined, defaultValue: TType): TType {
+        if (value === undefined)
+            return defaultValue;
+
+        return value;
     }
 }
