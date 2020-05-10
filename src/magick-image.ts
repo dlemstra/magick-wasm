@@ -48,6 +48,20 @@ export class MagickImage extends NativeInstance {
     get format(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._MagickImage_Format_Get(this._instance)); }
     set format(value) { withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
 
+    get hasAlpha(): boolean {
+        return Exception.usePointer((exception) => {
+            return this.toBool(ImageMagick._api._MagickImage_HasAlpha_Get(this._instance, exception));
+        });
+    }
+    set hasAlpha(value: boolean) {
+        Exception.usePointer((exception) => {
+            if (value)
+                this.alpha(AlphaOption.Opaque);
+
+            ImageMagick._api._MagickImage_HasAlpha_Set(this._instance, this.fromBool(value), exception);
+        });
+    }
+
     get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
 
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
@@ -189,6 +203,14 @@ export class MagickImage extends NativeInstance {
     /** @internal */
     protected _instanceNotInitialized(): void {
         throw new Error('no image has been read');
+    }
+
+    private fromBool(value: boolean): number {
+        return value ? 1 : 0;
+    }
+
+    private toBool(value: number): boolean {
+        return value === 1;
     }
 
     private valueOrDefault<TType>(value: TType | undefined, defaultValue: TType): TType {
