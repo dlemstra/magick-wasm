@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import { ImageMagick } from "../image-magick";
 import { Exception } from "../exception/exception";
 import { withString } from "../util/string";

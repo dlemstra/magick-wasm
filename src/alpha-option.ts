@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 export enum AlphaOption {
     Undefined,
     Activate,

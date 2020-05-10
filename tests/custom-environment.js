@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 const NodeEnvironment = require('jest-environment-node');
 const ImageMagick = require('../lib/image-magick.js');
 

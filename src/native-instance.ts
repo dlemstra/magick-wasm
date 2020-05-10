@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import { Exception } from "./exception/exception";
 
 export abstract class NativeInstance {

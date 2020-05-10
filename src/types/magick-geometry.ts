@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 export class MagickGeometry {
     private _width: number;
     private _height: number;

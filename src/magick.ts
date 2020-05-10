@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import { ImageMagick } from "./image-magick";
 import { MagickFormatInfo } from "./magick-format-info";
 

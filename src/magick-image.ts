@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import { AlphaOption } from "./alpha-option";
 import { Channels } from "./channels";
 import { ColorSpace } from "./color-space";

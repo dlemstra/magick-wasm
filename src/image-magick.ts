@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import MagickNative from './wasm/magick.js';
 import { ImageMagickApi } from './wasm/magick.js';
 import { MagickImage } from './magick-image';

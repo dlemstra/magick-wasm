@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 export enum Channels {
     None = 0x0000,
     Red = 0x0001,

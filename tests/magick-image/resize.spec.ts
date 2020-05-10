@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
 import { MagickGeometry } from '../../src/types/magick-geometry';

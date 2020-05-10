@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import { MagickImage } from "../src/magick-image";
 import { PixelChannel } from "../src/pixel-channel";
 

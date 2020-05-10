@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import { ImageMagick } from '../../src/image-magick';
 import * as fs from "fs";
 import * as util from "util";

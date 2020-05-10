@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import { ImageMagick } from "../image-magick";
 import { ExceptionSeverity } from "./exception-severity";
 import { Pointer } from "../pointer/pointer";

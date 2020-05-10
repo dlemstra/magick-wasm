@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import { AlphaOption } from '../../src/alpha-option';
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';

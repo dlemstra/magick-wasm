@@ -1,3 +1,5 @@
+/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+
 import { initializeImageMagick, ImageMagick } from "./image-magick";
 import { Magick } from "./magick";
 import { Quantum } from "./quantum";
