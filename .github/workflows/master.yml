@@ -41,5 +41,5 @@ jobs:
       - name: Upload package
         uses: actions/upload-artifact@v2
         with:
-          name: magick-wasm
+          name: imagemagick-magick-wasm
           path: lib/*.tgz
