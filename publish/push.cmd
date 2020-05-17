@@ -1,4 +1,5 @@
 @echo off
 set VERSION=0.0.1
-set /p NPM_TOKEN=<api.key.txt
-npm publish imagemagick-magick-wasm-%VERSION%.tgz
+call npm config set prefix %~dp0
+call npm publish imagemagick-magick-wasm-%VERSION%.tgz --access public
+call npm config set prefix %APPDATA%\npm
