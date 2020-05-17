@@ -2,5 +2,6 @@ demo/*.d.ts
 demo/*.js
 lib
 node_modules
+publish/api.key.txt
 src/magick-native/package-lock.json
 src/wasm
