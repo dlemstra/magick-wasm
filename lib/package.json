@@ -1,5 +1,5 @@
 {
-  "name": "magick-wasm",
+  "name": "@imagemagick/magick-wasm",
   "version": "0.0.1",
   "main": "image-magick.js",
   "description": "The WASM library for ImageMagick",
