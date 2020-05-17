@@ -12,5 +12,6 @@
   "bugs": {
     "url": "https://github.com/dlemstra/Magick.WASM/issues"
   },
-  "homepage": "https://github.com/dlemstra/Magick.WASM"
+  "homepage": "https://github.com/dlemstra/Magick.WASM",
+  "keywords": ["imagemagick", "magick", "wasm", "image", "convert", "resize"]
 }
