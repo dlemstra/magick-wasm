@@ -1,4 +1,6 @@
-node_modules
+demo/*.d.ts
+demo/*.js
 lib
+node_modules
 src/magick-native/package-lock.json
 src/wasm

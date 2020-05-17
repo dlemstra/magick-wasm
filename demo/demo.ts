@@ -1,8 +1,8 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
-import { initializeImageMagick, ImageMagick } from "./image-magick";
-import { Magick } from "./magick";
-import { Quantum } from "./quantum";
+import { initializeImageMagick, ImageMagick } from "../lib/image-magick";
+import { Magick } from "../lib/magick";
+import { Quantum } from "../lib/quantum";
 
 initializeImageMagick().then(async () => {
     console.log(Magick.imageMagickVersion);
