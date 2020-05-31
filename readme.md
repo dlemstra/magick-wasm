@@ -1,8 +1,8 @@
-# The WebAssembly library for ImageMagick: Magick.WASM
+## The WebAssembly library for ImageMagick: Magick.WASM
 
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/Magick.WASM/master/license.txt)
 [![Twitter URL](https://img.shields.io/badge/twitter-follow-1da1f2.svg)](https://twitter.com/MagickNET)
-[![Donate](https://img.shields.io/badge/%24-donate-ff00ff.svg)](https://www.paypal.me/DirkLemstra)
+[![Donate](https://img.shields.io/badge/%24-donate-ff00ff.svg)](https://github.com/sponsors/dlemstra)
 
 ImageMagick is a powerful image manipulation library that supports over [100 major file formats](https://www.imagemagick.org/script/formats.php) (not including sub-formats).
 With Magick.WASM you can use ImageMagick in your web application without doing a callback to an api.
