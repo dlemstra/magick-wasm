@@ -9,6 +9,7 @@ import { MagickGeometry } from "./types/magick-geometry";
 import { MagickFormat } from "./magick-format";
 import { MagickSettings } from "./settings/magick-settings";
 import { NativeInstance } from "./native-instance";
+import { OrientationType } from "./orientation-type";
 import { PixelCollection } from "./pixels/pixel-collection";
 import { withString } from "./util/string";
 import { PixelChannel } from "./pixel-channel";
@@ -64,11 +65,21 @@ export class MagickImage extends NativeInstance {
 
     get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
 
+    get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
+    set orientation(value) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
+
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
 
     alpha(value: AlphaOption): void {
         Exception.usePointer((exception) => {
             ImageMagick._api._MagickImage_SetAlpha(this._instance, value, exception);
+        });
+    }
+
+    autoOrient(): void {
+        Exception.use((exception) => {
+            const instance = ImageMagick._api._MagickImage_AutoOrient(this._instance, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
