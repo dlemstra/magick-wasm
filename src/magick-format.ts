@@ -11,6 +11,7 @@ export enum MagickFormat {
     Art = 'ART',
     Arw = 'ARW',
     Avi = 'AVI',
+    Avif = 'AVIF',
     Avs = 'AVS',
     B = 'B',
     Bgr = 'BGR',

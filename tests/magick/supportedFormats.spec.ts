@@ -10,6 +10,6 @@ describe('Magick#supportedFormats', () => {
         const formats = Magick.supportedFormats;
 
         expect(formats).not.toBeNull();
-        expect(formats.length).toEqual(245);
+        expect(formats.length).toEqual(246);
     });
 });
