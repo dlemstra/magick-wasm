@@ -2,6 +2,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
+import { Percentage } from '../../src/percentage';
 import { pixelColor } from '../pixel-color';
 
 let image: MagickImage;
@@ -18,13 +19,13 @@ afterEach(() => {
 
 describe('MagickImage#deskew', () => {
     it('should rotate the image', () => {
-        image.deskew(4.2);
+        image.deskew(new Percentage(4.2));
 
-        expect(pixelColor(image, 153, 16)).toBe('#000000ff');
+        expect(pixelColor(image, 158, 16)).toBe('#000000ff');
     });
 
     it('should return the angle', () => {
-        const angle = image.deskew(42);
-        expect(angle).toEqual(-4.077664003356773);
+        const angle = image.deskew(new Percentage(42));
+        expect(angle).toEqual(0.8951737102110744);
     });
 });

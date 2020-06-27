@@ -11,9 +11,10 @@ import { MagickSettings } from "./settings/magick-settings";
 import { NativeInstance } from "./native-instance";
 import { OrientationType } from "./orientation-type";
 import { PixelCollection } from "./pixels/pixel-collection";
-import { withString } from "./util/string";
+import { Percentage } from "./percentage";
 import { PixelChannel } from "./pixel-channel";
 import { Pointer } from "./pointer/pointer";
+import { withString } from "./util/string";
 
 export class MagickImage extends NativeInstance {
     private readonly settings: MagickSettings;
@@ -110,9 +111,9 @@ export class MagickImage extends NativeInstance {
         return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
     }
 
-    deskew(threshold: number): number {
+    deskew(threshold: Percentage): number {
         Exception.use((exception) => {
-            const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold, exception.ptr);
+            const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold.toQuantum(), exception.ptr);
             this._setInstance(instance, exception);
         });
 
