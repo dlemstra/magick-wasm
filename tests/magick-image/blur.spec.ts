@@ -4,6 +4,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
 import { pixelColor } from '../pixel-color';
 import { Channels } from '../../src/channels';
+
 let image: MagickImage;
 
 beforeEach(() => {

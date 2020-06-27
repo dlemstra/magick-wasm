@@ -3,6 +3,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
 import { OrientationType } from '../../src/orientation-type';
+
 let image: MagickImage;
 
 beforeEach(() => {
