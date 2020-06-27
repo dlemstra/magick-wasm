@@ -202,6 +202,22 @@ export class MagickImage extends NativeInstance {
         });
     }
 
+    setArtifact(name: string, value: string): void;
+    setArtifact(name: string, value: boolean): void;
+    setArtifact(name: string, value: string | boolean): void {
+        let strValue: string;
+        if (typeof value === 'string') {
+            strValue = value;
+        } else {
+            strValue = this.fromBool(value).toString();
+        }
+        withString(name, (namePtr) => {
+            withString(strValue, (valuePtr) => {
+                ImageMagick._api._MagickImage_SetArtifact(this._instance, namePtr, valuePtr);
+            });
+        });
+    }
+
     toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
 
     write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
