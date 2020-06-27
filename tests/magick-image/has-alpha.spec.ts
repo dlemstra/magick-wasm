@@ -20,7 +20,7 @@ describe('MagickImage#hasAlpha', () => {
     it('should return true when image has alpha channel', () => {
         const data = fs.readFileSync(TestFiles.redPng);
         image.read(data);
-        expect(image.hasAlpha).toEqual(true);
+        expect(image.hasAlpha).toBe(true);
     });
 
     it('should should disable the alpha channel', () => {
@@ -28,6 +28,6 @@ describe('MagickImage#hasAlpha', () => {
         image.read(data);
         image.hasAlpha = false;
 
-        expect(image.hasAlpha).toEqual(false);
+        expect(image.hasAlpha).toBe(false);
     });
 });

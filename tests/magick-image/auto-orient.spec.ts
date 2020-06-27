@@ -19,8 +19,8 @@ describe('MagickImage#autoOrient', () => {
     it('should rotate the image', () => {
         image.orientation = OrientationType.LeftTop;
         image.autoOrient();
-        expect(image.orientation).toEqual(OrientationType.TopLeft);
-        expect(image.width).toEqual(480);
-        expect(image.height).toEqual(640);
+        expect(image.orientation).toBe(OrientationType.TopLeft);
+        expect(image.width).toBe(480);
+        expect(image.height).toBe(640);
     });
 });

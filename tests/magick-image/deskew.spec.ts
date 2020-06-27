@@ -20,6 +20,6 @@ describe('MagickImage#deskew', () => {
     it('should rotate the image', () => {
         image.deskew(4.2);
 
-        expect(pixelColor(image, 153, 16)).toEqual('#000000ff');
+        expect(pixelColor(image, 153, 16)).toBe('#000000ff');
     });
 });

@@ -19,11 +19,11 @@ afterEach(() => {
 describe('MagickImage#blur', () => {
     it('should change pixels of the image', () => {
         image.blur(5, 5);
-        expect(pixelColor(image, 222, 60)).toEqual('#ff6a6a');
+        expect(pixelColor(image, 222, 60)).toBe('#ff6a6a');
     });
 
     it('should only blur the specified channel', () => {
         image.blur(5, 5, Channels.Green);
-        expect(pixelColor(image, 222, 60)).toEqual('#ff6a00');
+        expect(pixelColor(image, 222, 60)).toBe('#ff6a00');
     });
 });

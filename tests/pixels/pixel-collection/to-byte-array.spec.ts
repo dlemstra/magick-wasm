@@ -23,6 +23,6 @@ describe('PixelCollection#toByteArray', () => {
     it('should return array with the correct size', () => {
         const data = pixels.toByteArray(0, 0, 2, 3, 'rgb');
         expect(data).not.toBeNull();
-        expect(data!.length).toEqual(18);
+        expect(data!.length).toBe(18);
     });
 });

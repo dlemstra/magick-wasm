@@ -10,15 +10,15 @@ beforeAll(() => { ImageMagick._api = (global as any).native; });
 describe('ImageMagick#read', () => {
     it('should read built-in image async', async () => {
         await ImageMagick.read('logo:', async (image) => {
-            expect(image.width).toEqual(640);
-            expect(image.height).toEqual(480);
+            expect(image.width).toBe(640);
+            expect(image.height).toBe(480);
         });
     });
 
     it('should read built-in image', () => {
         ImageMagick.read('wizard:', (image) => {
-            expect(image.width).toEqual(480);
-            expect(image.height).toEqual(640);
+            expect(image.width).toBe(480);
+            expect(image.height).toBe(640);
         });
     });
 
@@ -26,16 +26,16 @@ describe('ImageMagick#read', () => {
         const readFile = util.promisify(fs.readFile);
         const data = await readFile(TestFiles.imageMagickJpg);
         await ImageMagick.read(data, (image) => {
-            expect(image.width).toEqual(123);
-            expect(image.height).toEqual(118);
+            expect(image.width).toBe(123);
+            expect(image.height).toBe(118);
         });
     });
 
     it('should read image from array', () => {
         const data = fs.readFileSync(TestFiles.imageMagickJpg);
         ImageMagick.read(data, (image) => {
-            expect(image.width).toEqual(123);
-            expect(image.height).toEqual(118);
+            expect(image.width).toBe(123);
+            expect(image.height).toBe(118);
         });
     });
 });

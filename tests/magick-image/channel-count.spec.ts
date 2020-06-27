@@ -17,6 +17,6 @@ afterEach(() => {
 describe('MagickImage#channelCount', () => {
     it('should return the number of channels', () => {
         image.read('logo:');
-        expect(image.channelCount).toEqual(4);
+        expect(image.channelCount).toBe(4);
     });
 });

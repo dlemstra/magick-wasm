@@ -7,6 +7,6 @@ beforeAll(() => { ImageMagick._api = (global as any).native; });
 
 describe('Magick#features', () => {
     it('should return the correct features', () => {
-        expect(Magick.features).toEqual('Cipher');
+        expect(Magick.features).toBe('Cipher');
     });
 });

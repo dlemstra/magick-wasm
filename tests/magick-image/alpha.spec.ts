@@ -19,7 +19,7 @@ describe('MagickImage#alpha', () => {
     it('should enable alpha channel', () => {
         image.read('logo:');
         image.alpha(AlphaOption.On);
-        expect(image.channelCount).toEqual(5);
-        expect(image.hasAlpha).toEqual(true);
+        expect(image.channelCount).toBe(5);
+        expect(image.hasAlpha).toBe(true);
     });
 });

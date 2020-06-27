@@ -19,14 +19,14 @@ describe('MagickImage#write', () => {
     it('should save the image to an array async', async () => {
         image.read('wizard:');
         await image.write(async (data) => {
-            expect(data.length).toEqual(80796);
+            expect(data.length).toBe(80796);
         }, MagickFormat.Jpeg);
     });
 
     it('should save the image to an array', () => {
         image.read('logo:');
         image.write((data) => {
-            expect(data.length).toEqual(27398);
+            expect(data.length).toBe(27398);
         }, MagickFormat.Png);
     });
 });

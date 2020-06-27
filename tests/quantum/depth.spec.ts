@@ -7,6 +7,6 @@ beforeAll(() => { ImageMagick._api = (global as any).native; });
 
 describe('Quantum#depth', () => {
     it('should return the correct value', () => {
-        expect(Quantum.depth).toEqual(8);
+        expect(Quantum.depth).toBe(8);
     });
 });

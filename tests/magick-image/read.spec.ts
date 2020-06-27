@@ -19,14 +19,14 @@ afterEach(() => {
 describe('MagickImage#read', () => {
     it('should read built-in image', () => {
         image.read('logo:');
-        expect(image.width).toEqual(640);
-        expect(image.height).toEqual(480);
+        expect(image.width).toBe(640);
+        expect(image.height).toBe(480);
     });
 
     it('should read image from array', () => {
         const data = fs.readFileSync(TestFiles.imageMagickJpg);
         image.read(data);
-        expect(image.width).toEqual(123);
-        expect(image.height).toEqual(118);
+        expect(image.width).toBe(123);
+        expect(image.height).toBe(118);
     });
 });

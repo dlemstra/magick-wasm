@@ -23,6 +23,6 @@ describe('PixelCollection#toByteArray', () => {
     it('should return array with the correct size', () => {
         const data = pixels.getArea(0, 0, 4, 5);
         expect(data).not.toBeNull();
-        expect(data!.length).toEqual(80);
+        expect(data!.length).toBe(80);
     });
 });
