@@ -118,7 +118,7 @@ export class MagickImage extends NativeInstance {
             this._setInstance(instance, exception);
         });
 
-        const angle = Number(this.getArtifact("deskew:angle"));
+        const angle = Number(this.getArtifact('deskew:angle'));
         return isNaN(angle) ? 0.0 : angle;
     }
 
@@ -126,7 +126,7 @@ export class MagickImage extends NativeInstance {
         canvas.width = this.width;
         canvas.height = this.height;
 
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext('2d');
         if (ctx === null)
             return;
 

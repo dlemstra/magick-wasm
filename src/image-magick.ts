@@ -32,7 +32,7 @@ export class ImageMagick {
     /** @internal */
     static get _api(): ImageMagickApi {
         if (instance.api === undefined) // eslint-disable-line @typescript-eslint/no-use-before-define
-            throw new Error("`await initializeImageMagick` should be called to initialize the library");
+            throw new Error('`await initializeImageMagick` should be called to initialize the library');
 
         return instance.api; // eslint-disable-line @typescript-eslint/no-use-before-define
     }
