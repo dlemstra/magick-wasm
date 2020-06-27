@@ -110,6 +110,13 @@ export class MagickImage extends NativeInstance {
         return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
     }
 
+    deskew(threshold: number): void {
+        Exception.use((exception) => {
+            const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
     drawOnCanvas(canvas: HTMLCanvasElement): void {
         canvas.width = this.width;
         canvas.height = this.height;
