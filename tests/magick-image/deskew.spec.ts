@@ -22,4 +22,9 @@ describe('MagickImage#deskew', () => {
 
         expect(pixelColor(image, 153, 16)).toBe('#000000ff');
     });
+
+    it('should return the angle', () => {
+        const angle = image.deskew(42);
+        expect(angle).toEqual(-4.077664003356773);
+    });
 });

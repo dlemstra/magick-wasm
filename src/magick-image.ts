@@ -110,11 +110,14 @@ export class MagickImage extends NativeInstance {
         return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
     }
 
-    deskew(threshold: number): void {
+    deskew(threshold: number): number {
         Exception.use((exception) => {
             const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold, exception.ptr);
             this._setInstance(instance, exception);
         });
+
+        const angle = Number(this.getArtifact("deskew:angle"));
+        return isNaN(angle) ? 0.0 : angle;
     }
 
     drawOnCanvas(canvas: HTMLCanvasElement): void {
@@ -139,6 +142,13 @@ export class MagickImage extends NativeInstance {
             }
 
             ctx.putImageData(imageData, 0, 0);
+        });
+    }
+
+    getArtifact(name: string): string {
+        return withString(name, (namePtr) => {
+            const value = ImageMagick._api._MagickImage_GetArtifact(this._instance, namePtr);
+            return ImageMagick._api.UTF8ToString(value);
         });
     }
 
