@@ -7,6 +7,12 @@ import { withString } from "../util/string";
 
 export class MagickReadSettings extends MagickSettings {
 
+    public constructor(partialSettings?: Partial<MagickReadSettings>) {
+        super();
+
+        Object.assign(this, partialSettings);
+    }
+
     width?: number;
 
     height?: number;

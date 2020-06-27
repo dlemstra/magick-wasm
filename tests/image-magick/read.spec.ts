@@ -41,9 +41,11 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image with width and height specified', () => {
-        const settings = new MagickReadSettings();
-        settings.width = 2;
-        settings.height = 3;
+        const settings = new MagickReadSettings(
+        {
+            width: 2,
+            height: 3
+        });
 
         ImageMagick.read('xc:red', settings, (image) => {
             expect(image.width).toBe(2);
@@ -52,9 +54,11 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image with width and height specified async', async () => {
-        const settings = new MagickReadSettings();
-        settings.width = 2;
-        settings.height = 3;
+        const settings = new MagickReadSettings(
+        {
+            width: 2,
+            height: 3
+        });
 
         await ImageMagick.read('xc:red', settings, (image) => {
             expect(image.width).toBe(2);
