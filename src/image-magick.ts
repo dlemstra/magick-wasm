@@ -3,6 +3,7 @@
 import MagickNative from './wasm/magick.js';
 import { ImageMagickApi } from './wasm/magick.js';
 import { MagickImage } from './magick-image';
+import { MagickReadSettings } from './settings/magick-read-settings.js';
 import { withNativeString } from './util/string';
 
 export class ImageMagick {
@@ -45,13 +46,31 @@ export class ImageMagick {
     static read(fileName: string, func: (image: MagickImage) => Promise<void>): Promise<void>;
     static read(array: Uint8Array, func: (image: MagickImage) => void): void;
     static read(array: Uint8Array, func: (image: MagickImage) => Promise<void>): Promise<void>;
-    static read(fileNameOrArray: string | Uint8Array, func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
+    static read(fileName: string, settings: MagickReadSettings, func: (image: MagickImage) => void): void;
+    static read(fileName: string, settings: MagickReadSettings, func: (image: MagickImage) => Promise<void>): Promise<void>;
+    static read(array: Uint8Array, settings: MagickReadSettings, func: (image: MagickImage) => void): void;
+    static read(array: Uint8Array, settings: MagickReadSettings, func: (image: MagickImage) => Promise<void>): Promise<void>;
+    static read(fileNameOrArray: string | Uint8Array, funcOrSettings: MagickReadSettings | ((image: MagickImage) => void | Promise<void>), func?: (image: MagickImage) => void): void | Promise<void> {
         MagickImage._use((image) => {
-            if (typeof fileNameOrArray === 'string')
-                image.read(fileNameOrArray);
+
+            if (typeof funcOrSettings === 'object')
+            {
+                if (typeof fileNameOrArray === 'string')
+                    image.read(fileNameOrArray, funcOrSettings);
+                else
+                    image.read(fileNameOrArray, funcOrSettings);
+
+                return func!(image); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+            }
             else
-                image.read(fileNameOrArray);
-            return func(image);
+            {
+                if (typeof fileNameOrArray === 'string')
+                    image.read(fileNameOrArray);
+                else
+                    image.read(fileNameOrArray);
+
+                return funcOrSettings(image);
+            }
         });
     }
 }

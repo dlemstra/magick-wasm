@@ -7,6 +7,7 @@ import { Exception } from "./exception/exception";
 import { ImageMagick } from "./image-magick";
 import { MagickGeometry } from "./types/magick-geometry";
 import { MagickFormat } from "./magick-format";
+import { MagickReadSettings } from "./settings/magick-read-settings";
 import { MagickSettings } from "./settings/magick-settings";
 import { NativeInstance } from "./native-instance";
 import { OrientationType } from "./orientation-type";
@@ -159,20 +160,20 @@ export class MagickImage extends NativeInstance {
         });
     }
 
-    read(fileName: string): void;
-    read(array: Uint8Array): void;
-    read(fileNameOrArray: string | Uint8Array): void;
-    read(fileNameOrArray: string | Uint8Array): void {
+    read(fileName: string, settings?: MagickReadSettings): void;
+    read(array: Uint8Array, settings?: MagickReadSettings): void;
+    read(fileNameOrArray: string | Uint8Array, settings?: MagickReadSettings): void {
+        const readSettings = settings !== undefined ? settings : MagickReadSettings._createFrom(this.settings);
+
         Exception.use((exception) => {
             if (typeof fileNameOrArray === 'string') {
-                this.settings._fileName = fileNameOrArray;
-                this.settings._use((settings) => {
+                readSettings._fileName = fileNameOrArray;
+                readSettings._use((settings) => {
                     const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
-                    this.settings._fileName = undefined;
                     this._setInstance(instance, exception);
                 });
             } else {
-                this.settings._use((settings) => {
+                readSettings._use((settings) => {
                     const length = fileNameOrArray.byteLength;
                     let data = 0;
                     try {

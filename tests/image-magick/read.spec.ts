@@ -1,6 +1,7 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from '../../src/image-magick';
+import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
 import * as fs from "fs";
 import * as util from "util";
@@ -36,6 +37,28 @@ describe('ImageMagick#read', () => {
         ImageMagick.read(data, (image) => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
+        });
+    });
+
+    it('should read image with width and height specified', () => {
+        const settings = new MagickReadSettings();
+        settings.width = 2;
+        settings.height = 3;
+
+        ImageMagick.read('xc:red', settings, (image) => {
+            expect(image.width).toBe(2);
+            expect(image.height).toBe(3);
+        });
+    });
+
+    it('should read image with width and height specified async', async () => {
+        const settings = new MagickReadSettings();
+        settings.width = 2;
+        settings.height = 3;
+
+        await ImageMagick.read('xc:red', settings, (image) => {
+            expect(image.width).toBe(2);
+            expect(image.height).toBe(3);
         });
     });
 });
