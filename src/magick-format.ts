@@ -10,6 +10,7 @@ export enum MagickFormat {
     Ai = 'AI',
     Art = 'ART',
     Arw = 'ARW',
+    Ashlar = 'ASHLAR',
     Avi = 'AVI',
     Avif = 'AVIF',
     Avs = 'AVS',
