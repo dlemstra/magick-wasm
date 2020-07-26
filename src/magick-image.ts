@@ -46,10 +46,10 @@ export class MagickImage extends NativeInstance {
     }
 
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
-    set depth(value) { ImageMagick._api._MagickImage_Depth_Set(this._instance, value); }
+    set depth(value: number) { ImageMagick._api._MagickImage_Depth_Set(this._instance, value); }
 
     get format(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._MagickImage_Format_Get(this._instance)); }
-    set format(value) { withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
+    set format(value: string) { withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
 
     get hasAlpha(): boolean {
         return Exception.usePointer((exception) => {
@@ -68,7 +68,7 @@ export class MagickImage extends NativeInstance {
     get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
 
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
-    set orientation(value) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
+    set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
 
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
 

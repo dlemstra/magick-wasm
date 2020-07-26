@@ -9,7 +9,7 @@ function toHex(number: number): string {
         hex = '0' + hex;
     }
     return hex;
-};
+}
 
 export function pixelColor(image: MagickImage, x: number, y: number): string {
     return image.pixels((pixels) => {
