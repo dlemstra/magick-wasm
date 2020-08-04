@@ -5,6 +5,7 @@ import { Channels } from "./channels";
 import { ColorSpace } from "./color-space";
 import { Exception } from "./exception/exception";
 import { ImageMagick } from "./image-magick";
+import { MagickColor } from "./magick-color";
 import { MagickGeometry } from "./types/magick-geometry";
 import { MagickFormat } from "./magick-format";
 import { MagickReadSettings } from "./settings/magick-read-settings";
@@ -35,6 +36,17 @@ export class MagickImage extends NativeInstance {
         } finally {
             image.dispose();
         }
+    }
+
+    get backgroundColor(): MagickColor { 
+        const colorPtr = ImageMagick._api._MagickImage_BackgroundColor_Get(this._instance);
+        return MagickColor.create(colorPtr);
+    }
+    set backgroundColor(value: MagickColor) {
+        value.use((valuePtr) =>
+        {
+            ImageMagick._api._MagickImage_BackgroundColor_Set(this._instance, valuePtr);
+        });
     }
 
     get channelCount(): number { return ImageMagick._api._MagickImage_ChannelCount_Get(this._instance); }

@@ -4,29 +4,36 @@ import { ImageMagick } from "./image-magick";
 import { withString } from "./util/string";
 
 export class MagickColor {
-    private red: number = 0;
-    private green: number = 0;
-    private blue: number = 0;
-    private alpha: number = 0;
-    private black: number = 0;
-    private _isCmyk: boolean = false;
+    private red = 0;
+    private green = 0;
+    private blue = 0;
+    private alpha = 0;
+    private black = 0;
+    private _isCmyk = false;
 
-    constructor(color: string) {
+    constructor(color?: string) {
+        if (color === undefined)
+            return;
+
         let instance = 0;
         try {
             instance = ImageMagick._api._MagickColor_Create();
             withString(color, (colorPtr) => {
                 if (ImageMagick._api._MagickColor_Initialize(instance, colorPtr) === 0)
                     throw new Error("invalid color specified");
-                this.red = ImageMagick._api._MagickColor_Red_Get(instance);
-                this.green = ImageMagick._api._MagickColor_Green_Get(instance);
-                this.blue = ImageMagick._api._MagickColor_Blue_Get(instance);
-                this.alpha = ImageMagick._api._MagickColor_Alpha_Get(instance);
-                this._isCmyk = ImageMagick._api._MagickColor_IsCMYK_Get(instance) === 1;
+                this.initialize(instance);
             });
         } finally {
             ImageMagick._api._free(instance);
         }
+    }
+
+    /** @internal */
+    static create(colorPtr: number): MagickColor {
+        const color = new MagickColor();
+        color.initialize(colorPtr);
+
+        return color;
     }
 
     get r(): number { return this.red }
@@ -60,5 +67,13 @@ export class MagickColor {
         } finally {
             ImageMagick._api._free(instance);
         }
+    }
+
+    private initialize(instance: number) {
+        this.red = ImageMagick._api._MagickColor_Red_Get(instance);
+        this.green = ImageMagick._api._MagickColor_Green_Get(instance);
+        this.blue = ImageMagick._api._MagickColor_Blue_Get(instance);
+        this.alpha = ImageMagick._api._MagickColor_Alpha_Get(instance);
+        this._isCmyk = ImageMagick._api._MagickColor_IsCMYK_Get(instance) === 1;
     }
 }
