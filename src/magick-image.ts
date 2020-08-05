@@ -3,6 +3,8 @@
 import { AlphaOption } from "./alpha-option";
 import { Channels } from "./channels";
 import { ColorSpace } from "./color-space";
+import { DistortMethod } from "./distort-method";
+import { DistortSettings } from "./settings/distort-settings";
 import { Exception } from "./exception/exception";
 import { ImageMagick } from "./image-magick";
 import { MagickColor } from "./magick-color";
@@ -16,7 +18,9 @@ import { PixelCollection } from "./pixels/pixel-collection";
 import { Percentage } from "./percentage";
 import { PixelChannel } from "./pixel-channel";
 import { Pointer } from "./pointer/pointer";
+import { VirtualPixelMethod } from "./virtual-pixel-method";
 import { withString } from "./native/string";
+import { withDoubleArray } from "./native/array";
 
 export class MagickImage extends NativeInstance {
     private readonly settings: MagickSettings;
@@ -82,6 +86,17 @@ export class MagickImage extends NativeInstance {
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
 
+    get virtualPixelMethod(): VirtualPixelMethod { 
+        return Exception.usePointer((exception) => {
+            return ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance, exception);
+        });
+    }
+    set virtualPixelMethod(value: VirtualPixelMethod)  { 
+        Exception.usePointer((exception) => {
+            ImageMagick._api._MagickImage_VirtualPixelMethod_Set(this._instance, value, exception);
+        });
+    }
+
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
 
     alpha(value: AlphaOption): void {
@@ -132,6 +147,62 @@ export class MagickImage extends NativeInstance {
 
         const angle = Number(this.getArtifact('deskew:angle'));
         return isNaN(angle) ? 0.0 : angle;
+    }
+
+    distort(method: DistortMethod, params: number[]): void;
+    distort(method: DistortMethod, settings: DistortSettings, params: number[]): void;
+    distort(method: DistortMethod, settingsOrParams: number[] | DistortSettings, params?: number[]): void {
+        let distortArgs: number[];
+        let bestFit = 0;
+        if (settingsOrParams instanceof Array) {
+            distortArgs = settingsOrParams;
+        } else if (params instanceof Array) {
+            distortArgs = params;
+            const settings = <DistortSettings>settingsOrParams;
+            bestFit = settings.bestFit ? 1 : 0;
+
+            //settings.setArtifacts(this);
+            //if (settings.scale !== undefined) {
+            //    this.setArtifact('distort:scale', settings.scale.toString());
+            //}
+        } else {
+            distortArgs = [];
+        }
+
+        Exception.use((exception) => {
+            withDoubleArray(distortArgs, (distortArgsPtr: number) => {
+                const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, distortArgsPtr, distortArgs.length, exception.ptr);
+                this._setInstance(instance, exception)
+            });
+
+    //             if (args.length !== 0) {
+    //                 const length = args.length * args.BYTES_PER_ELEMENT;
+    //                 console.log(length);
+    //                 distortArgs = ImageMagick._api._malloc(length);
+    //                 for(var k=0;k<length;k++)
+    //                     ImageMagick._api.HEAPU8[distortArgs+k] = 0;
+
+    //                 ImageMagick._api.HEAPU8.set([1.5], distortArgs);
+
+    //                 var buffer = new ArrayBuffer(length);         // JS numbers are 8 bytes long, or 64 bits
+    // var longNum = new Float64Array(buffer);  // so equivalent to Float64
+
+    // longNum[0] = args[0];
+    // longNum[1] = args[1];
+
+    // const bla = new Int8Array(buffer);
+
+    // ImageMagick._api.HEAPU8.set(new Int8Array(buffer), distortArgs);
+
+
+    //                 // const aa = new Float64Array(ImageMagick._api.HEAPU8[distortArgs]);
+    //                 // aa[0] = 31337.777;
+    //             }
+    //             console.log(method, bestFit, args, args.length);
+    //             const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, distortArgs, args.length, exception.ptr);
+    //             this._setInstance(instance, exception)
+    //             //settings.removeArtifacts(this);
+        });
     }
 
     drawOnCanvas(canvas: HTMLCanvasElement): void {
