@@ -16,7 +16,7 @@ afterEach(() => {
 });
 
 describe('MagickImage#backgroundColor', () => {
-    it('should return default background color', () => {
+    it('should the background color of the image', () => {
         image.read('rose:');
         const backgroundColor = image.backgroundColor;
         expect(backgroundColor.r).toBe(255);
