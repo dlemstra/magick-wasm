@@ -2,7 +2,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
-import { MagickGeometry } from '../../src/types/magick-geometry';
+import { MagickGeometry } from '../../src/magick-geometry';
 
 let image: MagickImage;
 

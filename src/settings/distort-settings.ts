@@ -1,6 +1,6 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
-import { MagickGeometry } from "../types/magick-geometry";
+import { MagickGeometry } from "../magick-geometry";
 
 export class DistortSettings {
 

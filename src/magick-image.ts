@@ -8,7 +8,7 @@ import { DistortSettings } from "./settings/distort-settings";
 import { Exception } from "./exception/exception";
 import { ImageMagick } from "./image-magick";
 import { MagickColor } from "./magick-color";
-import { MagickGeometry } from "./types/magick-geometry";
+import { MagickGeometry } from "./magick-geometry";
 import { MagickFormat } from "./magick-format";
 import { MagickReadSettings } from "./settings/magick-read-settings";
 import { MagickSettings } from "./settings/magick-settings";
