@@ -161,7 +161,7 @@ export class MagickImage extends NativeInstance {
             const settings = <DistortSettings>settingsOrParams;
             bestFit = settings.bestFit ? 1 : 0;
 
-            //settings.setArtifacts(this);
+            settings.setArtifacts(this);
             //if (settings.scale !== undefined) {
             //    this.setArtifact('distort:scale', settings.scale.toString());
             //}
@@ -174,34 +174,6 @@ export class MagickImage extends NativeInstance {
                 const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, distortArgsPtr, distortArgs.length, exception.ptr);
                 this._setInstance(instance, exception)
             });
-
-    //             if (args.length !== 0) {
-    //                 const length = args.length * args.BYTES_PER_ELEMENT;
-    //                 console.log(length);
-    //                 distortArgs = ImageMagick._api._malloc(length);
-    //                 for(var k=0;k<length;k++)
-    //                     ImageMagick._api.HEAPU8[distortArgs+k] = 0;
-
-    //                 ImageMagick._api.HEAPU8.set([1.5], distortArgs);
-
-    //                 var buffer = new ArrayBuffer(length);         // JS numbers are 8 bytes long, or 64 bits
-    // var longNum = new Float64Array(buffer);  // so equivalent to Float64
-
-    // longNum[0] = args[0];
-    // longNum[1] = args[1];
-
-    // const bla = new Int8Array(buffer);
-
-    // ImageMagick._api.HEAPU8.set(new Int8Array(buffer), distortArgs);
-
-
-    //                 // const aa = new Float64Array(ImageMagick._api.HEAPU8[distortArgs]);
-    //                 // aa[0] = 31337.777;
-    //             }
-    //             console.log(method, bestFit, args, args.length);
-    //             const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, distortArgs, args.length, exception.ptr);
-    //             this._setInstance(instance, exception)
-    //             //settings.removeArtifacts(this);
         });
     }
 
