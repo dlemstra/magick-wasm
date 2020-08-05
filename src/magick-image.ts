@@ -16,7 +16,7 @@ import { PixelCollection } from "./pixels/pixel-collection";
 import { Percentage } from "./percentage";
 import { PixelChannel } from "./pixel-channel";
 import { Pointer } from "./pointer/pointer";
-import { withString } from "./util/string";
+import { withString } from "./native/string";
 
 export class MagickImage extends NativeInstance {
     private readonly settings: MagickSettings;

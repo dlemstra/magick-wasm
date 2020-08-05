@@ -1,7 +1,7 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from "./image-magick";
-import { withString } from "./util/string";
+import { withString } from "./native/string";
 
 export class MagickColor {
     private red = 0;

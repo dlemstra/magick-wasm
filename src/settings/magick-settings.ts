@@ -3,7 +3,7 @@
 import { ImageMagick } from "../image-magick";
 import { MagickFormat } from "../magick-format";
 import { NativeInstance } from "../native-instance";
-import { withString } from "../util/string";
+import { withString } from "../native/string";
 
 /** @internal */
 export class NativeMagickSettings extends NativeInstance {

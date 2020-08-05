@@ -2,7 +2,7 @@
 
 import { ImageMagick } from "../image-magick";
 import { Exception } from "../exception/exception";
-import { withString } from "../util/string";
+import { withString } from "../native/string";
 import { NativeInstance } from "../native-instance";
 import { MagickImage } from "../magick-image";
 import { quantumArray } from "../wasm/magick";
