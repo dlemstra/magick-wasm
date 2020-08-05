@@ -3,7 +3,7 @@
 import MagickNative from './wasm/magick.js';
 import { ImageMagickApi } from './wasm/magick.js';
 import { MagickImage } from './magick-image';
-import { MagickReadSettings } from './settings/magick-read-settings.js';
+import { MagickReadSettings } from './settings/magick-read-settings';
 import { withNativeString } from './native/string';
 
 export class ImageMagick {
