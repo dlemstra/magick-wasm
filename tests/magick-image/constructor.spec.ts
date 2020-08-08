@@ -15,9 +15,9 @@ afterEach(() => {
 });
 
 describe('MagickImage#constructor', () => {
-    it('should set the instance as unitialized', () => {
+    it('should create empty uninitialized instance', () => {
         expect(() => {
             image.resize(1, 1);
-        }).toThrowError('no image has been read');
+        }).toThrowError('NegativeOrZeroImageSize `\' @ error/image.c/CloneImage/798');
     });
 });

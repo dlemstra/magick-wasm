@@ -26,7 +26,7 @@ export class MagickImage extends NativeInstance {
     private readonly settings: MagickSettings;
 
     constructor() {
-        super(-1, ImageMagick._api._MagickImage_Dispose);
+        super(MagickImage.createInstance(), ImageMagick._api._MagickImage_Dispose);
         this.settings = new MagickSettings();
     }
 
@@ -304,6 +304,13 @@ export class MagickImage extends NativeInstance {
     /** @internal */
     protected _instanceNotInitialized(): void {
         throw new Error('no image has been read');
+    }
+
+    private static createInstance(): number
+    {
+        return Exception.usePointer((exception) => {
+            return ImageMagick._api._MagickImage_Create(0, exception);
+        });
     }
 
     private fromBool(value: boolean): number {
