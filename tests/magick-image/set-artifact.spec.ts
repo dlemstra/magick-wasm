@@ -1,6 +1,7 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from '../../src/image-magick';
+import { MagickImage } from '../../src/magick-image';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 
 beforeEach(() => { ImageMagick._api = (global as any).native; });
@@ -12,12 +13,11 @@ describe('MagickImage#setArtifact', () => {
             width: 1
         });
 
-        ImageMagick.read('xc:red', settings, (image) => {
-            image.setArtifact('foo', true);
+        const image = new MagickImage();
+        image.setArtifact('foo', true);
 
-            const value = image.getArtifact('foo');
-            expect(value).toBe('1');
-        });
+        const value = image.getArtifact('foo');
+        expect(value).toBe('1');
     });
 
     it('should set the value', () => {
@@ -26,11 +26,10 @@ describe('MagickImage#setArtifact', () => {
             width: 1
         });
 
-        ImageMagick.read('xc:red', settings, (image) => {
-            image.setArtifact('foo', 'bar');
+        const image = new MagickImage();
+        image.setArtifact('foo', 'bar');
 
-            const value = image.getArtifact('foo');
-            expect(value).toBe('bar');
-        });
+        const value = image.getArtifact('foo');
+        expect(value).toBe('bar');
     });
 });
