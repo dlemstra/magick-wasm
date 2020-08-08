@@ -6,11 +6,14 @@ export class MagickGeometry {
     private _x: number;
     private _y: number;
 
-    constructor(width: number, height: number, x = 0, y = 0) {
+    constructor(widthAndHeight: number);
+    constructor(width: number, height: number);
+    constructor(width: number, height: number, x: number, y: number);
+    constructor(width: number, height?: number, x?: number, y?: number) {
         this._width = width;
-        this._height = height;
-        this._x = x;
-        this._y = y;
+        this._height = height ?? width;
+        this._x = x ?? 0;
+        this._y = y ?? 0;
     }
 
     get height(): number { return this._height; }
