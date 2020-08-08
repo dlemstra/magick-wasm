@@ -245,6 +245,12 @@ export class MagickImage extends NativeInstance {
         });
     }
 
+    removeArtifact(name: string): void {
+        _withString(name, (namePtr) => {
+            ImageMagick._api._MagickImage_RemoveArtifact(this._instance, namePtr);
+        });
+    }
+
     resize(geometry: MagickGeometry): void;
     resize(width: number, height: number): void;
     resize(widthOrGeometry: number | MagickGeometry, height?: number): void {
