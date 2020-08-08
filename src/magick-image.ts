@@ -48,7 +48,7 @@ export class MagickImage extends NativeInstance {
         let name = ImageMagick._api._MagickImage_GetNextArtifactName(this._instance);
         while (name !== 0)
         {
-            artifactNames.push(_createString(name)!);
+            artifactNames.push(ImageMagick._api.UTF8ToString(name));
             name = ImageMagick._api._MagickImage_GetNextArtifactName(this._instance);
         }
 

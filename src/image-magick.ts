@@ -61,7 +61,7 @@ export class ImageMagick {
                     image.read(fileNameOrArray, funcOrSettings);
 
                 if (func !== undefined)
-                    return func!(image);
+                    return func(image);
             }
             else
             {
