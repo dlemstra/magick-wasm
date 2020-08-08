@@ -32,8 +32,7 @@ export class MagickGeometry {
                 throw new Error('negative width is not allowed');
             if (this._height < 0)
                 throw new Error('negative height is not allowed');
-        }
-        else {
+        } else {
             const instance = ImageMagick._api._MagickGeometry_Create();
             try {
                 _withString(widthOrValue, (valuePtr)  => {
