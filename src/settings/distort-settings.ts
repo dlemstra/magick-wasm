@@ -12,6 +12,12 @@ export class DistortSettings {
     viewport?: MagickGeometry;
 
     /** @internal */
+    _removeArtifacts(image: MagickImage): void {
+        if (this.scale !== undefined)
+            image.removeArtifact('distort:scale');
+    }
+
+    /** @internal */
     _setArtifacts(image: MagickImage): void {
         if (this.scale !== undefined)
             image.setArtifact('distort:scale', this.scale.toString());
