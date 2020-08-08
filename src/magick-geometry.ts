@@ -10,6 +10,13 @@ export class MagickGeometry {
     private _x = 0;
     private _y = 0;
     private _aspectRatio = false;
+    private _fillArea = false;
+    private _greater = false;
+    private _isPercentage = false;
+    private _ignoreAspectRatio = false;
+    private _less = false;
+    private _limitPixels = false;
+
 
     constructor(value: string);
     constructor(widthAndHeight: number);
@@ -27,11 +34,13 @@ export class MagickGeometry {
             try {
                 _withString(widthOrValue, (valuePtr)  => {
                     const flags = ImageMagick._api._MagickGeometry_Initialize(instance, valuePtr);
+                    if (flags === GeometryFlags.NoValue)
+                        throw new Error('invalid geometry specified.');
 
                     if (this.hasFlag(flags, GeometryFlags.AspectRatio)) {
                         this.initializeFromAspectRation(instance, widthOrValue);
                     } else {
-                        this.initialize(instance);
+                        this.initialize(instance, flags);
                     }
                 });
             }
@@ -42,6 +51,24 @@ export class MagickGeometry {
     }
 
     get aspectRatio(): boolean { return this._aspectRatio; }
+
+    get fillArea(): boolean { return this._fillArea; }
+    set fillArea(value: boolean) { this._fillArea = value; }
+
+    get greater(): boolean { return this._greater; }
+    set greater(value: boolean) { this._greater = value; }
+
+    get ignoreAspectRatio(): boolean { return this._ignoreAspectRatio; }
+    set ignoreAspectRatio(value: boolean) { this._ignoreAspectRatio = value; }
+
+    get isPercentage(): boolean { return this._isPercentage; }
+    set isPercentage(value: boolean) { this._isPercentage = value; }
+
+    get less(): boolean { return this._less; }
+    set less(value: boolean) { this._less = value; }
+
+    get limitPixels(): boolean { return this._limitPixels; }
+    set limitPixels(value: boolean) { this._limitPixels = value; }
 
     get height(): number { return this._height; }
     set height(value: number) { this._height = value; }
@@ -69,11 +96,17 @@ export class MagickGeometry {
         return result;
     }
 
-    private initialize(instance: number) {
+    private initialize(instance: number, flags: number) {
         this._width = ImageMagick._api._MagickGeometry_Width_Get(instance);
         this._height = ImageMagick._api._MagickGeometry_Height_Get(instance);
         this._x = ImageMagick._api._MagickGeometry_X_Get(instance);
         this._y = ImageMagick._api._MagickGeometry_Y_Get(instance);
+        this._ignoreAspectRatio = this.hasFlag(flags, GeometryFlags.IgnoreAspectRatio);
+        this._isPercentage = this.hasFlag(flags, GeometryFlags.PercentValue);
+        this._fillArea = this.hasFlag(flags, GeometryFlags.FillArea);
+        this._greater = this.hasFlag(flags, GeometryFlags.Greater);
+        this._less = this.hasFlag(flags, GeometryFlags.Less);
+        this._limitPixels = this.hasFlag(flags, GeometryFlags.LimitPixels);
     }
 
     private initializeFromAspectRation(instance: number, value: string)

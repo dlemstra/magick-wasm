@@ -8,6 +8,12 @@ beforeEach(() => {
 });
 
 describe('MagickGeometry#constructor', () => {
+    it('should throw exception when value is invalid', () => {
+        expect(() => {
+            new MagickGeometry('foobar');
+        }).toThrowError('invalid geometry specified')
+    });
+
     it('should set the properties', () => {
         const geometry = new MagickGeometry(1, 2, 3, 4);
         expect(geometry.width).toBe(1);
@@ -56,5 +62,59 @@ describe('MagickGeometry#constructor', () => {
         expect(geometry.x).toBe(2);
         expect(geometry.y).toBe(0);
         expect(geometry.aspectRatio).toEqual(true);
+    });
+
+    it('should set fill area', () => {
+        const geometry = new MagickGeometry('11x6^');
+        expect(geometry.width).toBe(11);
+        expect(geometry.height).toBe(6);
+        expect(geometry.x).toBe(0);
+        expect(geometry.y).toBe(0);
+        expect(geometry.fillArea).toEqual(true);
+    });
+
+    it('should set greater', () => {
+        const geometry = new MagickGeometry('11x6>');
+        expect(geometry.width).toBe(11);
+        expect(geometry.height).toBe(6);
+        expect(geometry.x).toBe(0);
+        expect(geometry.y).toBe(0);
+        expect(geometry.greater).toEqual(true);
+    });
+
+    it('should set is ignore aspect ratio', () => {
+        const geometry = new MagickGeometry('11x6!');
+        expect(geometry.width).toBe(11);
+        expect(geometry.height).toBe(6);
+        expect(geometry.x).toBe(0);
+        expect(geometry.y).toBe(0);
+        expect(geometry.ignoreAspectRatio).toEqual(true);
+    });
+
+    it('should set is percentage', () => {
+        const geometry = new MagickGeometry('11%x6>');
+        expect(geometry.width).toBe(11);
+        expect(geometry.height).toBe(6);
+        expect(geometry.x).toBe(0);
+        expect(geometry.y).toBe(0);
+        expect(geometry.isPercentage).toEqual(true);
+    });
+
+    it('should set less', () => {
+        const geometry = new MagickGeometry('11x6<');
+        expect(geometry.width).toBe(11);
+        expect(geometry.height).toBe(6);
+        expect(geometry.x).toBe(0);
+        expect(geometry.y).toBe(0);
+        expect(geometry.less).toEqual(true);
+    });
+
+    it('should set limit pixels', () => {
+        const geometry = new MagickGeometry('11@x6');
+        expect(geometry.width).toBe(11);
+        expect(geometry.height).toBe(6);
+        expect(geometry.x).toBe(0);
+        expect(geometry.y).toBe(0);
+        expect(geometry.limitPixels).toEqual(true);
     });
 });
