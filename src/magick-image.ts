@@ -42,6 +42,19 @@ export class MagickImage extends NativeInstance {
         }
     }
 
+    get artifactNames(): string[] {
+        const artifactNames: string[] = [];
+        ImageMagick._api._MagickImage_ResetArtifactIterator(this._instance);
+        let name = ImageMagick._api._MagickImage_GetNextArtifactName(this._instance);
+        while (name !== 0)
+        {
+            artifactNames.push(_createString(name)!);
+            name = ImageMagick._api._MagickImage_GetNextArtifactName(this._instance);
+        }
+
+        return artifactNames;
+    }
+
     get backgroundColor(): MagickColor { 
         const colorPtr = ImageMagick._api._MagickImage_BackgroundColor_Get(this._instance);
         return MagickColor._create(colorPtr);
