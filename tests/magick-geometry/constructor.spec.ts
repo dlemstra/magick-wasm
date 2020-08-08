@@ -14,6 +14,18 @@ describe('MagickGeometry#constructor', () => {
         }).toThrowError('invalid geometry specified')
     });
 
+    it('should throw exception when width is negative', () => {
+        expect(() => {
+            new MagickGeometry(-1, 0);
+        }).toThrowError('negative width is not allowed')
+    });
+
+    it('should throw exception when height is negative', () => {
+        expect(() => {
+            new MagickGeometry(0, -1);
+        }).toThrowError('negative height is not allowed')
+    });
+
     it('should set the properties', () => {
         const geometry = new MagickGeometry(1, 2, 3, 4);
         expect(geometry.width).toBe(1);

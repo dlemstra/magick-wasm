@@ -28,6 +28,10 @@ export class MagickGeometry {
             this._height = height ?? widthOrValue;
             this._x = x ?? 0;
             this._y = y ?? 0;
+            if (this._width < 0)
+                throw new Error('negative width is not allowed');
+            if (this._height < 0)
+                throw new Error('negative height is not allowed');
         }
         else {
             const instance = ImageMagick._api._MagickGeometry_Create();
@@ -35,7 +39,7 @@ export class MagickGeometry {
                 _withString(widthOrValue, (valuePtr)  => {
                     const flags = ImageMagick._api._MagickGeometry_Initialize(instance, valuePtr);
                     if (flags === GeometryFlags.NoValue)
-                        throw new Error('invalid geometry specified.');
+                        throw new Error('invalid geometry specified');
 
                     if (this.hasFlag(flags, GeometryFlags.AspectRatio)) {
                         this.initializeFromAspectRation(instance, widthOrValue);
