@@ -83,6 +83,9 @@ export class MagickGeometry {
     set y(value: number) { this._y = value; }
 
     toString(): string {
+        if (this._aspectRatio)
+            return this._width + ":" + this._height;
+
         let result = '';
 
         if (this._width > 0)
@@ -92,6 +95,37 @@ export class MagickGeometry {
             result += 'x' + this._height.toString();
         else
             result += 'x'
+
+        if (this._x != 0 || this._y != 0)
+        {
+            if (this._x >= 0)
+                result += '+';
+
+            result += this._x;
+
+            if (this.y >= 0)
+                result += '+';
+
+            result += this.y;
+        }
+
+        if (this._fillArea)
+            result += '^';
+
+        if (this._greater)
+            result += '>';
+
+        if (this._isPercentage)
+            result += '%';
+
+        if (this._ignoreAspectRatio)
+            result += '!';
+
+        if (this._less)
+            result += '<';
+
+        if (this._limitPixels)
+            result += '@';
 
         return result;
     }
