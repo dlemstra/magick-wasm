@@ -6,7 +6,7 @@ import { MagickImage } from '../../src/magick-image';
 beforeEach(() => { ImageMagick._api = (global as any).native; });
 
 describe('MagickImage#artifactNames', () => {
-    it('should return empty array', () => {
+    it('should return empty array when image has not attributes', () => {
         const image = new MagickImage();
 
         const names = image.artifactNames;
