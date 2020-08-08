@@ -9,34 +9,52 @@ beforeEach(() => {
 
 describe('MagickGeometry#constructor', () => {
     it('should set the properties', () => {
-        const color = new MagickGeometry(1, 2, 3, 4);
-        expect(color.width).toBe(1);
-        expect(color.height).toBe(2);
-        expect(color.x).toBe(3);
-        expect(color.y).toBe(4);
+        const geometry = new MagickGeometry(1, 2, 3, 4);
+        expect(geometry.width).toBe(1);
+        expect(geometry.height).toBe(2);
+        expect(geometry.x).toBe(3);
+        expect(geometry.y).toBe(4);
     });
 
     it('should use 0 and 0 for the default x and y', () => {
-        const color = new MagickGeometry(1, 2);
-        expect(color.width).toBe(1);
-        expect(color.height).toBe(2);
-        expect(color.x).toBe(0);
-        expect(color.y).toBe(0);
+        const geometry = new MagickGeometry(1, 2);
+        expect(geometry.width).toBe(1);
+        expect(geometry.height).toBe(2);
+        expect(geometry.x).toBe(0);
+        expect(geometry.y).toBe(0);
     });
 
     it('should use width for height when height is not specified', () => {
-        const color = new MagickGeometry(1);
-        expect(color.width).toBe(1);
-        expect(color.height).toBe(1);
-        expect(color.x).toBe(0);
-        expect(color.y).toBe(0);
+        const geometry = new MagickGeometry(1);
+        expect(geometry.width).toBe(1);
+        expect(geometry.height).toBe(1);
+        expect(geometry.x).toBe(0);
+        expect(geometry.y).toBe(0);
     });
 
     it('should parse the specified string and set the properties', () => {
-        const color = new MagickGeometry('1x2+3+4');
-        expect(color.width).toBe(1);
-        expect(color.height).toBe(2);
-        expect(color.x).toBe(3);
-        expect(color.y).toBe(4);
+        const geometry = new MagickGeometry('1x2+3+4');
+        expect(geometry.width).toBe(1);
+        expect(geometry.height).toBe(2);
+        expect(geometry.x).toBe(3);
+        expect(geometry.y).toBe(4);
+    });
+
+    it('should set the aspect ratio', () => {
+        const geometry = new MagickGeometry('3:2');
+        expect(geometry.width).toBe(3);
+        expect(geometry.height).toBe(2);
+        expect(geometry.x).toBe(0);
+        expect(geometry.y).toBe(0);
+        expect(geometry.aspectRatio).toEqual(true);
+    });
+
+    it('should set the aspect ratio with only x offset', () => {
+        const geometry = new MagickGeometry('4:3+2');
+        expect(geometry.width).toBe(4);
+        expect(geometry.height).toBe(3);
+        expect(geometry.x).toBe(2);
+        expect(geometry.y).toBe(0);
+        expect(geometry.aspectRatio).toEqual(true);
     });
 });

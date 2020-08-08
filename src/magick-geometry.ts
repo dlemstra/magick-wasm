@@ -1,6 +1,7 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from "./image-magick";
+import { GeometryFlags } from "./geometry-flags";
 import { _withString } from "./native/string";
 
 export class MagickGeometry {
@@ -8,6 +9,7 @@ export class MagickGeometry {
     private _height = 0;
     private _x = 0;
     private _y = 0;
+    private _aspectRatio = false;
 
     constructor(value: string);
     constructor(widthAndHeight: number);
@@ -22,15 +24,24 @@ export class MagickGeometry {
         }
         else {
             const instance = ImageMagick._api._MagickGeometry_Create();
-            _withString(widthOrValue, (valuePtr)  => {
-                ImageMagick._api._MagickGeometry_Initialize(instance, valuePtr);
-                this._width = ImageMagick._api._MagickGeometry_Width_Get(instance);
-                this._height = ImageMagick._api._MagickGeometry_Height_Get(instance);
-                this._x = ImageMagick._api._MagickGeometry_X_Get(instance);
-                this._y = ImageMagick._api._MagickGeometry_Y_Get(instance);
-            });
+            try {
+                _withString(widthOrValue, (valuePtr)  => {
+                    const flags = ImageMagick._api._MagickGeometry_Initialize(instance, valuePtr);
+
+                    if (this.hasFlag(flags, GeometryFlags.AspectRatio)) {
+                        this.initializeFromAspectRation(instance, widthOrValue);
+                    } else {
+                        this.initialize(instance);
+                    }
+                });
+            }
+            finally {
+                ImageMagick._api._MagickGeometry_Dispose(instance);
+            }
         }
     }
+
+    get aspectRatio(): boolean { return this._aspectRatio; }
 
     get height(): number { return this._height; }
     set height(value: number) { this._height = value; }
@@ -56,5 +67,45 @@ export class MagickGeometry {
             result += 'x'
 
         return result;
+    }
+
+    private initialize(instance: number) {
+        this._width = ImageMagick._api._MagickGeometry_Width_Get(instance);
+        this._height = ImageMagick._api._MagickGeometry_Height_Get(instance);
+        this._x = ImageMagick._api._MagickGeometry_X_Get(instance);
+        this._y = ImageMagick._api._MagickGeometry_Y_Get(instance);
+    }
+
+    private initializeFromAspectRation(instance: number, value: string)
+    {
+        this._aspectRatio = true;
+
+        const ratio = value.split(':');
+        this._width = this.parseNumber(ratio[0]);
+        this._height = this.parseNumber(ratio[1]);
+
+        this._x = ImageMagick._api._MagickGeometry_X_Get(instance);
+        this._y = ImageMagick._api._MagickGeometry_Y_Get(instance);
+    }
+
+    private parseNumber(value: string): number {
+        let index = 0;
+
+        while (index < value.length && !this.isNumber(value[index]))
+            index++;
+
+        const start = index;
+        while (index < value.length && this.isNumber(value[index]))
+            index++;
+
+        return parseInt(value.substr(start, index - start));
+    }
+
+    private isNumber(character: string): boolean {
+        return character >= '0' && character <= '9';
+    }
+
+    private hasFlag(flags: number, flag: GeometryFlags) {
+        return (flags & flag) === flag;
     }
 }
