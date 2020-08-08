@@ -60,7 +60,8 @@ export class ImageMagick {
                 else
                     image.read(fileNameOrArray, funcOrSettings);
 
-                return func!(image); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+                if (func !== undefined)
+                    return func!(image);
             }
             else
             {
