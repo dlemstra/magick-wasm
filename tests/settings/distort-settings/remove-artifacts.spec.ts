@@ -16,6 +16,6 @@ describe('DistortSettings#setArtifacts', () => {
 
         settings._removeArtifacts(image);
 
-        expect(image.artifactNames.length).toEqual(0);
+        expect(image.artifactNames.length).toBe(0);
     });
 });

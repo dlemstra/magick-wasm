@@ -52,7 +52,7 @@ describe('MagickGeometry#constructor', () => {
         expect(geometry.height).toBe(2);
         expect(geometry.x).toBe(0);
         expect(geometry.y).toBe(0);
-        expect(geometry.aspectRatio).toEqual(true);
+        expect(geometry.aspectRatio).toBe(true);
     });
 
     it('should set the aspect ratio with only x offset', () => {
@@ -61,7 +61,7 @@ describe('MagickGeometry#constructor', () => {
         expect(geometry.height).toBe(3);
         expect(geometry.x).toBe(2);
         expect(geometry.y).toBe(0);
-        expect(geometry.aspectRatio).toEqual(true);
+        expect(geometry.aspectRatio).toBe(true);
     });
 
     it('should set fill area', () => {
@@ -70,7 +70,7 @@ describe('MagickGeometry#constructor', () => {
         expect(geometry.height).toBe(6);
         expect(geometry.x).toBe(0);
         expect(geometry.y).toBe(0);
-        expect(geometry.fillArea).toEqual(true);
+        expect(geometry.fillArea).toBe(true);
     });
 
     it('should set greater', () => {
@@ -79,7 +79,7 @@ describe('MagickGeometry#constructor', () => {
         expect(geometry.height).toBe(6);
         expect(geometry.x).toBe(0);
         expect(geometry.y).toBe(0);
-        expect(geometry.greater).toEqual(true);
+        expect(geometry.greater).toBe(true);
     });
 
     it('should set is ignore aspect ratio', () => {
@@ -88,7 +88,7 @@ describe('MagickGeometry#constructor', () => {
         expect(geometry.height).toBe(6);
         expect(geometry.x).toBe(0);
         expect(geometry.y).toBe(0);
-        expect(geometry.ignoreAspectRatio).toEqual(true);
+        expect(geometry.ignoreAspectRatio).toBe(true);
     });
 
     it('should set is percentage', () => {
@@ -97,7 +97,7 @@ describe('MagickGeometry#constructor', () => {
         expect(geometry.height).toBe(6);
         expect(geometry.x).toBe(0);
         expect(geometry.y).toBe(0);
-        expect(geometry.isPercentage).toEqual(true);
+        expect(geometry.isPercentage).toBe(true);
     });
 
     it('should set less', () => {
@@ -106,7 +106,7 @@ describe('MagickGeometry#constructor', () => {
         expect(geometry.height).toBe(6);
         expect(geometry.x).toBe(0);
         expect(geometry.y).toBe(0);
-        expect(geometry.less).toEqual(true);
+        expect(geometry.less).toBe(true);
     });
 
     it('should set limit pixels', () => {
@@ -115,6 +115,6 @@ describe('MagickGeometry#constructor', () => {
         expect(geometry.height).toBe(6);
         expect(geometry.x).toBe(0);
         expect(geometry.y).toBe(0);
-        expect(geometry.limitPixels).toEqual(true);
+        expect(geometry.limitPixels).toBe(true);
     });
 });

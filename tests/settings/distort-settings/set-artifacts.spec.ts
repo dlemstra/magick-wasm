@@ -13,7 +13,7 @@ describe('DistortSettings#setArtifacts', () => {
 
         settings._setArtifacts(image);
 
-        expect(image.artifactNames.length).toEqual(0);
+        expect(image.artifactNames.length).toBe(0);
     });
 
     it('should add the scale artifacts to the image', () => {

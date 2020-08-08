@@ -12,7 +12,7 @@ describe('MagickImage#artifactNames', () => {
         const names = image.artifactNames;
 
         expect(names).not.toBeNull();
-        expect(names.length).toEqual(0);
+        expect(names.length).toBe(0);
     });
 
     it('should return the artifact names of the image', () => {
@@ -22,7 +22,7 @@ describe('MagickImage#artifactNames', () => {
         const names = image.artifactNames;
 
         expect(names).not.toBeNull();
-        expect(names.length).toEqual(1);
-        expect(names[0]).toEqual('foo');
+        expect(names.length).toBe(1);
+        expect(names[0]).toBe('foo');
     });
 });

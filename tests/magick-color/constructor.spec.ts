@@ -16,19 +16,19 @@ describe('MagickColor#constructor', () => {
 
     it('should set the properties', () => {
         const color = new MagickColor('#abcdef42');
-        expect(color.r).toEqual(171);
-        expect(color.g).toEqual(205);
-        expect(color.b).toEqual(239);
-        expect(color.a).toEqual(66);
-        expect(color.isCmyk).toEqual(false);
+        expect(color.r).toBe(171);
+        expect(color.g).toBe(205);
+        expect(color.b).toBe(239);
+        expect(color.a).toBe(66);
+        expect(color.isCmyk).toBe(false);
     });
 
     it('should read cmyk color', () => {
         const color = new MagickColor('cmyka(5%,10%,20%,40%,0.8)');
-        expect(color.r).toEqual(13);
-        expect(color.g).toEqual(26);
-        expect(color.b).toEqual(51);
-        expect(color.a).toEqual(204);
-        expect(color.isCmyk).toEqual(true);
+        expect(color.r).toBe(13);
+        expect(color.g).toBe(26);
+        expect(color.b).toBe(51);
+        expect(color.a).toBe(204);
+        expect(color.isCmyk).toBe(true);
     });
 });
