@@ -20,7 +20,7 @@ export class MagickColor {
             instance = ImageMagick._api._MagickColor_Create();
             _withString(color, (colorPtr) => {
                 if (ImageMagick._api._MagickColor_Initialize(instance, colorPtr) === 0)
-                    throw new Error("invalid color specified");
+                    throw new Error('invalid color specified');
                 this.initialize(instance);
             });
         } finally {
