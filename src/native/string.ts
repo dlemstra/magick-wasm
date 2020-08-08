@@ -4,6 +4,16 @@ import { ImageMagick } from "../image-magick";
 import { ImageMagickApi } from '../wasm/magick.js';
 
 /** @internal */
+export function _createString(instance: number): string | null;
+export function _createString(instance: number, defaultValue: string): string;
+export function _createString(instance: number): string | null {
+    if (instance === 0)
+        return null;
+
+    return ImageMagick._api.UTF8ToString(instance);
+}
+
+/** @internal */
 export function withNativeString<TReturnType>(native: ImageMagickApi, str: string, func: (instance: number) => TReturnType): TReturnType {
     const length = native.lengthBytesUTF8(str) + 1;
     const instance = native._malloc(length);

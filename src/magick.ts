@@ -2,13 +2,14 @@
 
 import { ImageMagick } from "./image-magick";
 import { MagickFormatInfo } from "./magick-format-info";
+import { _createString } from "./native/string";
 
 export class Magick {
-    static get delegates(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._Magick_Delegates_Get()); }
+    static get delegates(): string { return _createString(ImageMagick._api._Magick_Delegates_Get(), 'Unknown'); }
 
-    static get features(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._Magick_Features_Get()).slice(0, -1); }
+    static get features(): string { return _createString(ImageMagick._api._Magick_Features_Get(), ' ').slice(0, -1); }
 
-    static get imageMagickVersion(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._Magick_ImageMagickVersion_Get()); }
+    static get imageMagickVersion(): string { return _createString(ImageMagick._api._Magick_ImageMagickVersion_Get(), 'Unknown'); }
 
     static get supportedFormats(): MagickFormatInfo[] { return MagickFormatInfo.all; }
 

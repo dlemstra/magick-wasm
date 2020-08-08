@@ -19,7 +19,7 @@ import { Percentage } from "./percentage";
 import { PixelChannel } from "./pixel-channel";
 import { Pointer } from "./pointer/pointer";
 import { VirtualPixelMethod } from "./virtual-pixel-method";
-import { withString } from "./native/string";
+import { withString, _createString } from "./native/string";
 import { withDoubleArray } from "./native/array";
 
 export class MagickImage extends NativeInstance {
@@ -64,7 +64,7 @@ export class MagickImage extends NativeInstance {
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
     set depth(value: number) { ImageMagick._api._MagickImage_Depth_Set(this._instance, value); }
 
-    get format(): string { return ImageMagick._api.UTF8ToString(ImageMagick._api._MagickImage_Format_Get(this._instance)); }
+    get format(): string { return _createString(ImageMagick._api._MagickImage_Format_Get(this._instance), ''); }
     set format(value: string) { withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
 
     get hasAlpha(): boolean {
@@ -161,7 +161,7 @@ export class MagickImage extends NativeInstance {
             const settings = <DistortSettings>settingsOrParams;
             bestFit = settings.bestFit ? 1 : 0;
 
-            settings.setArtifacts(this);
+            //settings.setArtifacts(this);
             //if (settings.scale !== undefined) {
             //    this.setArtifact('distort:scale', settings.scale.toString());
             //}
@@ -202,10 +202,10 @@ export class MagickImage extends NativeInstance {
         });
     }
 
-    getArtifact(name: string): string {
+    getArtifact(name: string): string | null {
         return withString(name, (namePtr) => {
             const value = ImageMagick._api._MagickImage_GetArtifact(this._instance, namePtr);
-            return ImageMagick._api.UTF8ToString(value);
+            return _createString(value);
         });
     }
 

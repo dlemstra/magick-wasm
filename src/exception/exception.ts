@@ -3,6 +3,7 @@
 import { ImageMagick } from "../image-magick";
 import { ExceptionSeverity } from "./exception-severity";
 import { Pointer } from "../pointer/pointer";
+import { _createString } from "../native/string";
 
 /** @internal */
 export class Exception {
@@ -69,9 +70,9 @@ export class Exception {
         const message = ImageMagick._api._MagickExceptionHelper_Message(exception.value);
         const description = ImageMagick._api._MagickExceptionHelper_Description(exception.value);
 
-        let errorMessage = ImageMagick._api.UTF8ToString(message);
+        let errorMessage = _createString(message, 'Unknown error');
         if (description !== 0) {
-            errorMessage += `(${ImageMagick._api.UTF8ToString(description)})`;
+            errorMessage += `(${_createString(description, '')})`;
         }
 
         return errorMessage;

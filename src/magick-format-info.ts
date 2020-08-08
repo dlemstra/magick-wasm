@@ -4,6 +4,7 @@ import { ImageMagick } from "./image-magick";
 import { Exception } from "./exception/exception";
 import { Pointer } from "./pointer/pointer";
 import { MagickFormat } from "./magick-format";
+import { _createString } from "./native/string";
 
 export class MagickFormatInfo {
     private readonly _format: MagickFormat;
@@ -36,10 +37,10 @@ export class MagickFormatInfo {
                     const values = Object.values(MagickFormat);
                     for (let i = 0; i < count; i++) {
                         const info = ImageMagick._api._MagickFormatInfo_GetInfo(list, i, exception);
-                        const formatName = ImageMagick._api.UTF8ToString(ImageMagick._api._MagickFormatInfo_Format_Get(info));
+                        const formatName = _createString(ImageMagick._api._MagickFormatInfo_Format_Get(info));
 
                         const format = MagickFormatInfo.convertFormat(formatName, values);
-                        const description = ImageMagick._api.UTF8ToString(ImageMagick._api._MagickFormatInfo_Description_Get(info));
+                        const description = _createString(ImageMagick._api._MagickFormatInfo_Description_Get(info), '');
                         const isReadable = ImageMagick._api._MagickFormatInfo_IsReadable_Get(info) == 1;
                         const isWritable = ImageMagick._api._MagickFormatInfo_IsWritable_Get(info) == 1;
                         result[i] = new MagickFormatInfo(format, description, isReadable, isWritable);
@@ -52,10 +53,13 @@ export class MagickFormatInfo {
         });
     }
 
-    private static convertFormat(formatName: string, values: string[]): MagickFormat {
+    private static convertFormat(formatName: string | null, values: string[]): MagickFormat {
+        if (formatName === null)
+            return MagickFormat.Unknown;
+
         if (values.includes(formatName))
             return formatName as MagickFormat;
 
-        return MagickFormat.Unknown
+        return MagickFormat.Unknown;
     }
 }
