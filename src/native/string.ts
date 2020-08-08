@@ -14,7 +14,7 @@ export function _createString(instance: number): string | null {
 }
 
 /** @internal */
-export function withNativeString<TReturnType>(native: ImageMagickApi, str: string, func: (instance: number) => TReturnType): TReturnType {
+export function _withNativeString<TReturnType>(native: ImageMagickApi, str: string, func: (instance: number) => TReturnType): TReturnType {
     const length = native.lengthBytesUTF8(str) + 1;
     const instance = native._malloc(length);
     try {
@@ -27,6 +27,6 @@ export function withNativeString<TReturnType>(native: ImageMagickApi, str: strin
 }
 
 /** @internal */
-export function withString<TReturnType>(str: string, func: (instance: number) => TReturnType): TReturnType {
-    return withNativeString(ImageMagick._api, str, func);
+export function _withString<TReturnType>(str: string, func: (instance: number) => TReturnType): TReturnType {
+    return _withNativeString(ImageMagick._api, str, func);
 }

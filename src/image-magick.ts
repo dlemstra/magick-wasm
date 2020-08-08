@@ -4,7 +4,7 @@ import MagickNative from './wasm/magick.js';
 import { ImageMagickApi } from './wasm/magick.js';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
-import { withNativeString } from './native/string';
+import { _withNativeString } from './native/string';
 
 export class ImageMagick {
     private readonly loader: Promise<void>;
@@ -13,8 +13,8 @@ export class ImageMagick {
     private constructor() {
         this.loader = new Promise(resolve => {
             MagickNative().then(api => {
-                withNativeString(api, 'MAGICK_CONFIGURE_PATH', name => {
-                    withNativeString(api, '/xml', value => {
+                _withNativeString(api, 'MAGICK_CONFIGURE_PATH', name => {
+                    _withNativeString(api, '/xml', value => {
                         api._Environment_SetEnv(name, value);
                         this.api = api;
                     });

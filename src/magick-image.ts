@@ -19,8 +19,8 @@ import { Percentage } from "./percentage";
 import { PixelChannel } from "./pixel-channel";
 import { Pointer } from "./pointer/pointer";
 import { VirtualPixelMethod } from "./virtual-pixel-method";
-import { withString, _createString } from "./native/string";
-import { withDoubleArray } from "./native/array";
+import { _createString, _withString } from "./native/string";
+import { _withDoubleArray } from "./native/array";
 
 export class MagickImage extends NativeInstance {
     private readonly settings: MagickSettings;
@@ -44,10 +44,10 @@ export class MagickImage extends NativeInstance {
 
     get backgroundColor(): MagickColor { 
         const colorPtr = ImageMagick._api._MagickImage_BackgroundColor_Get(this._instance);
-        return MagickColor.create(colorPtr);
+        return MagickColor._create(colorPtr);
     }
     set backgroundColor(value: MagickColor) {
-        value.use((valuePtr) =>
+        value._use((valuePtr) =>
         {
             ImageMagick._api._MagickImage_BackgroundColor_Set(this._instance, valuePtr);
         });
@@ -65,7 +65,7 @@ export class MagickImage extends NativeInstance {
     set depth(value: number) { ImageMagick._api._MagickImage_Depth_Set(this._instance, value); }
 
     get format(): string { return _createString(ImageMagick._api._MagickImage_Format_Get(this._instance), ''); }
-    set format(value: string) { withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
+    set format(value: string) { _withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
 
     get hasAlpha(): boolean {
         return Exception.usePointer((exception) => {
@@ -170,7 +170,7 @@ export class MagickImage extends NativeInstance {
         }
 
         Exception.use((exception) => {
-            withDoubleArray(distortArgs, (distortArgsPtr: number) => {
+            _withDoubleArray(distortArgs, (distortArgsPtr: number) => {
                 const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, distortArgsPtr, distortArgs.length, exception.ptr);
                 this._setInstance(instance, exception)
             });
@@ -203,7 +203,7 @@ export class MagickImage extends NativeInstance {
     }
 
     getArtifact(name: string): string | null {
-        return withString(name, (namePtr) => {
+        return _withString(name, (namePtr) => {
             const value = ImageMagick._api._MagickImage_GetArtifact(this._instance, namePtr);
             return _createString(value);
         });
@@ -250,7 +250,7 @@ export class MagickImage extends NativeInstance {
     resize(widthOrGeometry: number | MagickGeometry, height?: number): void {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
         Exception.use((exception) => {
-            withString(geometry.toString(), (geometryPtr) => {
+            _withString(geometry.toString(), (geometryPtr) => {
                 const image = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(image, exception);
             });
@@ -266,8 +266,8 @@ export class MagickImage extends NativeInstance {
         } else {
             strValue = this.fromBool(value).toString();
         }
-        withString(name, (namePtr) => {
-            withString(strValue, (valuePtr) => {
+        _withString(name, (namePtr) => {
+            _withString(strValue, (valuePtr) => {
                 ImageMagick._api._MagickImage_SetArtifact(this._instance, namePtr, valuePtr);
             });
         });

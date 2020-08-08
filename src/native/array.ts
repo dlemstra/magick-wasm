@@ -3,7 +3,7 @@
 import { ImageMagick } from "../image-magick";
 
 /** @internal */
-export function withDoubleArray<TReturnType>(array: number[], func: (instance: number) => TReturnType): TReturnType {
+export function _withDoubleArray<TReturnType>(array: number[], func: (instance: number) => TReturnType): TReturnType {
     const length = array.length * 8;
     if (length === 0)
         return func(0);

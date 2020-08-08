@@ -3,7 +3,7 @@
 import { ImageMagick } from "../image-magick";
 import { MagickSettings } from "./magick-settings";
 import { NativeMagickSettings } from "./magick-settings";
-import { withString } from "../native/string";
+import { _withString } from "../native/string";
 
 export class MagickReadSettings extends MagickSettings {
 
@@ -33,7 +33,7 @@ export class MagickReadSettings extends MagickSettings {
 
             const size = this.getSize();
             if (size !== '') {
-                withString(size, (sizePtr) => {
+                _withString(size, (sizePtr) => {
                     ImageMagick._api._MagickSettings_SetSize(settings._instance, sizePtr);
                 });
             }

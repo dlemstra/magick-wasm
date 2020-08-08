@@ -1,7 +1,7 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from "./image-magick";
-import { withString } from "./native/string";
+import { _withString } from "./native/string";
 
 export class MagickColor {
     private red = 0;
@@ -18,7 +18,7 @@ export class MagickColor {
         let instance = 0;
         try {
             instance = ImageMagick._api._MagickColor_Create();
-            withString(color, (colorPtr) => {
+            _withString(color, (colorPtr) => {
                 if (ImageMagick._api._MagickColor_Initialize(instance, colorPtr) === 0)
                     throw new Error("invalid color specified");
                 this.initialize(instance);
@@ -29,7 +29,7 @@ export class MagickColor {
     }
 
     /** @internal */
-    static create(colorPtr: number): MagickColor {
+    static _create(colorPtr: number): MagickColor {
         const color = new MagickColor();
         color.initialize(colorPtr);
 
@@ -54,7 +54,7 @@ export class MagickColor {
     get isCmyk() : boolean { return this._isCmyk }
 
     /** @internal */
-    use(func: (colorPtr: number) => void): void {
+    _use(func: (colorPtr: number) => void): void {
     let instance = 0;
         try {
             instance = ImageMagick._api._MagickColor_Create();
