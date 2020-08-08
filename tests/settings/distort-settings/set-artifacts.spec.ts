@@ -13,10 +13,10 @@ describe('DistortSettings#setArtifacts', () => {
 
         settings._setArtifacts(image);
 
-        expect(image.getArtifact('distort:scale')).toBeNull();
+        expect(image.artifactNames.length).toEqual(0);
     });
 
-    it('should add the artifacts to the image', () => {
+    it('should add the scale artifacts to the image', () => {
         const image = new MagickImage();
         const settings = new DistortSettings();
 
