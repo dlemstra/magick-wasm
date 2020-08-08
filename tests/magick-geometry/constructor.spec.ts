@@ -31,4 +31,12 @@ describe('MagickGeometry#constructor', () => {
         expect(color.x).toBe(0);
         expect(color.y).toBe(0);
     });
+
+    it('should parse the specified string and set the properties', () => {
+        const color = new MagickGeometry('1x2+3+4');
+        expect(color.width).toBe(1);
+        expect(color.height).toBe(2);
+        expect(color.x).toBe(3);
+        expect(color.y).toBe(4);
+    });
 });
