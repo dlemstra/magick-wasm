@@ -167,17 +167,15 @@ export class MagickImage extends NativeInstance {
     distort(method: DistortMethod, settingsOrParams: number[] | DistortSettings, params?: number[]): void {
         let distortArgs: number[];
         let bestFit = 0;
+        let settings: DistortSettings | null = null;
         if (settingsOrParams instanceof Array) {
             distortArgs = settingsOrParams;
         } else if (params instanceof Array) {
             distortArgs = params;
-            const settings = <DistortSettings>settingsOrParams;
+            settings = <DistortSettings>settingsOrParams;
             bestFit = settings.bestFit ? 1 : 0;
 
-            //settings.setArtifacts(this);
-            //if (settings.scale !== undefined) {
-            //    this.setArtifact('distort:scale', settings.scale.toString());
-            //}
+            settings._setArtifacts(this);
         } else {
             distortArgs = [];
         }
@@ -188,6 +186,9 @@ export class MagickImage extends NativeInstance {
                 this._setInstance(instance, exception)
             });
         });
+
+        if (settings !== null)
+            settings._removeArtifacts(this);
     }
 
     drawOnCanvas(canvas: HTMLCanvasElement): void {
