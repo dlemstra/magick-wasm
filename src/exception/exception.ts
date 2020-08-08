@@ -72,7 +72,7 @@ export class Exception {
 
         let errorMessage = _createString(message, 'Unknown error');
         if (description !== 0) {
-            errorMessage += `(${_createString(description, '')})`;
+            errorMessage += `(${_createString(description)!})`;
         }
 
         return errorMessage;
