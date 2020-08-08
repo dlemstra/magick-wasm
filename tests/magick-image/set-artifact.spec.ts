@@ -2,17 +2,11 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
-import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 
 beforeEach(() => { ImageMagick._api = (global as any).native; });
 
 describe('MagickImage#setArtifact', () => {
     it('should change boolean to string', () => {
-        const settings = new MagickReadSettings(
-        {
-            width: 1
-        });
-
         const image = new MagickImage();
         image.setArtifact('foo', true);
 
@@ -21,11 +15,6 @@ describe('MagickImage#setArtifact', () => {
     });
 
     it('should set the value', () => {
-        const settings = new MagickReadSettings(
-        {
-            width: 1
-        });
-
         const image = new MagickImage();
         image.setArtifact('foo', 'bar');
 
