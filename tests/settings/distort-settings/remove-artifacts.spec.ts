@@ -16,6 +16,6 @@ describe('DistortSettings#setArtifacts', () => {
 
         settings._removeArtifacts(image);
 
-        expect(image.getArtifact('distort:scale')).toBe(null);
+        expect(image.getArtifact('distort:scale')).toBeNull();
     });
 });

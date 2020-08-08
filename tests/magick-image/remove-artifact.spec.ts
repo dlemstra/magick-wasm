@@ -13,6 +13,6 @@ describe('MagickImage#removeArtifact', () => {
         image.removeArtifact('foo');
 
         const value = image.getArtifact('foo');
-        expect(value).toBe(null);
+        expect(value).toBeNull();
     });
 });
