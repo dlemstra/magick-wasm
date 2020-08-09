@@ -45,7 +45,7 @@ function pixelColor(image: MagickImage, x: number, y: number): string {
     });
 }
 
-export function colorAssert(image: MagickImage, x: number, y: number, colorOrString: MagickColor | string) {
+export function colorAssert(image: MagickImage, x: number, y: number, colorOrString: MagickColor | string): void {
     if (typeof colorOrString === 'string')
         expect(pixelColor(image, x, y)).toBe(colorOrString);
     else
