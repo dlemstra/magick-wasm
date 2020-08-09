@@ -9,7 +9,7 @@ beforeEach(() => { ImageMagick._api = (global as any).native; });
 
 describe('DistortSettings#setArtifacts', () => {
     it('should not add the artifacts to the image when properties are not set', () => {
-        const image = new MagickImage();
+        const image = MagickImage.create();
         const settings = new DistortSettings();
 
         settings._setArtifacts(image);
@@ -18,7 +18,7 @@ describe('DistortSettings#setArtifacts', () => {
     });
 
     it('should add the scale artifact to the image', () => {
-        const image = new MagickImage();
+        const image = MagickImage.create();
         const settings = new DistortSettings();
 
         settings.scale = 4.5;
@@ -28,7 +28,7 @@ describe('DistortSettings#setArtifacts', () => {
     });
 
     it('should add the viewport artifact to the image', () => {
-        const image = new MagickImage();
+        const image = MagickImage.create();
         const settings = new DistortSettings();
 
         settings.viewport = new MagickGeometry(1, 2, 3, 4);

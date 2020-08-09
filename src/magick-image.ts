@@ -26,8 +26,8 @@ import { _withDoubleArray } from "./native/array";
 export class MagickImage extends NativeInstance {
     private readonly settings: MagickSettings;
 
-    constructor() {
-        super(MagickImage.createInstance(), ImageMagick._api._MagickImage_Dispose);
+    private constructor(instance: number) {
+        super(instance, ImageMagick._api._MagickImage_Dispose);
         this.settings = new MagickSettings();
     }
 
@@ -35,7 +35,7 @@ export class MagickImage extends NativeInstance {
     static _use<TReturnType>(func: (image: MagickImage) => TReturnType): TReturnType;
     static _use<TReturnType>(func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static _use<TReturnType>(func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        const image = new MagickImage();
+        const image = MagickImage.create();
         try {
             return func(image);
         } finally {
@@ -151,6 +151,10 @@ export class MagickImage extends NativeInstance {
             return -1;
 
         return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
+    }
+
+    static create(): MagickImage {
+        return new MagickImage(MagickImage.createInstance());
     }
 
     deskew(threshold: Percentage): number {

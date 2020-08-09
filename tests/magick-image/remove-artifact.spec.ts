@@ -7,7 +7,7 @@ beforeEach(() => { ImageMagick._api = (global as any).native; });
 
 describe('MagickImage#removeArtifact', () => {
     it('should remove the artifact from the image', () => {
-        const image = new MagickImage();
+        const image = MagickImage.create();
         image.setArtifact('foo', true);
 
         image.removeArtifact('foo');

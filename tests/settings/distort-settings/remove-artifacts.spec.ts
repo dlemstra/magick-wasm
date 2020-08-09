@@ -9,7 +9,7 @@ beforeEach(() => { ImageMagick._api = (global as any).native; });
 
 describe('DistortSettings#setArtifacts', () => {
     it('should remove the scale artifact from the image', () => {
-        const image = new MagickImage();
+        const image = MagickImage.create();
         const settings = new DistortSettings();
 
         settings.scale = 4.5;
@@ -21,7 +21,7 @@ describe('DistortSettings#setArtifacts', () => {
     });
 
     it('should remove the viewport artifact from the image', () => {
-        const image = new MagickImage();
+        const image = MagickImage.create();
         const settings = new DistortSettings();
 
         settings.viewport = new MagickGeometry(1);

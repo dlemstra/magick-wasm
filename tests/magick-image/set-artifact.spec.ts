@@ -7,7 +7,7 @@ beforeEach(() => { ImageMagick._api = (global as any).native; });
 
 describe('MagickImage#setArtifact', () => {
     it('should change boolean to string', () => {
-        const image = new MagickImage();
+        const image = MagickImage.create();
         image.setArtifact('foo', true);
 
         const value = image.getArtifact('foo');
@@ -15,7 +15,7 @@ describe('MagickImage#setArtifact', () => {
     });
 
     it('should set the value', () => {
-        const image = new MagickImage();
+        const image = MagickImage.create();
         image.setArtifact('foo', 'bar');
 
         const value = image.getArtifact('foo');
