@@ -33,6 +33,13 @@ export class MagickSettings {
     format?: MagickFormat;
 
     /** @internal */
+    _clone(): MagickSettings {
+        const clone = new MagickSettings();
+
+        return clone;
+    }
+
+    /** @internal */
     _use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {
         const settings = new NativeMagickSettings(this);
         try {

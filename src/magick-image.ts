@@ -22,13 +22,14 @@ import { Pointer } from "./pointer/pointer";
 import { VirtualPixelMethod } from "./virtual-pixel-method";
 import { _createString, _withString } from "./native/string";
 import { _withDoubleArray } from "./native/array";
+import { MagickImageCollection } from "./magick-image-collection";
 
 export class MagickImage extends NativeInstance {
-    private readonly settings: MagickSettings;
+    private readonly _settings: MagickSettings;
 
-    private constructor(instance: number) {
+    private constructor(instance: number, settings: MagickSettings) {
         super(instance, ImageMagick._api._MagickImage_Dispose);
-        this.settings = new MagickSettings();
+        this._settings = settings;
     }
 
     /** @internal */
@@ -154,7 +155,7 @@ export class MagickImage extends NativeInstance {
     }
 
     static create(): MagickImage {
-        return new MagickImage(MagickImage.createInstance());
+        return new MagickImage(MagickImage.createInstance(), new MagickSettings());
     }
 
     deskew(threshold: Percentage): number {
@@ -275,7 +276,7 @@ export class MagickImage extends NativeInstance {
 
         Exception.use((exception) => {
             if (fileNameOrArrayOrColor instanceof Uint8Array) {
-                const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : MagickReadSettings._createFrom(this.settings);
+                const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : MagickReadSettings._createFrom(this._settings);
                 readSettings._use((settings) => {
                     const length = fileNameOrArrayOrColor.byteLength;
                     let data = 0;
@@ -290,7 +291,7 @@ export class MagickImage extends NativeInstance {
                     }
                 });
             } else {
-                const readSettings = settingsOrWidth instanceof MagickReadSettings ? settingsOrWidth : MagickReadSettings._createFrom(this.settings);
+                const readSettings = settingsOrWidth instanceof MagickReadSettings ? settingsOrWidth : MagickReadSettings._createFrom(this._settings);
                 if (typeof fileNameOrArrayOrColor === 'string') {
                     readSettings._fileName = fileNameOrArrayOrColor;
                 } else if (fileNameOrArrayOrColor instanceof MagickColor) {
@@ -324,6 +325,18 @@ export class MagickImage extends NativeInstance {
         });
     }
 
+    separate(func: (images: MagickImageCollection) => void): void;
+    separate(func: (images: MagickImageCollection) => Promise<void>): Promise<void>;
+    separate(func: (images: MagickImageCollection) => void, channels: Channels): void;
+    separate(func: (images: MagickImageCollection) => Promise<void>, channels: Channels): Promise<void>;
+    separate(func: (images: MagickImageCollection) => void | Promise<void>, channels?: Channels): void | Promise<void> {
+        return Exception.use((exception) => {
+            const images = ImageMagick._api._MagickImage_Separate(this._instance, channels ?? Channels.All, exception.ptr);
+            const collection = MagickImageCollection._createFromImages(images, this._settings._clone());
+            return collection._use(func);
+        });
+    }
+
     setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
     setArtifact(name: string, value: string | boolean): void {
@@ -350,9 +363,9 @@ export class MagickImage extends NativeInstance {
         Exception.use((exception) => {
             Pointer.use((pointer) => {
                 if (format !== undefined)
-                    this.settings.format = format;
+                    this._settings.format = format;
 
-                this.settings._use((settings) => {
+                this._settings._use((settings) => {
                     let data = 0;
                     try {
                         data = ImageMagick._api._MagickImage_WriteBlob(this._instance, settings._instance, pointer.ptr, exception.ptr);
@@ -366,6 +379,11 @@ export class MagickImage extends NativeInstance {
         });
 
         return func(bytes);
+    }
+
+    /** @internal */
+    static _createFromImage(instance: number, settings: MagickSettings): MagickImage {
+        return new MagickImage(instance, settings);
     }
 
     /** @internal */
