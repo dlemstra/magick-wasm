@@ -31,4 +31,32 @@ describe('MagickColor#constructor', () => {
         expect(color.a).toBe(204);
         expect(color.isCmyk).toBe(true);
     });
+
+    it('should set the RGB channels', () => {
+        const color = new MagickColor(1, 2, 3);
+        expect(color.r).toBe(1);
+        expect(color.g).toBe(2);
+        expect(color.b).toBe(3);
+        expect(color.a).toBe(255);
+        expect(color.isCmyk).toBe(false);
+    });
+
+    it('should set the RGBA channels', () => {
+        const color = new MagickColor(1, 2, 3, 4);
+        expect(color.r).toBe(1);
+        expect(color.g).toBe(2);
+        expect(color.b).toBe(3);
+        expect(color.a).toBe(4);
+        expect(color.isCmyk).toBe(false);
+    });
+
+    it('should set the CMYKA channels', () => {
+        const color = new MagickColor(1, 2, 3, 4, 5);
+        expect(color.r).toBe(1);
+        expect(color.g).toBe(2);
+        expect(color.b).toBe(3);
+        expect(color.k).toBe(4);
+        expect(color.a).toBe(5);
+        expect(color.isCmyk).toBe(true);
+    });
 });
