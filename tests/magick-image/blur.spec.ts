@@ -20,11 +20,11 @@ afterEach(() => {
 describe('MagickImage#blur', () => {
     it('should change pixels of the image', () => {
         image.blur(5, 5);
-        colorAssert(image, 222, 60, '#ff6a6a');
+        colorAssert(image, 222, 60, '#ff6a6aff');
     });
 
     it('should only blur the specified channel', () => {
         image.blur(5, 5, Channels.Green);
-        colorAssert(image, 222, 60, '#ff6a00');
+        colorAssert(image, 222, 60, '#ff6a00ff');
     });
 });
