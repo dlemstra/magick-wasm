@@ -1,7 +1,7 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from '../../src/image-magick';
-import { MagickColor } from '../../src/magick-color';
+import { MagickColors } from '../../src/magick-colors';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
 import { pixelColor } from '../pixel-color';
@@ -69,7 +69,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read correct image when color is specified', () => {
-        ImageMagick.read(new MagickColor('lime'), 1, 2, (image) => {
+        ImageMagick.read(MagickColors.lime, 1, 2, (image) => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
             expect(pixelColor(image, 0, 1)).toBe('#00ff00ff');
@@ -77,7 +77,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read correct image when color is specified async', async () => {
-        await ImageMagick.read(new MagickColor('lime'), 1, 2, (image) => {
+        await ImageMagick.read(MagickColors.lime, 1, 2, (image) => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
             expect(pixelColor(image, 0, 1)).toBe('#00ff00ff');
