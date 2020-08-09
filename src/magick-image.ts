@@ -229,31 +229,39 @@ export class MagickImage extends NativeInstance {
         });
     }
 
+    read(color: MagickColor, width: number, height: number): void;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
-    read(fileNameOrArray: string | Uint8Array, settings?: MagickReadSettings): void {
-        const readSettings = settings !== undefined ? settings : MagickReadSettings._createFrom(this.settings);
+    read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidth?: MagickReadSettings | number, height?: number): void {
 
         Exception.use((exception) => {
-            if (typeof fileNameOrArray === 'string') {
-                readSettings._fileName = fileNameOrArray;
+            if (fileNameOrArrayOrColor instanceof Uint8Array) {
+                const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : MagickReadSettings._createFrom(this.settings);
                 readSettings._use((settings) => {
-                    const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
-                    this._setInstance(instance, exception);
-                });
-            } else {
-                readSettings._use((settings) => {
-                    const length = fileNameOrArray.byteLength;
+                    const length = fileNameOrArrayOrColor.byteLength;
                     let data = 0;
                     try {
                         data = ImageMagick._api._malloc(length);
-                        ImageMagick._api.HEAPU8.set(fileNameOrArray, data);
+                        ImageMagick._api.HEAPU8.set(fileNameOrArrayOrColor, data);
                         const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, data, 0, length, exception.ptr);
                         this._setInstance(instance, exception);
                     } finally {
                         if (data !== 0)
                             ImageMagick._api._free(data);
                     }
+                });
+            } else {
+                const readSettings = settingsOrWidth instanceof MagickReadSettings ? settingsOrWidth : MagickReadSettings._createFrom(this.settings);
+                if (typeof fileNameOrArrayOrColor === 'string') {
+                    readSettings._fileName = fileNameOrArrayOrColor;
+                } else if (fileNameOrArrayOrColor instanceof MagickColor) {
+                    readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toString();
+                    readSettings.width = typeof(settingsOrWidth) === 'number' ? settingsOrWidth : 0;
+                    readSettings.height = typeof(height) === 'number' ? height : 0;
+                } 
+                readSettings._use((settings) => {
+                    const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
+                    this._setInstance(instance, exception);
                 });
             }
         });

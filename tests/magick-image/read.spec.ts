@@ -1,10 +1,12 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from '../../src/image-magick';
+import { MagickColor } from '../../src/magick-color';
 import { MagickImage } from '../../src/magick-image';
-import { TestFiles } from '../test-files';
-import * as fs from "fs";
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
+import { TestFiles } from '../test-files';
+import { pixelColor } from '../pixel-color';
+import * as fs from "fs";
 
 let image: MagickImage;
 
@@ -31,7 +33,7 @@ describe('MagickImage#read', () => {
         expect(image.height).toBe(118);
     });
 
-    it('should read image with width and height specified', () => {
+    it('should read correct image when width and height are specified', () => {
         const settings = new MagickReadSettings(
         {
             width: 2,
@@ -43,7 +45,7 @@ describe('MagickImage#read', () => {
         expect(image.height).toBe(3);
     });
 
-    it('should read image with height specified', () => {
+    it('should read correct image when height is specified', () => {
         const settings = new MagickReadSettings(
         {
             width: 2
@@ -54,7 +56,7 @@ describe('MagickImage#read', () => {
         expect(image.height).toBe(1);
     });
 
-    it('should read image with width specified', () => {
+    it('should read correct image when width is specified', () => {
         const settings = new MagickReadSettings(
         {
             height: 2
@@ -63,5 +65,12 @@ describe('MagickImage#read', () => {
         image.read('xc:red', settings);
         expect(image.width).toBe(1);
         expect(image.height).toBe(2);
+    });
+
+    it('should read correct image when color is specified', () => {
+        image.read(new MagickColor('red'), 1, 2);
+        expect(image.width).toBe(1);
+        expect(image.height).toBe(2);
+        expect(pixelColor(image, 0, 1)).toBe('#ff0000ff');
     });
 });
