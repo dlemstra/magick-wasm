@@ -21,13 +21,20 @@ export class MagickGeometry {
     constructor(value: string);
     constructor(widthAndHeight: number);
     constructor(width: number, height: number);
-    constructor(width: number, height: number, x: number, y: number);
-    constructor(widthOrValue: number | string, height?: number, x?: number, y?: number) {
-        if (typeof widthOrValue === 'number') {
-            this._width = widthOrValue;
-            this._height = height ?? widthOrValue;
-            this._x = x ?? 0;
-            this._y = y ?? 0;
+    constructor(x: number, y: number, width: number, height: number);
+    constructor(widthOrValueOrX: number | string, heightOrY?: number, width?: number, height?: number) {
+        if (typeof widthOrValueOrX === 'number') {
+            if (width !== undefined && height !== undefined) {
+                this._width = width;
+                this._height = height;
+                this._x = widthOrValueOrX;
+                this._y = heightOrY ?? 0;
+            } else {
+                this._width = widthOrValueOrX;
+                this._height = heightOrY ?? this._width;
+                this._x = 0;
+                this._y = 0;
+            }
             if (this._width < 0)
                 throw new Error('negative width is not allowed');
             if (this._height < 0)
@@ -35,13 +42,13 @@ export class MagickGeometry {
         } else {
             const instance = ImageMagick._api._MagickGeometry_Create();
             try {
-                _withString(widthOrValue, (valuePtr)  => {
+                _withString(widthOrValueOrX, (valuePtr)  => {
                     const flags = ImageMagick._api._MagickGeometry_Initialize(instance, valuePtr);
                     if (flags === GeometryFlags.NoValue)
                         throw new Error('invalid geometry specified');
 
                     if (this.hasFlag(flags, GeometryFlags.AspectRatio)) {
-                        this.initializeFromAspectRation(instance, widthOrValue);
+                        this.initializeFromAspectRation(instance, widthOrValueOrX);
                     } else {
                         this.initialize(instance, flags);
                     }

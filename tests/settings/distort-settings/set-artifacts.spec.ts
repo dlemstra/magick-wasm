@@ -34,6 +34,6 @@ describe('DistortSettings#setArtifacts', () => {
         settings.viewport = new MagickGeometry(1, 2, 3, 4);
         settings._setArtifacts(image);
 
-        expect(image.getArtifact('distort:viewport')).toBe('1x2+3+4');
+        expect(image.getArtifact('distort:viewport')).toBe('3x4+1+2');
     });
 });

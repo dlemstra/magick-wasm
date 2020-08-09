@@ -15,13 +15,13 @@ describe('MagickGeometry#toString', () => {
     });
 
     it('should return correct value for positive values', () => {
-        const geometry = new MagickGeometry(11, 6, 1, 2);
+        const geometry = new MagickGeometry(1, 2, 11, 6);
 
         expect(geometry.toString()).toBe('11x6+1+2');
     });
 
     it('should return correct value for negative values', () => {
-        const geometry = new MagickGeometry(11, 6, -1, -2);
+        const geometry = new MagickGeometry(-1, -2, 11, 6);
 
         expect(geometry.toString()).toBe('11x6-1-2');
     });

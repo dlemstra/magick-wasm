@@ -53,7 +53,7 @@ describe('MagickImage#extent', () => {
 
       it('should extent the image with the specified geometry and offset', () => {
          image.backgroundColor = MagickColors.magenta;
-         image.extent(new MagickGeometry(2, 3, -1, -1));
+         image.extent(new MagickGeometry(-1, -1, 2, 3));
 
          expect(image.width).toBe(2);
          expect(image.height).toBe(3);

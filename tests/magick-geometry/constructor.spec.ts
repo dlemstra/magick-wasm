@@ -28,10 +28,10 @@ describe('MagickGeometry#constructor', () => {
 
     it('should set the properties', () => {
         const geometry = new MagickGeometry(1, 2, 3, 4);
-        expect(geometry.width).toBe(1);
-        expect(geometry.height).toBe(2);
-        expect(geometry.x).toBe(3);
-        expect(geometry.y).toBe(4);
+        expect(geometry.width).toBe(3);
+        expect(geometry.height).toBe(4);
+        expect(geometry.x).toBe(1);
+        expect(geometry.y).toBe(2);
     });
 
     it('should use 0 and 0 for the default x and y', () => {
