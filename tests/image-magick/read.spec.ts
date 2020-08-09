@@ -69,7 +69,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read correct image when color is specified', () => {
-        ImageMagick.read(MagickColors.lime, 1, 2, (image) => {
+        ImageMagick.read(MagickColors.Lime, 1, 2, (image) => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
             expect(pixelColor(image, 0, 1)).toBe('#00ff00ff');
@@ -77,7 +77,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read correct image when color is specified async', async () => {
-        await ImageMagick.read(MagickColors.lime, 1, 2, (image) => {
+        await ImageMagick.read(MagickColors.Lime, 1, 2, (image) => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
             expect(pixelColor(image, 0, 1)).toBe('#00ff00ff');

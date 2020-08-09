@@ -12,7 +12,7 @@ let image: MagickImage;
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
     image = MagickImage.create();
-    image.read(MagickColors.black, 1, 1);
+    image.read(MagickColors.Black, 1, 1);
 });
 
 afterEach(() => {
@@ -28,7 +28,7 @@ describe('MagickImage#extent', () => {
     });
 
     it('should extent the image with the specified color', () => {
-        image.extent(2, 3, MagickColors.magenta);
+        image.extent(2, 3, MagickColors.Magenta);
 
         expect(image.width).toBe(2);
         expect(image.height).toBe(3);
@@ -36,7 +36,7 @@ describe('MagickImage#extent', () => {
      });
 
      it('should extent the image with the specified gravity', () => {
-         image.backgroundColor = MagickColors.magenta;
+         image.backgroundColor = MagickColors.Magenta;
          image.extent(2, 3, Gravity.Southeast);
 
          expect(image.width).toBe(2);
@@ -52,7 +52,7 @@ describe('MagickImage#extent', () => {
       });
 
       it('should extent the image with the specified geometry and offset', () => {
-         image.backgroundColor = MagickColors.magenta;
+         image.backgroundColor = MagickColors.Magenta;
          image.extent(new MagickGeometry(-1, -1, 2, 3));
 
          expect(image.width).toBe(2);
@@ -61,7 +61,7 @@ describe('MagickImage#extent', () => {
       });
 
       it('should extent the image with the specified geometry and color', () => {
-         image.extent(new MagickGeometry(2, 3), MagickColors.magenta);
+         image.extent(new MagickGeometry(2, 3), MagickColors.Magenta);
 
          expect(image.width).toBe(2);
          expect(image.height).toBe(3);
@@ -69,7 +69,7 @@ describe('MagickImage#extent', () => {
       });
 
       it('should extent the image with the specified geometry and gravity', () => {
-         image.backgroundColor = MagickColors.magenta;
+         image.backgroundColor = MagickColors.Magenta;
          image.extent(new MagickGeometry(2, 3), Gravity.Southwest);
 
          expect(image.width).toBe(2);
@@ -78,7 +78,7 @@ describe('MagickImage#extent', () => {
       });
 
       it('should extent the image with the specified geometry, gravity and color', () => {
-         image.extent(new MagickGeometry(2, 3), Gravity.Southwest, MagickColors.magenta);
+         image.extent(new MagickGeometry(2, 3), Gravity.Southwest, MagickColors.Magenta);
 
          expect(image.width).toBe(2);
          expect(image.height).toBe(3);

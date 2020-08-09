@@ -27,7 +27,7 @@ describe('MagickImage#backgroundColor', () => {
 
     it('should change background color', () => {
         image.read('rose:');
-        image.backgroundColor = MagickColors.black;
+        image.backgroundColor = MagickColors.Black;
         const backgroundColor = image.backgroundColor;
         expect(backgroundColor.r).toBe(0);
         expect(backgroundColor.g).toBe(0);

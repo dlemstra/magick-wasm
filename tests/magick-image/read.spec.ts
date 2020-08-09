@@ -68,7 +68,7 @@ describe('MagickImage#read', () => {
     });
 
     it('should read correct image when color is specified', () => {
-        image.read(MagickColors.red, 1, 2);
+        image.read(MagickColors.Red, 1, 2);
         expect(image.width).toBe(1);
         expect(image.height).toBe(2);
         expect(pixelColor(image, 0, 1)).toBe('#ff0000ff');
