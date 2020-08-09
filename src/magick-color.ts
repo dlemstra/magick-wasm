@@ -71,6 +71,13 @@ export class MagickColor {
 
     get isCmyk() : boolean { return this._isCmyk }
 
+    toString(): string {
+        if (this.isCmyk)
+            return `cmyka(${this._r},${this._g},${this._b},${this._k},${(this._a / Quantum.max).toFixed(4)})`;
+
+        return `#${this._r.toString(16).padStart(2, '0')}${this._g.toString(16).padStart(2, '0')}${this._b.toString(16).padStart(2, '0')}${this._a.toString(16).padStart(2, '0')}`;
+    }
+
     /** @internal */
     _use(func: (colorPtr: number) => void): void {
         let instance = 0;
