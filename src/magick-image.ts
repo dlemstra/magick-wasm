@@ -3,14 +3,16 @@
 import { AlphaOption } from "./alpha-option";
 import { Channels } from "./channels";
 import { ColorSpace } from "./color-space";
+import { CompositeOperator } from "./composite-operator";
 import { DistortMethod } from "./distort-method";
 import { DistortSettings } from "./settings/distort-settings";
 import { Exception } from "./exception/exception";
 import { Gravity } from "./gravity";
 import { ImageMagick } from "./image-magick";
 import { MagickColor } from "./magick-color";
-import { MagickGeometry } from "./magick-geometry";
 import { MagickFormat } from "./magick-format";
+import { MagickGeometry } from "./magick-geometry";
+import { MagickImageCollection } from "./magick-image-collection";
 import { MagickReadSettings } from "./settings/magick-read-settings";
 import { MagickSettings } from "./settings/magick-settings";
 import { NativeInstance } from "./native-instance";
@@ -18,11 +20,11 @@ import { OrientationType } from "./orientation-type";
 import { Percentage } from "./percentage";
 import { PixelChannel } from "./pixel-channel";
 import { PixelCollection } from "./pixels/pixel-collection";
+import { Point } from "./point";
 import { Pointer } from "./pointer/pointer";
 import { VirtualPixelMethod } from "./virtual-pixel-method";
 import { _createString, _withString } from "./native/string";
 import { _withDoubleArray } from "./native/array";
-import { MagickImageCollection } from "./magick-image-collection";
 
 export class MagickImage extends NativeInstance {
     private readonly _settings: MagickSettings;
@@ -152,6 +154,59 @@ export class MagickImage extends NativeInstance {
             return -1;
 
         return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
+    }
+
+    composite(image: MagickImage): void;
+    composite(image: MagickImage, compose: CompositeOperator): void;
+    composite(image: MagickImage, compose: CompositeOperator, channels: Channels): void;
+    composite(image: MagickImage, compose: CompositeOperator, args: string): void;
+    composite(image: MagickImage, compose: CompositeOperator, args: string, channels: Channels): void;
+    composite(image: MagickImage, point: Point): void;
+    composite(image: MagickImage, point: Point, channels: Channels): void;
+    composite(image: MagickImage, compose: CompositeOperator, point: Point): void;
+    composite(image: MagickImage, compose: CompositeOperator, point: Point, channels: Channels): void;
+    composite(image: MagickImage, compose: CompositeOperator, point: Point, args: string): void;
+    composite(image: MagickImage, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
+    composite(image: MagickImage, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?:  Channels | string, channels?: Channels): void {
+        let x = 0;
+        let y = 0;
+        let compose = CompositeOperator.In;
+        let compositeChannels = Channels.Default;
+        let args: string | null = null;
+
+        if (composeOrPoint instanceof Point) {
+            x = composeOrPoint.x;
+            y = composeOrPoint.y;
+        } else if (composeOrPoint !== undefined) {
+            compose = composeOrPoint;
+        }
+
+        if (pointOrArgsOrChannels instanceof Point) {
+            x = pointOrArgsOrChannels.x;
+            y = pointOrArgsOrChannels.y;
+        } else if (typeof pointOrArgsOrChannels === 'string') {
+            args = pointOrArgsOrChannels;
+        } else if (pointOrArgsOrChannels !== undefined) {
+            compositeChannels = pointOrArgsOrChannels;
+        }
+
+        if (typeof channelsOrArgs === 'string')
+            args = channelsOrArgs;
+        else if (channelsOrArgs !== undefined)
+            compositeChannels = channelsOrArgs;
+
+        if (channels !== undefined)
+            compositeChannels = channels;
+
+        if (args !== null)
+            this.setArtifact('compose:args', args);
+
+        Exception.use((exception) => {
+            ImageMagick._api._MagickImage_Composite(this._instance, image._instance, x, y, compose, compositeChannels, exception.ptr);
+        });
+
+        if (args !== null)
+            this.removeArtifact('compose:args');
     }
 
     static create(): MagickImage {
