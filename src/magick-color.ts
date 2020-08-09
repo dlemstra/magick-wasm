@@ -75,7 +75,7 @@ export class MagickColor {
         if (this.isCmyk)
             return `cmyka(${this._r},${this._g},${this._b},${this._k},${(this._a / Quantum.max).toFixed(4)})`;
 
-        return `#${this._r.toString(16).padStart(2, '0')}${this._g.toString(16).padStart(2, '0')}${this._b.toString(16).padStart(2, '0')}${this._a.toString(16).padStart(2, '0')}`;
+        return `#${this.toHex(this._r)}${this.toHex(this._g)}${this.toHex(this._b)}${this.toHex(this._a)}`;
     }
 
     /** @internal */
@@ -100,5 +100,9 @@ export class MagickColor {
         this._b = ImageMagick._api._MagickColor_Blue_Get(instance);
         this._a = ImageMagick._api._MagickColor_Alpha_Get(instance);
         this._isCmyk = ImageMagick._api._MagickColor_IsCMYK_Get(instance) === 1;
+    }
+
+    private toHex(value: number) {
+        return value.toString(16).padStart(2, '0');
     }
 }
