@@ -7,7 +7,7 @@ import { _withString } from "../native/string";
 
 export class MagickReadSettings extends MagickSettings {
 
-    public constructor(partialSettings?: Partial<MagickReadSettings>) {
+    constructor(partialSettings?: Partial<MagickReadSettings>) {
         super();
 
         Object.assign(this, partialSettings);
