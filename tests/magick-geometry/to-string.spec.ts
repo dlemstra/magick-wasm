@@ -7,7 +7,7 @@ beforeEach(() => {
     ImageMagick._api = (global as any).native;
 });
 
-describe('MagickGeometry#constructor', () => {
+describe('MagickGeometry#toString', () => {
     it('should only return with and height', () => {
         const geometry = new MagickGeometry(11, 6);
 
