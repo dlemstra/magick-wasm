@@ -3,12 +3,8 @@
 import { MagickImage } from "../src/magick-image";
 import { PixelChannel } from "../src/pixel-channel";
 
-function toHex(number: number): string {
-    let hex = number.toString(16);
-    if (hex.length < 2) {
-        hex = '0' + hex;
-    }
-    return hex;
+function toHex(value: number): string {
+    return value.toString(16).padStart(2, '0');
 }
 
 export function pixelColor(image: MagickImage, x: number, y: number): string {
