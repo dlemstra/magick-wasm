@@ -5,7 +5,7 @@ import { MagickColors } from '../../src/magick-colors';
 import { MagickImage } from '../../src/magick-image';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
-import { pixelColor } from '../pixel-color';
+import { colorAssert } from '../color-assert';
 import * as fs from "fs";
 
 let image: MagickImage;
@@ -71,6 +71,6 @@ describe('MagickImage#read', () => {
         image.read(MagickColors.Red, 1, 2);
         expect(image.width).toBe(1);
         expect(image.height).toBe(2);
-        expect(pixelColor(image, 0, 1)).toBe('#ff0000ff');
+        colorAssert(image, 0, 1, MagickColors.Red);
     });
 });

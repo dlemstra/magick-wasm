@@ -2,12 +2,13 @@
 
 import { MagickImage } from "../src/magick-image";
 import { PixelChannel } from "../src/pixel-channel";
+import { MagickColor } from "../src/magick-color";
 
 function toHex(value: number): string {
     return value.toString(16).padStart(2, '0');
 }
 
-export function pixelColor(image: MagickImage, x: number, y: number): string {
+function pixelColor(image: MagickImage, x: number, y: number): string {
     return image.pixels((pixels) => {
         let channelCount = image.channelCount;
         if (image.channelOffset(PixelChannel.Index) !== -1)
@@ -39,4 +40,11 @@ export function pixelColor(image: MagickImage, x: number, y: number): string {
 
         return result;
     });
+}
+
+export function colorAssert(image: MagickImage, x: number, y: number, colorOrString: MagickColor | string) {
+    if (typeof colorOrString === 'string')
+        expect(pixelColor(image, x, y)).toBe(colorOrString);
+    else
+        expect(pixelColor(image, x, y)).toBe(colorOrString.toString());
 }

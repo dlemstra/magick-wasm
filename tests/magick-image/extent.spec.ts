@@ -5,7 +5,7 @@ import { Gravity } from '../../src/gravity';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickImage } from '../../src/magick-image';
 import { MagickGeometry } from '../../src/magick-geometry';
-import { pixelColor } from '../pixel-color';
+import { colorAssert } from '../color-assert';
 
 let image: MagickImage;
 
@@ -32,7 +32,7 @@ describe('MagickImage#extent', () => {
 
         expect(image.width).toBe(2);
         expect(image.height).toBe(3);
-        expect(pixelColor(image, 0, 0)).toBe('#ff00ffff');
+        colorAssert(image, 0, 0, MagickColors.Magenta);
      });
 
      it('should extent the image with the specified gravity', () => {
@@ -41,7 +41,7 @@ describe('MagickImage#extent', () => {
 
          expect(image.width).toBe(2);
          expect(image.height).toBe(3);
-         expect(pixelColor(image, 0, 0)).toBe('#ff00ffff');
+         colorAssert(image, 0, 0, MagickColors.Magenta);
       });
 
       it('should extent the image with the specified geometry', () => {
@@ -57,7 +57,7 @@ describe('MagickImage#extent', () => {
 
          expect(image.width).toBe(2);
          expect(image.height).toBe(3);
-         expect(pixelColor(image, 0, 0)).toBe('#ff00ffff');
+         colorAssert(image, 0, 0, MagickColors.Magenta);
       });
 
       it('should extent the image with the specified geometry and color', () => {
@@ -65,7 +65,7 @@ describe('MagickImage#extent', () => {
 
          expect(image.width).toBe(2);
          expect(image.height).toBe(3);
-         expect(pixelColor(image, 1, 1)).toBe('#ff00ffff');
+         colorAssert(image, 1, 1, MagickColors.Magenta);
       });
 
       it('should extent the image with the specified geometry and gravity', () => {
@@ -74,7 +74,7 @@ describe('MagickImage#extent', () => {
 
          expect(image.width).toBe(2);
          expect(image.height).toBe(3);
-         expect(pixelColor(image, 0, 0)).toBe('#ff00ffff');
+         colorAssert(image, 0, 0, MagickColors.Magenta);
       });
 
       it('should extent the image with the specified geometry, gravity and color', () => {
@@ -82,6 +82,6 @@ describe('MagickImage#extent', () => {
 
          expect(image.width).toBe(2);
          expect(image.height).toBe(3);
-         expect(pixelColor(image, 0, 0)).toBe('#ff00ffff');
+         colorAssert(image, 0, 0, MagickColors.Magenta);
       });
 });

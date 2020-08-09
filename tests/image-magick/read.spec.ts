@@ -4,7 +4,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
-import { pixelColor } from '../pixel-color';
+import { colorAssert } from '../color-assert';
 import * as fs from "fs";
 import * as util from "util";
 
@@ -72,7 +72,7 @@ describe('ImageMagick#read', () => {
         ImageMagick.read(MagickColors.Lime, 1, 2, (image) => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
-            expect(pixelColor(image, 0, 1)).toBe('#00ff00ff');
+            colorAssert(image, 0, 1, MagickColors.Lime);
         });
     });
 
@@ -80,7 +80,7 @@ describe('ImageMagick#read', () => {
         await ImageMagick.read(MagickColors.Lime, 1, 2, (image) => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
-            expect(pixelColor(image, 0, 1)).toBe('#00ff00ff');
+            colorAssert(image, 0, 1, MagickColors.Lime);
         });
     });
 });

@@ -1,11 +1,11 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
+import { AlphaOption } from '../../src/alpha-option';
+import { DistortMethod } from '../../src/distort-method';
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
-import { pixelColor } from '../pixel-color';
-import { DistortMethod } from '../../src/distort-method';
-import { AlphaOption } from '../../src/alpha-option';
 import { VirtualPixelMethod } from '../../src/virtual-pixel-method';
+import { colorAssert } from '../color-assert';
 
 let image: MagickImage;
 
@@ -27,8 +27,8 @@ describe('MagickImage#distort', () => {
 
         expect(image.width).toBe(70);
         expect(image.height).toBe(46);
-        expect(pixelColor(image, 4, 15)).toBe('#00000000');
-        expect(pixelColor(image, 55, 15)).toBe('#fd4b7bff');
-        expect(pixelColor(image, 66, 15)).toBe('#00000000');
+        colorAssert(image, 4, 15, '#00000000');
+        colorAssert(image, 55, 15, '#fd4b7bff');
+        colorAssert(image, 66, 15, '#00000000');
     });
 });
