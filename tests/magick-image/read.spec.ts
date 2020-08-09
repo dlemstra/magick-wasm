@@ -71,6 +71,7 @@ describe('MagickImage#read', () => {
         image.read(MagickColors.Red, 1, 2);
         expect(image.width).toBe(1);
         expect(image.height).toBe(2);
+        expect(image.hasAlpha).toBe(false);
         colorAssert(image, 0, 1, MagickColors.Red);
     });
 });

@@ -295,7 +295,7 @@ export class MagickImage extends NativeInstance {
                 if (typeof fileNameOrArrayOrColor === 'string') {
                     readSettings._fileName = fileNameOrArrayOrColor;
                 } else if (fileNameOrArrayOrColor instanceof MagickColor) {
-                    readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toString();
+                    readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toShortString();
                     readSettings.width = typeof(settingsOrWidth) === 'number' ? settingsOrWidth : 0;
                     readSettings.height = typeof(height) === 'number' ? height : 0;
                 } 

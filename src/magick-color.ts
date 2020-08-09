@@ -71,6 +71,16 @@ export class MagickColor {
 
     get isCmyk() : boolean { return this._isCmyk }
 
+    toShortString(): string {
+        if (this._a != Quantum.max)
+            return this.toString();
+
+        if (this.isCmyk)
+            return `cmyka(${this._r},${this._g},${this._b},${this._k})`;
+
+        return `#${this.toHex(this._r)}${this.toHex(this._g)}${this.toHex(this._b)}`;
+    }
+
     toString(): string {
         if (this.isCmyk)
             return `cmyka(${this._r},${this._g},${this._b},${this._k},${(this._a / Quantum.max).toFixed(4)})`;
