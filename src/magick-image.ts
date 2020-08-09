@@ -6,6 +6,7 @@ import { ColorSpace } from "./color-space";
 import { DistortMethod } from "./distort-method";
 import { DistortSettings } from "./settings/distort-settings";
 import { Exception } from "./exception/exception";
+import { Gravity } from "./gravity";
 import { ImageMagick } from "./image-magick";
 import { MagickColor } from "./magick-color";
 import { MagickGeometry } from "./magick-geometry";
@@ -213,6 +214,40 @@ export class MagickImage extends NativeInstance {
             }
 
             ctx.putImageData(imageData, 0, 0);
+        });
+    }
+
+    extent(width: number, height: number): void;
+    extent(width: number, height: number, gravity: Gravity): void;
+    extent(width: number, height: number, backgroundColor: MagickColor): void;
+    extent(geometry: MagickGeometry): void;
+    extent(geometry: MagickGeometry, gravity: Gravity): void;
+    extent(geometry: MagickGeometry, gravity: Gravity, backgroundColor: MagickColor): void;
+    extent(geometry: MagickGeometry, backgroundColor: MagickColor): void;
+    extent(geometryOrWidth: MagickGeometry | number, widthOrGravityOrBackgroundColor?: Gravity | MagickColor | number, backgroundColorOrGravity?: MagickColor | Gravity): void {
+        let gravity = Gravity.Undefined;
+        let geometry: MagickGeometry;
+
+        if (geometryOrWidth instanceof MagickGeometry)
+            geometry = geometryOrWidth;
+        else if (typeof widthOrGravityOrBackgroundColor === 'number')
+            geometry = new MagickGeometry(geometryOrWidth, widthOrGravityOrBackgroundColor);
+
+        if (widthOrGravityOrBackgroundColor instanceof MagickColor)
+            this.backgroundColor = widthOrGravityOrBackgroundColor;
+        else if (widthOrGravityOrBackgroundColor !== undefined)
+            gravity = widthOrGravityOrBackgroundColor;
+
+        if (backgroundColorOrGravity instanceof MagickColor)
+            this.backgroundColor = backgroundColorOrGravity;
+        else if (backgroundColorOrGravity !== undefined)
+            gravity = backgroundColorOrGravity;
+
+        Exception.use((exception) => {
+            _withString(geometry.toString(), (geometryPtr) => {
+                const instance = ImageMagick._api._MagickImage_Extent(this._instance, geometryPtr, gravity, exception.ptr);
+                this._setInstance(instance, exception);
+            });
         });
     }
 
