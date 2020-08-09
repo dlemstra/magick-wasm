@@ -2,6 +2,7 @@
 
 import MagickNative from './wasm/magick.js';
 import { ImageMagickApi } from './wasm/magick.js';
+import { MagickColor } from './magick-color';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './native/string';
@@ -42,6 +43,8 @@ export class ImageMagick {
         instance.api = value; // eslint-disable-line @typescript-eslint/no-use-before-define
     }
 
+    static read(color: MagickColor, width: number, height: number, func: (image: MagickImage) => void): void;
+    static read(color: MagickColor, width: number, height: number, func: (image: MagickImage) => Promise<void>): Promise<void>;
     static read(fileName: string, func: (image: MagickImage) => void): void;
     static read(fileName: string, func: (image: MagickImage) => Promise<void>): Promise<void>;
     static read(array: Uint8Array, func: (image: MagickImage) => void): void;
@@ -50,27 +53,30 @@ export class ImageMagick {
     static read(fileName: string, settings: MagickReadSettings, func: (image: MagickImage) => Promise<void>): Promise<void>;
     static read(array: Uint8Array, settings: MagickReadSettings, func: (image: MagickImage) => void): void;
     static read(array: Uint8Array, settings: MagickReadSettings, func: (image: MagickImage) => Promise<void>): Promise<void>;
-    static read(fileNameOrArray: string | Uint8Array, funcOrSettings: MagickReadSettings | ((image: MagickImage) => void | Promise<void>), func?: (image: MagickImage) => void): void | Promise<void> {
+    static read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, funcOrSettingsOrWidth: MagickReadSettings | ((image: MagickImage) => void | Promise<void>) | number, funcOrheight?: ((image: MagickImage) => void | Promise<void>) | number, func?: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
         MagickImage._use((image) => {
-
-            if (typeof funcOrSettings === 'object')
-            {
-                if (typeof fileNameOrArray === 'string')
-                    image.read(fileNameOrArray, funcOrSettings);
-                else
-                    image.read(fileNameOrArray, funcOrSettings);
-
+            if (fileNameOrArrayOrColor instanceof MagickColor) {
+                if (typeof funcOrSettingsOrWidth === 'number' && typeof funcOrheight === 'number')
+                    image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth, funcOrheight);
+                
                 if (func !== undefined)
                     return func(image);
-            }
-            else
-            {
-                if (typeof fileNameOrArray === 'string')
-                    image.read(fileNameOrArray);
+            } else if (funcOrSettingsOrWidth instanceof MagickReadSettings) {
+                if (typeof fileNameOrArrayOrColor === 'string')
+                    image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
                 else
-                    image.read(fileNameOrArray);
+                    image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
 
-                return funcOrSettings(image);
+                if (funcOrheight !== undefined && typeof funcOrheight !== 'number')
+                    return funcOrheight(image);
+            } else {
+                if (typeof fileNameOrArrayOrColor === 'string')
+                    image.read(fileNameOrArrayOrColor);
+                else
+                    image.read(fileNameOrArrayOrColor);
+
+                if (typeof funcOrSettingsOrWidth !== 'number')
+                    return funcOrSettingsOrWidth(image);
             }
         });
     }
