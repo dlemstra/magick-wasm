@@ -144,6 +144,17 @@ export class MagickImage extends NativeInstance {
         return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
     }
 
+    colorAlpha(color: MagickColor)
+    {
+        if (!this.hasAlpha)
+            return;
+
+        const canvas = MagickImage.create();
+        canvas.read(color, this.width, this.height);
+        canvas.composite(this, CompositeOperator.SrcOver, new Point(0, 0));
+        this._instance = canvas._instance;
+    }
+
     composite(image: MagickImage): void;
     composite(image: MagickImage, compose: CompositeOperator): void;
     composite(image: MagickImage, compose: CompositeOperator, channels: Channels): void;

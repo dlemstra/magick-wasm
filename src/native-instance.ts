@@ -22,6 +22,11 @@ export abstract class NativeInstance {
 
         throw new Error('instance is disposed');
     }
+    /** @internal */
+    set _instance(instance: number) {
+        this.disposeInstance(this.instance);
+        this.instance = instance;
+    }
 
     dispose(): void {
         this.instance = this.disposeInstance(this.instance);
