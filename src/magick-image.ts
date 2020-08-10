@@ -144,8 +144,7 @@ export class MagickImage extends NativeInstance {
         return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
     }
 
-    colorAlpha(color: MagickColor)
-    {
+    colorAlpha(color: MagickColor): void {
         if (!this.hasAlpha)
             return;
 
