@@ -197,6 +197,59 @@ export class MagickImage extends NativeInstance {
             this.removeArtifact('compose:args');
     }
 
+    compositeGravity(image: MagickImage, gravity: Gravity): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, channels: Channels): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, args: string): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, args: string, channels: Channels): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, point: Point): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, point: Point, channels: Channels): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, point: Point): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, channels: Channels): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
+    compositeGravity(image: MagickImage, gravity: Gravity, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?:  Channels | string, channels?: Channels): void {
+        let x = 0;
+        let y = 0;
+        let compose = CompositeOperator.In;
+        let compositeChannels = Channels.Default;
+        let args: string | null = null;
+
+        if (composeOrPoint instanceof Point) {
+            x = composeOrPoint.x;
+            y = composeOrPoint.y;
+        } else if (composeOrPoint !== undefined) {
+            compose = composeOrPoint;
+        }
+
+        if (pointOrArgsOrChannels instanceof Point) {
+            x = pointOrArgsOrChannels.x;
+            y = pointOrArgsOrChannels.y;
+        } else if (typeof pointOrArgsOrChannels === 'string') {
+            args = pointOrArgsOrChannels;
+        } else if (pointOrArgsOrChannels !== undefined) {
+            compositeChannels = pointOrArgsOrChannels;
+        }
+
+        if (typeof channelsOrArgs === 'string')
+            args = channelsOrArgs;
+        else if (channelsOrArgs !== undefined)
+            compositeChannels = channelsOrArgs;
+
+        if (channels !== undefined)
+            compositeChannels = channels;
+
+        if (args !== null)
+            this.setArtifact('compose:args', args);
+
+        Exception.use((exception) => {
+            ImageMagick._api._MagickImage_CompositeGravity(this._instance, image._instance, gravity, x, y, compose, compositeChannels, exception.ptr);
+        });
+
+        if (args !== null)
+            this.removeArtifact('compose:args');
+    }
+
     static create(): MagickImage {
         return new MagickImage(MagickImage.createInstance(), new MagickSettings());
     }
