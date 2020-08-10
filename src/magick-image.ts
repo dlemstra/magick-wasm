@@ -34,18 +34,6 @@ export class MagickImage extends NativeInstance {
         this._settings = settings;
     }
 
-    /** @internal */
-    static _use<TReturnType>(func: (image: MagickImage) => TReturnType): TReturnType;
-    static _use<TReturnType>(func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static _use<TReturnType>(func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        const image = MagickImage.create();
-        try {
-            return func(image);
-        } finally {
-            image.dispose();
-        }
-    }
-
     get artifactNames(): string[] {
         const artifactNames: string[] = [];
         ImageMagick._api._MagickImage_ResetArtifactIterator(this._instance);
@@ -444,6 +432,18 @@ export class MagickImage extends NativeInstance {
     /** @internal */
     protected _instanceNotInitialized(): void {
         throw new Error('no image has been read');
+    }
+
+    /** @internal */
+    static _use<TReturnType>(func: (image: MagickImage) => TReturnType): TReturnType;
+    static _use<TReturnType>(func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static _use<TReturnType>(func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        const image = MagickImage.create();
+        try {
+            return func(image);
+        } finally {
+            image.dispose();
+        }
     }
 
     private static createInstance(): number
