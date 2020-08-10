@@ -11,3 +11,7 @@ With Magick.WASM you can use ImageMagick in your web application without doing a
 
 For examples on how to use Magick.WASM view the [https://github.com/dlemstra/Magick.WASM/blob/master/demo/demo.ts](demo.ts).
 For more information about ImageMagick go to: [http://www.imagemagick.org/](http://www.imagemagick.org/).
+
+## Release notes
+
+The release notes can be found on [GitHub](https://github.com/dlemstra/Magick.WASM/releases/tag/0.0.3).
