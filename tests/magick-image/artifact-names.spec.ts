@@ -3,12 +3,19 @@
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
 
-beforeEach(() => { ImageMagick._api = (global as any).native; });
+let image: MagickImage;
+
+beforeEach(() => {
+    ImageMagick._api = (global as any).native;
+    image = MagickImage.create();
+});
+
+afterEach(() => {
+    image.dispose();
+});
 
 describe('MagickImage#artifactNames', () => {
     it('should return empty array when image has not attributes', () => {
-        const image = MagickImage.create();
-
         const names = image.artifactNames;
 
         expect(names).not.toBeNull();
@@ -16,7 +23,6 @@ describe('MagickImage#artifactNames', () => {
     });
 
     it('should return the artifact names of the image', () => {
-        const image = MagickImage.create();
         image.setArtifact('foo', true);
 
         const names = image.artifactNames;

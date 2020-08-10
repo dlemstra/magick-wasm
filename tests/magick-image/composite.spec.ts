@@ -48,7 +48,7 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the arguments', () => {
-        ImageMagick.read('logo:', (image) => {
+        ImageMagick.read(MagickColors.Red, 10, 10, (image) => {
             ImageMagick.read(MagickColors.White, image.width, image.height, (blur) => {
                 // TODO: CHECK WARNING
                 image.composite(blur, CompositeOperator.Blur, '3');
@@ -67,7 +67,7 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the arguments and channels', () => {
-        ImageMagick.read('logo:', (image) => {
+        ImageMagick.read(MagickColors.Red, 10, 10, (image) => {
             ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
                 // TODO: CHECK WARNING
                 image.composite(blur, CompositeOperator.Blur, '3', Channels.Red);
@@ -134,7 +134,7 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the offset and arguments', () => {
-        ImageMagick.read('logo:', (image) => {
+        ImageMagick.read(MagickColors.Red, 10, 10, (image) => {
             ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
                 // TODO: CHECK WARNING
                 image.composite(blur, CompositeOperator.Blur, new Point(1, 1), '3');
@@ -153,7 +153,7 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the offset, arguments and channels', () => {
-        ImageMagick.read('logo:', (image) => {
+        ImageMagick.read(MagickColors.Red, 10, 10, (image) => {
             ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
                 // TODO: CHECK WARNING
                 image.composite(blur, CompositeOperator.Blur, new Point(1, 1), '3', Channels.Red);

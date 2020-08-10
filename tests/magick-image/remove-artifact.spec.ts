@@ -3,11 +3,19 @@
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
 
-beforeEach(() => { ImageMagick._api = (global as any).native; });
+let image: MagickImage;
+
+beforeEach(() => {
+    ImageMagick._api = (global as any).native;
+    image = MagickImage.create();
+});
+
+afterEach(() => {
+    image.dispose();
+});
 
 describe('MagickImage#removeArtifact', () => {
     it('should remove the artifact from the image', () => {
-        const image = MagickImage.create();
         image.setArtifact('foo', true);
 
         image.removeArtifact('foo');

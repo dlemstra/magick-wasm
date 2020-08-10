@@ -3,11 +3,19 @@
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
 
-beforeEach(() => { ImageMagick._api = (global as any).native; });
+let image: MagickImage;
+
+beforeEach(() => {
+    ImageMagick._api = (global as any).native;
+    image = MagickImage.create();
+});
+
+afterEach(() => {
+    image.dispose();
+});
 
 describe('MagickImage#setArtifact', () => {
     it('should change boolean to string', () => {
-        const image = MagickImage.create();
         image.setArtifact('foo', true);
 
         const value = image.getArtifact('foo');
@@ -15,7 +23,6 @@ describe('MagickImage#setArtifact', () => {
     });
 
     it('should set the value', () => {
-        const image = MagickImage.create();
         image.setArtifact('foo', 'bar');
 
         const value = image.getArtifact('foo');

@@ -5,11 +5,19 @@ import { ImageMagick } from '../../../src/image-magick';
 import { MagickGeometry } from '../../../src/magick-geometry';
 import { MagickImage } from '../../../src/magick-image';
 
-beforeEach(() => { ImageMagick._api = (global as any).native; });
+let image: MagickImage;
+
+beforeEach(() => {
+    ImageMagick._api = (global as any).native;
+    image = MagickImage.create();
+});
+
+afterEach(() => {
+    image.dispose();
+});
 
 describe('DistortSettings#setArtifacts', () => {
     it('should not add the artifacts to the image when properties are not set', () => {
-        const image = MagickImage.create();
         const settings = new DistortSettings();
 
         settings._setArtifacts(image);
@@ -18,7 +26,6 @@ describe('DistortSettings#setArtifacts', () => {
     });
 
     it('should add the scale artifact to the image', () => {
-        const image = MagickImage.create();
         const settings = new DistortSettings();
 
         settings.scale = 4.5;
@@ -28,7 +35,6 @@ describe('DistortSettings#setArtifacts', () => {
     });
 
     it('should add the viewport artifact to the image', () => {
-        const image = MagickImage.create();
         const settings = new DistortSettings();
 
         settings.viewport = new MagickGeometry(1, 2, 3, 4);
