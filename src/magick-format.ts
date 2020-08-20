@@ -216,6 +216,7 @@ export enum MagickFormat {
     Text = 'TEXT',
     Tga = 'TGA',
     Thumbnail = 'THUMBNAIL',
+    Tif = 'TIF',
     Tiff = 'TIFF',
     Tiff64 = 'TIFF64',
     Tile = 'TILE',
