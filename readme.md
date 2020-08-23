@@ -9,7 +9,7 @@ With Magick.WASM you can use ImageMagick in your web application without doing a
 
 ## Documentation
 
-For examples on how to use Magick.WASM view the [https://github.com/dlemstra/Magick.WASM/blob/master/demo/demo.ts](demo.ts).
+For examples on how to use Magick.WASM view the [https://github.com/dlemstra/Magick.WASM/blob/master/demo/demo.ts](demo/demo.ts).
 For more information about ImageMagick go to: [http://www.imagemagick.org/](http://www.imagemagick.org/).
 
 ## Download
