@@ -3,8 +3,8 @@
 import { Channels } from '../../src/channels';
 import { ErrorMetric } from '../../src/error-metric';
 import { ImageMagick } from '../../src/image-magick';
-import { MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
+import { MagickImage } from '../../src/magick-image';
 
 let image: MagickImage;
 let other: MagickImage;
