@@ -150,6 +150,19 @@ export class MagickImage extends NativeInstance {
         return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
     }
 
+    clone(func: (image: MagickImage) => void): void;
+    clone(func: (image: MagickImage) => Promise<void>): Promise<void>;
+    clone(func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
+        Exception.usePointer((exception) => {
+            const image = new MagickImage(ImageMagick._api._MagickImage_Clone(this._instance, exception), this._settings._clone());
+            try {
+                return func(image);
+            } finally {
+                image.dispose();
+            }
+        });
+    }
+
     colorAlpha(color: MagickColor): void {
         if (!this.hasAlpha)
             return;
