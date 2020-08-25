@@ -6,6 +6,7 @@ import { ColorSpace } from "./color-space";
 import { CompositeOperator } from "./composite-operator";
 import { DistortMethod } from "./distort-method";
 import { DistortSettings } from "./settings/distort-settings";
+import { ErrorMetric } from "./error-metric";
 import { Exception } from "./exception/exception";
 import { Gravity } from "./gravity";
 import { ImageMagick } from "./image-magick";
@@ -157,6 +158,15 @@ export class MagickImage extends NativeInstance {
         canvas.read(color, this.width, this.height);
         canvas.composite(this, CompositeOperator.SrcOver, new Point(0, 0));
         this._instance = canvas._instance;
+    }
+
+    compare(image: MagickImage, metric: ErrorMetric): number;
+    compare(image: MagickImage, metric: ErrorMetric, channels: Channels): number;
+    compare(image: MagickImage, metric: ErrorMetric, channels?: Channels): number {
+        return Exception.usePointer((exception) => {
+            const compareChannels = channels !== undefined ? channels : Channels.Composite;
+            return ImageMagick._api._MagickImage_CompareDistortion(this._instance, image._instance, metric, compareChannels, exception);
+        });
     }
 
     composite(image: MagickImage): void;
