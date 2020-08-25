@@ -65,6 +65,11 @@ export class MagickImage extends NativeInstance {
             return ImageMagick._api._MagickImage_ColorSpace_Get(this._instance, exception);
         });
     }
+    set colorSpace(value: ColorSpace) {
+        Exception.usePointer((exception) => {
+            ImageMagick._api._MagickImage_ColorSpace_Set(this._instance, value, exception);
+        });
+    }
 
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
     set depth(value: number) { ImageMagick._api._MagickImage_Depth_Set(this._instance, value); }
@@ -199,8 +204,8 @@ export class MagickImage extends NativeInstance {
         if (args !== null)
             this.setArtifact('compose:args', args);
 
-        Exception.use((exception) => {
-            ImageMagick._api._MagickImage_Composite(this._instance, image._instance, x, y, compose, compositeChannels, exception.ptr);
+        Exception.usePointer((exception) => {
+            ImageMagick._api._MagickImage_Composite(this._instance, image._instance, x, y, compose, compositeChannels, exception);
         });
 
         if (args !== null)
@@ -252,8 +257,8 @@ export class MagickImage extends NativeInstance {
         if (args !== null)
             this.setArtifact('compose:args', args);
 
-        Exception.use((exception) => {
-            ImageMagick._api._MagickImage_CompositeGravity(this._instance, image._instance, gravity, x, y, compose, compositeChannels, exception.ptr);
+        Exception.usePointer((exception) => {
+            ImageMagick._api._MagickImage_CompositeGravity(this._instance, image._instance, gravity, x, y, compose, compositeChannels, exception);
         });
 
         if (args !== null)
@@ -379,7 +384,6 @@ export class MagickImage extends NativeInstance {
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
     read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidth?: MagickReadSettings | number, height?: number): void {
-
         Exception.use((exception) => {
             if (fileNameOrArrayOrColor instanceof Uint8Array) {
                 const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : MagickReadSettings._createFrom(this._settings);
