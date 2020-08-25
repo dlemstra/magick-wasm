@@ -138,6 +138,7 @@ export enum MagickFormat {
     Nrw = 'NRW',
     Null = 'NULL',
     O = 'O',
+    Ora = 'ORA',
     Orf = 'ORF',
     Otb = 'OTB',
     Otf = 'OTF',
