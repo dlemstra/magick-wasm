@@ -28,9 +28,9 @@ describe('MagickImage#clache', () => {
 
     it('should change pixels of the image with a percentage', () => {
         image.clone(clone => {
-            clone.clahe(new Percentage(0.5), new Percentage(0.25), 128, 3);
+            clone.clahe(new Percentage(50), new Percentage(10), 128, 3);
             const difference = clone.compare(image, ErrorMetric.RootMeanSquared);
-            expect(difference).toBeCloseTo(0.165);
+            expect(difference).toBeCloseTo(0.012);
         });
     });
 });
