@@ -26,6 +26,7 @@ import { Pointer } from "./pointer/pointer";
 import { VirtualPixelMethod } from "./virtual-pixel-method";
 import { _createString, _withString } from "./native/string";
 import { _withDoubleArray } from "./native/array";
+import { Quantum } from "./quantum";
 
 export class MagickImage extends NativeInstance {
     private readonly _settings: MagickSettings;
@@ -465,6 +466,47 @@ export class MagickImage extends NativeInstance {
                 const image = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(image, exception);
             });
+        });
+    }
+
+    sigmoidalContrast(contrast: number): void;
+    sigmoidalContrast(sharpen: boolean, contrast: number): void;
+    sigmoidalContrast(contrast: number, midpoint: number): void;
+    sigmoidalContrast(sharpen: boolean, contrast: number, midpoint: number): void;
+    sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
+    sigmoidalContrast(sharpen: boolean, contrast: number, midpointPercentage: Percentage): void;
+    sigmoidalContrast(sharpenOrConstract: boolean | number, contrastOrMidpointOrPercentage?: number | Percentage, midpointOrPercentage?: number | Percentage): void {
+        let sharpen: boolean;
+        let contrast: number;
+        let midpoint: number;
+        if (midpointOrPercentage !== undefined) {
+            if (typeof sharpenOrConstract !== 'number')
+                sharpen = sharpenOrConstract;
+            if (typeof contrastOrMidpointOrPercentage === 'number')
+                contrast = contrastOrMidpointOrPercentage;
+            if (typeof midpointOrPercentage === 'number')
+                midpoint = midpointOrPercentage;
+            else
+                midpoint = midpointOrPercentage.multiply(Quantum.max);
+        } else {
+            if (typeof sharpenOrConstract === 'number') {
+                sharpen = true;
+                contrast = sharpenOrConstract;
+                if (typeof contrastOrMidpointOrPercentage === 'number')
+                    midpoint = contrastOrMidpointOrPercentage;
+                else if (contrastOrMidpointOrPercentage !== undefined)
+                    midpoint = contrastOrMidpointOrPercentage.multiply(Quantum.max);
+                else
+                    midpoint = Quantum.max * 0.5;
+            } else {
+                sharpen = sharpenOrConstract;
+                if (typeof contrastOrMidpointOrPercentage === 'number')
+                    contrast = contrastOrMidpointOrPercentage;
+                midpoint = Quantum.max * 0.5;
+            }
+        }
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, this.fromBool(sharpen), contrast, midpoint, exception);
         });
     }
 
