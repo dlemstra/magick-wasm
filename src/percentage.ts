@@ -9,7 +9,7 @@ export class Percentage {
         this._value = value;
     }
 
-    multiply(value: number) {
+    multiply(value: number): number {
         return (value * this._value) / 100.0;
     }
 
