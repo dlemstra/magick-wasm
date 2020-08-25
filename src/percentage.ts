@@ -9,6 +9,10 @@ export class Percentage {
         this._value = value;
     }
 
+    multiply(value: number) {
+        return (value * this._value) / 100.0;
+    }
+
     toQuantum(): number {
         return Quantum.max * (this._value / 100);
     }
