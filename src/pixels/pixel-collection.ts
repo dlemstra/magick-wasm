@@ -11,7 +11,7 @@ export class PixelCollection extends NativeInstance {
     private readonly image: MagickImage;
 
     private constructor(image: MagickImage) {
-        const instance = Exception.usePointer((exception) => {
+        const instance = Exception.usePointer(exception => {
             return ImageMagick._api._PixelCollection_Create(image._instance, exception);
         });
         const disposeMethod = ImageMagick._api._PixelCollection_Dispose;
@@ -50,7 +50,7 @@ export class PixelCollection extends NativeInstance {
     }
 
     getArea(x: number, y: number, width: number, height: number): quantumArray {
-        return Exception.usePointer((exception) => {
+        return Exception.usePointer(exception => {
             const instance = ImageMagick._api._PixelCollection_GetArea(this._instance, x, y, width, height, exception);
             const count = width * height * this.image.channelCount;
             return ImageMagick._api.HEAPU8.subarray(instance, instance + count);
@@ -78,7 +78,7 @@ export class PixelCollection extends NativeInstance {
 
     private use<TReturnType>(x: number, y: number, width: number, height: number, mapping: string, func: (instance: number) => TReturnType): TReturnType | null {
         return _withString(mapping, (mappingPtr) => {
-            return Exception.use((exception) => {
+            return Exception.use(exception => {
                 const instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception.ptr);
 
                 return exception.check(() => {

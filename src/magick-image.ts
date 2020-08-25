@@ -53,7 +53,7 @@ export class MagickImage extends NativeInstance {
         return MagickColor._create(colorPtr);
     }
     set backgroundColor(value: MagickColor) {
-        value._use((valuePtr) =>
+        value._use(valuePtr =>
         {
             ImageMagick._api._MagickImage_BackgroundColor_Set(this._instance, valuePtr);
         });
@@ -62,12 +62,12 @@ export class MagickImage extends NativeInstance {
     get channelCount(): number { return ImageMagick._api._MagickImage_ChannelCount_Get(this._instance); }
 
     get colorSpace(): ColorSpace {
-        return Exception.usePointer((exception) => {
+        return Exception.usePointer(exception => {
             return ImageMagick._api._MagickImage_ColorSpace_Get(this._instance, exception);
         });
     }
     set colorSpace(value: ColorSpace) {
-        Exception.usePointer((exception) => {
+        Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_ColorSpace_Set(this._instance, value, exception);
         });
     }
@@ -79,12 +79,12 @@ export class MagickImage extends NativeInstance {
     set format(value: string) { _withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
 
     get hasAlpha(): boolean {
-        return Exception.usePointer((exception) => {
+        return Exception.usePointer(exception => {
             return this.toBool(ImageMagick._api._MagickImage_HasAlpha_Get(this._instance, exception));
         });
     }
     set hasAlpha(value: boolean) {
-        Exception.usePointer((exception) => {
+        Exception.usePointer(exception => {
             if (value)
                 this.alpha(AlphaOption.Opaque);
 
@@ -98,12 +98,12 @@ export class MagickImage extends NativeInstance {
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
 
     get virtualPixelMethod(): VirtualPixelMethod { 
-        return Exception.usePointer((exception) => {
+        return Exception.usePointer(exception => {
             return ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance, exception);
         });
     }
     set virtualPixelMethod(value: VirtualPixelMethod)  { 
-        Exception.usePointer((exception) => {
+        Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_VirtualPixelMethod_Set(this._instance, value, exception);
         });
     }
@@ -111,13 +111,13 @@ export class MagickImage extends NativeInstance {
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
 
     alpha(value: AlphaOption): void {
-        Exception.usePointer((exception) => {
+        Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_SetAlpha(this._instance, value, exception);
         });
     }
 
     autoOrient(): void {
-        Exception.use((exception) => {
+        Exception.use(exception => {
             const instance = ImageMagick._api._MagickImage_AutoOrient(this._instance, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -137,7 +137,7 @@ export class MagickImage extends NativeInstance {
         else if (radiusOrChannel !== undefined)
             channelsValue = radiusOrChannel;
 
-        Exception.use((exception) => {
+        Exception.use(exception => {
             const instance = ImageMagick._api._MagickImage_Blur(this._instance, radius, sigmaValue, channelsValue, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -153,7 +153,7 @@ export class MagickImage extends NativeInstance {
     clahe(xTiles: number, yTiles: number, numberBins: number, clipLimit: number): void;
     clahe(xTiles: Percentage, yTiles: Percentage, numberBins: number, clipLimit: number): void;
     clahe(xTiles: number | Percentage, yTiles: number | Percentage, numberBins: number, clipLimit: number): void {
-        Exception.usePointer((exception) => {
+        Exception.usePointer(exception => {
             const xTilesValue = xTiles instanceof Percentage ? xTiles.multiply(this.width) : xTiles;
             const yTilesValue = yTiles instanceof Percentage ? yTiles.multiply(this.height) : yTiles;
             ImageMagick._api._MagickImage_Clahe(this._instance, xTilesValue, yTilesValue, numberBins, clipLimit, exception);
@@ -163,7 +163,7 @@ export class MagickImage extends NativeInstance {
     clone(func: (image: MagickImage) => void): void;
     clone(func: (image: MagickImage) => Promise<void>): Promise<void>;
     clone(func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
-        Exception.usePointer((exception) => {
+        Exception.usePointer(exception => {
             const image = new MagickImage(ImageMagick._api._MagickImage_Clone(this._instance, exception), this._settings._clone());
             try {
                 return func(image);
@@ -186,7 +186,7 @@ export class MagickImage extends NativeInstance {
     compare(image: MagickImage, metric: ErrorMetric): number;
     compare(image: MagickImage, metric: ErrorMetric, channels: Channels): number;
     compare(image: MagickImage, metric: ErrorMetric, channels?: Channels): number {
-        return Exception.usePointer((exception) => {
+        return Exception.usePointer(exception => {
             const compareChannels = channels !== undefined ? channels : Channels.Composite;
             return ImageMagick._api._MagickImage_CompareDistortion(this._instance, image._instance, metric, compareChannels, exception);
         });
@@ -237,7 +237,7 @@ export class MagickImage extends NativeInstance {
         if (args !== null)
             this.setArtifact('compose:args', args);
 
-        Exception.usePointer((exception) => {
+        Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_Composite(this._instance, image._instance, x, y, compose, compositeChannels, exception);
         });
 
@@ -290,7 +290,7 @@ export class MagickImage extends NativeInstance {
         if (args !== null)
             this.setArtifact('compose:args', args);
 
-        Exception.usePointer((exception) => {
+        Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_CompositeGravity(this._instance, image._instance, gravity, x, y, compose, compositeChannels, exception);
         });
 
@@ -303,7 +303,7 @@ export class MagickImage extends NativeInstance {
     }
 
     deskew(threshold: Percentage): number {
-        Exception.use((exception) => {
+        Exception.use(exception => {
             const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold.toQuantum(), exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -330,7 +330,7 @@ export class MagickImage extends NativeInstance {
             distortArgs = [];
         }
 
-        Exception.use((exception) => {
+        Exception.use(exception => {
             _withDoubleArray(distortArgs, (distortArgsPtr: number) => {
                 const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, distortArgsPtr, distortArgs.length, exception.ptr);
                 this._setInstance(instance, exception)
@@ -392,7 +392,7 @@ export class MagickImage extends NativeInstance {
         else if (backgroundColorOrGravity !== undefined)
             gravity = backgroundColorOrGravity;
 
-        Exception.use((exception) => {
+        Exception.use(exception => {
             _withString(geometry.toString(), (geometryPtr) => {
                 const instance = ImageMagick._api._MagickImage_Extent(this._instance, geometryPtr, gravity, exception.ptr);
                 this._setInstance(instance, exception);
@@ -417,10 +417,10 @@ export class MagickImage extends NativeInstance {
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
     read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidth?: MagickReadSettings | number, height?: number): void {
-        Exception.use((exception) => {
+        Exception.use(exception => {
             if (fileNameOrArrayOrColor instanceof Uint8Array) {
                 const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : MagickReadSettings._createFrom(this._settings);
-                readSettings._use((settings) => {
+                readSettings._use(settings => {
                     const length = fileNameOrArrayOrColor.byteLength;
                     let data = 0;
                     try {
@@ -442,7 +442,7 @@ export class MagickImage extends NativeInstance {
                     readSettings.width = typeof(settingsOrWidth) === 'number' ? settingsOrWidth : 0;
                     readSettings.height = typeof(height) === 'number' ? height : 0;
                 } 
-                readSettings._use((settings) => {
+                readSettings._use(settings => {
                     const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
                     this._setInstance(instance, exception);
                 });
@@ -460,7 +460,7 @@ export class MagickImage extends NativeInstance {
     resize(width: number, height: number): void;
     resize(widthOrGeometry: number | MagickGeometry, height?: number): void {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
-        Exception.use((exception) => {
+        Exception.use(exception => {
             _withString(geometry.toString(), (geometryPtr) => {
                 const image = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(image, exception);
@@ -473,7 +473,7 @@ export class MagickImage extends NativeInstance {
     separate(func: (images: MagickImageCollection) => void, channels: Channels): void;
     separate(func: (images: MagickImageCollection) => Promise<void>, channels: Channels): Promise<void>;
     separate(func: (images: MagickImageCollection) => void | Promise<void>, channels?: Channels): void | Promise<void> {
-        return Exception.use((exception) => {
+        return Exception.use(exception => {
             const images = ImageMagick._api._MagickImage_Separate(this._instance, channels ?? Channels.All, exception.ptr);
             const collection = MagickImageCollection._createFromImages(images, this._settings._clone());
             return collection._use(func);
@@ -503,12 +503,12 @@ export class MagickImage extends NativeInstance {
     write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void> {
         let bytes = new Uint8Array();
 
-        Exception.use((exception) => {
-            Pointer.use((pointer) => {
+        Exception.use(exception => {
+            Pointer.use(pointer => {
                 if (format !== undefined)
                     this._settings.format = format;
 
-                this._settings._use((settings) => {
+                this._settings._use(settings => {
                     let data = 0;
                     try {
                         data = ImageMagick._api._MagickImage_WriteBlob(this._instance, settings._instance, pointer.ptr, exception.ptr);
@@ -548,7 +548,7 @@ export class MagickImage extends NativeInstance {
 
     private static createInstance(): number
     {
-        return Exception.usePointer((exception) => {
+        return Exception.usePointer(exception => {
             return ImageMagick._api._MagickImage_Create(0, exception);
         });
     }

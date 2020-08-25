@@ -54,7 +54,7 @@ export class ImageMagick {
     static read(array: Uint8Array, settings: MagickReadSettings, func: (image: MagickImage) => void): void;
     static read(array: Uint8Array, settings: MagickReadSettings, func: (image: MagickImage) => Promise<void>): Promise<void>;
     static read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, funcOrSettingsOrWidth: MagickReadSettings | ((image: MagickImage) => void | Promise<void>) | number, funcOrheight?: ((image: MagickImage) => void | Promise<void>) | number, func?: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
-        MagickImage._use((image) => {
+        MagickImage._use(image => {
             if (fileNameOrArrayOrColor instanceof MagickColor) {
                 if (typeof funcOrSettingsOrWidth === 'number' && typeof funcOrheight === 'number')
                     image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth, funcOrheight);

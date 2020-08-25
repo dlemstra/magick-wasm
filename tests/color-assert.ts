@@ -10,7 +10,7 @@ function toHex(value: number): string {
 }
 
 function pixelColor(image: MagickImage, x: number, y: number): string {
-    return image.pixels((pixels) => {
+    return image.pixels(pixels => {
         let channelCount = image.channelCount;
         if (image.channelOffset(PixelChannel.Index) !== -1)
             channelCount--;

@@ -23,7 +23,7 @@ export class Exception {
     }
 
     static usePointer<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
-        return Pointer.use((pointer) => {
+        return Pointer.use(pointer => {
             const result = func(pointer.ptr);
 
             return Exception.checkException(pointer, result);
@@ -31,7 +31,7 @@ export class Exception {
     }
 
     static use<TReturnType>(func: (exception: Exception) => TReturnType): TReturnType {
-        return Pointer.use((pointer) => {
+        return Pointer.use(pointer => {
             const result = func(new Exception(pointer));
 
             return Exception.checkException(pointer, result);

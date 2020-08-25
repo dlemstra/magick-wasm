@@ -17,11 +17,11 @@ initializeImageMagick().then(async () => {
         image.blur(1, 5);
         console.log(image.toString());
 
-        image.write((data) =>
+        image.write(data =>
         {
             console.log(data.length);
         }, MagickFormat.Jpeg);
     });
-}).catch((err) => {
+}).catch(err => {
     console.error(err);
 });
