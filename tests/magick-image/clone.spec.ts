@@ -19,7 +19,7 @@ afterEach(() => {
 describe('MagickImage#channelCount', () => {
     it('should create a clone of the image', () => {
         image.read(MagickColors.Magenta, 1, 1);
-        image.clone((clone) => {
+        image.clone(clone => {
             const difference = image.compare(clone, ErrorMetric.RootMeanSquared);
             expect(difference).toBe(0);
         });

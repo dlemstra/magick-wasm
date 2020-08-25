@@ -150,6 +150,16 @@ export class MagickImage extends NativeInstance {
         return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
     }
 
+    clahe(xTiles: number, yTiles: number, numberBins: number, clipLimit: number): void;
+    clahe(xTiles: Percentage, yTiles: Percentage, numberBins: number, clipLimit: number): void;
+    clahe(xTiles: number | Percentage, yTiles: number | Percentage, numberBins: number, clipLimit: number): void {
+        Exception.usePointer((exception) => {
+            const xTilesValue = xTiles instanceof Percentage ? xTiles.multiply(this.width) : xTiles;
+            const yTilesValue = yTiles instanceof Percentage ? yTiles.multiply(this.height) : yTiles;
+            ImageMagick._api._MagickImage_Clahe(this._instance, xTilesValue, yTilesValue, numberBins, clipLimit, exception);
+        });
+    }
+
     clone(func: (image: MagickImage) => void): void;
     clone(func: (image: MagickImage) => Promise<void>): Promise<void>;
     clone(func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
