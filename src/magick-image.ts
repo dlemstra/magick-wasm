@@ -164,7 +164,7 @@ export class MagickImage extends NativeInstance {
     clone(func: (image: MagickImage) => void): void;
     clone(func: (image: MagickImage) => Promise<void>): Promise<void>;
     clone(func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
-        Exception.usePointer(exception => {
+        return Exception.usePointer(exception => {
             const image = new MagickImage(ImageMagick._api._MagickImage_Clone(this._instance, exception), this._settings._clone());
             try {
                 return func(image);
