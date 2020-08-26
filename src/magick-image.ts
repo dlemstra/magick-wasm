@@ -16,7 +16,7 @@ import { MagickGeometry } from "./magick-geometry";
 import { MagickImageCollection } from "./magick-image-collection";
 import { MagickReadSettings } from "./settings/magick-read-settings";
 import { MagickSettings } from "./settings/magick-settings";
-import { NativeInstance } from "./native-instance";
+import { NativeInstance } from "./internal/native-instance";
 import { OrientationType } from "./orientation-type";
 import { Percentage } from "./percentage";
 import { PixelChannel } from "./pixel-channel";

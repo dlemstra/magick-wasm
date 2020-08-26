@@ -2,7 +2,7 @@
 
 import { ImageMagick } from "../image-magick";
 import { MagickFormat } from "../magick-format";
-import { NativeInstance } from "../native-instance";
+import { NativeInstance } from "../internal/native-instance";
 import { _withString } from "../internal/native/string";
 
 /** @internal */
