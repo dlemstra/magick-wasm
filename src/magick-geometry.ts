@@ -1,7 +1,7 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from "./image-magick";
-import { GeometryFlags } from "./geometry-flags";
+import { GeometryFlags } from "./internal/geometry-flags";
 import { _withString } from "./internal/native/string";
 
 export class MagickGeometry {
