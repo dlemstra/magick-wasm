@@ -22,7 +22,7 @@ import { Percentage } from "./percentage";
 import { PixelChannel } from "./pixel-channel";
 import { PixelCollection } from "./pixels/pixel-collection";
 import { Point } from "./point";
-import { Pointer } from "./pointer/pointer";
+import { Pointer } from "./internal/pointer/pointer";
 import { VirtualPixelMethod } from "./virtual-pixel-method";
 import { _createString, _withString } from "./internal/native/string";
 import { _withDoubleArray } from "./internal/native/array";

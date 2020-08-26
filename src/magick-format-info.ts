@@ -2,7 +2,7 @@
 
 import { ImageMagick } from "./image-magick";
 import { Exception } from "./internal/exception/exception";
-import { Pointer } from "./pointer/pointer";
+import { Pointer } from "./internal/pointer/pointer";
 import { MagickFormat } from "./magick-format";
 import { _createString } from "./internal/native/string";
 
