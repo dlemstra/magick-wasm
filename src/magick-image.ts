@@ -408,6 +408,16 @@ export class MagickImage extends NativeInstance {
         });
     }
 
+    getWriteMask(func: (mask: MagickImage | null) => void): void;
+    getWriteMask(func: (mask: MagickImage | null) => Promise<void>):  Promise<void>;
+    getWriteMask(func: (mask: MagickImage | null) => void | Promise<void>): void | Promise<void> {
+        return Exception.usePointer(exception => {
+            const instance = ImageMagick._api._MagickImage_GetWriteMask(this._instance, exception);
+            const image = instance === 0 ? null : new MagickImage(instance, new MagickSettings());
+            return func(image);
+        });
+    }
+
     pixels<TReturnType>(func: (pixels: PixelCollection) => TReturnType): TReturnType {
         return PixelCollection._use(this, (pixels) => {
             return func(pixels);
@@ -454,6 +464,12 @@ export class MagickImage extends NativeInstance {
     removeArtifact(name: string): void {
         _withString(name, namePtr => {
             ImageMagick._api._MagickImage_RemoveArtifact(this._instance, namePtr);
+        });
+    }
+
+    removeWriteMask(): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_SetWriteMask(this._instance, 0, exception);
         });
     }
 
@@ -535,6 +551,12 @@ export class MagickImage extends NativeInstance {
             _withString(strValue, valuePtr => {
                 ImageMagick._api._MagickImage_SetArtifact(this._instance, namePtr, valuePtr);
             });
+        });
+    }
+
+    setWriteMask(image: MagickImage): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_SetWriteMask(this._instance, image._instance, exception);
         });
     }
 
