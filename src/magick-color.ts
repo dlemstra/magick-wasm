@@ -2,7 +2,7 @@
 
 import { ImageMagick } from "./image-magick";
 import { Quantum } from "./quantum";
-import { _withString } from "./native/string";
+import { _withString } from "./internal/native/string";
 
 export class MagickColor {
     private _r = 0;
@@ -24,7 +24,7 @@ export class MagickColor {
             let instance = 0;
             try {
                 instance = ImageMagick._api._MagickColor_Create();
-                _withString(colorOrRed, (colorPtr) => {
+                _withString(colorOrRed, colorPtr => {
                     if (ImageMagick._api._MagickColor_Initialize(instance, colorPtr) === 0)
                         throw new Error('invalid color specified');
                     this.initialize(instance);

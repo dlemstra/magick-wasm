@@ -1,6 +1,6 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
-import { Exception } from "./exception/exception";
+import { Exception } from "./internal/exception/exception";
 
 export abstract class NativeInstance {
     private readonly disposeMethod: (instance: number) => void;

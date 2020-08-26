@@ -1,11 +1,11 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from "../image-magick";
-import { Exception } from "../exception/exception";
+import { Exception } from "../internal/exception/exception";
 import { NativeInstance } from "../native-instance";
 import { MagickImage } from "../magick-image";
 import { quantumArray } from "../wasm/magick";
-import { _withString } from "../native/string";
+import { _withString } from "../internal/native/string";
 
 export class PixelCollection extends NativeInstance {
     private readonly image: MagickImage;
@@ -77,7 +77,7 @@ export class PixelCollection extends NativeInstance {
     }
 
     private use<TReturnType>(x: number, y: number, width: number, height: number, mapping: string, func: (instance: number) => TReturnType): TReturnType | null {
-        return _withString(mapping, (mappingPtr) => {
+        return _withString(mapping, mappingPtr => {
             return Exception.use(exception => {
                 const instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception.ptr);
 

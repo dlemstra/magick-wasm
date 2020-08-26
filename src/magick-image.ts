@@ -24,8 +24,8 @@ import { PixelCollection } from "./pixels/pixel-collection";
 import { Point } from "./point";
 import { Pointer } from "./pointer/pointer";
 import { VirtualPixelMethod } from "./virtual-pixel-method";
-import { _createString, _withString } from "./native/string";
-import { _withDoubleArray } from "./native/array";
+import { _createString, _withString } from "./internal/native/string";
+import { _withDoubleArray } from "./internal/native/array";
 import { Quantum } from "./quantum";
 
 export class MagickImage extends NativeInstance {
@@ -77,7 +77,7 @@ export class MagickImage extends NativeInstance {
     set depth(value: number) { ImageMagick._api._MagickImage_Depth_Set(this._instance, value); }
 
     get format(): string { return _createString(ImageMagick._api._MagickImage_Format_Get(this._instance), ''); }
-    set format(value: string) { _withString(value, (instance) => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
+    set format(value: string) { _withString(value, instance => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
 
     get hasAlpha(): boolean {
         return Exception.usePointer(exception => {
@@ -394,7 +394,7 @@ export class MagickImage extends NativeInstance {
             gravity = backgroundColorOrGravity;
 
         Exception.use(exception => {
-            _withString(geometry.toString(), (geometryPtr) => {
+            _withString(geometry.toString(), geometryPtr => {
                 const instance = ImageMagick._api._MagickImage_Extent(this._instance, geometryPtr, gravity, exception.ptr);
                 this._setInstance(instance, exception);
             });
@@ -402,7 +402,7 @@ export class MagickImage extends NativeInstance {
     }
 
     getArtifact(name: string): string | null {
-        return _withString(name, (namePtr) => {
+        return _withString(name, namePtr => {
             const value = ImageMagick._api._MagickImage_GetArtifact(this._instance, namePtr);
             return _createString(value);
         });
@@ -452,7 +452,7 @@ export class MagickImage extends NativeInstance {
     }
 
     removeArtifact(name: string): void {
-        _withString(name, (namePtr) => {
+        _withString(name, namePtr => {
             ImageMagick._api._MagickImage_RemoveArtifact(this._instance, namePtr);
         });
     }
@@ -462,7 +462,7 @@ export class MagickImage extends NativeInstance {
     resize(widthOrGeometry: number | MagickGeometry, height?: number): void {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
         Exception.use(exception => {
-            _withString(geometry.toString(), (geometryPtr) => {
+            _withString(geometry.toString(), geometryPtr => {
                 const image = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(image, exception);
             });
@@ -531,8 +531,8 @@ export class MagickImage extends NativeInstance {
         } else {
             strValue = this.fromBool(value).toString();
         }
-        _withString(name, (namePtr) => {
-            _withString(strValue, (valuePtr) => {
+        _withString(name, namePtr => {
+            _withString(strValue, valuePtr => {
                 ImageMagick._api._MagickImage_SetArtifact(this._instance, namePtr, valuePtr);
             });
         });

@@ -1,7 +1,7 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
-import { ImageMagick } from "../image-magick";
-import { ImageMagickApi } from '../wasm/magick.js';
+import { ImageMagick } from "../../image-magick";
+import { ImageMagickApi } from '../../wasm/magick.js';
 
 /** @internal */
 export function _createString(instance: number): string | null;

@@ -5,7 +5,7 @@ import { ImageMagickApi } from './wasm/magick.js';
 import { MagickColor } from './magick-color';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
-import { _withNativeString } from './native/string';
+import { _withNativeString } from './internal/native/string';
 
 export class ImageMagick {
     private readonly loader: Promise<void>;

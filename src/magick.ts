@@ -2,7 +2,7 @@
 
 import { ImageMagick } from "./image-magick";
 import { MagickFormatInfo } from "./magick-format-info";
-import { _createString } from "./native/string";
+import { _createString } from "./internal/native/string";
 
 export class Magick {
     static get delegates(): string { return _createString(ImageMagick._api._Magick_Delegates_Get(), 'Unknown'); }

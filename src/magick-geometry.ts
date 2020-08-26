@@ -2,7 +2,7 @@
 
 import { ImageMagick } from "./image-magick";
 import { GeometryFlags } from "./geometry-flags";
-import { _withString } from "./native/string";
+import { _withString } from "./internal/native/string";
 
 export class MagickGeometry {
     private _width = 0;
@@ -42,7 +42,7 @@ export class MagickGeometry {
         } else {
             const instance = ImageMagick._api._MagickGeometry_Create();
             try {
-                _withString(widthOrValueOrX, (valuePtr)  => {
+                _withString(widthOrValueOrX, valuePtr  => {
                     const flags = ImageMagick._api._MagickGeometry_Initialize(instance, valuePtr);
                     if (flags === GeometryFlags.NoValue)
                         throw new Error('invalid geometry specified');

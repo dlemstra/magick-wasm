@@ -1,10 +1,10 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from "./image-magick";
-import { Exception } from "./exception/exception";
+import { Exception } from "./internal/exception/exception";
 import { Pointer } from "./pointer/pointer";
 import { MagickFormat } from "./magick-format";
-import { _createString } from "./native/string";
+import { _createString } from "./internal/native/string";
 
 export class MagickFormatInfo {
     private readonly _format: MagickFormat;
