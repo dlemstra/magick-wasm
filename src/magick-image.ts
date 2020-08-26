@@ -7,7 +7,7 @@ import { CompositeOperator } from "./composite-operator";
 import { DistortMethod } from "./distort-method";
 import { DistortSettings } from "./settings/distort-settings";
 import { ErrorMetric } from "./error-metric";
-import { Exception } from "./exception/exception";
+import { Exception } from "./internal/exception/exception";
 import { Gravity } from "./gravity";
 import { ImageMagick } from "./image-magick";
 import { MagickColor } from "./magick-color";
