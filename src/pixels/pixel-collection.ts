@@ -58,6 +58,10 @@ export class PixelCollection extends NativeInstance {
         });
     }
 
+    getPixel(x: number, y: number): quantumArray {
+        return this.getArea(x, y, 1, 1);
+    }
+
     setArea(x: number, y: number, width: number, height: number, quantumPixels: quantumArray): void;
     setArea(x: number, y: number, width: number, height: number, numberPixels: number[]): void;
     setArea(x: number, y: number, width: number, height: number, quantumPixelsOrNumberPixels: quantumArray | number[]): void {
