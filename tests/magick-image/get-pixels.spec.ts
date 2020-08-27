@@ -16,10 +16,10 @@ afterEach(() => {
     image.dispose();
 });
 
-describe('MagickImage#pixels', () => {
+describe('MagickImage#getPixels', () => {
     it('should dispose pixel instance', () => {
         let pixels: PixelCollection | undefined = undefined;
-        image.pixels((p) => {
+        image.getPixels((p) => {
             pixels = p
         });
 

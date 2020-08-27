@@ -418,7 +418,7 @@ export class MagickImage extends NativeInstance {
         });
     }
 
-    pixels<TReturnType>(func: (pixels: PixelCollection) => TReturnType): TReturnType {
+    getPixels<TReturnType>(func: (pixels: PixelCollection) => TReturnType): TReturnType {
         return PixelCollection._use(this, (pixels) => {
             return func(pixels);
         });
