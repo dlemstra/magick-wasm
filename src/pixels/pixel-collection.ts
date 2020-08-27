@@ -70,6 +70,15 @@ export class PixelCollection extends NativeInstance {
         });
     }
 
+    setPixel(x: number, y: number, quantumPixels: quantumArray): void;
+    setPixel(x: number, y: number, numberPixels: number[]): void;
+    setPixel(x: number, y: number, quantumPixelsOrNumberPixels: quantumArray | number[]): void {
+        if (quantumPixelsOrNumberPixels instanceof Uint8Array)
+            this.setArea(x, y, 1, 1, quantumPixelsOrNumberPixels);
+        else
+            this.setArea(x, y, 1, 1, quantumPixelsOrNumberPixels);
+    }
+
     toByteArray(x: number, y: number, width: number, height: number, mapping: string): quantumArray | null {
         return this.use(x, y, width, height, mapping, instance => {
             return PixelCollection.createArray(instance, width, height, mapping.length);
