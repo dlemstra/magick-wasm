@@ -7,6 +7,7 @@ import { CompositeOperator } from "./composite-operator";
 import { DistortMethod } from "./distort-method";
 import { DistortSettings } from "./settings/distort-settings";
 import { ErrorMetric } from "./error-metric";
+import { EvaluateOperator } from "./evaluate-operator";
 import { Exception } from "./internal/exception/exception";
 import { Gravity } from "./gravity";
 import { ImageMagick } from "./image-magick";
@@ -15,6 +16,7 @@ import { MagickFormat } from "./magick-format";
 import { MagickGeometry } from "./magick-geometry";
 import { MagickImageCollection } from "./magick-image-collection";
 import { MagickReadSettings } from "./settings/magick-read-settings";
+import { MagickRectangle } from "./internal/magick-rectangle";
 import { MagickSettings } from "./settings/magick-settings";
 import { NativeInstance } from "./internal/native-instance";
 import { OrientationType } from "./orientation-type";
@@ -350,7 +352,7 @@ export class MagickImage extends NativeInstance {
         if (ctx === null)
             return;
 
-        PixelCollection._map(this, 'RGBA', (q: number) => {
+        PixelCollection._map(this, 'RGBA', q => {
             const imageData = ctx.createImageData(this.width, this.height);
 
             let p = 0;
@@ -365,6 +367,38 @@ export class MagickImage extends NativeInstance {
 
             ctx.putImageData(imageData, 0, 0);
         });
+    }
+
+    evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
+    evaluate(channels: Channels, operator: EvaluateOperator, value: Percentage): void;
+    evaluate(channels: Channels, geometry: MagickGeometry, operator: EvaluateOperator, value: number): void;
+    evaluate(channels: Channels, geometry: MagickGeometry, operator: EvaluateOperator, value: Percentage): void;
+    evaluate(channels: Channels, operatorOrGeometry: EvaluateOperator | MagickGeometry, valueOrPercentageOrOperator: number | Percentage | EvaluateOperator, valueOrPercentage?: number | Percentage): void {
+        if (typeof operatorOrGeometry === 'number') {
+            const operator = operatorOrGeometry;
+            const value = typeof valueOrPercentageOrOperator === 'number' ? valueOrPercentageOrOperator : valueOrPercentageOrOperator.toQuantum();
+            Exception.usePointer(exception => {
+                ImageMagick._api._MagickImage_EvaluateOperator(this._instance, channels, operator, value, exception);
+            });
+        } else if (valueOrPercentage !== undefined) {
+            if (typeof valueOrPercentageOrOperator !== 'number')
+                throw new Error();
+
+            const geometry = operatorOrGeometry;
+            const operator = valueOrPercentageOrOperator;
+            const value = typeof valueOrPercentage === 'number' ? valueOrPercentage : valueOrPercentage.toQuantum();
+
+            if (geometry.isPercentage)
+                throw new Error('percentage is not supported');
+
+            Exception.usePointer(exception => {
+                MagickRectangle.use(this, geometry, rectangle =>
+                {
+                    ImageMagick._api._MagickImage_EvaluateGeometry(this._instance, channels, rectangle, operator, value, exception);
+                })
+            });
+        }
+      
     }
 
     extent(width: number, height: number): void;

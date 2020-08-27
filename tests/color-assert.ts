@@ -15,7 +15,7 @@ function pixelColor(image: MagickImage, x: number, y: number): string {
         if (image.channelOffset(PixelChannel.Index) !== -1)
             channelCount--;
 
-        const pixel = pixels.getArea(x, y, 1, 1);
+        const pixel = pixels.getPixel(x, y);
         let result = '#';
 
         switch (channelCount) {
@@ -25,7 +25,10 @@ function pixelColor(image: MagickImage, x: number, y: number): string {
                 break;
             case 2:
                 result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
-                result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
+                if (image.hasAlpha)
+                    result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
+                else
+                    result += toHex(Quantum.max);
                 break;
             case 3:
                 result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
@@ -37,7 +40,10 @@ function pixelColor(image: MagickImage, x: number, y: number): string {
                 result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
                 result += toHex(pixel[image.channelOffset(PixelChannel.Green)]);
                 result += toHex(pixel[image.channelOffset(PixelChannel.Blue)]);
-                result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
+                if (image.hasAlpha)
+                    result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
+                else
+                    result += toHex(Quantum.max);
                 break;
         }
 
