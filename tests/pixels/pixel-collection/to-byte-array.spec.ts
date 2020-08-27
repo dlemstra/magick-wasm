@@ -15,8 +15,8 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-    image.dispose();
     pixels.dispose();
+    image.dispose();
 });
 
 describe('PixelCollection#toByteArray', () => {

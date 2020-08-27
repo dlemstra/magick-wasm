@@ -1,8 +1,10 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
 import { ImageMagick } from '../../../src/image-magick';
+import { MagickColors } from '../../../src/magick-colors';
 import { MagickImage } from '../../../src/magick-image';
 import { PixelCollection } from '../../../src/pixels/pixel-collection';
+import { colorAssert } from '../../color-assert';
 
 let image: MagickImage;
 let pixels: PixelCollection;
@@ -19,10 +21,14 @@ afterEach(() => {
     image.dispose();
 });
 
-describe('PixelCollection#getArea', () => {
-    it('should return array with the correct size', () => {
-        const data = pixels.getArea(0, 0, 4, 5);
-        expect(data).not.toBeNull();
-        expect(data!.length).toBe(80);
+describe('PixelCollection#setArea', () => {
+    it('should set the pixels at the specified location', () => {
+        const data = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+        pixels.setArea(0, 0, 2, 2, data);
+
+        colorAssert(image, 0, 0, MagickColors.Black);
+        colorAssert(image, 0, 1, MagickColors.Black);
+        colorAssert(image, 1, 0, MagickColors.Black);
+        colorAssert(image, 1, 1, MagickColors.Black);
     });
 });

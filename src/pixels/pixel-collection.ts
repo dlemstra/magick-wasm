@@ -5,6 +5,7 @@ import { Exception } from "../internal/exception/exception";
 import { NativeInstance } from "../internal/native-instance";
 import { MagickImage } from "../magick-image";
 import { quantumArray } from "../wasm/magick";
+import { _withQuantumArray } from "../internal/native/array";
 import { _withString } from "../internal/native/string";
 
 export class PixelCollection extends NativeInstance {
@@ -57,13 +58,25 @@ export class PixelCollection extends NativeInstance {
         });
     }
 
-    toByteArray(x: number, y: number, width: number, height: number, mapping: string): Uint8Array | null {
-        return this.use(x, y, width, height, mapping, (instance) => {
+    setArea(x: number, y: number, width: number, height: number, quantumPixels: quantumArray): void;
+    setArea(x: number, y: number, width: number, height: number, numberPixels: number[]): void;
+    setArea(x: number, y: number, width: number, height: number, quantumPixelsOrNumberPixels: quantumArray | number[]): void {
+        Exception.usePointer(exception => {
+            const pixels = (quantumPixelsOrNumberPixels instanceof Uint8Array) ? quantumPixelsOrNumberPixels : new Uint8Array(quantumPixelsOrNumberPixels);
+            _withQuantumArray(pixels, pixelsPtr =>
+            {
+                ImageMagick._api._PixelCollection_SetArea(this._instance, x, y, width, height, pixelsPtr, pixels.length, exception);
+            });
+        });
+    }
+
+    toByteArray(x: number, y: number, width: number, height: number, mapping: string): quantumArray | null {
+        return this.use(x, y, width, height, mapping, instance => {
             return PixelCollection.createArray(instance, width, height, mapping.length);
         });
     }
 
-    private static createArray(instance: number, width: number, height: number, channelCount: number): Uint8Array | null {
+    private static createArray(instance: number, width: number, height: number, channelCount: number): quantumArray | null {
         if (instance === 0)
             return null;
 
