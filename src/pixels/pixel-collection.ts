@@ -40,7 +40,7 @@ export class PixelCollection extends NativeInstance {
     static _map(image: MagickImage, mapping: string, func: (instance: number) => void): void {
         const pixels = new PixelCollection(image);
         try {
-            pixels.use(0, 0, image.width, image.height, mapping, (instance) => {
+            pixels.use(0, 0, image.width, image.height, mapping, instance => {
                 func(instance);
             });
         }
