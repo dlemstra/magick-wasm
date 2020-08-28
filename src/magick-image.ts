@@ -565,6 +565,20 @@ export class MagickImage extends NativeInstance {
         });
     }
 
+    sharpen(): void;
+    sharpen(radius: number, sigma: number): void;
+    sharpen(radius: number, sigma: number, channels: Channels): void;
+    sharpen(radius?: number, sigma?: number, channels?: Channels): void {
+        const radiusValue = radius !== undefined ? radius : 0.0;
+        const sigmaValue = sigma !== undefined ? sigma : 1.0;
+        const channelsValue = channels !== undefined ? channels : Channels.Composite;
+
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_Sharpen(this._instance, radiusValue, sigmaValue, channelsValue, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
     sigmoidalContrast(contrast: number): void;
     sigmoidalContrast(sharpen: boolean, contrast: number): void;
     sigmoidalContrast(contrast: number, midpoint: number): void;
