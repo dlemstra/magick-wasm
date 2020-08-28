@@ -520,19 +520,7 @@ export class MagickImage extends NativeInstance {
         Exception.use(exception => {
             if (fileNameOrArrayOrColor instanceof Uint8Array) {
                 const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : MagickReadSettings._createFrom(this._settings);
-                readSettings._use(settings => {
-                    const length = fileNameOrArrayOrColor.byteLength;
-                    let data = 0;
-                    try {
-                        data = ImageMagick._api._malloc(length);
-                        ImageMagick._api.HEAPU8.set(fileNameOrArrayOrColor, data);
-                        const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, data, 0, length, exception.ptr);
-                        this._setInstance(instance, exception);
-                    } finally {
-                        if (data !== 0)
-                            ImageMagick._api._free(data);
-                    }
-                });
+                this.readFromArray(fileNameOrArrayOrColor, readSettings, exception);
             } else {
                 const readSettings = settingsOrWidth instanceof MagickReadSettings ? settingsOrWidth : MagickReadSettings._createFrom(this._settings);
                 if (typeof fileNameOrArrayOrColor === 'string') {
@@ -547,6 +535,23 @@ export class MagickImage extends NativeInstance {
                     this._setInstance(instance, exception);
                 });
             }
+        });
+    }
+
+    readFromCanvas(canvas: HTMLCanvasElement): void {
+        const ctx = canvas.getContext('2d');
+        if (ctx === null)
+            return;
+
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+        const settings = new MagickReadSettings();
+        settings.format = MagickFormat.Rgba;
+        settings.width = canvas.width;
+        settings.height = canvas.height;
+
+        Exception.use(exception => {
+            this.readFromArray(imageData.data, settings, exception);
         });
     }
 
@@ -722,6 +727,22 @@ export class MagickImage extends NativeInstance {
 
     private fromBool(value: boolean): number {
         return value ? 1 : 0;
+    }
+
+    private readFromArray(array: Uint8Array | Uint8ClampedArray, readSettings: MagickReadSettings, exception: Exception): void {
+        readSettings._use(settings => {
+            const length = array.byteLength;
+            let data = 0;
+            try {
+                data = ImageMagick._api._malloc(length);
+                ImageMagick._api.HEAPU8.set(array, data);
+                const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, data, 0, length, exception.ptr);
+                this._setInstance(instance, exception);
+            } finally {
+                if (data !== 0)
+                    ImageMagick._api._free(data);
+            }
+        });
     }
 
     private toBool(value: number): boolean {
