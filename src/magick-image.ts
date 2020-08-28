@@ -100,6 +100,12 @@ export class MagickImage extends NativeInstance {
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
 
+    get signature(): string | null { 
+        return Exception.usePointer(exception => {
+            return _createString(ImageMagick._api._MagickImage_Signature_Get(this._instance, exception));
+        });
+    }
+
     get virtualPixelMethod(): VirtualPixelMethod { 
         return Exception.usePointer(exception => {
             return ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance, exception);
@@ -498,8 +504,8 @@ export class MagickImage extends NativeInstance {
                     readSettings._fileName = fileNameOrArrayOrColor;
                 } else if (fileNameOrArrayOrColor instanceof MagickColor) {
                     readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toShortString();
-                    readSettings.width = typeof(settingsOrWidth) === 'number' ? settingsOrWidth : 0;
-                    readSettings.height = typeof(height) === 'number' ? height : 0;
+                    readSettings.width = typeof settingsOrWidth === 'number' ? settingsOrWidth : 0;
+                    readSettings.height = typeof height === 'number' ? height : 0;
                 } 
                 readSettings._use(settings => {
                     const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
