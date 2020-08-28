@@ -359,31 +359,6 @@ export class MagickImage extends NativeInstance {
             settings._removeArtifacts(this);
     }
 
-    drawOnCanvas(canvas: HTMLCanvasElement): void {
-        canvas.width = this.width;
-        canvas.height = this.height;
-
-        const ctx = canvas.getContext('2d');
-        if (ctx === null)
-            return;
-
-        PixelCollection._map(this, 'RGBA', q => {
-            const imageData = ctx.createImageData(this.width, this.height);
-
-            let p = 0;
-            for (let y = 0; y < this.height; y++) {
-                for (let x = 0; x < this.width; x++) {
-                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
-                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
-                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
-                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
-                }
-            }
-
-            ctx.putImageData(imageData, 0, 0);
-        });
-    }
-
     evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
     evaluate(channels: Channels, operator: EvaluateOperator, value: Percentage): void;
     evaluate(channels: Channels, geometry: MagickGeometry, operator: EvaluateOperator, value: number): void;
@@ -694,6 +669,31 @@ export class MagickImage extends NativeInstance {
         });
 
         return func(bytes);
+    }
+
+    writeToCanvas(canvas: HTMLCanvasElement): void {
+        canvas.width = this.width;
+        canvas.height = this.height;
+
+        const ctx = canvas.getContext('2d');
+        if (ctx === null)
+            return;
+
+        PixelCollection._map(this, 'RGBA', q => {
+            const imageData = ctx.createImageData(this.width, this.height);
+
+            let p = 0;
+            for (let y = 0; y < this.height; y++) {
+                for (let x = 0; x < this.width; x++) {
+                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
+                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
+                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
+                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
+                }
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+        });
     }
 
     /** @internal */
