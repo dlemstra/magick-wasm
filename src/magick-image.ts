@@ -464,6 +464,32 @@ export class MagickImage extends NativeInstance {
         });
     }
 
+    level(blackPoint: Percentage, whitePoint: Percentage): void;
+    level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
+    level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
+    level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
+    level(channelsOrBlackPoint: Channels | Percentage, blackPointOrWhitePoint: Percentage, whitePointPercentageOrGamma?: Percentage | number, gamma?: number): void {
+        let channels = Channels.Composite;
+        let blackPoint: Percentage;
+        let whitePoint: Percentage;
+        let gammaValue = gamma !== undefined ? gamma : 1.0;
+        if (typeof channelsOrBlackPoint === 'number') {
+            channels = channelsOrBlackPoint;
+            blackPoint = blackPointOrWhitePoint;
+            if (whitePointPercentageOrGamma instanceof Percentage)
+                whitePoint = whitePointPercentageOrGamma;
+        } else {
+            blackPoint = channelsOrBlackPoint;
+            whitePoint = blackPointOrWhitePoint;
+            if (typeof whitePointPercentageOrGamma === 'number')
+                gammaValue = whitePointPercentageOrGamma;
+        }
+
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint.toQuantum(), gammaValue, channels, exception);
+        });
+    }
+
     modulate(brightness: Percentage): void;
     modulate(brightness: Percentage, saturation: Percentage): void;
     modulate(brightness: Percentage, saturation: Percentage, hue: Percentage): void;
