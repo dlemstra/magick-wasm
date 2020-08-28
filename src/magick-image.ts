@@ -373,10 +373,10 @@ export class MagickImage extends NativeInstance {
             let p = 0;
             for (let y = 0; y < this.height; y++) {
                 for (let x = 0; x < this.width; x++) {
-                    imageData.data[p++] = q++;
-                    imageData.data[p++] = q++;
-                    imageData.data[p++] = q++;
-                    imageData.data[p++] = q++;
+                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
+                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
+                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
+                    imageData.data[p++] = ImageMagick._api.HEAPU8[q++];
                 }
             }
 
