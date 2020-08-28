@@ -18,14 +18,15 @@ afterEach(() => {
 });
 
 describe('MagickImage#readFromCanvas', () => {
-    it('should read the image data from the canvas', async () => {
+    it('should read the image data from the canvas', () => {
         const window = new JSDOM().window;
 
         const canvas = window.document.createElement('canvas');
         canvas.width = 1;
         canvas.height = 2;
 
-        window.HTMLCanvasElement.prototype.getContext = <any> jest.fn(function() {
+        window.HTMLCanvasElement.prototype.getContext = <any> jest.fn(function(contextId: string) {
+            expect(contextId).toBe('2d');
             return {
                 getImageData: function(x: number, y: number, width: number, height: number) {
                     expect(x).toBe(0);
