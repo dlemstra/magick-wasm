@@ -2,9 +2,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
-import { TestFiles } from '../test-files';
-import * as fs from "fs";
-import * as util from "util";
+import { TestFiles, readTestFile } from '../test-files';
 
 let image: MagickImage;
 
@@ -29,9 +27,7 @@ describe('MagickImage#quality', () => {
     });
 
     it('should return the image quality', async () => {
-        const readFile = util.promisify(fs.readFile);
-        const data = await readFile(TestFiles.imageMagickJpg);
-        await ImageMagick.read(data, (image) => {
+        await readTestFile(TestFiles.imageMagickJpg, image => {
             expect(image.quality).toBe(100);
         });
     });

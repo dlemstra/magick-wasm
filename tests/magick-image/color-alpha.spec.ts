@@ -3,9 +3,8 @@
 import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickImage } from '../../src/magick-image';
-import { TestFiles } from '../test-files';
+import { TestFiles, readTestFile } from '../test-files';
 import { colorAssert } from '../color-assert';
-import * as fs from "fs";
 
 let image: MagickImage;
 
@@ -19,10 +18,10 @@ afterEach(() => {
 });
 
 describe('MagickImage#colorAlpha', () => {
-    it('should color the alpha channel', () => {
-        const data = fs.readFileSync(TestFiles.redPng);
-        image.read(data);
-        image.colorAlpha(MagickColors.Magenta);
-        colorAssert(image, 350, 80, MagickColors.Magenta);
+    it('should color the alpha channel', async () => {
+        await readTestFile(TestFiles.redPng, image => {
+            image.colorAlpha(MagickColors.Magenta);
+            colorAssert(image, 350, 80, MagickColors.Magenta);
+        });
     });
 });
