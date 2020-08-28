@@ -100,6 +100,15 @@ export class MagickImage extends NativeInstance {
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
 
+    get quality(): number { return ImageMagick._api._MagickImage_Quality_Get(this._instance); }
+    set quality(value: number) {
+        let quality = value < 1 ? 1 : value;
+        quality = quality > 100 ? 100 : quality;
+
+        ImageMagick._api._MagickImage_Quality_Set(this._instance, quality);
+        this._settings._quality = quality;
+    }
+
     get signature(): string | null { 
         return Exception.usePointer(exception => {
             return _createString(ImageMagick._api._MagickImage_Signature_Get(this._instance, exception));

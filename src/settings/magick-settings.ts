@@ -18,6 +18,10 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
+        if (settings._quality !== undefined) {
+            ImageMagick._api._MagickSettings_SetQuality(this._instance, settings._quality);
+        }
+
         if (settings.format !== undefined) {
             _withString(settings.format, formatPtr => {
                 ImageMagick._api._MagickSettings_Format_Set(this._instance, formatPtr);
@@ -29,6 +33,9 @@ export class NativeMagickSettings extends NativeInstance {
 export class MagickSettings {
     /** @internal */
     _fileName?: string;
+
+    /** @internal */
+    _quality?: number;
 
     format?: MagickFormat;
 
