@@ -80,6 +80,15 @@ export class ImageMagick {
             }
         });
     }
+
+    static readFromCanvas(canvas: HTMLCanvasElement, func: (image: MagickImage) => void): void;
+    static readFromCanvas(canvas: HTMLCanvasElement, func: (image: MagickImage) => Promise<void>): Promise<void>;
+    static readFromCanvas(canvas: HTMLCanvasElement, func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
+        return MagickImage._use(image => {
+            image.readFromCanvas(canvas);
+            return func(image);
+        });
+    }
 }
 
 /** @internal */
