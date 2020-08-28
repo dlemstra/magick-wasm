@@ -458,6 +458,20 @@ export class MagickImage extends NativeInstance {
         });
     }
 
+    modulate(brightness: Percentage): void;
+    modulate(brightness: Percentage, saturation: Percentage): void;
+    modulate(brightness: Percentage, saturation: Percentage, hue: Percentage): void;
+    modulate(brightness: Percentage, saturation?: Percentage, hue?: Percentage) : void {
+        const saturationPercentage = saturation === undefined ? new Percentage(100) : saturation;
+        const huePercentage = hue === undefined ? new Percentage(100) : hue;
+        Exception.usePointer(exception => {
+            const modulate = `${brightness.toDouble()}/${saturationPercentage.toDouble()}/${huePercentage.toDouble()}`;
+            _withString(modulate, modulatePtr => {
+                ImageMagick._api._MagickImage_Modulate(this._instance, modulatePtr, exception);
+            });
+        });
+    }
+
     read(color: MagickColor, width: number, height: number): void;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
