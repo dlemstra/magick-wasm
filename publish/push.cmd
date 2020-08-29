@@ -1,5 +1,5 @@
 @echo off
-set VERSION=0.0.3
+set VERSION=0.0.4
 call npm config set prefix %~dp0
 call npm publish imagemagick-magick-wasm-%VERSION%.tgz --access public
 call npm config set prefix %APPDATA%\npm
