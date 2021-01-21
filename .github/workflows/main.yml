@@ -1,14 +1,14 @@
 on:
   push:
     branches:
-    - master
+    - main
     tags:
     - '!*'
   pull_request:
     branches:
-    - master
+    - main
 
-name: master
+name: main
 jobs:
   test:
     name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
