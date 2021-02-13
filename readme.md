@@ -1,6 +1,6 @@
 ## The WebAssembly library for ImageMagick: Magick.WASM
 
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/Magick.WASM/master/license.txt)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/Magick.WASM/main/license.txt)
 [![Twitter URL](https://img.shields.io/badge/twitter-follow-1da1f2.svg)](https://twitter.com/MagickNET)
 [![Donate](https://img.shields.io/badge/%24-donate-ff00ff.svg)](https://github.com/sponsors/dlemstra)
 
@@ -9,7 +9,7 @@ With Magick.WASM you can use ImageMagick in your web application without doing a
 
 ## Documentation
 
-For examples on how to use Magick.WASM view the [https://github.com/dlemstra/Magick.WASM/blob/master/demo/demo.ts](demo/demo.ts).
+For examples on how to use Magick.WASM view the [https://github.com/dlemstra/Magick.WASM/blob/main/demo/demo.ts](demo/demo.ts).
 For more information about ImageMagick go to: [http://www.imagemagick.org/](http://www.imagemagick.org/).
 
 ## Download
