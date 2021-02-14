@@ -18,6 +18,6 @@ describe('MagickImage#constructor', () => {
     it('should create empty uninitialized instance', () => {
         expect(() => {
             image.resize(1, 1);
-        }).toThrowError('NegativeOrZeroImageSize `\' @ error/image.c/CloneImage/798');
+        }).toThrowError('NegativeOrZeroImageSize `\' @ error/image.c/CloneImage');
     });
 });
