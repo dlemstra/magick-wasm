@@ -7,15 +7,15 @@
     "prepare": "cpy ./node_modules/@dlemstra/magick-native/magick-Q8.js ./lib/wasm --rename=magick.js && cpy ./node_modules/@dlemstra/magick-native/magick-Q8.d.ts ./lib/wasm --rename=magick.d.ts && cpy ./node_modules/@dlemstra/magick-native/magick-Q8.js ./src/wasm --rename=magick.js && cpy ./node_modules/@dlemstra/magick-native/magick-Q8.d.ts ./src/wasm --rename=magick.d.ts"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.14",
+    "@types/jest": "^26.0.20",
     "@types/jsdom": "^16.2.4",
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
     "cpy-cli": "^3.1.1",
     "eslint": "^7.9.0",
-    "jest": "^26.4.0",
+    "jest": "^26.5.1",
     "@dlemstra/magick-native": "0.202102.141821",
-    "ts-jest": "^26.4.0",
+    "ts-jest": "^26.5.1",
     "typescript": "^4.0.3"
   }
 }
