@@ -26,7 +26,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-          registry-url: https://registry.npmjs.org
+          npm-registry:
+            - registry: https://registry.npmjs.org
+            - registry: https://npm.pkg.github.com
+              scope: '@dlemstra'
+              token: '${{ secrets.GITHUB_TOKEN }}'
 
       - run: npm install
 
