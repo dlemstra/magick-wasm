@@ -30,7 +30,7 @@ jobs:
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
 
-      - run: npm ci
+      - run: npm install
 
       - run: npm run lint
 
