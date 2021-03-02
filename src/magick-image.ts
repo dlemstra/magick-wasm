@@ -11,6 +11,7 @@ import { EvaluateOperator } from "./evaluate-operator";
 import { Exception } from "./internal/exception/exception";
 import { Gravity } from "./gravity";
 import { ImageMagick } from "./image-magick";
+import { ImageProfile } from "./profiles/image-profile";
 import { MagickColor } from "./magick-color";
 import { MagickFormat } from "./magick-format";
 import { MagickGeometry } from "./magick-geometry";
@@ -25,10 +26,11 @@ import { PixelChannel } from "./pixel-channel";
 import { PixelCollection } from "./pixels/pixel-collection";
 import { Point } from "./point";
 import { Pointer } from "./internal/pointer/pointer";
+import { Quantum } from "./quantum";
+import { StringInfo } from "./internal/string-info";
 import { VirtualPixelMethod } from "./virtual-pixel-method";
 import { _createString, _withString } from "./internal/native/string";
 import { _withDoubleArray } from "./internal/native/array";
-import { Quantum } from "./quantum";
 
 export class MagickImage extends NativeInstance {
     private readonly _settings: MagickSettings;
@@ -429,6 +431,17 @@ export class MagickImage extends NativeInstance {
         return _withString(name, namePtr => {
             const value = ImageMagick._api._MagickImage_GetArtifact(this._instance, namePtr);
             return _createString(value);
+        });
+    }
+
+    getProfile(name: string): ImageProfile | null {
+        return _withString(name, namePtr => {
+            const value = ImageMagick._api._MagickImage_GetProfile(this._instance, namePtr);
+            const data = StringInfo.toArray(value);
+            if (data === null)
+                return null;
+
+            return new ImageProfile(name, data);
         });
     }
 
