@@ -1,4 +1,5 @@
-/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
+// Licensed under the Apache License, Version 2.0.
 
 const NodeEnvironment = require('jest-environment-node');
 const ImageMagick = require('../lib/image-magick.js');

@@ -1,4 +1,5 @@
-/* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
+// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
+// Licensed under the Apache License, Version 2.0.
 
 import { DistortSettings } from '../../../src/settings/distort-settings';
 import { ImageMagick } from '../../../src/image-magick';
