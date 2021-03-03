@@ -27,10 +27,21 @@ export class NativeMagickSettings extends NativeInstance {
                 ImageMagick._api._MagickSettings_Format_Set(this._instance, formatPtr);
             });
         }
+
+        for (const option in settings._options) {
+            _withString(option, optionPtr => {
+                _withString(settings._options[option], valuePtr => {
+                    ImageMagick._api._MagickSettings_SetOption(this._instance, optionPtr, valuePtr);
+                });
+            });
+        }
     }
 }
 
 export class MagickSettings {
+    /** @internal */
+    _options: Record<string, string> = {};
+
     /** @internal */
     _fileName?: string;
 
@@ -39,9 +50,29 @@ export class MagickSettings {
 
     format?: MagickFormat;
 
+    getDefine(name: string): string {
+        return this._options[name] ?? null;
+    }
+
+    setDefine(name: string, value: string ): void;
+    setDefine(name: string, value: boolean): void;
+    setDefine(name: string, value: string | boolean): void {
+        if (typeof value === 'string')
+            this._options[name] = value;
+        else
+            this._options[name] = value ? 'true' : 'false';
+    }
+
     /** @internal */
     _clone(): MagickSettings {
         const clone = new MagickSettings();
+
+        clone._fileName = this._fileName;
+        clone._quality = this._quality;
+        clone.format = this.format;
+
+        for (const option in this._options)
+           clone._options[option] = this._options[option]
 
         return clone;
     }
