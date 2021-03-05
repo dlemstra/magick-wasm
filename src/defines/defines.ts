@@ -1,6 +1,6 @@
-import {IDefine} from './define'
+import {IDefine} from './define';
 
 export interface IDefines {
 
-  getDefines(): IDefine[]
+  getDefines(): IDefine[];
 }

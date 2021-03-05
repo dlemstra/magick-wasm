@@ -1,7 +1,7 @@
 import {MagickReadSettings} from '../../src/settings/magick-read-settings';
 import {DefinesCreator} from '../../src/defines/defines-creator';
 import {MagickFormat} from '../../src/magick-format';
-import {IDefine} from '../../lib/defines/define'
+import {IDefine} from '../../lib/defines/define';
 
 class TestDefinesCreator extends DefinesCreator {
   constructor () {

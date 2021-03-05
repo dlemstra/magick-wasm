@@ -5,7 +5,7 @@ import { ImageMagick } from "../image-magick";
 import { MagickFormat } from "../magick-format";
 import { NativeInstance } from "../internal/native-instance";
 import { _withString } from "../internal/native/string";
-import {IDefines} from '../defines/defines'
+import {IDefines} from '../defines/defines';
 
 /** @internal */
 export class NativeMagickSettings extends NativeInstance {

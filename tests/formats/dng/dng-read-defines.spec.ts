@@ -1,7 +1,7 @@
-import {DngReadDefines} from '../../../src/formats/dng/dng-read-defines'
-import {MagickReadSettings} from '../../../src/settings/magick-read-settings'
-import {MagickFormat} from '../../../lib/magick-format'
-import {DngOutputColor} from '../../../src/formats/dng/dng-output-color'
+import {DngReadDefines} from '../../../src/formats/dng/dng-read-defines';
+import {MagickReadSettings} from '../../../src/settings/magick-read-settings';
+import {MagickFormat} from '../../../lib/magick-format';
+import {DngOutputColor} from '../../../src/formats/dng/dng-output-color';
 
 let readSettings: MagickReadSettings;
 
