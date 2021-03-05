@@ -5,6 +5,7 @@ import { ImageMagick } from "../image-magick";
 import { MagickFormat } from "../magick-format";
 import { NativeInstance } from "../internal/native-instance";
 import { _withString } from "../internal/native/string";
+import {IDefines} from '../defines/defines'
 
 /** @internal */
 export class NativeMagickSettings extends NativeInstance {
@@ -62,6 +63,22 @@ export class MagickSettings {
             this._options[name] = value;
         else
             this._options[name] = value ? 'true' : 'false';
+    }
+
+    setDefines(defines: IDefines): void {
+        defines.getDefines().forEach(define => {
+            if (define !== undefined) {
+                this.setDefine(this.parseDefine(define.format, define.name), define.value);
+            }
+        });
+    }
+
+    parseDefine(format: MagickFormat, name: string): string {
+        if (format === MagickFormat.Unknown) {
+            return name;
+        }
+
+        return `${format}:${name}`;
     }
 
     /** @internal */
