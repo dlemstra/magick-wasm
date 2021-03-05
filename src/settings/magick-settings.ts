@@ -1,9 +1,10 @@
 /* Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM */
 
-import { ImageMagick } from "../image-magick";
-import { MagickFormat } from "../magick-format";
-import { NativeInstance } from "../internal/native-instance";
-import { _withString } from "../internal/native/string";
+import {ImageMagick} from '../image-magick'
+import {MagickFormat} from '../magick-format'
+import {NativeInstance} from '../internal/native-instance'
+import {_withString} from '../internal/native/string'
+import {IDefines} from '../defines/defines'
 
 /** @internal */
 export class NativeMagickSettings extends NativeInstance {
@@ -27,7 +28,21 @@ export class NativeMagickSettings extends NativeInstance {
                 ImageMagick._api._MagickSettings_Format_Set(this._instance, formatPtr);
             });
         }
+
+        if (settings._options !== undefined) {
+            Object.keys(settings._options).forEach(key => {
+                _withString(key, keyPtr => {
+                    _withString(settings._options[key], valuePtr => {
+                        ImageMagick._api._MagickSettings_SetOption(this._instance, keyPtr, valuePtr);
+                    });
+                });
+            });
+        }
     }
+}
+
+interface IDictionary<T> {
+    [key: string]: T;
 }
 
 export class MagickSettings {
@@ -37,7 +52,33 @@ export class MagickSettings {
     /** @internal */
     _quality?: number;
 
+    _options: IDictionary<string> = {}
+
     format?: MagickFormat;
+
+    setDefines(defines: IDefines): void {
+        defines.defines.forEach(define => {
+            if (define !== undefined) {
+                this.setDefine(this.parseDefine(define.format, define.name), define.value);
+            }
+        });
+    }
+
+    setDefine(name: string, value: string) {
+        this._setOption(name, value);
+    }
+
+    parseDefine(format: MagickFormat, name: string): string {
+        if (format === MagickFormat.Unknown) {
+            return name;
+        }
+
+        return `${format}:${name}`;
+    }
+
+    _setOption(key: string, value: string) {
+        this._options[key] = value;
+    }
 
     /** @internal */
     _clone(): MagickSettings {

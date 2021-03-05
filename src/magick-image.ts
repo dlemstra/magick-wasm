@@ -38,6 +38,8 @@ export class MagickImage extends NativeInstance {
         this._settings = settings;
     }
 
+    get settings(): MagickSettings { return this._settings; }
+
     get artifactNames(): string[] {
         const artifactNames: string[] = [];
         ImageMagick._api._MagickImage_ResetArtifactIterator(this._instance);
@@ -133,6 +135,8 @@ export class MagickImage extends NativeInstance {
             ImageMagick._api._MagickImage_SetAlpha(this._instance, value, exception);
         });
     }
+
+    get compression(): number { return ImageMagick._api._MagickImage_Compression_Get(this._instance); }
 
     autoOrient(): void {
         Exception.use(exception => {

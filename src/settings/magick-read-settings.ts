@@ -4,6 +4,11 @@ import { ImageMagick } from "../image-magick";
 import { MagickSettings } from "./magick-settings";
 import { NativeMagickSettings } from "./magick-settings";
 import { _withString } from "../internal/native/string";
+import {IReadDefines} from '../defines/read-defines'
+
+interface IDictionary<T> {
+    [key: string]: T;
+}
 
 export class MagickReadSettings extends MagickSettings {
 
@@ -16,6 +21,8 @@ export class MagickReadSettings extends MagickSettings {
     width?: number;
 
     height?: number;
+
+    defines?: IReadDefines;
 
     /** @internal */
     static _createFrom(settings: MagickSettings): MagickReadSettings {
@@ -38,6 +45,17 @@ export class MagickReadSettings extends MagickSettings {
                 });
             }
 
+            const options = this.getOptions();
+            if (options !== undefined) {
+                Object.keys(options).forEach(key => {
+                    _withString(key, keyPtr => {
+                        _withString(options[key], valuePtr => {
+                            ImageMagick._api._MagickSettings_SetOption(settings._instance, keyPtr, valuePtr);
+                        });
+                    });
+                });
+            }
+
             return func(settings);
         } finally {
             settings.dispose();
@@ -53,5 +71,19 @@ export class MagickReadSettings extends MagickSettings {
             return `x${this.height}`;
         else
             return "";
+    }
+
+    private getOptions(): IDictionary<string> {
+        if (this.defines === undefined) {
+            return {};
+        }
+
+        const options = {} as IDictionary<string>;
+        this.defines.defines.forEach(define => {
+            const key = this.parseDefine(define.format, define.name);
+            options[key] = define.value;
+        });
+
+        return options
     }
 }
