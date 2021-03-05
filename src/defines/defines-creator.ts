@@ -1,13 +1,13 @@
-import {IDefines} from './defines'
-import {IDefine} from './define'
-import {MagickFormat} from '../magick-format'
-import {MagickDefine} from './magick-define'
+import {IDefines} from './defines';
+import {IDefine} from './define';
+import {MagickFormat} from '../magick-format';
+import {MagickDefine} from './magick-define';
 
 export abstract class DefinesCreator implements IDefines {
-  format: MagickFormat
+  format: MagickFormat;
 
   constructor (format: MagickFormat) {
-    this.format = format
+    this.format = format;
   }
 
   createDefine(name: string, value: boolean): MagickDefine;
