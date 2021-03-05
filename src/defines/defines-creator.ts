@@ -3,6 +3,10 @@ import {IDefine} from './define';
 import {MagickFormat} from '../magick-format';
 import {MagickDefine} from './magick-define';
 
+interface IHasToString {
+  toString(): string
+}
+
 export abstract class DefinesCreator implements IDefines {
   format: MagickFormat;
 
@@ -13,8 +17,8 @@ export abstract class DefinesCreator implements IDefines {
   createDefine(name: string, value: boolean): MagickDefine;
   createDefine(name: string, value: number): MagickDefine;
   createDefine(name: string, value: string): MagickDefine;
-  createDefine(name: string, value: any[]): MagickDefine | null;
-  createDefine(name: string, value: boolean | number | string | any[]): MagickDefine | null {
+  createDefine(name: string, value: unknown[]): MagickDefine | null;
+  createDefine(name: string, value: boolean | number | string | unknown[]): MagickDefine | null {
     if (typeof value === 'boolean') {
       return new MagickDefine(this.format, name, value ? 'true' : 'false');
     } else if (typeof value === 'string') {
@@ -26,7 +30,11 @@ export abstract class DefinesCreator implements IDefines {
         return null;
       }
 
-      const values = value.map(v => v.toString());
+      const values = value.map(v => {
+        if (this.hasToString(v)) {
+          return v.toString();
+        }
+      });
       if (values.length === 0) {
         return null;
       }
@@ -36,4 +44,9 @@ export abstract class DefinesCreator implements IDefines {
   }
 
   abstract getDefines (): IDefine[]
+
+  private hasToString(obj: unknown): obj is IHasToString {
+    return (obj as IHasToString).toString !== undefined
+      && typeof (obj as IHasToString).toString === 'function';
+  }
 }
