@@ -13,11 +13,28 @@ class TestDefinesCreator extends DefinesCreator {
   }
 }
 
+class ListDefinesCreator extends DefinesCreator {
+  constructor () {
+    super(MagickFormat.A);
+  }
+
+  getDefines (): IDefine[] {
+    return [this.createDefine("test", ['a', 'b', 'c']) as IDefine];
+  }
+}
+
 describe('DefinesCreator', () => {
   it('should return correct define', () => {
     const readSettings = new MagickReadSettings();
     readSettings.setDefines(new TestDefinesCreator());
 
     expect(readSettings.getDefine(`${MagickFormat.A.toString()}:test`)).toBe("empty");
+  });
+
+  it('should convert list of values for define as comma separated values', () => {
+    const readSettings = new MagickReadSettings();
+    readSettings.setDefines(new ListDefinesCreator());
+
+    expect(readSettings.getDefine(`${MagickFormat.A.toString()}:test`)).toBe("a,b,c");
   });
 });
