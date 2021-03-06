@@ -25,15 +25,15 @@ export class DngReadDefines extends DefinesCreator {
     }
 
     if (this.hasValue(this.outputColor)) {
-      defines.push(this.createDefine('output_color', this.outputColor as number));
+      defines.push(this.createDefine('output-color', this.outputColor as number));
     }
 
     if (this.hasValue(this.useCameraWhitebalance)) {
-      defines.push(this.createDefine('use_camera_wb', this.useCameraWhitebalance as boolean));
+      defines.push(this.createDefine('use-camera-wb', this.useCameraWhitebalance as boolean));
     }
 
     if (this.hasValue(this.useAutoWhitebalance)) {
-      defines.push(this.createDefine('use_auto_wb', this.useAutoWhitebalance as boolean));
+      defines.push(this.createDefine('use-auto-wb', this.useAutoWhitebalance as boolean));
     }
 
     return defines;
