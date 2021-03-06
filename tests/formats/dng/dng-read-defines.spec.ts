@@ -15,7 +15,7 @@ describe('DngReadDefines', () => {
 
     expect(readSettings.getDefine(`${MagickFormat.Dng}:use_camera_wb`)).toBeNull();
     expect(readSettings.getDefine(`${MagickFormat.Dng}:use_auto_wb`)).toBeNull();
-    expect(readSettings.getDefine(`${MagickFormat.Dng}:no_auto_bright`)).toBeNull();
+    expect(readSettings.getDefine(`${MagickFormat.Dng}:no-auto-bright`)).toBeNull();
     expect(readSettings.getDefine(`${MagickFormat.Dng}:output_color`)).toBeNull();
   });
 
@@ -25,7 +25,7 @@ describe('DngReadDefines', () => {
 
     readSettings.setDefines(dngReadDefines);
 
-    expect(readSettings.getDefine(`${MagickFormat.Dng}:no_auto_bright`)).toBe('true');
+    expect(readSettings.getDefine(`${MagickFormat.Dng}:no-auto-bright`)).toBe('true');
   });
 
   it('should set define when use camera white balance has been set', () => {

@@ -21,7 +21,7 @@ export class DngReadDefines extends DefinesCreator {
     const defines: IDefine[] = [];
 
     if (this.hasValue(this.disableAutoBrightness)) {
-      defines.push(this.createDefine('no_auto_bright', this.disableAutoBrightness as boolean));
+      defines.push(this.createDefine('no-auto-bright', this.disableAutoBrightness as boolean));
     }
 
     if (this.hasValue(this.outputColor)) {
