@@ -24,7 +24,7 @@ import { NativeInstance } from "./internal/native-instance";
 import { OrientationType } from "./orientation-type";
 import { Percentage } from "./percentage";
 import { PixelChannel } from "./pixel-channel";
-import { PixelCollection } from "./pixels/pixel-collection";
+import { IPixelCollection, PixelCollection } from "./pixels/pixel-collection";
 import { Point } from "./point";
 import { Pointer } from "./internal/pointer/pointer";
 import { Quantum } from "./quantum";
@@ -456,7 +456,7 @@ export class MagickImage extends NativeInstance {
         });
     }
 
-    getPixels<TReturnType>(func: (pixels: PixelCollection) => TReturnType): TReturnType {
+    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType {
         return PixelCollection._use(this, (pixels) => {
             return func(pixels);
         });

@@ -9,7 +9,17 @@ import { quantumArray } from "../wasm/magick";
 import { _withQuantumArray } from "../internal/native/array";
 import { _withString } from "../internal/native/string";
 
-export class PixelCollection extends NativeInstance {
+export interface IPixelCollection {
+    getArea(x: number, y: number, width: number, height: number): quantumArray;
+    getPixel(x: number, y: number): quantumArray;
+    setArea(x: number, y: number, width: number, height: number, quantumPixels: quantumArray): void;
+    setArea(x: number, y: number, width: number, height: number, numberPixels: number[]): void;
+    setPixel(x: number, y: number, quantumPixels: quantumArray): void;
+    setPixel(x: number, y: number, numberPixels: number[]): void;
+    toByteArray(x: number, y: number, width: number, height: number, mapping: string): quantumArray | null;
+}
+
+export class PixelCollection extends NativeInstance implements IPixelCollection {
     private readonly image: MagickImage;
 
     private constructor(image: MagickImage) {
@@ -29,7 +39,7 @@ export class PixelCollection extends NativeInstance {
     }
 
     /** @internal */
-    static _use<TReturnType>(image: MagickImage, func: (pixels: PixelCollection) => TReturnType): TReturnType {
+    static _use<TReturnType>(image: MagickImage, func: (pixels: IPixelCollection) => TReturnType): TReturnType {
         const pixels = new PixelCollection(image);
         try {
             return func(pixels);
