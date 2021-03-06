@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from "./image-magick";
-import { Quantum } from "./quantum";
-import { _withString } from "./internal/native/string";
+import { ImageMagick } from './image-magick';
+import { Quantum } from './quantum';
+import { _withString } from './internal/native/string';
 
 export class MagickColor {
     private _r = 0;

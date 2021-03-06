@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from "./image-magick";
-import { MagickFormatInfo } from "./magick-format-info";
-import { _createString } from "./internal/native/string";
+import { ImageMagick } from './image-magick';
+import { MagickFormatInfo } from './magick-format-info';
+import { _createString } from './internal/native/string';
 
 export class Magick {
     static get delegates(): string { return _createString(ImageMagick._api._Magick_Delegates_Get(), 'Unknown'); }

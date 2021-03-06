@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from "../../image-magick";
-import { ExceptionSeverity } from "./exception-severity";
-import { Pointer } from "../pointer/pointer";
-import { _createString } from "../native/string";
+import { ImageMagick } from '../../image-magick';
+import { ExceptionSeverity } from './exception-severity';
+import { Pointer } from '../pointer/pointer';
+import { _createString } from '../native/string';
 
 /** @internal */
 export class Exception {

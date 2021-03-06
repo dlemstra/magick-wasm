@@ -1,37 +1,37 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { AlphaOption } from "./alpha-option";
-import { Channels } from "./channels";
-import { ColorSpace } from "./color-space";
-import { CompositeOperator } from "./composite-operator";
-import { DistortMethod } from "./distort-method";
-import { DistortSettings } from "./settings/distort-settings";
-import { ErrorMetric } from "./error-metric";
-import { EvaluateOperator } from "./evaluate-operator";
-import { Exception } from "./internal/exception/exception";
-import { Gravity } from "./gravity";
-import { IImageProfile, ImageProfile } from "./profiles/image-profile";
-import { ImageMagick } from "./image-magick";
-import { MagickColor } from "./magick-color";
-import { MagickFormat } from "./magick-format";
-import { MagickGeometry } from "./magick-geometry";
-import { MagickImageCollection } from "./magick-image-collection";
-import { MagickReadSettings } from "./settings/magick-read-settings";
-import { MagickRectangle } from "./internal/magick-rectangle";
-import { MagickSettings } from "./settings/magick-settings";
-import { NativeInstance } from "./internal/native-instance";
-import { OrientationType } from "./orientation-type";
-import { Percentage } from "./percentage";
-import { PixelChannel } from "./pixel-channel";
-import { IPixelCollection, PixelCollection } from "./pixels/pixel-collection";
-import { Point } from "./point";
-import { Pointer } from "./internal/pointer/pointer";
-import { Quantum } from "./quantum";
-import { StringInfo } from "./internal/string-info";
-import { VirtualPixelMethod } from "./virtual-pixel-method";
-import { _createString, _withString } from "./internal/native/string";
-import { _withDoubleArray } from "./internal/native/array";
+import { AlphaOption } from './alpha-option';
+import { Channels } from './channels';
+import { ColorSpace } from './color-space';
+import { CompositeOperator } from './composite-operator';
+import { DistortMethod } from './distort-method';
+import { DistortSettings } from './settings/distort-settings';
+import { ErrorMetric } from './error-metric';
+import { EvaluateOperator } from './evaluate-operator';
+import { Exception } from './internal/exception/exception';
+import { Gravity } from './gravity';
+import { IImageProfile, ImageProfile } from './profiles/image-profile';
+import { ImageMagick } from './image-magick';
+import { MagickColor } from './magick-color';
+import { MagickFormat } from './magick-format';
+import { MagickGeometry } from './magick-geometry';
+import { MagickImageCollection } from './magick-image-collection';
+import { MagickReadSettings } from './settings/magick-read-settings';
+import { MagickRectangle } from './internal/magick-rectangle';
+import { MagickSettings } from './settings/magick-settings';
+import { NativeInstance } from './internal/native-instance';
+import { OrientationType } from './orientation-type';
+import { Percentage } from './percentage';
+import { PixelChannel } from './pixel-channel';
+import { IPixelCollection, PixelCollection } from './pixels/pixel-collection';
+import { Point } from './point';
+import { Pointer } from './internal/pointer/pointer';
+import { Quantum } from './quantum';
+import { StringInfo } from './internal/string-info';
+import { VirtualPixelMethod } from './virtual-pixel-method';
+import { _createString, _withString } from './internal/native/string';
+import { _withDoubleArray } from './internal/native/array';
 
 export class MagickImage extends NativeInstance {
     private readonly _settings: MagickSettings;

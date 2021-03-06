@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickGeometry } from "../magick-geometry";
-import { MagickImage } from "../magick-image";
+import { MagickGeometry } from '../magick-geometry';
+import { MagickImage } from '../magick-image';
 
 export class DistortSettings {
 

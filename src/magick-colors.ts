@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickColor } from "./magick-color";
+import { MagickColor } from './magick-color';
 
 export class MagickColors {
     static get None(): MagickColor { return new MagickColor(255, 255, 255, 0); }

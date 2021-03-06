@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from "./image-magick";
-import { MagickImage } from "./magick-image";
-import { MagickSettings } from "./settings/magick-settings";
+import { ImageMagick } from './image-magick';
+import { MagickImage } from './magick-image';
+import { MagickSettings } from './settings/magick-settings';
 
 export class MagickImageCollection extends Array<MagickImage> {
     private constructor() {

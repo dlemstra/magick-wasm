@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { IDefines } from '../defines/defines';
-import { ImageMagick } from "../image-magick";
-import { MagickFormat } from "../magick-format";
-import { NativeInstance } from "../internal/native-instance";
-import { _withString } from "../internal/native/string";
+import { ImageMagick } from '../image-magick';
+import { MagickFormat } from '../magick-format';
+import { NativeInstance } from '../internal/native-instance';
+import { _withString } from '../internal/native/string';
 
 /** @internal */
 export class NativeMagickSettings extends NativeInstance {

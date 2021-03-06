@@ -1,13 +1,13 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from "../image-magick";
-import { Exception } from "../internal/exception/exception";
-import { NativeInstance } from "../internal/native-instance";
-import { MagickImage } from "../magick-image";
-import { quantumArray } from "../wasm/magick";
-import { _withQuantumArray } from "../internal/native/array";
-import { _withString } from "../internal/native/string";
+import { ImageMagick } from '../image-magick';
+import { Exception } from '../internal/exception/exception';
+import { NativeInstance } from '../internal/native-instance';
+import { MagickImage } from '../magick-image';
+import { quantumArray } from '../wasm/magick';
+import { _withQuantumArray } from '../internal/native/array';
+import { _withString } from '../internal/native/string';
 
 export interface IPixelCollection {
     getArea(x: number, y: number, width: number, height: number): quantumArray;

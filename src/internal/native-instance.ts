@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { Exception } from "./exception/exception";
+import { Exception } from './exception/exception';
 
 export abstract class NativeInstance {
     private readonly disposeMethod: (instance: number) => void;

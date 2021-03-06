@@ -7,7 +7,7 @@ import { MagickImage } from '../../src/magick-image';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
 import { colorAssert } from '../color-assert';
-import * as fs from "fs";
+import * as fs from 'fs';
 
 let image: MagickImage;
 

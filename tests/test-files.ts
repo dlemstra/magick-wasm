@@ -1,11 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from "../src/image-magick";
-import { MagickImage } from "../src/magick-image";
-import { MagickReadSettings } from "../src/settings/magick-read-settings";
-import * as fs from "fs";
-import * as util from "util";
+import { ImageMagick } from '../src/image-magick';
+import { MagickImage } from '../src/magick-image';
+import { MagickReadSettings } from '../src/settings/magick-read-settings';
+import * as fs from 'fs';
+import * as util from 'util';
 
 export class TestFiles {
     static readonly fujiFilmFinePixS1ProJpg = 'tests/images/fuji-film-fine-pix-s1-pro.jpg';

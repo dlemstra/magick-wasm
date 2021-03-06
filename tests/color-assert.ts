@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickImage } from "../src/magick-image";
-import { PixelChannel } from "../src/pixel-channel";
-import { MagickColor } from "../src/magick-color";
-import { Quantum } from "../src/quantum";
+import { MagickImage } from '../src/magick-image';
+import { PixelChannel } from '../src/pixel-channel';
+import { MagickColor } from '../src/magick-color';
+import { Quantum } from '../src/quantum';
 
 function toHex(value: number): string {
     return value.toString(16).padStart(2, '0');

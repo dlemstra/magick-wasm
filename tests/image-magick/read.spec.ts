@@ -6,8 +6,8 @@ import { MagickColors } from '../../src/magick-colors';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
 import { colorAssert } from '../color-assert';
-import * as fs from "fs";
-import * as util from "util";
+import * as fs from 'fs';
+import * as util from 'util';
 
 beforeAll(() => { ImageMagick._api = (global as any).native; });
 
