@@ -1,3 +1,6 @@
+// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
+// Licensed under the Apache License, Version 2.0.
+
 import { DefinesCreator } from '../../defines/defines-creator';
 import { DngOutputColor } from './dng-output-color';
 import { IDefine } from '../../defines/define';

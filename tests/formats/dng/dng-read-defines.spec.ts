@@ -1,3 +1,6 @@
+// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
+// Licensed under the Apache License, Version 2.0.
+
 import { DngOutputColor } from '../../../src/formats/dng/dng-output-color';
 import { DngReadDefines } from '../../../src/formats/dng/dng-read-defines';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
