@@ -21,6 +21,6 @@ describe('DefinesCreator', () => {
         const readSettings = new MagickReadSettings();
         readSettings.setDefines(new TestDefinesCreator());
 
-        expect(readSettings.getDefine(`${MagickFormat.A.toString()}:test`)).toBe("empty");
+        expect(readSettings.getDefine(MagickFormat.A, 'test')).toBe("empty");
     });
 });

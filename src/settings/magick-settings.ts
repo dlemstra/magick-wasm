@@ -52,8 +52,13 @@ export class MagickSettings {
 
     format?: MagickFormat;
 
-    getDefine(name: string): string {
-        return this._options[name] ?? null;
+    getDefine(name: string): string;
+    getDefine(format: MagickFormat, name: string): string;
+    getDefine(nameOrFormat: MagickFormat | string, name?: string): string {
+        if (name !== undefined)
+            return this._options[`${nameOrFormat}:${name}`] ?? null;
+
+        return this._options[nameOrFormat] ?? null;
     }
 
     setDefine(name: string, value: string ): void;

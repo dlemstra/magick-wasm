@@ -16,10 +16,10 @@ describe('DngReadDefines', () => {
     it('constructor should not set any defines', () => {
         readSettings.setDefines(new DngReadDefines());
 
-        expect(readSettings.getDefine(`${MagickFormat.Dng}:use-camera-wb`)).toBeNull();
-        expect(readSettings.getDefine(`${MagickFormat.Dng}:use-auto-wb`)).toBeNull();
-        expect(readSettings.getDefine(`${MagickFormat.Dng}:no-auto-bright`)).toBeNull();
-        expect(readSettings.getDefine(`${MagickFormat.Dng}:output-color`)).toBeNull();
+        expect(readSettings.getDefine(MagickFormat.Dng, 'use-camera-wb')).toBeNull();
+        expect(readSettings.getDefine(MagickFormat.Dng, 'use-auto-wb')).toBeNull();
+        expect(readSettings.getDefine(MagickFormat.Dng, 'no-auto-bright')).toBeNull();
+        expect(readSettings.getDefine(MagickFormat.Dng, 'output-color')).toBeNull();
     });
 
     it('should set define when disable auto brightness has been set', () => {
@@ -28,7 +28,7 @@ describe('DngReadDefines', () => {
 
         readSettings.setDefines(dngReadDefines);
 
-        expect(readSettings.getDefine(`${MagickFormat.Dng}:no-auto-bright`)).toBe('true');
+        expect(readSettings.getDefine(MagickFormat.Dng, 'no-auto-bright')).toBe('true');
     });
 
     it('should set define when use camera white balance has been set', () => {
@@ -37,7 +37,7 @@ describe('DngReadDefines', () => {
 
         readSettings.setDefines(dngReadDefines);
 
-        expect(readSettings.getDefine(`${MagickFormat.Dng}:use-camera-wb`)).toBe('true');
+        expect(readSettings.getDefine(MagickFormat.Dng, 'use-camera-wb')).toBe('true');
     });
 
     it('should set define when use auto white balance has been set', () => {
@@ -46,7 +46,7 @@ describe('DngReadDefines', () => {
 
         readSettings.setDefines(dngReadDefines);
 
-        expect(readSettings.getDefine(`${MagickFormat.Dng}:use-auto-wb`)).toBe('true');
+        expect(readSettings.getDefine(MagickFormat.Dng, 'use-auto-wb')).toBe('true');
     });
 
     it('should set define when output color has been set', () => {
@@ -55,6 +55,6 @@ describe('DngReadDefines', () => {
 
         readSettings.setDefines(dngReadDefines);
 
-        expect(readSettings.getDefine(`${MagickFormat.Dng}:output-color`)).toBe('4');
+        expect(readSettings.getDefine(MagickFormat.Dng, 'output-color')).toBe('4');
     });
 });
