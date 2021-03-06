@@ -3,10 +3,10 @@
 
 import { DistortSettings } from '../../../src/settings/distort-settings';
 import { ImageMagick } from '../../../src/image-magick';
+import { IMagickImage, MagickImage } from '../../../src/magick-image';
 import { MagickGeometry } from '../../../src/magick-geometry';
-import { MagickImage } from '../../../src/magick-image';
 
-let image: MagickImage;
+let image: IMagickImage;
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;

@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { MagickGeometry } from '../magick-geometry';
-import { MagickImage } from '../magick-image';
+import { IMagickImage } from '../magick-image';
 
 export class DistortSettings {
 
@@ -13,7 +13,7 @@ export class DistortSettings {
     viewport?: MagickGeometry;
 
     /** @internal */
-    _removeArtifacts(image: MagickImage): void {
+    _removeArtifacts(image: IMagickImage): void {
         if (this.scale !== undefined)
             image.removeArtifact('distort:scale');
         if (this.viewport !== undefined)
@@ -21,7 +21,7 @@ export class DistortSettings {
     }
 
     /** @internal */
-    _setArtifacts(image: MagickImage): void {
+    _setArtifacts(image: IMagickImage): void {
         if (this.scale !== undefined)
             image.setArtifact('distort:scale', this.scale.toString());
         if (this.viewport !== undefined)

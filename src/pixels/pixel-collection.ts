@@ -4,7 +4,7 @@
 import { ImageMagick } from '../image-magick';
 import { Exception } from '../internal/exception/exception';
 import { NativeInstance } from '../internal/native-instance';
-import { MagickImage } from '../magick-image';
+import { IMagickImage } from '../magick-image';
 import { quantumArray } from '../wasm/magick';
 import { _withQuantumArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
@@ -20,9 +20,9 @@ export interface IPixelCollection {
 }
 
 export class PixelCollection extends NativeInstance implements IPixelCollection {
-    private readonly image: MagickImage;
+    private readonly image: IMagickImage;
 
-    private constructor(image: MagickImage) {
+    private constructor(image: IMagickImage) {
         const instance = Exception.usePointer(exception => {
             return ImageMagick._api._PixelCollection_Create(image._instance, exception);
         });
@@ -34,12 +34,12 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     }
 
     /** @internal */
-    static _create(image: MagickImage): PixelCollection {
+    static _create(image: IMagickImage): PixelCollection {
         return new PixelCollection(image);
     }
 
     /** @internal */
-    static _use<TReturnType>(image: MagickImage, func: (pixels: IPixelCollection) => TReturnType): TReturnType {
+    static _use<TReturnType>(image: IMagickImage, func: (pixels: IPixelCollection) => TReturnType): TReturnType {
         const pixels = new PixelCollection(image);
         try {
             return func(pixels);
@@ -49,7 +49,7 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     }
 
     /** @internal */
-    static _map(image: MagickImage, mapping: string, func: (instance: number) => void): void {
+    static _map(image: IMagickImage, mapping: string, func: (instance: number) => void): void {
         const pixels = new PixelCollection(image);
         try {
             pixels.use(0, 0, image.width, image.height, mapping, instance => {

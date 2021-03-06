@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../src/image-magick';
-import { MagickImage } from '../src/magick-image';
+import { IMagickImage } from '../src/magick-image';
 import { MagickReadSettings } from '../src/settings/magick-read-settings';
 import * as fs from 'fs';
 import * as util from 'util';
@@ -13,9 +13,9 @@ export class TestFiles {
     static readonly redPng = 'tests/images/red.png';
 }
 
-export async function readTestFile(fileName: string, func: (image: MagickImage) => void): Promise<void>;
-export async function readTestFile(fileName: string, settings: MagickReadSettings, func: (image: MagickImage) => void): Promise<void>;
-export async function readTestFile(fileName: string, funcOrSettings: ((image: MagickImage) => void) | MagickReadSettings, func?: (image: MagickImage) => void): Promise<void> {
+export async function readTestFile(fileName: string, func: (image: IMagickImage) => void): Promise<void>;
+export async function readTestFile(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => void): Promise<void>;
+export async function readTestFile(fileName: string, funcOrSettings: ((image: IMagickImage) => void) | MagickReadSettings, func?: (image: IMagickImage) => void): Promise<void> {
     const readFile = util.promisify(fs.readFile);
     const data = await readFile(fileName);
 
