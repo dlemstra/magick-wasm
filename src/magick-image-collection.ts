@@ -5,7 +5,14 @@ import { ImageMagick } from './image-magick';
 import { MagickImage } from './magick-image';
 import { MagickSettings } from './settings/magick-settings';
 
-export class MagickImageCollection extends Array<MagickImage> {
+export interface IMagickImageCollection extends Array<MagickImage> {
+    /** @internal */
+    _use(func: (images: IMagickImageCollection) => void): void;
+    /** @internal */
+    _use(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
+}
+
+export class MagickImageCollection extends Array<MagickImage> implements IMagickImageCollection {
     private constructor() {
         super();
     }
@@ -18,12 +25,12 @@ export class MagickImageCollection extends Array<MagickImage> {
         }
     }
 
-    static create(): MagickImageCollection {
+    static create(): IMagickImageCollection {
         return Object.create(MagickImageCollection.prototype);
     }
 
     /** @internal */
-    static _createFromImages(images: number, settings: MagickSettings): MagickImageCollection {
+    static _createFromImages(images: number, settings: MagickSettings): IMagickImageCollection {
         const collection = MagickImageCollection.create();
 
         let image = images;

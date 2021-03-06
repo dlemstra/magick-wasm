@@ -12,11 +12,11 @@ import { EvaluateOperator } from './evaluate-operator';
 import { Exception } from './internal/exception/exception';
 import { Gravity } from './gravity';
 import { IImageProfile, ImageProfile } from './profiles/image-profile';
+import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
 import { ImageMagick } from './image-magick';
 import { MagickColor } from './magick-color';
 import { MagickFormat } from './magick-format';
 import { MagickGeometry } from './magick-geometry';
-import { MagickImageCollection } from './magick-image-collection';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickRectangle } from './internal/magick-rectangle';
 import { MagickSettings } from './settings/magick-settings';
@@ -623,11 +623,11 @@ export class MagickImage extends NativeInstance {
         });
     }
 
-    separate(func: (images: MagickImageCollection) => void): void;
-    separate(func: (images: MagickImageCollection) => Promise<void>): Promise<void>;
-    separate(func: (images: MagickImageCollection) => void, channels: Channels): void;
-    separate(func: (images: MagickImageCollection) => Promise<void>, channels: Channels): Promise<void>;
-    separate(func: (images: MagickImageCollection) => void | Promise<void>, channels?: Channels): void | Promise<void> {
+    separate(func: (images: IMagickImageCollection) => void): void;
+    separate(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
+    separate(func: (images: IMagickImageCollection) => void, channels: Channels): void;
+    separate(func: (images: IMagickImageCollection) => Promise<void>, channels: Channels): Promise<void>;
+    separate(func: (images: IMagickImageCollection) => void | Promise<void>, channels?: Channels): void | Promise<void> {
         return Exception.use(exception => {
             const images = ImageMagick._api._MagickImage_Separate(this._instance, channels ?? Channels.All, exception.ptr);
             const collection = MagickImageCollection._createFromImages(images, this._settings._clone());
