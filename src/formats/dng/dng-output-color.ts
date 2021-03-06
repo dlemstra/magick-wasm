@@ -15,5 +15,8 @@ export enum DngOutputColor
   // Kodak ProPhoto RGB D65.
   KodakProPhotoRGB = 4,
 
-  XYZ,
+  XYZ = 5,
+
+  // Academy Color Encoding System.
+  ACES = 6,
 }
