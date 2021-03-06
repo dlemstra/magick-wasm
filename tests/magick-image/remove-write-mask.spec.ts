@@ -2,11 +2,11 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-import { MagickImage } from '../../src/magick-image';
 
-let image: MagickImage;
-let writeMask: MagickImage;
+let image: IMagickImage;
+let writeMask: IMagickImage;
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;

@@ -4,11 +4,11 @@
 import { Channels } from '../../src/channels';
 import { ErrorMetric } from '../../src/error-metric';
 import { ImageMagick } from '../../src/image-magick';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-import { MagickImage } from '../../src/magick-image';
 
-let image: MagickImage;
-let other: MagickImage;
+let image: IMagickImage;
+let other: IMagickImage;
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;

@@ -3,7 +3,11 @@
 
 import { Exception } from './exception/exception';
 
-export abstract class NativeInstance {
+export interface INativeInstance {
+    dispose(): void;
+}
+
+export abstract class NativeInstance implements NativeInstance {
     private readonly disposeMethod: (instance: number) => void;
     private instance: number;
 

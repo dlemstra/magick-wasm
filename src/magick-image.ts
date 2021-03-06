@@ -11,16 +11,16 @@ import { ErrorMetric } from './error-metric';
 import { EvaluateOperator } from './evaluate-operator';
 import { Exception } from './internal/exception/exception';
 import { Gravity } from './gravity';
+import { ImageMagick } from './image-magick';
 import { IImageProfile, ImageProfile } from './profiles/image-profile';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
-import { ImageMagick } from './image-magick';
+import { INativeInstance, NativeInstance } from './internal/native-instance';
 import { MagickColor } from './magick-color';
 import { MagickFormat } from './magick-format';
 import { MagickGeometry } from './magick-geometry';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickRectangle } from './internal/magick-rectangle';
 import { MagickSettings } from './settings/magick-settings';
-import { NativeInstance } from './internal/native-instance';
 import { OrientationType } from './orientation-type';
 import { Percentage } from './percentage';
 import { PixelChannel } from './pixel-channel';
@@ -33,7 +33,117 @@ import { VirtualPixelMethod } from './virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';
 import { _withDoubleArray } from './internal/native/array';
 
-export class MagickImage extends NativeInstance {
+export interface IMagickImage extends INativeInstance {
+    /** @internal */
+    _instance: number;
+
+    readonly artifactNames: string[];
+    backgroundColor: MagickColor;
+    readonly channelCount: number;
+    colorSpace: ColorSpace;
+    depth: number;
+    format: string;
+    hasAlpha: boolean;
+    readonly height: number;
+    orientation: OrientationType;
+    quality: number;
+    readonly signature: string | null;
+    virtualPixelMethod: VirtualPixelMethod;
+    width: number;
+
+    alpha(value: AlphaOption): void;
+    autoOrient(): void;
+    blur(): void;
+    blur(channels: Channels): void;
+    blur(radius: number, sigma: number): void;
+    blur(radius: number, sigma: number, channels: Channels): void;
+    channelOffset(pixelChannel: PixelChannel): number;
+    clahe(xTiles: number, yTiles: number, numberBins: number, clipLimit: number): void;
+    clahe(xTiles: Percentage, yTiles: Percentage, numberBins: number, clipLimit: number): void;
+    clone(func: (image: IMagickImage) => void): void;
+    clone(func: (image: IMagickImage) => Promise<void>): Promise<void>;
+    colorAlpha(color: MagickColor): void;
+    compare(image: IMagickImage, metric: ErrorMetric): number;
+    compare(image: IMagickImage, metric: ErrorMetric, channels: Channels): number;
+    composite(image: IMagickImage): void;
+    composite(image: IMagickImage, compose: CompositeOperator): void;
+    composite(image: IMagickImage, compose: CompositeOperator, channels: Channels): void;
+    composite(image: IMagickImage, compose: CompositeOperator, args: string): void;
+    composite(image: IMagickImage, compose: CompositeOperator, args: string, channels: Channels): void;
+    composite(image: IMagickImage, point: Point): void;
+    composite(image: IMagickImage, point: Point, channels: Channels): void;
+    composite(image: IMagickImage, compose: CompositeOperator, point: Point): void;
+    composite(image: IMagickImage, compose: CompositeOperator, point: Point, channels: Channels): void;
+    composite(image: IMagickImage, compose: CompositeOperator, point: Point, args: string): void;
+    composite(image: IMagickImage, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, channels: Channels): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, args: string): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, args: string, channels: Channels): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, point: Point): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, point: Point, channels: Channels): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, channels: Channels): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
+    deskew(threshold: Percentage): number;
+    distort(method: DistortMethod, params: number[]): void;
+    distort(method: DistortMethod, settings: DistortSettings, params: number[]): void;
+    evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
+    evaluate(channels: Channels, operator: EvaluateOperator, value: Percentage): void;
+    evaluate(channels: Channels, geometry: MagickGeometry, operator: EvaluateOperator, value: number): void;
+    evaluate(channels: Channels, geometry: MagickGeometry, operator: EvaluateOperator, value: Percentage): void;
+    extent(width: number, height: number): void;
+    extent(width: number, height: number, gravity: Gravity): void;
+    extent(width: number, height: number, backgroundColor: MagickColor): void;
+    extent(geometry: MagickGeometry): void;
+    extent(geometry: MagickGeometry, gravity: Gravity): void;
+    extent(geometry: MagickGeometry, gravity: Gravity, backgroundColor: MagickColor): void;
+    extent(geometry: MagickGeometry, backgroundColor: MagickColor): void;
+    getArtifact(name: string): string | null;
+    getProfile(name: string): IImageProfile | null;
+    getWriteMask(func: (mask: IMagickImage | null) => void): void;
+    getWriteMask(func: (mask: IMagickImage | null) => Promise<void>):  Promise<void>;
+    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
+    level(blackPoint: Percentage, whitePoint: Percentage): void;
+    level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
+    level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
+    level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
+    modulate(brightness: Percentage): void;
+    modulate(brightness: Percentage, saturation: Percentage): void;
+    modulate(brightness: Percentage, saturation: Percentage, hue: Percentage): void;
+    read(color: MagickColor, width: number, height: number): void;
+    read(fileName: string, settings?: MagickReadSettings): void;
+    read(array: Uint8Array, settings?: MagickReadSettings): void;
+    readFromCanvas(canvas: HTMLCanvasElement): void;
+    removeArtifact(name: string): void;
+    removeWriteMask(): void;
+    resize(geometry: MagickGeometry): void;
+    resize(width: number, height: number): void;
+    sharpen(): void;
+    sharpen(radius: number, sigma: number): void;
+    sharpen(radius: number, sigma: number, channels: Channels): void;
+    sigmoidalContrast(contrast: number): void;
+    sigmoidalContrast(sharpen: boolean, contrast: number): void;
+    sigmoidalContrast(contrast: number, midpoint: number): void;
+    sigmoidalContrast(sharpen: boolean, contrast: number, midpoint: number): void;
+    sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
+    sigmoidalContrast(sharpen: boolean, contrast: number, midpointPercentage: Percentage): void;
+    separate(func: (images: IMagickImageCollection) => void): void;
+    separate(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
+    separate(func: (images: IMagickImageCollection) => void, channels: Channels): void;
+    separate(func: (images: IMagickImageCollection) => Promise<void>, channels: Channels): Promise<void>;
+    setArtifact(name: string, value: string): void;
+    setArtifact(name: string, value: boolean): void;
+    setWriteMask(image: IMagickImage): void;
+    toString(): string;
+    write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
+    write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
+    writeToCanvas(canvas: HTMLCanvasElement): void;
+}
+
+export class MagickImage extends NativeInstance implements IMagickImage {
     private readonly _settings: MagickSettings;
 
     private constructor(instance: number, settings: MagickSettings) {
@@ -112,13 +222,13 @@ export class MagickImage extends NativeInstance {
         this._settings._quality = quality;
     }
 
-    get signature(): string | null { 
+    get signature(): string | null {
         return Exception.usePointer(exception => {
             return _createString(ImageMagick._api._MagickImage_Signature_Get(this._instance, exception));
         });
     }
 
-    get virtualPixelMethod(): VirtualPixelMethod { 
+    get virtualPixelMethod(): VirtualPixelMethod {
         return Exception.usePointer(exception => {
             return ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance, exception);
         });
@@ -181,9 +291,9 @@ export class MagickImage extends NativeInstance {
         });
     }
 
-    clone(func: (image: MagickImage) => void): void;
-    clone(func: (image: MagickImage) => Promise<void>): Promise<void>;
-    clone(func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
+    clone(func: (image: IMagickImage) => void): void;
+    clone(func: (image: IMagickImage) => Promise<void>): Promise<void>;
+    clone(func: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
         return Exception.usePointer(exception => {
             const image = new MagickImage(ImageMagick._api._MagickImage_Clone(this._instance, exception), this._settings._clone());
             try {
@@ -204,27 +314,27 @@ export class MagickImage extends NativeInstance {
         this._instance = canvas._instance;
     }
 
-    compare(image: MagickImage, metric: ErrorMetric): number;
-    compare(image: MagickImage, metric: ErrorMetric, channels: Channels): number;
-    compare(image: MagickImage, metric: ErrorMetric, channels?: Channels): number {
+    compare(image: IMagickImage, metric: ErrorMetric): number;
+    compare(image: IMagickImage, metric: ErrorMetric, channels: Channels): number;
+    compare(image: IMagickImage, metric: ErrorMetric, channels?: Channels): number {
         return Exception.usePointer(exception => {
             const compareChannels = channels !== undefined ? channels : Channels.Composite;
             return ImageMagick._api._MagickImage_CompareDistortion(this._instance, image._instance, metric, compareChannels, exception);
         });
     }
 
-    composite(image: MagickImage): void;
-    composite(image: MagickImage, compose: CompositeOperator): void;
-    composite(image: MagickImage, compose: CompositeOperator, channels: Channels): void;
-    composite(image: MagickImage, compose: CompositeOperator, args: string): void;
-    composite(image: MagickImage, compose: CompositeOperator, args: string, channels: Channels): void;
-    composite(image: MagickImage, point: Point): void;
-    composite(image: MagickImage, point: Point, channels: Channels): void;
-    composite(image: MagickImage, compose: CompositeOperator, point: Point): void;
-    composite(image: MagickImage, compose: CompositeOperator, point: Point, channels: Channels): void;
-    composite(image: MagickImage, compose: CompositeOperator, point: Point, args: string): void;
-    composite(image: MagickImage, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
-    composite(image: MagickImage, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?:  Channels | string, channels?: Channels): void {
+    composite(image: IMagickImage): void;
+    composite(image: IMagickImage, compose: CompositeOperator): void;
+    composite(image: IMagickImage, compose: CompositeOperator, channels: Channels): void;
+    composite(image: IMagickImage, compose: CompositeOperator, args: string): void;
+    composite(image: IMagickImage, compose: CompositeOperator, args: string, channels: Channels): void;
+    composite(image: IMagickImage, point: Point): void;
+    composite(image: IMagickImage, point: Point, channels: Channels): void;
+    composite(image: IMagickImage, compose: CompositeOperator, point: Point): void;
+    composite(image: IMagickImage, compose: CompositeOperator, point: Point, channels: Channels): void;
+    composite(image: IMagickImage, compose: CompositeOperator, point: Point, args: string): void;
+    composite(image: IMagickImage, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
+    composite(image: IMagickImage, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?:  Channels | string, channels?: Channels): void {
         let x = 0;
         let y = 0;
         let compose = CompositeOperator.In;
@@ -266,18 +376,18 @@ export class MagickImage extends NativeInstance {
             this.removeArtifact('compose:args');
     }
 
-    compositeGravity(image: MagickImage, gravity: Gravity): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, channels: Channels): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, args: string): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, args: string, channels: Channels): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, point: Point): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, point: Point, channels: Channels): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, point: Point): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, channels: Channels): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
-    compositeGravity(image: MagickImage, gravity: Gravity, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?:  Channels | string, channels?: Channels): void {
+    compositeGravity(image: IMagickImage, gravity: Gravity): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, channels: Channels): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, args: string): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, args: string, channels: Channels): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, point: Point): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, point: Point, channels: Channels): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, channels: Channels): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
+    compositeGravity(image: IMagickImage, gravity: Gravity, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?:  Channels | string, channels?: Channels): void {
         let x = 0;
         let y = 0;
         let compose = CompositeOperator.In;
@@ -319,7 +429,7 @@ export class MagickImage extends NativeInstance {
             this.removeArtifact('compose:args');
     }
 
-    static create(): MagickImage {
+    static create(): IMagickImage {
         return new MagickImage(MagickImage.createInstance(), new MagickSettings());
     }
 
@@ -446,9 +556,9 @@ export class MagickImage extends NativeInstance {
         });
     }
 
-    getWriteMask(func: (mask: MagickImage | null) => void): void;
-    getWriteMask(func: (mask: MagickImage | null) => Promise<void>):  Promise<void>;
-    getWriteMask(func: (mask: MagickImage | null) => void | Promise<void>): void | Promise<void> {
+    getWriteMask(func: (mask: IMagickImage | null) => void): void;
+    getWriteMask(func: (mask: IMagickImage | null) => Promise<void>):  Promise<void>;
+    getWriteMask(func: (mask: IMagickImage | null) => void | Promise<void>): void | Promise<void> {
         return Exception.usePointer(exception => {
             const instance = ImageMagick._api._MagickImage_GetWriteMask(this._instance, exception);
             const image = instance === 0 ? null : new MagickImage(instance, new MagickSettings());
@@ -651,7 +761,7 @@ export class MagickImage extends NativeInstance {
         });
     }
 
-    setWriteMask(image: MagickImage): void {
+    setWriteMask(image: IMagickImage): void {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_SetWriteMask(this._instance, image._instance, exception);
         });
@@ -721,9 +831,9 @@ export class MagickImage extends NativeInstance {
     }
 
     /** @internal */
-    static _use<TReturnType>(func: (image: MagickImage) => TReturnType): TReturnType;
-    static _use<TReturnType>(func: (image: MagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static _use<TReturnType>(func: (image: MagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    static _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         const image = MagickImage.create();
         try {
             return func(image);

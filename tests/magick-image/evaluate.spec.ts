@@ -4,14 +4,14 @@
 import { Channels } from '../../src/channels';
 import { EvaluateOperator } from '../../src/evaluate-operator';
 import { ImageMagick } from '../../src/image-magick';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickGeometry } from '../../src/magick-geometry';
-import { MagickImage } from '../../src/magick-image';
 import { Quantum } from '../../src/quantum';
 import { colorAssert } from '../color-assert';
 
-let image: MagickImage;
+let image: IMagickImage;
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;

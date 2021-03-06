@@ -3,8 +3,8 @@
 
 import MagickNative from './wasm/magick.js';
 import { ImageMagickApi } from './wasm/magick.js';
+import { IMagickImage, MagickImage } from './magick-image';
 import { MagickColor } from './magick-color';
-import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
 
@@ -44,17 +44,17 @@ export class ImageMagick {
         instance.api = value; // eslint-disable-line @typescript-eslint/no-use-before-define
     }
 
-    static read(color: MagickColor, width: number, height: number, func: (image: MagickImage) => void): void;
-    static read(color: MagickColor, width: number, height: number, func: (image: MagickImage) => Promise<void>): Promise<void>;
-    static read(fileName: string, func: (image: MagickImage) => void): void;
-    static read(fileName: string, func: (image: MagickImage) => Promise<void>): Promise<void>;
-    static read(array: Uint8Array, func: (image: MagickImage) => void): void;
-    static read(array: Uint8Array, func: (image: MagickImage) => Promise<void>): Promise<void>;
-    static read(fileName: string, settings: MagickReadSettings, func: (image: MagickImage) => void): void;
-    static read(fileName: string, settings: MagickReadSettings, func: (image: MagickImage) => Promise<void>): Promise<void>;
-    static read(array: Uint8Array, settings: MagickReadSettings, func: (image: MagickImage) => void): void;
-    static read(array: Uint8Array, settings: MagickReadSettings, func: (image: MagickImage) => Promise<void>): Promise<void>;
-    static read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, funcOrSettingsOrWidth: MagickReadSettings | ((image: MagickImage) => void | Promise<void>) | number, funcOrheight?: ((image: MagickImage) => void | Promise<void>) | number, func?: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
+    static read(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => void): void;
+    static read(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => Promise<void>): Promise<void>;
+    static read(fileName: string, func: (image: IMagickImage) => void): void;
+    static read(fileName: string, func: (image: IMagickImage) => Promise<void>): Promise<void>;
+    static read(array: Uint8Array, func: (image: IMagickImage) => void): void;
+    static read(array: Uint8Array, func: (image: IMagickImage) => Promise<void>): Promise<void>;
+    static read(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => void): void;
+    static read(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<void>): Promise<void>;
+    static read(array: Uint8Array, settings: MagickReadSettings, func: (image: IMagickImage) => void): void;
+    static read(array: Uint8Array, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<void>): Promise<void>;
+    static read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, funcOrSettingsOrWidth: MagickReadSettings | ((image: IMagickImage) => void | Promise<void>) | number, funcOrheight?: ((image: IMagickImage) => void | Promise<void>) | number, func?: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
         MagickImage._use(image => {
             if (fileNameOrArrayOrColor instanceof MagickColor) {
                 if (typeof funcOrSettingsOrWidth === 'number' && typeof funcOrheight === 'number')
@@ -82,9 +82,9 @@ export class ImageMagick {
         });
     }
 
-    static readFromCanvas(canvas: HTMLCanvasElement, func: (image: MagickImage) => void): void;
-    static readFromCanvas(canvas: HTMLCanvasElement, func: (image: MagickImage) => Promise<void>): Promise<void>;
-    static readFromCanvas(canvas: HTMLCanvasElement, func: (image: MagickImage) => void | Promise<void>): void | Promise<void> {
+    static readFromCanvas(canvas: HTMLCanvasElement, func: (image: IMagickImage) => void): void;
+    static readFromCanvas(canvas: HTMLCanvasElement, func: (image: IMagickImage) => Promise<void>): Promise<void>;
+    static readFromCanvas(canvas: HTMLCanvasElement, func: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
         return MagickImage._use(image => {
             image.readFromCanvas(canvas);
             return func(image);

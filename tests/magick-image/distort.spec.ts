@@ -4,11 +4,11 @@
 import { AlphaOption } from '../../src/alpha-option';
 import { DistortMethod } from '../../src/distort-method';
 import { ImageMagick } from '../../src/image-magick';
-import { MagickImage } from '../../src/magick-image';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { VirtualPixelMethod } from '../../src/virtual-pixel-method';
 import { colorAssert } from '../color-assert';
 
-let image: MagickImage;
+let image: IMagickImage;
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;

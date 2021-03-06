@@ -3,10 +3,10 @@
 
 import { ErrorMetric } from '../../src/error-metric';
 import { ImageMagick } from '../../src/image-magick';
-import { MagickImage } from '../../src/magick-image';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { Percentage } from '../../src/percentage';
 
-let image: MagickImage;
+let image: IMagickImage;
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
