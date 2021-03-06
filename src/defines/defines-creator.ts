@@ -4,7 +4,7 @@ import {MagickFormat} from '../magick-format';
 import {MagickDefine} from './magick-define';
 
 export abstract class DefinesCreator implements IDefines {
-  format: MagickFormat;
+  protected format: MagickFormat;
 
   constructor (format: MagickFormat) {
     this.format = format;
