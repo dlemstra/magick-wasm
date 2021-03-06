@@ -11,8 +11,8 @@ import { ErrorMetric } from "./error-metric";
 import { EvaluateOperator } from "./evaluate-operator";
 import { Exception } from "./internal/exception/exception";
 import { Gravity } from "./gravity";
+import { IImageProfile, ImageProfile } from "./profiles/image-profile";
 import { ImageMagick } from "./image-magick";
-import { ImageProfile } from "./profiles/image-profile";
 import { MagickColor } from "./magick-color";
 import { MagickFormat } from "./magick-format";
 import { MagickGeometry } from "./magick-geometry";
@@ -435,7 +435,7 @@ export class MagickImage extends NativeInstance {
         });
     }
 
-    getProfile(name: string): ImageProfile | null {
+    getProfile(name: string): IImageProfile | null {
         return _withString(name, namePtr => {
             const value = ImageMagick._api._MagickImage_GetProfile(this._instance, namePtr);
             const data = StringInfo.toArray(value);
