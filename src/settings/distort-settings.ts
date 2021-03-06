@@ -4,7 +4,13 @@
 import { MagickGeometry } from "../magick-geometry";
 import { MagickImage } from "../magick-image";
 
-export class DistortSettings {
+export interface IDistortSettings {
+    bestFit: boolean;
+    scale?: number;
+    viewport?: MagickGeometry;
+}
+
+export class DistortSettings implements IDistortSettings {
 
     bestFit = false;
 
