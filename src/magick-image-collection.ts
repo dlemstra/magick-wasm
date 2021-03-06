@@ -47,9 +47,9 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     /** @internal */
-    _use(func: (images: MagickImageCollection) => void): void;
-    _use(func: (images: MagickImageCollection) => Promise<void>): Promise<void>;
-    _use(func: (images: MagickImageCollection) => void | Promise<void>): void | Promise<void> {
+    _use(func: (images: IMagickImageCollection) => void): void;
+    _use(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
+    _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
         try {
             return func(this);
         } finally {
