@@ -78,9 +78,8 @@ export class MagickSettings {
     }
 
     parseDefine(format: MagickFormat, name: string): string {
-        if (format === MagickFormat.Unknown) {
+        if (format === MagickFormat.Unknown)
             return name;
-        }
 
         return `${format}:${name}`;
     }
