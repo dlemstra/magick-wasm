@@ -2,9 +2,9 @@ import {MagickFormat} from '../magick-format';
 
 export interface IDefine {
 
-  format: MagickFormat;
+  readonly format: MagickFormat;
 
-  name: string;
+  readonly name: string;
 
-  value: string;
+  readonly value: string;
 }
