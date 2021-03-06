@@ -1,23 +1,23 @@
-import {MagickReadSettings} from '../../src/settings/magick-read-settings';
-import {DefinesCreator} from '../../src/defines/defines-creator';
-import {MagickFormat} from '../../src/magick-format';
-import {IDefine} from '../../lib/defines/define';
+import { IDefine } from '../../src/defines/define';
+import { DefinesCreator } from '../../src/defines/defines-creator';
+import { MagickFormat } from '../../src/magick-format';
+import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 
 class TestDefinesCreator extends DefinesCreator {
-  constructor () {
-    super(MagickFormat.A);
-  }
+    constructor () {
+        super(MagickFormat.A);
+    }
 
-  getDefines (): IDefine[] {
-    return [this.createDefine("test", "empty")];
-  }
+    getDefines (): IDefine[] {
+        return [this.createDefine("test", "empty")];
+    }
 }
 
 describe('DefinesCreator', () => {
-  it('should return correct define', () => {
-    const readSettings = new MagickReadSettings();
-    readSettings.setDefines(new TestDefinesCreator());
+    it('should return correct define', () => {
+        const readSettings = new MagickReadSettings();
+        readSettings.setDefines(new TestDefinesCreator());
 
-    expect(readSettings.getDefine(`${MagickFormat.A.toString()}:test`)).toBe("empty");
-  });
+        expect(readSettings.getDefine(`${MagickFormat.A.toString()}:test`)).toBe("empty");
+    });
 });

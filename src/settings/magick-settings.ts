@@ -1,11 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
 // Licensed under the Apache License, Version 2.0.
 
+import { IDefines } from '../defines/defines';
 import { ImageMagick } from "../image-magick";
 import { MagickFormat } from "../magick-format";
 import { NativeInstance } from "../internal/native-instance";
 import { _withString } from "../internal/native/string";
-import {IDefines} from '../defines/defines';
 
 /** @internal */
 export class NativeMagickSettings extends NativeInstance {
@@ -67,9 +67,8 @@ export class MagickSettings {
 
     setDefines(defines: IDefines): void {
         defines.getDefines().forEach(define => {
-            if (define !== undefined) {
+            if (define !== undefined)
                 this.setDefine(this.parseDefine(define.format, define.name), define.value);
-            }
         });
     }
 
