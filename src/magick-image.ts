@@ -6,11 +6,11 @@ import { Channels } from "./channels";
 import { ColorSpace } from "./color-space";
 import { CompositeOperator } from "./composite-operator";
 import { DistortMethod } from "./distort-method";
+import { DistortSettings } from "./settings/distort-settings";
 import { ErrorMetric } from "./error-metric";
 import { EvaluateOperator } from "./evaluate-operator";
 import { Exception } from "./internal/exception/exception";
 import { Gravity } from "./gravity";
-import { IDistortSettings, DistortSettings } from "./settings/distort-settings";
 import { IImageProfile, ImageProfile } from "./profiles/image-profile";
 import { ImageMagick } from "./image-magick";
 import { MagickColor } from "./magick-color";
@@ -334,8 +334,8 @@ export class MagickImage extends NativeInstance {
     }
 
     distort(method: DistortMethod, params: number[]): void;
-    distort(method: DistortMethod, settings: IDistortSettings, params: number[]): void;
-    distort(method: DistortMethod, settingsOrParams: number[] | IDistortSettings, params?: number[]): void {
+    distort(method: DistortMethod, settings: DistortSettings, params: number[]): void;
+    distort(method: DistortMethod, settingsOrParams: number[] | DistortSettings, params?: number[]): void {
         let distortArgs: number[];
         let bestFit = 0;
         let settings: DistortSettings | null = null;
