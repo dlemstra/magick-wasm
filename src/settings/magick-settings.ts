@@ -62,18 +62,27 @@ export class MagickSettings {
     }
 
     setDefine(name: string, value: string ): void;
-    setDefine(name: string, value: boolean): void;
-    setDefine(name: string, value: string | boolean): void {
-        if (typeof value === 'string')
-            this._options[name] = value;
-        else
-            this._options[name] = value ? 'true' : 'false';
+    setDefine(format: MagickFormat, name: string, value: string ): void;
+    setDefine(format: MagickFormat, name: string, value: number): void;
+    setDefine(format: MagickFormat, name: string, value: boolean): void;
+    setDefine(nameOrFormat: MagickFormat | string, nameOrValue: string, value?: string | number | boolean): void {
+        if (value === undefined) {
+            this._options[nameOrFormat] = nameOrValue;
+        } else {
+            const key = this.parseDefine(<MagickFormat>nameOrFormat, nameOrValue);
+            if (typeof value === 'string')
+                this._options[key] = value;
+            else if (typeof value === 'number')
+                this._options[key] = value.toString();
+            else
+                this._options[key] = value ? 'true' : 'false';
+        }
     }
 
     setDefines(defines: IDefines): void {
         defines.getDefines().forEach(define => {
             if (define !== undefined)
-                this.setDefine(this.parseDefine(define.format, define.name), define.value);
+                this.setDefine(define.format, define.name, define.value);
         });
     }
 
