@@ -26,7 +26,7 @@ export class ImageMagick {
         });
     }
 
-    static _create(): ImageMagick { return new ImageMagick() }
+    static _create = (): ImageMagick => new ImageMagick();
 
     /** @internal */
     async _initialize(): Promise<void> { await this.loader; }

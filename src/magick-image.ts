@@ -164,7 +164,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return artifactNames;
     }
 
-    get backgroundColor(): MagickColor { 
+    get backgroundColor(): MagickColor {
         const colorPtr = ImageMagick._api._MagickImage_BackgroundColor_Get(this._instance);
         return MagickColor._create(colorPtr);
     }
