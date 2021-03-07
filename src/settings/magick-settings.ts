@@ -86,13 +86,6 @@ export class MagickSettings {
         });
     }
 
-    parseDefine(format: MagickFormat, name: string): string {
-        if (format === MagickFormat.Unknown)
-            return name;
-
-        return `${format}:${name}`;
-    }
-
     /** @internal */
     _clone(): MagickSettings {
         const clone = new MagickSettings();
@@ -115,5 +108,12 @@ export class MagickSettings {
         } finally {
             settings.dispose();
         }
+    }
+
+    private parseDefine(format: MagickFormat, name: string): string {
+        if (format === MagickFormat.Unknown)
+            return name;
+
+        return `${format}:${name}`;
     }
 }
