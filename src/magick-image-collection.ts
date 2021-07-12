@@ -65,12 +65,12 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     static create(): IMagickImageCollection {
-        return MagickImageCollection._create();
+        return MagickImageCollection.createObject();
     }
 
     /** @internal */
     static _createFromImages(images: number, settings: MagickSettings): IMagickImageCollection {
-        const collection = MagickImageCollection._create();
+        const collection = MagickImageCollection.createObject();
 
         collection.addImages(images, settings);
 
@@ -88,7 +88,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
     }
 
-    private static _create(): MagickImageCollection {
+    private static createObject(): MagickImageCollection {
         return Object.create(MagickImageCollection.prototype);
     }
 
