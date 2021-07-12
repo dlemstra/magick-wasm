@@ -4,6 +4,7 @@
 import MagickNative from './wasm/magick.js';
 import { ImageMagickApi } from './wasm/magick.js';
 import { IMagickImage, MagickImage } from './magick-image';
+import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
 import { MagickColor } from './magick-color';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
@@ -59,7 +60,7 @@ export class ImageMagick {
             if (fileNameOrArrayOrColor instanceof MagickColor) {
                 if (typeof funcOrSettingsOrWidth === 'number' && typeof funcOrheight === 'number')
                     image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth, funcOrheight);
-                
+
                 if (func !== undefined)
                     return func(image);
             } else if (funcOrSettingsOrWidth instanceof MagickReadSettings) {
@@ -78,6 +79,36 @@ export class ImageMagick {
 
                 if (typeof funcOrSettingsOrWidth !== 'number')
                     return funcOrSettingsOrWidth(image);
+            }
+        });
+    }
+
+    static readCollection(fileName: string, func: (images: IMagickImageCollection) => void): void;
+    static readCollection(fileName: string, func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
+    static readCollection(array: Uint8Array, func: (images: IMagickImageCollection) => void): void;
+    static readCollection(array: Uint8Array, func: (image: IMagickImageCollection) => Promise<void>): Promise<void>;
+    static readCollection(fileName: string, settings: MagickReadSettings, func: (images: IMagickImageCollection) => void): void;
+    static readCollection(fileName: string, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
+    static readCollection(array: Uint8Array, settings: MagickReadSettings, func: (images: IMagickImageCollection) => void): void;
+    static readCollection(array: Uint8Array, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
+    static readCollection(fileNameOrArray: string | Uint8Array , funcOrSettings: MagickReadSettings | ((images: IMagickImageCollection) => void | Promise<void>), func?: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
+        const collection = MagickImageCollection.create();
+        return collection._use(images => {
+            if (funcOrSettings instanceof MagickReadSettings) {
+                if (typeof fileNameOrArray === 'string')
+                    images.read(fileNameOrArray, funcOrSettings);
+                else
+                    images.read(fileNameOrArray, funcOrSettings);
+
+                if (func !== undefined)
+                    return func(images);
+            } else {
+                if (typeof fileNameOrArray === 'string')
+                    images.read(fileNameOrArray);
+                else
+                    images.read(fileNameOrArray);
+
+                return funcOrSettings(images);
             }
         });
     }
