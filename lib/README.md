@@ -14,4 +14,4 @@ For more information about ImageMagick go to: [http://www.imagemagick.org/](http
 
 ## Release notes
 
-The release notes can be found on [GitHub](https://github.com/dlemstra/Magick.WASM/releases/tag/0.0.5).
+The release notes can be found on [GitHub](https://github.com/dlemstra/Magick.WASM/releases/tag/0.0.6).
