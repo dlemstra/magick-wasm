@@ -7,7 +7,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick ] copyright:
+[ ImageMagick 7.1.0-4 ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -115,7 +115,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ freetype 2.10.4 ] copyright:
+[ freetype 2.10.4 (2020-10-04) ] copyright:
 
                     The FreeType Project LICENSE
                     ----------------------------
@@ -289,7 +289,7 @@ Legal Terms
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-turbo 2.0.5 ] copyright:
+[ jpeg-turbo 2.0.5 (2020-06-24) ] copyright:
 
 In plain English:
 
@@ -351,7 +351,7 @@ We are required to state that
     CompuServe Incorporated."
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lcms 2.12 ] copyright:
+[ lcms 2.12 (2021-03-06) ] copyright:
 
 Little CMS
 Copyright (c) 1998-2020 Marti Maria Saguer
@@ -377,7 +377,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ libde265 1.0.8 ] copyright:
+[ libde265 1.0.8 (2020-11-02) ] copyright:
 
 * The library `libde265` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT license.
@@ -1253,7 +1253,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ libheif 1.12.0 ] copyright:
+[ libheif 1.12.0 (2021-05-05) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
@@ -2129,7 +2129,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ libraw 0.20.0.1 ] copyright:
+[ libraw 0.20.0.1 (2021-02-08) ] copyright:
 
  ** LibRaw: Raw images processing library **
 
@@ -2161,7 +2161,7 @@ Copyright (c) 2005 Adobe Systems Incorporated, licensed under MIT license
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ libxml 2.9.10 ] copyright:
+[ libxml 2.9.10 (2019-10-30) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files hash.c,
 list.c and the trio files, which are covered by a similar licence but
@@ -2189,7 +2189,7 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openjpeg 2.3.1 ] copyright:
+[ openjpeg 2.3.1 (2019-02-26) ] copyright:
 
 /*
  * The copyright in this software is being made available under the 2-clauses 
@@ -2233,7 +2233,7 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ png 1.6.37.0 ] copyright:
+[ png 1.6.37 (2018-07-16) ] copyright:
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
@@ -2372,7 +2372,7 @@ be appreciated.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ tiff 4.3.0 ] copyright:
+[ tiff 4.3.0 (2020-04-20) ] copyright:
 
 Copyright (c) 1988-1997 Sam Leffler
 Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -2398,7 +2398,7 @@ OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ webp 1.2.0 ] copyright:
+[ webp 1.2.0 (2021-01-30) ] copyright:
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
@@ -2433,7 +2433,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ zlib 1.2.11 ] copyright:
+[ zlib 1.2.11 (2017-01-15) ] copyright:
 
  (C) 1995-2017 Jean-loup Gailly and Mark Adler
 
