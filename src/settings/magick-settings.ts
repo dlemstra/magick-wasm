@@ -57,6 +57,9 @@ export class NativeMagickSettings extends NativeInstance {
         if (settings.strokeColor !== undefined)
             this.setOption('stroke', settings.strokeColor.toString());
 
+        if (settings.strokeWidth !== undefined)
+            this.setOption('strokeWidth', settings.strokeWidth.toString());
+
         for (const option in settings._options)
             this.setOption(option, settings._options[option]);
     }
@@ -91,6 +94,8 @@ export class MagickSettings {
     format?: MagickFormat;
 
     strokeColor?: MagickColor;
+
+    strokeWidth?: number;
 
     getDefine(name: string): string;
     getDefine(format: MagickFormat, name: string): string;
