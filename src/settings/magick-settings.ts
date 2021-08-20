@@ -31,6 +31,9 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
+        if (settings.fillColor !== undefined)
+            this.setOption('fill', settings.fillColor.toString());
+
         if (settings.font !== undefined) {
             const fileName = `/fonts/${settings.font}`;
             const stats = ImageMagick._api.FS.analyzePath(fileName);
@@ -54,12 +57,16 @@ export class NativeMagickSettings extends NativeInstance {
         }
 
         for (const option in settings._options) {
-            _withString(option, optionPtr => {
-                _withString(settings._options[option], valuePtr => {
-                    ImageMagick._api._MagickSettings_SetOption(this._instance, optionPtr, valuePtr);
-                });
-            });
+            this.setOption(option, settings._options[option]);
         }
+    }
+
+    private setOption(option: string, value: string) {
+        _withString(option, optionPtr => {
+            _withString(value, valuePtr => {
+                ImageMagick._api._MagickSettings_SetOption(this._instance, optionPtr, valuePtr);
+            });
+        });
     }
 }
 
@@ -74,6 +81,8 @@ export class MagickSettings {
     _quality?: number;
 
     backgroundColor?: MagickColor;
+
+    fillColor?: MagickColor;
 
     font?: string;
 
