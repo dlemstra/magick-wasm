@@ -15,8 +15,8 @@ export class NativeMagickSettings extends NativeInstance {
         super(instance, disposeMethod);
 
         if (settings._fileName !== undefined) {
-            _withString(settings._fileName, filenamePtr => {
-                ImageMagick._api._MagickSettings_SetFileName(this._instance, filenamePtr);
+            _withString(settings._fileName, ptr => {
+                ImageMagick._api._MagickSettings_SetFileName(this._instance, ptr);
             });
         }
 
@@ -24,9 +24,21 @@ export class NativeMagickSettings extends NativeInstance {
             ImageMagick._api._MagickSettings_SetQuality(this._instance, settings._quality);
         }
 
+        if (settings.font !== undefined) {
+            const fileName = `/fonts/${settings.font}`;
+            const stats = ImageMagick._api.FS.analyzePath(fileName);
+            if (!stats.exists) {
+                throw `Unable to find a font with the name '${settings.font}', add it with Magick.addFont.`
+            }
+
+            _withString(fileName, ptr => {
+                ImageMagick._api._MagickSettings_Font_Set(this._instance, ptr);
+            });
+        }
+
         if (settings.format !== undefined) {
-            _withString(settings.format, formatPtr => {
-                ImageMagick._api._MagickSettings_Format_Set(this._instance, formatPtr);
+            _withString(settings.format, ptr => {
+                ImageMagick._api._MagickSettings_Format_Set(this._instance, ptr);
             });
         }
 
@@ -49,6 +61,8 @@ export class MagickSettings {
 
     /** @internal */
     _quality?: number;
+
+    font?: string;
 
     format?: MagickFormat;
 

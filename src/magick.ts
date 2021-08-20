@@ -14,5 +14,17 @@ export class Magick {
 
     static get supportedFormats(): MagickFormatInfo[] { return MagickFormatInfo.all; }
 
+    static addFont(name: string, data: Uint8Array): void {
+        const fileSystem = ImageMagick._api.FS;
+        const stats = fileSystem.analyzePath('/fonts');
+        if (!stats.exists) {
+            fileSystem.mkdir('/fonts');
+        }
+
+        const stream = fileSystem.open(`/fonts/${name}`, 'w+');
+        fileSystem.write(stream, data, 0, data.length);
+        fileSystem.close(stream);
+    }
+
     static setRandomSeed = (seed: number): void => ImageMagick._api._Magick_SetRandomSeed(seed);
 }
