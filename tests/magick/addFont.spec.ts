@@ -12,7 +12,6 @@ beforeAll(() => { ImageMagick._api = (global as any).native; });
 describe('Magick#addFont', () => {
     it('should make the font available', () => {
         const data = fs.readFileSync(TestFiles.kaushanScriptRegularTtf);
-
         Magick.addFont('foo', data);
 
         const settings = new MagickReadSettings();

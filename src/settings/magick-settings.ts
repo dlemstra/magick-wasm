@@ -36,6 +36,10 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
+        if (settings.fontPointsize !== undefined) {
+            ImageMagick._api._MagickSettings_FontPointsize_Set(this._instance, settings.fontPointsize);
+        }
+
         if (settings.format !== undefined) {
             _withString(settings.format, ptr => {
                 ImageMagick._api._MagickSettings_Format_Set(this._instance, ptr);
@@ -63,6 +67,8 @@ export class MagickSettings {
     _quality?: number;
 
     font?: string;
+
+    fontPointsize?: number;
 
     format?: MagickFormat;
 
