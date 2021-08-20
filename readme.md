@@ -1,22 +1,22 @@
-## The WebAssembly library for ImageMagick: Magick.WASM
+## The WebAssembly library for ImageMagick: magick-wasm
 
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/Magick.WASM/main/license.txt)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/magick-wasm/main/license.txt)
 [![Twitter URL](https://img.shields.io/badge/twitter-follow-1da1f2.svg)](https://twitter.com/MagickNET)
 [![Donate](https://img.shields.io/badge/%24-donate-ff00ff.svg)](https://github.com/sponsors/dlemstra)
 
 ImageMagick is a powerful image manipulation library that supports over [100 major file formats](https://www.imagemagick.org/script/formats.php) (not including sub-formats).
-With Magick.WASM you can use ImageMagick in your web application without doing a callback to an api.
+With magick-wasm you can use ImageMagick in your web application without doing a callback to an api.
 
 ## Documentation
 
-For examples on how to use Magick.WASM view the [https://github.com/dlemstra/Magick.WASM/blob/main/demo/demo.ts](demo/demo.ts).
+For examples on how to use magick-wasm view the [https://github.com/dlemstra/magick-wasm/blob/main/demo/demo.ts](demo/demo.ts).
 For more information about ImageMagick go to: [http://www.imagemagick.org/](http://www.imagemagick.org/).
 
 ## Download
 
 You can download the npm package from here: https://www.npmjs.com/package/@imagemagick/magick-wasm.
 
-Follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive information about new downloads and changes to Magick.WASM and ImageMagick.
+Follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive information about new downloads and changes to magick-wasm and ImageMagick.
 
 ## Donate
 

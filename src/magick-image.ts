@@ -1,4 +1,4 @@
-// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
+// Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
 import { AlphaOption } from './alpha-option';
@@ -233,7 +233,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance, exception);
         });
     }
-    set virtualPixelMethod(value: VirtualPixelMethod)  { 
+    set virtualPixelMethod(value: VirtualPixelMethod)  {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_VirtualPixelMethod_Set(this._instance, value, exception);
         });
@@ -501,7 +501,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 })
             });
         }
-      
+
     }
 
     extent(width: number, height: number): void;
@@ -628,7 +628,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                     readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toShortString();
                     readSettings.width = typeof settingsOrWidth === 'number' ? settingsOrWidth : 0;
                     readSettings.height = typeof height === 'number' ? height : 0;
-                } 
+                }
                 readSettings._use(settings => {
                     const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
                     this._setInstance(instance, exception);

@@ -1,4 +1,4 @@
-// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
+// Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
 import { Channels } from '../../src/channels';
@@ -37,7 +37,7 @@ describe('MagickImage#composite', () => {
                 colorAssert(image, 1, 0, new MagickColor('#ff000000'));
             });
         });
-    }); 
+    });
 
     it('should composite the specified channel', () => {
         ImageMagick.read('logo:', (image) => {

@@ -1,4 +1,4 @@
-// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
+// Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
@@ -39,7 +39,7 @@ describe('ImageMagick#readFromCanvas', () => {
         ImageMagick.readFromCanvas(canvas, image => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
-    
+
             colorAssert(image, 0, 0, MagickColors.Magenta);
             colorAssert(image, 0, 1, MagickColors.Red);
         });
@@ -73,7 +73,7 @@ describe('ImageMagick#readFromCanvas', () => {
         await ImageMagick.readFromCanvas(canvas, image => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
-    
+
             colorAssert(image, 0, 0, MagickColors.Magenta);
             colorAssert(image, 0, 1, MagickColors.Red);
         });

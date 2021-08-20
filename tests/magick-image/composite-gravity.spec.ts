@@ -1,4 +1,4 @@
-// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.WASM.
+// Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
 import { Channels } from '../../src/channels';
@@ -127,7 +127,7 @@ describe('MagickImage#compositeGravity', () => {
     it('should use the gravity and position', () => {
          ImageMagick.read(MagickColors.Red, 3, 3, (image) => {
              ImageMagick.read(MagickColors.White, 1, 1, (white) => {
- 
+
                  image.compositeGravity(white, Gravity.Northeast, new Point(1, 1));
                  colorAssert(image, 1, 1, MagickColors.White);
              });
@@ -137,7 +137,7 @@ describe('MagickImage#compositeGravity', () => {
      it('should use the gravity, position and channels', () => {
           ImageMagick.read(MagickColors.Red, 3, 3, (image) => {
               ImageMagick.read(MagickColors.White, 1, 1, (white) => {
-  
+
                   image.compositeGravity(white, Gravity.Southwest, new Point(1, 1), Channels.Green);
                   colorAssert(image, 1, 1, MagickColors.Yellow);
               });
