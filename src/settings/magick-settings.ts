@@ -4,6 +4,7 @@
 import { IDefines } from '../defines/defines';
 import { ImageMagick } from '../image-magick';
 import { MagickFormat } from '../magick-format';
+import { MagickColor } from '../magick-color';
 import { NativeInstance } from '../internal/native-instance';
 import { _withString } from '../internal/native/string';
 
@@ -22,6 +23,12 @@ export class NativeMagickSettings extends NativeInstance {
 
         if (settings._quality !== undefined) {
             ImageMagick._api._MagickSettings_SetQuality(this._instance, settings._quality);
+        }
+
+        if (settings.backgroundColor !== undefined) {
+            settings.backgroundColor ._use((ptr) => {
+                ImageMagick._api._MagickSettings_BackgroundColor_Set(this._instance, ptr);
+            });
         }
 
         if (settings.font !== undefined) {
@@ -65,6 +72,8 @@ export class MagickSettings {
 
     /** @internal */
     _quality?: number;
+
+    backgroundColor?: MagickColor;
 
     font?: string;
 
