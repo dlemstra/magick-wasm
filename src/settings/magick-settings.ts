@@ -21,9 +21,8 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
-        if (settings._quality !== undefined) {
+        if (settings._quality !== undefined)
             ImageMagick._api._MagickSettings_SetQuality(this._instance, settings._quality);
-        }
 
         if (settings.backgroundColor !== undefined) {
             settings.backgroundColor ._use((ptr) => {
@@ -46,9 +45,8 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
-        if (settings.fontPointsize !== undefined) {
+        if (settings.fontPointsize !== undefined)
             ImageMagick._api._MagickSettings_FontPointsize_Set(this._instance, settings.fontPointsize);
-        }
 
         if (settings.format !== undefined) {
             _withString(settings.format, ptr => {
@@ -56,9 +54,11 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
-        for (const option in settings._options) {
+        if (settings.strokeColor !== undefined)
+            this.setOption('stroke', settings.strokeColor.toString());
+
+        for (const option in settings._options)
             this.setOption(option, settings._options[option]);
-        }
     }
 
     private setOption(option: string, value: string) {
@@ -89,6 +89,8 @@ export class MagickSettings {
     fontPointsize?: number;
 
     format?: MagickFormat;
+
+    strokeColor?: MagickColor;
 
     getDefine(name: string): string;
     getDefine(format: MagickFormat, name: string): string;
