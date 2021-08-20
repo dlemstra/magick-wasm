@@ -5,13 +5,13 @@
   "description": "The WASM library for ImageMagick",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dlemstra/Magick.WASM.git"
+    "url": "git+https://github.com/dlemstra/magick-wasm.git"
   },
   "author": "Dirk Lemstra",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/dlemstra/Magick.WASM/issues"
+    "url": "https://github.com/dlemstra/magick-wasmissues"
   },
-  "homepage": "https://github.com/dlemstra/Magick.WASM",
+  "homepage": "https://github.com/dlemstra/magick-wasm",
   "keywords": ["imagemagick", "magick", "wasm", "image", "convert", "resize"]
 }
