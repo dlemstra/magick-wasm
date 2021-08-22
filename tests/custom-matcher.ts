@@ -7,7 +7,9 @@ import { PixelChannel } from "../src/pixel-channel";
 import { Quantum } from "../src/quantum";
 
 declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jest {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         interface Matchers<R> {
             toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => CustomMatcherResult;
         }
