@@ -18,7 +18,6 @@ afterEach(() => {
 
 describe('MagickImage#backgroundColor', () => {
     it('should return the background color of the image', () => {
-        image.read('rose:');
         const backgroundColor = image.backgroundColor;
         expect(backgroundColor.r).toBe(255);
         expect(backgroundColor.g).toBe(255);
@@ -27,7 +26,6 @@ describe('MagickImage#backgroundColor', () => {
     });
 
     it('should change background color', () => {
-        image.read('rose:');
         image.backgroundColor = MagickColors.Black;
         const backgroundColor = image.backgroundColor;
         expect(backgroundColor.r).toBe(0);
