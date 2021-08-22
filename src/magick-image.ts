@@ -116,6 +116,8 @@ export interface IMagickImage extends INativeInstance {
     modulate(brightness: Percentage): void;
     modulate(brightness: Percentage, saturation: Percentage): void;
     modulate(brightness: Percentage, saturation: Percentage, hue: Percentage): void;
+    oilPaint(): void;
+    oilPaint(radius: number): void;
     read(color: MagickColor, width: number, height: number): void;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
@@ -616,6 +618,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             _withString(modulate, modulatePtr => {
                 ImageMagick._api._MagickImage_Modulate(this._instance, modulatePtr, exception);
             });
+        });
+    }
+
+    oilPaint(): void;
+    oilPaint(radius: number): void
+    oilPaint(radiusOrUndefined?: number): void {
+        const radius = radiusOrUndefined === undefined ? 3 : radiusOrUndefined;
+        const sigma = 0.0; // Not used due to precision issue in GetOptimalKernelWidth2D.
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_OilPaint(this._instance, radius, sigma, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
