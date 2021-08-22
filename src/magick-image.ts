@@ -61,6 +61,8 @@ export interface IMagickImage extends INativeInstance {
     blur(radius: number, sigma: number): void;
     blur(radius: number, sigma: number, channels: Channels): void;
     channelOffset(pixelChannel: PixelChannel): number;
+    charcoal(): void;
+    charcoal(radius: number, sigma: number): void;
     clahe(xTiles: number, yTiles: number, numberBins: number, clipLimit: number): void;
     clahe(xTiles: Percentage, yTiles: Percentage, numberBins: number, clipLimit: number): void;
     clone(func: (image: IMagickImage) => void): void;
@@ -288,6 +290,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return -1;
 
         return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
+    }
+
+    charcoal(): void;
+    charcoal(radius: number, sigma: number): void;
+    charcoal(radiusOrUndefined?: number, sigmaOrUndefined?: number): void {
+        const radius = radiusOrUndefined === undefined ? 0 : radiusOrUndefined;
+        const sigma =sigmaOrUndefined === undefined ? 1 :sigmaOrUndefined;
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_Charcoal(this._instance, radius, sigma, exception.ptr);
+            this._setInstance(instance, exception);
+        });
     }
 
     clahe(xTiles: number, yTiles: number, numberBins: number, clipLimit: number): void;
