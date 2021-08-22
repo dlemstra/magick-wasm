@@ -1,10 +1,18 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IMagickImage } from '../src/magick-image';
-import { PixelChannel } from '../src/pixel-channel';
-import { MagickColor } from '../src/magick-color';
-import { Quantum } from '../src/quantum';
+import { IMagickImage } from "../src/magick-image";
+import { MagickColor } from "../src/magick-color";
+import { PixelChannel } from "../src/pixel-channel";
+import { Quantum } from "../src/quantum";
+
+declare global {
+    namespace jest {
+        interface Matchers<R> {
+            toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => CustomMatcherResult;
+        }
+    }
+}
 
 function toHex(value: number): string {
     return value.toString(16).padStart(2, '0');
@@ -52,9 +60,24 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
     });
 }
 
-export function colorAssert(image: IMagickImage, x: number, y: number, colorOrString: MagickColor | string): void {
-    if (typeof colorOrString === 'string')
-        expect(pixelColor(image, x, y)).toBe(colorOrString);
-    else
-        expect(pixelColor(image, x, y)).toBe(colorOrString.toString());
-}
+expect.extend({
+    toHavePixelWithColor(image: IMagickImage, x: number, y: number, colorOrString: MagickColor | string) {
+        const actualColor = pixelColor(image, x, y);
+
+        let expectedColor = '';
+        if (typeof colorOrString === 'string') {
+            expectedColor = colorOrString;
+        } else {
+            expectedColor = colorOrString.toString();
+        }
+
+        if (expectedColor === actualColor) {
+            return { pass: true, message: () => '' }
+        }
+
+        return {
+            pass: false,
+            message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`
+        };
+    }
+});

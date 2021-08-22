@@ -9,7 +9,7 @@ import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickGeometry } from '../../src/magick-geometry';
 import { Quantum } from '../../src/quantum';
-import { colorAssert } from '../color-assert';
+import '../custom-matcher';
 
 let image: IMagickImage;
 
@@ -35,10 +35,10 @@ describe('MagickImage#evaluate', () => {
         image.read('logo:');
 
         image.evaluate(Channels.Red, new MagickGeometry(0, 0, 100, 295), EvaluateOperator.Set, 0);
-        colorAssert(image, 99, 195, new MagickColor('#00ffffff'));
+        expect(image).toHavePixelWithColor(99, 195, new MagickColor('#00ffffff'));
 
         image.evaluate(Channels.Green, EvaluateOperator.Set, 0);
-        colorAssert(image, 99, 195, new MagickColor('#0000ffff'));
+        expect(image).toHavePixelWithColor(99, 195, new MagickColor('#0000ffff'));
     });
 
     it('should use the write mask', () => {
@@ -52,8 +52,8 @@ describe('MagickImage#evaluate', () => {
             image.setWriteMask(mask);
             image.evaluate(Channels.Red, EvaluateOperator.Set, Quantum.max);
 
-            colorAssert(image, 0, 0, MagickColors.Red);
-            colorAssert(image, 1, 0, MagickColors.Black);
+            expect(image).toHavePixelWithColor(0, 0, MagickColors.Red);
+            expect(image).toHavePixelWithColor(1, 0, MagickColors.Black);
         });
     });
 });

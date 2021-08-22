@@ -6,8 +6,8 @@ import { Magick } from '../../../src/magick';
 import { MagickColor } from '../../../src/magick-color';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
-import { colorAssert } from '../../color-assert';
 import * as fs from 'fs';
+import '../../custom-matcher';
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
@@ -26,7 +26,7 @@ describe('MagickSettings#strokeColor', () => {
         ImageMagick.read('label:X', settings, (image) => {
             expect(image.width).toBe(76);
             expect(image.height).toBe(147);
-            colorAssert(image, 39, 75, '#ffc0cbff');
+            expect(image).toHavePixelWithColor(39, 75, '#ffc0cbff');
         });
     });
 });

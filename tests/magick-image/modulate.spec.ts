@@ -5,7 +5,7 @@ import { ErrorMetric } from '../../src/error-metric';
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { Percentage } from '../../src/percentage';
-import { colorAssert } from '../color-assert';
+import '../custom-matcher';
 
 let image: IMagickImage;
 
@@ -43,9 +43,9 @@ describe('MagickImage#modulate', () => {
     it('should modulate the image', () => {
         image.modulate(new Percentage(75), new Percentage(50), new Percentage(25));
 
-        colorAssert(image, 340, 270, '#43582eff');
-        colorAssert(image, 410, 155, '#863da3ff');
-        colorAssert(image, 430, 230, '#4f47a9ff');
-        colorAssert(image, 500, 313, '#bfbfbfff');
+        expect(image).toHavePixelWithColor(340, 270, '#43582eff');
+        expect(image).toHavePixelWithColor(410, 155, '#863da3ff');
+        expect(image).toHavePixelWithColor(430, 230, '#4f47a9ff');
+        expect(image).toHavePixelWithColor(500, 313, '#bfbfbfff');
     });
 });

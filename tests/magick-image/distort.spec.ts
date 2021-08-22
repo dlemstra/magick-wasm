@@ -6,7 +6,7 @@ import { DistortMethod } from '../../src/distort-method';
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { VirtualPixelMethod } from '../../src/virtual-pixel-method';
-import { colorAssert } from '../color-assert';
+import '../custom-matcher';
 
 let image: IMagickImage;
 
@@ -28,8 +28,8 @@ describe('MagickImage#distort', () => {
 
         expect(image.width).toBe(70);
         expect(image.height).toBe(46);
-        colorAssert(image, 4, 15, '#00000000');
-        colorAssert(image, 55, 15, '#fd4b7bff');
-        colorAssert(image, 66, 15, '#00000000');
+        expect(image).toHavePixelWithColor(4, 15, '#00000000');
+        expect(image).toHavePixelWithColor(55, 15, '#fd4b7bff');
+        expect(image).toHavePixelWithColor(66, 15, '#00000000');
     });
 });

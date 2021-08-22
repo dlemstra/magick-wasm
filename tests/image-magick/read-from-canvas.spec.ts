@@ -4,7 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { JSDOM } from 'jsdom';
 import { MagickColors } from '../../src/magick-colors';
-import { colorAssert } from '../color-assert';
+import '../custom-matcher';
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
@@ -40,8 +40,8 @@ describe('ImageMagick#readFromCanvas', () => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
 
-            colorAssert(image, 0, 0, MagickColors.Magenta);
-            colorAssert(image, 0, 1, MagickColors.Red);
+            expect(image).toHavePixelWithColor(0, 0, MagickColors.Magenta);
+            expect(image).toHavePixelWithColor(0, 1, MagickColors.Red);
         });
     });
 
@@ -74,8 +74,8 @@ describe('ImageMagick#readFromCanvas', () => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
 
-            colorAssert(image, 0, 0, MagickColors.Magenta);
-            colorAssert(image, 0, 1, MagickColors.Red);
+            expect(image).toHavePixelWithColor(0, 0, MagickColors.Magenta);
+            expect(image).toHavePixelWithColor(0, 1, MagickColors.Red);
         });
     });
 });

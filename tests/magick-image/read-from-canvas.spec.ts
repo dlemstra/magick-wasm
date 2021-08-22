@@ -5,7 +5,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { JSDOM } from 'jsdom';
 import { MagickColors } from '../../src/magick-colors';
-import { colorAssert } from '../color-assert';
+import '../custom-matcher';
 
 let image: IMagickImage;
 
@@ -49,7 +49,7 @@ describe('MagickImage#readFromCanvas', () => {
         expect(image.width).toBe(1);
         expect(image.height).toBe(2);
 
-        colorAssert(image, 0, 0, MagickColors.Magenta);
-        colorAssert(image, 0, 1, MagickColors.Red);
+        expect(image).toHavePixelWithColor(0, 0, MagickColors.Magenta);
+        expect(image).toHavePixelWithColor(0, 1, MagickColors.Red);
     });
 });

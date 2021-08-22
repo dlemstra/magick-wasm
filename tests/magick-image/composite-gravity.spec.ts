@@ -6,8 +6,8 @@ import { CompositeOperator } from '../../src/composite-operator';
 import { Gravity } from '../../src/gravity';
 import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
-import { colorAssert } from '../color-assert';
 import { Point } from '../../src/point';
+import '../custom-matcher';
 
 beforeEach(() => { ImageMagick._api = (global as any).native; });
 
@@ -17,7 +17,7 @@ describe('MagickImage#compositeGravity', () => {
             ImageMagick.read(MagickColors.White, 1, 1, (white) => {
 
                 image.compositeGravity(white, Gravity.East);
-                colorAssert(image, 2, 1, MagickColors.White);
+                expect(image).toHavePixelWithColor(2, 1, MagickColors.White);
             });
         });
     });
@@ -30,21 +30,21 @@ describe('MagickImage#compositeGravity', () => {
             ImageMagick.read(overlayColor, 50, 50, (overlay) => {
 
                 background.compositeGravity(overlay, Gravity.West, CompositeOperator.Over);
-                colorAssert(background, 0, 0, backgroundColor);
-                colorAssert(background, 0, 25, overlayColor);
-                colorAssert(background, 0, 75, backgroundColor);
+                expect(background).toHavePixelWithColor(0, 0, backgroundColor);
+                expect(background).toHavePixelWithColor(0, 25, overlayColor);
+                expect(background).toHavePixelWithColor(0, 75, backgroundColor);
 
-                colorAssert(background, 49, 0, backgroundColor);
-                colorAssert(background, 49, 25, overlayColor);
-                colorAssert(background, 49, 75, backgroundColor);
+                expect(background).toHavePixelWithColor(49, 0, backgroundColor);
+                expect(background).toHavePixelWithColor(49, 25, overlayColor);
+                expect(background).toHavePixelWithColor(49, 75, backgroundColor);
 
-                colorAssert(background, 50, 0, backgroundColor);
-                colorAssert(background, 50, 25, backgroundColor);
-                colorAssert(background, 50, 75, backgroundColor);
+                expect(background).toHavePixelWithColor(50, 0, backgroundColor);
+                expect(background).toHavePixelWithColor(50, 25, backgroundColor);
+                expect(background).toHavePixelWithColor(50, 75, backgroundColor);
 
-                colorAssert(background, 99, 0, backgroundColor);
-                colorAssert(background, 99, 25, backgroundColor);
-                colorAssert(background, 99, 75, backgroundColor);
+                expect(background).toHavePixelWithColor(99, 0, backgroundColor);
+                expect(background).toHavePixelWithColor(99, 25, backgroundColor);
+                expect(background).toHavePixelWithColor(99, 75, backgroundColor);
             });
         });
     });
@@ -57,21 +57,21 @@ describe('MagickImage#compositeGravity', () => {
             ImageMagick.read(overlayColor, 50, 50, (overlay) => {
 
                 background.compositeGravity(overlay, Gravity.East, CompositeOperator.Over);
-                colorAssert(background, 0, 0, backgroundColor);
-                colorAssert(background, 0, 25, backgroundColor);
-                colorAssert(background, 0, 75, backgroundColor);
+                expect(background).toHavePixelWithColor(0, 0, backgroundColor);
+                expect(background).toHavePixelWithColor(0, 25, backgroundColor);
+                expect(background).toHavePixelWithColor(0, 75, backgroundColor);
 
-                colorAssert(background, 49, 0, backgroundColor);
-                colorAssert(background, 49, 25, backgroundColor);
-                colorAssert(background, 49, 75, backgroundColor);
+                expect(background).toHavePixelWithColor(49, 0, backgroundColor);
+                expect(background).toHavePixelWithColor(49, 25, backgroundColor);
+                expect(background).toHavePixelWithColor(49, 75, backgroundColor);
 
-                colorAssert(background, 50, 0, backgroundColor);
-                colorAssert(background, 50, 25, overlayColor);
-                colorAssert(background, 50, 75, backgroundColor);
+                expect(background).toHavePixelWithColor(50, 0, backgroundColor);
+                expect(background).toHavePixelWithColor(50, 25, overlayColor);
+                expect(background).toHavePixelWithColor(50, 75, backgroundColor);
 
-                colorAssert(background, 99, 0, backgroundColor);
-                colorAssert(background, 99, 25, overlayColor);
-                colorAssert(background, 99, 75, backgroundColor);
+                expect(background).toHavePixelWithColor(99, 0, backgroundColor);
+                expect(background).toHavePixelWithColor(99, 25, overlayColor);
+                expect(background).toHavePixelWithColor(99, 75, backgroundColor);
             });
         });
     });
@@ -81,7 +81,7 @@ describe('MagickImage#compositeGravity', () => {
             ImageMagick.read(MagickColors.White, 1, 1, (white) => {
 
                 image.compositeGravity(white, Gravity.West, CompositeOperator.In, Channels.Green);
-                colorAssert(image, 0, 1, MagickColors.Yellow);
+                expect(image).toHavePixelWithColor(0, 1, MagickColors.Yellow);
             });
         });
     });
@@ -129,7 +129,7 @@ describe('MagickImage#compositeGravity', () => {
              ImageMagick.read(MagickColors.White, 1, 1, (white) => {
 
                  image.compositeGravity(white, Gravity.Northeast, new Point(1, 1));
-                 colorAssert(image, 1, 1, MagickColors.White);
+                 expect(image).toHavePixelWithColor(1, 1, MagickColors.White);
              });
          });
      });
@@ -139,7 +139,7 @@ describe('MagickImage#compositeGravity', () => {
               ImageMagick.read(MagickColors.White, 1, 1, (white) => {
 
                   image.compositeGravity(white, Gravity.Southwest, new Point(1, 1), Channels.Green);
-                  colorAssert(image, 1, 1, MagickColors.Yellow);
+                  expect(image).toHavePixelWithColor(1, 1, MagickColors.Yellow);
               });
           });
       });
@@ -149,7 +149,7 @@ describe('MagickImage#compositeGravity', () => {
             ImageMagick.read(MagickColors.White, 1, 1, (white) => {
 
                 image.compositeGravity(white, Gravity.Northwest, CompositeOperator.Over, new Point(1, 1));
-                colorAssert(image, 1, 1, MagickColors.White);
+                expect(image).toHavePixelWithColor(1, 1, MagickColors.White);
             });
         });
     });
@@ -159,7 +159,7 @@ describe('MagickImage#compositeGravity', () => {
             ImageMagick.read(MagickColors.Black, 1, 1, (black) => {
 
                 image.compositeGravity(black, Gravity.Southeast, CompositeOperator.Clear, new Point(1, 1), Channels.Green);
-                colorAssert(image, 1, 1, MagickColors.Magenta);
+                expect(image).toHavePixelWithColor(1, 1, MagickColors.Magenta);
             });
         });
     });

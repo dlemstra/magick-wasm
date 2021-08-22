@@ -9,7 +9,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
 import { Point } from '../../src/point';
-import { colorAssert } from '../color-assert';
+import '../custom-matcher';
 
 beforeEach(() => { ImageMagick._api = (global as any).native; });
 
@@ -33,8 +33,8 @@ describe('MagickImage#composite', () => {
 
                 image.composite(alpha, CompositeOperator.CopyAlpha);
                 expect(image.hasAlpha).toBe(true);
-                colorAssert(image, 0, 0, MagickColors.Red);
-                colorAssert(image, 1, 0, new MagickColor('#ff000000'));
+                expect(image).toHavePixelWithColor(0, 0, MagickColors.Red);
+                expect(image).toHavePixelWithColor(1, 0, new MagickColor('#ff000000'));
             });
         });
     });
@@ -43,7 +43,7 @@ describe('MagickImage#composite', () => {
         ImageMagick.read('logo:', (image) => {
             ImageMagick.read(MagickColors.Red, image.width, image.height, (red) => {
                 image.composite(red, CompositeOperator.Multiply, Channels.Blue);
-                colorAssert(image, 0, 0, MagickColors.Yellow);
+                expect(image).toHavePixelWithColor(0, 0, MagickColors.Yellow);
             });
         });
     });
@@ -91,9 +91,9 @@ describe('MagickImage#composite', () => {
             ImageMagick.read(MagickColors.Yellow, 100, 100, (yellow) => {
                 image.composite(yellow, new Point(100, 100));
 
-                colorAssert(image, 150, 150, MagickColors.Yellow);
-                colorAssert(image, 199, 109, MagickColors.Yellow);
-                colorAssert(image, 200, 200, MagickColors.White);
+                expect(image).toHavePixelWithColor(150, 150, MagickColors.Yellow);
+                expect(image).toHavePixelWithColor(199, 109, MagickColors.Yellow);
+                expect(image).toHavePixelWithColor(200, 200, MagickColors.White);
             });
         });
     });
@@ -103,9 +103,9 @@ describe('MagickImage#composite', () => {
             ImageMagick.read(MagickColors.Yellow, 100, 100, (yellow) => {
                 image.composite(yellow, new Point(100, 100), Channels.Red);
 
-                colorAssert(image, 150, 150, MagickColors.White);
-                colorAssert(image, 199, 109, MagickColors.White);
-                colorAssert(image, 200, 200, MagickColors.White);
+                expect(image).toHavePixelWithColor(150, 150, MagickColors.White);
+                expect(image).toHavePixelWithColor(199, 109, MagickColors.White);
+                expect(image).toHavePixelWithColor(200, 200, MagickColors.White);
             });
         });
     });
@@ -115,9 +115,9 @@ describe('MagickImage#composite', () => {
             ImageMagick.read(MagickColors.Yellow, 100, 100, (yellow) => {
                 image.composite(yellow, CompositeOperator.Copy, new Point(100, 100));
 
-                colorAssert(image, 150, 150, MagickColors.Yellow);
-                colorAssert(image, 199, 109, MagickColors.Yellow);
-                colorAssert(image, 200, 200, MagickColors.White);
+                expect(image).toHavePixelWithColor(150, 150, MagickColors.Yellow);
+                expect(image).toHavePixelWithColor(199, 109, MagickColors.Yellow);
+                expect(image).toHavePixelWithColor(200, 200, MagickColors.White);
             });
         });
     });
@@ -127,9 +127,9 @@ describe('MagickImage#composite', () => {
             ImageMagick.read(MagickColors.Yellow, 100, 100, (yellow) => {
                 image.composite(yellow, CompositeOperator.Clear, new Point(100, 100), Channels.Red);
 
-                colorAssert(image, 150, 150, MagickColors.Aqua);
-                colorAssert(image, 199, 109, MagickColors.Aqua);
-                colorAssert(image, 200, 200, MagickColors.White);
+                expect(image).toHavePixelWithColor(150, 150, MagickColors.Aqua);
+                expect(image).toHavePixelWithColor(199, 109, MagickColors.Aqua);
+                expect(image).toHavePixelWithColor(200, 200, MagickColors.White);
             });
         });
     });

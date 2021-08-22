@@ -5,7 +5,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
 import { Percentage } from '../../src/percentage';
-import { colorAssert } from '../color-assert';
+import '../custom-matcher';
 
 let image: IMagickImage;
 
@@ -23,7 +23,7 @@ describe('MagickImage#deskew', () => {
     it('should rotate the image', () => {
         image.deskew(new Percentage(4.2));
 
-        colorAssert(image, 158, 16, MagickColors.Black);
+        expect(image).toHavePixelWithColor(158, 16, MagickColors.Black);
     });
 
     it('should return the angle', () => {

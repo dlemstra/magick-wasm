@@ -5,9 +5,9 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
-import { colorAssert } from '../color-assert';
 import * as fs from 'fs';
 import * as util from 'util';
+import '../custom-matcher';
 
 beforeAll(() => { ImageMagick._api = (global as any).native; });
 
@@ -73,7 +73,7 @@ describe('ImageMagick#read', () => {
         ImageMagick.read(MagickColors.Lime, 1, 2, (image) => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
-            colorAssert(image, 0, 1, MagickColors.Lime);
+            expect(image).toHavePixelWithColor(0, 1, MagickColors.Lime);
         });
     });
 
@@ -81,7 +81,7 @@ describe('ImageMagick#read', () => {
         await ImageMagick.read(MagickColors.Lime, 1, 2, (image) => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
-            colorAssert(image, 0, 1, MagickColors.Lime);
+            expect(image).toHavePixelWithColor(0, 1, MagickColors.Lime);
         });
     });
 });

@@ -6,8 +6,8 @@ import { Magick } from '../../../src/magick';
 import { MagickColor } from '../../../src/magick-color';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
-import { colorAssert } from '../../color-assert';
 import * as fs from 'fs';
+import '../../custom-matcher';
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
@@ -25,7 +25,7 @@ describe('MagickSettings#backgroundColor', () => {
         ImageMagick.read('label:magick-wasm', settings, (image) => {
             expect(image.width).toBe(69);
             expect(image.height).toBe(20);
-            colorAssert(image, 0, 0, '#ffc0cbff');
+            expect(image).toHavePixelWithColor(0, 0, '#ffc0cbff');
         });
     });
 });

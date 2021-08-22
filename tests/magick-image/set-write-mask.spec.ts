@@ -4,7 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-import { colorAssert } from '../color-assert';
+import '../custom-matcher';
 
 let image: IMagickImage;
 let writeMask: IMagickImage;
@@ -32,8 +32,8 @@ describe('MagickImage#setWriteMask', () => {
             if (mask !== null) {
                 expect(mask.width).toBe(640);
                 expect(mask.height).toBe(480);
-                colorAssert(mask, 9, 14, '#ffff');
-                colorAssert(mask, 10, 15, '#00ff');
+                expect(mask).toHavePixelWithColor(9, 14, '#ffff');
+                expect(mask).toHavePixelWithColor(10, 15, '#00ff');
             }
         });
     });

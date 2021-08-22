@@ -6,8 +6,8 @@ import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
-import { colorAssert } from '../color-assert';
 import * as fs from 'fs';
+import '../custom-matcher';
 
 let image: IMagickImage;
 
@@ -73,6 +73,6 @@ describe('MagickImage#read', () => {
         expect(image.width).toBe(1);
         expect(image.height).toBe(2);
         expect(image.hasAlpha).toBe(false);
-        colorAssert(image, 0, 1, MagickColors.Red);
+        expect(image).toHavePixelWithColor(0, 1, MagickColors.Red);
     });
 });
