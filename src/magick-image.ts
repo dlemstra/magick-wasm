@@ -124,6 +124,7 @@ export interface IMagickImage extends INativeInstance {
     removeWriteMask(): void;
     resize(geometry: MagickGeometry): void;
     resize(width: number, height: number): void;
+    rotate(degrees: number): void;
     sharpen(): void;
     sharpen(radius: number, sigma: number): void;
     sharpen(radius: number, sigma: number, channels: Channels): void;
@@ -681,6 +682,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 const instance = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(instance, exception);
             });
+        });
+    }
+
+    rotate(degrees: number): void {
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_Rotate(this._instance, degrees, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
