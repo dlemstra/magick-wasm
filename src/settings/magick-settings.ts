@@ -5,7 +5,6 @@ import { IDefines } from '../defines/defines';
 import { MagickFormat } from '../magick-format';
 import { MagickColor } from '../magick-color';
 import { NativeMagickSettings } from './native-magick-settings';
-import { _withString } from '../internal/native/string';
 
 export class MagickSettings {
     /** @internal */
