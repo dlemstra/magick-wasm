@@ -3,7 +3,7 @@
 
 import { ImageMagick } from '../image-magick';
 import { MagickSettings } from './magick-settings';
-import { NativeMagickSettings } from './magick-settings';
+import { NativeMagickSettings } from './native-magick-settings';
 import { _withString } from '../internal/native/string';
 
 export class MagickReadSettings extends MagickSettings {
