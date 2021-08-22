@@ -66,18 +66,7 @@ export class MagickSettings {
     }
 
     /** @internal */
-    _clone(): MagickSettings {
-        const clone = new MagickSettings();
-
-        clone._fileName = this._fileName;
-        clone._quality = this._quality;
-        clone.format = this.format;
-
-        for (const option in this._options)
-           clone._options[option] = this._options[option]
-
-        return clone;
-    }
+    _clone(): MagickSettings { return { ...this  } }
 
     /** @internal */
     _use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {
