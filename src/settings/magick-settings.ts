@@ -66,7 +66,11 @@ export class MagickSettings {
     }
 
     /** @internal */
-    _clone(): MagickSettings { return { ...this  } }
+    _clone(): MagickSettings {
+        const clone = new MagickSettings();
+        Object.assign(clone, this);
+        return clone;
+     }
 
     /** @internal */
     _use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {
