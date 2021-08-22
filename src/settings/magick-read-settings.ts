@@ -19,19 +19,10 @@ export class MagickReadSettings extends MagickSettings {
     height?: number;
 
     /** @internal */
-    static _createFrom(settings: MagickSettings): MagickReadSettings {
-        const result = new MagickReadSettings();
-        result.format = settings.format;
-
-        return result;
-    }
-
-    /** @internal */
     _use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {
         const settings = new NativeMagickSettings(this);
 
         try {
-
             const size = this.getSize();
             if (size !== '') {
                 _withString(size, sizePtr => {

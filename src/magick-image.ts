@@ -618,10 +618,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidth?: MagickReadSettings | number, height?: number): void {
         Exception.use(exception => {
             if (fileNameOrArrayOrColor instanceof Uint8Array) {
-                const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : MagickReadSettings._createFrom(this._settings);
+                const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : new MagickReadSettings(this._settings);
                 this.readFromArray(fileNameOrArrayOrColor, readSettings, exception);
             } else {
-                const readSettings = settingsOrWidth instanceof MagickReadSettings ? settingsOrWidth : MagickReadSettings._createFrom(this._settings);
+                const readSettings = settingsOrWidth instanceof MagickReadSettings ? settingsOrWidth : new MagickReadSettings(this._settings);
                 if (typeof fileNameOrArrayOrColor === 'string') {
                     readSettings._fileName = fileNameOrArrayOrColor;
                 } else if (fileNameOrArrayOrColor instanceof MagickColor) {
