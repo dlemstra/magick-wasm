@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from './image-magick';
+import { MagickError } from './magick-error';
 import { Quantum } from './quantum';
 import { _withString } from './internal/native/string';
 
@@ -27,7 +28,7 @@ export class MagickColor {
                 instance = ImageMagick._api._MagickColor_Create();
                 _withString(colorOrRed, colorPtr => {
                     if (ImageMagick._api._MagickColor_Initialize(instance, colorPtr) === 0)
-                        throw new Error('invalid color specified');
+                        throw new MagickError('invalid color specified');
                     this.initialize(instance);
                 });
             } finally {

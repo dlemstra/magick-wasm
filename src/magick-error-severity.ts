@@ -1,32 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-/** @internal */
-export enum ExceptionSeverity {
-    Undefined,
-    Warning = 300,
-    ResourceLimitWarning = 300,
-    TypeWarning = 305,
-    OptionWarning = 310,
-    DelegateWarning = 315,
-    MissingDelegateWarning = 320,
-    CorruptImageWarning = 325,
-    FileOpenWarning = 330,
-    BlobWarning = 335,
-    StreamWarning = 340,
-    CacheWarning = 345,
-    CoderWarning = 350,
-    FilterWarning = 352,
-    ModuleWarning = 355,
-    DrawWarning = 360,
-    ImageWarning = 365,
-    WandWarning = 370,
-    RandomWarning = 375,
-    XServerWarning = 380,
-    MonitorWarning = 385,
-    RegistryWarning = 390,
-    ConfigureWarning = 395,
-    PolicyWarning = 399,
+export enum MagickErrorSeverity {
     Error = 400,
     ResourceLimitError = 400,
     TypeError = 405,

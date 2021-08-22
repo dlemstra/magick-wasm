@@ -3,6 +3,7 @@
 
 import { ImageMagick } from './image-magick';
 import { GeometryFlags } from './internal/geometry-flags';
+import { MagickError } from './magick-error';
 import { _withString } from './internal/native/string';
 
 export class MagickGeometry {
@@ -37,16 +38,16 @@ export class MagickGeometry {
                 this._y = 0;
             }
             if (this._width < 0)
-                throw new Error('negative width is not allowed');
+                throw new MagickError('negative width is not allowed');
             if (this._height < 0)
-                throw new Error('negative height is not allowed');
+                throw new MagickError('negative height is not allowed');
         } else {
             const instance = ImageMagick._api._MagickGeometry_Create();
             try {
                 _withString(widthOrValueOrX, valuePtr  => {
                     const flags = ImageMagick._api._MagickGeometry_Initialize(instance, valuePtr);
                     if (flags === GeometryFlags.NoValue)
-                        throw new Error('invalid geometry specified');
+                        throw new MagickError('invalid geometry specified');
 
                     if (this.hasFlag(flags, GeometryFlags.AspectRatio)) {
                         this.initializeFromAspectRation(instance, widthOrValueOrX);

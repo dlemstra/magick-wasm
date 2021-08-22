@@ -2,7 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../image-magick';
-import { ExceptionSeverity } from './exception-severity';
+import { MagickError } from '../../magick-error';
+import { MagickErrorSeverity } from '../../magick-error-severity';
 import { Pointer } from '../pointer/pointer';
 import { _createString } from '../native/string';
 
@@ -17,7 +18,7 @@ export class Exception {
     get ptr(): number { return this.pointer.ptr }
 
     check<TReturnType>(success: () => TReturnType, error: () => TReturnType): TReturnType {
-        if (Exception.isRaised(this.pointer) && Exception.isErrorSeverity(this.pointer))
+        if (this.isError())
             return error();
 
         return success();
@@ -43,28 +44,33 @@ export class Exception {
         if (!Exception.isRaised(exception))
             return result;
 
-        if (Exception.isErrorSeverity(exception))
-            Exception.throw(exception);
+        const severity = Exception.getErrorSeverity(exception);
+        if (severity >= MagickErrorSeverity.Error)
+            Exception.throw(exception, severity);
         else
             Exception.dispose(exception);
 
         return result;
     }
 
-    private static isErrorSeverity(exception: Pointer): boolean {
-        const severity = ImageMagick._api._MagickExceptionHelper_Severity(exception.value) as ExceptionSeverity;
-        return severity >= ExceptionSeverity.Error;
+    private static getErrorSeverity(exception: Pointer): MagickErrorSeverity {
+        return ImageMagick._api._MagickExceptionHelper_Severity(exception.value) as MagickErrorSeverity;
+    }
+
+    private isError() {
+        const severity = Exception.getErrorSeverity(this.pointer);
+        return Exception.isRaised(this.pointer) && severity >= MagickErrorSeverity.Error
     }
 
     private static isRaised(exception: Pointer): boolean {
         return exception.value !== 0;
     }
 
-    private static throw(exception: Pointer): void {
+    private static throw(exception: Pointer, severity: MagickErrorSeverity): void {
         const errorMessage = Exception.getMessage(exception);
         Exception.dispose(exception);
 
-        throw new Error(errorMessage);
+        throw new MagickError(errorMessage, severity);
     }
 
     private static getMessage(exception: Pointer): string {

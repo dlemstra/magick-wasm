@@ -6,6 +6,7 @@ import { ImageMagickApi } from './wasm/magick.js';
 import { IMagickImage, MagickImage } from './magick-image';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
 import { MagickColor } from './magick-color';
+import { MagickError } from './magick-error';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
 
@@ -35,7 +36,7 @@ export class ImageMagick {
     /** @internal */
     static get _api(): ImageMagickApi {
         if (instance.api === undefined) // eslint-disable-line @typescript-eslint/no-use-before-define
-            throw new Error('`await initializeImageMagick` should be called to initialize the library');
+            throw new MagickError('`await initializeImageMagick` should be called to initialize the library');
 
         return instance.api; // eslint-disable-line @typescript-eslint/no-use-before-define
     }

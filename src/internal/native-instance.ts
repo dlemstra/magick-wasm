@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { MagickError } from '../magick-error';
 import { Exception } from './exception/exception';
 
 export interface INativeInstance {
@@ -25,7 +26,7 @@ export abstract class NativeInstance implements NativeInstance {
         if (this.instance === -1)
             this._instanceNotInitialized();
 
-        throw new Error('instance is disposed');
+        throw new MagickError('instance is disposed');
     }
     /** @internal */
     set _instance(instance: number) {
@@ -49,7 +50,7 @@ export abstract class NativeInstance implements NativeInstance {
 
     /** @internal */
     protected _instanceNotInitialized(): void {
-        throw new Error('instance is not initialized');
+        throw new MagickError('instance is not initialized');
     }
 
     private disposeInstance(instance: number): number {

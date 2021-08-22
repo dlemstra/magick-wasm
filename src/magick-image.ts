@@ -17,6 +17,7 @@ import { IImageProfile, ImageProfile } from './profiles/image-profile';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
 import { INativeInstance, NativeInstance } from './internal/native-instance';
 import { MagickColor } from './magick-color';
+import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
 import { MagickGeometry } from './magick-geometry';
 import { MagickReadSettings } from './settings/magick-read-settings';
@@ -490,14 +491,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             });
         } else if (valueOrPercentage !== undefined) {
             if (typeof valueOrPercentageOrOperator !== 'number')
-                throw new Error();
+                throw new MagickError('this should not happen');
 
             const geometry = operatorOrGeometry;
             const operator = valueOrPercentageOrOperator;
             const value = typeof valueOrPercentage === 'number' ? valueOrPercentage : valueOrPercentage.toQuantum();
 
             if (geometry.isPercentage)
-                throw new Error('percentage is not supported');
+                throw new MagickError('percentage is not supported');
 
             Exception.usePointer(exception => {
                 MagickRectangle.use(this, geometry, rectangle =>
@@ -832,7 +833,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     /** @internal */
     protected _instanceNotInitialized(): void {
-        throw new Error('no image has been read');
+        throw new MagickError('no image has been read');
     }
 
     /** @internal */
