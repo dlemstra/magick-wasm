@@ -1,17 +1,17 @@
 {
-  "name": "@imagemagick/magick-wasm",
-  "version": "0.0.7",
-  "main": "image-magick.js",
-  "description": "The WASM library for ImageMagick",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dlemstra/magick-wasm.git"
-  },
-  "author": "Dirk Lemstra",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/dlemstra/magick-wasmissues"
-  },
-  "homepage": "https://github.com/dlemstra/magick-wasm",
-  "keywords": ["imagemagick", "magick", "wasm", "image", "convert", "resize"]
+    "name": "@imagemagick/magick-wasm",
+    "version": "0.0.7",
+    "main": "image-magick.js",
+    "description": "The WASM library for ImageMagick",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dlemstra/magick-wasm.git"
+    },
+    "author": "Dirk Lemstra",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/dlemstra/magick-wasmissues"
+    },
+    "homepage": "https://github.com/dlemstra/magick-wasm",
+    "keywords": ["imagemagick", "magick", "wasm", "image", "convert", "resize"]
 }
