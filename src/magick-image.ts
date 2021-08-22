@@ -10,6 +10,7 @@ import { DistortSettings } from './settings/distort-settings';
 import { ErrorMetric } from './error-metric';
 import { EvaluateOperator } from './evaluate-operator';
 import { Exception } from './internal/exception/exception';
+import { FilterType } from './filter-type';
 import { Gravity } from './gravity';
 import { ImageMagick } from './image-magick';
 import { IImageProfile, ImageProfile } from './profiles/image-profile';
@@ -42,6 +43,7 @@ export interface IMagickImage extends INativeInstance {
     readonly channelCount: number;
     colorSpace: ColorSpace;
     depth: number;
+    filterType: FilterType;
     format: string;
     hasAlpha: boolean;
     readonly height: number;
@@ -190,6 +192,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
     set depth(value: number) { ImageMagick._api._MagickImage_Depth_Set(this._instance, value); }
+
+    get filterType(): number { return ImageMagick._api._MagickImage_FilterType_Get(this._instance); }
+    set filterType(value: number) { ImageMagick._api._MagickImage_FilterType_Set(this._instance, value); }
 
     get format(): string { return _createString(ImageMagick._api._MagickImage_Format_Get(this._instance), ''); }
     set format(value: string) { _withString(value, instance => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
