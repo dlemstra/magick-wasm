@@ -12,7 +12,7 @@
         "prepare": "cpy ./node_modules/@dlemstra/magick-native/Notice.txt ./lib --rename=NOTICE && cpy ./node_modules/@dlemstra/magick-native/magick.js ./lib/wasm && cpy ./node_modules/@dlemstra/magick-native/magick.d.ts ./lib/wasm && cpy ./node_modules/@dlemstra/magick-native/magick.js ./src/wasm && cpy ./node_modules/@dlemstra/magick-native/magick.d.ts ./src/wasm"
     },
     "devDependencies": {
-        "@dlemstra/magick-native": "0.202108.221704",
+        "@dlemstra/magick-native": "0.202109.130506",
         "@types/jest": "^26.0.24",
         "@types/jsdom": "^16.2.13",
         "@typescript-eslint/eslint-plugin": "^4.31.1",
