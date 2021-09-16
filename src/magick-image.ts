@@ -33,6 +33,7 @@ import { Quantum } from './quantum';
 import { StringInfo } from './internal/string-info';
 import { VirtualPixelMethod } from './virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';
+import { _getEdges } from './gravity';
 import { _withDoubleArray } from './internal/native/array';
 
 export interface IMagickImage extends INativeInstance {
@@ -146,6 +147,9 @@ export interface IMagickImage extends INativeInstance {
     setArtifact(name: string, value: boolean): void;
     setWriteMask(image: IMagickImage): void;
     toString(): string;
+    trim(): void;
+    trim(...edges: Gravity[]): void;
+    trim(percentage: Percentage): void;
     write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
     write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
     writeToCanvas(canvas: HTMLCanvasElement): void;
@@ -808,6 +812,30 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
+
+    trim(): void;
+    trim(...edges: Gravity[]): void;
+    trim(percentage: Percentage): void;
+    trim(...args: Gravity[] | Percentage[]): void {
+        if (args.length > 0) {
+            if (args.length == 1 && args[0] instanceof Percentage) {
+                const percentage = args[0];
+                this.setArtifact('trim:percent-background', percentage.toDouble().toString());
+            } else {
+                const edges = args as Gravity[];
+                const value = [...new Set(_getEdges(edges))].join(',');
+                this.setArtifact('trim:edges', value);
+            }
+        }
+
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_Trim(this._instance, exception.ptr);
+            this._setInstance(instance, exception);
+
+            this.removeArtifact('trim:edges');
+            this.removeArtifact('trim:percent-background');
+        });
+    }
 
     write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
     write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
