@@ -1,5 +1,6 @@
 ## The WebAssembly library for ImageMagick: magick-wasm
 
+[![Build Status](https://github.com/dlemstra/magick-wasm/workflows/main/badge.svg)](https://github.com/dlemstra/magick-wasm/actions)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/magick-wasm/main/license.txt)
 [![Twitter URL](https://img.shields.io/badge/twitter-follow-1da1f2.svg)](https://twitter.com/MagickNET)
 [![Donate](https://img.shields.io/badge/%24-donate-ff00ff.svg)](https://github.com/sponsors/dlemstra)
