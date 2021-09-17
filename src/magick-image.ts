@@ -150,6 +150,8 @@ export interface IMagickImage extends INativeInstance {
     trim(): void;
     trim(...edges: Gravity[]): void;
     trim(percentage: Percentage): void;
+    vignette(): void;
+    vignette(radius: number, sigma: number, x: number, y: number): void;
     write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
     write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
     writeToCanvas(canvas: HTMLCanvasElement): void;
@@ -834,6 +836,20 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
             this.removeArtifact('trim:edges');
             this.removeArtifact('trim:percent-background');
+        });
+    }
+
+    vignette(): void;
+    vignette(radius: number, sigma: number, x: number, y: number): void
+    vignette(radiusOrUndefined?: number, sigmaOrUndefined?: number, xOrUndefined?: number, yOrUndefined?: number): void {
+        const radius = radiusOrUndefined === undefined ? 0 : radiusOrUndefined;
+        const sigma = sigmaOrUndefined === undefined ? 1.0 : sigmaOrUndefined;
+        const x = xOrUndefined === undefined ? 0 : xOrUndefined;
+        const y = yOrUndefined === undefined ? 0 : yOrUndefined;
+
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_Vignette(this._instance, radius, sigma, x, y, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
