@@ -53,13 +53,16 @@ export class Exception {
         return result;
     }
 
-    private static getErrorSeverity(exception: Pointer): MagickErrorSeverity {
-        return ImageMagick._api._MagickExceptionHelper_Severity(exception.value) as MagickErrorSeverity;
+    private isError() {
+        if (!Exception.isRaised(this.pointer))
+            return false;
+
+        const severity = Exception.getErrorSeverity(this.pointer);
+        return severity >= MagickErrorSeverity.Error
     }
 
-    private isError() {
-        const severity = Exception.getErrorSeverity(this.pointer);
-        return Exception.isRaised(this.pointer) && severity >= MagickErrorSeverity.Error
+    private static getErrorSeverity(exception: Pointer): MagickErrorSeverity {
+        return ImageMagick._api._MagickExceptionHelper_Severity(exception.value) as MagickErrorSeverity;
     }
 
     private static isRaised(exception: Pointer): boolean {
