@@ -16,6 +16,12 @@ export class ImageMagick {
 
     private constructor() {
         this.loader = new Promise(resolve => {
+            if (this.api !== undefined)
+            {
+                resolve();
+                return;
+            }
+
             MagickNative().then(api => {
                 _withNativeString(api, 'MAGICK_CONFIGURE_PATH', name => {
                     _withNativeString(api, '/xml', value => {
