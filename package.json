@@ -9,10 +9,10 @@
         "test": "jest --bail --runInBand --detectOpenHandles --forceExit --logHeapUsage",
         "lint": "eslint src tests --ext .ts",
         "demo": "tsc && cd demo && tsc && node demo.js",
-        "prepare": "cpy ./node_modules/@dlemstra/magick-native/Notice.txt ./lib --rename=NOTICE && cpy ./node_modules/@dlemstra/magick-native/magick.js ./lib/wasm && cpy ./node_modules/@dlemstra/magick-native/magick.d.ts ./lib/wasm && cpy ./node_modules/@dlemstra/magick-native/magick.js ./src/wasm && cpy ./node_modules/@dlemstra/magick-native/magick.d.ts ./src/wasm"
+        "prepare": "cpy ./node_modules/@dlemstra/magick-native/NOTICE ./lib && cpy ./node_modules/@dlemstra/magick-native/magick.js ./lib/wasm && cpy ./node_modules/@dlemstra/magick-native/magick.d.ts ./lib/wasm && cpy ./node_modules/@dlemstra/magick-native/magick.js ./src/wasm && cpy ./node_modules/@dlemstra/magick-native/magick.d.ts ./src/wasm"
     },
     "devDependencies": {
-        "@dlemstra/magick-native": "0.202109.130506",
+        "@dlemstra/magick-native": "0.202109.211854",
         "@types/jest": "^26.0.24",
         "@types/jsdom": "^16.2.13",
         "@typescript-eslint/eslint-plugin": "^4.31.1",
