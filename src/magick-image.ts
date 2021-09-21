@@ -154,6 +154,8 @@ export interface IMagickImage extends INativeInstance {
     trim(percentage: Percentage): void;
     vignette(): void;
     vignette(radius: number, sigma: number, x: number, y: number): void;
+    wave(): void;
+    wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
     write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
     write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
     writeToCanvas(canvas: HTMLCanvasElement): void;
@@ -845,6 +847,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
             this.removeArtifact('trim:edges');
             this.removeArtifact('trim:percent-background');
+        });
+    }
+
+    wave(): void;
+    wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
+    wave(methodOrUndefined?: PixelInterpolateMethod, amplitudeOrUndefined?: number, lengthOrUndefined?: number): void {
+        const method = methodOrUndefined == undefined ? this.interpolate : methodOrUndefined;
+        const amplitude = amplitudeOrUndefined == undefined ? 25 : amplitudeOrUndefined;
+        const length = lengthOrUndefined == undefined ? 150 : lengthOrUndefined;
+
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_Wave(this._instance, method, amplitude, length, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
