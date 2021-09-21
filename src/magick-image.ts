@@ -27,6 +27,7 @@ import { OrientationType } from './orientation-type';
 import { Percentage } from './percentage';
 import { PixelChannel } from './pixel-channel';
 import { IPixelCollection, PixelCollection } from './pixels/pixel-collection';
+import { PixelInterpolateMethod } from './pixel-interpolate-method';
 import { Point } from './point';
 import { Pointer } from './internal/pointer/pointer';
 import { Quantum } from './quantum';
@@ -48,6 +49,7 @@ export interface IMagickImage extends INativeInstance {
     filterType: FilterType;
     format: string;
     hasAlpha: boolean;
+    interpolate: PixelInterpolateMethod;
     readonly height: number;
     orientation: OrientationType;
     quality: number;
@@ -223,6 +225,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
             ImageMagick._api._MagickImage_HasAlpha_Set(this._instance, this.fromBool(value), exception);
         });
+    }
+
+    get interpolate(): PixelInterpolateMethod {
+        return ImageMagick._api._MagickImage_Interpolate_Get(this._instance);
+    }
+    set interpolate(value: PixelInterpolateMethod) {
+        ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value);
     }
 
     get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
