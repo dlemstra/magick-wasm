@@ -118,6 +118,8 @@ export interface IMagickImage extends INativeInstance {
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
+    liquidRescale(geometry: MagickGeometry): void;
+    liquidRescale(width: number, height: number): void;
     modulate(brightness: Percentage): void;
     modulate(brightness: Percentage, saturation: Percentage): void;
     modulate(brightness: Percentage, saturation: Percentage, hue: Percentage): void;
@@ -634,6 +636,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint.toQuantum(), gammaValue, channels, exception);
+        });
+    }
+
+    liquidRescale(geometry: MagickGeometry): void;
+    liquidRescale(width: number, height: number): void;
+    liquidRescale(widthOrGeometry: number | MagickGeometry, height?: number): void {
+        const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
+        Exception.use(exception => {
+            _withString(geometry.toString(), geometryPtr => {
+                const instance = ImageMagick._api._MagickImage_LiquidRescale(this._instance, geometryPtr, geometry.x, geometry.y, exception.ptr);
+                this._setInstance(instance, exception);
+            });
         });
     }
 
