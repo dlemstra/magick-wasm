@@ -18,7 +18,7 @@ describe('Magick#addFont', () => {
         settings.font = 'foo';
 
         ImageMagick.read('label:magick-wasm', settings, (image) => {
-            expect(image.width).toBe(69);
+            expect(image.width).toBe(73);
             expect(image.height).toBe(20);
         });
     });

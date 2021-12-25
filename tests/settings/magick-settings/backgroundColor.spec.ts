@@ -23,7 +23,7 @@ describe('MagickSettings#backgroundColor', () => {
         settings.backgroundColor = new MagickColor('pink');
 
         ImageMagick.read('label:magick-wasm', settings, (image) => {
-            expect(image.width).toBe(69);
+            expect(image.width).toBe(73);
             expect(image.height).toBe(20);
             expect(image).toHavePixelWithColor(0, 0, '#ffc0cbff');
         });

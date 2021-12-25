@@ -62,6 +62,7 @@ export enum MagickFormat {
     Ept2 = 'EPT2',
     Ept3 = 'EPT3',
     Erf = 'ERF',
+    Exr = 'EXR',
     Farbfeld = 'FARBFELD',
     Fax = 'FAX',
     FF = 'FF',

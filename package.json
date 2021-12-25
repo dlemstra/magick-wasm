@@ -6,7 +6,7 @@
     },
     "scripts": {
         "build": "tsc",
-        "test": "jest --bail --runInBand --detectOpenHandles --forceExit --logHeapUsage",
+        "test": "node --experimental-wasm-threads --wasm-atomics-on-non-shared-memory ./node_modules/jest/bin/jest.js --bail --runInBand --detectOpenHandles --forceExit --logHeapUsage",
         "lint": "eslint src tests --ext .ts",
         "demo": "tsc && cd demo && tsc && node demo.js",
         "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE ./lib && copyfiles -f ./node_modules/@dlemstra/magick-native/magick* ./lib/wasm && copyfiles -f ./node_modules/@dlemstra/magick-native/magick* ./src/wasm"
