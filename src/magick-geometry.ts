@@ -19,7 +19,6 @@ export class MagickGeometry {
     private _less = false;
     private _limitPixels = false;
 
-
     constructor(value: string);
     constructor(widthAndHeight: number);
     constructor(width: number, height: number);
@@ -140,6 +139,41 @@ export class MagickGeometry {
             result += '@';
 
         return result;
+    }
+
+    /** @internal */
+    static fromRectangle(rectangle: number): MagickGeometry {
+        if (rectangle === 0)
+            throw new MagickError('unable to allocate memory');
+
+        try
+        {
+            const width = ImageMagick._api._MagickRectangle_Width_Get(rectangle);
+            const height = ImageMagick._api._MagickRectangle_Height_Get(rectangle);
+            const x = ImageMagick._api._MagickRectangle_X_Get(rectangle);
+            const y = ImageMagick._api._MagickRectangle_Y_Get(rectangle);
+            return new MagickGeometry(x, y, width, height);
+        } finally {
+            ImageMagick._api._MagickRectangle_Dispose(rectangle);
+        }
+    }
+
+    /** @internal */
+    toRectangle(func: (rectangle: number) => void) {
+        const rectangle = ImageMagick._api._MagickRectangle_Create();
+        if (rectangle === 0)
+            throw new MagickError('unable to allocate memory');
+
+        try
+        {
+            ImageMagick._api._MagickRectangle_Width_Set(rectangle, this._width);
+            ImageMagick._api._MagickRectangle_Height_Set(rectangle, this._height);
+            ImageMagick._api._MagickRectangle_X_Set(rectangle, this._x);
+            ImageMagick._api._MagickRectangle_Y_Set(rectangle, this._y);
+            func(rectangle);
+        } finally {
+            ImageMagick._api._MagickRectangle_Dispose(rectangle);
+        }
     }
 
     private initialize(instance: number, flags: number) {

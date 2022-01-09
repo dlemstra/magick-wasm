@@ -52,6 +52,7 @@ export interface IMagickImage extends INativeInstance {
     interpolate: PixelInterpolateMethod;
     readonly height: number;
     orientation: OrientationType;
+    page: MagickGeometry;
     quality: number;
     readonly signature: string | null;
     virtualPixelMethod: VirtualPixelMethod;
@@ -246,6 +247,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
+
+    get page(): MagickGeometry {
+        const rectangle = ImageMagick._api._MagickImage_Page_Get(this._instance);
+        return MagickGeometry.fromRectangle(rectangle);
+    }
+    set page(value: MagickGeometry) {
+        value.toRectangle(rectangle => {
+            ImageMagick._api._MagickImage_Page_Set(this._instance, rectangle);
+        });
+    }
 
     get quality(): number { return ImageMagick._api._MagickImage_Quality_Get(this._instance); }
     set quality(value: number) {
