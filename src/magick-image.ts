@@ -136,6 +136,7 @@ export interface IMagickImage extends INativeInstance {
     readFromCanvas(canvas: HTMLCanvasElement): void;
     removeArtifact(name: string): void;
     removeWriteMask(): void;
+    repage(): void;
     resize(geometry: MagickGeometry): void;
     resize(width: number, height: number): void;
     rotate(degrees: number): void;
@@ -767,6 +768,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_SetWriteMask(this._instance, 0, exception);
         });
+    }
+
+    repage(): void {
+        this.page = new MagickGeometry(0, 0, 0, 0);
     }
 
     resize(geometry: MagickGeometry): void;
