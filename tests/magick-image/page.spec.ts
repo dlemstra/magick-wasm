@@ -19,7 +19,6 @@ afterEach(() => {
 describe('MagickImage#page', () => {
     it('should return the default value', () => {
         const page = image.page;
-
         expect(page.x).toBe(0);
         expect(page.y).toBe(0);
         expect(page.width).toBe(0);
@@ -28,8 +27,8 @@ describe('MagickImage#page', () => {
 
     it('should set the correct properties', () => {
         image.page = new MagickGeometry(1, 2, 3, 4);
-        const page = image.page;
 
+        const page = image.page;
         expect(page.x).toBe(1);
         expect(page.y).toBe(2);
         expect(page.width).toBe(3);
