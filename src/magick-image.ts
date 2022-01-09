@@ -95,6 +95,10 @@ export interface IMagickImage extends INativeInstance {
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, channels: Channels): void;
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
+    crop(geometry: MagickGeometry): void;
+    crop(geometry: MagickGeometry, gravity: Gravity): void;
+    crop(width: number, height: number): void;
+    crop(width: number, height: number, gravity: Gravity): void;
     deskew(threshold: Percentage): number;
     distort(method: DistortMethod, params: number[]): void;
     distort(method: DistortMethod, settings: DistortSettings, params: number[]): void;
@@ -468,6 +472,30 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         if (args !== null)
             this.removeArtifact('compose:args');
+    }
+
+    crop(geometry: MagickGeometry): void;
+    crop(geometry: MagickGeometry, gravity: Gravity): void;
+    crop(width: number, height: number): void;
+    crop(width: number, height: number, gravity: Gravity): void;
+    crop(geometryOrWidth: MagickGeometry | number, heightOrGravity?: number | Gravity, gravity?: Gravity): void {
+        let geometry: MagickGeometry;
+        let cropGravity: Gravity;
+
+        if (geometryOrWidth instanceof MagickGeometry) {
+            geometry = geometryOrWidth;
+            cropGravity = heightOrGravity !== undefined ? heightOrGravity : Gravity.Undefined;
+        } else if (heightOrGravity !== undefined) {
+            geometry = new MagickGeometry(geometryOrWidth, heightOrGravity);
+            cropGravity = gravity !== undefined ? gravity : Gravity.Undefined;
+        }
+
+        Exception.use(exception => {
+            _withString(geometry.toString(), geometryPtr => {
+                const instance = ImageMagick._api._MagickImage_Crop(this._instance, geometryPtr, cropGravity, exception.ptr);
+                this._setInstance(instance, exception);
+            });
+        });
     }
 
     static create(): IMagickImage {
