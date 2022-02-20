@@ -119,6 +119,7 @@ export interface IMagickImage extends INativeInstance {
     getWriteMask(func: (mask: IMagickImage | null) => void): void;
     getWriteMask(func: (mask: IMagickImage | null) => Promise<void>):  Promise<void>;
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
+    histogram(): Map<string, number>;
     level(blackPoint: Percentage, whitePoint: Percentage): void;
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
@@ -651,6 +652,31 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return PixelCollection._use(this, (pixels) => {
             return func(pixels);
         });
+    }
+
+    histogram(): Map<string, number> {
+        const result = new Map<string, number>();
+
+        Exception.usePointer(exception => {
+            Pointer.use(lengthPointer => {
+                const histogram = ImageMagick._api._MagickImage_Histogram(this._instance, lengthPointer.ptr, exception);
+                if (histogram !== 0)
+                {
+                    const length = lengthPointer.value;
+                    for (let i = 0; i < length; i++)
+                    {
+                        const colorPtr = ImageMagick._api._MagickColorCollection_GetInstance(histogram, i);
+                        const color = MagickColor._create(colorPtr);
+                        const count = ImageMagick._api._MagickColor_Count_Get(colorPtr);
+                        result.set(color.toString(), count);
+                    }
+
+                    ImageMagick._api._MagickColorCollection_DisposeList(histogram);
+                }
+            });
+        });
+
+        return result;
     }
 
     level(blackPoint: Percentage, whitePoint: Percentage): void;
