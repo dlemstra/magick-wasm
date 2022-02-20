@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { AlphaOption } from './alpha-option';
+import { AutoThresholdMethod } from './auto-threshold-method';
 import { Channels } from './channels';
 import { ColorSpace } from './color-space';
 import { CompositeOperator } from './composite-operator';
@@ -60,6 +61,7 @@ export interface IMagickImage extends INativeInstance {
 
     alpha(value: AlphaOption): void;
     autoOrient(): void;
+    autoThreshold(method: AutoThresholdMethod): void;
     blur(): void;
     blur(channels: Channels): void;
     blur(radius: number, sigma: number): void;
@@ -298,6 +300,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         Exception.use(exception => {
             const instance = ImageMagick._api._MagickImage_AutoOrient(this._instance, exception.ptr);
             this._setInstance(instance, exception);
+        });
+    }
+
+    autoThreshold(method: AutoThresholdMethod): void {
+        Exception.use(exception => {
+            ImageMagick._api._MagickImage_AutoThreshold(this._instance, method, exception.ptr);
         });
     }
 
