@@ -9,14 +9,19 @@ beforeAll(() => { ImageMagick._api = (global as any).native; });
 
 describe('MagickFormatInfo#all', () => {
     it('should have a format for all values', () => {
-        MagickFormatInfo.all.forEach(element => {
-            expect(element.format).not.toBe(MagickFormat.Unknown);
+        MagickFormatInfo.all.forEach(formatInfo => {
+            try {
+                expect(formatInfo.format).not.toBe(MagickFormat.Unknown);
+            } catch(err) {
+                console.error(`Missing Magickformat for: ${formatInfo.description}.`);
+                throw(err);
+            }
         });
     });
 
     it('should set all the descriptions', () => {
-        MagickFormatInfo.all.forEach(element => {
-            expect(element.description).not.toBeNull();
+        MagickFormatInfo.all.forEach(formatInfo => {
+            expect(formatInfo.description).not.toBeNull();
         });
     });
 
