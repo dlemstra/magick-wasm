@@ -45,6 +45,7 @@ export interface IMagickImage extends INativeInstance {
     readonly artifactNames: string[];
     backgroundColor: MagickColor;
     readonly channelCount: number;
+    colorFuzz: Percentage;
     colorSpace: ColorSpace;
     depth: number;
     filterType: FilterType;
@@ -205,6 +206,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get channelCount(): number { return ImageMagick._api._MagickImage_ChannelCount_Get(this._instance); }
+
+    get colorFuzz(): Percentage { return Percentage.fromQuantum(ImageMagick._api._MagickImage_ColorFuzz_Get(this._instance)); }
+    set colorFuzz(value: Percentage) { ImageMagick._api._MagickImage_ColorFuzz_Set(this._instance, value.toQuantum()); }
 
     get colorSpace(): ColorSpace {
         return Exception.usePointer(exception => {
