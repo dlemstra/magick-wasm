@@ -13,7 +13,7 @@
         "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE ./lib && copyfiles -f ./node_modules/@dlemstra/magick-native/magick* ./lib/wasm && copyfiles -f ./node_modules/@dlemstra/magick-native/magick* ./src/wasm"
     },
     "devDependencies": {
-        "@dlemstra/magick-native": "0.202202.211702",
+        "@dlemstra/magick-native": "0.202202.252157",
         "@types/jest": "^27.4.0",
         "@types/jsdom": "^16.2.14",
         "@typescript-eslint/eslint-plugin": "^5.12.0",
