@@ -115,6 +115,7 @@ export enum MagickFormat {
     Jps = 'JPS',
     Jpt = 'JPT',
     Json = 'JSON',
+    Jxl = 'JXL',
     K = 'K',
     K25 = 'K25',
     Kdc = 'KDC',
