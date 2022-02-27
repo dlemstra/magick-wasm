@@ -44,6 +44,7 @@ export interface IMagickImage extends INativeInstance {
 
     readonly artifactNames: string[];
     backgroundColor: MagickColor;
+    borderColor: MagickColor;
     readonly channelCount: number;
     colorFuzz: Percentage;
     colorSpace: ColorSpace;
@@ -202,6 +203,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         value._use(valuePtr =>
         {
             ImageMagick._api._MagickImage_BackgroundColor_Set(this._instance, valuePtr);
+        });
+    }
+    get borderColor(): MagickColor {
+        const colorPtr = ImageMagick._api._MagickImage_BorderColor_Get(this._instance);
+        return MagickColor._create(colorPtr);
+    }
+    set borderColor(value: MagickColor) {
+        value._use(valuePtr =>
+        {
+            ImageMagick._api._MagickImage_BorderColor_Set(this._instance, valuePtr);
         });
     }
 
