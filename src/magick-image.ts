@@ -68,6 +68,8 @@ export interface IMagickImage extends INativeInstance {
     blur(channels: Channels): void;
     blur(radius: number, sigma: number): void;
     blur(radius: number, sigma: number, channels: Channels): void;
+    border(size: number): void;
+    border(width: number, height: number): void;
     channelOffset(pixelChannel: PixelChannel): number;
     charcoal(): void;
     charcoal(radius: number, sigma: number): void;
@@ -341,6 +343,22 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         Exception.use(exception => {
             const instance = ImageMagick._api._MagickImage_Blur(this._instance, radius, sigmaValue, channelsValue, exception.ptr);
             this._setInstance(instance, exception);
+        });
+    }
+
+    border(size: number): void;
+    border(width: number, height: number): void;
+    border(sizeOrWidth: number, height?: number): void {
+        const widthValue = sizeOrWidth;
+        const heightValue = this.valueOrDefault(height, sizeOrWidth);
+
+        const geometry = new MagickGeometry(0, 0, widthValue, heightValue);
+
+        Exception.use(exception => {
+            geometry.toRectangle(rectangle => {
+                const instance = ImageMagick._api._MagickImage_Border(this._instance, rectangle, exception.ptr);
+                this._setInstance(instance, exception);
+            });
         });
     }
 
