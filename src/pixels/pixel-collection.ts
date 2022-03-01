@@ -78,8 +78,7 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     setArea(x: number, y: number, width: number, height: number, quantumPixelsOrNumberPixels: quantumArray | number[]): void {
         Exception.usePointer(exception => {
             const pixels = (quantumPixelsOrNumberPixels instanceof Uint8Array) ? quantumPixelsOrNumberPixels : new Uint8Array(quantumPixelsOrNumberPixels);
-            _withQuantumArray(pixels, pixelsPtr =>
-            {
+            _withQuantumArray(pixels, pixelsPtr => {
                 ImageMagick._api._PixelCollection_SetArea(this._instance, x, y, width, height, pixelsPtr, pixels.length, exception);
             });
         });

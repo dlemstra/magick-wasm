@@ -51,8 +51,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array with settings async', async () => {
-        const settings = new MagickReadSettings(
-        {
+        const settings = new MagickReadSettings({
             format: MagickFormat.Png
         });
 
@@ -66,8 +65,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array with settings', () => {
-        const settings = new MagickReadSettings(
-        {
+        const settings = new MagickReadSettings({
             format: MagickFormat.Png
         });
 

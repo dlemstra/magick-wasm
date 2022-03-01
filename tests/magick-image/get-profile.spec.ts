@@ -3,7 +3,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
-import  {TestFiles, readTestFile } from '../test-files';
+import { TestFiles, readTestFile } from '../test-files';
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;

@@ -188,8 +188,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const artifactNames: string[] = [];
         ImageMagick._api._MagickImage_ResetArtifactIterator(this._instance);
         let name = ImageMagick._api._MagickImage_GetNextArtifactName(this._instance);
-        while (name !== 0)
-        {
+        while (name !== 0) {
             artifactNames.push(ImageMagick._api.UTF8ToString(name));
             name = ImageMagick._api._MagickImage_GetNextArtifactName(this._instance);
         }
@@ -202,18 +201,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return MagickColor._create(colorPtr);
     }
     set backgroundColor(value: MagickColor) {
-        value._use(valuePtr =>
-        {
+        value._use(valuePtr => {
             ImageMagick._api._MagickImage_BackgroundColor_Set(this._instance, valuePtr);
         });
     }
+
     get borderColor(): MagickColor {
         const colorPtr = ImageMagick._api._MagickImage_BorderColor_Get(this._instance);
         return MagickColor._create(colorPtr);
     }
     set borderColor(value: MagickColor) {
-        value._use(valuePtr =>
-        {
+        value._use(valuePtr => {
             ImageMagick._api._MagickImage_BorderColor_Set(this._instance, valuePtr);
         });
     }
@@ -299,7 +297,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance, exception);
         });
     }
-    set virtualPixelMethod(value: VirtualPixelMethod)  {
+    set virtualPixelMethod(value: VirtualPixelMethod) {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_VirtualPixelMethod_Set(this._instance, value, exception);
         });
@@ -618,8 +616,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 throw new MagickError('percentage is not supported');
 
             Exception.usePointer(exception => {
-                MagickRectangle.use(this, geometry, rectangle =>
-                {
+                MagickRectangle.use(this, geometry, rectangle => {
                     ImageMagick._api._MagickImage_EvaluateGeometry(this._instance, channels, rectangle, operator, value, exception);
                 })
             });
@@ -701,11 +698,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         Exception.usePointer(exception => {
             Pointer.use(lengthPointer => {
                 const histogram = ImageMagick._api._MagickImage_Histogram(this._instance, lengthPointer.ptr, exception);
-                if (histogram !== 0)
-                {
+                if (histogram !== 0) {
                     const length = lengthPointer.value;
-                    for (let i = 0; i < length; i++)
-                    {
+                    for (let i = 0; i < length; i++) {
                         const colorPtr = ImageMagick._api._MagickColorCollection_GetInstance(histogram, i);
                         const color = MagickColor._create(colorPtr);
                         const count = ImageMagick._api._MagickColor_Count_Get(colorPtr);
@@ -1075,8 +1070,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         }
     }
 
-    private static createInstance(): number
-    {
+    private static createInstance(): number {
         return Exception.usePointer(exception => {
             return ImageMagick._api._MagickImage_Create(0, exception);
         });
