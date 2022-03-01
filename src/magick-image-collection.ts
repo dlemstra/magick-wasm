@@ -92,8 +92,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return Object.create(MagickImageCollection.prototype);
     }
 
-    private static createSettings(settings?: MagickReadSettings): MagickSettings
-    {
+    private static createSettings(settings?: MagickReadSettings): MagickSettings {
         if (settings == null)
             return new MagickSettings();
 

@@ -35,8 +35,7 @@ describe('MagickImage#read', () => {
     });
 
     it('should read correct image when width and height are specified', () => {
-        const settings = new MagickReadSettings(
-        {
+        const settings = new MagickReadSettings({
             width: 2,
             height: 3
         });
@@ -47,8 +46,7 @@ describe('MagickImage#read', () => {
     });
 
     it('should read correct image when height is specified', () => {
-        const settings = new MagickReadSettings(
-        {
+        const settings = new MagickReadSettings({
             width: 2
         });
 
@@ -58,8 +56,7 @@ describe('MagickImage#read', () => {
     });
 
     it('should read correct image when width is specified', () => {
-        const settings = new MagickReadSettings(
-        {
+        const settings = new MagickReadSettings({
             height: 2
         });
 

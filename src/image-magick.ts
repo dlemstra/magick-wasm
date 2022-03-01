@@ -16,8 +16,7 @@ export class ImageMagick {
 
     private constructor() {
         this.loader = new Promise(resolve => {
-            if (this.api !== undefined)
-            {
+            if (this.api !== undefined) {
                 resolve();
                 return;
             }

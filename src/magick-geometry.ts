@@ -107,8 +107,7 @@ export class MagickGeometry {
         else
             result += 'x'
 
-        if (this._x != 0 || this._y != 0)
-        {
+        if (this._x != 0 || this._y != 0) {
             if (this._x >= 0)
                 result += '+';
 
@@ -146,8 +145,7 @@ export class MagickGeometry {
         if (rectangle === 0)
             throw new MagickError('unable to allocate memory');
 
-        try
-        {
+        try {
             const width = ImageMagick._api._MagickRectangle_Width_Get(rectangle);
             const height = ImageMagick._api._MagickRectangle_Height_Get(rectangle);
             const x = ImageMagick._api._MagickRectangle_X_Get(rectangle);
@@ -164,8 +162,7 @@ export class MagickGeometry {
         if (rectangle === 0)
             throw new MagickError('unable to allocate memory');
 
-        try
-        {
+        try {
             ImageMagick._api._MagickRectangle_Width_Set(rectangle, this._width);
             ImageMagick._api._MagickRectangle_Height_Set(rectangle, this._height);
             ImageMagick._api._MagickRectangle_X_Set(rectangle, this._x);
@@ -189,8 +186,7 @@ export class MagickGeometry {
         this._limitPixels = this.hasFlag(flags, GeometryFlags.LimitPixels);
     }
 
-    private initializeFromAspectRation(instance: number, value: string)
-    {
+    private initializeFromAspectRation(instance: number, value: string) {
         this._aspectRatio = true;
 
         const ratio = value.split(':');
