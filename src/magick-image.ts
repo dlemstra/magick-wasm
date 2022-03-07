@@ -151,11 +151,9 @@ export interface IMagickImage extends INativeInstance {
     sharpen(radius: number, sigma: number): void;
     sharpen(radius: number, sigma: number, channels: Channels): void;
     sigmoidalContrast(contrast: number): void;
-    sigmoidalContrast(sharpen: boolean, contrast: number): void;
-    sigmoidalContrast(contrast: number, midpoint: number): void;
-    sigmoidalContrast(sharpen: boolean, contrast: number, midpoint: number): void;
     sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
-    sigmoidalContrast(sharpen: boolean, contrast: number, midpointPercentage: Percentage): void;
+    sigmoidalContrast(contrast: number, midpoint: number): void;
+    sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     separate(func: (images: IMagickImageCollection) => void): void;
     separate(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
     separate(func: (images: IMagickImageCollection) => void, channels: Channels): void;
@@ -870,44 +868,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     sigmoidalContrast(contrast: number): void;
-    sigmoidalContrast(sharpen: boolean, contrast: number): void;
-    sigmoidalContrast(contrast: number, midpoint: number): void;
-    sigmoidalContrast(sharpen: boolean, contrast: number, midpoint: number): void;
     sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
-    sigmoidalContrast(sharpen: boolean, contrast: number, midpointPercentage: Percentage): void;
-    sigmoidalContrast(sharpenOrConstract: boolean | number, contrastOrMidpointOrPercentage?: number | Percentage, midpointOrPercentage?: number | Percentage): void {
-        let sharpen: boolean;
-        let contrast: number;
-        let midpoint: number;
-        if (midpointOrPercentage !== undefined) {
-            if (typeof sharpenOrConstract !== 'number')
-                sharpen = sharpenOrConstract;
-            if (typeof contrastOrMidpointOrPercentage === 'number')
-                contrast = contrastOrMidpointOrPercentage;
-            if (typeof midpointOrPercentage === 'number')
-                midpoint = midpointOrPercentage;
-            else
-                midpoint = midpointOrPercentage.multiply(Quantum.max);
-        } else {
-            if (typeof sharpenOrConstract === 'number') {
-                sharpen = true;
-                contrast = sharpenOrConstract;
-                if (typeof contrastOrMidpointOrPercentage === 'number')
-                    midpoint = contrastOrMidpointOrPercentage;
-                else if (contrastOrMidpointOrPercentage !== undefined)
-                    midpoint = contrastOrMidpointOrPercentage.multiply(Quantum.max);
-                else
-                    midpoint = Quantum.max * 0.5;
-            } else {
-                sharpen = sharpenOrConstract;
-                if (typeof contrastOrMidpointOrPercentage === 'number')
-                    contrast = contrastOrMidpointOrPercentage;
-                midpoint = Quantum.max * 0.5;
-            }
-        }
-        Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, this.fromBool(sharpen), contrast, midpoint, Channels.Default, exception);
-        });
+    sigmoidalContrast(contrast: number, midpoint: number): void;
+    sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
+    sigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channels?: Channels): void {
+        this.privateSigmoidalContrast(true, contrast, midpointOrPercentage, channels)
     }
 
     separate(func: (images: IMagickImageCollection) => void): void;
@@ -1068,6 +1033,24 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         } finally {
             image.dispose();
         }
+    }
+
+    private privateSigmoidalContrast(sharpen: boolean, contrast: number, midpointOrPercentage?: number | Percentage, channels?: Channels): void {
+        let midpoint: number;
+        if (midpointOrPercentage !== undefined) {
+            if (typeof midpointOrPercentage === 'number')
+                midpoint = midpointOrPercentage;
+            else
+                midpoint = midpointOrPercentage.multiply(Quantum.max);
+        } else {
+            midpoint = Quantum.max * 0.5;
+        }
+        let usedChannels = Channels.Default;
+        if (channels !== undefined)
+            usedChannels = channels;
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, this.fromBool(sharpen), contrast, midpoint, usedChannels, exception);
+        });
     }
 
     private static createInstance(): number {
