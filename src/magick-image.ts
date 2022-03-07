@@ -126,6 +126,10 @@ export interface IMagickImage extends INativeInstance {
     getWriteMask(func: (mask: IMagickImage | null) => Promise<void>):  Promise<void>;
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
     histogram(): Map<string, number>;
+    inverseSigmoidalContrast(contrast: number): void;
+    inverseSigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
+    inverseSigmoidalContrast(contrast: number, midpoint: number): void;
+    inverseSigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     level(blackPoint: Percentage, whitePoint: Percentage): void;
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
@@ -711,6 +715,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
 
         return result;
+    }
+
+    inverseSigmoidalContrast(contrast: number): void;
+    inverseSigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
+    inverseSigmoidalContrast(contrast: number, midpoint: number): void;
+    inverseSigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
+    inverseSigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channels?: Channels): void {
+        this.privateSigmoidalContrast(false, contrast, midpointOrPercentage, channels)
     }
 
     level(blackPoint: Percentage, whitePoint: Percentage): void;
