@@ -906,7 +906,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             }
         }
         Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, this.fromBool(sharpen), contrast, midpoint, exception);
+            ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, this.fromBool(sharpen), contrast, midpoint, Channels.Default, exception);
         });
     }
 
