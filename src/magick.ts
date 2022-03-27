@@ -21,7 +21,7 @@ export class Magick {
             fileSystem.mkdir('/fonts');
         }
 
-        const stream = fileSystem.open(`/fonts/${name}`, 'w+');
+        const stream = fileSystem.open(`/fonts/${name}`, 'w');
         fileSystem.write(stream, data, 0, data.length);
         fileSystem.close(stream);
     }
