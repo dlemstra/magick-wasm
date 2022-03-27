@@ -27,4 +27,15 @@ export class Magick {
     }
 
     static setRandomSeed = (seed: number): void => ImageMagick._api._Magick_SetRandomSeed(seed);
+
+    /** @internal */
+    static _getFontFileName(name: string): string {
+        const fileName = `/fonts/${name}`;
+        const stats = ImageMagick._api.FS.analyzePath(fileName);
+        if (!stats.exists) {
+            throw `Unable to find a font with the name '${name}', add it with Magick.addFont.`
+        }
+
+        return fileName;
+    }
 }

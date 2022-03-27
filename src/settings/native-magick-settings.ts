@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../image-magick';
+import { Magick } from '../magick';
 import { MagickSettings } from './magick-settings';
 import { NativeInstance } from '../internal/native-instance';
 import { _withString } from '../internal/native/string';
@@ -32,11 +33,7 @@ export class NativeMagickSettings extends NativeInstance {
             this.setOption('fill', settings.fillColor.toString());
 
         if (settings.font !== undefined) {
-            const fileName = `/fonts/${settings.font}`;
-            const stats = ImageMagick._api.FS.analyzePath(fileName);
-            if (!stats.exists) {
-                throw `Unable to find a font with the name '${settings.font}', add it with Magick.addFont.`
-            }
+            const fileName = Magick._getFontFileName(settings.font);
 
             _withString(fileName, ptr => {
                 ImageMagick._api._MagickSettings_Font_Set(this._instance, ptr);
