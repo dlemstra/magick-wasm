@@ -28,7 +28,7 @@ export class MagickFormatInfo {
 
     get isWritable(): boolean { return this._isWritable; }
 
-    static get all(): MagickFormatInfo[] {
+    static get all(): ReadonlyArray<MagickFormatInfo> {
         return Exception.usePointer(exception => {
             return Pointer.use(pointer => {
                 const list = ImageMagick._api._MagickFormatInfo_CreateList(pointer.ptr, exception);

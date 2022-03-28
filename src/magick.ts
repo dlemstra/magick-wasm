@@ -12,7 +12,7 @@ export class Magick {
 
     static get imageMagickVersion(): string { return _createString(ImageMagick._api._Magick_ImageMagickVersion_Get(), 'Unknown'); }
 
-    static get supportedFormats(): MagickFormatInfo[] { return MagickFormatInfo.all; }
+    static get supportedFormats(): ReadonlyArray<MagickFormatInfo> { return MagickFormatInfo.all; }
 
     static addFont(name: string, data: Uint8Array): void {
         const fileSystem = ImageMagick._api.FS;
