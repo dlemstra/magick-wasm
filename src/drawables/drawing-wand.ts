@@ -1,9 +1,6 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { FontStretch } from '../font-stretch';
-import { FontStyleType } from '../font-style-type';
-import { FontWeight } from '../font-weight';
 import { ImageMagick } from '../image-magick';
 import { Exception } from '../internal/exception/exception';
 import { NativeInstance } from '../internal/native-instance';
@@ -22,7 +19,6 @@ export interface IDrawingWand extends NativeInstance {
     fillColor(value: MagickColor): void;
     fillOpacity(value: number): void;
     font(family: string): void;
-    fontFamily(family: string, style: FontStyleType, weight: FontWeight, stretch: FontStretch): void;
     fontPointSize(value: number): void;
     text(x: number, y: number, value: string): void;
 }
@@ -76,14 +72,6 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
         return Exception.usePointer(exception => {
             _withString(fileName, ptr => {
                 ImageMagick._api._DrawingWand_Font(this._instance, ptr, exception);
-            });
-        });
-    }
-
-    fontFamily(family: string, style: FontStyleType, weight: FontWeight, stretch: FontStretch): void {
-        return Exception.usePointer(exception => {
-            _withString(family, ptr => {
-                ImageMagick._api._DrawingWand_FontFamily(this._instance, ptr, style, weight, stretch, exception);
             });
         });
     }
