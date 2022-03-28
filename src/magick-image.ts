@@ -37,6 +37,8 @@ import { VirtualPixelMethod } from './virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './gravity';
 import { _withDoubleArray } from './internal/native/array';
+import { IDrawable } from './drawables/drawable';
+import { DrawingWand } from './drawables/drawing-wand';
 
 export interface IMagickImage extends INativeInstance {
     /** @internal */
@@ -109,6 +111,8 @@ export interface IMagickImage extends INativeInstance {
     deskew(threshold: Percentage): number;
     distort(method: DistortMethod, params: number[]): void;
     distort(method: DistortMethod, settings: DistortSettings, params: number[]): void;
+    draw(drawables: IDrawable[]): void;
+    draw(...drawables: IDrawable[]): void;
     evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
     evaluate(channels: Channels, operator: EvaluateOperator, value: Percentage): void;
     evaluate(channels: Channels, geometry: MagickGeometry, operator: EvaluateOperator, value: number): void;
@@ -593,6 +597,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         if (settings !== null)
             settings._removeArtifacts(this);
+    }
+
+    draw(drawables: IDrawable[]): void;
+    draw(...drawables: IDrawable[]): void;
+    draw(...drawables: IDrawable[][] | IDrawable[]): void {
+        const wand = DrawingWand._create(this, this._settings);
+        try {
+            wand.draw(drawables.flat());
+        }
+        finally {
+            wand.dispose();
+        }
     }
 
     evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
