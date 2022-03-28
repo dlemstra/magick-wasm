@@ -3,12 +3,13 @@
 
 import { ImageMagick } from './image-magick';
 import { Exception } from './internal/exception/exception';
+import { IMagickImage } from './magick-image';
 import { MagickFormat } from './magick-format';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
 
-export interface IMagickImageCollection extends Array<MagickImage> {
+export interface IMagickImageCollection extends Array<IMagickImage> {
     /** @internal */
     _use(func: (images: IMagickImageCollection) => void): void;
     /** @internal */
