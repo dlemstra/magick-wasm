@@ -6,14 +6,14 @@ import { IDrawingWand } from "./drawing-wand";
 import { Magick } from "../magick";
 
 export class DrawableFont implements IDrawable {
-    _family: string;
+    private readonly _font: string;
 
-    constructor(family: string) {
-        this._family = family;
+    constructor(font: string) {
+        this._font = font;
     }
 
     draw(wand: IDrawingWand): void {
-        const fileName = Magick._getFontFileName(this._family);
+        const fileName = Magick._getFontFileName(this._font);
 
         wand.font(fileName);
     }

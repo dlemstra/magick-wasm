@@ -1,15 +1,15 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../../src/image-magick';
-import { Magick } from '../../src/magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
-import { MagickColor } from '../../src/magick-color';
-import { MagickColors } from '../../src/magick-colors';
+import { DrawableText } from '../../src/drawables/drawable-text';
+import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
 import { DrawableFont } from '../../src/drawables/drawable-font';
 import { DrawableFontPointSize } from '../../src/drawables/drawable-font-point-size';
-import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
-import { DrawableText } from '../../src/drawables/drawable-text';
+import { ImageMagick } from '../../src/image-magick';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
+import { Magick } from '../../src/magick';
+import { MagickColor } from '../../src/magick-color';
+import { MagickColors } from '../../src/magick-colors';
 import { TestFiles } from '../test-files';
 import * as fs from 'fs';
 import '../custom-matcher';

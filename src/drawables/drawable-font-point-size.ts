@@ -5,7 +5,7 @@ import { IDrawable } from "./drawable";
 import { IDrawingWand } from "./drawing-wand";
 
 export class DrawableFontPointSize implements IDrawable {
-    _pointSize: number
+    private readonly _pointSize: number;
 
     constructor(pointSize: number) {
         this._pointSize = pointSize;

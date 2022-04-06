@@ -1,16 +1,16 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../image-magick';
-import { Exception } from '../internal/exception/exception';
-import { NativeInstance } from '../internal/native-instance';
-import { _withString } from '../internal/native/string';
-import { MagickColor } from '../magick-color';
-import { IMagickImage } from '../magick-image';
-import { PaintMethod } from '../paint-method';
-import { DrawingSettings } from '../settings/drawing-settings';
-import { MagickSettings } from '../settings/magick-settings';
-import { IDrawable } from './drawable';
+import { DrawingSettings } from "../settings/drawing-settings";
+import { Exception } from "../internal/exception/exception";
+import { IDrawable } from "./drawable";
+import { ImageMagick } from "../image-magick";
+import { IMagickImage } from "../magick-image";
+import { MagickColor } from "../magick-color";
+import { MagickSettings } from "../settings/magick-settings";
+import { NativeInstance } from "../internal/native-instance";
+import { PaintMethod } from "../paint-method";
+import { _withString } from "../internal/native/string";
 
 export interface IDrawingWand extends NativeInstance {
     draw(drawables: IDrawable[]): void;
@@ -40,22 +40,22 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
 
     draw(drawables: IDrawable[]): void {
         drawables.forEach(drawable => {
-            drawable.draw(this)
+            drawable.draw(this);
         });
 
-        return Exception.usePointer(exception => {
+        Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_Render(this._instance, exception);
         });
     }
 
     color(x: number, y: number, paintMethod: PaintMethod): void {
-        return Exception.usePointer(exception => {
+        Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_Color(this._instance, x, y, paintMethod, exception);
         });
     }
 
     fillColor(value: MagickColor): void {
-        return Exception.usePointer(exception => {
+        Exception.usePointer(exception => {
             value._use(valuePtr => {
                 ImageMagick._api._DrawingWand_FillColor(this._instance, valuePtr, exception);
             });
@@ -63,13 +63,13 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     }
 
     fillOpacity(value: number): void {
-        return Exception.usePointer(exception => {
+        Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_FillOpacity(this._instance, value, exception);
         });
     }
 
     font(fileName: string): void {
-        return Exception.usePointer(exception => {
+        Exception.usePointer(exception => {
             _withString(fileName, ptr => {
                 ImageMagick._api._DrawingWand_Font(this._instance, ptr, exception);
             });
@@ -77,13 +77,13 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     }
 
     fontPointSize(value: number): void {
-        return Exception.usePointer(exception => {
+        Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_FontPointSize(this._instance, value, exception);
         });
     }
 
     text(x: number, y: number, value: string): void {
-        return Exception.usePointer(exception => {
+        Exception.usePointer(exception => {
             _withString(value, valuePtr => {
                 ImageMagick._api._DrawingWand_Text(this._instance, x, y, valuePtr, exception);
             });

@@ -1,8 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../image-magick';
 import { DrawingSettings } from './drawing-settings';
+import { ImageMagick } from '../image-magick';
+import { Magick } from '../magick';
 import { NativeInstance } from '../internal/native-instance';
 import { _withString } from '../internal/native/string';
 
@@ -20,11 +21,7 @@ export class NativeDrawingSettings extends NativeInstance {
         }
 
         if (settings.font !== undefined) {
-            const fileName = `/fonts/${settings.font}`;
-            const stats = ImageMagick._api.FS.analyzePath(fileName);
-            if (!stats.exists) {
-                throw `Unable to find a font with the name '${settings.font}', add it with Magick.addFont.`
-            }
+            const fileName = Magick._getFontFileName(settings.font);
 
             _withString(fileName, ptr => {
                 ImageMagick._api._DrawingSettings_Font_Set(this._instance, ptr);

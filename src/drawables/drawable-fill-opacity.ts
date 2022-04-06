@@ -6,7 +6,7 @@ import { IDrawingWand } from "./drawing-wand";
 import { Percentage } from "../percentage";
 
 export class DrawableFillOpacity implements IDrawable {
-    _opacity: Percentage
+    private readonly _opacity: Percentage;
 
     constructor(opacity: Percentage) {
         this._opacity = opacity;

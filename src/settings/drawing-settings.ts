@@ -20,15 +20,15 @@ export class DrawingSettings {
 
     /** @internal */
     static _create(settings: MagickSettings): DrawingSettings {
-        const instace = new DrawingSettings();
+        const instance = new DrawingSettings();
 
-        instace.fillColor = settings.fillColor;
-        instace.font = settings.font;
-        instace.fontPointsize = settings.fontPointsize;
-        instace.strokeColor = settings.strokeColor;
-        instace.strokeWidth = settings.strokeWidth;
+        instance.fillColor = settings.fillColor;
+        instance.font = settings.font;
+        instance.fontPointsize = settings.fontPointsize;
+        instance.strokeColor = settings.strokeColor;
+        instance.strokeWidth = settings.strokeWidth;
 
-        return instace;
+        return instance;
     }
 
     /** @internal */
