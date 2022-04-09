@@ -23,16 +23,16 @@ afterEach(() => {
 
 describe('DrawableFillColor', () => {
     it('should set the fill color for following drawing actions', () => {
-        const testCol = MagickColors.Red;
+        const fillColor = MagickColors.Red;
 
         image.draw([
-            new DrawableFillColor(testCol),
+            new DrawableFillColor(fillColor),
             new DrawableColor(0, 0, PaintMethod.Floodfill)
         ]);
 
-        expect(image).toHavePixelWithColor(0, 0, testCol);
-        expect(image).toHavePixelWithColor(1, 0, testCol);
-        expect(image).toHavePixelWithColor(0, 1, testCol);
-        expect(image).toHavePixelWithColor(1, 1, testCol);
+        expect(image).toHavePixelWithColor(0, 0, fillColor);
+        expect(image).toHavePixelWithColor(1, 0, fillColor);
+        expect(image).toHavePixelWithColor(0, 1, fillColor);
+        expect(image).toHavePixelWithColor(1, 1, fillColor);
     });
 });
