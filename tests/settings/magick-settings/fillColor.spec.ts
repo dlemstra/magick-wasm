@@ -6,7 +6,6 @@ import { Magick } from '../../../src/magick';
 import { MagickColor } from '../../../src/magick-color';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
-import * as fs from 'fs';
 import '../../custom-matcher';
 
 beforeEach(() => {
@@ -15,8 +14,7 @@ beforeEach(() => {
 
 describe('MagickSettings#fillColor', () => {
     it('should use the correct fill color', () => {
-        const data = fs.readFileSync(TestFiles.kaushanScriptRegularTtf);
-        Magick.addFont('test', data);
+        Magick.addFont('test', TestFiles.kaushanScriptRegularTtf);
 
         const settings = new MagickReadSettings();
         settings.font = 'test';

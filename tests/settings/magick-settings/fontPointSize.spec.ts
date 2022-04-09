@@ -5,7 +5,6 @@ import { ImageMagick } from '../../../src/image-magick';
 import { Magick } from '../../../src/magick';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
-import * as fs from 'fs';
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
@@ -13,8 +12,7 @@ beforeEach(() => {
 
 describe('MagickSettings#fontPointSize', () => {
     it('should change the size of the rendered text', () => {
-        const data = fs.readFileSync(TestFiles.kaushanScriptRegularTtf);
-        Magick.addFont('test', data);
+        Magick.addFont('test', TestFiles.kaushanScriptRegularTtf);
 
         const settings = new MagickReadSettings();
         settings.font = 'test';

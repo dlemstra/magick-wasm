@@ -10,7 +10,9 @@ import * as util from 'util';
 export class TestFiles {
     static readonly fujiFilmFinePixS1ProJpg = 'tests/images/fuji-film-fine-pix-s1-pro.jpg';
     static readonly imageMagickJpg = 'tests/images/image-magick.jpg';
-    static readonly kaushanScriptRegularTtf = 'tests/fonts/KaushanScript-Regular.ttf';
+    static get kaushanScriptRegularTtf(): Buffer {
+        return fs.readFileSync('tests/fonts/KaushanScript-Regular.ttf');
+    }
     static readonly redPng = 'tests/images/red.png';
     static readonly roseSparkleGif = 'tests/images/röse-sparkle.gif';
 }
