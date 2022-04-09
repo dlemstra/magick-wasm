@@ -5,7 +5,7 @@ import { ImageMagick } from '../../../src/image-magick';
 import { Magick } from '../../../src/magick';
 import { MagickColor } from '../../../src/magick-color';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
-import { TestFiles } from '../../test-files';
+import { TestFiles, readBuffer } from '../../test-files';
 import '../../custom-matcher';
 
 beforeEach(() => {
@@ -14,7 +14,8 @@ beforeEach(() => {
 
 describe('MagickSettings#strokeWidth', () => {
     it('should use the correct stroke width', () => {
-        Magick.addFont('test', TestFiles.kaushanScriptRegularTtf);
+        const data = readBuffer(TestFiles.kaushanScriptRegularTtf);
+        Magick.addFont('test', data);
 
         const settings = new MagickReadSettings();
         settings.font = 'test';

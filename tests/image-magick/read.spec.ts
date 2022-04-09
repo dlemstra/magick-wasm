@@ -4,9 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestFiles } from '../test-files';
-import * as fs from 'fs';
-import * as util from 'util';
+import { TestFiles, readBuffer, readBufferAsync } from '../test-files';
 import '../custom-matcher';
 
 beforeAll(() => { ImageMagick._api = (global as any).native; });
@@ -27,8 +25,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array async', async () => {
-        const readFile = util.promisify(fs.readFile);
-        const data = await readFile(TestFiles.imageMagickJpg);
+        const data = await readBufferAsync(TestFiles.imageMagickJpg);
         await ImageMagick.read(data, (image) => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
@@ -36,7 +33,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array', () => {
-        const data = fs.readFileSync(TestFiles.imageMagickJpg);
+        const data = readBuffer(TestFiles.imageMagickJpg);
         ImageMagick.read(data, (image) => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);

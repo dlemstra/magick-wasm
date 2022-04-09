@@ -4,13 +4,14 @@
 import { ImageMagick } from '../../src/image-magick';
 import { Magick } from '../../src/magick';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestFiles } from '../test-files';
+import { TestFiles, readBuffer } from '../test-files';
 
 beforeAll(() => { ImageMagick._api = (global as any).native; });
 
 describe('Magick#addFont', () => {
     it('should make the font available', () => {
-        Magick.addFont('foo', TestFiles.kaushanScriptRegularTtf);
+        const data = readBuffer(TestFiles.kaushanScriptRegularTtf);
+        Magick.addFont('foo', data);
 
         const settings = new MagickReadSettings();
         settings.font = 'foo';

@@ -3,8 +3,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImageCollection, MagickImageCollection } from '../../src/magick-image-collection';
-import { TestFiles } from '../test-files';
-import * as fs from 'fs';
+import { TestFiles, readBuffer } from '../test-files';
 
 let images: IMagickImageCollection;
 
@@ -26,7 +25,7 @@ describe('MagickImageCollection#read', () => {
     });
 
     it('should read images from array', () => {
-        const data = fs.readFileSync(TestFiles.roseSparkleGif);
+        const data = readBuffer(TestFiles.roseSparkleGif);
         images.read(data);
         expect(images.length).toBe(3);
         images.forEach(image => {

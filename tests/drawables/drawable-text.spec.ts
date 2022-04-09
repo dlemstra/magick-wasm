@@ -10,7 +10,7 @@ import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { Magick } from '../../src/magick';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
-import { TestFiles } from '../test-files';
+import { TestFiles, readBuffer } from '../test-files';
 import '../custom-matcher';
 
 let image: IMagickImage;
@@ -27,7 +27,8 @@ afterEach(() => {
 
 describe('DrawableText', () => {
     it('should write text to the image', () => {
-        Magick.addFont('test', TestFiles.kaushanScriptRegularTtf);
+        const data = readBuffer(TestFiles.kaushanScriptRegularTtf);
+        Magick.addFont('test', data);
 
         image.draw([
             new DrawableFont('test'),

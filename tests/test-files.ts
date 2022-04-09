@@ -10,18 +10,24 @@ import * as util from 'util';
 export class TestFiles {
     static readonly fujiFilmFinePixS1ProJpg = 'tests/images/fuji-film-fine-pix-s1-pro.jpg';
     static readonly imageMagickJpg = 'tests/images/image-magick.jpg';
-    static get kaushanScriptRegularTtf(): Buffer {
-        return fs.readFileSync('tests/fonts/KaushanScript-Regular.ttf');
-    }
+    static readonly kaushanScriptRegularTtf = 'tests/fonts/KaushanScript-Regular.ttf';
     static readonly redPng = 'tests/images/red.png';
     static readonly roseSparkleGif = 'tests/images/röse-sparkle.gif';
+}
+
+export function readBuffer(fileName: string): Buffer {
+    return fs.readFileSync(fileName);
+}
+
+export async function readBufferAsync(fileName: string): Promise<Buffer> {
+    const readFile = util.promisify(fs.readFile);
+    return await readFile(fileName);
 }
 
 export async function readTestFile(fileName: string, func: (image: IMagickImage) => void): Promise<void>;
 export async function readTestFile(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => void): Promise<void>;
 export async function readTestFile(fileName: string, funcOrSettings: ((image: IMagickImage) => void) | MagickReadSettings, func?: (image: IMagickImage) => void): Promise<void> {
-    const readFile = util.promisify(fs.readFile);
-    const data = await readFile(fileName);
+    const data = await readBufferAsync(fileName);
 
     if (funcOrSettings instanceof MagickReadSettings) {
         ImageMagick.read(data, funcOrSettings, (image) => {

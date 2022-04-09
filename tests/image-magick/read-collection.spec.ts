@@ -3,9 +3,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestFiles } from '../test-files';
-import * as fs from 'fs';
-import * as util from 'util';
+import { TestFiles, readBuffer, readBufferAsync } from '../test-files';
 import { MagickFormat } from '../../src/magick-format';
 
 beforeAll(() => { ImageMagick._api = (global as any).native; });
@@ -28,8 +26,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array async', async () => {
-        const readFile = util.promisify(fs.readFile);
-        const data = await readFile(TestFiles.roseSparkleGif);
+        const data = await readBufferAsync(TestFiles.roseSparkleGif);
         await ImageMagick.readCollection(data, (images) => {
             expect(images.length).toBe(3);
             images.forEach(image => {
@@ -40,7 +37,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array', () => {
-        const data = fs.readFileSync(TestFiles.roseSparkleGif);
+        const data = readBuffer(TestFiles.roseSparkleGif);
         ImageMagick.readCollection(data, (images) => {
             expect(images.length).toBe(3);
             images.forEach(image => {
@@ -55,8 +52,7 @@ describe('ImageMagick#readCollection', () => {
             format: MagickFormat.Png
         });
 
-        const readFile = util.promisify(fs.readFile);
-        const data = await readFile(TestFiles.roseSparkleGif);
+        const data = await readBufferAsync(TestFiles.roseSparkleGif);
         await expect(async () => {
             await ImageMagick.readCollection(data, settings, () => {
                 // will never be reached
@@ -69,7 +65,7 @@ describe('ImageMagick#readCollection', () => {
             format: MagickFormat.Png
         });
 
-        const data = fs.readFileSync(TestFiles.roseSparkleGif);
+        const data = readBuffer(TestFiles.roseSparkleGif);
         expect(() => {
             ImageMagick.readCollection(data, settings, () => {
                 // will never be reached
