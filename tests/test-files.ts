@@ -30,13 +30,13 @@ export class TestFile {
         }
     }
 
-    toBufferSync(): Buffer {
-        return fs.readFileSync(this._fileName);
-    }
-
     toBuffer(): Promise<Buffer> {
         const readFile = util.promisify(fs.readFile);
         return readFile(this._fileName);
+    }
+
+    toBufferSync(): Buffer {
+        return fs.readFileSync(this._fileName);
     }
 }
 
