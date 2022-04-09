@@ -13,9 +13,8 @@ import { PaintMethod } from "../paint-method";
 import { _withString } from "../internal/native/string";
 
 export interface IDrawingWand extends NativeInstance {
-    draw(drawables: IDrawable[]): void;
-
     color(x: number, y: number, paintMethod: number): void;
+    draw(drawables: IDrawable[]): void;
     fillColor(value: MagickColor): void;
     fillOpacity(value: number): void;
     font(family: string): void;
@@ -33,9 +32,10 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
         super(instance, disposeMethod);
     }
 
-    /** @internal */
-    static _create(image: IMagickImage, settings: MagickSettings): DrawingWand {
-        return new DrawingWand(image, settings);
+    color(x: number, y: number, paintMethod: PaintMethod): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_Color(this._instance, x, y, paintMethod, exception);
+        });
     }
 
     draw(drawables: IDrawable[]): void {
@@ -45,12 +45,6 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
 
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_Render(this._instance, exception);
-        });
-    }
-
-    color(x: number, y: number, paintMethod: PaintMethod): void {
-        Exception.usePointer(exception => {
-            ImageMagick._api._DrawingWand_Color(this._instance, x, y, paintMethod, exception);
         });
     }
 
@@ -88,5 +82,10 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
                 ImageMagick._api._DrawingWand_Text(this._instance, x, y, valuePtr, exception);
             });
         });
+    }
+
+    /** @internal */
+    static _create(image: IMagickImage, settings: MagickSettings): DrawingWand {
+        return new DrawingWand(image, settings);
     }
 }
