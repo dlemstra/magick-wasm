@@ -8,12 +8,14 @@ import { ColorSpace } from './color-space';
 import { CompositeOperator } from './composite-operator';
 import { DistortMethod } from './distort-method';
 import { DistortSettings } from './settings/distort-settings';
+import { DrawingWand } from './drawables/drawing-wand';
 import { ErrorMetric } from './error-metric';
 import { EvaluateOperator } from './evaluate-operator';
 import { Exception } from './internal/exception/exception';
 import { FilterType } from './filter-type';
 import { Gravity } from './gravity';
 import { ImageMagick } from './image-magick';
+import { IDrawable } from './drawables/drawable';
 import { IImageProfile, ImageProfile } from './profiles/image-profile';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
 import { INativeInstance, NativeInstance } from './internal/native-instance';
@@ -37,8 +39,6 @@ import { VirtualPixelMethod } from './virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './gravity';
 import { _withDoubleArray } from './internal/native/array';
-import { IDrawable } from './drawables/drawable';
-import { DrawingWand } from './drawables/drawing-wand';
 
 export interface IMagickImage extends INativeInstance {
     /** @internal */
