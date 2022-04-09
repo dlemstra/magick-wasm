@@ -24,7 +24,7 @@ export class NativeMagickSettings extends NativeInstance {
             ImageMagick._api._MagickSettings_SetQuality(this._instance, settings._quality);
 
         if (settings.backgroundColor !== undefined) {
-            settings.backgroundColor ._use((ptr) => {
+            settings.backgroundColor._use((ptr) => {
                 ImageMagick._api._MagickSettings_BackgroundColor_Set(this._instance, ptr);
             });
         }

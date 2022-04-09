@@ -9,7 +9,7 @@ beforeEach(() => {
 });
 
 describe('MagickGeometry#toDouble', () => {
-    it('should return the value .', () => {
+    it('should return the value.', () => {
         const percentage = new Percentage(10);
 
         expect(percentage.toDouble()).toBe(10);
