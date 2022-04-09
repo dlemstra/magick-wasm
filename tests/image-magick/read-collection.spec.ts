@@ -3,7 +3,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestFiles, readBuffer, readBufferAsync } from '../test-files';
+import { TestFiles } from '../test-files';
 import { MagickFormat } from '../../src/magick-format';
 
 beforeAll(() => { ImageMagick._api = (global as any).native; });
@@ -26,7 +26,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array async', async () => {
-        const data = await readBufferAsync(TestFiles.roseSparkleGif);
+        const data = await TestFiles.roseSparkleGif.toBuffer();
         await ImageMagick.readCollection(data, (images) => {
             expect(images.length).toBe(3);
             images.forEach(image => {
@@ -37,7 +37,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array', () => {
-        const data = readBuffer(TestFiles.roseSparkleGif);
+        const data = TestFiles.roseSparkleGif.toBufferSync();
         ImageMagick.readCollection(data, (images) => {
             expect(images.length).toBe(3);
             images.forEach(image => {
@@ -52,7 +52,7 @@ describe('ImageMagick#readCollection', () => {
             format: MagickFormat.Png
         });
 
-        const data = await readBufferAsync(TestFiles.roseSparkleGif);
+        const data = await TestFiles.roseSparkleGif.toBuffer();
         await expect(async () => {
             await ImageMagick.readCollection(data, settings, () => {
                 // will never be reached
@@ -65,7 +65,7 @@ describe('ImageMagick#readCollection', () => {
             format: MagickFormat.Png
         });
 
-        const data = readBuffer(TestFiles.roseSparkleGif);
+        const data = TestFiles.roseSparkleGif.toBufferSync();
         expect(() => {
             ImageMagick.readCollection(data, settings, () => {
                 // will never be reached

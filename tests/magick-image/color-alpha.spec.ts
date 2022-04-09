@@ -4,7 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-import { TestFiles, readTestFile } from '../test-files';
+import { TestFiles } from '../test-files';
 import '../custom-matcher';
 
 let image: IMagickImage;
@@ -20,7 +20,7 @@ afterEach(() => {
 
 describe('MagickImage#colorAlpha', () => {
     it('should color the alpha channel', async () => {
-        await readTestFile(TestFiles.redPng, image => {
+        await TestFiles.redPng.read(image => {
             image.colorAlpha(MagickColors.Magenta);
             expect(image).toHavePixelWithColor(350, 80, MagickColors.Magenta);
         });

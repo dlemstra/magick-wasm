@@ -3,7 +3,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
-import { TestFiles, readTestFile } from '../test-files';
+import { TestFiles } from '../test-files';
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
@@ -19,7 +19,7 @@ describe('MagickImage#getProfile', () => {
     });
 
     it('should return the specified profile', async () => {
-        await readTestFile(TestFiles.fujiFilmFinePixS1ProJpg, image => {
+        await TestFiles.fujiFilmFinePixS1ProJpg.read(image => {
 
             const profile = image.getProfile('icc');
 

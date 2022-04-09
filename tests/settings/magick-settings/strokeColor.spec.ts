@@ -5,7 +5,7 @@ import { ImageMagick } from '../../../src/image-magick';
 import { Magick } from '../../../src/magick';
 import { MagickColor } from '../../../src/magick-color';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
-import { TestFiles, readBuffer } from '../../test-files';
+import { TestFiles } from '../../test-files';
 import '../../custom-matcher';
 
 beforeEach(() => {
@@ -14,7 +14,7 @@ beforeEach(() => {
 
 describe('MagickSettings#strokeColor', () => {
     it('should use the correct stroke color', () => {
-        const data = readBuffer(TestFiles.kaushanScriptRegularTtf);
+        const data = TestFiles.kaushanScriptRegularTtf.toBufferSync();
         Magick.addFont('test', data);
 
         const settings = new MagickReadSettings();

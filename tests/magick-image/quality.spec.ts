@@ -3,7 +3,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
-import { TestFiles, readTestFile } from '../test-files';
+import { TestFiles } from '../test-files';
 
 let image: IMagickImage;
 
@@ -28,7 +28,7 @@ describe('MagickImage#quality', () => {
     });
 
     it('should return the image quality', async () => {
-        await readTestFile(TestFiles.imageMagickJpg, image => {
+        await TestFiles.imageMagickJpg.read(image => {
             expect(image.quality).toBe(100);
         });
     });

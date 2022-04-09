@@ -3,7 +3,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
-import { TestFiles, readTestFile } from '../test-files';
+import { TestFiles } from '../test-files';
 
 let image: IMagickImage;
 
@@ -18,13 +18,13 @@ afterEach(() => {
 
 describe('MagickImage#hasAlpha', () => {
     it('should return true when image has alpha channel', async () => {
-        await readTestFile(TestFiles.redPng, image => {
+        await TestFiles.redPng.read(image => {
             expect(image.hasAlpha).toBe(true);
         });
     });
 
     it('should should disable the alpha channel', async () => {
-        await readTestFile(TestFiles.redPng, image => {
+        await TestFiles.redPng.read(image => {
             image.hasAlpha = false;
 
             expect(image.hasAlpha).toBe(false);

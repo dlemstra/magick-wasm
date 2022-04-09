@@ -5,7 +5,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestFiles, readBuffer  } from '../test-files';
+import { TestFiles  } from '../test-files';
 import '../custom-matcher';
 
 let image: IMagickImage;
@@ -27,7 +27,7 @@ describe('MagickImage#read', () => {
     });
 
     it('should read image from array', () => {
-        const data = readBuffer(TestFiles.imageMagickJpg);
+        const data = TestFiles.imageMagickJpg.toBufferSync();
         image.read(data);
         expect(image.width).toBe(123);
         expect(image.height).toBe(118);

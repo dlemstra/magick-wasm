@@ -5,7 +5,7 @@ import { ImageMagick } from '../../../src/image-magick';
 import { MagickFormat } from '../../../src/magick-format';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { MagickSettings } from '../../../src/settings/magick-settings';
-import { TestFiles, readTestFile } from '../../test-files';
+import { TestFiles } from '../../test-files';
 
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
@@ -43,7 +43,7 @@ describe('MagickSettings#setDefine', () => {
         const settings = new MagickReadSettings();
         settings.setDefine('profile:skip', 'icc');
 
-        await readTestFile(TestFiles.fujiFilmFinePixS1ProJpg, settings, image => {
+        await TestFiles.fujiFilmFinePixS1ProJpg.read(settings, image => {
             const profile = image.getProfile('icc');
 
             expect(profile).toBeNull();
