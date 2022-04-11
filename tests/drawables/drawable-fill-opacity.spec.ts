@@ -27,7 +27,7 @@ afterEach(() => {
 describe('DrawableFillOpacity', () => {
     it('should set the fill color opacity for following drawing actions', () => {
         image.draw([
-            new DrawableFillColor(new MagickColor(255, 0, 0, 128)),
+            new DrawableFillColor(new MagickColor(255, 0, 0)),
             new DrawableFillOpacity(new Percentage(10)),
             new DrawableColor(0, 0, PaintMethod.Floodfill)
         ]);
