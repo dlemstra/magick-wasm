@@ -61,8 +61,6 @@ export class MagickFormatInfo {
         if (values.includes(formatName))
             return formatName as MagickFormat;
 
-        // console.log(formatName);
-
         return MagickFormat.Unknown;
     }
 }
