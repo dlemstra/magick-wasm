@@ -52,7 +52,7 @@ export interface IMagickImage extends INativeInstance {
     colorSpace: ColorSpace;
     depth: number;
     filterType: FilterType;
-    format: string;
+    format: MagickFormat;
     hasAlpha: boolean;
     interpolate: PixelInterpolateMethod;
     readonly height: number;
@@ -244,8 +244,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     get filterType(): number { return ImageMagick._api._MagickImage_FilterType_Get(this._instance); }
     set filterType(value: number) { ImageMagick._api._MagickImage_FilterType_Set(this._instance, value); }
 
-    get format(): string { return _createString(ImageMagick._api._MagickImage_Format_Get(this._instance), ''); }
-    set format(value: string) { _withString(value, instance => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
+    get format(): MagickFormat { return _createString(ImageMagick._api._MagickImage_Format_Get(this._instance), '') as MagickFormat; }
+    set format(value: MagickFormat) { _withString(value.toString(), instance => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
 
     get hasAlpha(): boolean {
         return Exception.usePointer(exception => {
