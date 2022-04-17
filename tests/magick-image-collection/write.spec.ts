@@ -19,7 +19,7 @@ afterEach(() => {
 describe('MagickImageCollection#write', () => {
     it('should throw exception when collection is empty', () => {
         expect(() => {
-            images.write(_ => { });
+            images.write(() => { /* never reached */ });
         }).toThrowError('operation requires at least one image');
     });
 
