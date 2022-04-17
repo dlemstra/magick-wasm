@@ -17,7 +17,7 @@ let image: IMagickImage;
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
     image = MagickImage.create();
-    image.read(MagickColors.Black, 2, 2);
+    image.read(MagickColors.Black, 1, 1);
 });
 
 afterEach(() => {
@@ -34,8 +34,16 @@ describe('DrawableFillOpacity', () => {
 
         const fillColor = new MagickColor(255, 0, 0, 26);
         expect(image).toHavePixelWithColor(0, 0, fillColor);
-        expect(image).toHavePixelWithColor(1, 0, fillColor);
-        expect(image).toHavePixelWithColor(0, 1, fillColor);
-        expect(image).toHavePixelWithColor(1, 1, fillColor);
+    });
+
+    it('should set the fill color opacity for a fully transparent fill color', () => {
+        image.draw([
+            new DrawableFillColor(new MagickColor(255, 0, 0, 0)),
+            new DrawableFillOpacity(new Percentage(10)),
+            new DrawableColor(0, 0, PaintMethod.Floodfill)
+        ]);
+
+        const fillColor = new MagickColor(255, 0, 0, 26);
+        expect(image).toHavePixelWithColor(0, 0, fillColor);
     });
 });
