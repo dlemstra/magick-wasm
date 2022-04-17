@@ -4,10 +4,12 @@
 import { ImageMagick } from './image-magick';
 import { Exception } from './internal/exception/exception';
 import { IMagickImage } from './magick-image';
+import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
+import { Pointer } from './internal/pointer/pointer';
 
 export interface IMagickImageCollection extends Array<IMagickImage> {
     /** @internal */
@@ -18,6 +20,8 @@ export interface IMagickImageCollection extends Array<IMagickImage> {
     dispose(): void;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
+    write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
+    write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
 }
 
 export class MagickImageCollection extends Array<MagickImage> implements IMagickImageCollection {
@@ -65,6 +69,41 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         });
     }
 
+    write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
+    write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
+    write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void> {
+        this.throwIfEmpty();
+
+        let bytes = new Uint8Array();
+
+        Exception.use(exception => {
+            Pointer.use(pointer => {
+                const image = this[0];
+                const settings = this[0]._getSettings()._clone();
+                if (format !== undefined)
+                    settings.format = format;
+                else
+                    settings.format = image.format;
+
+                settings._use(nativeSettings => {
+                    let data = 0;
+                    try {
+                        this.attachImages();
+                        data = ImageMagick._api._MagickImage_WriteBlob(image._instance, nativeSettings._instance, pointer.ptr, exception.ptr);
+                        bytes = ImageMagick._api.HEAPU8.subarray(data, data + pointer.value);
+                    } catch {
+                        if (data !== 0)
+                            ImageMagick._api._MagickMemory_Relinquish(data);
+                    } finally {
+                        this.detachImages();
+                    }
+                });
+            });
+        });
+
+        return func(bytes);
+    }
+
     static create(): IMagickImageCollection {
         return MagickImageCollection.createObject();
     }
@@ -89,17 +128,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
     }
 
-    private static createObject(): MagickImageCollection {
-        return Object.create(MagickImageCollection.prototype);
-    }
-
-    private static createSettings(settings?: MagickReadSettings): MagickSettings {
-        if (settings == null)
-            return new MagickSettings();
-
-        return new MagickReadSettings(settings);
-    }
-
     private addImages(images: number, settings: MagickSettings) {
         settings.format = MagickFormat.Unknown;
 
@@ -112,5 +140,31 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
             image = next;
         }
+    }
+
+    private attachImages() {
+        for (let i = 0; i < this.length - 1; i++)
+            ImageMagick._api._MagickImage_SetNext(this[i]._instance, this[i + 1]._instance);
+    }
+
+    private static createObject(): MagickImageCollection {
+        return Object.create(MagickImageCollection.prototype);
+    }
+
+    private static createSettings(settings?: MagickReadSettings): MagickSettings {
+        if (settings == null)
+            return new MagickSettings();
+
+        return new MagickReadSettings(settings);
+    }
+
+    private detachImages() {
+        for (let i = 0; i < this.length - 1; i++)
+            ImageMagick._api._MagickImage_SetNext(this[i]._instance, 0);
+    }
+
+    private throwIfEmpty() {
+        if (this.length === 0)
+            throw new MagickError("operation requires at least one image");
     }
 }

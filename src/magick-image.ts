@@ -1047,6 +1047,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     /** @internal */
+    _getSettings(): MagickSettings {
+        return this._settings;
+    }
+
+    /** @internal */
     protected _instanceNotInitialized(): void {
         throw new MagickError('no image has been read');
     }
