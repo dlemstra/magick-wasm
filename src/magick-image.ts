@@ -1004,7 +1004,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                     let data = 0;
                     try {
                         data = ImageMagick._api._MagickImage_WriteBlob(this._instance, settings._instance, pointer.ptr, exception.ptr);
-                        bytes = ImageMagick._api.HEAPU8.subarray(data, data + pointer.value);
+                        if (data !== 0)
+                            bytes = ImageMagick._api.HEAPU8.subarray(data, data + pointer.value);
                     } catch {
                         if (data !== 0)
                             ImageMagick._api._MagickMemory_Relinquish(data);

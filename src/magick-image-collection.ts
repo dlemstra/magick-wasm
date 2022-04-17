@@ -90,7 +90,8 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                     try {
                         this.attachImages();
                         data = ImageMagick._api._MagickImage_WriteBlob(image._instance, nativeSettings._instance, pointer.ptr, exception.ptr);
-                        bytes = ImageMagick._api.HEAPU8.subarray(data, data + pointer.value);
+                        if (data !== 0)
+                            bytes = ImageMagick._api.HEAPU8.subarray(data, data + pointer.value);
                     } catch {
                         if (data !== 0)
                             ImageMagick._api._MagickMemory_Relinquish(data);
