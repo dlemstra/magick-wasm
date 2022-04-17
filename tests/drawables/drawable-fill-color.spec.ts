@@ -14,7 +14,7 @@ let image: IMagickImage;
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
     image = MagickImage.create();
-    image.read(MagickColors.Black, 2, 2);
+    image.read(MagickColors.Black, 1, 1);
 });
 
 afterEach(() => {
@@ -31,8 +31,5 @@ describe('DrawableFillColor', () => {
         ]);
 
         expect(image).toHavePixelWithColor(0, 0, fillColor);
-        expect(image).toHavePixelWithColor(1, 0, fillColor);
-        expect(image).toHavePixelWithColor(0, 1, fillColor);
-        expect(image).toHavePixelWithColor(1, 1, fillColor);
     });
 });
