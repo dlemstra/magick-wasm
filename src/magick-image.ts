@@ -152,6 +152,7 @@ export interface IMagickImage extends INativeInstance {
     negate(onlyGrayScale: boolean): void;
     negate(onlyGrayScale: boolean, channels: Channels): void;
     negate(channels: Channels): void;
+    normalize(): void;
     oilPaint(): void;
     oilPaint(radius: number): void;
     read(color: MagickColor, width: number, height: number): void;
@@ -811,7 +812,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     negate(onlyGrayScale: boolean): void;
     negate(onlyGrayScale: boolean, channels: Channels): void;
     negate(channels: Channels): void;
-    negate(onlyGrayScaleOrChannels?: boolean | Channels, channels?: Channels) {
+    negate(onlyGrayScaleOrChannels?: boolean | Channels, channels?: Channels): void {
         let negateGrayScaleOnly = 0;
         let negateChannels = Channels.Composite;
         if (onlyGrayScaleOrChannels !== undefined) {
@@ -824,6 +825,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         }
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_Negate(this._instance, negateGrayScaleOnly, negateChannels, exception);
+        });
+    }
+
+    normalize(): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_Normalize(this._instance, exception);
         });
     }
 

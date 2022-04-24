@@ -13,8 +13,7 @@ beforeEach(() => {
     image = MagickImage.create();
     image.read(new MagickColor(25, 25, 25), 2, 1);
     image.getPixels(pixels => {
-        const { r, g, b } = new MagickColor(230, 230, 230);
-        pixels.setPixel(1, 0, [r, g, b]);
+        pixels.setPixel(1, 0, [230, 230, 230]);
     });
 });
 

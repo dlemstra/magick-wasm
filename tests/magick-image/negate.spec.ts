@@ -6,7 +6,6 @@ import { Channels } from '../../src/channels';
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-import { Quantum } from '../../src/quantum';
 import '../custom-matcher';
 
 let image: IMagickImage;
@@ -33,7 +32,7 @@ describe('MagickImage#negate', () => {
         image.read(MagickColors.Black, 2, 1);
 
         image.getPixels(pixels => {
-            pixels.setPixel(1, 0, new Uint8Array([Quantum.max, 0, 0]));
+            pixels.setPixel(1, 0, [255, 0, 0]);
         })
 
         image.negate(true);
@@ -55,7 +54,7 @@ describe('MagickImage#negate', () => {
         image.alpha(AlphaOption.Opaque);
 
         image.getPixels(pixels => {
-            pixels.setPixel(1, 0, new Uint8Array([Quantum.max, 0, 0]));
+            pixels.setPixel(1, 0, [255, 0, 0]);
         })
 
         image.negate(true, Channels.All);

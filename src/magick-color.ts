@@ -71,7 +71,7 @@ export class MagickColor {
     get k(): number { return this._k }
     set k(value: number) { this._k = value; }
 
-    get isCmyk() : boolean { return this._isCmyk }
+    get isCmyk(): boolean { return this._isCmyk }
 
     toShortString(): string {
         if (this._a !== Quantum.max)
