@@ -105,7 +105,7 @@ export interface IMagickImage extends INativeInstance {
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
     contrast(): void;
-    contrast(enhance: boolean): void;
+    inverseContrast(): void;
     contrastStretch(blackPoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint?: Percentage, channels?: Channels): void;
@@ -149,9 +149,9 @@ export interface IMagickImage extends INativeInstance {
     modulate(brightness: Percentage, saturation: Percentage): void;
     modulate(brightness: Percentage, saturation: Percentage, hue: Percentage): void;
     negate(): void;
-    negate(onlyGrayScale: boolean): void;
-    negate(onlyGrayScale: boolean, channels: Channels): void;
     negate(channels: Channels): void;
+    negateGrayScale(): void;
+    negateGrayScale(channels: Channels): void;
     normalize(): void;
     oilPaint(): void;
     oilPaint(radius: number): void;
@@ -543,9 +543,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.removeArtifact('compose:args');
     }
 
-    contrast(enhance = true): void {
+    contrast(): void {
         Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_Contrast(this._instance, +enhance, exception);
+            ImageMagick._api._MagickImage_Contrast(this._instance, 1, exception);
+        });
+    }
+
+    inverseContrast(): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_Contrast(this._instance, 0, exception);
         });
     }
 
@@ -809,22 +815,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     negate(): void;
-    negate(onlyGrayScale: boolean): void;
-    negate(onlyGrayScale: boolean, channels: Channels): void;
-    negate(channels: Channels): void;
-    negate(onlyGrayScaleOrChannels?: boolean | Channels, channels?: Channels): void {
-        let negateGrayScaleOnly = 0;
-        let negateChannels = Channels.Composite;
-        if (onlyGrayScaleOrChannels !== undefined) {
-            if (typeof onlyGrayScaleOrChannels === 'boolean') {
-                negateGrayScaleOnly = +onlyGrayScaleOrChannels;
-                if (channels !== undefined) negateChannels = channels;
-            } else {
-                negateChannels = onlyGrayScaleOrChannels;
-            }
-        }
+    negate(channels?: Channels): void {
         Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_Negate(this._instance, negateGrayScaleOnly, negateChannels, exception);
+            ImageMagick._api._MagickImage_Negate(this._instance, 0, channels ?? Channels.Composite, exception);
+        });
+    }
+
+    negateGrayScale(): void;
+    negateGrayScale(channels?: Channels): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_Negate(this._instance, 1, channels ?? Channels.Composite, exception);
         });
     }
 

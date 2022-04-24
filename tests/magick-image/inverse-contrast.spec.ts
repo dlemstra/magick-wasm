@@ -21,11 +21,11 @@ afterEach(() => {
     image.dispose();
 });
 
-describe('MagickImage#contrast', () => {
-    it('should increase the image contrast', () => {
-        image.contrast();
+describe('MagickImage#inverseContrast', () => {
+    it('should decrease the image contrast', () => {
+        image.inverseContrast();
 
-        expect(image).toHavePixelWithColor(0, 0, new MagickColor(15, 15, 15));
-        expect(image).toHavePixelWithColor(1, 0, new MagickColor(240, 240, 240));
+        expect(image).toHavePixelWithColor(0, 0, new MagickColor(35, 35, 35));
+        expect(image).toHavePixelWithColor(1, 0, new MagickColor(220, 220, 220));
     });
 });
