@@ -37,9 +37,9 @@ describe('MagickImage#contrastStretch', () => {
     });
 
     it('should stretch the image contrast of specified channels to the given blackpoint and whitepoint', () => {
-        image.contrastStretch(new Percentage(0), new Percentage(0), Channels.Red);
+        image.contrastStretch(new Percentage(0), new Percentage(0), Channels.Blue);
 
-        expect(image).toHavePixelWithColor(160, 300, new MagickColor(77, 91, 201));
-        expect(image).toHavePixelWithColor(325, 175, new MagickColor(255, 252, 220));
+        expect(image).toHavePixelWithColor(160, 300, new MagickColor(81, 91, 199));
+        expect(image).toHavePixelWithColor(325, 175, new MagickColor(255, 252, 219));
     });
 });
