@@ -105,7 +105,6 @@ export interface IMagickImage extends INativeInstance {
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
     contrast(): void;
-    inverseContrast(): void;
     contrastStretch(blackPoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint?: Percentage, channels?: Channels): void;
@@ -135,6 +134,7 @@ export interface IMagickImage extends INativeInstance {
     getWriteMask(func: (mask: IMagickImage | null) => Promise<void>):  Promise<void>;
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
     histogram(): Map<string, number>;
+    inverseContrast(): void;
     inverseSigmoidalContrast(contrast: number): void;
     inverseSigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number): void;
@@ -549,12 +549,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    inverseContrast(): void {
-        Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_Contrast(this._instance, 0, exception);
-        });
-    }
-
     contrastStretch(blackPoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint?: Percentage, channels?: Channels): void {
@@ -766,6 +760,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
 
         return result;
+    }
+
+    inverseContrast(): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_Contrast(this._instance, 0, exception);
+        });
     }
 
     inverseSigmoidalContrast(contrast: number): void;
