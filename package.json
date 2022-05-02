@@ -16,14 +16,14 @@
         "@dlemstra/magick-native": "0.202204.171136",
         "@types/jest": "^27.4.1",
         "@types/jsdom": "^16.2.14",
-        "@typescript-eslint/eslint-plugin": "^5.19.0",
-        "@typescript-eslint/parser": "^5.19.0",
+        "@typescript-eslint/eslint-plugin": "^5.22.0",
+        "@typescript-eslint/parser": "^5.22.0",
         "ansi-regex": ">=6.0.1",
         "copyfiles": "^2.4.1",
-        "eslint": "^8.13.0",
+        "eslint": "^8.14.0",
         "jest": "^27.5.1",
         "set-value": "^4.1.0",
         "ts-jest": "^27.1.4",
-        "typescript": "^4.6.3"
+        "typescript": "^4.6.4"
     }
 }
