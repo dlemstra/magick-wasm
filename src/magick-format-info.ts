@@ -6,6 +6,7 @@ import { Exception } from './internal/exception/exception';
 import { Pointer } from './internal/pointer/pointer';
 import { MagickFormat } from './magick-format';
 import { _createString } from './internal/native/string';
+import { MagickError } from './magick-error';
 
 export class MagickFormatInfo {
     private readonly _format: MagickFormat;
@@ -33,6 +34,15 @@ export class MagickFormatInfo {
         if (MagickFormatInfo._all === undefined)
             MagickFormatInfo._all = MagickFormatInfo.loadFormats();
         return MagickFormatInfo._all;
+    }
+
+    static create(format: MagickFormat): MagickFormatInfo {
+        for (const formatInfo of MagickFormatInfo.all) {
+            if (formatInfo.format === format)
+                return formatInfo;
+        }
+
+        throw new MagickError(`unable to get format info for ${format}`);
     }
 
     private static loadFormats() {
