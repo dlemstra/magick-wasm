@@ -3,8 +3,8 @@
 
 import { DngOutputColor } from '../../../src/formats/dng/dng-output-color';
 import { DngReadDefines } from '../../../src/formats/dng/dng-read-defines';
+import { MagickFormat } from '../../../src/magick-format';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
-import { MagickFormat } from '../../../lib/magick-format';
 
 let readSettings: MagickReadSettings;
 
