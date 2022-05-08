@@ -12,6 +12,7 @@ export class MagickFormatInfo {
     private readonly _description: string;
     private readonly _isReadable: boolean;
     private readonly _isWritable: boolean;
+    private static _all: ReadonlyArray<MagickFormatInfo>;
 
     private constructor(format: MagickFormat, description: string, isReadable: boolean, isWritable: boolean) {
         this._format = format;
@@ -29,6 +30,12 @@ export class MagickFormatInfo {
     get isWritable(): boolean { return this._isWritable; }
 
     static get all(): ReadonlyArray<MagickFormatInfo> {
+        if (MagickFormatInfo._all === undefined)
+            MagickFormatInfo._all = MagickFormatInfo.loadFormats();
+        return MagickFormatInfo._all;
+    }
+
+    private static loadFormats() {
         return Exception.usePointer(exception => {
             return Pointer.use(pointer => {
                 const list = ImageMagick._api._MagickFormatInfo_CreateList(pointer.ptr, exception);
