@@ -14,10 +14,10 @@
     },
     "devDependencies": {
         "@dlemstra/magick-native": "0.202205.81122",
-        "@types/jest": "^27.5.0",
+        "@types/jest": "^27.5.1",
         "@types/jsdom": "^16.2.14",
-        "@typescript-eslint/eslint-plugin": "^5.22.0",
-        "@typescript-eslint/parser": "^5.22.0",
+        "@typescript-eslint/eslint-plugin": "^5.25.0",
+        "@typescript-eslint/parser": "^5.25.0",
         "ansi-regex": ">=6.0.1",
         "copyfiles": "^2.4.1",
         "eslint": "^8.15.0",
