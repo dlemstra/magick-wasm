@@ -74,6 +74,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void> {
         this.throwIfEmpty();
 
+        let data = 0;
         let bytes = new Uint8Array();
 
         Exception.use(exception => {
@@ -86,7 +87,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                     settings.format = image.format;
 
                 settings._use(nativeSettings => {
-                    let data = 0;
                     try {
                         this.attachImages();
                         data = ImageMagick._api._MagickImage_WriteBlob(image._instance, nativeSettings._instance, pointer.ptr, exception.ptr);
@@ -102,7 +102,10 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             });
         });
 
-        return func(bytes);
+        const result = func(bytes);
+        if (data !== 0)
+            ImageMagick._api._MagickMemory_Relinquish(data);
+        return result;
     }
 
     static create(): IMagickImageCollection {

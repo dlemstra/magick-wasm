@@ -1055,6 +1055,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
     write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
     write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void> {
+        let data = 0;
         let bytes = new Uint8Array();
 
         Exception.use(exception => {
@@ -1063,7 +1064,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                     this._settings.format = format;
 
                 this._settings._use(settings => {
-                    let data = 0;
                     try {
                         data = ImageMagick._api._MagickImage_WriteBlob(this._instance, settings._instance, pointer.ptr, exception.ptr);
                         if (data !== 0)
@@ -1076,7 +1076,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             });
         });
 
-        return func(bytes);
+        const result = func(bytes);
+        if (data !== 0)
+            ImageMagick._api._MagickMemory_Relinquish(data);
+        return result;
     }
 
     writeToCanvas(canvas: HTMLCanvasElement): void {
