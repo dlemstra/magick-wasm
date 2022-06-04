@@ -13,7 +13,7 @@ initializeImageMagick().then(async () => {
     console.log('Quantum:', Quantum.depth);
 
     console.log('');
-    ImageMagick.read('logo:', (image) => {
+    ImageMagick.read('logo:', image => {
         image.resize(100, 100);
         image.blur(1, 5);
         console.log(image.toString());

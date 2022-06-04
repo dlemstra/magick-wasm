@@ -9,7 +9,7 @@
         "test14": "node --experimental-wasm-threads --wasm-atomics-on-non-shared-memory ./node_modules/jest/bin/jest.js --bail --runInBand --detectOpenHandles --forceExit --logHeapUsage",
         "test16": "node ./node_modules/jest/bin/jest.js --bail --runInBand --detectOpenHandles --forceExit --logHeapUsage",
         "lint": "node ./node_modules/eslint/bin/eslint.js src tests --ext .ts",
-        "demo": "tsc && cd demo && tsc && node demo.js",
+        "demo": "tsc && cd demo && tsc && node --experimental-wasm-threads --wasm-atomics-on-non-shared-memory demo.js",
         "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE ./lib && copyfiles -f ./node_modules/@dlemstra/magick-native/magick* ./lib/wasm && copyfiles -f ./node_modules/@dlemstra/magick-native/magick* ./src/wasm"
     },
     "devDependencies": {
