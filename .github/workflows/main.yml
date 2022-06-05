@@ -43,7 +43,7 @@ jobs:
 
       - if: matrix.node == '16' && matrix.os == 'ubuntu-latest'
         name: Upload package
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: imagemagick-magick-wasm
           path: lib/*.tgz
