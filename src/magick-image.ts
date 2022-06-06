@@ -1076,10 +1076,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             });
         });
 
-        const result = func(bytes);
-        if (data !== 0)
-            ImageMagick._api._MagickMemory_Relinquish(data);
-        return result;
+        try {
+            let result = func(bytes);
+            if (!!result && typeof result.then === 'function') {
+                result = result.finally(() => {
+                    if (data !== 0)
+                        ImageMagick._api._MagickMemory_Relinquish(data);
+                });
+            }
+            return result;
+        } finally {
+            if (data !== 0)
+                ImageMagick._api._MagickMemory_Relinquish(data);
+        }
     }
 
     writeToCanvas(canvas: HTMLCanvasElement): void {
