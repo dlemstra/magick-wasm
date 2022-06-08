@@ -94,7 +94,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                             bytes = ImageMagick._api.HEAPU8.subarray(data, data + pointer.value);
                     } catch {
                         if (data !== 0)
-                            ImageMagick._api._MagickMemory_Relinquish(data);
+                            data = ImageMagick._api._MagickMemory_Relinquish(data);
                     } finally {
                         this.detachImages();
                     }
@@ -107,13 +107,13 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             if (!!result && typeof result.then === 'function') {
                 result = result.finally(() => {
                     if (data !== 0)
-                        ImageMagick._api._MagickMemory_Relinquish(data);
+                        data = ImageMagick._api._MagickMemory_Relinquish(data);
                 });
             }
             return result;
         } finally {
             if (data !== 0)
-                ImageMagick._api._MagickMemory_Relinquish(data);
+                data = ImageMagick._api._MagickMemory_Relinquish(data);
         }
     }
 

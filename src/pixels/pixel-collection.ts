@@ -108,21 +108,21 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
             return ImageMagick._api.HEAPU8.slice(instance, instance + count);
         }
         finally {
-            ImageMagick._api._MagickMemory_Relinquish(instance);
+            instance = ImageMagick._api._MagickMemory_Relinquish(instance);
         }
     }
 
     private use<TReturnType>(x: number, y: number, width: number, height: number, mapping: string, func: (instance: number) => TReturnType): TReturnType | null {
         return _withString(mapping, mappingPtr => {
             return Exception.use(exception => {
-                const instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception.ptr);
+                let instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception.ptr);
 
                 return exception.check(() => {
                     const result = func(instance);
-                    ImageMagick._api._MagickMemory_Relinquish(instance);
+                    instance = ImageMagick._api._MagickMemory_Relinquish(instance);
                     return result;
                 }, () => {
-                    ImageMagick._api._MagickMemory_Relinquish(instance);
+                    instance = ImageMagick._api._MagickMemory_Relinquish(instance);
                     return null;
                 });
             });
