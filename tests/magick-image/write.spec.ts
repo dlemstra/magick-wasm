@@ -27,7 +27,7 @@ describe('MagickImage#write', () => {
     it('should save the image to an array', () => {
         image.read('logo:');
         image.write((data) => {
-            expect(data.length).toBe(27398);
+            expect(data.length).toBe(27450);
         }, MagickFormat.Png);
     });
 });
