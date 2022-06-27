@@ -155,6 +155,8 @@ export interface IMagickImage extends INativeInstance {
     normalize(): void;
     oilPaint(): void;
     oilPaint(radius: number): void;
+    ping(fileName: string, settings?: MagickReadSettings): void;
+    ping(array: Uint8Array, settings?: MagickReadSettings): void;
     read(color: MagickColor, width: number, height: number): void;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
@@ -734,6 +736,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType {
+        if (this._settings._ping)
+            throw new MagickError('image contains no pixel data');
+
         return PixelCollection._use(this, (pixels) => {
             return func(pixels);
         });
@@ -859,29 +864,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    ping(fileName: string, settings?: MagickReadSettings): void;
+    ping(array: Uint8Array, settings?: MagickReadSettings): void;
+    ping(fileNameOrArray: string | Uint8Array, settings?: MagickReadSettings): void {
+        this.readOrPing(true, fileNameOrArray, settings);
+    }
+
     read(color: MagickColor, width: number, height: number): void;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
     read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidth?: MagickReadSettings | number, height?: number): void {
-        Exception.use(exception => {
-            if (fileNameOrArrayOrColor instanceof Uint8Array) {
-                const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : new MagickReadSettings(this._settings);
-                this.readFromArray(fileNameOrArrayOrColor, readSettings, exception);
-            } else {
-                const readSettings = settingsOrWidth instanceof MagickReadSettings ? settingsOrWidth : new MagickReadSettings(this._settings);
-                if (typeof fileNameOrArrayOrColor === 'string') {
-                    readSettings._fileName = fileNameOrArrayOrColor;
-                } else if (fileNameOrArrayOrColor instanceof MagickColor) {
-                    readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toShortString();
-                    readSettings.width = typeof settingsOrWidth === 'number' ? settingsOrWidth : 0;
-                    readSettings.height = typeof height === 'number' ? height : 0;
-                }
-                readSettings._use(settings => {
-                    const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
-                    this._setInstance(instance, exception);
-                });
-            }
-        });
+        this.readOrPing(false, fileNameOrArrayOrColor, settingsOrWidth, height);
     }
 
     readFromCanvas(canvas: HTMLCanvasElement): void {
@@ -1169,6 +1162,32 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     private fromBool(value: boolean): number {
         return value ? 1 : 0;
+    }
+
+    private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidth?: MagickReadSettings | number, height?: number): void {
+        Exception.use(exception => {
+            if (fileNameOrArrayOrColor instanceof Uint8Array) {
+                const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : new MagickReadSettings(this._settings);
+                readSettings._ping = ping;
+                this._settings._ping = ping;
+                this.readFromArray(fileNameOrArrayOrColor, readSettings, exception);
+            } else {
+                const readSettings = settingsOrWidth instanceof MagickReadSettings ? settingsOrWidth : new MagickReadSettings(this._settings);
+                readSettings._ping = ping;
+                this._settings._ping = ping;
+                if (typeof fileNameOrArrayOrColor === 'string') {
+                    readSettings._fileName = fileNameOrArrayOrColor;
+                } else if (fileNameOrArrayOrColor instanceof MagickColor) {
+                    readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toShortString();
+                    readSettings.width = typeof settingsOrWidth === 'number' ? settingsOrWidth : 0;
+                    readSettings.height = typeof height === 'number' ? height : 0;
+                }
+                readSettings._use(settings => {
+                    const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
+                    this._setInstance(instance, exception);
+                });
+            }
+        });
     }
 
     private readFromArray(array: Uint8Array | Uint8ClampedArray, readSettings: MagickReadSettings, exception: Exception): void {

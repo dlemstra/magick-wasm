@@ -20,6 +20,9 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
+        if (settings._ping)
+            ImageMagick._api._MagickSettings_SetPing(this._instance, 1);
+
         if (settings._quality !== undefined)
             ImageMagick._api._MagickSettings_SetQuality(this._instance, settings._quality);
 

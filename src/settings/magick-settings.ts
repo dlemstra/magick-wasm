@@ -14,6 +14,9 @@ export class MagickSettings {
     _fileName?: string;
 
     /** @internal */
+    _ping = false;
+
+    /** @internal */
     _quality?: number;
 
     backgroundColor?: MagickColor;
