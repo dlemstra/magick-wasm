@@ -163,6 +163,7 @@ export interface IMagickImage extends INativeInstance {
     read(array: Uint8Array, settings?: MagickReadSettings): void;
     readFromCanvas(canvas: HTMLCanvasElement): void;
     removeArtifact(name: string): void;
+    removeAttribute(name: string): void;
     removeWriteMask(): void;
     repage(): void;
     resize(geometry: MagickGeometry): void;
@@ -908,6 +909,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     removeArtifact(name: string): void {
         _withString(name, namePtr => {
             ImageMagick._api._MagickImage_RemoveArtifact(this._instance, namePtr);
+        });
+    }
+
+    removeAttribute(name: string): void {
+        _withString(name, namePtr => {
+            ImageMagick._api._MagickImage_RemoveAttribute(this._instance, namePtr);
         });
     }
 
