@@ -50,6 +50,7 @@ export interface IMagickImage extends INativeInstance {
     readonly channelCount: number;
     colorFuzz: Percentage;
     colorSpace: ColorSpace;
+    comment: string | null;
     depth: number;
     filterType: FilterType;
     format: MagickFormat;
@@ -252,6 +253,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_ColorSpace_Set(this._instance, value, exception);
         });
+    }
+
+    get comment(): string | null {
+        return this.getAttribute("comment");
+    }
+    set comment(value: string | null) {
+        if (value === null)
+            this.removeAttribute("comment");
+        else
+            this.setAttribute("comment", value);
     }
 
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
