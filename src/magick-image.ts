@@ -186,6 +186,7 @@ export interface IMagickImage extends INativeInstance {
     setArtifact(name: string, value: boolean): void;
     setAttribute(name: string, value: string): void;
     setWriteMask(image: IMagickImage): void;
+    strip(): void;
     toString(): string;
     trim(): void;
     trim(...edges: Gravity[]): void;
@@ -1028,6 +1029,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     setWriteMask(image: IMagickImage): void {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_SetWriteMask(this._instance, image._instance, exception);
+        });
+    }
+
+    strip(): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_Strip(this._instance, exception);
         });
     }
 
