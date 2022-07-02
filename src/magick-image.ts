@@ -129,6 +129,7 @@ export interface IMagickImage extends INativeInstance {
     extent(geometry: MagickGeometry, gravity: Gravity, backgroundColor: MagickColor): void;
     extent(geometry: MagickGeometry, backgroundColor: MagickColor): void;
     getArtifact(name: string): string | null;
+    getAttribute(name: string): string | null;
     getProfile(name: string): IImageProfile | null;
     getWriteMask(func: (mask: IMagickImage | null) => void): void;
     getWriteMask(func: (mask: IMagickImage | null) => Promise<void>):  Promise<void>;
@@ -181,6 +182,7 @@ export interface IMagickImage extends INativeInstance {
     separate(func: (images: IMagickImageCollection) => Promise<void>, channels: Channels): Promise<void>;
     setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
+    setAttribute(name: string, value: string): void;
     setWriteMask(image: IMagickImage): void;
     toString(): string;
     trim(): void;
@@ -714,6 +716,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    getAttribute(name: string): string | null {
+        return Exception.use(exception => {
+            return _withString(name, namePtr => {
+                const value = ImageMagick._api._MagickImage_GetAttribute(this._instance, namePtr, exception.ptr);
+                return _createString(value);
+            });
+        });
+    }
+
     getProfile(name: string): IImageProfile | null {
         return _withString(name, namePtr => {
             const value = ImageMagick._api._MagickImage_GetProfile(this._instance, namePtr);
@@ -982,6 +993,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         _withString(name, namePtr => {
             _withString(strValue, valuePtr => {
                 ImageMagick._api._MagickImage_SetArtifact(this._instance, namePtr, valuePtr);
+            });
+        });
+    }
+
+    setAttribute(name: string, value: string): void {
+        Exception.use(exception => {
+            _withString(name, namePtr => {
+                _withString(value, valuePtr => {
+                    ImageMagick._api._MagickImage_SetAttribute(this._instance, namePtr, valuePtr, exception.ptr);
+                });
             });
         });
     }
