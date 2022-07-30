@@ -29,12 +29,12 @@ describe('MagickImage#oilPaint', () => {
         });
     });
 
-    it('should create an charcoal the  image', () => {
+    it('should create an charcoal the image', () => {
         image.clone(other => {
             other.charcoal(4, 2);
 
             const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-            expect(difference).toBeCloseTo(0.29);
+            expect(difference).toBeCloseTo(0.31);
         });
     });
 });
