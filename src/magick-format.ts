@@ -17,6 +17,8 @@ export enum MagickFormat {
     Avif = 'AVIF',
     Avs = 'AVS',
     B = 'B',
+    Bayer = 'BAYER',
+    Bayera = 'BAYERA',
     Bgr = 'BGR',
     Bgra = 'BGRA',
     Bgro = 'BGRO',
