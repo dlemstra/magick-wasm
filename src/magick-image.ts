@@ -73,6 +73,9 @@ export interface IMagickImage extends INativeInstance {
     blur(radius: number, sigma: number, channels: Channels): void;
     border(size: number): void;
     border(width: number, height: number): void;
+    brightnessContrast(brightness: number): void;
+    brightnessContrast(brightness: number, contrast: number): void;
+    brightnessContrast(brightness: number, contrast: number, channels: Channels): void;
     channelOffset(pixelChannel: PixelChannel): number;
     charcoal(): void;
     charcoal(radius: number, sigma: number): void;
@@ -391,6 +394,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 const instance = ImageMagick._api._MagickImage_Border(this._instance, rectangle, exception.ptr);
                 this._setInstance(instance, exception);
             });
+        });
+    }
+
+    brightnessContrast(brightness: number): void;
+    brightnessContrast(brightness: number, contrast: number): void;
+    brightnessContrast(brightness: number, contrast: number, channels: Channels): void;
+    brightnessContrast(brightness: number, contrastOrUndefined?: number, channels?: Channels): void {
+        const contrast = contrastOrUndefined === undefined? 0 : contrastOrUndefined;
+        const usedChannels = channels === undefined? Channels.Default: channels;
+
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_BrightnessContrast(this._instance, brightness, contrast, usedChannels, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
