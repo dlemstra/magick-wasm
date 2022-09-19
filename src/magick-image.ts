@@ -405,8 +405,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const usedChannels = channels === undefined? Channels.Default: channels;
 
         Exception.use(exception => {
-            const instance = ImageMagick._api._MagickImage_BrightnessContrast(this._instance, brightness, contrast, usedChannels, exception.ptr);
-            this._setInstance(instance, exception);
+           ImageMagick._api._MagickImage_BrightnessContrast(this._instance, brightness, contrast, usedChannels, exception.ptr);
         });
     }
 
