@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 export enum Channels {
-    None = 0x0000,
+    Undefined = 0x0000,
     Red = 0x0001,
     Gray = 0x0001,
     Cyan = 0x0001,
