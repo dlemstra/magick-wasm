@@ -73,9 +73,8 @@ export interface IMagickImage extends INativeInstance {
     blur(radius: number, sigma: number, channels: Channels): void;
     border(size: number): void;
     border(width: number, height: number): void;
-    brightnessContrast(brightness: number): void;
-    brightnessContrast(brightness: number, contrast: number): void;
-    brightnessContrast(brightness: number, contrast: number, channels: Channels): void;
+    brightnessContrast(brightness: Percentage, contrast: Percentage): void;
+    brightnessContrast(brightness: Percentage, contrast: Percentage, channels: Channels): void;
     channelOffset(pixelChannel: PixelChannel): number;
     charcoal(): void;
     charcoal(radius: number, sigma: number): void;
@@ -397,15 +396,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    brightnessContrast(brightness: number): void;
-    brightnessContrast(brightness: number, contrast: number): void;
-    brightnessContrast(brightness: number, contrast: number, channels: Channels): void;
-    brightnessContrast(brightness: number, contrastOrUndefined?: number, channels?: Channels): void {
-        const contrast = contrastOrUndefined === undefined? 0 : contrastOrUndefined;
-        const usedChannels = channels === undefined? Channels.Default: channels;
+    brightnessContrast(brightness: Percentage, contrast: Percentage): void;
+    brightnessContrast(brightness: Percentage, contrast: Percentage, channels: Channels): void;
+    brightnessContrast(brightness: Percentage, contrast: Percentage, channelsOrUndefined?: Channels): void {
+        const usedChannels = channelsOrUndefined === undefined ? Channels.Composite: channelsOrUndefined;
 
         Exception.use(exception => {
-           ImageMagick._api._MagickImage_BrightnessContrast(this._instance, brightness, contrast, usedChannels, exception.ptr);
+           ImageMagick._api._MagickImage_BrightnessContrast(this._instance, brightness.toDouble(), contrast.toDouble(), usedChannels, exception.ptr);
         });
     }
 
