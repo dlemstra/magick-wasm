@@ -28,6 +28,8 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - run: npm install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: npm run lint
 
