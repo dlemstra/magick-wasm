@@ -13,6 +13,8 @@ jobs:
   test:
     name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     strategy:
       matrix:
@@ -28,8 +30,6 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - run: npm install
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: npm run lint
 
