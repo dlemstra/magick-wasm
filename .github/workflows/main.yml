@@ -27,9 +27,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Authenticate with GitHub package registry
-        run: echo "//npm.pkg.github.com/:_authToken=" > ~/.npmrc
-
       - run: npm install
 
       - run: npm run lint
