@@ -6,13 +6,16 @@ import { MagickColor } from "../src/magick-color";
 import { PixelChannel } from "../src/pixel-channel";
 import { Quantum } from "../src/quantum";
 
+interface CustomMatchers {
+    toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => void;
+}
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        interface Matchers<R> {
-            toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => CustomMatcherResult;
-        }
+    namespace Vi {
+        /* eslint-disable @typescript-eslint/no-empty-interface */
+        interface Assertion extends CustomMatchers {}
+        interface AsymmetricMatchersContaining extends CustomMatchers {}
+        /* eslint-enable @typescript-eslint/no-empty-interface */
     }
 }
 
@@ -63,15 +66,9 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
 }
 
 expect.extend({
-    toHavePixelWithColor(image: IMagickImage, x: number, y: number, colorOrString: MagickColor | string) {
+    toHavePixelWithColor: ((image: IMagickImage, x: number, y: number, colorOrString: MagickColor | string) => {
         const actualColor = pixelColor(image, x, y);
-
-        let expectedColor = '';
-        if (typeof colorOrString === 'string') {
-            expectedColor = colorOrString;
-        } else {
-            expectedColor = colorOrString.toString();
-        }
+        const expectedColor = colorOrString.toString();
 
         if (expectedColor === actualColor) {
             return { pass: true, message: () => '' }
@@ -81,5 +78,5 @@ expect.extend({
             pass: false,
             message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`
         };
-    }
+    }) as () => { pass: boolean, message: () => string },
 });

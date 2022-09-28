@@ -26,7 +26,7 @@ describe('MagickImage#readFromCanvas', () => {
         canvas.width = 1;
         canvas.height = 2;
 
-        window.HTMLCanvasElement.prototype.getContext = <any> jest.fn(function(contextId: string) {
+        window.HTMLCanvasElement.prototype.getContext = <any> vi.fn(function(contextId: string) {
             expect(contextId).toBe('2d');
             return {
                 getImageData: function(x: number, y: number, width: number, height: number) {

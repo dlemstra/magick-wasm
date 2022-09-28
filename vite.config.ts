@@ -1,5 +1,5 @@
 import { builtinModules } from 'module';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
     build: {
@@ -12,5 +12,11 @@ export default defineConfig({
         commonjsOptions: {
             ignore: [...builtinModules, 'ws'],
         },
+    },
+    test: {
+        globals: true,
+        setupFiles: './tests/custom-environment.ts',
+        threads: false,
+        logHeapUsage: true,
     },
 });
