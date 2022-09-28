@@ -1,7 +1,9 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "."
-  },
-  "exclude": []
+    "compilerOptions": {
+        "module": "Node16",
+        "rootDir": ".",
+        "outDir": ".",
+        "strict": true
+    },
+    "exclude": []
 }

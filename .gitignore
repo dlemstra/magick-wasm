@@ -1,5 +1,4 @@
 node_modules
-demo/*.d.ts
 demo/*.js
 publish/etc
 publish/*.tgz
