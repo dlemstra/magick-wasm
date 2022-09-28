@@ -10,11 +10,11 @@ import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
 
 export class ImageMagick {
-    private readonly loader: Promise<void>;
+    private readonly loader: () => Promise<void>;
     private api?: ImageMagickApi;
 
     private constructor() {
-        this.loader = new Promise(resolve => {
+        this.loader = () => new Promise(resolve => {
             if (this.api !== undefined) {
                 resolve();
                 return;
@@ -35,7 +35,7 @@ export class ImageMagick {
     static _create = (): ImageMagick => new ImageMagick();
 
     /** @internal */
-    async _initialize(): Promise<void> { await this.loader; }
+    async _initialize(): Promise<void> { await this.loader(); }
 
     /** @internal */
     static get _api(): ImageMagickApi {
