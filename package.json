@@ -1,9 +1,30 @@
 {
-    "license": "Apache-2.0",
+    "name": "@imagemagick/magick-wasm",
+    "version": "0.0.15",
+    "description": "The WASM library for ImageMagick",
+    "keywords": [
+        "imagemagick",
+        "magick",
+        "wasm",
+        "image",
+        "convert",
+        "resize"
+    ],
+    "homepage": "https://github.com/dlemstra/magick-wasm",
+    "bugs": {
+        "url": "https://github.com/dlemstra/magick-wasm/issues"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/dlemstra/magick-wasm.git"
     },
+    "license": "Apache-2.0",
+    "author": "Dirk Lemstra",
+    "main": "./lib/image-magick.js",
+    "files": [
+        "lib",
+        "NOTICE"
+    ],
     "scripts": {
         "build": "node ./node_modules/typescript/bin/tsc",
         "test": "node ./node_modules/jest/bin/jest.js --bail --runInBand --detectOpenHandles --forceExit --logHeapUsage",
