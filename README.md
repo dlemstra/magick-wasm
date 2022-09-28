@@ -19,6 +19,10 @@ You can download the npm package from here: https://www.npmjs.com/package/@image
 
 Follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive information about new downloads and changes to magick-wasm and ImageMagick.
 
+## Release notes
+
+The release notes can be found on [GitHub](https://github.com/dlemstra/magick-wasm/releases/tag/0.0.14).
+
 ## Donate
 
 If you have an uncontrollable urge to give me something for the time and effort I am putting into this project then please buy me something from my
