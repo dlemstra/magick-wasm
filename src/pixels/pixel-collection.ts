@@ -5,7 +5,7 @@ import { ImageMagick } from '../image-magick';
 import { Exception } from '../internal/exception/exception';
 import { NativeInstance } from '../internal/native-instance';
 import { IMagickImage } from '../magick-image';
-import { quantumArray } from '../wasm/magick';
+import { quantumArray } from '@dlemstra/magick-native/magick';
 import { _withQuantumArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
 

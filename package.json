@@ -20,18 +20,25 @@
     },
     "license": "Apache-2.0",
     "author": "Dirk Lemstra",
-    "main": "./lib/image-magick.js",
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.umd.js"
+        }
+    },
+    "main": "./dist/index.umd.js",
+    "module": "./dist/index.mjs",
     "files": [
-        "lib",
+        "dist",
         "NOTICE"
     ],
     "scripts": {
-        "build": "node ./node_modules/typescript/bin/tsc",
+        "build": "vite build",
         "test": "node ./node_modules/jest/bin/jest.js --bail --runInBand --detectOpenHandles --forceExit --logHeapUsage",
         "test14": "node --experimental-wasm-threads --wasm-atomics-on-non-shared-memory ./node_modules/jest/bin/jest.js --bail --runInBand --detectOpenHandles --forceExit --logHeapUsage",
         "lint": "node ./node_modules/eslint/bin/eslint.js src tests --ext .ts",
         "demo": "tsc && cd demo && tsc && node --experimental-wasm-threads --wasm-atomics-on-non-shared-memory demo.js",
-        "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE . && copyfiles -f ./node_modules/@dlemstra/magick-native/magick* ./lib/wasm && copyfiles -f ./node_modules/@dlemstra/magick-native/magick* ./src/wasm"
+        "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE ."
     },
     "devDependencies": {
         "@dlemstra/magick-native": "0.202209.192139",
@@ -46,6 +53,7 @@
         "jest-environment-jsdom": "^29.0.3",
         "set-value": "^4.1.0",
         "ts-jest": "^29.0.1",
-        "typescript": "^4.8.3"
+        "typescript": "^4.8.3",
+        "vite": "^3.1.3"
     }
 }
