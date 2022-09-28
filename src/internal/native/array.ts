@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../image-magick';
-import { quantumArray } from '../../wasm/magick';
+import { quantumArray } from '@dlemstra/magick-native/magick';
 
 /** @internal */
 export function _withDoubleArray<TReturnType>(array: number[], func: (instance: number) => TReturnType): TReturnType {

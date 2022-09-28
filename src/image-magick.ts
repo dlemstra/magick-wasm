@@ -1,8 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import MagickNative from './wasm/magick.js';
-import { ImageMagickApi } from './wasm/magick.js';
+import MagickNative, { ImageMagickApi } from '@dlemstra/magick-native/magick';
 import { IMagickImage, MagickImage } from './magick-image';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
 import { MagickColor } from './magick-color';
