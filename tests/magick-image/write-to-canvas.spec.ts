@@ -24,7 +24,7 @@ describe('MagickImage#writeToCanvas', () => {
         const window = new JSDOM().window;
         const canvas = window.document.createElement('canvas');
 
-        window.HTMLCanvasElement.prototype.getContext = <any> jest.fn(function(contextId: string) {
+        window.HTMLCanvasElement.prototype.getContext = <any> vi.fn(function(contextId: string) {
             expect(contextId).toBe('2d');
             return {
                 createImageData: function(width: number, height: number) {
