@@ -2,8 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 /** @internal */
-export enum GeometryFlags
-{
+export enum GeometryFlags {
     NoValue = 0,
     PercentValue = 0x1000,      /* '%'  percentage of something */
     IgnoreAspectRatio = 0x2000, /* '!'  resize no-aspect - special use flag */
