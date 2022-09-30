@@ -1,6 +1,6 @@
 {
-    "name": "node18",
-    "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:18",
+    "name": "node14",
+    "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:14",
     "customizations": {
         "vscode": {
             "settings": {
