@@ -39,7 +39,7 @@
         "test": "vitest run",
         "test14": "vitest run --experimental-wasm-threads --wasm-atomics-on-non-shared-memory",
         "lint": "eslint .",
-        "demo": "npm run build && cd demo && tsc && node demo.js",
+        "demo": "cd demo && tsc && node demo.js",
         "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE ."
     },
     "devDependencies": {
