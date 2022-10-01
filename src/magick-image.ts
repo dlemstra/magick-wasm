@@ -172,14 +172,6 @@ export interface IMagickImage extends INativeInstance {
     resize(geometry: MagickGeometry): void;
     resize(width: number, height: number): void;
     rotate(degrees: number): void;
-    sharpen(): void;
-    sharpen(radius: number, sigma: number): void;
-    sharpen(radius: number, sigma: number, channels: Channels): void;
-    shave(leftRight: number, topBottom: number): void;
-    sigmoidalContrast(contrast: number): void;
-    sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
-    sigmoidalContrast(contrast: number, midpoint: number): void;
-    sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     separate(func: (images: IMagickImageCollection) => void): void;
     separate(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
     separate(func: (images: IMagickImageCollection) => void, channels: Channels): void;
@@ -188,6 +180,14 @@ export interface IMagickImage extends INativeInstance {
     setArtifact(name: string, value: boolean): void;
     setAttribute(name: string, value: string): void;
     setWriteMask(image: IMagickImage): void;
+    sharpen(): void;
+    sharpen(radius: number, sigma: number): void;
+    sharpen(radius: number, sigma: number, channels: Channels): void;
+    shave(leftRight: number, topBottom: number): void;
+    sigmoidalContrast(contrast: number): void;
+    sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
+    sigmoidalContrast(contrast: number, midpoint: number): void;
+    sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     strip(): void;
     toString(): string;
     trim(): void;
@@ -973,35 +973,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    sharpen(): void;
-    sharpen(radius: number, sigma: number): void;
-    sharpen(radius: number, sigma: number, channels: Channels): void;
-    sharpen(radiusOrUndefined?: number, sigmaOrUndefined?: number, channelsOrUndefined?: Channels): void {
-        const radius = this.valueOrDefault(radiusOrUndefined, 0.0);
-        const sigma = this.valueOrDefault(sigmaOrUndefined, 1.0);
-        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-
-        Exception.use(exception => {
-            const instance = ImageMagick._api._MagickImage_Sharpen(this._instance, radius, sigma, channels, exception.ptr);
-            this._setInstance(instance, exception);
-        });
-    }
-
-    shave(leftRight: number, topBottom: number) {
-        Exception.use(exception => {
-            const instance = ImageMagick._api._MagickImage_Shave(this._instance, leftRight, topBottom, exception.ptr);
-            this._setInstance(instance, exception);
-        });
-    }
-
-    sigmoidalContrast(contrast: number): void;
-    sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
-    sigmoidalContrast(contrast: number, midpoint: number): void;
-    sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
-    sigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
-        this.privateSigmoidalContrast(true, contrast, midpointOrPercentage, channelsOrUndefined)
-    }
-
     separate(func: (images: IMagickImageCollection) => void): void;
     separate(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
     separate(func: (images: IMagickImageCollection) => void, channels: Channels): void;
@@ -1045,6 +1016,35 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_SetWriteMask(this._instance, image._instance, exception);
         });
+    }
+
+    sharpen(): void;
+    sharpen(radius: number, sigma: number): void;
+    sharpen(radius: number, sigma: number, channels: Channels): void;
+    sharpen(radiusOrUndefined?: number, sigmaOrUndefined?: number, channelsOrUndefined?: Channels): void {
+        const radius = this.valueOrDefault(radiusOrUndefined, 0.0);
+        const sigma = this.valueOrDefault(sigmaOrUndefined, 1.0);
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_Sharpen(this._instance, radius, sigma, channels, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    shave(leftRight: number, topBottom: number) {
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_Shave(this._instance, leftRight, topBottom, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    sigmoidalContrast(contrast: number): void;
+    sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
+    sigmoidalContrast(contrast: number, midpoint: number): void;
+    sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
+    sigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
+        this.privateSigmoidalContrast(true, contrast, midpointOrPercentage, channelsOrUndefined)
     }
 
     strip(): void {
