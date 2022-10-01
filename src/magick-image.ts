@@ -188,6 +188,7 @@ export interface IMagickImage extends INativeInstance {
     sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
     sigmoidalContrast(contrast: number, midpoint: number): void;
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
+    splice(geometry: MagickGeometry): void;
     strip(): void;
     toString(): string;
     trim(): void;
@@ -1045,6 +1046,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     sigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
         this.privateSigmoidalContrast(true, contrast, midpointOrPercentage, channelsOrUndefined)
+    }
+
+    splice(geometry: MagickGeometry): void {
+        MagickRectangle.use(this, geometry, geometryPtr => {
+            Exception.use(exception => {
+                const instance = ImageMagick._api._MagickImage_Splice(this._instance, geometryPtr, exception.ptr);
+                this._setInstance(instance, exception);
+        });
+        });
     }
 
     strip(): void {
