@@ -45,6 +45,7 @@ export interface IMagickImage extends INativeInstance {
     _instance: number;
 
     readonly artifactNames: ReadonlyArray<string>;
+    readonly attributeNames: ReadonlyArray<string>;
     backgroundColor: MagickColor;
     borderColor: MagickColor;
     readonly channelCount: number;
@@ -218,6 +219,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         while (name !== 0) {
             artifactNames.push(ImageMagick._api.UTF8ToString(name));
             name = ImageMagick._api._MagickImage_GetNextArtifactName(this._instance);
+        }
+
+        return artifactNames;
+    }
+
+    get attributeNames(): ReadonlyArray<string> {
+        const artifactNames: string[] = [];
+        ImageMagick._api._MagickImage_ResetAttributeIterator(this._instance);
+        let name = ImageMagick._api._MagickImage_GetNextAttributeName(this._instance);
+        while (name !== 0) {
+            artifactNames.push(ImageMagick._api.UTF8ToString(name));
+            name = ImageMagick._api._MagickImage_GetNextAttributeName(this._instance);
         }
 
         return artifactNames;
