@@ -8,6 +8,7 @@ export class MagickColors {
 
     static get Transparent(): MagickColor { return new MagickColor(255, 255, 255, 0); }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     static get AliceBlue(): MagickColor { return new MagickColor(240, 248, 255, 255); }
 
     static get AntiqueWhite(): MagickColor { return new MagickColor(250, 235, 215, 255); }
@@ -142,9 +143,9 @@ export class MagickColors {
 
     static get LightGoldenrodYellow(): MagickColor { return new MagickColor(250, 250, 210, 255); }
 
-    static get LightGreen(): MagickColor { return new MagickColor(144, 238, 144, 255); }
-
     static get LightGray(): MagickColor { return new MagickColor(211, 211, 211, 255); }
+
+    static get LightGreen(): MagickColor { return new MagickColor(144, 238, 144, 255); }
 
     static get LightPink(): MagickColor { return new MagickColor(255, 182, 193, 255); }
 

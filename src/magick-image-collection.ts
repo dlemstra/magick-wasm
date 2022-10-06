@@ -28,6 +28,17 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         super();
     }
 
+    /** @internal */
+    _use(func: (images: IMagickImageCollection) => void): void;
+    _use(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
+    _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
+        try {
+            return func(this);
+        } finally {
+            this.dispose();
+        }
+    }
+
     dispose(): void {
         let image = this.pop();
         while (image !== undefined) {
@@ -109,30 +120,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
     }
 
-    static create(): IMagickImageCollection {
-        return MagickImageCollection.createObject();
-    }
-
-    /** @internal */
-    static _createFromImages(images: number, settings: MagickSettings): IMagickImageCollection {
-        const collection = MagickImageCollection.createObject();
-
-        collection.addImages(images, settings);
-
-        return collection;
-    }
-
-    /** @internal */
-    _use(func: (images: IMagickImageCollection) => void): void;
-    _use(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
-    _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
-        try {
-            return func(this);
-        } finally {
-            this.dispose();
-        }
-    }
-
     private addImages(images: number, settings: MagickSettings) {
         settings.format = MagickFormat.Unknown;
 
@@ -151,6 +138,27 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         for (let i = 0; i < this.length - 1; i++) ImageMagick._api._MagickImage_SetNext(this[i]._instance, this[i + 1]._instance);
     }
 
+    private detachImages() {
+        for (let i = 0; i < this.length - 1; i++) ImageMagick._api._MagickImage_SetNext(this[i]._instance, 0);
+    }
+
+    private throwIfEmpty() {
+        if (this.length === 0) throw new MagickError('operation requires at least one image');
+    }
+
+    /** @internal */
+    static _createFromImages(images: number, settings: MagickSettings): IMagickImageCollection {
+        const collection = MagickImageCollection.createObject();
+
+        collection.addImages(images, settings);
+
+        return collection;
+    }
+
+    static create(): IMagickImageCollection {
+        return MagickImageCollection.createObject();
+    }
+
     private static createObject(): MagickImageCollection {
         return Object.create(MagickImageCollection.prototype);
     }
@@ -159,13 +167,5 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         if (settings == null) return new MagickSettings();
 
         return new MagickReadSettings(settings);
-    }
-
-    private detachImages() {
-        for (let i = 0; i < this.length - 1; i++) ImageMagick._api._MagickImage_SetNext(this[i]._instance, 0);
-    }
-
-    private throwIfEmpty() {
-        if (this.length === 0) throw new MagickError('operation requires at least one image');
     }
 }

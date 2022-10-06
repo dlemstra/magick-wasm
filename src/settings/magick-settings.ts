@@ -8,10 +8,10 @@ import { NativeMagickSettings } from './native-magick-settings';
 
 export class MagickSettings {
     /** @internal */
-    _options: Record<string, string> = {};
+    _fileName?: string;
 
     /** @internal */
-    _fileName?: string;
+    _options: Record<string, string> = {};
 
     /** @internal */
     _ping = false;
@@ -32,6 +32,23 @@ export class MagickSettings {
     strokeColor?: MagickColor;
 
     strokeWidth?: number;
+
+    /** @internal */
+    _clone(): MagickSettings {
+        const clone = new MagickSettings();
+        Object.assign(clone, this);
+        return clone;
+    }
+
+    /** @internal */
+    _use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {
+        const settings = new NativeMagickSettings(this);
+        try {
+            return func(settings);
+        } finally {
+            settings.dispose();
+        }
+    }
 
     getDefine(name: string): string;
     getDefine(format: MagickFormat, name: string): string;
@@ -60,23 +77,6 @@ export class MagickSettings {
         defines.getDefines().forEach(define => {
             if (define !== undefined) this.setDefine(define.format, define.name, define.value);
         });
-    }
-
-    /** @internal */
-    _clone(): MagickSettings {
-        const clone = new MagickSettings();
-        Object.assign(clone, this);
-        return clone;
-    }
-
-    /** @internal */
-    _use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {
-        const settings = new NativeMagickSettings(this);
-        try {
-            return func(settings);
-        } finally {
-            settings.dispose();
-        }
     }
 
     private parseDefine(format: MagickFormat, name: string): string {

@@ -9,9 +9,9 @@ import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
 
 export class MagickFormatInfo {
-    private readonly _format: MagickFormat;
-
     private readonly _description: string;
+
+    private readonly _format: MagickFormat;
 
     private readonly _isReadable: boolean;
 
@@ -47,6 +47,14 @@ export class MagickFormatInfo {
         throw new MagickError(`unable to get format info for ${format}`);
     }
 
+    private static convertFormat(formatName: string | null, values: string[]): MagickFormat {
+        if (formatName === null) return MagickFormat.Unknown;
+
+        if (values.includes(formatName)) return formatName as MagickFormat;
+
+        return MagickFormat.Unknown;
+    }
+
     private static loadFormats() {
         return Exception.usePointer(exception => Pointer.use(pointer => {
             const list = ImageMagick._api._MagickFormatInfo_CreateList(pointer.ptr, exception);
@@ -69,13 +77,5 @@ export class MagickFormatInfo {
                 ImageMagick._api._MagickFormatInfo_DisposeList(list, count);
             }
         }));
-    }
-
-    private static convertFormat(formatName: string | null, values: string[]): MagickFormat {
-        if (formatName === null) return MagickFormat.Unknown;
-
-        if (values.includes(formatName)) return formatName as MagickFormat;
-
-        return MagickFormat.Unknown;
     }
 }

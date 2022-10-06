@@ -10,9 +10,9 @@ import { IMagickImageCollection, MagickImageCollection } from './magick-image-co
 import { MagickReadSettings } from './settings/magick-read-settings';
 
 export class ImageMagick {
-    private readonly loader: () => Promise<void>;
-
     private api?: ImageMagickApi;
+
+    private readonly loader: () => Promise<void>;
 
     private constructor() {
         this.loader = () => new Promise(resolve => {
@@ -33,11 +33,6 @@ export class ImageMagick {
         });
     }
 
-    static _create = (): ImageMagick => new ImageMagick();
-
-    /** @internal */
-    async _initialize(): Promise<void> { await this.loader(); }
-
     /** @internal */
     static get _api(): ImageMagickApi {
         if (instance.api === undefined) // eslint-disable-line @typescript-eslint/no-use-before-define
@@ -50,6 +45,11 @@ export class ImageMagick {
     static set _api(value: ImageMagickApi) {
         instance.api = value; // eslint-disable-line @typescript-eslint/no-use-before-define
     }
+
+    /** @internal */
+    async _initialize(): Promise<void> { await this.loader(); }
+
+    static _create = (): ImageMagick => new ImageMagick();
 
     static read(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => void): void;
     static read(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => Promise<void>): Promise<void>;

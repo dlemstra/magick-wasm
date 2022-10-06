@@ -23,17 +23,24 @@ export class Exception {
         return success();
     }
 
-    static usePointer<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
-        return Pointer.use(pointer => {
-            const result = func(pointer.ptr);
+    private isError() {
+        if (!Exception.isRaised(this.pointer)) return false;
 
-            return Exception.checkException(pointer, result);
-        });
+        const severity = Exception.getErrorSeverity(this.pointer.value);
+        return severity >= MagickErrorSeverity.Error;
     }
 
     static use<TReturnType>(func: (exception: Exception) => TReturnType): TReturnType {
         return Pointer.use(pointer => {
             const result = func(new Exception(pointer));
+
+            return Exception.checkException(pointer, result);
+        });
+    }
+
+    static usePointer<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
+        return Pointer.use(pointer => {
+            const result = func(pointer.ptr);
 
             return Exception.checkException(pointer, result);
         });
@@ -47,29 +54,6 @@ export class Exception {
         else Exception.dispose(exception);
 
         return result;
-    }
-
-    private isError() {
-        if (!Exception.isRaised(this.pointer)) return false;
-
-        const severity = Exception.getErrorSeverity(this.pointer.value);
-        return severity >= MagickErrorSeverity.Error;
-    }
-
-    private static getErrorSeverity(exception: number): MagickErrorSeverity {
-        return ImageMagick._api._MagickExceptionHelper_Severity(exception) as MagickErrorSeverity;
-    }
-
-    private static isRaised(exception: Pointer): boolean {
-        return exception.value !== 0;
-    }
-
-    private static throw(exception: Pointer, severity: MagickErrorSeverity): void {
-        const error = Exception.createError(exception.value, severity);
-
-        Exception.dispose(exception);
-
-        throw error;
     }
 
     private static createError(exception: number, severity: MagickErrorSeverity): MagickError {
@@ -92,6 +76,14 @@ export class Exception {
         return error;
     }
 
+    private static dispose(exception: Pointer): void {
+        ImageMagick._api._MagickExceptionHelper_Dispose(exception.value);
+    }
+
+    private static getErrorSeverity(exception: number): MagickErrorSeverity {
+        return ImageMagick._api._MagickExceptionHelper_Severity(exception) as MagickErrorSeverity;
+    }
+
     private static getMessage(exception: number): string {
         const message = ImageMagick._api._MagickExceptionHelper_Message(exception);
         const description = ImageMagick._api._MagickExceptionHelper_Description(exception);
@@ -104,7 +96,15 @@ export class Exception {
         return errorMessage;
     }
 
-    private static dispose(exception: Pointer): void {
-        ImageMagick._api._MagickExceptionHelper_Dispose(exception.value);
+    private static isRaised(exception: Pointer): boolean {
+        return exception.value !== 0;
+    }
+
+    private static throw(exception: Pointer, severity: MagickErrorSeverity): void {
+        const error = Exception.createError(exception.value, severity);
+
+        Exception.dispose(exception);
+
+        throw error;
     }
 }

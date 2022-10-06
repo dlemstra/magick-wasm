@@ -39,6 +39,11 @@ export abstract class NativeInstance implements NativeInstance {
     }
 
     /** @internal */
+    protected _instanceNotInitialized(): void {
+        throw new MagickError('instance is not initialized');
+    }
+
+    /** @internal */
     protected _setInstance(instance: number, exception: Exception): void {
         exception.check(() => {
             this.dispose();
@@ -46,11 +51,6 @@ export abstract class NativeInstance implements NativeInstance {
         }, () => {
             this.disposeInstance(instance);
         });
-    }
-
-    /** @internal */
-    protected _instanceNotInitialized(): void {
-        throw new MagickError('instance is not initialized');
     }
 
     private disposeInstance(instance: number): number {

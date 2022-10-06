@@ -7,23 +7,24 @@ import { _withString } from './internal/native/string';
 import { MagickError } from './magick-error';
 
 export class MagickGeometry {
-    private _width = 0;
-
     private _height = 0;
+
+    private _width = 0;
 
     private _x = 0;
 
     private _y = 0;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     private _aspectRatio = false;
 
     private _fillArea = false;
 
     private _greater = false;
 
-    private _isPercentage = false;
-
     private _ignoreAspectRatio = false;
+
+    private _isPercentage = false;
 
     private _less = false;
 
@@ -145,21 +146,6 @@ export class MagickGeometry {
     }
 
     /** @internal */
-    static fromRectangle(rectangle: number): MagickGeometry {
-        if (rectangle === 0) throw new MagickError('unable to allocate memory');
-
-        try {
-            const width = ImageMagick._api._MagickRectangle_Width_Get(rectangle);
-            const height = ImageMagick._api._MagickRectangle_Height_Get(rectangle);
-            const x = ImageMagick._api._MagickRectangle_X_Get(rectangle);
-            const y = ImageMagick._api._MagickRectangle_Y_Get(rectangle);
-            return new MagickGeometry(x, y, width, height);
-        } finally {
-            ImageMagick._api._MagickRectangle_Dispose(rectangle);
-        }
-    }
-
-    /** @internal */
     toRectangle(func: (rectangle: number) => void) {
         const rectangle = ImageMagick._api._MagickRectangle_Create();
         if (rectangle === 0) throw new MagickError('unable to allocate memory');
@@ -216,5 +202,20 @@ export class MagickGeometry {
 
     private hasFlag(flags: number, flag: GeometryFlags) {
         return (flags & flag) === flag;
+    }
+
+    /** @internal */
+    static fromRectangle(rectangle: number): MagickGeometry {
+        if (rectangle === 0) throw new MagickError('unable to allocate memory');
+
+        try {
+            const width = ImageMagick._api._MagickRectangle_Width_Get(rectangle);
+            const height = ImageMagick._api._MagickRectangle_Height_Get(rectangle);
+            const x = ImageMagick._api._MagickRectangle_X_Get(rectangle);
+            const y = ImageMagick._api._MagickRectangle_Y_Get(rectangle);
+            return new MagickGeometry(x, y, width, height);
+        } finally {
+            ImageMagick._api._MagickRectangle_Dispose(rectangle);
+        }
     }
 }

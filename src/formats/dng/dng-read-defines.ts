@@ -7,10 +7,6 @@ import { MagickFormat } from '../../magick-format';
 import { DngOutputColor } from './dng-output-color';
 
 export class DngReadDefines extends DefinesCreator {
-    constructor() {
-        super(MagickFormat.Dng);
-    }
-
     disableAutoBrightness?: boolean;
 
     outputColor?: DngOutputColor;
@@ -18,6 +14,10 @@ export class DngReadDefines extends DefinesCreator {
     useAutoWhitebalance?: boolean;
 
     useCameraWhitebalance?: boolean;
+
+    constructor() {
+        super(MagickFormat.Dng);
+    }
 
     getDefines(): IDefine[] {
         const defines: IDefine[] = [];

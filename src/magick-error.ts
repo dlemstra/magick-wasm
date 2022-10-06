@@ -4,9 +4,9 @@
 import { MagickErrorSeverity } from './magick-error-severity';
 
 export class MagickError extends Error {
-    private readonly _severity: MagickErrorSeverity;
-
     private _relatedErrors: MagickError[] = [];
+
+    private readonly _severity: MagickErrorSeverity;
 
     constructor(message: string, severity: MagickErrorSeverity = MagickErrorSeverity.Error) {
         super(message);

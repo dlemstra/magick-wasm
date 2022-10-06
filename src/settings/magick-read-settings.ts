@@ -7,15 +7,15 @@ import { MagickSettings } from './magick-settings';
 import { NativeMagickSettings } from './native-magick-settings';
 
 export class MagickReadSettings extends MagickSettings {
+    height?: number;
+
+    width?: number;
+
     constructor(partialSettings?: Partial<MagickReadSettings>) {
         super();
 
         Object.assign(this, partialSettings);
     }
-
-    height?: number;
-
-    width?: number;
 
     /** @internal */
     _use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {

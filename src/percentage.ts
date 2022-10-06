@@ -10,11 +10,6 @@ export class Percentage {
         this._value = value;
     }
 
-    /** @internal */
-    static fromQuantum(value: number): Percentage {
-        return new Percentage((value / Quantum.max) * 100);
-    }
-
     multiply(value: number): number {
         return (value * this._value) / 100.0;
     }
@@ -25,5 +20,10 @@ export class Percentage {
 
     toQuantum(): number {
         return Quantum.max * (this._value / 100);
+    }
+
+    /** @internal */
+    static fromQuantum(value: number): Percentage {
+        return new Percentage((value / Quantum.max) * 100);
     }
 }

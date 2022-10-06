@@ -55,8 +55,8 @@ export interface IMagickImage extends INativeInstance {
     filterType: FilterType;
     format: MagickFormat;
     hasAlpha: boolean;
-    interpolate: PixelInterpolateMethod;
     readonly height: number;
+    interpolate: PixelInterpolateMethod;
     orientation: OrientationType;
     page: MagickGeometry;
     quality: number;
@@ -133,10 +133,10 @@ export interface IMagickImage extends INativeInstance {
     extent(geometry: MagickGeometry, backgroundColor: MagickColor): void;
     getArtifact(name: string): string | null;
     getAttribute(name: string): string | null;
+    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
     getProfile(name: string): IImageProfile | null;
     getWriteMask(func: (mask: IMagickImage | null) => void): void;
     getWriteMask(func: (mask: IMagickImage | null) => Promise<void>): Promise<void>;
-    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
     histogram(): Map<string, number>;
     inverseContrast(): void;
     inverseSigmoidalContrast(contrast: number): void;
@@ -306,6 +306,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
+
     get interpolate(): PixelInterpolateMethod {
         return ImageMagick._api._MagickImage_Interpolate_Get(this._instance);
     }
@@ -313,8 +315,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set interpolate(value: PixelInterpolateMethod) {
         ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value);
     }
-
-    get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
 
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
 
@@ -356,6 +356,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
+
+    /** @internal */
+    _getSettings(): MagickSettings {
+        return this._settings;
+    }
 
     alpha(value: AlphaOption): void {
         Exception.usePointer(exception => {
@@ -616,10 +621,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    static create(): IMagickImage {
-        return new MagickImage(MagickImage.createInstance(), new MagickSettings());
-    }
-
     deskew(threshold: Percentage): number {
         Exception.use(exception => {
             const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold.toQuantum(), exception.ptr);
@@ -739,6 +740,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         }));
     }
 
+    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType {
+        if (this._settings._ping) throw new MagickError('image contains no pixel data');
+
+        return PixelCollection._use(this, pixels => func(pixels));
+    }
+
     getProfile(name: string): IImageProfile | null {
         return _withString(name, namePtr => {
             const value = ImageMagick._api._MagickImage_GetProfile(this._instance, namePtr);
@@ -757,12 +764,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             const image = instance === 0 ? null : new MagickImage(instance, new MagickSettings());
             return func(image);
         });
-    }
-
-    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType {
-        if (this._settings._ping) throw new MagickError('image contains no pixel data');
-
-        return PixelCollection._use(this, pixels => func(pixels));
     }
 
     histogram(): Map<string, number> {
@@ -838,6 +839,20 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    modulate(brightness: Percentage): void;
+    modulate(brightness: Percentage, saturation: Percentage): void;
+    modulate(brightness: Percentage, saturation: Percentage, hue: Percentage): void;
+    modulate(brightness: Percentage, saturationOrUndefined?: Percentage, hueOrUndefined?: Percentage): void {
+        const saturation = this.valueOrDefault(saturationOrUndefined, new Percentage(100));
+        const hue = this.valueOrDefault(hueOrUndefined, new Percentage(100));
+        Exception.usePointer(exception => {
+            const modulate = `${brightness.toDouble()}/${saturation.toDouble()}/${hue.toDouble()}`;
+            _withString(modulate, modulatePtr => {
+                ImageMagick._api._MagickImage_Modulate(this._instance, modulatePtr, exception);
+            });
+        });
+    }
+
     negate(): void;
     negate(channelsOrUndefined?: Channels): void {
         Exception.usePointer(exception => {
@@ -857,20 +872,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     normalize(): void {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_Normalize(this._instance, exception);
-        });
-    }
-
-    modulate(brightness: Percentage): void;
-    modulate(brightness: Percentage, saturation: Percentage): void;
-    modulate(brightness: Percentage, saturation: Percentage, hue: Percentage): void;
-    modulate(brightness: Percentage, saturationOrUndefined?: Percentage, hueOrUndefined?: Percentage): void {
-        const saturation = this.valueOrDefault(saturationOrUndefined, new Percentage(100));
-        const hue = this.valueOrDefault(hueOrUndefined, new Percentage(100));
-        Exception.usePointer(exception => {
-            const modulate = `${brightness.toDouble()}/${saturation.toDouble()}/${hue.toDouble()}`;
-            _withString(modulate, modulatePtr => {
-                ImageMagick._api._MagickImage_Modulate(this._instance, modulatePtr, exception);
-            });
         });
     }
 
@@ -1070,19 +1071,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    wave(): void;
-    wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
-    wave(methodOrUndefined?: PixelInterpolateMethod, amplitudeOrUndefined?: number, lengthOrUndefined?: number): void {
-        const method = this.valueOrDefault(methodOrUndefined, this.interpolate);
-        const amplitude = this.valueOrDefault(amplitudeOrUndefined, 25);
-        const length = this.valueOrDefault(lengthOrUndefined, 150);
-
-        Exception.use(exception => {
-            const instance = ImageMagick._api._MagickImage_Wave(this._instance, method, amplitude, length, exception.ptr);
-            this._setInstance(instance, exception);
-        });
-    }
-
     vignette(): void;
     vignette(radius: number, sigma: number, x: number, y: number): void;
     vignette(radiusOrUndefined?: number, sigmaOrUndefined?: number, xOrUndefined?: number, yOrUndefined?: number): void {
@@ -1093,6 +1081,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         Exception.use(exception => {
             const instance = ImageMagick._api._MagickImage_Vignette(this._instance, radius, sigma, x, y, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    wave(): void;
+    wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
+    wave(methodOrUndefined?: PixelInterpolateMethod, amplitudeOrUndefined?: number, lengthOrUndefined?: number): void {
+        const method = this.valueOrDefault(methodOrUndefined, this.interpolate);
+        const amplitude = this.valueOrDefault(amplitudeOrUndefined, 25);
+        const length = this.valueOrDefault(lengthOrUndefined, 150);
+
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_Wave(this._instance, method, amplitude, length, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
@@ -1156,30 +1157,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     /** @internal */
-    static _createFromImage(instance: number, settings: MagickSettings): MagickImage {
-        return new MagickImage(instance, settings);
-    }
-
-    /** @internal */
-    _getSettings(): MagickSettings {
-        return this._settings;
-    }
-
-    /** @internal */
     protected _instanceNotInitialized(): void {
         throw new MagickError('no image has been read');
     }
 
-    /** @internal */
-    static _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
-    static _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        const image = MagickImage.create();
-        try {
-            return func(image);
-        } finally {
-            image.dispose();
-        }
+    private fromBool(value: boolean): number {
+        return value ? 1 : 0;
     }
 
     private privateSigmoidalContrast(sharpen: boolean, contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
@@ -1196,12 +1179,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    private static createInstance(): number {
-        return Exception.usePointer(exception => ImageMagick._api._MagickImage_Create(0, exception));
-    }
-
-    private fromBool(value: boolean): number {
-        return value ? 1 : 0;
+    private readFromArray(array: Uint8Array | Uint8ClampedArray, readSettings: MagickReadSettings, exception: Exception): void {
+        readSettings._use(settings => {
+            const length = array.byteLength;
+            let data = 0;
+            try {
+                data = ImageMagick._api._malloc(length);
+                ImageMagick._api.HEAPU8.set(array, data);
+                const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, data, 0, length, exception.ptr);
+                this._setInstance(instance, exception);
+            } finally {
+                if (data !== 0) ImageMagick._api._free(data);
+            }
+        });
     }
 
     private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidth?: MagickReadSettings | number, heightOrUndefined?: number): void {
@@ -1230,21 +1220,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    private readFromArray(array: Uint8Array | Uint8ClampedArray, readSettings: MagickReadSettings, exception: Exception): void {
-        readSettings._use(settings => {
-            const length = array.byteLength;
-            let data = 0;
-            try {
-                data = ImageMagick._api._malloc(length);
-                ImageMagick._api.HEAPU8.set(array, data);
-                const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, data, 0, length, exception.ptr);
-                this._setInstance(instance, exception);
-            } finally {
-                if (data !== 0) ImageMagick._api._free(data);
-            }
-        });
-    }
-
     private toBool(value: number): boolean {
         return value === 1;
     }
@@ -1253,5 +1228,30 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         if (value === undefined) return defaultValue;
 
         return value;
+    }
+
+    /** @internal */
+    static _createFromImage(instance: number, settings: MagickSettings): MagickImage {
+        return new MagickImage(instance, settings);
+    }
+
+    /** @internal */
+    static _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    static _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        const image = MagickImage.create();
+        try {
+            return func(image);
+        } finally {
+            image.dispose();
+        }
+    }
+
+    static create(): IMagickImage {
+        return new MagickImage(MagickImage.createInstance(), new MagickSettings());
+    }
+
+    private static createInstance(): number {
+        return Exception.usePointer(exception => ImageMagick._api._MagickImage_Create(0, exception));
     }
 }

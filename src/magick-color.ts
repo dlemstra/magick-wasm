@@ -7,6 +7,9 @@ import { MagickError } from './magick-error';
 import { Quantum } from './quantum';
 
 export class MagickColor {
+    private _isCmyk = false;
+
+    /* eslint-disable @typescript-eslint/member-ordering */
     private _r = 0;
 
     private _g = 0;
@@ -16,8 +19,7 @@ export class MagickColor {
     private _a = 0;
 
     private _k = 0;
-
-    private _isCmyk = false;
+    /* eslint-enable @typescript-eslint/member-ordering */
 
     constructor(color?: string);
     constructor(r: number, g: number, b: number);
@@ -49,14 +51,6 @@ export class MagickColor {
                 this._isCmyk = true;
             }
         }
-    }
-
-    /** @internal */
-    static _create(colorPtr: number): MagickColor {
-        const color = new MagickColor();
-        color.initialize(colorPtr);
-
-        return color;
     }
 
     get r(): number { return this._r; }
@@ -121,5 +115,13 @@ export class MagickColor {
 
     private toHex(value: number) {
         return value.toString(16).padStart(2, '0');
+    }
+
+    /** @internal */
+    static _create(colorPtr: number): MagickColor {
+        const color = new MagickColor();
+        color.initialize(colorPtr);
+
+        return color;
     }
 }

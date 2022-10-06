@@ -19,6 +19,16 @@ export class DrawingSettings {
     strokeWidth?: number;
 
     /** @internal */
+    _use<TReturnType>(func: (settings: NativeDrawingSettings) => TReturnType): TReturnType {
+        const settings = new NativeDrawingSettings(this);
+        try {
+            return func(settings);
+        } finally {
+            settings.dispose();
+        }
+    }
+
+    /** @internal */
     static _create(settings: MagickSettings): DrawingSettings {
         const instance = new DrawingSettings();
 
@@ -29,15 +39,5 @@ export class DrawingSettings {
         instance.strokeWidth = settings.strokeWidth;
 
         return instance;
-    }
-
-    /** @internal */
-    _use<TReturnType>(func: (settings: NativeDrawingSettings) => TReturnType): TReturnType {
-        const settings = new NativeDrawingSettings(this);
-        try {
-            return func(settings);
-        } finally {
-            settings.dispose();
-        }
     }
 }

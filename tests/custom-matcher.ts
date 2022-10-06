@@ -73,5 +73,5 @@ expect.extend({
             pass: false,
             message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`,
         };
-    }) as () => { pass: boolean, message: () => string },
+    }) as () => { message: () => string, pass: boolean },
 });

@@ -31,33 +31,6 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
         this.image = image;
     }
 
-    /** @internal */
-    static _create(image: IMagickImage): PixelCollection {
-        return new PixelCollection(image);
-    }
-
-    /** @internal */
-    static _use<TReturnType>(image: IMagickImage, func: (pixels: IPixelCollection) => TReturnType): TReturnType {
-        const pixels = new PixelCollection(image);
-        try {
-            return func(pixels);
-        } finally {
-            pixels.dispose();
-        }
-    }
-
-    /** @internal */
-    static _map(image: IMagickImage, mapping: string, func: (instance: number) => void): void {
-        const pixels = new PixelCollection(image);
-        try {
-            pixels.use(0, 0, image.width, image.height, mapping, instance => {
-                func(instance);
-            });
-        } finally {
-            pixels.dispose();
-        }
-    }
-
     getArea(x: number, y: number, width: number, height: number): quantumArray {
         return Exception.usePointer(exception => {
             const instance = ImageMagick._api._PixelCollection_GetArea(this._instance, x, y, width, height, exception);
@@ -92,17 +65,6 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
         return this.use(x, y, width, height, mapping, instance => PixelCollection.createArray(instance, width, height, mapping.length));
     }
 
-    private static createArray(instance: number, width: number, height: number, channelCount: number): quantumArray | null {
-        if (instance === 0) return null;
-
-        try {
-            const count = width * height * channelCount;
-            return ImageMagick._api.HEAPU8.slice(instance, instance + count);
-        } finally {
-            instance = ImageMagick._api._MagickMemory_Relinquish(instance);
-        }
-    }
-
     private use<TReturnType>(x: number, y: number, width: number, height: number, mapping: string, func: (instance: number) => TReturnType): TReturnType | null {
         return _withString(mapping, mappingPtr => Exception.use(exception => {
             let instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception.ptr);
@@ -116,5 +78,43 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
                 return null;
             });
         }));
+    }
+
+    /** @internal */
+    static _create(image: IMagickImage): PixelCollection {
+        return new PixelCollection(image);
+    }
+
+    /** @internal */
+    static _map(image: IMagickImage, mapping: string, func: (instance: number) => void): void {
+        const pixels = new PixelCollection(image);
+        try {
+            pixels.use(0, 0, image.width, image.height, mapping, instance => {
+                func(instance);
+            });
+        } finally {
+            pixels.dispose();
+        }
+    }
+
+    /** @internal */
+    static _use<TReturnType>(image: IMagickImage, func: (pixels: IPixelCollection) => TReturnType): TReturnType {
+        const pixels = new PixelCollection(image);
+        try {
+            return func(pixels);
+        } finally {
+            pixels.dispose();
+        }
+    }
+
+    private static createArray(instance: number, width: number, height: number, channelCount: number): quantumArray | null {
+        if (instance === 0) return null;
+
+        try {
+            const count = width * height * channelCount;
+            return ImageMagick._api.HEAPU8.slice(instance, instance + count);
+        } finally {
+            instance = ImageMagick._api._MagickMemory_Relinquish(instance);
+        }
     }
 }

@@ -5,15 +5,15 @@ import { MagickFormat } from '../magick-format';
 import { IDefine } from './define';
 
 export class MagickDefine implements IDefine {
-    constructor(format: MagickFormat, name: string, value: string) {
-        this.format = format;
-        this.name = name;
-        this.value = value;
-    }
-
     readonly format: MagickFormat;
 
     readonly name: string;
 
     readonly value: string;
+
+    constructor(format: MagickFormat, name: string, value: string) {
+        this.format = format;
+        this.name = name;
+        this.value = value;
+    }
 }
