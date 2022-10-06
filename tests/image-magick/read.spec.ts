@@ -11,7 +11,7 @@ beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('ImageMagick#read', () => {
     it('should read built-in image async', async () => {
-        await ImageMagick.read('logo:', async image => {
+        await ImageMagick.read('logo:', image => {
             expect(image.width).toBe(640);
             expect(image.height).toBe(480);
         });

@@ -19,7 +19,7 @@ afterEach(() => {
 describe('MagickImage#write', () => {
     it('should save the image to an array async', async () => {
         image.read('wizard:');
-        await image.write(async data => {
+        await image.write(data => {
             expect(data.length).toBe(80796);
         }, MagickFormat.Jpeg);
     });

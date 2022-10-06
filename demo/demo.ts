@@ -11,7 +11,7 @@ import {
     initializeImageMagick,
 } from '@imagemagick/magick-wasm';
 
-initializeImageMagick().then(async () => {
+initializeImageMagick().then(() => {
     console.log(Magick.imageMagickVersion);
     console.log('Delegates:', Magick.delegates);
     console.log('Features:', Magick.features);

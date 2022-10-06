@@ -10,7 +10,7 @@ beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('ImageMagick#readCollection', () => {
     it('should read built-in image async', async () => {
-        await ImageMagick.readCollection('logo:', async images => {
+        await ImageMagick.readCollection('logo:', images => {
             expect(images.length).toBe(1);
             expect(images[0].width).toBe(640);
             expect(images[0].height).toBe(480);
