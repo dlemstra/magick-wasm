@@ -23,7 +23,7 @@ export abstract class NativeInstance implements NativeInstance {
     get _instance(): number {
         if (this.instance > 0) return this.instance;
 
-        if (this.instance === -1) this._instanceNotInitialized();
+        if (this.instance === -1) NativeInstance._instanceNotInitialized();
 
         throw new MagickError('instance is disposed');
     }
@@ -36,11 +36,6 @@ export abstract class NativeInstance implements NativeInstance {
 
     dispose(): void {
         this.instance = this.disposeInstance(this.instance);
-    }
-
-    /** @internal */
-    protected _instanceNotInitialized(): void {
-        throw new MagickError('instance is not initialized');
     }
 
     /** @internal */
@@ -57,5 +52,10 @@ export abstract class NativeInstance implements NativeInstance {
         if (instance > 0) this.disposeMethod(instance);
 
         return 0;
+    }
+
+    /** @internal */
+    protected static _instanceNotInitialized(): void {
+        throw new MagickError('instance is not initialized');
     }
 }

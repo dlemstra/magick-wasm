@@ -56,7 +56,7 @@ export class MagickGeometry {
                     const flags = ImageMagick._api._MagickGeometry_Initialize(instance, valuePtr);
                     if (flags === GeometryFlags.NoValue) throw new MagickError('invalid geometry specified');
 
-                    if (this.hasFlag(flags, GeometryFlags.AspectRatio)) {
+                    if (MagickGeometry.hasFlag(flags, GeometryFlags.AspectRatio)) {
                         this.initializeFromAspectRation(instance, widthOrValueOrX);
                     } else {
                         this.initialize(instance, flags);
@@ -166,42 +166,23 @@ export class MagickGeometry {
         this._height = ImageMagick._api._MagickGeometry_Height_Get(instance);
         this._x = ImageMagick._api._MagickGeometry_X_Get(instance);
         this._y = ImageMagick._api._MagickGeometry_Y_Get(instance);
-        this._ignoreAspectRatio = this.hasFlag(flags, GeometryFlags.IgnoreAspectRatio);
-        this._isPercentage = this.hasFlag(flags, GeometryFlags.PercentValue);
-        this._fillArea = this.hasFlag(flags, GeometryFlags.FillArea);
-        this._greater = this.hasFlag(flags, GeometryFlags.Greater);
-        this._less = this.hasFlag(flags, GeometryFlags.Less);
-        this._limitPixels = this.hasFlag(flags, GeometryFlags.LimitPixels);
+        this._ignoreAspectRatio = MagickGeometry.hasFlag(flags, GeometryFlags.IgnoreAspectRatio);
+        this._isPercentage = MagickGeometry.hasFlag(flags, GeometryFlags.PercentValue);
+        this._fillArea = MagickGeometry.hasFlag(flags, GeometryFlags.FillArea);
+        this._greater = MagickGeometry.hasFlag(flags, GeometryFlags.Greater);
+        this._less = MagickGeometry.hasFlag(flags, GeometryFlags.Less);
+        this._limitPixels = MagickGeometry.hasFlag(flags, GeometryFlags.LimitPixels);
     }
 
     private initializeFromAspectRation(instance: number, value: string) {
         this._aspectRatio = true;
 
         const ratio = value.split(':');
-        this._width = this.parseNumber(ratio[0]);
-        this._height = this.parseNumber(ratio[1]);
+        this._width = MagickGeometry.parseNumber(ratio[0]);
+        this._height = MagickGeometry.parseNumber(ratio[1]);
 
         this._x = ImageMagick._api._MagickGeometry_X_Get(instance);
         this._y = ImageMagick._api._MagickGeometry_Y_Get(instance);
-    }
-
-    private parseNumber(value: string): number {
-        let index = 0;
-
-        while (index < value.length && !this.isNumber(value[index])) index++;
-
-        const start = index;
-        while (index < value.length && this.isNumber(value[index])) index++;
-
-        return parseInt(value.substr(start, index - start));
-    }
-
-    private isNumber(character: string): boolean {
-        return character >= '0' && character <= '9';
-    }
-
-    private hasFlag(flags: number, flag: GeometryFlags) {
-        return (flags & flag) === flag;
     }
 
     /** @internal */
@@ -217,5 +198,14 @@ export class MagickGeometry {
         } finally {
             ImageMagick._api._MagickRectangle_Dispose(rectangle);
         }
+    }
+
+    private static parseNumber(value: string): number {
+        const numbers = value.match(/\d+/)![0];
+        return parseInt(numbers, 10);
+    }
+
+    private static hasFlag(flags: number, flag: GeometryFlags) {
+        return (flags & flag) === flag;
     }
 }

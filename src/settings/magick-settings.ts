@@ -66,7 +66,7 @@ export class MagickSettings {
         if (value === undefined) {
             this._options[nameOrFormat] = nameOrValue;
         } else {
-            const key = this.parseDefine(<MagickFormat>nameOrFormat, nameOrValue);
+            const key = nameOrFormat === MagickFormat.Unknown ? nameOrValue : `${nameOrFormat}:${nameOrValue}`;
             if (typeof value === 'string') this._options[key] = value;
             else if (typeof value === 'number') this._options[key] = value.toString();
             else this._options[key] = value ? 'true' : 'false';
@@ -77,11 +77,5 @@ export class MagickSettings {
         defines.getDefines().forEach(define => {
             if (define !== undefined) this.setDefine(define.format, define.name, define.value);
         });
-    }
-
-    private parseDefine(format: MagickFormat, name: string): string {
-        if (format === MagickFormat.Unknown) return name;
-
-        return `${format}:${name}`;
     }
 }

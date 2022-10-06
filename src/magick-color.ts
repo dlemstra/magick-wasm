@@ -78,15 +78,15 @@ export class MagickColor {
     toShortString(): string {
         if (this._a !== Quantum.max) return this.toString();
 
-        if (this.isCmyk) return `cmyka(${this._r},${this._g},${this._b},${this._k})`;
+        if (this.isCmyk) return this.toCmyk(false);
 
-        return `#${this.toHex(this._r)}${this.toHex(this._g)}${this.toHex(this._b)}`;
+        return this.toHex(false);
     }
 
     toString(): string {
-        if (this.isCmyk) return `cmyka(${this._r},${this._g},${this._b},${this._k},${(this._a / Quantum.max).toFixed(4)})`;
+        if (this.isCmyk) return this.toCmyk(true);
 
-        return `#${this.toHex(this._r)}${this.toHex(this._g)}${this.toHex(this._b)}${this.toHex(this._a)}`;
+        return this.toHex(true);
     }
 
     /** @internal */
@@ -113,15 +113,24 @@ export class MagickColor {
         this._isCmyk = ImageMagick._api._MagickColor_IsCMYK_Get(instance) === 1;
     }
 
-    private toHex(value: number) {
-        return value.toString(16).padStart(2, '0');
+    private toCmyk(withAlpha: boolean) {
+        const alpha = (this._a / Quantum.max).toFixed(4);
+
+        return `cmyka(${this._r},${this._g},${this._b},${this._k}${withAlpha ? `,${alpha}` : ''})`;
+    }
+
+    private toHex(withAlpha: boolean) {
+        return `#${MagickColor.floatToHex(this._r)}${MagickColor.floatToHex(this._g)}${MagickColor.floatToHex(this._b)}${withAlpha ? MagickColor.floatToHex(this._a) : ''}`;
     }
 
     /** @internal */
     static _create(colorPtr: number): MagickColor {
         const color = new MagickColor();
         color.initialize(colorPtr);
-
         return color;
+    }
+
+    private static floatToHex(value: number) {
+        return value.toString(16).padStart(2, '0');
     }
 }
