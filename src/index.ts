@@ -37,4 +37,3 @@ export * from './drawables/drawable-font-point-size';
 export * from './drawables/drawable-font';
 export * from './drawables/drawable-text';
 export * from './drawables/drawing-wand';
-export { ImageMagick, initializeImageMagick } from './image-magick';
