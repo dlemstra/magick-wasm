@@ -120,7 +120,7 @@ export class MagickGeometry {
         if (this._height > 0) result += `x${this._height.toString()}`;
         else result += 'x';
 
-        if (this._x != 0 || this._y != 0) {
+        if (this._x || this._y) {
             if (this._x >= 0) result += '+';
 
             result += this._x;

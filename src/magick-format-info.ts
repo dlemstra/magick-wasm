@@ -68,8 +68,8 @@ export class MagickFormatInfo {
 
                     const format = MagickFormatInfo.convertFormat(formatName, values);
                     const description = _createString(ImageMagick._api._MagickFormatInfo_Description_Get(info), '');
-                    const isReadable = ImageMagick._api._MagickFormatInfo_IsReadable_Get(info) == 1;
-                    const isWritable = ImageMagick._api._MagickFormatInfo_IsWritable_Get(info) == 1;
+                    const isReadable = !!ImageMagick._api._MagickFormatInfo_IsReadable_Get(info);
+                    const isWritable = !!ImageMagick._api._MagickFormatInfo_IsWritable_Get(info);
                     result[i] = new MagickFormatInfo(format, description, isReadable, isWritable);
                 }
                 return result;

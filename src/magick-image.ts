@@ -1052,7 +1052,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     trim(percentage: Percentage): void;
     trim(...args: Gravity[] | Percentage[]): void {
         if (args.length > 0) {
-            if (args.length == 1 && args[0] instanceof Percentage) {
+            if (args.length === 1 && args[0] instanceof Percentage) {
                 const percentage = args[0];
                 this.setArtifact('trim:percent-background', percentage.toDouble().toString());
             } else {
