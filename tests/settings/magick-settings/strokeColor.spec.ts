@@ -22,7 +22,7 @@ describe('MagickSettings#strokeColor', () => {
         settings.fontPointsize = 100;
         settings.strokeColor = new MagickColor('pink');
 
-        ImageMagick.read('label:X', settings, (image) => {
+        ImageMagick.read('label:X', settings, image => {
             expect(image.width).toBe(76);
             expect(image.height).toBe(147);
             expect(image).toHavePixelWithColor(39, 75, '#ffc0cbff');

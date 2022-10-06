@@ -2,15 +2,15 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
+import { MagickFormat } from '../../src/magick-format';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
-import { MagickFormat } from '../../src/magick-format';
 
 beforeAll(() => { ImageMagick._api = (global as any).native; });
 
 describe('ImageMagick#readCollection', () => {
     it('should read built-in image async', async () => {
-        await ImageMagick.readCollection('logo:', async (images) => {
+        await ImageMagick.readCollection('logo:', async images => {
             expect(images.length).toBe(1);
             expect(images[0].width).toBe(640);
             expect(images[0].height).toBe(480);
@@ -18,7 +18,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read built-in image', () => {
-        ImageMagick.readCollection('wizard:', (images) => {
+        ImageMagick.readCollection('wizard:', images => {
             expect(images.length).toBe(1);
             expect(images[0].width).toBe(480);
             expect(images[0].height).toBe(640);
@@ -27,7 +27,7 @@ describe('ImageMagick#readCollection', () => {
 
     it('should read image from array async', async () => {
         const data = await TestFiles.roseSparkleGif.toBuffer();
-        await ImageMagick.readCollection(data, (images) => {
+        await ImageMagick.readCollection(data, images => {
             expect(images.length).toBe(3);
             images.forEach(image => {
                 expect(image.width).toBe(70);
@@ -38,7 +38,7 @@ describe('ImageMagick#readCollection', () => {
 
     it('should read image from array', () => {
         const data = TestFiles.roseSparkleGif.toBufferSync();
-        ImageMagick.readCollection(data, (images) => {
+        ImageMagick.readCollection(data, images => {
             expect(images.length).toBe(3);
             images.forEach(image => {
                 expect(image.width).toBe(70);
@@ -49,7 +49,7 @@ describe('ImageMagick#readCollection', () => {
 
     it('should read image from array with settings async', async () => {
         const settings = new MagickReadSettings({
-            format: MagickFormat.Png
+            format: MagickFormat.Png,
         });
 
         const data = await TestFiles.roseSparkleGif.toBuffer();
@@ -62,7 +62,7 @@ describe('ImageMagick#readCollection', () => {
 
     it('should read image from array with settings', () => {
         const settings = new MagickReadSettings({
-            format: MagickFormat.Png
+            format: MagickFormat.Png,
         });
 
         const data = TestFiles.roseSparkleGif.toBufferSync();

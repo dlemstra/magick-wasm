@@ -35,5 +35,5 @@ export enum EvaluateOperator {
     ThresholdWhite,
     UniformNoise,
     Xor,
-    InverseLog
+    InverseLog,
 }

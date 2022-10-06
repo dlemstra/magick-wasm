@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 
 let image: IMagickImage;
 let writeMask: IMagickImage;
@@ -30,7 +30,7 @@ describe('MagickImage#removeWriteMask', () => {
             expect(mask).not.toBeNull();
         });
 
-        image.removeWriteMask()
+        image.removeWriteMask();
 
         image.getWriteMask(mask => {
             expect(mask).toBeNull();

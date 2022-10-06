@@ -1,13 +1,13 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { quantumArray } from '@dlemstra/magick-native/magick';
 import { ImageMagick } from '../image-magick';
 import { Exception } from '../internal/exception/exception';
 import { NativeInstance } from '../internal/native-instance';
-import { IMagickImage } from '../magick-image';
-import { quantumArray } from '@dlemstra/magick-native/magick';
 import { _withQuantumArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
+import { IMagickImage } from '../magick-image';
 
 export interface IPixelCollection {
     getArea(x: number, y: number, width: number, height: number): quantumArray;
@@ -23,9 +23,7 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     private readonly image: IMagickImage;
 
     private constructor(image: IMagickImage) {
-        const instance = Exception.usePointer(exception => {
-            return ImageMagick._api._PixelCollection_Create(image._instance, exception);
-        });
+        const instance = Exception.usePointer(exception => ImageMagick._api._PixelCollection_Create(image._instance, exception));
         const disposeMethod = ImageMagick._api._PixelCollection_Dispose;
 
         super(instance, disposeMethod);
@@ -55,8 +53,7 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
             pixels.use(0, 0, image.width, image.height, mapping, instance => {
                 func(instance);
             });
-        }
-        finally {
+        } finally {
             pixels.dispose();
         }
     }
@@ -87,45 +84,37 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     setPixel(x: number, y: number, quantumPixels: quantumArray): void;
     setPixel(x: number, y: number, numberPixels: number[]): void;
     setPixel(x: number, y: number, quantumPixelsOrNumberPixels: quantumArray | number[]): void {
-        if (quantumPixelsOrNumberPixels instanceof Uint8Array)
-            this.setArea(x, y, 1, 1, quantumPixelsOrNumberPixels);
-        else
-            this.setArea(x, y, 1, 1, quantumPixelsOrNumberPixels);
+        if (quantumPixelsOrNumberPixels instanceof Uint8Array) this.setArea(x, y, 1, 1, quantumPixelsOrNumberPixels);
+        else this.setArea(x, y, 1, 1, quantumPixelsOrNumberPixels);
     }
 
     toByteArray(x: number, y: number, width: number, height: number, mapping: string): quantumArray | null {
-        return this.use(x, y, width, height, mapping, instance => {
-            return PixelCollection.createArray(instance, width, height, mapping.length);
-        });
+        return this.use(x, y, width, height, mapping, instance => PixelCollection.createArray(instance, width, height, mapping.length));
     }
 
     private static createArray(instance: number, width: number, height: number, channelCount: number): quantumArray | null {
-        if (instance === 0)
-            return null;
+        if (instance === 0) return null;
 
         try {
             const count = width * height * channelCount;
             return ImageMagick._api.HEAPU8.slice(instance, instance + count);
-        }
-        finally {
+        } finally {
             instance = ImageMagick._api._MagickMemory_Relinquish(instance);
         }
     }
 
     private use<TReturnType>(x: number, y: number, width: number, height: number, mapping: string, func: (instance: number) => TReturnType): TReturnType | null {
-        return _withString(mapping, mappingPtr => {
-            return Exception.use(exception => {
-                let instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception.ptr);
+        return _withString(mapping, mappingPtr => Exception.use(exception => {
+            let instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception.ptr);
 
-                return exception.check(() => {
-                    const result = func(instance);
-                    instance = ImageMagick._api._MagickMemory_Relinquish(instance);
-                    return result;
-                }, () => {
-                    instance = ImageMagick._api._MagickMemory_Relinquish(instance);
-                    return null;
-                });
+            return exception.check(() => {
+                const result = func(instance);
+                instance = ImageMagick._api._MagickMemory_Relinquish(instance);
+                return result;
+            }, () => {
+                instance = ImageMagick._api._MagickMemory_Relinquish(instance);
+                return null;
             });
-        });
+        }));
     }
 }

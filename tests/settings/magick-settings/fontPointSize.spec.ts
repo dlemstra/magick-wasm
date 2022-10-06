@@ -19,7 +19,7 @@ describe('MagickSettings#fontPointSize', () => {
         settings.font = 'test';
         settings.fontPointsize = 90;
 
-        ImageMagick.read('label:magick-wasm', settings, (image) => {
+        ImageMagick.read('label:magick-wasm', settings, image => {
             expect(image.width).toBe(529);
             expect(image.height).toBe(133);
         });

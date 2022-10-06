@@ -10,6 +10,7 @@ export interface INativeInstance {
 
 export abstract class NativeInstance implements NativeInstance {
     private readonly disposeMethod: (instance: number) => void;
+
     private instance: number;
 
     /** @internal */
@@ -20,14 +21,13 @@ export abstract class NativeInstance implements NativeInstance {
 
     /** @internal */
     get _instance(): number {
-        if (this.instance > 0)
-            return this.instance;
+        if (this.instance > 0) return this.instance;
 
-        if (this.instance === -1)
-            this._instanceNotInitialized();
+        if (this.instance === -1) this._instanceNotInitialized();
 
         throw new MagickError('instance is disposed');
     }
+
     /** @internal */
     set _instance(instance: number) {
         this.disposeInstance(this.instance);
@@ -54,8 +54,7 @@ export abstract class NativeInstance implements NativeInstance {
     }
 
     private disposeInstance(instance: number): number {
-        if (instance > 0)
-            this.disposeMethod(instance);
+        if (instance > 0) this.disposeMethod(instance);
 
         return 0;
     }

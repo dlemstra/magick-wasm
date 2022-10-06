@@ -3,8 +3,8 @@
 
 import { Channels } from '../../src/channels';
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import '../custom-matcher';
 
 let image: IMagickImage;

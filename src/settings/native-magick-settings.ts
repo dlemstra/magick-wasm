@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../image-magick';
-import { Magick } from '../magick';
-import { MagickSettings } from './magick-settings';
 import { NativeInstance } from '../internal/native-instance';
 import { _withString } from '../internal/native/string';
+import { Magick } from '../magick';
+import { MagickSettings } from './magick-settings';
 
 /** @internal */
 export class NativeMagickSettings extends NativeInstance {
@@ -20,20 +20,17 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
-        if (settings._ping)
-            ImageMagick._api._MagickSettings_SetPing(this._instance, 1);
+        if (settings._ping) ImageMagick._api._MagickSettings_SetPing(this._instance, 1);
 
-        if (settings._quality !== undefined)
-            ImageMagick._api._MagickSettings_SetQuality(this._instance, settings._quality);
+        if (settings._quality !== undefined) ImageMagick._api._MagickSettings_SetQuality(this._instance, settings._quality);
 
         if (settings.backgroundColor !== undefined) {
-            settings.backgroundColor._use((ptr) => {
+            settings.backgroundColor._use(ptr => {
                 ImageMagick._api._MagickSettings_BackgroundColor_Set(this._instance, ptr);
             });
         }
 
-        if (settings.fillColor !== undefined)
-            this.setOption('fill', settings.fillColor.toString());
+        if (settings.fillColor !== undefined) this.setOption('fill', settings.fillColor.toString());
 
         if (settings.font !== undefined) {
             const fileName = Magick._getFontFileName(settings.font);
@@ -43,8 +40,7 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
-        if (settings.fontPointsize !== undefined)
-            ImageMagick._api._MagickSettings_FontPointsize_Set(this._instance, settings.fontPointsize);
+        if (settings.fontPointsize !== undefined) ImageMagick._api._MagickSettings_FontPointsize_Set(this._instance, settings.fontPointsize);
 
         if (settings.format !== undefined) {
             _withString(settings.format, ptr => {
@@ -52,14 +48,11 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
-        if (settings.strokeColor !== undefined)
-            this.setOption('stroke', settings.strokeColor.toString());
+        if (settings.strokeColor !== undefined) this.setOption('stroke', settings.strokeColor.toString());
 
-        if (settings.strokeWidth !== undefined)
-            this.setOption('strokeWidth', settings.strokeWidth.toString());
+        if (settings.strokeWidth !== undefined) this.setOption('strokeWidth', settings.strokeWidth.toString());
 
-        for (const option in settings._options)
-            this.setOption(option, settings._options[option]);
+        for (const option in settings._options) this.setOption(option, settings._options[option]);
     }
 
     private setOption(option: string, value: string) {

@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IMagickImage } from "../src/magick-image";
-import { MagickColor } from "../src/magick-color";
-import { PixelChannel } from "../src/pixel-channel";
-import { Quantum } from "../src/quantum";
+import { MagickColor } from '../src/magick-color';
+import { IMagickImage } from '../src/magick-image';
+import { PixelChannel } from '../src/pixel-channel';
+import { Quantum } from '../src/quantum';
 
 interface CustomMatchers {
     toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => void;
@@ -25,9 +25,8 @@ function toHex(value: number): string {
 
 function pixelColor(image: IMagickImage, x: number, y: number): string {
     return image.getPixels(pixels => {
-        let channelCount = image.channelCount;
-        if (image.channelOffset(PixelChannel.Index) !== -1)
-            channelCount--;
+        let { channelCount } = image;
+        if (image.channelOffset(PixelChannel.Index) !== -1) channelCount--;
 
         const pixel = pixels.getPixel(x, y);
         let result = '#';
@@ -39,10 +38,8 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
                 break;
             case 2:
                 result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
-                if (image.hasAlpha)
-                    result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
-                else
-                    result += toHex(Quantum.max);
+                if (image.hasAlpha) result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
+                else result += toHex(Quantum.max);
                 break;
             case 3:
                 result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
@@ -54,10 +51,8 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
                 result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
                 result += toHex(pixel[image.channelOffset(PixelChannel.Green)]);
                 result += toHex(pixel[image.channelOffset(PixelChannel.Blue)]);
-                if (image.hasAlpha)
-                    result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
-                else
-                    result += toHex(Quantum.max);
+                if (image.hasAlpha) result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
+                else result += toHex(Quantum.max);
                 break;
         }
 
@@ -71,12 +66,12 @@ expect.extend({
         const expectedColor = colorOrString.toString();
 
         if (expectedColor === actualColor) {
-            return { pass: true, message: () => '' }
+            return { pass: true, message: () => '' };
         }
 
         return {
             pass: false,
-            message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`
+            message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`,
         };
     }) as () => { pass: boolean, message: () => string },
 });

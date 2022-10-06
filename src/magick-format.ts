@@ -265,5 +265,5 @@ export enum MagickFormat {
     Yaml = 'YAML',
     Ycbcr = 'YCbCr',
     Ycbcra = 'YCbCrA',
-    Yuv = 'YUV'
+    Yuv = 'YUV',
 }

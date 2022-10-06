@@ -4,7 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestFiles  } from '../test-files';
+import { TestFiles } from '../test-files';
 import '../custom-matcher';
 
 let image: IMagickImage;
@@ -21,9 +21,9 @@ afterEach(() => {
 describe('MagickImage#ping', () => {
     const exceptImageToNotHavePixelData = (image: IMagickImage) => {
         expect(() => {
-            image.getPixels(pixels => { pixels === undefined })
-        }).toThrowError('image contains no pixel data')
-    }
+            image.getPixels(pixels => { pixels === undefined; });
+        }).toThrowError('image contains no pixel data');
+    };
 
     it('should ping built-in image', () => {
         image.ping('logo:');
@@ -44,7 +44,7 @@ describe('MagickImage#ping', () => {
     it('should use settings when pinging image', () => {
         const settings = new MagickReadSettings({
             width: 2,
-            height: 2
+            height: 2,
         });
 
         image.ping('pattern:checkerboard', settings);

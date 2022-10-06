@@ -24,5 +24,5 @@ export enum MagickErrorSeverity {
     MonitorError = 485,
     RegistryError = 490,
     ConfigureError = 495,
-    PolicyError = 499
+    PolicyError = 499,
 }

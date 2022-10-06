@@ -4,10 +4,10 @@
 import { Channels } from '../../src/channels';
 import { EvaluateOperator } from '../../src/evaluate-operator';
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickGeometry } from '../../src/magick-geometry';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { Quantum } from '../../src/quantum';
 import '../custom-matcher';
 
@@ -46,7 +46,7 @@ describe('MagickImage#evaluate', () => {
 
         ImageMagick.read(MagickColors.White, 2, 1, mask => {
             mask.getPixels(pixels => {
-                pixels.setPixel(0, 0, [ 0, 0, 0 ]);
+                pixels.setPixel(0, 0, [0, 0, 0]);
             });
 
             image.setWriteMask(mask);

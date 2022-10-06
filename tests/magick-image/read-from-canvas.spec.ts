@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { JSDOM } from 'jsdom';
+import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import '../custom-matcher';
 
 let image: IMagickImage;
@@ -20,16 +20,16 @@ afterEach(() => {
 
 describe('MagickImage#readFromCanvas', () => {
     it('should read the image data from the canvas', () => {
-        const window = new JSDOM().window;
+        const { window } = new JSDOM();
 
         const canvas = window.document.createElement('canvas');
         canvas.width = 1;
         canvas.height = 2;
 
-        window.HTMLCanvasElement.prototype.getContext = <any> vi.fn(function(contextId: string) {
+        window.HTMLCanvasElement.prototype.getContext = <any> vi.fn((contextId: string) => {
             expect(contextId).toBe('2d');
             return {
-                getImageData: function(x: number, y: number, width: number, height: number) {
+                getImageData(x: number, y: number, width: number, height: number) {
                     expect(x).toBe(0);
                     expect(y).toBe(0);
                     expect(width).toBe(canvas.width);
@@ -37,10 +37,10 @@ describe('MagickImage#readFromCanvas', () => {
                     return {
                         data: new Uint8ClampedArray([
                             255, 0, 255, 255,
-                            255, 0, 0, 255
-                        ])
-                    }
-                }
+                            255, 0, 0, 255,
+                        ]),
+                    };
+                },
             };
         });
 

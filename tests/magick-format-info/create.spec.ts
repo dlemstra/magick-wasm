@@ -11,8 +11,7 @@ describe('MagickFormatInfo#create', () => {
     it('should return information for each format', () => {
         const formats = Object.values(MagickFormat);
         formats.forEach(format => {
-            if (format === MagickFormat.Unknown)
-                return;
+            if (format === MagickFormat.Unknown) return;
 
             const formatInfo = MagickFormatInfo.create(format);
             expect(formatInfo.format).toBe(format);
@@ -21,7 +20,7 @@ describe('MagickFormatInfo#create', () => {
 
     it('should throw error when format is unknown', () => {
         expect(() => {
-            MagickFormatInfo.create(<MagickFormat>"FOOBAR");
+            MagickFormatInfo.create(<MagickFormat>'FOOBAR');
         }).toThrowError('unable to get format info for FOOBAR');
     });
 });

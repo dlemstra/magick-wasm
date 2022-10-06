@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickFormat } from '../../src/magick-format';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 
 let image: IMagickImage;
 
@@ -19,14 +19,14 @@ afterEach(() => {
 describe('MagickImage#write', () => {
     it('should save the image to an array async', async () => {
         image.read('wizard:');
-        await image.write(async (data) => {
+        await image.write(async data => {
             expect(data.length).toBe(80796);
         }, MagickFormat.Jpeg);
     });
 
     it('should save the image to an array', () => {
         image.read('logo:');
-        image.write((data) => {
+        image.write(data => {
             expect(data.length).toBe(27450);
         }, MagickFormat.Png);
     });

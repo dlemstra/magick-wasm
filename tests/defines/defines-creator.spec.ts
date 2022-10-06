@@ -7,12 +7,12 @@ import { MagickFormat } from '../../src/magick-format';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 
 class TestDefinesCreator extends DefinesCreator {
-    constructor () {
+    constructor() {
         super(MagickFormat.A);
     }
 
-    getDefines (): IDefine[] {
-        return [this.createDefine("test", "empty")];
+    getDefines(): IDefine[] {
+        return [this.createDefine('test', 'empty')];
     }
 }
 
@@ -21,6 +21,6 @@ describe('DefinesCreator', () => {
         const readSettings = new MagickReadSettings();
         readSettings.setDefines(new TestDefinesCreator());
 
-        expect(readSettings.getDefine(MagickFormat.A, 'test')).toBe("empty");
+        expect(readSettings.getDefine(MagickFormat.A, 'test')).toBe('empty');
     });
 });

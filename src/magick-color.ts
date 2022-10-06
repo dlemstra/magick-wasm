@@ -2,16 +2,21 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from './image-magick';
+import { _withString } from './internal/native/string';
 import { MagickError } from './magick-error';
 import { Quantum } from './quantum';
-import { _withString } from './internal/native/string';
 
 export class MagickColor {
     private _r = 0;
+
     private _g = 0;
+
     private _b = 0;
+
     private _a = 0;
+
     private _k = 0;
+
     private _isCmyk = false;
 
     constructor(color?: string);
@@ -19,16 +24,14 @@ export class MagickColor {
     constructor(r: number, g: number, b: number, a: number);
     constructor(c: number, m: number, y: number, k: number, a: number);
     constructor(colorOrRed?: string | number, g?: number, b?: number, aOrK?: number, a?: number) {
-        if (colorOrRed === undefined)
-            return;
+        if (colorOrRed === undefined) return;
 
         if (typeof colorOrRed === 'string') {
             let instance = 0;
             try {
                 instance = ImageMagick._api._MagickColor_Create();
                 _withString(colorOrRed, colorPtr => {
-                    if (ImageMagick._api._MagickColor_Initialize(instance, colorPtr) === 0)
-                        throw new MagickError('invalid color specified');
+                    if (ImageMagick._api._MagickColor_Initialize(instance, colorPtr) === 0) throw new MagickError('invalid color specified');
                     this.initialize(instance);
                 });
             } finally {
@@ -56,36 +59,38 @@ export class MagickColor {
         return color;
     }
 
-    get r(): number { return this._r }
+    get r(): number { return this._r; }
+
     set r(value: number) { this._r = value; }
 
-    get g(): number { return this._g }
+    get g(): number { return this._g; }
+
     set g(value: number) { this._g = value; }
 
-    get b(): number { return this._b }
+    get b(): number { return this._b; }
+
     set b(value: number) { this._b = value; }
 
-    get a(): number { return this._a }
+    get a(): number { return this._a; }
+
     set a(value: number) { this._a = value; }
 
-    get k(): number { return this._k }
+    get k(): number { return this._k; }
+
     set k(value: number) { this._k = value; }
 
-    get isCmyk(): boolean { return this._isCmyk }
+    get isCmyk(): boolean { return this._isCmyk; }
 
     toShortString(): string {
-        if (this._a !== Quantum.max)
-            return this.toString();
+        if (this._a !== Quantum.max) return this.toString();
 
-        if (this.isCmyk)
-            return `cmyka(${this._r},${this._g},${this._b},${this._k})`;
+        if (this.isCmyk) return `cmyka(${this._r},${this._g},${this._b},${this._k})`;
 
         return `#${this.toHex(this._r)}${this.toHex(this._g)}${this.toHex(this._b)}`;
     }
 
     toString(): string {
-        if (this.isCmyk)
-            return `cmyka(${this._r},${this._g},${this._b},${this._k},${(this._a / Quantum.max).toFixed(4)})`;
+        if (this.isCmyk) return `cmyka(${this._r},${this._g},${this._b},${this._k},${(this._a / Quantum.max).toFixed(4)})`;
 
         return `#${this.toHex(this._r)}${this.toHex(this._g)}${this.toHex(this._b)}${this.toHex(this._a)}`;
     }

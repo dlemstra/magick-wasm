@@ -18,5 +18,5 @@ export enum VirtualPixelMethod {
     VerticalTile,
     HorizontalTileEdge,
     VerticalTileEdge,
-    CheckerTile
+    CheckerTile,
 }

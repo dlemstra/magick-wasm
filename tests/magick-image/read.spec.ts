@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestFiles  } from '../test-files';
+import { TestFiles } from '../test-files';
 import '../custom-matcher';
 
 let image: IMagickImage;
@@ -36,7 +36,7 @@ describe('MagickImage#read', () => {
     it('should read correct image when width and height are specified', () => {
         const settings = new MagickReadSettings({
             width: 2,
-            height: 3
+            height: 3,
         });
 
         image.read('xc:red', settings);
@@ -46,7 +46,7 @@ describe('MagickImage#read', () => {
 
     it('should read correct image when height is specified', () => {
         const settings = new MagickReadSettings({
-            width: 2
+            width: 2,
         });
 
         image.read('xc:red', settings);
@@ -56,7 +56,7 @@ describe('MagickImage#read', () => {
 
     it('should read correct image when width is specified', () => {
         const settings = new MagickReadSettings({
-            height: 2
+            height: 2,
         });
 
         image.read('xc:red', settings);

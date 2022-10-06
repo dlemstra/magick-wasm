@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 
 let image: IMagickImage;
 
@@ -18,7 +18,7 @@ afterEach(() => {
 
 describe('MagickImage#borderColor', () => {
     it('should return the border color of the image', () => {
-        const borderColor = image.borderColor;
+        const { borderColor } = image;
         expect(borderColor.r).toBe(223);
         expect(borderColor.g).toBe(223);
         expect(borderColor.b).toBe(223);
@@ -27,7 +27,7 @@ describe('MagickImage#borderColor', () => {
 
     it('should change border color', () => {
         image.borderColor = MagickColors.Black;
-        const borderColor = image.borderColor;
+        const { borderColor } = image;
         expect(borderColor.r).toBe(0);
         expect(borderColor.g).toBe(0);
         expect(borderColor.b).toBe(0);

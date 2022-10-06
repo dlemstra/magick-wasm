@@ -3,9 +3,9 @@
 
 import { Channels } from '../../src/channels';
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { Percentage } from '../../src/percentage';
 import '../custom-matcher';
 
@@ -14,7 +14,7 @@ let image: IMagickImage;
 beforeEach(() => {
     ImageMagick._api = (global as any).native;
     image = MagickImage.create();
-    image.read("wizard:");
+    image.read('wizard:');
 });
 
 afterEach(() => {

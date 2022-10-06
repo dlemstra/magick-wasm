@@ -1,16 +1,16 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawingSettings } from "../settings/drawing-settings";
-import { Exception } from "../internal/exception/exception";
-import { IDrawable } from "./drawable";
-import { ImageMagick } from "../image-magick";
-import { IMagickImage } from "../magick-image";
-import { MagickColor } from "../magick-color";
-import { MagickSettings } from "../settings/magick-settings";
-import { NativeInstance } from "../internal/native-instance";
-import { PaintMethod } from "../paint-method";
-import { _withString } from "../internal/native/string";
+import { ImageMagick } from '../image-magick';
+import { Exception } from '../internal/exception/exception';
+import { NativeInstance } from '../internal/native-instance';
+import { _withString } from '../internal/native/string';
+import { MagickColor } from '../magick-color';
+import { IMagickImage } from '../magick-image';
+import { PaintMethod } from '../paint-method';
+import { DrawingSettings } from '../settings/drawing-settings';
+import { MagickSettings } from '../settings/magick-settings';
+import { IDrawable } from './drawable';
 
 export interface IDrawingWand extends NativeInstance {
     color(x: number, y: number, paintMethod: number): void;
@@ -25,9 +25,7 @@ export interface IDrawingWand extends NativeInstance {
 export class DrawingWand extends NativeInstance implements IDrawingWand {
     private constructor(image: IMagickImage, magickSettings: MagickSettings) {
         const drawingSettings = DrawingSettings._create(magickSettings);
-        const instance = drawingSettings._use(settings => {
-            return ImageMagick._api._DrawingWand_Create(image._instance, settings._instance);
-        });
+        const instance = drawingSettings._use(settings => ImageMagick._api._DrawingWand_Create(image._instance, settings._instance));
         const disposeMethod = ImageMagick._api._DrawingWand_Dispose;
         super(instance, disposeMethod);
     }

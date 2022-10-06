@@ -5,5 +5,5 @@ export enum AutoThresholdMethod {
     Undefined,
     Kapur,
     OTSU,
-    Triangle
+    Triangle,
 }

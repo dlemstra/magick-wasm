@@ -16,7 +16,7 @@ describe('Magick#addFont', () => {
         const settings = new MagickReadSettings();
         settings.font = 'foo';
 
-        ImageMagick.read('label:magick-wasm', settings, (image) => {
+        ImageMagick.read('label:magick-wasm', settings, image => {
             expect(image.width).toBe(73);
             expect(image.height).toBe(20);
         });

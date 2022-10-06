@@ -5,7 +5,6 @@ import { MagickGeometry } from '../magick-geometry';
 import { IMagickImage } from '../magick-image';
 
 export class DistortSettings {
-
     bestFit = false;
 
     scale?: number;
@@ -14,17 +13,13 @@ export class DistortSettings {
 
     /** @internal */
     _removeArtifacts(image: IMagickImage): void {
-        if (this.scale !== undefined)
-            image.removeArtifact('distort:scale');
-        if (this.viewport !== undefined)
-            image.removeArtifact('distort:viewport');
+        if (this.scale !== undefined) image.removeArtifact('distort:scale');
+        if (this.viewport !== undefined) image.removeArtifact('distort:viewport');
     }
 
     /** @internal */
     _setArtifacts(image: IMagickImage): void {
-        if (this.scale !== undefined)
-            image.setArtifact('distort:scale', this.scale.toString());
-        if (this.viewport !== undefined)
-            image.setArtifact('distort:viewport', this.viewport.toString());
+        if (this.scale !== undefined) image.setArtifact('distort:scale', this.scale.toString());
+        if (this.viewport !== undefined) image.setArtifact('distort:viewport', this.viewport.toString());
     }
 }

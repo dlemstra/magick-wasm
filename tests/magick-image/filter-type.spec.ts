@@ -18,13 +18,13 @@ afterEach(() => {
 
 describe('MagickImage#filterType', () => {
     it('should return the filter type the image', () => {
-        const filterType = image.filterType;
+        const { filterType } = image;
         expect(filterType).toBe(FilterType.Undefined);
     });
 
     it('should change the filter type', () => {
         image.filterType = FilterType.Lanczos;
-        const filterType = image.filterType;
+        const { filterType } = image;
         expect(filterType).toBe(FilterType.Lanczos);
     });
 });

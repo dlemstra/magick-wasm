@@ -35,5 +35,5 @@ export enum ColorSpace {
     YIQ,
     YPbPr,
     YUV,
-    LinearGray
+    LinearGray,
 }

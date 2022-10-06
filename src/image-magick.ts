@@ -2,15 +2,16 @@
 // Licensed under the Apache License, Version 2.0.
 
 import MagickNative, { ImageMagickApi } from '@dlemstra/magick-native/magick';
-import { IMagickImage, MagickImage } from './magick-image';
-import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
+import { _withNativeString } from './internal/native/string';
 import { MagickColor } from './magick-color';
 import { MagickError } from './magick-error';
+import { IMagickImage, MagickImage } from './magick-image';
+import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
 import { MagickReadSettings } from './settings/magick-read-settings';
-import { _withNativeString } from './internal/native/string';
 
 export class ImageMagick {
     private readonly loader: () => Promise<void>;
+
     private api?: ImageMagickApi;
 
     private constructor() {
@@ -40,7 +41,7 @@ export class ImageMagick {
     /** @internal */
     static get _api(): ImageMagickApi {
         if (instance.api === undefined) // eslint-disable-line @typescript-eslint/no-use-before-define
-            throw new MagickError('`await initializeImageMagick` should be called to initialize the library');
+        { throw new MagickError('`await initializeImageMagick` should be called to initialize the library'); }
 
         return instance.api; // eslint-disable-line @typescript-eslint/no-use-before-define
     }
@@ -63,27 +64,19 @@ export class ImageMagick {
     static read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, funcOrSettingsOrWidth: MagickReadSettings | ((image: IMagickImage) => void | Promise<void>) | number, funcOrheight?: ((image: IMagickImage) => void | Promise<void>) | number, func?: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
         MagickImage._use(image => {
             if (fileNameOrArrayOrColor instanceof MagickColor) {
-                if (typeof funcOrSettingsOrWidth === 'number' && typeof funcOrheight === 'number')
-                    image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth, funcOrheight);
+                if (typeof funcOrSettingsOrWidth === 'number' && typeof funcOrheight === 'number') image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth, funcOrheight);
 
-                if (func !== undefined)
-                    return func(image);
+                if (func !== undefined) return func(image);
             } else if (funcOrSettingsOrWidth instanceof MagickReadSettings) {
-                if (typeof fileNameOrArrayOrColor === 'string')
-                    image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
-                else
-                    image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
+                if (typeof fileNameOrArrayOrColor === 'string') image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
+                else image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
 
-                if (funcOrheight !== undefined && typeof funcOrheight !== 'number')
-                    return funcOrheight(image);
+                if (funcOrheight !== undefined && typeof funcOrheight !== 'number') return funcOrheight(image);
             } else {
-                if (typeof fileNameOrArrayOrColor === 'string')
-                    image.read(fileNameOrArrayOrColor);
-                else
-                    image.read(fileNameOrArrayOrColor);
+                if (typeof fileNameOrArrayOrColor === 'string') image.read(fileNameOrArrayOrColor);
+                else image.read(fileNameOrArrayOrColor);
 
-                if (typeof funcOrSettingsOrWidth !== 'number')
-                    return funcOrSettingsOrWidth(image);
+                if (typeof funcOrSettingsOrWidth !== 'number') return funcOrSettingsOrWidth(image);
             }
         });
     }
@@ -96,22 +89,17 @@ export class ImageMagick {
     static readCollection(fileName: string, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
     static readCollection(array: Uint8Array, settings: MagickReadSettings, func: (images: IMagickImageCollection) => void): void;
     static readCollection(array: Uint8Array, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
-    static readCollection(fileNameOrArray: string | Uint8Array , funcOrSettings: MagickReadSettings | ((images: IMagickImageCollection) => void | Promise<void>), func?: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
+    static readCollection(fileNameOrArray: string | Uint8Array, funcOrSettings: MagickReadSettings | ((images: IMagickImageCollection) => void | Promise<void>), func?: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
         const collection = MagickImageCollection.create();
         return collection._use(images => {
             if (funcOrSettings instanceof MagickReadSettings) {
-                if (typeof fileNameOrArray === 'string')
-                    images.read(fileNameOrArray, funcOrSettings);
-                else
-                    images.read(fileNameOrArray, funcOrSettings);
+                if (typeof fileNameOrArray === 'string') images.read(fileNameOrArray, funcOrSettings);
+                else images.read(fileNameOrArray, funcOrSettings);
 
-                if (func !== undefined)
-                    return func(images);
+                if (func !== undefined) return func(images);
             } else {
-                if (typeof fileNameOrArray === 'string')
-                    images.read(fileNameOrArray);
-                else
-                    images.read(fileNameOrArray);
+                if (typeof fileNameOrArray === 'string') images.read(fileNameOrArray);
+                else images.read(fileNameOrArray);
 
                 return funcOrSettings(images);
             }
@@ -131,4 +119,4 @@ export class ImageMagick {
 /** @internal */
 const instance = ImageMagick._create();
 
-export async function initializeImageMagick(): Promise<void> { await instance._initialize() }
+export async function initializeImageMagick(): Promise<void> { await instance._initialize(); }

@@ -22,7 +22,7 @@ describe('MagickSettings#fillColor', () => {
         settings.fontPointsize = 100;
         settings.fillColor = new MagickColor('pink');
 
-        ImageMagick.read('label:X', settings, (image) => {
+        ImageMagick.read('label:X', settings, image => {
             expect(image.width).toBe(76);
             expect(image.height).toBe(147);
             expect(image).toHavePixelWithColor(44, 74, '#ffc0cbff');

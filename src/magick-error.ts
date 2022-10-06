@@ -1,10 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickErrorSeverity } from "./magick-error-severity";
+import { MagickErrorSeverity } from './magick-error-severity';
 
 export class MagickError extends Error {
     private readonly _severity: MagickErrorSeverity;
+
     private _relatedErrors: MagickError[] = [];
 
     constructor(message: string, severity: MagickErrorSeverity = MagickErrorSeverity.Error) {
@@ -14,6 +15,7 @@ export class MagickError extends Error {
     }
 
     get relatedErrors(): ReadonlyArray<MagickError> { return this._relatedErrors; }
+
     get severity(): MagickErrorSeverity { return this._severity; }
 
     /** @internal */

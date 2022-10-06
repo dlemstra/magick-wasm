@@ -5,9 +5,9 @@ import { DrawableColor } from '../../src/drawables/drawable-color';
 import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
 import { DrawableFillOpacity } from '../../src/drawables/drawable-fill-opacity';
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { PaintMethod } from '../../src/paint-method';
 import { Percentage } from '../../src/percentage';
 import '../custom-matcher';
@@ -29,7 +29,7 @@ describe('DrawableFillOpacity', () => {
         image.draw([
             new DrawableFillColor(new MagickColor(255, 0, 0)),
             new DrawableFillOpacity(new Percentage(10)),
-            new DrawableColor(0, 0, PaintMethod.Floodfill)
+            new DrawableColor(0, 0, PaintMethod.Floodfill),
         ]);
 
         const fillColor = new MagickColor(255, 0, 0, 26);
@@ -40,7 +40,7 @@ describe('DrawableFillOpacity', () => {
         image.draw([
             new DrawableFillColor(new MagickColor(255, 0, 0, 0)),
             new DrawableFillOpacity(new Percentage(10)),
-            new DrawableColor(0, 0, PaintMethod.Floodfill)
+            new DrawableColor(0, 0, PaintMethod.Floodfill),
         ]);
 
         const fillColor = new MagickColor(255, 0, 0, 26);

@@ -1,11 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawingSettings } from './drawing-settings';
 import { ImageMagick } from '../image-magick';
-import { Magick } from '../magick';
 import { NativeInstance } from '../internal/native-instance';
 import { _withString } from '../internal/native/string';
+import { Magick } from '../magick';
+import { DrawingSettings } from './drawing-settings';
 
 /** @internal */
 export class NativeDrawingSettings extends NativeInstance {
@@ -28,8 +28,7 @@ export class NativeDrawingSettings extends NativeInstance {
             });
         }
 
-        if (settings.fontPointsize !== undefined)
-            ImageMagick._api._DrawingSettings_FontPointsize_Set(this._instance, settings.fontPointsize);
+        if (settings.fontPointsize !== undefined) { ImageMagick._api._DrawingSettings_FontPointsize_Set(this._instance, settings.fontPointsize); }
 
         if (settings.strokeColor !== undefined) {
             settings.strokeColor._use(valuePtr => {
@@ -37,7 +36,6 @@ export class NativeDrawingSettings extends NativeInstance {
             });
         }
 
-        if (settings.strokeWidth !== undefined)
-            ImageMagick._api._DrawingSettings_StrokeWidth_Set(this._instance, settings.strokeWidth);
+        if (settings.strokeWidth !== undefined) { ImageMagick._api._DrawingSettings_StrokeWidth_Set(this._instance, settings.strokeWidth); }
     }
 }

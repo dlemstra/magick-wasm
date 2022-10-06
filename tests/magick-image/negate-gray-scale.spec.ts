@@ -4,8 +4,8 @@
 import { AlphaOption } from '../../src/alpha-option';
 import { Channels } from '../../src/channels';
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import '../custom-matcher';
 
 let image: IMagickImage;
@@ -25,7 +25,7 @@ describe('MagickImage#negateGrayScale', () => {
 
         image.getPixels(pixels => {
             pixels.setPixel(1, 0, [255, 0, 0]);
-        })
+        });
 
         image.negateGrayScale();
 
@@ -39,7 +39,7 @@ describe('MagickImage#negateGrayScale', () => {
 
         image.getPixels(pixels => {
             pixels.setPixel(1, 0, [255, 0, 0]);
-        })
+        });
 
         image.negateGrayScale(Channels.All);
 

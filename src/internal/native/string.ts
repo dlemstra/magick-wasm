@@ -1,15 +1,14 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../../image-magick';
 import { ImageMagickApi } from '@dlemstra/magick-native/magick';
+import { ImageMagick } from '../../image-magick';
 
 /** @internal */
 export function _createString(instance: number): string | null;
 export function _createString(instance: number, defaultValue: string): string;
 export function _createString(instance: number): string | null {
-    if (instance === 0)
-        return null;
+    if (instance === 0) return null;
 
     return ImageMagick._api.UTF8ToString(instance);
 }
@@ -21,8 +20,7 @@ export function _withNativeString<TReturnType>(native: ImageMagickApi, str: stri
     try {
         native.stringToUTF8(str, instance, length);
         return func(instance);
-    }
-    finally {
+    } finally {
         native._free(instance);
     }
 }

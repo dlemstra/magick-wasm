@@ -11,7 +11,7 @@ beforeEach(() => {
 
 describe('MagickImage#getProfile', () => {
     it('should return null when image does not contain profile', () => {
-        ImageMagick.read(MagickColors.Black, 1, 1, (image) => {
+        ImageMagick.read(MagickColors.Black, 1, 1, image => {
             const profile = image.getProfile('foo');
 
             expect(profile).toBeNull();
@@ -20,7 +20,6 @@ describe('MagickImage#getProfile', () => {
 
     it('should return the specified profile', async () => {
         await TestFiles.fujiFilmFinePixS1ProJpg.read(image => {
-
             const profile = image.getProfile('icc');
 
             expect(profile).not.toBeNull();

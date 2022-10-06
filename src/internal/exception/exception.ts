@@ -4,8 +4,8 @@
 import { ImageMagick } from '../../image-magick';
 import { MagickError } from '../../magick-error';
 import { MagickErrorSeverity } from '../../magick-error-severity';
-import { Pointer } from '../pointer/pointer';
 import { _createString } from '../native/string';
+import { Pointer } from '../pointer/pointer';
 
 /** @internal */
 export class Exception {
@@ -15,11 +15,10 @@ export class Exception {
         this.pointer = pointer;
     }
 
-    get ptr(): number { return this.pointer.ptr }
+    get ptr(): number { return this.pointer.ptr; }
 
     check<TReturnType>(success: () => TReturnType, error: () => TReturnType): TReturnType {
-        if (this.isError())
-            return error();
+        if (this.isError()) return error();
 
         return success();
     }
@@ -41,24 +40,20 @@ export class Exception {
     }
 
     private static checkException<TReturnType>(exception: Pointer, result: TReturnType): TReturnType {
-        if (!Exception.isRaised(exception))
-            return result;
+        if (!Exception.isRaised(exception)) return result;
 
         const severity = Exception.getErrorSeverity(exception.value);
-        if (severity >= MagickErrorSeverity.Error)
-            Exception.throw(exception, severity);
-        else
-            Exception.dispose(exception);
+        if (severity >= MagickErrorSeverity.Error) Exception.throw(exception, severity);
+        else Exception.dispose(exception);
 
         return result;
     }
 
     private isError() {
-        if (!Exception.isRaised(this.pointer))
-            return false;
+        if (!Exception.isRaised(this.pointer)) return false;
 
         const severity = Exception.getErrorSeverity(this.pointer.value);
-        return severity >= MagickErrorSeverity.Error
+        return severity >= MagickErrorSeverity.Error;
     }
 
     private static getErrorSeverity(exception: number): MagickErrorSeverity {
@@ -82,12 +77,10 @@ export class Exception {
         const error = new MagickError(errorMessage, severity);
 
         const nestedCount = ImageMagick._api._MagickExceptionHelper_RelatedCount(exception);
-        if (nestedCount === 0)
-            return error;
+        if (nestedCount === 0) return error;
 
         const relatedErrors: MagickError[] = [];
-        for (let i = 0; i < nestedCount; i++)
-        {
+        for (let i = 0; i < nestedCount; i++) {
             const related = ImageMagick._api._MagickExceptionHelper_Related(exception, i);
             const relatedSeverity = Exception.getErrorSeverity(related);
             const relatedError = Exception.createError(related, relatedSeverity);

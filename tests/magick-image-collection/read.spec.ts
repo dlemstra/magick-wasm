@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImageCollection, MagickImageCollection } from '../../src/magick-image-collection';
 import { MagickFormat } from '../../src/magick-format';
+import { IMagickImageCollection, MagickImageCollection } from '../../src/magick-image-collection';
 import { TestFiles } from '../test-files';
 
 let images: IMagickImageCollection;
@@ -35,7 +35,7 @@ describe('MagickImageCollection#read', () => {
             expect(image.format).toBe(MagickFormat.Gif);
             expect(image.width).toBe(70);
             expect(image.height).toBe(46);
-            image.getPixels((p) => {
+            image.getPixels(p => {
                 expect(p.getPixel(0, 0).length).toBe(5);
             });
         });

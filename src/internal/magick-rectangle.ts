@@ -14,11 +14,11 @@ export class MagickRectangle {
             ImageMagick._api._MagickRectangle_X_Set(rectangle, geometry.x);
             ImageMagick._api._MagickRectangle_Y_Set(rectangle, geometry.y);
 
-            let width = geometry.width;
-            let height = geometry.height;
+            let { width } = geometry;
+            let { height } = geometry;
             if (geometry.isPercentage) {
-                width =  new Percentage(geometry.width).multiply(image.width);
-                height =  new Percentage(geometry.height).multiply(image.height);
+                width = new Percentage(geometry.width).multiply(image.width);
+                height = new Percentage(geometry.height).multiply(image.height);
             }
 
             ImageMagick._api._MagickRectangle_Width_Set(rectangle, width);

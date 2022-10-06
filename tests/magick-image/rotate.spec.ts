@@ -2,9 +2,9 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-import "../custom-matcher"
+import { IMagickImage, MagickImage } from '../../src/magick-image';
+import '../custom-matcher';
 
 let image: IMagickImage;
 
@@ -32,6 +32,6 @@ describe('MagickImage#rotate', () => {
 
         expect(image.width).toBe(794);
         expect(image.height).toBe(794);
-        expect(image).toHavePixelWithColor(0, 0, MagickColors.Pink)
+        expect(image).toHavePixelWithColor(0, 0, MagickColors.Pink);
     });
 });

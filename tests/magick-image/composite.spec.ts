@@ -15,7 +15,7 @@ beforeEach(() => { ImageMagick._api = (global as any).native; });
 
 describe('MagickImage#composite', () => {
     it('should preserve gray color space', () => {
-        ImageMagick.read('logo:', (logo) => {
+        ImageMagick.read('logo:', logo => {
             logo.separate(images => {
                 const blue = images[0];
                 blue.composite(logo, CompositeOperator.Modulate);
@@ -26,8 +26,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should add transparency with CopyAlpha', () => {
-        ImageMagick.read(MagickColors.Red, 2, 1, (image) => {
-            ImageMagick.read(MagickColors.Black, 1, 1, (alpha) => {
+        ImageMagick.read(MagickColors.Red, 2, 1, image => {
+            ImageMagick.read(MagickColors.Black, 1, 1, alpha => {
                 alpha.backgroundColor = MagickColors.White;
                 alpha.extent(2, 1, Gravity.East);
 
@@ -40,8 +40,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should composite the specified channel', () => {
-        ImageMagick.read('logo:', (image) => {
-            ImageMagick.read(MagickColors.Red, image.width, image.height, (red) => {
+        ImageMagick.read('logo:', image => {
+            ImageMagick.read(MagickColors.Red, image.width, image.height, red => {
                 image.composite(red, CompositeOperator.Multiply, Channels.Blue);
                 expect(image).toHavePixelWithColor(0, 0, MagickColors.Yellow);
             });
@@ -49,8 +49,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the arguments', () => {
-        ImageMagick.read(MagickColors.Red, 10, 10, (image) => {
-            ImageMagick.read(MagickColors.White, image.width, image.height, (blur) => {
+        ImageMagick.read(MagickColors.Red, 10, 10, image => {
+            ImageMagick.read(MagickColors.White, image.width, image.height, blur => {
                 // TODO: CHECK WARNING
                 image.composite(blur, CompositeOperator.Blur, '3');
             });
@@ -58,8 +58,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should remove the artifact', () => {
-        ImageMagick.read(MagickColors.Red, 1, 1, (image) => {
-            ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
+        ImageMagick.read(MagickColors.Red, 1, 1, image => {
+            ImageMagick.read(MagickColors.White, 1, 1, blur => {
                 image.composite(blur, CompositeOperator.Blur, '3');
 
                 expect(image.artifactNames.length).toBe(0);
@@ -68,8 +68,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the arguments and channels', () => {
-        ImageMagick.read(MagickColors.Red, 10, 10, (image) => {
-            ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
+        ImageMagick.read(MagickColors.Red, 10, 10, image => {
+            ImageMagick.read(MagickColors.White, 1, 1, blur => {
                 // TODO: CHECK WARNING
                 image.composite(blur, CompositeOperator.Blur, '3', Channels.Red);
             });
@@ -77,8 +77,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should remove the artifact when channel is specified', () => {
-        ImageMagick.read(MagickColors.Red, 1, 1, (image) => {
-            ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
+        ImageMagick.read(MagickColors.Red, 1, 1, image => {
+            ImageMagick.read(MagickColors.White, 1, 1, blur => {
                 image.composite(blur, CompositeOperator.Blur, '3', Channels.Red);
 
                 expect(image.artifactNames.length).toBe(0);
@@ -87,8 +87,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the offset', () => {
-        ImageMagick.read('logo:', (image) => {
-            ImageMagick.read(MagickColors.Yellow, 100, 100, (yellow) => {
+        ImageMagick.read('logo:', image => {
+            ImageMagick.read(MagickColors.Yellow, 100, 100, yellow => {
                 image.composite(yellow, new Point(100, 100));
 
                 expect(image).toHavePixelWithColor(150, 150, MagickColors.Yellow);
@@ -99,8 +99,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the offset and channels', () => {
-        ImageMagick.read('logo:', (image) => {
-            ImageMagick.read(MagickColors.Yellow, 100, 100, (yellow) => {
+        ImageMagick.read('logo:', image => {
+            ImageMagick.read(MagickColors.Yellow, 100, 100, yellow => {
                 image.composite(yellow, new Point(100, 100), Channels.Red);
 
                 expect(image).toHavePixelWithColor(150, 150, MagickColors.White);
@@ -111,8 +111,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the offset and operator', () => {
-        ImageMagick.read('logo:', (image) => {
-            ImageMagick.read(MagickColors.Yellow, 100, 100, (yellow) => {
+        ImageMagick.read('logo:', image => {
+            ImageMagick.read(MagickColors.Yellow, 100, 100, yellow => {
                 image.composite(yellow, CompositeOperator.Copy, new Point(100, 100));
 
                 expect(image).toHavePixelWithColor(150, 150, MagickColors.Yellow);
@@ -123,8 +123,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the offset, operator and channels', () => {
-        ImageMagick.read('logo:', (image) => {
-            ImageMagick.read(MagickColors.Yellow, 100, 100, (yellow) => {
+        ImageMagick.read('logo:', image => {
+            ImageMagick.read(MagickColors.Yellow, 100, 100, yellow => {
                 image.composite(yellow, CompositeOperator.Clear, new Point(100, 100), Channels.Red);
 
                 expect(image).toHavePixelWithColor(150, 150, MagickColors.Aqua);
@@ -135,8 +135,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the offset and arguments', () => {
-        ImageMagick.read(MagickColors.Red, 10, 10, (image) => {
-            ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
+        ImageMagick.read(MagickColors.Red, 10, 10, image => {
+            ImageMagick.read(MagickColors.White, 1, 1, blur => {
                 // TODO: CHECK WARNING
                 image.composite(blur, CompositeOperator.Blur, new Point(1, 1), '3');
             });
@@ -144,9 +144,9 @@ describe('MagickImage#composite', () => {
     });
 
     it('should remove the artifact when offset and arguments are specified', () => {
-        ImageMagick.read(MagickColors.Red, 1, 1, (image) => {
-            ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
-                image.composite(blur,  CompositeOperator.Blur, new Point(1, 1), '3');
+        ImageMagick.read(MagickColors.Red, 1, 1, image => {
+            ImageMagick.read(MagickColors.White, 1, 1, blur => {
+                image.composite(blur, CompositeOperator.Blur, new Point(1, 1), '3');
 
                 expect(image.artifactNames.length).toBe(0);
             });
@@ -154,8 +154,8 @@ describe('MagickImage#composite', () => {
     });
 
     it('should use the offset, arguments and channels', () => {
-        ImageMagick.read(MagickColors.Red, 10, 10, (image) => {
-            ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
+        ImageMagick.read(MagickColors.Red, 10, 10, image => {
+            ImageMagick.read(MagickColors.White, 1, 1, blur => {
                 // TODO: CHECK WARNING
                 image.composite(blur, CompositeOperator.Blur, new Point(1, 1), '3', Channels.Red);
             });
@@ -163,9 +163,9 @@ describe('MagickImage#composite', () => {
     });
 
     it('should remove the artifact when offset, arguments and channels are specified', () => {
-        ImageMagick.read(MagickColors.Red, 1, 1, (image) => {
-            ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
-                image.composite(blur,  CompositeOperator.Blur, new Point(1, 1), '3', Channels.Red);
+        ImageMagick.read(MagickColors.Red, 1, 1, image => {
+            ImageMagick.read(MagickColors.White, 1, 1, blur => {
+                image.composite(blur, CompositeOperator.Blur, new Point(1, 1), '3', Channels.Red);
 
                 expect(image.artifactNames.length).toBe(0);
             });

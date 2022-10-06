@@ -22,7 +22,7 @@ describe('MagickImage#repage', () => {
 
         image.repage();
 
-        const page = image.page;
+        const { page } = image;
         expect(page.x).toBe(0);
         expect(page.y).toBe(0);
         expect(page.width).toBe(0);

@@ -18,13 +18,13 @@ afterEach(() => {
 
 describe('MagickImage#colorFuzz', () => {
     it('should return the color fuzz percentage', () => {
-        const colorFuzz = image.colorFuzz;
+        const { colorFuzz } = image;
         expect(colorFuzz.toDouble()).toBe(0);
     });
 
     it('should change color fuzz percentage', () => {
         image.colorFuzz = new Percentage(10);
-        const colorFuzz = image.colorFuzz;
+        const { colorFuzz } = image;
         expect(colorFuzz.toDouble()).toBe(10);
     });
 });

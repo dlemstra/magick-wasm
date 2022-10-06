@@ -4,8 +4,8 @@
 import { DrawableColor } from '../../src/drawables/drawable-color';
 import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
+import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { PaintMethod } from '../../src/paint-method';
 import '../custom-matcher';
 
@@ -27,7 +27,7 @@ describe('DrawableFillColor', () => {
 
         image.draw([
             new DrawableFillColor(fillColor),
-            new DrawableColor(0, 0, PaintMethod.Floodfill)
+            new DrawableColor(0, 0, PaintMethod.Floodfill),
         ]);
 
         expect(image).toHavePixelWithColor(0, 0, fillColor);

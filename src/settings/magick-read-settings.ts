@@ -2,12 +2,11 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../image-magick';
+import { _withString } from '../internal/native/string';
 import { MagickSettings } from './magick-settings';
 import { NativeMagickSettings } from './native-magick-settings';
-import { _withString } from '../internal/native/string';
 
 export class MagickReadSettings extends MagickSettings {
-
     constructor(partialSettings?: Partial<MagickReadSettings>) {
         super();
 
@@ -37,13 +36,9 @@ export class MagickReadSettings extends MagickSettings {
     }
 
     private getSize(): string {
-        if (this.width !== undefined && this.height !== undefined)
-            return `${this.width}x${this.height}`;
-        else if (this.width !== undefined)
-            return `${this.width}x`;
-        else if (this.height !== undefined)
-            return `x${this.height}`;
-        else
-            return "";
+        if (this.width !== undefined && this.height !== undefined) return `${this.width}x${this.height}`;
+        if (this.width !== undefined) return `${this.width}x`;
+        if (this.height !== undefined) return `x${this.height}`;
+        return '';
     }
 }
