@@ -11,18 +11,21 @@ beforeEach(() => {
 describe('MagickGeometry#constructor', () => {
     it('should throw exception when value is invalid', () => {
         expect(() => {
+            // eslint-disable-next-line no-new
             new MagickGeometry('foobar');
         }).toThrowError('invalid geometry specified');
     });
 
     it('should throw exception when width is negative', () => {
         expect(() => {
+            // eslint-disable-next-line no-new
             new MagickGeometry(-1, 0);
         }).toThrowError('negative width is not allowed');
     });
 
     it('should throw exception when height is negative', () => {
         expect(() => {
+            // eslint-disable-next-line no-new
             new MagickGeometry(0, -1);
         }).toThrowError('negative height is not allowed');
     });
