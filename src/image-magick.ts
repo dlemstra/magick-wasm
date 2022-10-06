@@ -66,17 +66,17 @@ export class ImageMagick {
             if (fileNameOrArrayOrColor instanceof MagickColor) {
                 if (typeof funcOrSettingsOrWidth === 'number' && typeof funcOrheight === 'number') image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth, funcOrheight);
 
-                if (func !== undefined) return func(image);
+                if (func !== undefined) func(image);
             } else if (funcOrSettingsOrWidth instanceof MagickReadSettings) {
                 if (typeof fileNameOrArrayOrColor === 'string') image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
                 else image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
 
-                if (funcOrheight !== undefined && typeof funcOrheight !== 'number') return funcOrheight(image);
+                if (funcOrheight !== undefined && typeof funcOrheight !== 'number') funcOrheight(image);
             } else {
                 if (typeof fileNameOrArrayOrColor === 'string') image.read(fileNameOrArrayOrColor);
                 else image.read(fileNameOrArrayOrColor);
 
-                if (typeof funcOrSettingsOrWidth !== 'number') return funcOrSettingsOrWidth(image);
+                if (typeof funcOrSettingsOrWidth !== 'number') funcOrSettingsOrWidth(image);
             }
         });
     }
@@ -96,12 +96,12 @@ export class ImageMagick {
                 if (typeof fileNameOrArray === 'string') images.read(fileNameOrArray, funcOrSettings);
                 else images.read(fileNameOrArray, funcOrSettings);
 
-                if (func !== undefined) return func(images);
+                if (func !== undefined) func(images);
             } else {
                 if (typeof fileNameOrArray === 'string') images.read(fileNameOrArray);
                 else images.read(fileNameOrArray);
 
-                return funcOrSettings(images);
+                funcOrSettings(images);
             }
         });
     }
