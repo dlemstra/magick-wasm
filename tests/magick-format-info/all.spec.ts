@@ -13,6 +13,7 @@ describe('MagickFormatInfo#all', () => {
             try {
                 expect(formatInfo.format).not.toBe(MagickFormat.Unknown);
             } catch (err) {
+                // eslint-disable-next-line no-console
                 console.error(`Missing Magickformat for: ${formatInfo.description}.`);
                 throw (err);
             }
