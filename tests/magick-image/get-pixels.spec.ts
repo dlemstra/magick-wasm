@@ -25,6 +25,9 @@ describe('MagickImage#getPixels', () => {
         });
 
         expect(pixels).toBeDefined();
-        expect(() => { pixels!._instance; }).toThrowError('instance is disposed');
+        expect(() => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+            pixels!._instance;
+        }).toThrowError('instance is disposed');
     });
 });
