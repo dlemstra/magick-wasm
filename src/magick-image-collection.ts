@@ -55,13 +55,13 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         Exception.use(exception => {
             const readSettings = MagickImageCollection.createSettings(settings);
             if (fileNameOrArray instanceof Uint8Array) {
-                readSettings._use(settings => {
+                readSettings._use(useSettings => {
                     const length = fileNameOrArray.byteLength;
                     let data = 0;
                     try {
                         data = ImageMagick._api._malloc(length);
                         ImageMagick._api.HEAPU8.set(fileNameOrArray, data);
-                        const instances = ImageMagick._api._MagickImageCollection_ReadBlob(settings._instance, data, 0, length, exception.ptr);
+                        const instances = ImageMagick._api._MagickImageCollection_ReadBlob(useSettings._instance, data, 0, length, exception.ptr);
                         this.addImages(instances, readSettings);
                     } finally {
                         if (data !== 0) ImageMagick._api._free(data);
@@ -70,8 +70,8 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             } else {
                 readSettings._fileName = fileNameOrArray;
 
-                readSettings._use(settings => {
-                    const instances = ImageMagick._api._MagickImageCollection_ReadFile(settings._instance, exception.ptr);
+                readSettings._use(useSettings => {
+                    const instances = ImageMagick._api._MagickImageCollection_ReadFile(useSettings._instance, exception.ptr);
                     this.addImages(instances, readSettings);
                 });
             }

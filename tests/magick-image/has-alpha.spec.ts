@@ -2,18 +2,10 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { TestFiles } from '../test-files';
-
-let image: IMagickImage;
 
 beforeEach(() => {
     ImageMagick._api = global.native;
-    image = MagickImage.create();
-});
-
-afterEach(() => {
-    image.dispose();
 });
 
 describe('MagickImage#hasAlpha', () => {

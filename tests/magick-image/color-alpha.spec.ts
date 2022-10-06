@@ -3,19 +3,11 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { TestFiles } from '../test-files';
 import '../custom-matcher';
 
-let image: IMagickImage;
-
 beforeEach(() => {
     ImageMagick._api = global.native;
-    image = MagickImage.create();
-});
-
-afterEach(() => {
-    image.dispose();
 });
 
 describe('MagickImage#colorAlpha', () => {

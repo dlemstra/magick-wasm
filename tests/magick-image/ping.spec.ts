@@ -19,9 +19,9 @@ afterEach(() => {
 });
 
 describe('MagickImage#ping', () => {
-    const exceptImageToNotHavePixelData = (image: IMagickImage) => {
+    const exceptImageToNotHavePixelData = (img: IMagickImage) => {
         expect(() => {
-            image.getPixels(pixels => { pixels === undefined; });
+            img.getPixels(pixels => { pixels === undefined; });
         }).toThrowError('image contains no pixel data');
     };
 

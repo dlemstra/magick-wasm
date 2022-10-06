@@ -28,8 +28,8 @@ describe('MagickImage#quality', () => {
     });
 
     it('should return the image quality', async () => {
-        await TestFiles.imageMagickJpg.read(image => {
-            expect(image.quality).toBe(100);
+        await TestFiles.imageMagickJpg.read(readImage => {
+            expect(readImage.quality).toBe(100);
         });
     });
 });
