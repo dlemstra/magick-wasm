@@ -5,7 +5,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickFormat } from '../../src/magick-format';
 import { MagickFormatInfo } from '../../src/magick-format-info';
 
-beforeAll(() => { ImageMagick._api = (global as any).native; });
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickFormatInfo#all', () => {
     it('should have a format for all values', () => {

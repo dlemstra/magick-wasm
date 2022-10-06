@@ -4,7 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { Quantum } from '../../src/quantum';
 
-beforeAll(() => { ImageMagick._api = (global as any).native; });
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('Quantum#max', () => {
     it('should return the correct value', () => {

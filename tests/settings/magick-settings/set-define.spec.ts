@@ -8,7 +8,7 @@ import { MagickSettings } from '../../../src/settings/magick-settings';
 import { TestFiles } from '../../test-files';
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
 });
 
 describe('MagickSettings#setDefine', () => {

@@ -6,7 +6,7 @@ import { Magick } from '../../src/magick';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
 
-beforeAll(() => { ImageMagick._api = (global as any).native; });
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('Magick#addFont', () => {
     it('should make the font available', () => {

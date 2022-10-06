@@ -5,7 +5,7 @@ import { Channels } from '../../src/channels';
 import { ColorSpace } from '../../src/color-space';
 import { ImageMagick } from '../../src/image-magick';
 
-beforeEach(() => { ImageMagick._api = (global as any).native; });
+beforeEach(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#separate', () => {
     it('should supply the correct number of channels', () => {

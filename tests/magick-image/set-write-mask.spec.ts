@@ -10,7 +10,7 @@ let image: IMagickImage;
 let writeMask: IMagickImage;
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
     image = MagickImage.create();
     writeMask = MagickImage.create();
 });

@@ -5,7 +5,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickColor } from '../../src/magick-color';
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
 });
 
 describe('MagickColor#constructor', () => {

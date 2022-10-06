@@ -7,7 +7,7 @@ import { MagickColors } from '../../src/magick-colors';
 import '../custom-matcher';
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
 });
 
 describe('ImageMagick#readFromCanvas', () => {
@@ -18,7 +18,7 @@ describe('ImageMagick#readFromCanvas', () => {
         canvas.width = 1;
         canvas.height = 2;
 
-        window.HTMLCanvasElement.prototype.getContext = <any> vi.fn((contextId: string) => {
+        window.HTMLCanvasElement.prototype.getContext = vi.fn((contextId: string) => {
             expect(contextId).toBe('2d');
             return {
                 getImageData(x: number, y: number, width: number, height: number) {
@@ -34,7 +34,7 @@ describe('ImageMagick#readFromCanvas', () => {
                     };
                 },
             };
-        });
+        }) as never;
 
         ImageMagick.readFromCanvas(canvas, image => {
             expect(image.width).toBe(1);
@@ -52,7 +52,7 @@ describe('ImageMagick#readFromCanvas', () => {
         canvas.width = 1;
         canvas.height = 2;
 
-        window.HTMLCanvasElement.prototype.getContext = <any> vi.fn((contextId: string) => {
+        window.HTMLCanvasElement.prototype.getContext = vi.fn((contextId: string) => {
             expect(contextId).toBe('2d');
             return {
                 getImageData(x: number, y: number, width: number, height: number) {
@@ -68,7 +68,7 @@ describe('ImageMagick#readFromCanvas', () => {
                     };
                 },
             };
-        });
+        }) as never;
 
         await ImageMagick.readFromCanvas(canvas, image => {
             expect(image.width).toBe(1);

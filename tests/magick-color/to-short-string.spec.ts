@@ -6,7 +6,7 @@ import { MagickColor } from '../../src/magick-color';
 import { Quantum } from '../../src/quantum';
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
 });
 
 describe('MagickColor#toShortString', () => {

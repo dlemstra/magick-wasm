@@ -4,12 +4,12 @@
 import { ImageMagickApi } from '@dlemstra/magick-native/magick';
 import * as ImageMagick from '../src/image-magick';
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
-declare namespace globalThis {
-    let native: ImageMagickApi | undefined;
+declare global {
+    // eslint-disable-next-line no-var, vars-on-top
+    var native: ImageMagickApi;
 }
 
-if (!globalThis.native) {
+if (!global.native) {
     await ImageMagick.initializeImageMagick();
-    globalThis.native = ImageMagick.ImageMagick._api;
+    global.native = ImageMagick.ImageMagick._api;
 }

@@ -11,7 +11,7 @@ import '../custom-matcher';
 let image: IMagickImage;
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
     image = MagickImage.create();
     image.read(MagickColors.Black, 1, 1);
     image.extent(new MagickGeometry('3x3'), Gravity.Center, MagickColors.White);

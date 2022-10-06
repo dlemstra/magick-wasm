@@ -10,7 +10,7 @@ import '../custom-matcher';
 let image: IMagickImage;
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
     image = MagickImage.create();
 });
 
@@ -26,7 +26,7 @@ describe('MagickImage#readFromCanvas', () => {
         canvas.width = 1;
         canvas.height = 2;
 
-        window.HTMLCanvasElement.prototype.getContext = <any> vi.fn((contextId: string) => {
+        window.HTMLCanvasElement.prototype.getContext = vi.fn((contextId: string) => {
             expect(contextId).toBe('2d');
             return {
                 getImageData(x: number, y: number, width: number, height: number) {
@@ -42,7 +42,7 @@ describe('MagickImage#readFromCanvas', () => {
                     };
                 },
             };
-        });
+        }) as never;
 
         image.readFromCanvas(canvas);
 
