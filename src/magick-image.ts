@@ -1057,8 +1057,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 this.setArtifact('trim:percent-background', percentage.toDouble().toString());
             } else {
                 const edges = args as Gravity[];
-                const value = [...new Set(_getEdges(edges))].join(',');
-                this.setArtifact('trim:edges', value);
+                this.setArtifact('trim:edges', _getEdges(edges));
             }
         }
 

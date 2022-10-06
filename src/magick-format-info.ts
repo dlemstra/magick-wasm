@@ -40,9 +40,9 @@ export class MagickFormatInfo {
     }
 
     static create(format: MagickFormat): MagickFormatInfo {
-        for (const formatInfo of MagickFormatInfo.all) {
-            if (formatInfo.format === format) return formatInfo;
-        }
+        const result = MagickFormatInfo.all.find(formatInfo => formatInfo.format === format);
+
+        if (result) return result;
 
         throw new MagickError(`unable to get format info for ${format}`);
     }

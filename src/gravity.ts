@@ -16,36 +16,28 @@ export enum Gravity {
 }
 
 /** @internal */
-export function* _getEdges(gravities: Gravity[]): Generator<string> {
-    for (const gravity of gravities) {
+export function _getEdges(gravities: Gravity[]): string {
+    const edges = gravities.flatMap(gravity => {
         switch (gravity) {
             case Gravity.North:
-                yield 'north';
-                break;
+                return 'north';
             case Gravity.Northeast:
-                yield 'north';
-                yield 'east';
-                break;
+                return ['north', 'east'];
             case Gravity.Northwest:
-                yield 'north';
-                yield 'west';
-                break;
+                return ['north', 'west'];
             case Gravity.East:
-                yield 'east';
-                break;
+                return 'east';
             case Gravity.West:
-                yield 'west';
-                break;
+                return 'west';
             case Gravity.South:
-                yield 'south';
-                break;
+                return 'south';
             case Gravity.Southeast:
-                yield 'south';
-                yield 'east';
-                break;
+                return ['south', 'east'];
             case Gravity.Southwest:
-                yield 'south';
-                yield 'west';
+                return ['south', 'west'];
+            default:
+                return [];
         }
-    }
+    });
+    return [...new Set(edges)].join(',');
 }

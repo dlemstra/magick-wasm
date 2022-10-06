@@ -52,7 +52,9 @@ export class NativeMagickSettings extends NativeInstance {
 
         if (settings.strokeWidth !== undefined) this.setOption('strokeWidth', settings.strokeWidth.toString());
 
-        for (const option in settings._options) this.setOption(option, settings._options[option]);
+        Object.entries(settings._options).forEach(
+            ([option, value]) => this.setOption(option, value),
+        );
     }
 
     private setOption(option: string, value: string) {
