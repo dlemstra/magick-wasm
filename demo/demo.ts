@@ -4,11 +4,11 @@
 /* eslint-disable no-console */
 
 import {
-    initializeImageMagick,
     ImageMagick,
     Magick,
     MagickFormat,
     Quantum,
+    initializeImageMagick,
 } from '@imagemagick/magick-wasm';
 
 initializeImageMagick().then(async () => {

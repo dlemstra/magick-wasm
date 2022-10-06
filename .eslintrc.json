@@ -50,6 +50,7 @@
         "no-param-reassign": "off",
         "no-plusplus": "off",
         "no-underscore-dangle": "off",
+        "sort-imports": ["error", { "ignoreDeclarationSort": true }],
         "@typescript-eslint/indent": ["error", 4],
         "@typescript-eslint/member-ordering": [
             "error",
