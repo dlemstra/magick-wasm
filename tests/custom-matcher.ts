@@ -54,6 +54,7 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
                 if (image.hasAlpha) result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
                 else result += toHex(Quantum.max);
                 break;
+            default:
         }
 
         return result;
