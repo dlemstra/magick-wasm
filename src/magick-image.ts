@@ -628,7 +628,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
 
         const angle = Number(this.getArtifact('deskew:angle'));
-        return isNaN(angle) ? 0.0 : angle;
+        return Number.isNaN(angle) ? 0.0 : angle;
     }
 
     distort(method: DistortMethod, params: number[]): void;
