@@ -1,13 +1,182 @@
 {
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
-    "extends": ["plugin:@typescript-eslint/recommended"],
-    "ignorePatterns": ["dist", "demo.js"],
-    "overrides": [{
-        "files": ["*.spec.ts"],
-        "rules": {
-            "@typescript-eslint/no-explicit-any": "off",
-            "@typescript-eslint/no-non-null-assertion": "off"
+    "extends": ["airbnb-base", "airbnb-typescript/base"],
+    "ignorePatterns": ["dist", "demo.js", "vite.config.ts"],
+    "overrides": [
+        {
+            "files": ["tests/**"],
+            "parserOptions": { "project": "tests/tsconfig.json" }
+        },
+        {
+            "files": ["demo/**"],
+            "parserOptions": { "project": "demo/tsconfig.json" },
+            "rules": { "import/no-unresolved": "off" }
         }
-    }]
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": { "project": "tsconfig.json" },
+    "plugins": ["header"],
+    "rules": {
+        "arrow-parens": ["error", "as-needed"],
+        "header/header": [
+            "error",
+            "line",
+            [
+                " Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.",
+                " Licensed under the Apache License, Version 2.0."
+            ],
+            2
+        ],
+        "import/no-cycle": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/no-unresolved": ["error", { "caseSensitiveStrict": true }],
+        "import/order": [
+            "error",
+            {
+                "pathGroups": [
+                    {
+                        "pattern": "custom-matcher",
+                        "patternOptions": { "matchBase": true },
+                        "group": "index",
+                        "position": "after"
+                    }
+                ],
+                "alphabetize": { "order": "asc" },
+                "warnOnUnassignedImports": true
+            }
+        ],
+        "import/prefer-default-export": "off",
+        "max-len": "off",
+        "no-bitwise": "off",
+        "no-param-reassign": "off",
+        "no-plusplus": "off",
+        "no-underscore-dangle": "off",
+        "@typescript-eslint/indent": ["error", 4],
+        "@typescript-eslint/member-ordering": [
+            "error",
+            {
+                "default": {
+                    "memberTypes": [
+                        "signature",
+
+                        "public-abstract-field",
+                        "protected-abstract-field",
+                        "private-abstract-field",
+
+                        "public-decorated-field",
+                        "protected-decorated-field",
+                        "private-decorated-field",
+
+                        "public-instance-field",
+                        "protected-instance-field",
+                        "private-instance-field",
+
+                        "public-static-field",
+                        "protected-static-field",
+                        "private-static-field",
+
+                        "public-field",
+                        "protected-field",
+                        "private-field",
+
+                        "abstract-field",
+                        "instance-field",
+                        "static-field",
+
+                        "decorated-field",
+
+                        "field",
+
+                        "static-initialization",
+
+                        "public-constructor",
+                        "protected-constructor",
+                        "private-constructor",
+
+                        "constructor",
+
+                        ["public-abstract-get", "public-abstract-set"],
+                        ["protected-abstract-get", "protected-abstract-set"],
+                        ["private-abstract-get", "private-abstract-set"],
+
+                        ["public-decorated-get", "public-decorated-set"],
+                        ["protected-decorated-get", "protected-decorated-set"],
+                        ["private-decorated-get", "private-decorated-set"],
+
+                        ["public-instance-get", "public-instance-set"],
+                        ["protected-instance-get", "protected-instance-set"],
+                        ["private-instance-get", "private-instance-set"],
+
+                        ["public-static-get", "public-static-set"],
+                        ["protected-static-get", "protected-static-set"],
+                        ["private-static-get", "private-static-set"],
+
+                        ["public-get", "public-set"],
+                        ["protected-get", "protected-set"],
+                        ["private-get", "private-set"],
+
+                        ["abstract-get", "abstract-set"],
+                        ["instance-get", "instance-set"],
+                        ["static-get", "static-set"],
+
+                        ["decorated-get", "decorated-set"],
+
+                        ["get", "set"],
+
+                        "public-abstract-method",
+                        "protected-abstract-method",
+                        "private-abstract-method",
+
+                        "public-decorated-method",
+                        "protected-decorated-method",
+                        "private-decorated-method",
+
+                        "public-instance-method",
+                        "protected-instance-method",
+                        "private-instance-method",
+
+                        "public-static-method",
+                        "protected-static-method",
+                        "private-static-method",
+
+                        "public-method",
+                        "protected-method",
+                        "private-method",
+
+                        "abstract-method",
+                        "instance-method",
+                        "static-method",
+
+                        "decorated-method",
+
+                        "method"
+                    ],
+                    "order": "alphabetically"
+                }
+            }
+        ],
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "variable",
+                "format": ["camelCase"],
+                "leadingUnderscore": "allow"
+            },
+            {
+                "selector": "function",
+                "format": ["camelCase"],
+                "leadingUnderscore": "allow"
+            },
+            {
+                "selector": "accessor",
+                "format": ["camelCase", "PascalCase"],
+                "leadingUnderscore": "allow"
+            },
+            {
+                "selector": ["typeLike", "enumMember"],
+                "format": ["PascalCase"],
+                "leadingUnderscore": "forbid"
+            }
+        ],
+        "@typescript-eslint/no-explicit-any": "error"
+    }
 }
