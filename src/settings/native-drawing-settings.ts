@@ -14,13 +14,13 @@ export class NativeDrawingSettings extends NativeInstance {
         const disposeMethod = ImageMagick._api._DrawingSettings_Dispose;
         super(instance, disposeMethod);
 
-        if (settings.fillColor !== undefined) {
+        if (settings.fillColor) {
             settings.fillColor._use(valuePtr => {
                 ImageMagick._api._DrawingSettings_FillColor_Set(this._instance, valuePtr);
             });
         }
 
-        if (settings.font !== undefined) {
+        if (settings.font) {
             const fileName = Magick._getFontFileName(settings.font);
 
             _withString(fileName, ptr => {
@@ -28,14 +28,18 @@ export class NativeDrawingSettings extends NativeInstance {
             });
         }
 
-        if (settings.fontPointsize !== undefined) { ImageMagick._api._DrawingSettings_FontPointsize_Set(this._instance, settings.fontPointsize); }
+        if (settings.fontPointsize !== undefined) {
+            ImageMagick._api._DrawingSettings_FontPointsize_Set(this._instance, settings.fontPointsize);
+        }
 
-        if (settings.strokeColor !== undefined) {
+        if (settings.strokeColor) {
             settings.strokeColor._use(valuePtr => {
                 ImageMagick._api._DrawingSettings_StrokeColor_Set(this._instance, valuePtr);
             });
         }
 
-        if (settings.strokeWidth !== undefined) { ImageMagick._api._DrawingSettings_StrokeWidth_Set(this._instance, settings.strokeWidth); }
+        if (settings.strokeWidth !== undefined) {
+            ImageMagick._api._DrawingSettings_StrokeWidth_Set(this._instance, settings.strokeWidth);
+        }
     }
 }

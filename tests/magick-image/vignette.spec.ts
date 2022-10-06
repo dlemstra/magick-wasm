@@ -21,7 +21,7 @@ describe('MagickImage#vignette', () => {
     it('should use the correct default values', () => {
         image.clone(other => {
             image.vignette();
-            other.vignette(0.0, 1.0, 0, 0);
+            other.vignette(0, 1, 0, 0);
 
             const difference = other.compare(image, ErrorMetric.RootMeanSquared);
             expect(difference).toBe(0);

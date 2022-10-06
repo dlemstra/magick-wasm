@@ -6,9 +6,9 @@ import { ImageMagick } from '../../image-magick';
 
 /** @internal */
 export function _withDoubleArray<TReturnType>(array: number[], func: (instance: number) => TReturnType): TReturnType {
-    const length = array.length * 8;
-    if (length === 0) return func(0);
+    if (!array.length) return func(0);
 
+    const length = array.length * 8;
     const instance = ImageMagick._api._malloc(length);
     try {
         const buffer = new ArrayBuffer(length);
@@ -23,9 +23,9 @@ export function _withDoubleArray<TReturnType>(array: number[], func: (instance: 
 
 /** @internal */
 export function _withQuantumArray<TReturnType>(array: quantumArray, func: (instance: number) => TReturnType): TReturnType {
-    const length = array.length * 8;
-    if (length === 0) return func(0);
+    if (!array.length) return func(0);
 
+    const length = array.length * 8;
     const instance = ImageMagick._api._malloc(length);
     try {
         ImageMagick._api.HEAPU8.set(array, instance);

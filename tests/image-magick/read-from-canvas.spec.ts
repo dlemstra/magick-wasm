@@ -6,9 +6,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
 import '../custom-matcher';
 
-beforeEach(() => {
-    ImageMagick._api = global.native;
-});
+beforeEach(() => { ImageMagick._api = global.native; });
 
 describe('ImageMagick#readFromCanvas', () => {
     it('should read the image data from the canvas', () => {

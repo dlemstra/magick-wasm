@@ -67,15 +67,14 @@ export class MagickSettings {
             this._options[nameOrFormat] = nameOrValue;
         } else {
             const key = nameOrFormat === MagickFormat.Unknown ? nameOrValue : `${nameOrFormat}:${nameOrValue}`;
-            if (typeof value === 'string') this._options[key] = value;
-            else if (typeof value === 'number') this._options[key] = value.toString();
-            else this._options[key] = value ? 'true' : 'false';
+
+            this._options[key] = value.toString();
         }
     }
 
     setDefines(defines: IDefines): void {
         defines.getDefines().forEach(define => {
-            if (define !== undefined) this.setDefine(define.format, define.name, define.value);
+            if (define) this.setDefine(define.format, define.name, define.value);
         });
     }
 }

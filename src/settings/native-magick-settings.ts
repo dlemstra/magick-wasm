@@ -24,15 +24,15 @@ export class NativeMagickSettings extends NativeInstance {
 
         if (settings._quality !== undefined) ImageMagick._api._MagickSettings_SetQuality(this._instance, settings._quality);
 
-        if (settings.backgroundColor !== undefined) {
+        if (settings.backgroundColor) {
             settings.backgroundColor._use(ptr => {
                 ImageMagick._api._MagickSettings_BackgroundColor_Set(this._instance, ptr);
             });
         }
 
-        if (settings.fillColor !== undefined) this.setOption('fill', settings.fillColor.toString());
+        if (settings.fillColor) this.setOption('fill', settings.fillColor.toString());
 
-        if (settings.font !== undefined) {
+        if (settings.font) {
             const fileName = Magick._getFontFileName(settings.font);
 
             _withString(fileName, ptr => {
@@ -42,13 +42,13 @@ export class NativeMagickSettings extends NativeInstance {
 
         if (settings.fontPointsize !== undefined) ImageMagick._api._MagickSettings_FontPointsize_Set(this._instance, settings.fontPointsize);
 
-        if (settings.format !== undefined) {
+        if (settings.format) {
             _withString(settings.format, ptr => {
                 ImageMagick._api._MagickSettings_Format_Set(this._instance, ptr);
             });
         }
 
-        if (settings.strokeColor !== undefined) this.setOption('stroke', settings.strokeColor.toString());
+        if (settings.strokeColor) this.setOption('stroke', settings.strokeColor.toString());
 
         if (settings.strokeWidth !== undefined) this.setOption('strokeWidth', settings.strokeWidth.toString());
 

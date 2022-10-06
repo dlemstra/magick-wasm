@@ -57,8 +57,7 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     setPixel(x: number, y: number, quantumPixels: quantumArray): void;
     setPixel(x: number, y: number, numberPixels: number[]): void;
     setPixel(x: number, y: number, quantumPixelsOrNumberPixels: quantumArray | number[]): void {
-        if (quantumPixelsOrNumberPixels instanceof Uint8Array) this.setArea(x, y, 1, 1, quantumPixelsOrNumberPixels);
-        else this.setArea(x, y, 1, 1, quantumPixelsOrNumberPixels);
+        this.setArea(x, y, 1, 1, quantumPixelsOrNumberPixels as quantumArray);
     }
 
     toByteArray(x: number, y: number, width: number, height: number, mapping: string): quantumArray | null {
@@ -89,9 +88,7 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     static _map(image: IMagickImage, mapping: string, func: (instance: number) => void): void {
         const pixels = new PixelCollection(image);
         try {
-            pixels.use(0, 0, image.width, image.height, mapping, instance => {
-                func(instance);
-            });
+            pixels.use(0, 0, image.width, image.height, mapping, func);
         } finally {
             pixels.dispose();
         }
@@ -108,7 +105,7 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     }
 
     private static createArray(instance: number, width: number, height: number, channelCount: number): quantumArray | null {
-        if (instance === 0) return null;
+        if (!instance) return null;
 
         try {
             const count = width * height * channelCount;

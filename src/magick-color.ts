@@ -33,7 +33,9 @@ export class MagickColor {
             try {
                 instance = ImageMagick._api._MagickColor_Create();
                 _withString(colorOrRed, colorPtr => {
-                    if (ImageMagick._api._MagickColor_Initialize(instance, colorPtr) === 0) throw new MagickError('invalid color specified');
+                    if (ImageMagick._api._MagickColor_Initialize(instance, colorPtr) === 0) {
+                        throw new MagickError('invalid color specified');
+                    }
                     this.initialize(instance);
                 });
             } finally {

@@ -19,7 +19,7 @@ export abstract class DefinesCreator implements IDefines {
     createDefine(name: string, value: number): MagickDefine;
     createDefine(name: string, value: string): MagickDefine;
     createDefine(name: string, value: boolean | number | string): MagickDefine {
-        if (typeof value === 'boolean') return new MagickDefine(this.format, name, value ? 'true' : 'false');
+        if (typeof value === 'boolean') return new MagickDefine(this.format, name, value.toString());
 
         if (typeof value === 'string') return new MagickDefine(this.format, name, value);
 

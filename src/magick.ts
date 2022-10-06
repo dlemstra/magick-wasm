@@ -17,20 +17,16 @@ export class Magick {
     /** @internal */
     static _getFontFileName(name: string): string {
         const fileName = `/fonts/${name}`;
-        const stats = ImageMagick._api.FS.analyzePath(fileName);
-        if (!stats.exists) {
-            throw new Error(`Unable to find a font with the name '${name}', add it with Magick.addFont.`);
-        }
+        const { exists } = ImageMagick._api.FS.analyzePath(fileName);
+        if (!exists) throw new Error(`Unable to find a font with the name '${name}', add it with Magick.addFont.`);
 
         return fileName;
     }
 
     static addFont(name: string, data: Uint8Array): void {
         const fileSystem = ImageMagick._api.FS;
-        const stats = fileSystem.analyzePath('/fonts');
-        if (!stats.exists) {
-            fileSystem.mkdir('/fonts');
-        }
+        const { exists } = fileSystem.analyzePath('/fonts');
+        if (!exists) fileSystem.mkdir('/fonts');
 
         const stream = fileSystem.open(`/fonts/${name}`, 'w');
         fileSystem.write(stream, data, 0, data.length);

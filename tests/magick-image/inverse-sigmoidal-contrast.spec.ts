@@ -23,8 +23,8 @@ afterEach(() => {
 describe('MagickImage#inverseSigmoidalContrast', () => {
     it('should use half of quantum for midpoint by default', () => {
         image.clone(other => {
-            image.inverseSigmoidalContrast(4.0);
-            other.inverseSigmoidalContrast(4.0, new Percentage(50));
+            image.inverseSigmoidalContrast(4);
+            other.inverseSigmoidalContrast(4, new Percentage(50));
 
             const difference = other.compare(image, ErrorMetric.RootMeanSquared);
             expect(difference).toBe(0);
@@ -33,7 +33,7 @@ describe('MagickImage#inverseSigmoidalContrast', () => {
 
     it('should adjust the image contrast', () => {
         image.clone(other => {
-            other.inverseSigmoidalContrast(4.0, new Percentage(25));
+            other.inverseSigmoidalContrast(4, new Percentage(25));
 
             const difference = other.compare(image, ErrorMetric.RootMeanSquared);
             expect(difference).toBeCloseTo(0.04179);
@@ -42,7 +42,7 @@ describe('MagickImage#inverseSigmoidalContrast', () => {
 
     it('should adjust the specified channel', () => {
         image.clone(other => {
-            other.inverseSigmoidalContrast(4.0, Quantum.max * 0.25, Channels.Blue);
+            other.inverseSigmoidalContrast(4, Quantum.max * 0.25, Channels.Blue);
 
             const difference = other.compare(image, ErrorMetric.RootMeanSquared);
             expect(difference).toBeCloseTo(0.03082);

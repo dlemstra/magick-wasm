@@ -36,20 +36,22 @@ export class ImageMagick {
     /** @internal */
     static get _api(): ImageMagickApi {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        if (instance.api === undefined) throw new MagickError('`await initializeImageMagick` should be called to initialize the library');
+        if (!instance.api) throw new MagickError('`await initializeImageMagick` should be called to initialize the library');
 
-        return instance.api; // eslint-disable-line @typescript-eslint/no-use-before-define
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        return instance.api;
     }
 
     /** @internal */
     static set _api(value: ImageMagickApi) {
-        instance.api = value; // eslint-disable-line @typescript-eslint/no-use-before-define
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        instance.api = value;
     }
 
     /** @internal */
     async _initialize(): Promise<void> { await this.loader(); }
 
-    static _create = (): ImageMagick => new ImageMagick();
+    static _create(): ImageMagick { return new ImageMagick(); }
 
     static read(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => void): void;
     static read(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => Promise<void>): Promise<void>;
@@ -64,17 +66,17 @@ export class ImageMagick {
     static read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, funcOrSettingsOrWidth: MagickReadSettings | ((image: IMagickImage) => void | Promise<void>) | number, funcOrheight?: ((image: IMagickImage) => void | Promise<void>) | number, func?: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
         MagickImage._use(image => {
             if (fileNameOrArrayOrColor instanceof MagickColor) {
-                if (typeof funcOrSettingsOrWidth === 'number' && typeof funcOrheight === 'number') image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth, funcOrheight);
+                if (typeof funcOrSettingsOrWidth === 'number' && typeof funcOrheight === 'number') {
+                    image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth, funcOrheight);
+                }
 
-                if (func !== undefined) func(image);
+                func?.(image);
             } else if (funcOrSettingsOrWidth instanceof MagickReadSettings) {
-                if (typeof fileNameOrArrayOrColor === 'string') image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
-                else image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
+                image.read(fileNameOrArrayOrColor as string, funcOrSettingsOrWidth);
 
                 if (funcOrheight !== undefined && typeof funcOrheight !== 'number') funcOrheight(image);
             } else {
-                if (typeof fileNameOrArrayOrColor === 'string') image.read(fileNameOrArrayOrColor);
-                else image.read(fileNameOrArrayOrColor);
+                image.read(fileNameOrArrayOrColor as string);
 
                 if (typeof funcOrSettingsOrWidth !== 'number') funcOrSettingsOrWidth(image);
             }
@@ -93,13 +95,11 @@ export class ImageMagick {
         const collection = MagickImageCollection.create();
         return collection._use(images => {
             if (funcOrSettings instanceof MagickReadSettings) {
-                if (typeof fileNameOrArray === 'string') images.read(fileNameOrArray, funcOrSettings);
-                else images.read(fileNameOrArray, funcOrSettings);
+                images.read(fileNameOrArray as string, funcOrSettings);
 
-                if (func !== undefined) func(images);
+                func?.(images);
             } else {
-                if (typeof fileNameOrArray === 'string') images.read(fileNameOrArray);
-                else images.read(fileNameOrArray);
+                images.read(fileNameOrArray as string);
 
                 funcOrSettings(images);
             }
@@ -111,7 +111,7 @@ export class ImageMagick {
     static readFromCanvas(canvas: HTMLCanvasElement, func: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
         return MagickImage._use(image => {
             image.readFromCanvas(canvas);
-            return func(image);
+            func(image);
         });
     }
 }

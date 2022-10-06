@@ -50,8 +50,11 @@ export class Exception {
         if (!Exception.isRaised(exception)) return result;
 
         const severity = Exception.getErrorSeverity(exception.value);
-        if (severity >= MagickErrorSeverity.Error) Exception.throw(exception, severity);
-        else Exception.dispose(exception);
+        if (severity >= MagickErrorSeverity.Error) {
+            Exception.throw(exception, severity);
+        } else {
+            Exception.dispose(exception);
+        }
 
         return result;
     }
@@ -61,7 +64,7 @@ export class Exception {
         const error = new MagickError(errorMessage, severity);
 
         const nestedCount = ImageMagick._api._MagickExceptionHelper_RelatedCount(exception);
-        if (nestedCount === 0) return error;
+        if (!nestedCount) return error;
 
         const relatedErrors: MagickError[] = [];
         for (let i = 0; i < nestedCount; i++) {
@@ -97,7 +100,7 @@ export class Exception {
     }
 
     private static isRaised(exception: Pointer): boolean {
-        return exception.value !== 0;
+        return !!exception.value;
     }
 
     private static throw(exception: Pointer, severity: MagickErrorSeverity): void {

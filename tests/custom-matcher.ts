@@ -38,8 +38,11 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
                 break;
             case 2:
                 result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
-                if (image.hasAlpha) result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
-                else result += toHex(Quantum.max);
+                if (image.hasAlpha) {
+                    result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
+                } else {
+                    result += toHex(Quantum.max);
+                }
                 break;
             case 3:
                 result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
@@ -51,8 +54,11 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
                 result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
                 result += toHex(pixel[image.channelOffset(PixelChannel.Green)]);
                 result += toHex(pixel[image.channelOffset(PixelChannel.Blue)]);
-                if (image.hasAlpha) result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
-                else result += toHex(Quantum.max);
+                if (image.hasAlpha) {
+                    result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
+                } else {
+                    result += toHex(Quantum.max);
+                }
                 break;
             default:
         }

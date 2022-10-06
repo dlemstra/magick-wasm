@@ -35,8 +35,8 @@ describe('MagickImageCollection#read', () => {
             expect(image.format).toBe(MagickFormat.Gif);
             expect(image.width).toBe(70);
             expect(image.height).toBe(46);
-            image.getPixels(p => {
-                expect(p.getPixel(0, 0).length).toBe(5);
+            image.getPixels(pixels => {
+                expect(pixels.getPixel(0, 0).length).toBe(5);
             });
         });
     });

@@ -20,7 +20,7 @@ describe('MagickFormatInfo#create', () => {
 
     it('should throw error when format is unknown', () => {
         expect(() => {
-            MagickFormatInfo.create(<MagickFormat>'FOOBAR');
+            MagickFormatInfo.create('FOOBAR' as MagickFormat);
         }).toThrowError('unable to get format info for FOOBAR');
     });
 });

@@ -35,7 +35,8 @@ export class MagickFormatInfo {
     get isWritable(): boolean { return this._isWritable; }
 
     static get all(): ReadonlyArray<MagickFormatInfo> {
-        if (MagickFormatInfo._all === undefined) MagickFormatInfo._all = MagickFormatInfo.loadFormats();
+        if (!MagickFormatInfo._all) MagickFormatInfo._all = MagickFormatInfo.loadFormats();
+
         return MagickFormatInfo._all;
     }
 
@@ -47,12 +48,11 @@ export class MagickFormatInfo {
         throw new MagickError(`unable to get format info for ${format}`);
     }
 
-    private static convertFormat(formatName: string | null, values: string[]): MagickFormat {
-        if (formatName === null) return MagickFormat.Unknown;
+    private static convertFormat(formatName: string | null): MagickFormat {
+        const formats = Object.values(MagickFormat);
+        const format = formatName as MagickFormat;
 
-        if (values.includes(formatName)) return formatName as MagickFormat;
-
-        return MagickFormat.Unknown;
+        return formats.includes(format) ? format : MagickFormat.Unknown;
     }
 
     private static loadFormats() {
@@ -61,12 +61,11 @@ export class MagickFormatInfo {
             const count = pointer.value;
             try {
                 const result = new Array<MagickFormatInfo>(count);
-                const values = Object.values(MagickFormat);
                 for (let i = 0; i < count; i++) {
                     const info = ImageMagick._api._MagickFormatInfo_GetInfo(list, i, exception);
                     const formatName = _createString(ImageMagick._api._MagickFormatInfo_Format_Get(info));
 
-                    const format = MagickFormatInfo.convertFormat(formatName, values);
+                    const format = MagickFormatInfo.convertFormat(formatName);
                     const description = _createString(ImageMagick._api._MagickFormatInfo_Description_Get(info), '');
                     const isReadable = !!ImageMagick._api._MagickFormatInfo_IsReadable_Get(info);
                     const isWritable = !!ImageMagick._api._MagickFormatInfo_IsWritable_Get(info);

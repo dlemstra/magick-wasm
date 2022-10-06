@@ -41,8 +41,7 @@ describe('MagickImage#trim', () => {
     ])('should trim the specified edges', (gravity: Gravity[], width: number, height: number, color: MagickColor, x: number, y: number) => {
         image.extent(new MagickGeometry('3x3'), Gravity.Center, MagickColors.Lime);
 
-        if (gravity.length === 1) image.trim(gravity[0]);
-        else if (gravity.length === 2) image.trim(gravity[0], gravity[1]);
+        image.trim(...gravity);
 
         expect(image.width).toBe(width);
         expect(image.height).toBe(height);

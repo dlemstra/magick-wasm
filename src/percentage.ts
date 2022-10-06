@@ -11,7 +11,7 @@ export class Percentage {
     }
 
     multiply(value: number): number {
-        return (value * this._value) / 100.0;
+        return (value * this._value) / 100;
     }
 
     toDouble(): number {

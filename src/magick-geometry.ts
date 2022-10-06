@@ -117,8 +117,9 @@ export class MagickGeometry {
 
         if (this._width > 0) result += this._width.toString();
 
-        if (this._height > 0) result += `x${this._height.toString()}`;
-        else result += 'x';
+        result += 'x';
+
+        if (this._height > 0) result += this._height.toString();
 
         if (this._x || this._y) {
             if (this._x >= 0) result += '+';
@@ -148,7 +149,7 @@ export class MagickGeometry {
     /** @internal */
     toRectangle(func: (rectangle: number) => void) {
         const rectangle = ImageMagick._api._MagickRectangle_Create();
-        if (rectangle === 0) throw new MagickError('unable to allocate memory');
+        if (!rectangle) throw new MagickError('unable to allocate memory');
 
         try {
             ImageMagick._api._MagickRectangle_Width_Set(rectangle, this._width);
@@ -187,7 +188,7 @@ export class MagickGeometry {
 
     /** @internal */
     static fromRectangle(rectangle: number): MagickGeometry {
-        if (rectangle === 0) throw new MagickError('unable to allocate memory');
+        if (!rectangle) throw new MagickError('unable to allocate memory');
 
         try {
             const width = ImageMagick._api._MagickRectangle_Width_Get(rectangle);

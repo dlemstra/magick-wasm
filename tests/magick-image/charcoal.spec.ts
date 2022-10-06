@@ -22,7 +22,7 @@ describe('MagickImage#oilPaint', () => {
     it('should default to a radius of 0 and sigma of 1', () => {
         image.clone(other => {
             image.charcoal();
-            other.charcoal(0.0, 1.0);
+            other.charcoal(0, 1);
 
             const difference = other.compare(image, ErrorMetric.RootMeanSquared);
             expect(difference).toBe(0);

@@ -32,7 +32,7 @@ describe('MagickImage#level', () => {
     it('should use 1 as default gamma', () => {
         image.clone(other => {
             image.level(new Percentage(50), new Percentage(10));
-            other.level(Channels.Composite, new Percentage(50), new Percentage(10), 1.0);
+            other.level(Channels.Composite, new Percentage(50), new Percentage(10), 1);
 
             expect(image.signature).toBe(other.signature);
         });

@@ -54,9 +54,7 @@ describe('ImageMagick#readCollection', () => {
 
         const data = await TestFiles.roseSparkleGif.toBuffer();
         await expect(async () => {
-            await ImageMagick.readCollection(data, settings, () => {
-                // will never be reached
-            });
+            await ImageMagick.readCollection(data, settings, () => { /* never reached */ });
         }).rejects.toThrowError('ImproperImageHeader');
     });
 
@@ -67,9 +65,7 @@ describe('ImageMagick#readCollection', () => {
 
         const data = TestFiles.roseSparkleGif.toBufferSync();
         expect(() => {
-            ImageMagick.readCollection(data, settings, () => {
-                // will never be reached
-            });
+            ImageMagick.readCollection(data, settings, () => { /* never reached */ });
         }).toThrowError('ImproperImageHeader');
     });
 });

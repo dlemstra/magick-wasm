@@ -22,7 +22,7 @@ describe('MagickImage#sharpen', () => {
     it('should use correct defaults for radius and sigma.', () => {
         image.clone(other => {
             image.sharpen();
-            other.sharpen(0, 1.0);
+            other.sharpen(0, 1);
 
             const difference = other.compare(image, ErrorMetric.RootMeanSquared);
             expect(difference).toBe(0);
@@ -31,8 +31,8 @@ describe('MagickImage#sharpen', () => {
 
     it('should use composite as default channels', () => {
         image.clone(other => {
-            image.sharpen(1.0, 1.0);
-            other.sharpen(1.0, 1.0, Channels.Composite);
+            image.sharpen(1, 1);
+            other.sharpen(1, 1, Channels.Composite);
 
             const difference = other.compare(image, ErrorMetric.RootMeanSquared);
             expect(difference).toBe(0);

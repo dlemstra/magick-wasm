@@ -24,7 +24,7 @@ describe('MagickImage#distort', () => {
     it('should distort the image', () => {
         image.alpha(AlphaOption.Set);
         image.virtualPixelMethod = VirtualPixelMethod.Transparent;
-        image.distort(DistortMethod.PerspectiveProjection, [1.40, 0.25, 3.0, 0.15, 1.30, 0.0, 0.007, 0.009]);
+        image.distort(DistortMethod.PerspectiveProjection, [1.40, 0.25, 3, 0.15, 1.30, 0, 0.007, 0.009]);
 
         expect(image.width).toBe(70);
         expect(image.height).toBe(46);

@@ -28,9 +28,7 @@ describe('MagickImage#writeToCanvas', () => {
             expect(contextId).toBe('2d');
             return {
                 createImageData(width: number, height: number) {
-                    return {
-                        data: new Array(width * height * 4),
-                    };
+                    return { data: new Array(width * height * 4) };
                 },
                 putImageData(imageData: ImageData, x: number, y: number) {
                     expect(x).toBe(0);

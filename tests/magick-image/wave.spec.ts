@@ -24,7 +24,7 @@ describe('MagickImage#wave', () => {
             image.interpolate = PixelInterpolateMethod.Blend;
             image.wave();
 
-            other.wave(PixelInterpolateMethod.Blend, 25.0, 150.0);
+            other.wave(PixelInterpolateMethod.Blend, 25, 150);
 
             const difference = other.compare(image, ErrorMetric.RootMeanSquared);
             expect(difference).toBe(0);
