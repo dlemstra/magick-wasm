@@ -25,6 +25,20 @@ describe('MagickFormatInfo#all', () => {
         });
     });
 
+    it('should set supportsMultipleFrames to the correct value', () => {
+        let index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Tiff);
+        expect(index).toBeGreaterThan(-1);
+
+        const tiffFormat = MagickFormatInfo.all[index];
+        expect(tiffFormat.supportsMultipleFrames).toBe(true);
+
+        index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Jpeg);
+        expect(index).toBeGreaterThan(-1);
+
+        const infoFormat = MagickFormatInfo.all[index];
+        expect(infoFormat.supportsMultipleFrames).toBe(false);
+    });
+
     it('should set supportsReading to the correct value', () => {
         let index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Jpeg);
         expect(index).toBeGreaterThan(-1);

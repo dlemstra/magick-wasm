@@ -11,13 +11,15 @@ import { MagickError } from './magick-error';
 export class MagickFormatInfo {
     private readonly _format: MagickFormat;
     private readonly _description: string;
+    private readonly _supportsMultipleFrames: boolean;
     private readonly _supportsReading: boolean;
     private readonly _supportsWriting: boolean;
     private static _all: ReadonlyArray<MagickFormatInfo>;
 
-    private constructor(format: MagickFormat, description: string, supportsReading: boolean, supportsWriting: boolean) {
+    private constructor(format: MagickFormat, description: string, supportsMultipleFrames: boolean, supportsReading: boolean, supportsWriting: boolean) {
         this._format = format;
         this._description = description;
+        this._supportsMultipleFrames = supportsMultipleFrames;
         this._supportsReading = supportsReading;
         this._supportsWriting = supportsWriting;
     }
@@ -25,6 +27,8 @@ export class MagickFormatInfo {
     get description(): string { return this._description; }
 
     get format(): MagickFormat { return this._format; }
+
+    get supportsMultipleFrames(): boolean { return this._supportsMultipleFrames; }
 
     get supportsReading(): boolean { return this._supportsReading; }
 
@@ -59,9 +63,10 @@ export class MagickFormatInfo {
 
                         const format = MagickFormatInfo.convertFormat(formatName, values);
                         const description = _createString(ImageMagick._api._MagickFormatInfo_Description_Get(info), '');
+                        const supportsMultipleFrames = ImageMagick._api._MagickFormatInfo_IsMultiFrame_Get(info) == 1;
                         const supportsReading = ImageMagick._api._MagickFormatInfo_IsReadable_Get(info) == 1;
                         const supportsWriting = ImageMagick._api._MagickFormatInfo_IsWritable_Get(info) == 1;
-                        result[i] = new MagickFormatInfo(format, description, supportsReading, supportsWriting);
+                        result[i] = new MagickFormatInfo(format, description, supportsMultipleFrames, supportsReading, supportsWriting);
                     }
                     return result;
                 } finally {
