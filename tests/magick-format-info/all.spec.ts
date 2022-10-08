@@ -26,22 +26,30 @@ describe('MagickFormatInfo#all', () => {
     });
 
     it('should set isReadable to the correct value', () => {
-        const jpegFormat = MagickFormatInfo.all.find(formatInfo => formatInfo.format === MagickFormat.Jpeg);
-        expect(jpegFormat).not.toBeUndefined();
-        expect(jpegFormat!.isReadable).toBe(true);
+        let index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Jpeg);
+        expect(index).toBeGreaterThan(-1);
 
-        const infoFormat = MagickFormatInfo.all.find(formatInfo => formatInfo.format === MagickFormat.Info);
-        expect(infoFormat).not.toBeUndefined();
-        expect(infoFormat!.isReadable).toBe(false);
+        const jpegFormat = MagickFormatInfo.all[index];
+        expect(jpegFormat.isReadable).toBe(true);
+
+        index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Info);
+        expect(index).toBeGreaterThan(-1);
+
+        const infoFormat = MagickFormatInfo.all[index];
+        expect(infoFormat.isReadable).toBe(false);
     });
 
     it('should set isWritable to the correct value', () => {
-        const jpegFormat = MagickFormatInfo.all.find(formatInfo => formatInfo.format === MagickFormat.Jpeg);
-        expect(jpegFormat).not.toBeUndefined();
-        expect(jpegFormat!.isWritable).toBe(true);
+        let index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Jpeg);
+        expect(index).toBeGreaterThan(-1);
 
-        const dngFormat = MagickFormatInfo.all.find(formatInfo => formatInfo.format === MagickFormat.Dng);
-        expect(dngFormat).not.toBeUndefined();
-        expect(dngFormat!.isWritable).toBe(false);
+        const jpegFormat = MagickFormatInfo.all[index];
+        expect(jpegFormat?.isWritable).toBe(true);
+
+        index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Dng);
+        expect(index).toBeGreaterThan(-1);
+
+        const dngFormat = MagickFormatInfo.all[index];
+        expect(dngFormat.isWritable).toBe(false);
     });
 });
