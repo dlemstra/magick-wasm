@@ -19,12 +19,11 @@ afterEach(() => {
 
 describe('MagickImage#getPixels', () => {
     it('should dispose pixel instance', () => {
-        let pixels: PixelCollection | undefined = undefined;
+        let pixels = PixelCollection._create(image);
         image.getPixels((p) => {
             pixels = p as PixelCollection;
         });
 
-        expect(pixels).toBeDefined();
-        expect(() => { pixels!._instance }).toThrowError('instance is disposed');
+        expect(() => { pixels._instance }).toThrowError('instance is disposed');
     });
 });
