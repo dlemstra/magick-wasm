@@ -5,7 +5,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { Percentage } from '../../src/percentage';
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
 });
 
 describe('MagickGeometry#toQuantum', () => {

@@ -5,7 +5,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickGeometry } from '../../src/magick-geometry';
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
 });
 
 describe('MagickGeometry#constructor', () => {

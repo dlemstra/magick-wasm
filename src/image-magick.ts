@@ -39,15 +39,15 @@ export class ImageMagick {
 
     /** @internal */
     static get _api(): ImageMagickApi {
-        if (instance.api === undefined) // eslint-disable-line @typescript-eslint/no-use-before-define
+        if (!instance.api)
             throw new MagickError('`await initializeImageMagick` should be called to initialize the library');
 
-        return instance.api; // eslint-disable-line @typescript-eslint/no-use-before-define
+        return instance.api;
     }
 
     /** @internal */
     static set _api(value: ImageMagickApi) {
-        instance.api = value; // eslint-disable-line @typescript-eslint/no-use-before-define
+        instance.api = value;
     }
 
     static read(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => void): void;

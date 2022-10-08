@@ -9,7 +9,7 @@ import { IMagickImage, MagickImage } from '../../src/magick-image';
 let image: IMagickImage;
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
     image = MagickImage.create();
 });
 
@@ -24,7 +24,7 @@ describe('MagickImage#writeToCanvas', () => {
         const window = new JSDOM().window;
         const canvas = window.document.createElement('canvas');
 
-        window.HTMLCanvasElement.prototype.getContext = <any> vi.fn(function(contextId: string) {
+        window.HTMLCanvasElement.prototype.getContext = vi.fn(function(contextId: string) {
             expect(contextId).toBe('2d');
             return {
                 createImageData: function(width: number, height: number) {
@@ -39,7 +39,7 @@ describe('MagickImage#writeToCanvas', () => {
                     canvasData = imageData.data;
                 }
             };
-        });
+        }) as never;
 
         image.read(MagickColors.Magenta, 1, 1);
         image.writeToCanvas(canvas);

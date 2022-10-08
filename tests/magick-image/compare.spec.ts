@@ -11,7 +11,7 @@ let image: IMagickImage;
 let other: IMagickImage;
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
     image = MagickImage.create();
     other = MagickImage.create();
 });

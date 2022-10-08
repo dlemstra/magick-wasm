@@ -8,7 +8,7 @@ import { MagickColors } from '../../src/magick-colors';
 let image: IMagickImage;
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
     image = MagickImage.create();
     image.read(MagickColors.Black, 1, 1);
 });

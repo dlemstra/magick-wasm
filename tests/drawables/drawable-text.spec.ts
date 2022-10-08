@@ -16,7 +16,7 @@ import '../custom-matcher';
 let image: IMagickImage;
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
     image = MagickImage.create();
     image.read(MagickColors.White, 76, 147);
 });

@@ -6,7 +6,7 @@ import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
 import { MagickFormat } from '../../src/magick-format';
 
-beforeAll(() => { ImageMagick._api = (global as any).native; });
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('ImageMagick#readCollection', () => {
     it('should read built-in image async', async () => {

@@ -5,7 +5,7 @@ import { ImageMagick } from '../../../src/image-magick';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 
 beforeEach(() => {
-    ImageMagick._api = (global as any).native;
+    ImageMagick._api = global.native;
 });
 
 describe('MagickSettings#font', () => {

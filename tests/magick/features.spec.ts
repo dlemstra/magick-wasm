@@ -4,7 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { Magick } from '../../src/magick';
 
-beforeAll(() => { ImageMagick._api = (global as any).native; });
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('Magick#features', () => {
     it('should return the correct features', () => {
