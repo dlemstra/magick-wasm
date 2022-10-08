@@ -10,8 +10,7 @@ interface CustomMatchers {
     toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => void;
 }
 declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace Vi {
+    namespace Vi { // eslint-disable-line @typescript-eslint/no-namespace
         /* eslint-disable @typescript-eslint/no-empty-interface */
         interface Assertion extends CustomMatchers {}
         interface AsymmetricMatchersContaining extends CustomMatchers {}
