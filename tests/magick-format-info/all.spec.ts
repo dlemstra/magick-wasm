@@ -25,18 +25,18 @@ describe('MagickFormatInfo#all', () => {
         });
     });
 
-    it('should set isReadable to the correct value', () => {
+    it('should set supportsReading to the correct value', () => {
         let index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Jpeg);
         expect(index).toBeGreaterThan(-1);
 
         const jpegFormat = MagickFormatInfo.all[index];
-        expect(jpegFormat.isReadable).toBe(true);
+        expect(jpegFormat.supportsReading).toBe(true);
 
         index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Info);
         expect(index).toBeGreaterThan(-1);
 
         const infoFormat = MagickFormatInfo.all[index];
-        expect(infoFormat.isReadable).toBe(false);
+        expect(infoFormat.supportsReading).toBe(false);
     });
 
     it('should set isWritable to the correct value', () => {
@@ -44,12 +44,12 @@ describe('MagickFormatInfo#all', () => {
         expect(index).toBeGreaterThan(-1);
 
         const jpegFormat = MagickFormatInfo.all[index];
-        expect(jpegFormat?.isWritable).toBe(true);
+        expect(jpegFormat.supportsWriting).toBe(true);
 
         index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Dng);
         expect(index).toBeGreaterThan(-1);
 
         const dngFormat = MagickFormatInfo.all[index];
-        expect(dngFormat.isWritable).toBe(false);
+        expect(dngFormat.supportsWriting).toBe(false);
     });
 });

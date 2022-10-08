@@ -11,24 +11,24 @@ import { MagickError } from './magick-error';
 export class MagickFormatInfo {
     private readonly _format: MagickFormat;
     private readonly _description: string;
-    private readonly _isReadable: boolean;
-    private readonly _isWritable: boolean;
+    private readonly _supportsReading: boolean;
+    private readonly _supportsWriting: boolean;
     private static _all: ReadonlyArray<MagickFormatInfo>;
 
-    private constructor(format: MagickFormat, description: string, isReadable: boolean, isWritable: boolean) {
+    private constructor(format: MagickFormat, description: string, supportsReading: boolean, supportsWriting: boolean) {
         this._format = format;
         this._description = description;
-        this._isReadable = isReadable;
-        this._isWritable = isWritable;
+        this._supportsReading = supportsReading;
+        this._supportsWriting = supportsWriting;
     }
 
     get description(): string { return this._description; }
 
     get format(): MagickFormat { return this._format; }
 
-    get isReadable(): boolean { return this._isReadable; }
+    get supportsReading(): boolean { return this._supportsReading; }
 
-    get isWritable(): boolean { return this._isWritable; }
+    get supportsWriting(): boolean { return this._supportsWriting; }
 
     static get all(): ReadonlyArray<MagickFormatInfo> {
         if (MagickFormatInfo._all === undefined)
@@ -59,9 +59,9 @@ export class MagickFormatInfo {
 
                         const format = MagickFormatInfo.convertFormat(formatName, values);
                         const description = _createString(ImageMagick._api._MagickFormatInfo_Description_Get(info), '');
-                        const isReadable = ImageMagick._api._MagickFormatInfo_IsReadable_Get(info) == 1;
-                        const isWritable = ImageMagick._api._MagickFormatInfo_IsWritable_Get(info) == 1;
-                        result[i] = new MagickFormatInfo(format, description, isReadable, isWritable);
+                        const supportsReading = ImageMagick._api._MagickFormatInfo_IsReadable_Get(info) == 1;
+                        const supportsWriting = ImageMagick._api._MagickFormatInfo_IsWritable_Get(info) == 1;
+                        result[i] = new MagickFormatInfo(format, description, supportsReading, supportsWriting);
                     }
                     return result;
                 } finally {
