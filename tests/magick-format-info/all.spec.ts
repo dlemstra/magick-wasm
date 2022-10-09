@@ -35,8 +35,8 @@ describe('MagickFormatInfo#all', () => {
         index = MagickFormatInfo.all.findIndex(formatInfo => formatInfo.format === MagickFormat.Jpeg);
         expect(index).toBeGreaterThan(-1);
 
-        const infoFormat = MagickFormatInfo.all[index];
-        expect(infoFormat.supportsMultipleFrames).toBe(false);
+        const jpegFormat = MagickFormatInfo.all[index];
+        expect(jpegFormat.supportsMultipleFrames).toBe(false);
     });
 
     it('should set supportsReading to the correct value', () => {
