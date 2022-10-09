@@ -44,6 +44,9 @@ export interface IMagickImage extends INativeInstance {
     /** @internal */
     _instance: number;
 
+    animationDelay: number;
+    animationIterations: number;
+    animationTicksPerSecond: number;
     readonly artifactNames: ReadonlyArray<string>;
     readonly attributeNames: ReadonlyArray<string>;
     backgroundColor: MagickColor;
@@ -211,6 +214,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         super(instance, ImageMagick._api._MagickImage_Dispose);
         this._settings = settings;
     }
+
+    get animationDelay(): number { return ImageMagick._api._MagickImage_AnimationDelay_Get(this._instance); }
+    set animationDelay(value: number) { ImageMagick._api._MagickImage_AnimationDelay_Set(this._instance, value); }
+
+    get animationIterations(): number { return ImageMagick._api._MagickImage_AnimationIterations_Get(this._instance); }
+    set animationIterations(value: number) { ImageMagick._api._MagickImage_AnimationIterations_Set(this._instance, value); }
+
+    get animationTicksPerSecond(): number { return ImageMagick._api._MagickImage_AnimationTicksPerSecond_Get(this._instance); }
+    set animationTicksPerSecond(value: number) { ImageMagick._api._MagickImage_AnimationTicksPerSecond_Set(this._instance, value); }
 
     get artifactNames(): ReadonlyArray<string> {
         const artifactNames: string[] = [];
