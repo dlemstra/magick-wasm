@@ -1,6 +1,25 @@
 {
+    "plugins": [
+        "@typescript-eslint"
+    ],
     "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
-    "extends": ["plugin:@typescript-eslint/recommended"],
-    "ignorePatterns": ["dist", "demo/*.js", "tools/*.js"]
+    "parserOptions": {
+        "project": [
+            "./tsconfig.json",
+            "./demo/tsconfig.json",
+            "./tests/tsconfig.json",
+            "./tools/tsconfig.json"
+        ]
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+    "ignorePatterns": [
+        "dist",
+        "demo/*.js",
+        "tools/*.js",
+        "vite.config.ts"
+    ]
 }
