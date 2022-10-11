@@ -3,13 +3,13 @@
 
 import { ImageMagick } from '../image-magick';
 import { Exception } from '../internal/exception/exception';
-import { NativeInstance } from '../internal/native-instance';
+import { INativeInstance, NativeInstance } from '../native-instance';
 import { IMagickImage } from '../magick-image';
 import { quantumArray } from '@dlemstra/magick-native/magick';
 import { _withQuantumArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
 
-export interface IPixelCollection {
+export interface IPixelCollection extends INativeInstance {
     getArea(x: number, y: number, width: number, height: number): quantumArray;
     getPixel(x: number, y: number): quantumArray;
     setArea(x: number, y: number, width: number, height: number, quantumPixels: quantumArray): void;

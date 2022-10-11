@@ -18,7 +18,7 @@ import { ImageMagick } from './image-magick';
 import { IDrawable } from './drawables/drawable';
 import { IImageProfile, ImageProfile } from './profiles/image-profile';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
-import { INativeInstance, NativeInstance } from './internal/native-instance';
+import { INativeInstance, NativeInstance } from './native-instance';
 import { MagickColor } from './magick-color';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';

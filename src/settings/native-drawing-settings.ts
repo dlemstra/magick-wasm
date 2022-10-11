@@ -4,7 +4,7 @@
 import { DrawingSettings } from './drawing-settings';
 import { ImageMagick } from '../image-magick';
 import { Magick } from '../magick';
-import { NativeInstance } from '../internal/native-instance';
+import { NativeInstance } from '../native-instance';
 import { _withString } from '../internal/native/string';
 
 /** @internal */
