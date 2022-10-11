@@ -10,7 +10,8 @@
         "removeComments": true,
         "strict": true,
         "esModuleInterop": true,
-        "stripInternal": true
+        "stripInternal": true,
+        "noImplicitAny": true
     },
     "include": ["src"]
 }
