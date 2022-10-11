@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "module": "Node16",
+        "rootDir": ".",
+        "outDir": ".",
+        "strict": true
+    },
+    "exclude": []
+}

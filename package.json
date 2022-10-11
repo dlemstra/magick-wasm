@@ -40,7 +40,8 @@
         "test14": "vitest run --experimental-wasm-threads --wasm-atomics-on-non-shared-memory",
         "lint": "eslint .",
         "demo": "cd demo && tsc && node demo.js",
-        "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE ."
+        "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE .",
+        "update-index": "cd tools && tsc && node update-index.js ../src"
     },
     "devDependencies": {
         "@dlemstra/magick-native": "0.202210.42220",
