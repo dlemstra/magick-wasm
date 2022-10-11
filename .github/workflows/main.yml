@@ -33,6 +33,8 @@ jobs:
 
       - run: npm run lint
 
+      - run: npm run update-index
+
       - run: npm run build
 
       - if: matrix.node == '14'
