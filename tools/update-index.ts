@@ -56,7 +56,7 @@ for (const fileName of getFilesWithExports(folder)) {
     newContent += `export * from '.${path}';\n`;
 }
 
-const oldContent = fs.readFileSync(indexFile, 'utf-8').replace('\r', '');
+const oldContent = fs.readFileSync(indexFile, 'utf-8').replace(/\r/g, '');
 fs.writeFileSync(indexFile, newContent);
 
 if (newContent !== oldContent) {
