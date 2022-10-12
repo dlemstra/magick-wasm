@@ -46,7 +46,7 @@ if (!fs.existsSync(indexFile))
     process.exit(1);
 }
 
-let newContent = ''
+let newContent = '// Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.\n// Licensed under the Apache License, Version 2.0.\n\n';
 
 for (const fileName of getFilesWithExports(folder)) {
     if (fileName === indexFile)
