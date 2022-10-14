@@ -1,6 +1,7 @@
 {
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "header"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -21,5 +22,15 @@
         "demo/*.js",
         "tools/*.js",
         "vite.config.ts"
-    ]
+    ],
+    "rules": {
+        "header/header": [
+            2,
+            "line",
+            [
+                " Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.",
+                " Licensed under the Apache License, Version 2.0."
+            ]
+        ]
+    }
 }
