@@ -9,7 +9,7 @@ import '../custom-matcher';
 
 beforeAll(() => { ImageMagick._api = global.native; });
 
-function bogusAsyncMethod() { return new Promise(() => { return 1 }); }
+function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
 
 describe('ImageMagick#read', () => {
     it('should read built-in image async', async () => {

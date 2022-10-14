@@ -8,12 +8,15 @@ import { MagickFormat } from '../../src/magick-format';
 
 beforeAll(() => { ImageMagick._api = global.native; });
 
+function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
+
 describe('ImageMagick#readCollection', () => {
     it('should read built-in image async', async () => {
         await ImageMagick.readCollection('logo:', async (images) => {
             expect(images.length).toBe(1);
             expect(images[0].width).toBe(640);
             expect(images[0].height).toBe(480);
+            await bogusAsyncMethod();
         });
     });
 
@@ -27,12 +30,13 @@ describe('ImageMagick#readCollection', () => {
 
     it('should read image from array async', async () => {
         const data = await TestFiles.roseSparkleGif.toBuffer();
-        await ImageMagick.readCollection(data, (images) => {
+        await ImageMagick.readCollection(data, async (images) => {
             expect(images.length).toBe(3);
             images.forEach(image => {
                 expect(image.width).toBe(70);
                 expect(image.height).toBe(46);
             });
+            await bogusAsyncMethod();
         });
     });
 
@@ -54,8 +58,8 @@ describe('ImageMagick#readCollection', () => {
 
         const data = await TestFiles.roseSparkleGif.toBuffer();
         await expect(async () => {
-            await ImageMagick.readCollection(data, settings, () => {
-                // will never be reached
+            await ImageMagick.readCollection(data, settings, async () => {
+                await bogusAsyncMethod();
             });
         }).rejects.toThrowError('ImproperImageHeader');
     });

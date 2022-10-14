@@ -13,15 +13,12 @@ import { Pointer } from './internal/pointer/pointer';
 
 export interface IMagickImageCollection extends Array<IMagickImage> {
     /** @internal */
-    _use(func: (images: IMagickImageCollection) => void): void;
-    /** @internal */
-    _use(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
+    _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
 
     dispose(): void;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
-    write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
-    write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
+    write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void>;
 }
 
 export class MagickImageCollection extends Array<MagickImage> implements IMagickImageCollection {
@@ -69,8 +66,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         });
     }
 
-    write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
-    write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
     write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void> {
         this.throwIfEmpty();
 
@@ -131,8 +126,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     /** @internal */
-    _use(func: (images: IMagickImageCollection) => void): void;
-    _use(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
     _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
         try {
             return func(this);
