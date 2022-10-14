@@ -7,6 +7,8 @@ import { ColorSpace } from '../../src/color-space';
 
 beforeEach(() => { ImageMagick._api = global.native; });
 
+function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
+
 describe('MagickImage#separate', () => {
     it('should supply the correct number of channels', () => {
         ImageMagick.read('logo:', (image) => {
@@ -26,12 +28,14 @@ describe('MagickImage#separate', () => {
         });
     });
 
-    it('should supply image with gray colorspace', () => {
-        ImageMagick.read('logo:', (image) => {
+    it('should supply image with gray colorspace', async () => {
+        await ImageMagick.read('logo:', async (image) => {
             image.separate((images) => {
                 expect(images.length).toBe(1);
                 expect(images[0].colorSpace).toBe(ColorSpace.Gray);
             }, Channels.Red);
+
+            await bogusAsyncMethod();
         });
     });
 });

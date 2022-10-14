@@ -84,8 +84,7 @@ export interface IMagickImage extends INativeInstance {
     charcoal(radius: number, sigma: number): void;
     clahe(xTiles: number, yTiles: number, numberBins: number, clipLimit: number): void;
     clahe(xTiles: Percentage, yTiles: Percentage, numberBins: number, clipLimit: number): void;
-    clone(func: (image: IMagickImage) => void): void;
-    clone(func: (image: IMagickImage) => Promise<void>): Promise<void>;
+    clone(func: (image: IMagickImage) => void | Promise<void>): void | Promise<void>;
     colorAlpha(color: MagickColor): void;
     compare(image: IMagickImage, metric: ErrorMetric): number;
     compare(image: IMagickImage, metric: ErrorMetric, channels: Channels): number;
@@ -138,8 +137,7 @@ export interface IMagickImage extends INativeInstance {
     getArtifact(name: string): string | null;
     getAttribute(name: string): string | null;
     getProfile(name: string): IImageProfile | null;
-    getWriteMask(func: (mask: IMagickImage | null) => void): void;
-    getWriteMask(func: (mask: IMagickImage | null) => Promise<void>):  Promise<void>;
+    getWriteMask(func: (mask: IMagickImage | null) => void | Promise<void>): void | Promise<void>;
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
     histogram(): Map<string, number>;
     inverseContrast(): void;
@@ -176,10 +174,8 @@ export interface IMagickImage extends INativeInstance {
     resize(geometry: MagickGeometry): void;
     resize(width: number, height: number): void;
     rotate(degrees: number): void;
-    separate(func: (images: IMagickImageCollection) => void): void;
-    separate(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
-    separate(func: (images: IMagickImageCollection) => void, channels: Channels): void;
-    separate(func: (images: IMagickImageCollection) => Promise<void>, channels: Channels): Promise<void>;
+    separate(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
+    separate(func: (images: IMagickImageCollection) => void | Promise<void>, channels: Channels): void | Promise<void>;
     setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
     setAttribute(name: string, value: string): void;
@@ -202,8 +198,7 @@ export interface IMagickImage extends INativeInstance {
     vignette(radius: number, sigma: number, x: number, y: number): void;
     wave(): void;
     wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
-    write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
-    write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
+    write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void>;
     writeToCanvas(canvas: HTMLCanvasElement): void;
 }
 
@@ -459,8 +454,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    clone(func: (image: IMagickImage) => void): void;
-    clone(func: (image: IMagickImage) => Promise<void>): Promise<void>;
     clone(func: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
         return Exception.usePointer(exception => {
             const image = new MagickImage(ImageMagick._api._MagickImage_Clone(this._instance, exception), this._settings._clone());
@@ -787,8 +780,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    getWriteMask(func: (mask: IMagickImage | null) => void): void;
-    getWriteMask(func: (mask: IMagickImage | null) => Promise<void>):  Promise<void>;
     getWriteMask(func: (mask: IMagickImage | null) => void | Promise<void>): void | Promise<void> {
         return Exception.usePointer(exception => {
             const instance = ImageMagick._api._MagickImage_GetWriteMask(this._instance, exception);
@@ -999,10 +990,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    separate(func: (images: IMagickImageCollection) => void): void;
-    separate(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
-    separate(func: (images: IMagickImageCollection) => void, channels: Channels): void;
-    separate(func: (images: IMagickImageCollection) => Promise<void>, channels: Channels): Promise<void>;
+    separate(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
+    separate(func: (images: IMagickImageCollection) => void | Promise<void>, channels: Channels): void | Promise<void>;
     separate(func: (images: IMagickImageCollection) => void | Promise<void>, channelsOrUndefined?: Channels): void | Promise<void> {
         return Exception.use(exception => {
             const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
