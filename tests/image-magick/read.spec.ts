@@ -9,11 +9,14 @@ import '../custom-matcher';
 
 beforeAll(() => { ImageMagick._api = global.native; });
 
+function bogusAsyncMethod() { return new Promise(() => { return 1 }); }
+
 describe('ImageMagick#read', () => {
     it('should read built-in image async', async () => {
         await ImageMagick.read('logo:', async (image) => {
             expect(image.width).toBe(640);
             expect(image.height).toBe(480);
+            await bogusAsyncMethod();
         });
     });
 
@@ -26,9 +29,10 @@ describe('ImageMagick#read', () => {
 
     it('should read image from array async', async () => {
         const data = await TestFiles.imageMagickJpg.toBuffer();
-        await ImageMagick.read(data, (image) => {
+        await ImageMagick.read(data, async (image) => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
+            await bogusAsyncMethod();
         });
     });
 
@@ -58,9 +62,10 @@ describe('ImageMagick#read', () => {
             height: 3
         });
 
-        await ImageMagick.read('xc:red', settings, (image) => {
+        await ImageMagick.read('xc:red', settings, async (image) => {
             expect(image.width).toBe(2);
             expect(image.height).toBe(3);
+            await bogusAsyncMethod();
         });
     });
 
@@ -73,10 +78,11 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read correct image when color is specified async', async () => {
-        await ImageMagick.read(MagickColors.Lime, 1, 2, (image) => {
+        await ImageMagick.read(MagickColors.Lime, 1, 2, async (image) => {
             expect(image.width).toBe(1);
             expect(image.height).toBe(2);
             expect(image).toHavePixelWithColor(0, 1, MagickColors.Lime);
+            await bogusAsyncMethod();
         });
     });
 });

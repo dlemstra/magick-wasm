@@ -50,46 +50,40 @@ export class ImageMagick {
         instance.api = value;
     }
 
-    static read(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => void): void;
-    static read(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => Promise<void>): Promise<void>;
-    static read(fileName: string, func: (image: IMagickImage) => void): void;
-    static read(fileName: string, func: (image: IMagickImage) => Promise<void>): Promise<void>;
-    static read(array: Uint8Array, func: (image: IMagickImage) => void): void;
-    static read(array: Uint8Array, func: (image: IMagickImage) => Promise<void>): Promise<void>;
-    static read(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => void): void;
-    static read(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<void>): Promise<void>;
-    static read(array: Uint8Array, settings: MagickReadSettings, func: (image: IMagickImage) => void): void;
-    static read(array: Uint8Array, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<void>): Promise<void>;
-    static read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, funcOrSettingsOrWidth: MagickReadSettings | ((image: IMagickImage) => void | Promise<void>) | number, funcOrheight?: ((image: IMagickImage) => void | Promise<void>) | number, func?: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
+    static read(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => void | Promise<void>): (void | Promise<void>);
+    static read(array: Uint8Array, settings: MagickReadSettings, func: (image: IMagickImage) => void | Promise<void>): (void | Promise<void>);
+    static read(array: Uint8Array, func: (image: IMagickImage) => void | Promise<void>): (void | Promise<void>);
+    static read(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => void | Promise<void>): (void | Promise<void>);
+    static read(fileName: string, func: (image: IMagickImage) => void | Promise<void>): (void | Promise<void>);
+    static read(colorOrArrayOrFileName: MagickColor | Uint8Array | string, widthOrSettingsOrFunc: number | MagickReadSettings | ((image: IMagickImage) => void | Promise<void>) , heightOrFunc?: number | ((image: IMagickImage) => void | Promise<void>), func?: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
         MagickImage._use(image => {
-            if (fileNameOrArrayOrColor instanceof MagickColor) {
-                if (typeof funcOrSettingsOrWidth === 'number' && typeof funcOrheight === 'number')
-                    image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth, funcOrheight);
+            if (colorOrArrayOrFileName instanceof MagickColor) {
+                if (typeof widthOrSettingsOrFunc === 'number' && typeof heightOrFunc === 'number')
+                    image.read(colorOrArrayOrFileName, widthOrSettingsOrFunc, heightOrFunc);
 
                 if (func !== undefined)
                     return func(image);
-            } else if (funcOrSettingsOrWidth instanceof MagickReadSettings) {
-                if (typeof fileNameOrArrayOrColor === 'string')
-                    image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
+            } else if (widthOrSettingsOrFunc instanceof MagickReadSettings) {
+                if (typeof colorOrArrayOrFileName === 'string')
+                    image.read(colorOrArrayOrFileName, widthOrSettingsOrFunc);
                 else
-                    image.read(fileNameOrArrayOrColor, funcOrSettingsOrWidth);
+                    image.read(colorOrArrayOrFileName, widthOrSettingsOrFunc);
 
-                if (funcOrheight !== undefined && typeof funcOrheight !== 'number')
-                    return funcOrheight(image);
+                if (heightOrFunc !== undefined && typeof heightOrFunc !== 'number')
+                    return heightOrFunc(image);
             } else {
-                if (typeof fileNameOrArrayOrColor === 'string')
-                    image.read(fileNameOrArrayOrColor);
+                if (typeof colorOrArrayOrFileName === 'string')
+                    image.read(colorOrArrayOrFileName);
                 else
-                    image.read(fileNameOrArrayOrColor);
+                    image.read(colorOrArrayOrFileName);
 
-                if (typeof funcOrSettingsOrWidth !== 'number')
-                    return funcOrSettingsOrWidth(image);
+                if (typeof widthOrSettingsOrFunc !== 'number')
+                    return widthOrSettingsOrFunc(image);
             }
         });
     }
 
-    static readCollection(fileName: string, func: (images: IMagickImageCollection) => void): void;
-    static readCollection(fileName: string, func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
+    static readCollection(fileName: string, func: (images: IMagickImageCollection) => void| Promise<void>): Promise<void>;
     static readCollection(array: Uint8Array, func: (images: IMagickImageCollection) => void): void;
     static readCollection(array: Uint8Array, func: (image: IMagickImageCollection) => Promise<void>): Promise<void>;
     static readCollection(fileName: string, settings: MagickReadSettings, func: (images: IMagickImageCollection) => void): void;
