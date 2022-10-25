@@ -45,7 +45,7 @@ describe('ImageMagick#read', () => {
         });
     });
 
-    it('should read image from with specified format async', async () => {
+    it('should read image from array with specified format async', async () => {
         const data = await TestFiles.imageMagickJpg.toBuffer();
         await expect(async () => {
             await ImageMagick.read(data, MagickFormat.Png, async () => {
@@ -56,10 +56,29 @@ describe('ImageMagick#read', () => {
         .toThrowError('ReadPNGImage')
     });
 
-    it('should read image from with specified format', () => {
+    it('should read image from array with specified format', () => {
         const data = TestFiles.imageMagickJpg.toBufferSync();
         expect(() => {
             ImageMagick.read(data, MagickFormat.Png, (image) => {
+                console.log(image);
+            });
+        })
+        .toThrowError('ReadPNGImage')
+    });
+
+    it('should read image from filename with specified format async', async () => {
+        await expect(async () => {
+            await ImageMagick.read('/xml/empty', MagickFormat.Png, async () => {
+                await bogusAsyncMethod();
+            });
+        })
+        .rejects
+        .toThrowError('ReadPNGImage')
+    });
+
+    it('should read image from filename with specified format', () => {
+        expect(() => {
+            ImageMagick.read('/xml/empty', MagickFormat.Png, (image) => {
                 console.log(image);
             });
         })
