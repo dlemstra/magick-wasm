@@ -87,30 +87,33 @@ export class ImageMagick {
         });
     }
 
+    static readCollection(array: Uint8Array, format: MagickFormat, func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
     static readCollection(array: Uint8Array, settings: MagickReadSettings, func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
     static readCollection(array: Uint8Array, settings: MagickReadSettings, func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
     static readCollection(array: Uint8Array, func: (images: IMagickImageCollection) => void | Promise<void>): (void | Promise<void>);
     static readCollection(fileName: string, settings: MagickReadSettings, func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
     static readCollection(fileName: string, func: (images: IMagickImageCollection) => void | Promise<void>): (void | Promise<void>);
-    static readCollection(arrayOrFileName: Uint8Array | string, settingsOrFunc: MagickReadSettings | ((images: IMagickImageCollection) => void | Promise<void>), func?: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
+    static readCollection(arrayOrFileName: Uint8Array | string, formatOrSettingsOrFunc: MagickFormat | MagickReadSettings | ((images: IMagickImageCollection) => void | Promise<void>), func?: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
         const collection = MagickImageCollection.create();
         return collection._use(images => {
-            if (settingsOrFunc instanceof MagickReadSettings) {
-                if (typeof arrayOrFileName === 'string')
-                    images.read(arrayOrFileName, settingsOrFunc);
-                else
-                    images.read(arrayOrFileName, settingsOrFunc);
-
-                if (func !== undefined)
-                    return func(images);
+            let callback = func;
+            let settings: MagickReadSettings | undefined = undefined;
+            if (formatOrSettingsOrFunc instanceof MagickReadSettings) {
+                settings = formatOrSettingsOrFunc;
+            } else if (typeof formatOrSettingsOrFunc === 'string') {
+                settings = new MagickReadSettings();
+                settings.format = formatOrSettingsOrFunc;
             } else {
-                if (typeof arrayOrFileName === 'string')
-                    images.read(arrayOrFileName);
-                else
-                    images.read(arrayOrFileName);
-
-                return settingsOrFunc(images);
+                callback = formatOrSettingsOrFunc;
             }
+
+            if (typeof arrayOrFileName === 'string')
+                images.read(arrayOrFileName, settings);
+            else
+                images.read(arrayOrFileName, settings);
+
+            if (callback !== undefined)
+                return callback(images);
         });
     }
 

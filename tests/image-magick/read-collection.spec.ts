@@ -51,6 +51,27 @@ describe('ImageMagick#readCollection', () => {
         });
     });
 
+    it('should read image from array with specified format async', async () => {
+        const data = await TestFiles.roseSparkleGif.toBuffer();
+        await expect(async () => {
+            await ImageMagick.readCollection(data, MagickFormat.Png, async () => {
+                await bogusAsyncMethod();
+            });
+        })
+        .rejects
+        .toThrowError('ReadPNGImage');
+    });
+
+    it('should read image from array with specified format', () => {
+        const data = TestFiles.roseSparkleGif.toBufferSync();
+        expect(() => {
+            ImageMagick.readCollection(data, MagickFormat.Png, (image) => {
+                console.log(image);
+            });
+        })
+        .toThrowError('ReadPNGImage');
+    });
+
     it('should read image from array with settings async', async () => {
         const settings = new MagickReadSettings({
             format: MagickFormat.Png
