@@ -6,6 +6,7 @@ import { MagickColors } from '../../src/magick-colors';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
 import '../custom-matcher';
+import { MagickFormat } from '../../src/magick-format';
 
 beforeAll(() => { ImageMagick._api = global.native; });
 
@@ -42,6 +43,27 @@ describe('ImageMagick#read', () => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
         });
+    });
+
+    it('should read image from with specified format async', async () => {
+        const data = await TestFiles.imageMagickJpg.toBuffer();
+        await expect(async () => {
+            await ImageMagick.read(data, MagickFormat.Png, async () => {
+                await bogusAsyncMethod();
+            });
+        })
+        .rejects
+        .toThrowError('ReadPNGImage')
+    });
+
+    it('should read image from with specified format', () => {
+        const data = TestFiles.imageMagickJpg.toBufferSync();
+        expect(() => {
+            ImageMagick.read(data, MagickFormat.Png, (image) => {
+                console.log(image);
+            });
+        })
+        .toThrowError('ReadPNGImage')
     });
 
     it('should read correct image when width and height are specified', () => {
