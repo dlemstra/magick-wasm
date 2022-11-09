@@ -120,7 +120,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     static _createFromImages(images: number, settings: MagickSettings): IMagickImageCollection {
         const collection = MagickImageCollection.createObject();
 
-        collection.addImages(images, settings);
+        collection.addImages(images, settings._clone());
 
         return collection;
     }

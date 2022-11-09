@@ -118,6 +118,7 @@ export interface IMagickImage extends INativeInstance {
     crop(geometry: MagickGeometry, gravity: Gravity): void;
     crop(width: number, height: number): void;
     crop(width: number, height: number, gravity: Gravity): void;
+    cropToTiles(geometry: MagickGeometry): IMagickImageCollection;
     deskew(threshold: Percentage): number;
     distort(method: DistortMethod, params: number[]): void;
     distort(method: DistortMethod, settings: DistortSettings, params: number[]): void;
@@ -633,6 +634,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    cropToTiles(geometry: MagickGeometry): IMagickImageCollection
+    {
+        return Exception.use(exception => {
+            return _withString(geometry.toString(), geometryPtr => {
+                const images = ImageMagick._api._MagickImage_CropToTiles(this._instance, geometryPtr, exception.ptr);
+                const collection = MagickImageCollection._createFromImages(images, this._settings);
+                return collection;
+            });
+        });
+    }
+
     static create(): IMagickImage {
         return new MagickImage(MagickImage.createInstance(), new MagickSettings());
     }
@@ -996,7 +1008,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return Exception.use(exception => {
             const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
             const images = ImageMagick._api._MagickImage_Separate(this._instance, channels, exception.ptr);
-            const collection = MagickImageCollection._createFromImages(images, this._settings._clone());
+            const collection = MagickImageCollection._createFromImages(images, this._settings);
             return collection._use(func);
         });
     }
