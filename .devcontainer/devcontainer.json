@@ -1,7 +1,7 @@
 {
     "name": "node18",
     "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:18",
-    "postCreateCommand": "echo '//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN' >> /workspaces/magick-wasm/.npmrc",
+    "postCreateCommand": "echo \"//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN\" >> /workspaces/magick-wasm/.npmrc",
     "customizations": {
         "vscode": {
             "settings": {
