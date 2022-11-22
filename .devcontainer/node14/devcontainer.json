@@ -1,6 +1,7 @@
 {
     "name": "node14",
     "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:14",
+    "onCreateCommand": "echo '//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN' >> /workspaces/magic-wasm.npmrc",
     "customizations": {
         "vscode": {
             "settings": {
