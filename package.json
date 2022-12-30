@@ -44,19 +44,19 @@
         "update-index": "cd tools && tsc && node update-index.js ../src"
     },
     "devDependencies": {
-        "@dlemstra/magick-native": "0.202211.71527",
+        "@dlemstra/magick-native": "0.202212.130635",
         "@types/jsdom": "^20.0.1",
-        "@typescript-eslint/eslint-plugin": "^5.42.1",
-        "@typescript-eslint/parser": "^5.42.1",
+        "@typescript-eslint/eslint-plugin": "^5.47.1",
+        "@typescript-eslint/parser": "^5.47.1",
         "ansi-regex": ">=6.0.1",
         "copyfiles": "^2.4.1",
-        "dts-bundle-generator": "^7.0.0",
-        "eslint": "^8.27.0",
+        "dts-bundle-generator": "^7.1.0",
+        "eslint": "^8.30.0",
         "eslint-plugin-header": "^3.1.1",
-        "jsdom": "^20.0.2",
+        "jsdom": "^20.0.3",
         "set-value": "^4.1.0",
-        "typescript": "^4.8.4",
-        "vite": "^3.2.3",
-        "vitest": "^0.25.1"
+        "typescript": "^4.9.4",
+        "vite": "^4.0.3",
+        "vitest": "^0.26.2"
     }
 }
