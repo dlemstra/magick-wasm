@@ -150,6 +150,7 @@ export interface IMagickImage extends INativeInstance {
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
+    linearStretch(blackPoint: Percentage, whitePoint: Percentage): void;
     liquidRescale(geometry: MagickGeometry): void;
     liquidRescale(width: number, height: number): void;
     modulate(brightness: Percentage): void;
@@ -869,6 +870,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint.toQuantum(), gamma, channels, exception);
+        });
+    }
+
+    linearStretch(blackPoint: Percentage, whitePoint: Percentage): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_LinearStretch(this._instance, blackPoint.toDouble(), whitePoint.toQuantum(), exception);
         });
     }
 
