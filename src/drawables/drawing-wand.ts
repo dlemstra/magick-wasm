@@ -19,6 +19,8 @@ export interface IDrawingWand extends INativeInstance {
     fillOpacity(value: number): void;
     font(family: string): void;
     fontPointSize(value: number): void;
+    rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void;
+    roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
     text(x: number, y: number, value: string): void;
 }
 
@@ -73,6 +75,18 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     fontPointSize(value: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_FontPointSize(this._instance, value, exception);
+        });
+    }
+
+    rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_Rectangle(this._instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, exception);
+        });
+    }
+
+    roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_RoundRectangle(this._instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight, exception);
         });
     }
 
