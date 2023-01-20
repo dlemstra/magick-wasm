@@ -4,6 +4,7 @@
 import { ImageMagick } from './image-magick';
 import { Exception } from './internal/exception/exception';
 import { IMagickImage } from './magick-image';
+import { INativeInstance } from './native-instance';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
 import { MagickImage } from './magick-image';
@@ -31,11 +32,10 @@ enum LayerMethod {
     Trimbounds,
 }
 
-export interface IMagickImageCollection extends Array<IMagickImage> {
+export interface IMagickImageCollection extends Array<IMagickImage>, INativeInstance {
     /** @internal */
     _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
 
-    dispose(): void;
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
