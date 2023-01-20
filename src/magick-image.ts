@@ -461,11 +461,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     clone(func: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
         return Exception.usePointer(exception => {
             const image = new MagickImage(ImageMagick._api._MagickImage_Clone(this._instance, exception), this._settings._clone());
-            try {
-                return func(image);
-            } finally {
-                image.dispose();
-            }
+            return image._use(func);
         });
     }
 
@@ -1234,11 +1230,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        try {
-            return func(this);
-        } finally {
-            this.dispose();
-        }
+        return NativeInstance._disposeAfterExecution(this, func);
     }
 
     /** @internal */
