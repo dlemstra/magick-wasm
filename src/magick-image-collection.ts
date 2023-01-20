@@ -4,7 +4,7 @@
 import { ImageMagick } from './image-magick';
 import { Exception } from './internal/exception/exception';
 import { IMagickImage } from './magick-image';
-import { INativeInstance } from './native-instance';
+import { INativeInstance, NativeInstance } from './native-instance';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
 import { MagickImage } from './magick-image';
@@ -152,11 +152,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
     /** @internal */
     _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
-        try {
-            return func(this);
-        } finally {
-            this.dispose();
-        }
+        return NativeInstance._disposeAfterExecution(this, func);
     }
 
     private addImages(images: number, settings: MagickSettings) {
@@ -205,12 +201,11 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             this.attachImages();
 
             return Exception.use(exception => {
-                const image = ImageMagick._api._MagickImageCollection_Merge(this[0]._instance, layerMethod, exception.ptr);
-                return MagickImage._createFromImage(image, this.getSettings())._use(func);
+                const result = ImageMagick._api._MagickImageCollection_Merge(this[0]._instance, layerMethod, exception.ptr);
+                const image = MagickImage._createFromImage(result, this.getSettings());
+                return NativeInstance._disposeAfterExecution(image, func);
             });
-        }
-        finally
-        {
+        } finally {
             this.detachImages();
         }
     }

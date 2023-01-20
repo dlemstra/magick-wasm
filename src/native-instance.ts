@@ -39,6 +39,25 @@ export abstract class NativeInstance implements INativeInstance {
     }
 
     /** @internal */
+    static _disposeAfterExecution<TInstanceType extends INativeInstance, TReturnType>(nativeInstance: TInstanceType, func: (nativeInstance: TInstanceType) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        try {
+            const result = func(nativeInstance);
+            if (result instanceof Promise) {
+                return Promise.resolve(result).then(resolvedResult => {
+                    nativeInstance.dispose();
+                    return resolvedResult;
+                });
+            } else {
+                nativeInstance.dispose();
+                return result;
+            }
+        } catch (error) {
+            nativeInstance.dispose();
+            throw(error);
+        }
+    }
+
+    /** @internal */
     protected _setInstance(instance: number, exception: Exception): void {
         exception.check(() => {
             this.dispose();
