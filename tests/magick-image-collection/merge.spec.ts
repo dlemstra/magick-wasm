@@ -25,15 +25,19 @@ describe('MagickImageCollection#merge', () => {
         }).toThrowError('operation requires at least one image');
     });
 
-    it('should merge the images', () => {
-        TestFiles.roseSparkleGif.readCollection(images => {
-            images.merge(image => {
-                expect(image.format).toBe(MagickFormat.Gif);
-                expect(image.width).toBe(70);
-                expect(image.height).toBe(46);
+    it('should merge the images', async () => {
+        await TestFiles.roseSparkleGif.readCollection(async roses => {
+            await TestFiles.imageMagickJpg.read(imageMagickJpg => {
 
-                const difference = images[0].compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.11919);
+                roses.unshift(imageMagickJpg);
+
+                roses.merge(image => {
+                    expect(image.width).toBe(imageMagickJpg.width);
+                    expect(image.height).toBe(imageMagickJpg.height);
+
+                    const difference = roses[0].compare(image, ErrorMetric.RootMeanSquared);
+                    expect(difference).toBeCloseTo(0.27456);
+                });
             });
         });
     });
