@@ -61,8 +61,8 @@ export interface IMagickImage extends INativeInstance {
     filterType: FilterType;
     format: MagickFormat;
     hasAlpha: boolean;
-    interpolate: PixelInterpolateMethod;
     readonly height: number;
+    interpolate: PixelInterpolateMethod;
     orientation: OrientationType;
     page: MagickGeometry;
     quality: number;
@@ -316,14 +316,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
+
     get interpolate(): PixelInterpolateMethod {
         return ImageMagick._api._MagickImage_Interpolate_Get(this._instance);
     }
     set interpolate(value: PixelInterpolateMethod) {
         ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value);
     }
-
-    get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
 
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
