@@ -22,7 +22,7 @@ afterEach(() => {
 });
 
 describe('MagickImage#inverseTransparent', () => {
-    it('should change pixels with matching color to transparent', () => {
+    it('should change pixels not matching color to transparent', () => {
         image.extent(new MagickGeometry('1x2'), Gravity.South, MagickColors.White)
 
         image.inverseTransparent(MagickColors.Red);
