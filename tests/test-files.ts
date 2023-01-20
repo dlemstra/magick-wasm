@@ -14,28 +14,28 @@ export class TestFile {
         this._fileName = fileName;
     }
 
-    async read(func: (image: IMagickImage) => void): Promise<void>;
-    async read(settings: MagickReadSettings, func: (image: IMagickImage) => void): Promise<void>;
-    async read(funcOrSettings: ((image: IMagickImage) => void) | MagickReadSettings, func?: (image: IMagickImage) => void): Promise<void> {
+    async read(func: (image: IMagickImage) => void | Promise<void>): Promise<void>;
+    async read(settings: MagickReadSettings, func: (image: IMagickImage) => void | Promise<void>): Promise<void>;
+    async read(funcOrSettings: ((image: IMagickImage) => void | Promise<void>) | MagickReadSettings, func?: (image: IMagickImage) => void | Promise<void>): Promise<void> {
         const data = await this.toBuffer();
 
         if (funcOrSettings instanceof MagickReadSettings) {
-            ImageMagick.read(data, funcOrSettings, (image) => {
+            return ImageMagick.read(data, funcOrSettings, image => {
                 if (typeof func !== 'undefined')
-                    func(image);
+                    return func(image);
             });
         } else {
-            ImageMagick.read(data, (image) => {
-                funcOrSettings(image);
+            return ImageMagick.read(data, (image) => {
+                return funcOrSettings(image);
             });
         }
     }
 
-    async readCollection(func: (images: IMagickImageCollection) => void): Promise<void> {
+    async readCollection(func: (images: IMagickImageCollection) => void | Promise<void>): Promise<void> {
         const data = await this.toBuffer();
 
-        ImageMagick.readCollection(data, (images) => {
-            func(images);
+        return ImageMagick.readCollection(data, images => {
+            return func(images);
         });
     }
 
