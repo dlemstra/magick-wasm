@@ -63,6 +63,7 @@ export interface IMagickImage extends INativeInstance {
     hasAlpha: boolean;
     readonly height: number;
     interpolate: PixelInterpolateMethod;
+    label: string | null;
     orientation: OrientationType;
     page: MagickGeometry;
     quality: number;
@@ -324,6 +325,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set interpolate(value: PixelInterpolateMethod) {
         ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value);
     }
+
+    get label(): string | null {
+        return this.getAttribute("label");
+    }
+    set label(value: string | null) {
+        if (value === null)
+            this.removeAttribute("label");
+        else
+            this.setAttribute("label", value);
+    }
+
 
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
