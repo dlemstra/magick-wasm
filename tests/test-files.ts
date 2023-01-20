@@ -3,6 +3,7 @@
 
 import { ImageMagick } from '../src/image-magick';
 import { IMagickImage } from '../src/magick-image';
+import { IMagickImageCollection } from '../src/magick-image-collection';
 import { MagickReadSettings } from '../src/settings/magick-read-settings';
 import * as fs from 'fs';
 import * as util from 'util';
@@ -28,6 +29,14 @@ export class TestFile {
                 funcOrSettings(image);
             });
         }
+    }
+
+    async readCollection(func: (images: IMagickImageCollection) => void): Promise<void> {
+        const data = await this.toBuffer();
+
+        ImageMagick.readCollection(data, (images) => {
+            func(images);
+        });
     }
 
     toBuffer(): Promise<Buffer> {
