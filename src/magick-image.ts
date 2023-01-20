@@ -196,6 +196,7 @@ export interface IMagickImage extends INativeInstance {
     splice(geometry: MagickGeometry): void;
     strip(): void;
     toString(): string;
+    transparent(color: MagickColor): void;
     trim(): void;
     trim(...edges: Gravity[]): void;
     trim(percentage: Percentage): void;
@@ -1107,6 +1108,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
+
+    transparent(color: MagickColor): void {
+        color._use(valuePtr => {
+            Exception.usePointer(exception => {
+                ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, 0, exception);
+            });
+        });
+    }
 
     trim(): void;
     trim(...edges: Gravity[]): void;
