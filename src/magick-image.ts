@@ -43,6 +43,8 @@ import { _withDoubleArray } from './internal/native/array';
 export interface IMagickImage extends INativeInstance {
     /** @internal */
     _instance: number;
+    /** @internal */
+    _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
 
     animationDelay: number;
     animationIterations: number;
@@ -1229,15 +1231,22 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     /** @internal */
+    _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        try {
+            return func(this);
+        } finally {
+            this.dispose();
+        }
+    }
+
+    /** @internal */
     static _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     static _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         const image = MagickImage.create();
-        try {
-            return func(image);
-        } finally {
-            image.dispose();
-        }
+        return image._use<TReturnType>(func);
     }
 
     private privateSigmoidalContrast(sharpen: boolean, contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
