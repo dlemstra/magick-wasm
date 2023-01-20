@@ -11,11 +11,32 @@ import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
 import { Pointer } from './internal/pointer/pointer';
 
+enum LayerMethod {
+    Undefined,
+    Coalesce,
+    CompareAny,
+    CompareClear,
+    CompareOverlay,
+    Dispose,
+    Optimize,
+    OptimizeImage,
+    OptimizePlus,
+    OptimizeTrans,
+    RemoveDups,
+    RemoveZero,
+    Composite,
+    Merge,
+    Flatten,
+    Mosaic,
+    Trimbounds,
+}
+
 export interface IMagickImageCollection extends Array<IMagickImage> {
     /** @internal */
     _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
 
     dispose(): void;
+    merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
     write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void>;
@@ -32,6 +53,10 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             image.dispose();
             image = this.pop();
         }
+    }
+
+    merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        return this.mergeImages(LayerMethod.Merge, func);
     }
 
     read(fileName: string, settings?: MagickReadSettings): void;
@@ -75,7 +100,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         Exception.use(exception => {
             Pointer.use(pointer => {
                 const image = this[0];
-                const settings = this[0]._getSettings()._clone();
+                const settings = this.getSettings();
                 if (format !== undefined)
                     settings.format = format;
                 else
@@ -167,6 +192,27 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     private detachImages() {
         for (let i = 0; i < this.length - 1; i++)
             ImageMagick._api._MagickImage_SetNext(this[i]._instance, 0);
+    }
+
+    private getSettings(): MagickSettings {
+        return this[0]._getSettings()._clone();
+    }
+
+    private mergeImages<TReturnType>(layerMethod: LayerMethod, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        this.throwIfEmpty();
+
+        try {
+            this.attachImages();
+
+            return Exception.use(exception => {
+                const image = ImageMagick._api._MagickImageCollection_Merge(this[0]._instance, layerMethod, exception.ptr);
+                return MagickImage._createFromImage(image, this.getSettings())._use(func);
+            });
+        }
+        finally
+        {
+            this.detachImages();
+        }
     }
 
     private throwIfEmpty() {
