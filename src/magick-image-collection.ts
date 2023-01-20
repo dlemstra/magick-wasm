@@ -36,6 +36,7 @@ export interface IMagickImageCollection extends Array<IMagickImage>, INativeInst
     /** @internal */
     _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
 
+    flatten<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
@@ -53,6 +54,10 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             image.dispose();
             image = this.pop();
         }
+    }
+
+    flatten<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        return this.mergeImages(LayerMethod.Flatten, func);
     }
 
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
