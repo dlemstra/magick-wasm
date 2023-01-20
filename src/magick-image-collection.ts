@@ -37,6 +37,7 @@ export interface IMagickImageCollection extends Array<IMagickImage>, INativeInst
     _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
 
     flatten<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
+    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
@@ -58,6 +59,10 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
     flatten<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.mergeImages(LayerMethod.Flatten, func);
+    }
+
+    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        return this.mergeImages(LayerMethod.Mosaic, func);
     }
 
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
