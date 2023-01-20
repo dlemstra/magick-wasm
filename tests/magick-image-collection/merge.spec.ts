@@ -4,7 +4,6 @@
 import { ErrorMetric } from '../../src/error-metric';
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImageCollection, MagickImageCollection } from '../../src/magick-image-collection';
-import { MagickFormat } from '../../src/magick-format';
 import { TestFiles } from '../test-files';
 
 let images: IMagickImageCollection;
