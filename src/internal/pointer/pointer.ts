@@ -9,12 +9,12 @@ export class Pointer {
 
     private constructor() {
         this.instance = ImageMagick._api._malloc(8);
-        ImageMagick._api.setValue(this.instance, 0, "i64");
+        ImageMagick._api.setValue(this.instance, 0, 'i64');
     }
 
     get ptr(): number { return this.instance; }
 
-    get value(): number { return ImageMagick._api.getValue(this.instance, "i64"); }
+    get value(): number { return ImageMagick._api.getValue(this.instance, 'i64'); }
 
     static use<TReturnType>(func: (pointer: Pointer) => TReturnType): TReturnType {
         const pointer = new Pointer();

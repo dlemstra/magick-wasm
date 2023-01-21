@@ -5,7 +5,7 @@ import { ImageMagickApi } from '@dlemstra/magick-native/magick';
 import * as ImageMagick from '../src/image-magick';
 
 declare global {
-    var native: ImageMagickApi; // eslint-disable-line no-var
+    var native: ImageMagickApi; /* eslint-disable-line no-var */
 }
 
 if (!global.native) {

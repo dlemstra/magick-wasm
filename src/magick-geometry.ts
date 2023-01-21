@@ -95,7 +95,7 @@ export class MagickGeometry {
 
     toString(): string {
         if (this._aspectRatio)
-            return this._width + ":" + this._height;
+            return this._width + ':' + this._height;
 
         let result = '';
 

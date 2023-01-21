@@ -44,6 +44,6 @@ export class MagickReadSettings extends MagickSettings {
         else if (this.height !== undefined)
             return `x${this.height}`;
         else
-            return "";
+            return '';
     }
 }

@@ -12,7 +12,7 @@ let image: IMagickImage;
 beforeEach(() => {
     ImageMagick._api = global.native;
     image = MagickImage.create();
-    image.read("wizard:");
+    image.read('wizard:');
 });
 
 afterEach(() => {
@@ -27,7 +27,7 @@ describe('MagickImage#linearStretch', () => {
             image.linearStretch(new Percentage(10), new Percentage(90));
 
             const histogram = image.histogram();
-            expect(histogram.get("#66d4ffff")).toBe(88);
+            expect(histogram.get('#66d4ffff')).toBe(88);
         });
     });
 });

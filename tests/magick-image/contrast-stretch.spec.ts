@@ -14,7 +14,7 @@ let image: IMagickImage;
 beforeEach(() => {
     ImageMagick._api = global.native;
     image = MagickImage.create();
-    image.read("wizard:");
+    image.read('wizard:');
 });
 
 afterEach(() => {

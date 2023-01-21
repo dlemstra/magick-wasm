@@ -7,7 +7,7 @@ import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickGeometry } from '../../src/magick-geometry';
-import "../custom-matcher"
+import '../custom-matcher'
 
 let image: IMagickImage;
 

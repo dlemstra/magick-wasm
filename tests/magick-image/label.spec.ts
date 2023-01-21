@@ -22,8 +22,8 @@ describe('MagickImage#label', () => {
     });
 
     it('should set the label attribute', () => {
-        image.label = "foo";
-        expect(image.label).toBe("foo");
-        expect(image.getAttribute("label")).toBe("foo");
+        image.label = 'foo';
+        expect(image.label).toBe('foo');
+        expect(image.getAttribute('label')).toBe('foo');
     });
 });

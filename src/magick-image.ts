@@ -300,13 +300,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get comment(): string | null {
-        return this.getAttribute("comment");
+        return this.getAttribute('comment');
     }
     set comment(value: string | null) {
         if (value === null)
-            this.removeAttribute("comment");
+            this.removeAttribute('comment');
         else
-            this.setAttribute("comment", value);
+            this.setAttribute('comment', value);
     }
 
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
@@ -342,13 +342,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get label(): string | null {
-        return this.getAttribute("label");
+        return this.getAttribute('label');
     }
     set label(value: string | null) {
         if (value === null)
-            this.removeAttribute("label");
+            this.removeAttribute('label');
         else
-            this.setAttribute("label", value);
+            this.setAttribute('label', value);
     }
 
 

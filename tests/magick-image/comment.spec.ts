@@ -22,8 +22,8 @@ describe('MagickImage#comment', () => {
     });
 
     it('should set the comment attribute', () => {
-        image.comment = "foo";
-        expect(image.comment).toBe("foo");
-        expect(image.getAttribute("comment")).toBe("foo");
+        image.comment = 'foo';
+        expect(image.comment).toBe('foo');
+        expect(image.getAttribute('comment')).toBe('foo');
     });
 });

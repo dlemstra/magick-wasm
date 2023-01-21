@@ -227,7 +227,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
     private throwIfEmpty() {
         if (this.length === 0)
-            throw new MagickError("operation requires at least one image");
+            throw new MagickError('operation requires at least one image');
     }
 
     private checkResult(images: number, exception: Exception): number {

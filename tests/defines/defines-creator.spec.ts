@@ -12,7 +12,7 @@ class TestDefinesCreator extends DefinesCreator {
     }
 
     getDefines (): IDefine[] {
-        return [this.createDefine("test", "empty")];
+        return [this.createDefine('test', 'empty')];
     }
 }
 
@@ -21,6 +21,6 @@ describe('DefinesCreator', () => {
         const readSettings = new MagickReadSettings();
         readSettings.setDefines(new TestDefinesCreator());
 
-        expect(readSettings.getDefine(MagickFormat.A, 'test')).toBe("empty");
+        expect(readSettings.getDefine(MagickFormat.A, 'test')).toBe('empty');
     });
 });

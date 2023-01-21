@@ -7,7 +7,7 @@ import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickGeometry } from '../../src/magick-geometry';
-import "../custom-matcher"
+import '../custom-matcher'
 
 let image: IMagickImage;
 
@@ -28,6 +28,6 @@ describe('MagickImage#transparent', () => {
         image.transparent(MagickColors.Red);
 
         expect(image).toHavePixelWithColor(0, 0, MagickColors.White);
-        expect(image).toHavePixelWithColor(0, 1, new MagickColor("#ff000000"));
+        expect(image).toHavePixelWithColor(0, 1, new MagickColor('#ff000000'));
     });
 });

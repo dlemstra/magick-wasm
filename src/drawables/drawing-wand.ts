@@ -1,18 +1,18 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawingSettings } from "../settings/drawing-settings";
-import { Exception } from "../internal/exception/exception";
-import { Gravity } from "../gravity";
-import { IDisposable } from "../disposable";
-import { IDrawable } from "./drawable";
-import { ImageMagick } from "../image-magick";
-import { IMagickImage } from "../magick-image";
-import { MagickColor } from "../magick-color";
-import { MagickSettings } from "../settings/magick-settings";
-import { NativeInstance } from "../native-instance";
-import { PaintMethod } from "../paint-method";
-import { _withString } from "../internal/native/string";
+import { DrawingSettings } from '../settings/drawing-settings';
+import { Exception } from '../internal/exception/exception';
+import { Gravity } from '../gravity';
+import { IDisposable } from '../disposable';
+import { IDrawable } from './drawable';
+import { ImageMagick } from '../image-magick';
+import { IMagickImage } from '../magick-image';
+import { MagickColor } from '../magick-color';
+import { MagickSettings } from '../settings/magick-settings';
+import { NativeInstance } from '../native-instance';
+import { PaintMethod } from '../paint-method';
+import { _withString } from '../internal/native/string';
 
 export interface IDrawingWand extends IDisposable {
     color(x: number, y: number, paintMethod: number): void;
