@@ -41,6 +41,8 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     }
 
     /** @internal */
+    static _use<TReturnType>(image: IMagickImage, func: (pixels: IPixelCollection) => TReturnType): TReturnType;
+    static _use<TReturnType>(image: IMagickImage, func: (pixels: IPixelCollection) => Promise<TReturnType>): Promise<TReturnType>;
     static _use<TReturnType>(image: IMagickImage, func: (pixels: IPixelCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>{
         const pixels = new PixelCollection(image);
         return Disposable._disposeAfterExecution(pixels, func);
