@@ -10,6 +10,7 @@ export * from './defines/define';
 export * from './defines/defines-creator';
 export * from './defines/defines';
 export * from './defines/magick-define';
+export * from './disposable';
 export * from './distort-method';
 export * from './drawables/drawable-color';
 export * from './drawables/drawable-fill-color';
