@@ -1,8 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Disposable, IDisposable } from '../disposable';
+import { Disposable } from '../internal/disposable';
 import { Exception } from '../internal/exception/exception';
+import { IDisposable } from '../disposable';
 import { ImageMagick } from '../image-magick';
 import { IMagickImage } from '../magick-image';
 import { NativeInstance } from '../native-instance';
