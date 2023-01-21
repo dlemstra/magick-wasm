@@ -3,6 +3,7 @@
 
 import { DrawingSettings } from "../settings/drawing-settings";
 import { Exception } from "../internal/exception/exception";
+import { Gravity } from "../gravity";
 import { IDrawable } from "./drawable";
 import { ImageMagick } from "../image-magick";
 import { IMagickImage } from "../magick-image";
@@ -19,6 +20,7 @@ export interface IDrawingWand extends INativeInstance {
     fillOpacity(value: number): void;
     font(family: string): void;
     fontPointSize(value: number): void;
+    gravity(value: Gravity): void;
     rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void;
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
     text(x: number, y: number, value: string): void;
@@ -75,6 +77,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     fontPointSize(value: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_FontPointSize(this._instance, value, exception);
+        });
+    }
+
+    gravity(value: Gravity): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_Gravity(this._instance, value, exception);
         });
     }
 
