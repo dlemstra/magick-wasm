@@ -143,7 +143,7 @@ export interface IMagickImage extends IDisposable {
     getAttribute(name: string): string | null;
     getProfile(name: string): IImageProfile | null;
     getWriteMask(func: (mask: IMagickImage | null) => void | Promise<void>): void | Promise<void>;
-    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
+    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
     histogram(): Map<string, number>;
     inverseContrast(): void;
     inverseSigmoidalContrast(contrast: number): void;
@@ -817,13 +817,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return image._use(func);
     }
 
-    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType {
+    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         if (this._settings._ping)
             throw new MagickError('image contains no pixel data');
 
-        return PixelCollection._use(this, (pixels) => {
-            return func(pixels);
-        });
+        return PixelCollection._use(this, func);
     }
 
     histogram(): Map<string, number> {
