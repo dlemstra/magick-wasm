@@ -42,10 +42,10 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
 
     flatten<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     flatten<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
-    mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     merge<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
     write<TReturnType>(func: (data: Uint8Array) => TReturnType, format?: MagickFormat): TReturnType;
@@ -71,16 +71,16 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return this.mergeImages(LayerMethod.Flatten, func);
     }
 
-    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
-    mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        return this.mergeImages(LayerMethod.Mosaic, func);
-    }
-
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     merge<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.mergeImages(LayerMethod.Merge, func);
+    }
+
+    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        return this.mergeImages(LayerMethod.Mosaic, func);
     }
 
     read(fileName: string, settings?: MagickReadSettings): void;
