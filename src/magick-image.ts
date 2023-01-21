@@ -807,11 +807,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     getWriteMask(func: (mask: IMagickImage | null) => void | Promise<void>): void | Promise<void> {
-        return Exception.usePointer(exception => {
-            const instance = ImageMagick._api._MagickImage_GetWriteMask(this._instance, exception);
-            const image = instance === 0 ? null : new MagickImage(instance, new MagickSettings());
-            return func(image);
+        const instance = Exception.usePointer(exception => {
+            return ImageMagick._api._MagickImage_GetWriteMask(this._instance, exception);
         });
+        const image = instance === 0 ? null : new MagickImage(instance, new MagickSettings());
+        if (image == null)
+            return func(image);
+        else
+            return image._use(func);
     }
 
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType {
