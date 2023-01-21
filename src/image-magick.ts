@@ -89,6 +89,7 @@ export class ImageMagick {
                     image.read(colorOrArrayOrFileName, settings);
             }
 
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             return callback!(image);
         });
     }
@@ -124,6 +125,7 @@ export class ImageMagick {
             else
                 images.read(arrayOrFileName, settings);
 
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             return callback!(images);
         });
     }
