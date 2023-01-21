@@ -12,6 +12,7 @@ import { MagickFormat } from './magick-format';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
+import { MontageSettings } from './settings/montage-settings';
 import { Pointer } from './internal/pointer/pointer';
 
 enum LayerMethod {
@@ -44,6 +45,8 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     flatten<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     merge<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
+    montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     read(fileName: string, settings?: MagickReadSettings): void;
@@ -75,6 +78,35 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     merge<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.mergeImages(LayerMethod.Merge, func);
+    }
+
+    montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
+    montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        this.throwIfEmpty();
+
+        try {
+            this.attachImages();
+
+            const result = settings._use(settingsPtr => {
+                return Exception.use(exception => {
+                    const images = ImageMagick._api._MagickImageCollection_Montage(this[0]._instance, settingsPtr._instance, exception.ptr);
+                    return this.checkResult(images, exception);
+                });
+            });
+
+            const collection = MagickImageCollection._createFromImages(result, this.getSettings());
+            const transparentColor = settings.transparentColor;
+            if (transparentColor !== undefined) {
+                collection.forEach(image => {
+                    image.transparent(transparentColor);
+                });
+            }
+
+            return collection.merge(func);
+        } finally {
+            this.detachImages();
+        }
     }
 
     mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
