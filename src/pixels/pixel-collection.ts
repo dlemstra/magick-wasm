@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IDisposable } from '../disposable';
+import { Disposable, IDisposable } from '../disposable';
 import { Exception } from '../internal/exception/exception';
 import { ImageMagick } from '../image-magick';
 import { IMagickImage } from '../magick-image';
@@ -40,13 +40,9 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     }
 
     /** @internal */
-    static _use<TReturnType>(image: IMagickImage, func: (pixels: IPixelCollection) => TReturnType): TReturnType {
+    static _use<TReturnType>(image: IMagickImage, func: (pixels: IPixelCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>{
         const pixels = new PixelCollection(image);
-        try {
-            return func(pixels);
-        } finally {
-            pixels.dispose();
-        }
+        return Disposable._disposeAfterExecution(pixels, func);
     }
 
     /** @internal */
