@@ -1,15 +1,16 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../image-magick';
+import { IDisposable } from '../disposable';
 import { Exception } from '../internal/exception/exception';
-import { INativeInstance, NativeInstance } from '../native-instance';
+import { ImageMagick } from '../image-magick';
 import { IMagickImage } from '../magick-image';
+import { NativeInstance } from '../native-instance';
 import { quantumArray } from '@dlemstra/magick-native/magick';
 import { _withQuantumArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
 
-export interface IPixelCollection extends INativeInstance {
+export interface IPixelCollection extends IDisposable {
     getArea(x: number, y: number, width: number, height: number): quantumArray;
     getPixel(x: number, y: number): quantumArray;
     setArea(x: number, y: number, width: number, height: number, quantumPixels: quantumArray): void;

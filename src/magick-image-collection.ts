@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from './image-magick';
+import { Disposable, IDisposable } from './disposable';
 import { Exception } from './internal/exception/exception';
+import { ImageMagick } from './image-magick';
 import { IMagickImage } from './magick-image';
-import { INativeInstance, NativeInstance } from './native-instance';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
 import { MagickImage } from './magick-image';
@@ -32,7 +32,7 @@ enum LayerMethod {
     Trimbounds,
 }
 
-export interface IMagickImageCollection extends Array<IMagickImage>, INativeInstance {
+export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable {
     /** @internal */
     _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
 
@@ -162,7 +162,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
     /** @internal */
     _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
-        return NativeInstance._disposeAfterExecution(this, func);
+        return Disposable._disposeAfterExecution(this, func);
     }
 
     private addImages(images: number, settings: MagickSettings) {
@@ -213,7 +213,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             return Exception.use(exception => {
                 const result = ImageMagick._api._MagickImageCollection_Merge(this[0]._instance, layerMethod, exception.ptr);
                 const image = MagickImage._createFromImage(result, this.getSettings());
-                return NativeInstance._disposeAfterExecution(image, func);
+                return Disposable._disposeAfterExecution(image, func);
             });
         } finally {
             this.detachImages();

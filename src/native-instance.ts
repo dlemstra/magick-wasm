@@ -1,14 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickError } from './magick-error';
 import { Exception } from './internal/exception/exception';
+import { MagickError } from './magick-error';
 
-export interface INativeInstance {
-    dispose(): void;
-}
-
-export abstract class NativeInstance implements INativeInstance {
+export abstract class NativeInstance {
     private readonly disposeMethod: (instance: number) => void;
     private instance: number;
 
@@ -36,25 +32,6 @@ export abstract class NativeInstance implements INativeInstance {
 
     dispose(): void {
         this.instance = this.disposeInstance(this.instance);
-    }
-
-    /** @internal */
-    static _disposeAfterExecution<TInstanceType extends INativeInstance, TReturnType>(nativeInstance: TInstanceType, func: (nativeInstance: TInstanceType) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        try {
-            const result = func(nativeInstance);
-            if (result instanceof Promise) {
-                return Promise.resolve(result).then(resolvedResult => {
-                    nativeInstance.dispose();
-                    return resolvedResult;
-                });
-            } else {
-                nativeInstance.dispose();
-                return result;
-            }
-        } catch (error) {
-            nativeInstance.dispose();
-            throw(error);
-        }
     }
 
     /** @internal */

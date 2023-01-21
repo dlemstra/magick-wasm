@@ -6,6 +6,7 @@ import { AutoThresholdMethod } from './auto-threshold-method';
 import { Channels } from './channels';
 import { ColorSpace } from './color-space';
 import { CompositeOperator } from './composite-operator';
+import { Disposable, IDisposable } from './disposable';
 import { DistortMethod } from './distort-method';
 import { DistortSettings } from './settings/distort-settings';
 import { DrawingWand } from './drawables/drawing-wand';
@@ -18,7 +19,7 @@ import { ImageMagick } from './image-magick';
 import { IDrawable } from './drawables/drawable';
 import { IImageProfile, ImageProfile } from './profiles/image-profile';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
-import { INativeInstance, NativeInstance } from './native-instance';
+import { NativeInstance } from './native-instance';
 import { MagickColor } from './magick-color';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
@@ -40,7 +41,7 @@ import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './gravity';
 import { _withDoubleArray } from './internal/native/array';
 
-export interface IMagickImage extends INativeInstance {
+export interface IMagickImage extends IDisposable {
     /** @internal */
     _instance: number;
     /** @internal */
@@ -1260,7 +1261,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        return NativeInstance._disposeAfterExecution(this, func);
+        return Disposable._disposeAfterExecution(this, func);
     }
 
     /** @internal */
