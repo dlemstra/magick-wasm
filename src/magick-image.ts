@@ -7,6 +7,7 @@ import { Channels } from './channels';
 import { ColorSpace } from './color-space';
 import { CompositeOperator } from './composite-operator';
 import { Disposable } from './internal/disposable';
+import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './distort-method';
 import { DistortSettings } from './settings/distort-settings';
 import { DrawingWand } from './drawables/drawing-wand';
@@ -93,8 +94,8 @@ export interface IMagickImage extends IDisposable {
     charcoal(radius: number, sigma: number): void;
     clahe(xTiles: number, yTiles: number, numberBins: number, clipLimit: number): void;
     clahe(xTiles: Percentage, yTiles: Percentage, numberBins: number, clipLimit: number): void;
-    clone(func: (image: IMagickImage) => void): void;
-    clone(func: (image: IMagickImage) => Promise<void>): Promise<void>;
+    clone<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    clone<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     colorAlpha(color: MagickColor): void;
     compare(image: IMagickImage, metric: ErrorMetric): number;
     compare(image: IMagickImage, metric: ErrorMetric, channels: Channels): number;
@@ -148,8 +149,8 @@ export interface IMagickImage extends IDisposable {
     getArtifact(name: string): string | null;
     getAttribute(name: string): string | null;
     getProfile(name: string): IImageProfile | null;
-    getWriteMask(func: (mask: IMagickImage | null) => void): void;
-    getWriteMask(func: (mask: IMagickImage | null) => Promise<void>): Promise<void>;
+    getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => TReturnType): TReturnType;
+    getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => Promise<TReturnType>): Promise<TReturnType>;
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => Promise<TReturnType>): Promise<TReturnType>;
     histogram(): Map<string, number>;
@@ -189,10 +190,10 @@ export interface IMagickImage extends IDisposable {
     resize(geometry: MagickGeometry): void;
     resize(width: number, height: number): void;
     rotate(degrees: number): void;
-    separate(func: (images: IMagickImageCollection) => void): void;
-    separate(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
-    separate(func: (images: IMagickImageCollection) => void, channels: Channels): void;
-    separate(func: (images: IMagickImageCollection) => Promise<void>, channels: Channels): Promise<void>;
+    separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType, channels: Channels): TReturnType;
+    separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>, channels: Channels): Promise<TReturnType>;
     setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
     setAttribute(name: string, value: string): void;
@@ -216,8 +217,8 @@ export interface IMagickImage extends IDisposable {
     vignette(radius: number, sigma: number, x: number, y: number): void;
     wave(): void;
     wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
-    write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
-    write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
+    write<TReturnType>(func: (data: Uint8Array) => TReturnType, format?: MagickFormat): TReturnType;
+    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>, format?: MagickFormat): Promise<TReturnType>;
     writeToCanvas(canvas: HTMLCanvasElement): void;
 }
 
@@ -484,9 +485,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    clone(func: (image: IMagickImage) => void): void;
-    clone(func: (image: IMagickImage) => Promise<void>): Promise<void>;
-    clone(func: (image: IMagickImage) => void | Promise<void>): void | Promise<void> {
+    clone<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    clone<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    clone<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return Exception.usePointer(exception => {
             const image = new MagickImage(ImageMagick._api._MagickImage_Clone(this._instance, exception), this._settings._clone());
             return image._use(func);
@@ -819,9 +820,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    getWriteMask(func: (mask: IMagickImage | null) => void): void;
-    getWriteMask(func: (mask: IMagickImage | null) => Promise<void>): Promise<void>;
-    getWriteMask(func: (mask: IMagickImage | null) => void | Promise<void>): void | Promise<void> {
+    getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => TReturnType): TReturnType;
+    getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => Promise<TReturnType>): Promise<TReturnType>;
+    getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         const instance = Exception.usePointer(exception => {
             return ImageMagick._api._MagickImage_GetWriteMask(this._instance, exception);
         });
@@ -1048,11 +1049,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    separate(func: (images: IMagickImageCollection) => void ): void;
-    separate(func: (images: IMagickImageCollection) => Promise<void>): Promise<void>;
-    separate(func: (images: IMagickImageCollection) => void, channels: Channels): void;
-    separate(func: (images: IMagickImageCollection) => Promise<void>, channels: Channels): Promise<void>;
-    separate(func: (images: IMagickImageCollection) => void | Promise<void>, channelsOrUndefined?: Channels): void | Promise<void> {
+    separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType ): TReturnType;
+    separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType, channels: Channels): TReturnType;
+    separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>, channels: Channels): Promise<TReturnType>;
+    separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>, channelsOrUndefined?: Channels): TReturnType | Promise<TReturnType> {
         return Exception.use(exception => {
             const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
             const images = ImageMagick._api._MagickImage_Separate(this._instance, channels, exception.ptr);
@@ -1198,11 +1199,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    write(func: (data: Uint8Array) => void, format?: MagickFormat): void;
-    write(func: (data: Uint8Array) => Promise<void>, format?: MagickFormat): Promise<void>;
-    write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void> {
+    write<TReturnType>(func: (data: Uint8Array) => TReturnType, format?: MagickFormat): TReturnType;
+    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>, format?: MagickFormat): Promise<TReturnType>;
+    write<TReturnType>(func: (data: Uint8Array) => TReturnType | Promise<TReturnType>, format?: MagickFormat): TReturnType | Promise<TReturnType> {
         let data = 0;
-        let bytes = new Uint8Array();
+        let length = 0;
 
         Exception.use(exception => {
             Pointer.use(pointer => {
@@ -1212,8 +1213,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 this._settings._use(settings => {
                     try {
                         data = ImageMagick._api._MagickImage_WriteBlob(this._instance, settings._instance, pointer.ptr, exception.ptr);
-                        if (data !== 0)
-                            bytes = ImageMagick._api.HEAPU8.subarray(data, data + pointer.value);
+                        length = pointer.value;
                     } catch {
                         if (data !== 0)
                             data = ImageMagick._api._MagickMemory_Relinquish(data);
@@ -1222,19 +1222,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             });
         });
 
-        try {
-            let result = func(bytes);
-            if (!!result && typeof result.then === 'function') {
-                result = result.finally(() => {
-                    if (data !== 0)
-                        data = ImageMagick._api._MagickMemory_Relinquish(data);
-                });
-            }
-            return result;
-        } finally {
-            if (data !== 0)
-                data = ImageMagick._api._MagickMemory_Relinquish(data);
-        }
+        const array = new DisposableArray(data, length, func);
+        return Disposable._disposeAfterExecution(array, array.func);
     }
 
     writeToCanvas(canvas: HTMLCanvasElement): void {
