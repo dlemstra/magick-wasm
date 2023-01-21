@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Disposable, IDisposable } from './disposable';
+import { DisposableArray } from './internal/disposable-array';
 import { Exception } from './internal/exception/exception';
 import { ImageMagick } from './image-magick';
 import { IMagickImage } from './magick-image';
@@ -34,14 +35,20 @@ enum LayerMethod {
 
 export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable {
     /** @internal */
-    _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void>;
+    _use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    /** @internal */
+    _use<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
 
-    flatten<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
-    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
-    merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
+    flatten<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    flatten<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    merge<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    merge<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
-    write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void>;
+    write<TReturnType>(func: (data: Uint8Array) => TReturnType, format?: MagickFormat): TReturnType;
+    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>, format?: MagickFormat): Promise<TReturnType>;
 }
 
 export class MagickImageCollection extends Array<MagickImage> implements IMagickImageCollection {
@@ -57,14 +64,20 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
     }
 
+    flatten<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    flatten<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     flatten<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.mergeImages(LayerMethod.Flatten, func);
     }
 
+    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.mergeImages(LayerMethod.Mosaic, func);
     }
 
+    merge<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    merge<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.mergeImages(LayerMethod.Merge, func);
     }
@@ -101,11 +114,13 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         });
     }
 
-    write(func: (data: Uint8Array) => void | Promise<void>, format?: MagickFormat): void | Promise<void> {
+    write<TReturnType>(func: (data: Uint8Array) => TReturnType, format?: MagickFormat): TReturnType;
+    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>, format?: MagickFormat): Promise<TReturnType>;
+    write<TReturnType>(func: (data: Uint8Array) => TReturnType | Promise<TReturnType>, format?: MagickFormat): TReturnType | Promise<TReturnType> {
         this.throwIfEmpty();
 
         let data = 0;
-        let bytes = new Uint8Array();
+        let length = 0;
 
         Exception.use(exception => {
             Pointer.use(pointer => {
@@ -120,11 +135,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                     try {
                         this.attachImages();
                         data = ImageMagick._api._MagickImage_WriteBlob(image._instance, nativeSettings._instance, pointer.ptr, exception.ptr);
-                        if (data !== 0)
-                            bytes = ImageMagick._api.HEAPU8.subarray(data, data + pointer.value);
-                    } catch {
-                        if (data !== 0)
-                            data = ImageMagick._api._MagickMemory_Relinquish(data);
+                        length = pointer.value;
                     } finally {
                         this.detachImages();
                     }
@@ -132,19 +143,8 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             });
         });
 
-        try {
-            let result = func(bytes);
-            if (!!result && typeof result.then === 'function') {
-                result = result.finally(() => {
-                    if (data !== 0)
-                        data = ImageMagick._api._MagickMemory_Relinquish(data);
-                });
-            }
-            return result;
-        } finally {
-            if (data !== 0)
-                data = ImageMagick._api._MagickMemory_Relinquish(data);
-        }
+        const array = new DisposableArray(data, length, func);
+        return Disposable._disposeAfterExecution(array, array.func);
     }
 
     static create(): IMagickImageCollection {
@@ -161,7 +161,9 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     /** @internal */
-    _use(func: (images: IMagickImageCollection) => void | Promise<void>): void | Promise<void> {
+    _use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    _use<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    _use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return Disposable._disposeAfterExecution(this, func);
     }
 
