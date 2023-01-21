@@ -16,6 +16,7 @@ export * from './drawables/drawable-fill-color';
 export * from './drawables/drawable-fill-opacity';
 export * from './drawables/drawable-font-point-size';
 export * from './drawables/drawable-font';
+export * from './drawables/drawable-gravity';
 export * from './drawables/drawable-rectangle';
 export * from './drawables/drawable-round-rectangle';
 export * from './drawables/drawable-text';
