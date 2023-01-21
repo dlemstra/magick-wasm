@@ -14,15 +14,16 @@ export class TestFile {
         this._fileName = fileName;
     }
 
-    async read(func: (image: IMagickImage) => void | Promise<void>): Promise<void>;
-    async read(settings: MagickReadSettings, func: (image: IMagickImage) => void | Promise<void>): Promise<void>;
-    async read(funcOrSettings: ((image: IMagickImage) => void | Promise<void>) | MagickReadSettings, func?: (image: IMagickImage) => void | Promise<void>): Promise<void> {
+    async read<TReturnType>(func: (image: IMagickImage) => TReturnType): Promise<TReturnType>;
+    async read<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    async read<TReturnType>(settings: MagickReadSettings, func: (image: IMagickImage) => TReturnType): Promise<TReturnType>;
+    async read<TReturnType>(settings: MagickReadSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    async read<TReturnType>(funcOrSettings: ((image: IMagickImage) => TReturnType | Promise<TReturnType>) | MagickReadSettings, func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): Promise<TReturnType> {
         const data = await this.toBuffer();
 
         if (funcOrSettings instanceof MagickReadSettings) {
             return ImageMagick.read(data, funcOrSettings, image => {
-                if (typeof func !== 'undefined')
-                    return func(image);
+                return func!(image);
             });
         } else {
             return ImageMagick.read(data, (image) => {
@@ -31,7 +32,9 @@ export class TestFile {
         }
     }
 
-    async readCollection(func: (images: IMagickImageCollection) => void | Promise<void>): Promise<void> {
+    async readCollection<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): Promise<TReturnType>;
+    async readCollection<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    async readCollection<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): Promise<TReturnType> {
         const data = await this.toBuffer();
 
         return ImageMagick.readCollection(data, images => {
