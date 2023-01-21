@@ -7,6 +7,8 @@ export interface IDisposable {
 
 /** @internal */
 export class Disposable {
+    static _disposeAfterExecution<TInstanceType extends IDisposable, TReturnType>(instance: TInstanceType, func: (instance: TInstanceType) => TReturnType): TReturnType;
+    static _disposeAfterExecution<TInstanceType extends IDisposable, TReturnType>(instance: TInstanceType, func: (instance: TInstanceType) => Promise<TReturnType>): Promise<TReturnType>;
     static _disposeAfterExecution<TInstanceType extends IDisposable, TReturnType>(instance: TInstanceType, func: (instance: TInstanceType) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         try {
             const result = func(instance);
