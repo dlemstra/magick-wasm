@@ -163,6 +163,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
     /** @internal */
     _use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    /** @internal */
     _use<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     _use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return Disposable._disposeAfterExecution(this, func);
