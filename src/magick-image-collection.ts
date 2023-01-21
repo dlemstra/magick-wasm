@@ -210,11 +210,13 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         try {
             this.attachImages();
 
-            return Exception.use(exception => {
-                const result = ImageMagick._api._MagickImageCollection_Merge(this[0]._instance, layerMethod, exception.ptr);
-                const image = MagickImage._createFromImage(result, this.getSettings());
-                return Disposable._disposeAfterExecution(image, func);
+            const result = Exception.use(exception => {
+                const images = ImageMagick._api._MagickImageCollection_Merge(this[0]._instance, layerMethod, exception.ptr);
+                return this.checkResult(images, exception);
             });
+
+            const image = MagickImage._createFromImage(result, this.getSettings());
+            return image._use(func);
         } finally {
             this.detachImages();
         }
@@ -223,5 +225,14 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     private throwIfEmpty() {
         if (this.length === 0)
             throw new MagickError("operation requires at least one image");
+    }
+
+    private checkResult(images: number, exception: Exception): number {
+        return exception.check(() => {
+            return images;
+        }, () => {
+            ImageMagick._api._MagickImageCollection_Dispose(images);
+            return 0;
+        });
     }
 }
