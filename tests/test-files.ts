@@ -70,6 +70,7 @@ export class TestFile {
 }
 
 export class TestFiles {
+    static readonly cmykJpg = new TestFile('tests/images/cmyk.jpg');
     static readonly fujiFilmFinePixS1ProJpg = new TestFile('tests/images/fuji-film-fine-pix-s1-pro.jpg');
     static readonly imageMagickJpg = new TestFile('tests/images/image-magick.jpg');
     static readonly kaushanScriptRegularTtf = new TestFile('tests/fonts/KaushanScript-Regular.ttf');

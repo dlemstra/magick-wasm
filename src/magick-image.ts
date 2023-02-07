@@ -60,6 +60,7 @@ export interface IMagickImage extends IDisposable {
     readonly attributeNames: ReadonlyArray<string>;
     backgroundColor: MagickColor;
     borderColor: MagickColor;
+    readonly channels: ReadonlyArray<PixelChannel>;
     readonly channelCount: number;
     colorFuzz: Percentage;
     colorSpace: ColorSpace;
@@ -281,6 +282,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         value._use(valuePtr => {
             ImageMagick._api._MagickImage_BorderColor_Set(this._instance, valuePtr);
         });
+    }
+
+    get channels(): ReadonlyArray<PixelChannel> {
+        const channels: PixelChannel[] = [];
+        [PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue, PixelChannel.Black, PixelChannel.Alpha].forEach(channel => {
+            if (ImageMagick._api._MagickImage_HasChannel(this._instance, channel))
+                channels.push(channel);
+        })
+
+        return channels;
     }
 
     get channelCount(): number { return ImageMagick._api._MagickImage_ChannelCount_Get(this._instance); }
