@@ -19,28 +19,44 @@ export class TestFile {
     async read<TReturnType>(settings: MagickReadSettings, func: (image: IMagickImage) => TReturnType): Promise<TReturnType>;
     async read<TReturnType>(settings: MagickReadSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     async read<TReturnType>(funcOrSettings: ((image: IMagickImage) => TReturnType | Promise<TReturnType>) | MagickReadSettings, func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): Promise<TReturnType> {
-        const data = await this.toBuffer();
+        if (this._fileName[this._fileName.length - 1] === ':') {
+            if (funcOrSettings instanceof MagickReadSettings) {
+                throw "Using MagickReadSettings is not supported for Builtin images.";
+            }
 
-        if (funcOrSettings instanceof MagickReadSettings) {
-            return ImageMagick.read(data, funcOrSettings, image => {
-                /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-                return func!(image);
-            });
-        } else {
-            return ImageMagick.read(data, (image) => {
+            return ImageMagick.read(this._fileName, (image) => {
                 return funcOrSettings(image);
             });
+        } else {
+            const data = await this.toBuffer();
+
+            if (funcOrSettings instanceof MagickReadSettings) {
+                return ImageMagick.read(data, funcOrSettings, image => {
+                    /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
+                    return func!(image);
+                });
+            } else {
+                return ImageMagick.read(data, (image) => {
+                    return funcOrSettings(image);
+                });
+            }
         }
     }
 
     async readCollection<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): Promise<TReturnType>;
     async readCollection<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     async readCollection<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): Promise<TReturnType> {
-        const data = await this.toBuffer();
+        if (this._fileName[this._fileName.length - 1] === ':') {
+            return ImageMagick.readCollection(this._fileName, images => {
+                return func(images);
+            });
+        } else {
+            const data = await this.toBuffer();
 
-        return ImageMagick.readCollection(data, images => {
-            return func(images);
-        });
+            return ImageMagick.readCollection(data, images => {
+                return func(images);
+            });
+        }
     }
 
     toBuffer(): Promise<Buffer> {
@@ -59,4 +75,8 @@ export class TestFiles {
     static readonly kaushanScriptRegularTtf = new TestFile('tests/fonts/KaushanScript-Regular.ttf');
     static readonly redPng = new TestFile('tests/images/red.png');
     static readonly roseSparkleGif = new TestFile('tests/images/röse-sparkle.gif');
+
+    static Builtin = class {
+        static readonly logo = new TestFile('logo:');
+    }
 }

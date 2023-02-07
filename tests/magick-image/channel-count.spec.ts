@@ -2,22 +2,16 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
-
-let image: IMagickImage;
+import { TestFiles } from '../test-files';
 
 beforeEach(() => {
     ImageMagick._api = global.native;
-    image = MagickImage.create();
-});
-
-afterEach(() => {
-    image.dispose();
 });
 
 describe('MagickImage#channelCount', () => {
-    it('should return the number of channels', () => {
-        image.read('logo:');
-        expect(image.channelCount).toBe(4);
+    it('should return the number of channels', async () => {
+        await TestFiles.Builtin.logo.read(image => {
+            expect(image.channelCount).toBe(4);
+        })
     });
 });
