@@ -12,5 +12,5 @@ export enum PixelChannel {
     Black = 3,
     Alpha = 4,
     Index = 5,
-    Composite = 32,
+    Composite = 64,
 }
