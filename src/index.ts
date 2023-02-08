@@ -3,6 +3,7 @@
 
 export * from './alpha-option';
 export * from './auto-threshold-method';
+export * from './channel-statistics';
 export * from './channels';
 export * from './color-space';
 export * from './composite-operator';
@@ -55,4 +56,5 @@ export * from './settings/drawing-settings';
 export * from './settings/magick-read-settings';
 export * from './settings/magick-settings';
 export * from './settings/montage-settings';
+export * from './statistics';
 export * from './virtual-pixel-method';
