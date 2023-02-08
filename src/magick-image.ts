@@ -42,6 +42,7 @@ import { VirtualPixelMethod } from './virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './gravity';
 import { _withDoubleArray } from './internal/native/array';
+import { IStatistics, Statistics } from './statistics';
 
 export interface IMagickImage extends IDisposable {
     /** @internal */
@@ -208,6 +209,8 @@ export interface IMagickImage extends IDisposable {
     sigmoidalContrast(contrast: number, midpoint: number): void;
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     splice(geometry: MagickGeometry): void;
+    statistics(): IStatistics;
+    statistics(channels: Channels): IStatistics;
     strip(): void;
     toString(): string;
     transparent(color: MagickColor): void;
@@ -1140,6 +1143,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 const instance = ImageMagick._api._MagickImage_Splice(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(instance, exception);
         });
+        });
+    }
+
+    statistics(): IStatistics;
+    statistics(channels: Channels): IStatistics;
+    statistics(channelsOrUndefined?: Channels): IStatistics {
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Default);
+        return Exception.usePointer(exception => {
+            const list = ImageMagick._api._MagickImage_Statistics(this._instance, channels, exception);
+            const statistics =  Statistics._create(this, list, channels);
+            ImageMagick._api._Statistics_DisposeList(list);
+            return statistics;
         });
     }
 
