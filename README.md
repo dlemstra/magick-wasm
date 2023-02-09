@@ -21,7 +21,7 @@ Follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive inf
 
 ## Release notes
 
-The release notes can be found on [GitHub](https://github.com/dlemstra/magick-wasm/releases/tag/0.0.18).
+The release notes can be found on [GitHub](https://github.com/dlemstra/magick-wasm/releases/tag/0.0.19).
 
 ## Donate
 
