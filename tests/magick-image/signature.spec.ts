@@ -6,8 +6,11 @@ import { IMagickImage, MagickImage } from '../../src/magick-image';
 
 let image: IMagickImage;
 
-beforeEach(() => {
+beforeAll(() => {
     ImageMagick._api = global.native;
+});
+
+beforeEach(() => {
     image = MagickImage.create();
 });
 

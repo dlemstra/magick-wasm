@@ -16,8 +16,9 @@ import '../custom-matcher';
 
 let image: IMagickImage;
 
+beforeAll(() => { ImageMagick._api = global.native; });
+
 beforeEach(() => {
-    ImageMagick._api = global.native;
     Magick.addFont('test', TestFiles.kaushanScriptRegularTtf.toBufferSync());
     image = MagickImage.create();
     image.read(MagickColors.White, 50, 50);

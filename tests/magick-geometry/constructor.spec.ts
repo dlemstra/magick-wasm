@@ -4,9 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { MagickGeometry } from '../../src/magick-geometry';
 
-beforeEach(() => {
-    ImageMagick._api = global.native;
-});
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickGeometry#constructor', () => {
     it('should throw exception when value is invalid', () => {

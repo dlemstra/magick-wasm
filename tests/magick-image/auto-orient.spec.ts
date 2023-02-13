@@ -7,8 +7,9 @@ import { OrientationType } from '../../src/orientation-type';
 
 let image: IMagickImage;
 
+beforeAll(() => { ImageMagick._api = global.native; });
+
 beforeEach(() => {
-    ImageMagick._api = global.native;
     image = MagickImage.create();
     image.read('logo:');
 });

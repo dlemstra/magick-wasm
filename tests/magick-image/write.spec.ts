@@ -7,8 +7,9 @@ import { MagickFormat } from '../../src/magick-format';
 
 let image: IMagickImage;
 
+beforeAll(() => { ImageMagick._api = global.native; });
+
 beforeEach(() => {
-    ImageMagick._api = global.native;
     image = MagickImage.create();
 });
 

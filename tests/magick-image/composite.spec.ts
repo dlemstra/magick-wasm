@@ -11,7 +11,7 @@ import { MagickColors } from '../../src/magick-colors';
 import { Point } from '../../src/point';
 import '../custom-matcher';
 
-beforeEach(() => { ImageMagick._api = global.native; });
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#composite', () => {
     it('should preserve gray color space', () => {

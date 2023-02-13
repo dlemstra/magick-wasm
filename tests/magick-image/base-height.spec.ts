@@ -4,9 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { TestFiles } from '../test-files';
 
-beforeEach(() => {
-    ImageMagick._api = global.native;
-});
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#baseHeight', () => {
     it('should return the height of the image before transformations.', async () => {

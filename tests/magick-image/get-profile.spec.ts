@@ -5,9 +5,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
 import { TestFiles } from '../test-files';
 
-beforeEach(() => {
-    ImageMagick._api = global.native;
-});
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#getProfile', () => {
     it('should return null when image does not contain profile', () => {

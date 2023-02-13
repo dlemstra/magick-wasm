@@ -4,7 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImage } from '../../src/magick-image';
 
-beforeEach(() => { ImageMagick._api = global.native; });
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#dispose', () => {
     it('should dispose the image', () => {

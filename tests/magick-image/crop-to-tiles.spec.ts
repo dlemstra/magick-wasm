@@ -8,8 +8,9 @@ import { MagickGeometry } from '../../src/magick-geometry';
 
 let image: IMagickImage;
 
+beforeAll(() => { ImageMagick._api = global.native; });
+
 beforeEach(() => {
-    ImageMagick._api = global.native;
     image = MagickImage.create();
     image.read(MagickColors.Black, 3, 3);
 });

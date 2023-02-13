@@ -5,9 +5,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickColor } from '../../src/magick-color';
 import { Quantum } from '../../src/quantum';
 
-beforeEach(() => {
-    ImageMagick._api = global.native;
-});
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickColor#toShortString', () => {
     it('should format the color', () => {

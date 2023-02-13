@@ -9,8 +9,9 @@ import { TestFiles } from '../test-files';
 
 let images: IMagickImageCollection;
 
+beforeAll(() => { ImageMagick._api = global.native; });
+
 beforeEach(() => {
-    ImageMagick._api = global.native;
     images = MagickImageCollection.create();
 });
 

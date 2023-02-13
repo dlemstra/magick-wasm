@@ -4,9 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { Percentage } from '../../src/percentage';
 
-beforeEach(() => {
-    ImageMagick._api = global.native;
-});
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickGeometry#toDouble', () => {
     it('should return the value.', () => {

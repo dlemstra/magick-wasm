@@ -6,9 +6,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { PixelChannel } from '../../src/pixel-channel';
 import { TestFiles } from '../test-files';
 
-beforeEach(() => {
-    ImageMagick._api = global.native;
-});
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#channels', () => {
     it('should return the correct channels', async () => {

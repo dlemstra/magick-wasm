@@ -10,8 +10,9 @@ import { Quantum } from '../../src/quantum';
 
 let image: IMagickImage;
 
+beforeAll(() => { ImageMagick._api = global.native; });
+
 beforeEach(() => {
-    ImageMagick._api = global.native;
     image = MagickImage.create();
     image.read('logo:');
 });

@@ -10,8 +10,9 @@ import '../../custom-matcher';
 let image: IMagickImage;
 let pixels: PixelCollection;
 
+beforeAll(() => { ImageMagick._api = global.native; });
+
 beforeEach(() => {
-    ImageMagick._api = global.native;
     image = MagickImage.create();
     image.read('logo:');
     pixels = PixelCollection._create(image);

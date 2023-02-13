@@ -8,8 +8,9 @@ import '../custom-matcher';
 
 let image: IMagickImage;
 
+beforeAll(() => { ImageMagick._api = global.native; });
+
 beforeEach(() => {
-    ImageMagick._api = global.native;
     image = MagickImage.create();
     image.read(new MagickColor(25, 25, 25), 2, 1);
     image.getPixels(pixels => {

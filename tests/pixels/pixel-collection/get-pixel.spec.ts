@@ -8,8 +8,9 @@ import { PixelCollection } from '../../../src/pixels/pixel-collection';
 let image: IMagickImage;
 let pixels: PixelCollection;
 
+beforeAll(() => { ImageMagick._api = global.native; });
+
 beforeEach(() => {
-    ImageMagick._api = global.native;
     image = MagickImage.create();
     image.read('logo:');
     pixels = PixelCollection._create(image);

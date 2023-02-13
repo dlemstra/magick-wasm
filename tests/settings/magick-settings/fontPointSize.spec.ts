@@ -6,9 +6,7 @@ import { Magick } from '../../../src/magick';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
 
-beforeEach(() => {
-    ImageMagick._api = global.native;
-});
+beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickSettings#fontPointSize', () => {
     it('should change the size of the rendered text', () => {
