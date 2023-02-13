@@ -37,7 +37,6 @@
     "scripts": {
         "build": "vite build && dts-bundle-generator src/index.ts -o dist/index.d.ts --external-inlines @dlemstra/magick-native",
         "test": "vitest run",
-        "test14": "vitest run --experimental-wasm-threads --wasm-atomics-on-non-shared-memory",
         "lint": "eslint .",
         "demo": "cd demo && tsc && node demo.js",
         "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE .",
