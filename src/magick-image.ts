@@ -61,6 +61,7 @@ export interface IMagickImage extends IDisposable {
     readonly attributeNames: ReadonlyArray<string>;
     backgroundColor: MagickColor;
     readonly baseHeight: number;
+    readonly baseWidth: number;
     borderColor: MagickColor;
     readonly channels: ReadonlyArray<PixelChannel>;
     readonly channelCount: number;
@@ -280,6 +281,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get baseHeight(): number {
         return ImageMagick._api._MagickImage_BaseHeight_Get(this._instance);
+    }
+
+    get baseWidth(): number {
+        return ImageMagick._api._MagickImage_BaseWidth_Get(this._instance);
     }
 
     get borderColor(): MagickColor {
