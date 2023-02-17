@@ -151,6 +151,7 @@ export interface IMagickImage extends IDisposable {
     extent(geometry: MagickGeometry, gravity: Gravity, backgroundColor: MagickColor): void;
     extent(geometry: MagickGeometry, backgroundColor: MagickColor): void;
     flip(): void;
+    flop(): void;
     getArtifact(name: string): string | null;
     getAttribute(name: string): string | null;
     getProfile(name: string): IImageProfile | null;
@@ -828,6 +829,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     flip(): void {
         Exception.use(exception => {
             const instance = ImageMagick._api._MagickImage_Flip(this._instance, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    flop(): void {
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_Flop(this._instance, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
