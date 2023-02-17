@@ -224,6 +224,24 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return Object.create(MagickImageCollection.prototype);
     }
 
+    private createImage<TReturnType>(createImages: (instance: number, exception: Exception) => number, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        this.throwIfEmpty();
+
+        try {
+            this.attachImages();
+
+            const result = Exception.use(exception => {
+                const images = createImages(this[0]._instance, exception);
+                return this.checkResult(images, exception);
+            });
+
+            const image = MagickImage._createFromImage(result, this.getSettings());
+            return image._use(func);
+        } finally {
+            this.detachImages();
+        }
+    }
+
     private static createSettings(settings?: MagickReadSettings): MagickSettings {
         if (settings == null)
             return new MagickSettings();
@@ -241,21 +259,9 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     private mergeImages<TReturnType>(layerMethod: LayerMethod, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        this.throwIfEmpty();
-
-        try {
-            this.attachImages();
-
-            const result = Exception.use(exception => {
-                const images = ImageMagick._api._MagickImageCollection_Merge(this[0]._instance, layerMethod, exception.ptr);
-                return this.checkResult(images, exception);
-            });
-
-            const image = MagickImage._createFromImage(result, this.getSettings());
-            return image._use(func);
-        } finally {
-            this.detachImages();
-        }
+        return this.createImage((instance, exception) => {
+            return ImageMagick._api._MagickImageCollection_Merge(instance, layerMethod, exception.ptr);
+        }, func);
     }
 
     private throwIfEmpty() {
