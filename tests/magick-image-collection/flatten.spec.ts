@@ -3,25 +3,16 @@
 
 import { ErrorMetric } from '../../src/error-metric';
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImageCollection, MagickImageCollection } from '../../src/magick-image-collection';
+import { MagickImageCollection } from '../../src/magick-image-collection';
 import { MagickFormat } from '../../src/magick-format';
 import { TestFiles } from '../test-files';
 
-let images: IMagickImageCollection;
-
 beforeAll(() => { ImageMagick._api = global.native; });
-
-beforeEach(() => {
-    images = MagickImageCollection.create();
-});
-
-afterEach(() => {
-    images.dispose();
-});
 
 describe('MagickImageCollection#flatten', () => {
     it('should throw exception when collection is empty', () => {
         expect(() => {
+            const images = MagickImageCollection.create();
             images.flatten(() => { /* never reached */ });
         }).toThrowError('operation requires at least one image');
     });
