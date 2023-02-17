@@ -3,26 +3,17 @@
 
 import { ErrorMetric } from '../../src/error-metric';
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImageCollection, MagickImageCollection } from '../../src/magick-image-collection';
+import { MagickImageCollection } from '../../src/magick-image-collection';
 import { MagickFormat } from '../../src/magick-format';
 import { MagickGeometry } from '../../src/magick-geometry';
 import { TestFiles } from '../test-files';
 
-let images: IMagickImageCollection;
-
 beforeAll(() => { ImageMagick._api = global.native; });
-
-beforeEach(() => {
-    images = MagickImageCollection.create();
-});
-
-afterEach(() => {
-    images.dispose();
-});
 
 describe('MagickImageCollection#mosaic', () => {
     it('should throw exception when collection is empty', () => {
         expect(() => {
+            const images = MagickImageCollection.create();
             images.mosaic(() => { /* never reached */ });
         }).toThrowError('operation requires at least one image');
     });
