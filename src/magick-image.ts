@@ -663,6 +663,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    static create(): IMagickImage {
+        return new MagickImage(MagickImage.createInstance(), new MagickSettings());
+    }
+
     crop(geometry: MagickGeometry): void;
     crop(geometry: MagickGeometry, gravity: Gravity): void;
     crop(width: number, height: number): void;
@@ -696,10 +700,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 return collection;
             });
         });
-    }
-
-    static create(): IMagickImage {
-        return new MagickImage(MagickImage.createInstance(), new MagickSettings());
     }
 
     deskew(threshold: Percentage): number {
