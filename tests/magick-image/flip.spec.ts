@@ -7,7 +7,7 @@ import { TestFiles } from '../test-files';
 
 beforeAll(() => { ImageMagick._api = global.native; });
 
-describe('MagickImage#blur', () => {
+describe('MagickImage#flip', () => {
     it('should flip the image', async () => {
         await TestFiles.fujiFilmFinePixS1ProJpg.read(async image => {
 
