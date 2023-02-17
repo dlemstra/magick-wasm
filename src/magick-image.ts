@@ -663,8 +663,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    static create(): IMagickImage {
-        return new MagickImage(MagickImage.createInstance(), new MagickSettings());
+    static create(): IMagickImage;
+    static create(color: MagickColor, width: number, height: number): IMagickImage;
+    static create(fileName: string, settings?: MagickReadSettings): IMagickImage;
+    static create(array: Uint8Array, settings?: MagickReadSettings): IMagickImage;
+    static create(fileNameOrArrayOrColorOrUndefined?: string | Uint8Array | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): IMagickImage {
+        const image = new MagickImage(MagickImage.createInstance(), new MagickSettings());
+        if (fileNameOrArrayOrColorOrUndefined !== undefined)
+            image.readOrPing(false, fileNameOrArrayOrColorOrUndefined, settingsOrWidthOrUndefined, heightOrUndefined);
+        return image;
     }
 
     crop(geometry: MagickGeometry): void;
@@ -1019,8 +1026,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     read(color: MagickColor, width: number, height: number): void;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: Uint8Array, settings?: MagickReadSettings): void;
-    read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidth?: MagickReadSettings | number, heightOrUndefined?: number): void {
-        this.readOrPing(false, fileNameOrArrayOrColor, settingsOrWidth, heightOrUndefined);
+    read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
+        this.readOrPing(false, fileNameOrArrayOrColor, settingsOrWidthOrUndefined, heightOrUndefined);
     }
 
     readFromCanvas(canvas: HTMLCanvasElement): void {
@@ -1353,22 +1360,22 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return value ? 1 : 0;
     }
 
-    private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidth?: MagickReadSettings | number, heightOrUndefined?: number): void {
+    private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
         Exception.use(exception => {
             if (fileNameOrArrayOrColor instanceof Uint8Array) {
-                const readSettings = settingsOrWidth instanceof MagickReadSettings  ? settingsOrWidth : new MagickReadSettings(this._settings);
+                const readSettings = settingsOrWidthOrUndefined instanceof MagickReadSettings  ? settingsOrWidthOrUndefined : new MagickReadSettings(this._settings);
                 readSettings._ping = ping;
                 this._settings._ping = ping;
                 this.readFromArray(fileNameOrArrayOrColor, readSettings, exception);
             } else {
-                const readSettings = settingsOrWidth instanceof MagickReadSettings ? settingsOrWidth : new MagickReadSettings(this._settings);
+                const readSettings = settingsOrWidthOrUndefined instanceof MagickReadSettings ? settingsOrWidthOrUndefined : new MagickReadSettings(this._settings);
                 readSettings._ping = ping;
                 this._settings._ping = ping;
                 if (typeof fileNameOrArrayOrColor === 'string') {
                     readSettings._fileName = fileNameOrArrayOrColor;
                 } else if (fileNameOrArrayOrColor instanceof MagickColor) {
                     readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toShortString();
-                    readSettings.width = typeof settingsOrWidth === 'number' ? settingsOrWidth : 0;
+                    readSettings.width = typeof settingsOrWidthOrUndefined === 'number' ? settingsOrWidthOrUndefined : 0;
                     readSettings.height = typeof heightOrUndefined === 'number' ? heightOrUndefined : 0;
                 }
                 readSettings._use(settings => {
