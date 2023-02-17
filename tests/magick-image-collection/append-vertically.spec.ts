@@ -1,0 +1,26 @@
+// Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
+// Licensed under the Apache License, Version 2.0.
+
+import { ImageMagick } from '../../src/image-magick';
+import { MagickImageCollection } from '../../src/magick-image-collection';
+import { TestFiles } from '../test-files';
+
+beforeAll(() => { ImageMagick._api = global.native; });
+
+describe('MagickImageCollection#appendVertically', () => {
+    it('should throw exception when collection is empty', () => {
+        expect(() => {
+            const images = MagickImageCollection.create();
+            images.appendVertically(() => { /* never reached */ });
+        }).toThrowError('operation requires at least one image');
+    });
+
+    it('should create a new image with the images appended vertically', () => {
+        TestFiles.roseSparkleGif.readCollection(images => {
+            images.appendVertically(image => {
+                expect(image.width).toBe(70);
+                expect(image.height).toBe(138);
+            });
+        });
+    });
+});

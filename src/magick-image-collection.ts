@@ -43,6 +43,8 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
 
     appendHorizontally<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     appendHorizontally<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    appendVertically<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    appendVertically<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     flatten<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     flatten<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
@@ -78,6 +80,13 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }, func);
     }
 
+    appendVertically<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    appendVertically<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    appendVertically<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        return this.createImage((instance, exception) => {
+            return ImageMagick._api._MagickImageCollection_Append(instance, 1, exception.ptr);
+        }, func);
+    }
 
     flatten<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     flatten<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
