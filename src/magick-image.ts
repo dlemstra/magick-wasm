@@ -62,6 +62,7 @@ export interface IMagickImage extends IDisposable {
     backgroundColor: MagickColor;
     readonly baseHeight: number;
     readonly baseWidth: number;
+    blackPointCompensation: boolean;
     borderColor: MagickColor;
     readonly channels: ReadonlyArray<PixelChannel>;
     readonly channelCount: number;
@@ -287,6 +288,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get baseWidth(): number {
         return ImageMagick._api._MagickImage_BaseWidth_Get(this._instance);
+    }
+
+    get blackPointCompensation(): boolean {
+        return ImageMagick._api._MagickImage_BlackPointCompensation_Get(this._instance) === 1;
+    }
+
+    set blackPointCompensation(value: boolean) {
+        ImageMagick._api._MagickImage_BlackPointCompensation_Set(this._instance, value ? 1 : 0);
     }
 
     get borderColor(): MagickColor {
