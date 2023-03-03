@@ -7,7 +7,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.0-61 (2023-02-05) ] copyright:
+[ ImageMagick 7.1.0-63 beta (2023-02-26) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -115,7 +115,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ aom 3.1.3 (2021-10-05) ] copyright:
+[ aom 3.6.0 (2022-02-07) ] copyright:
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -171,7 +171,7 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ de265 1.0.8 (2020-11-02) ] copyright:
+[ de265 1.0.11 (2023-02-01) ] copyright:
 
 * The library `libde265` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT license.
@@ -1047,7 +1047,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ exr 3.1.3 (2021-10-28) ] copyright:
+[ exr 3.1.5 (2022-04-12) ] copyright:
 
 Copyright (c) 2006-2019 OpenEXR a Series of LF Projects, LLC. All rights reserved.
 
@@ -1078,9 +1078,9 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ffi 3.4.2 (2021-06-29) ] copyright:
+[ ffi 3.4.4 (2022-10-23) ] copyright:
 
-libffi - Copyright (c) 1996-2021  Anthony Green, Red Hat, Inc and others.
+libffi - Copyright (c) 1996-2022  Anthony Green, Red Hat, Inc and others.
 See source files for details.
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -1104,7 +1104,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ freetype 2.12.1 (2022-05-01) ] copyright:
+[ freetype 2.13.0 (2023-02-09) ] copyright:
 
                     The FreeType Project LICENSE
                     ----------------------------
@@ -1785,7 +1785,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.14.2 (2023-01-06) ] copyright:
+[ heif 1.15.1 (2023-02-16) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
@@ -2661,7 +2661,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ highway 1.0.1 (2022-08-24) ] copyright:
+[ highway 1.0.3 (2023-01-19) ] copyright:
 
                                  Apache License
                            Version 2.0, January 2004
@@ -2866,7 +2866,7 @@ SOFTWARE.
    limitations under the License.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-turbo 2.1.1 (2021-08-10) ] copyright:
+[ jpeg-turbo 2.1.91 (2023-02-08) ] copyright:
 
 libjpeg-turbo Licenses
 ======================
@@ -2961,7 +2961,7 @@ best of our understanding.
 The Modified (3-clause) BSD License
 ===================================
 
-Copyright (C)2009-2021 D. R. Commander.  All Rights Reserved.<br>
+Copyright (C)2009-2023 D. R. Commander.  All Rights Reserved.<br>
 Copyright (C)2015 Viktor Szathmáry.  All Rights Reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -3003,7 +3003,7 @@ that were granted to the IJG for code derived from their software.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-xl 0.8.0 (2023-01-19) ] copyright:
+[ jpeg-xl 0.8.1 (2023-02-03) ] copyright:
 
 Copyright (c) the JPEG XL Project Authors.
 All rights reserved.
@@ -3035,7 +3035,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lcms 2.13,1 (2022-02-03) ] copyright:
+[ lcms 2.14.0 (2022-11-01) ] copyright:
 
 Little CMS
 Copyright (c) 1998-2020 Marti Maria Saguer
@@ -3275,7 +3275,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ png 1.6.38 (2022-09-14) ] copyright:
+[ png 1.6.39 (2022-11-20) ] copyright:
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
@@ -3446,10 +3446,12 @@ Copyright (c) 2005 Adobe Systems Incorporated, licensed under MIT license
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ tiff 4.3.0 (2020-04-20) ] copyright:
+[ tiff 4.5.0 (2022-12-13) ] copyright:
 
-Copyright (c) 1988-1997 Sam Leffler
-Copyright (c) 1991-1997 Silicon Graphics, Inc.
+# LibTIFF license
+
+Copyright © 1988-1997 Sam Leffler\
+Copyright © 1991-1997 Silicon Graphics, Inc.
 
 Permission to use, copy, modify, distribute, and sell this software and 
 its documentation for any purpose is hereby granted without fee, provided
@@ -3507,7 +3509,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.9.10 (2019-10-30) ] copyright:
+[ xml 2.10.3 (2022-10-14) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files hash.c,
 list.c and the trio files, which are covered by a similar licence but
@@ -3535,9 +3537,11 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ zlib 1.2.12 (2022-03-27) ] copyright:
+[ zlib 1.2.13 (2022-10-14) ] copyright:
 
- (C) 1995-2017 Jean-loup Gailly and Mark Adler
+Copyright notice:
+
+ (C) 1995-2022 Jean-loup Gailly and Mark Adler
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -3557,15 +3561,6 @@ THE SOFTWARE.
 
   Jean-loup Gailly        Mark Adler
   jloup@gzip.org          madler@alumni.caltech.edu
-
-If you use the zlib library in a product, we would appreciate *not* receiving
-lengthy legal documents to sign.  The sources are provided for free but without
-warranty of any kind.  The library has been entirely written by Jean-loup
-Gailly and Mark Adler; it does not include third-party code.
-
-If you redistribute modified sources, we would appreciate that you include in
-the file ChangeLog history information documenting your changes.  Please read
-the FAQ for more information on the distribution of modified source versions.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
