@@ -79,6 +79,7 @@ export interface IMagickImage extends IDisposable {
     orientation: OrientationType;
     page: MagickGeometry;
     quality: number;
+    readonly settings: MagickSettings;
     readonly signature: string | null;
     virtualPixelMethod: VirtualPixelMethod;
     width: number;
@@ -407,6 +408,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         ImageMagick._api._MagickImage_Quality_Set(this._instance, quality);
         this._settings._quality = quality;
+    }
+
+    get settings(): MagickSettings {
+        return this._settings;
     }
 
     get signature(): string | null {
