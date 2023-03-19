@@ -45,17 +45,17 @@
     "devDependencies": {
         "@dlemstra/magick-native": "0.202303.31254",
         "@types/jsdom": "^21.1.0",
-        "@typescript-eslint/eslint-plugin": "^5.54.0",
-        "@typescript-eslint/parser": "^5.54.0",
+        "@typescript-eslint/eslint-plugin": "^5.55.0",
+        "@typescript-eslint/parser": "^5.55.0",
         "ansi-regex": ">=6.0.1",
         "copyfiles": "^2.4.1",
         "dts-bundle-generator": "^7.2.0",
-        "eslint": "^8.35.0",
+        "eslint": "^8.36.0",
         "eslint-plugin-header": "^3.1.1",
-        "jsdom": "^21.1.0",
+        "jsdom": "^21.1.1",
         "set-value": "^4.1.0",
-        "typescript": "^4.9.5",
-        "vite": "^4.1.4",
-        "vitest": "^0.29.2"
+        "typescript": "^5.0.2",
+        "vite": "^4.2.0",
+        "vitest": "^0.29.3"
     }
 }
