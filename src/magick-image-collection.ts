@@ -3,6 +3,7 @@
 
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
+import { EvaluateOperator } from './evaluate-operator';
 import { Exception } from './internal/exception/exception';
 import { IDisposable } from './disposable';
 import { ImageMagick } from './image-magick';
@@ -45,6 +46,8 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     appendHorizontally<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     appendVertically<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     appendVertically<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType): TReturnType;
+    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     flatten<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     flatten<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
@@ -85,6 +88,14 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     appendVertically<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.createImage((instance, exception) => {
             return ImageMagick._api._MagickImageCollection_Append(instance, 1, exception.ptr);
+        }, func);
+    }
+
+    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType): TReturnType;
+    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        return this.createImage((instance, exception) => {
+            return ImageMagick._api._MagickImageCollection_Evaluate(instance, evaluateOperator, exception.ptr);
         }, func);
     }
 
