@@ -528,10 +528,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     clone<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     clone<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     clone<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        return Exception.usePointer(exception => {
-            const image = new MagickImage(ImageMagick._api._MagickImage_Clone(this._instance, exception), this._settings._clone());
-            return image._use(func);
-        });
+        const image = MagickImage._clone(this);
+        return image._use(func);
     }
 
     colorAlpha(color: MagickColor): void {
@@ -1327,6 +1325,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     /** @internal */
     static _createFromImage(instance: number, settings: MagickSettings): MagickImage {
         return new MagickImage(instance, settings);
+    }
+
+    /** @internal */
+    static _clone(image: MagickImage): MagickImage {
+        return Exception.usePointer(exception => {
+            return new MagickImage(ImageMagick._api._MagickImage_Clone(image._instance, exception), image._settings._clone());
+        });
     }
 
     /** @internal */
