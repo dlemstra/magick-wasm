@@ -657,11 +657,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.removeArtifact('compose:args');
     }
 
-    contrast(): void {
-        Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_Contrast(this._instance, 1, exception);
-        });
-    }
+    contrast = () => this._contrast(true);
 
     contrastStretch(blackPoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage): void;
@@ -924,18 +920,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return result;
     }
 
-    inverseContrast(): void {
-        Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_Contrast(this._instance, 0, exception);
-        });
-    }
+    inverseContrast = () => this._contrast(false);
 
     inverseSigmoidalContrast(contrast: number): void;
     inverseSigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     inverseSigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
-        this.privateSigmoidalContrast(false, contrast, midpointOrPercentage, channelsOrUndefined)
+        this._sigmoidalContrast(false, contrast, midpointOrPercentage, channelsOrUndefined)
     }
 
     inverseTransparent(color: MagickColor): void {
@@ -1179,7 +1171,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     sigmoidalContrast(contrast: number, midpoint: number): void;
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     sigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
-        this.privateSigmoidalContrast(true, contrast, midpointOrPercentage, channelsOrUndefined)
+        this._sigmoidalContrast(true, contrast, midpointOrPercentage, channelsOrUndefined)
     }
 
     splice(geometry: MagickGeometry): void {
@@ -1361,7 +1353,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return image._use<TReturnType>(func);
     }
 
-    private privateSigmoidalContrast(sharpen: boolean, contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
+    private _contrast(enhance: boolean) {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_Contrast(this._instance, this.fromBool(enhance), exception);
+        });
+    }
+
+    private _sigmoidalContrast(sharpen: boolean, contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
         let midpoint: number;
         if (midpointOrPercentage !== undefined) {
             if (typeof midpointOrPercentage === 'number')
