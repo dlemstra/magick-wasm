@@ -2,14 +2,17 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../src/image-magick';
-import { IMagickImage } from '../src/magick-image';
-import { IMagickImageCollection } from '../src/magick-image-collection';
+import { IMagickImage, MagickImage } from '../src/magick-image';
+import { IMagickImageCollection, MagickImageCollection } from '../src/magick-image-collection';
 import { MagickReadSettings } from '../src/settings/magick-read-settings';
 import * as fs from 'fs';
 import * as util from 'util';
 
 export class TestFile {
     private readonly _fileName: string;
+    private _image: IMagickImage | null = null;
+    private _images: IMagickImageCollection | null = null;
+
     constructor(fileName: string) {
         this._fileName = fileName;
     }
@@ -19,44 +22,46 @@ export class TestFile {
     async read<TReturnType>(settings: MagickReadSettings, func: (image: IMagickImage) => TReturnType): Promise<TReturnType>;
     async read<TReturnType>(settings: MagickReadSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     async read<TReturnType>(funcOrSettings: ((image: IMagickImage) => TReturnType | Promise<TReturnType>) | MagickReadSettings, func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): Promise<TReturnType> {
-        if (this._fileName[this._fileName.length - 1] === ':') {
-            if (funcOrSettings instanceof MagickReadSettings) {
-                throw "Using MagickReadSettings is not supported for Builtin images.";
-            }
-
-            return ImageMagick.read(this._fileName, (image) => {
-                return funcOrSettings(image);
-            });
-        } else {
+        if (funcOrSettings instanceof MagickReadSettings) {
             const data = await this.toBuffer();
 
-            if (funcOrSettings instanceof MagickReadSettings) {
-                return ImageMagick.read(data, funcOrSettings, image => {
-                    /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-                    return func!(image);
-                });
-            } else {
-                return ImageMagick.read(data, (image) => {
-                    return funcOrSettings(image);
-                });
+            return ImageMagick.read(data, funcOrSettings, image => {
+                /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
+                return func!(image);
+            });
+        } else {
+            if (this._image === null) {
+                if (this._fileName[this._fileName.length - 1] === ':') {
+                    this._image = MagickImage.create(this._fileName);
+                } else {
+                    const data = await this.toBuffer();
+                    this._image = MagickImage.create(data);
+                }
             }
+
+            return this._image.clone(image => {
+                return funcOrSettings(image);
+            });
         }
     }
 
     async readCollection<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): Promise<TReturnType>;
     async readCollection<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     async readCollection<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): Promise<TReturnType> {
-        if (this._fileName[this._fileName.length - 1] === ':') {
-            return ImageMagick.readCollection(this._fileName, images => {
-                return func(images);
-            });
-        } else {
-            const data = await this.toBuffer();
+        if (this._images === null) {
+            this._images = MagickImageCollection.create();
 
-            return ImageMagick.readCollection(data, images => {
-                return func(images);
-            });
+            if (this._fileName[this._fileName.length - 1] === ':') {
+                this._images.read(this._fileName);
+            } else {
+                const data = await this.toBuffer();
+                this._images.read(data);
+            }
         }
+
+        return this._images.clone(images => {
+            return func(images);
+        });
     }
 
     toBuffer(): Promise<Buffer> {
