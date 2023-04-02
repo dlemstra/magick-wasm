@@ -930,13 +930,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this._sigmoidalContrast(false, contrast, midpointOrPercentage, channelsOrUndefined)
     }
 
-    inverseTransparent(color: MagickColor): void {
-        color._use(valuePtr => {
-            Exception.usePointer(exception => {
-                ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, 1, exception);
-            });
-        });
-    }
+    inverseTransparent = (color: MagickColor) => this._transparent(color, true);
 
     level(blackPoint: Percentage, whitePoint: Percentage): void;
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
@@ -1372,6 +1366,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, this.fromBool(sharpen), contrast, midpoint, channels, exception);
+        });
+    }
+
+    private _transparent(color: MagickColor, invert: boolean) {
+        color._use(valuePtr => {
+            Exception.usePointer(exception => {
+                ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, this.fromBool(invert), exception);
+            });
         });
     }
 
