@@ -163,6 +163,7 @@ export interface IMagickImage extends IDisposable {
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => Promise<TReturnType>): Promise<TReturnType>;
     histogram(): Map<string, number>;
     inverseContrast(): void;
+    inverseOpaque(target: MagickColor, fill: MagickColor): void;
     inverseSigmoidalContrast(contrast: number): void;
     inverseSigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number): void;
@@ -185,6 +186,7 @@ export interface IMagickImage extends IDisposable {
     normalize(): void;
     oilPaint(): void;
     oilPaint(radius: number): void;
+    opaque(target: MagickColor, fill: MagickColor): void;
     ping(fileName: string, settings?: MagickReadSettings): void;
     ping(array: Uint8Array, settings?: MagickReadSettings): void;
     read(color: MagickColor, width: number, height: number): void;
@@ -922,6 +924,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     inverseContrast = () => this._contrast(false);
 
+    inverseOpaque = (target: MagickColor, fill: MagickColor) => this._opaque(target, fill, true);
+
     inverseSigmoidalContrast(contrast: number): void;
     inverseSigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number): void;
@@ -1022,6 +1026,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this._setInstance(instance, exception);
         });
     }
+
+    opaque = (target: MagickColor, fill: MagickColor) => this._opaque(target, fill, false);
 
     ping(fileName: string, settings?: MagickReadSettings): void;
     ping(array: Uint8Array, settings?: MagickReadSettings): void;
@@ -1350,6 +1356,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     private _contrast(enhance: boolean) {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_Contrast(this._instance, this.fromBool(enhance), exception);
+        });
+    }
+
+    private _opaque(target: MagickColor, fill: MagickColor, invert: boolean) {
+        Exception.usePointer(exception => {
+            target._use(targetPtr => {
+                fill._use(filltPtr => {
+                    ImageMagick._api._MagickImage_Opaque(this._instance, targetPtr, filltPtr, this.fromBool(invert), exception);
+                });
+            });
         });
     }
 
