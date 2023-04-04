@@ -84,5 +84,6 @@ export class TestFiles {
 
     static Builtin = class {
         static readonly logo = new TestFile('logo:');
+        static readonly wizard = new TestFile('wizard:');
     }
 }

@@ -64,6 +64,7 @@ export interface IMagickImage extends IDisposable {
     readonly baseWidth: number;
     blackPointCompensation: boolean;
     borderColor: MagickColor;
+    boundingBox: MagickGeometry | null;
     readonly channels: ReadonlyArray<PixelChannel>;
     readonly channelCount: number;
     colorFuzz: Percentage;
@@ -308,6 +309,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set borderColor(value: MagickColor) {
         value._use(valuePtr => {
             ImageMagick._api._MagickImage_BorderColor_Set(this._instance, valuePtr);
+        });
+    }
+
+    get boundingBox(): MagickGeometry | null {
+        return Exception.usePointer(exception => {
+            const boundingBox = ImageMagick._api._MagickImage_BoundingBox_Get(this._instance, exception);
+            const geometry = MagickGeometry.fromRectangle(boundingBox);
+            if (geometry.width === 0 || geometry.height === 0)
+                return null;
+
+            return geometry;
         });
     }
 
