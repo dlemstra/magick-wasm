@@ -65,8 +65,8 @@ export interface IMagickImage extends IDisposable {
     blackPointCompensation: boolean;
     borderColor: MagickColor;
     boundingBox: MagickGeometry | null;
-    readonly channels: ReadonlyArray<PixelChannel>;
     readonly channelCount: number;
+    readonly channels: ReadonlyArray<PixelChannel>;
     colorFuzz: Percentage;
     colorSpace: ColorSpace;
     comment: string | null;
@@ -323,6 +323,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    get channelCount(): number { return ImageMagick._api._MagickImage_ChannelCount_Get(this._instance); }
+
     get channels(): ReadonlyArray<PixelChannel> {
         const channels: PixelChannel[] = [];
         [PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue, PixelChannel.Black, PixelChannel.Alpha].forEach(channel => {
@@ -332,8 +334,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         return channels;
     }
-
-    get channelCount(): number { return ImageMagick._api._MagickImage_ChannelCount_Get(this._instance); }
 
     get colorFuzz(): Percentage { return Percentage.fromQuantum(ImageMagick._api._MagickImage_ColorFuzz_Get(this._instance)); }
     set colorFuzz(value: Percentage) { ImageMagick._api._MagickImage_ColorFuzz_Set(this._instance, value.toQuantum()); }
