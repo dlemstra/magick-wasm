@@ -315,7 +315,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     get boundingBox(): MagickGeometry | null {
         return Exception.usePointer(exception => {
             const boundingBox = ImageMagick._api._MagickImage_BoundingBox_Get(this._instance, exception);
-            const geometry = MagickGeometry.fromRectangle(boundingBox);
+            const geometry = MagickGeometry._fromRectangle(boundingBox);
             if (geometry.width === 0 || geometry.height === 0)
                 return null;
 
@@ -407,10 +407,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get page(): MagickGeometry {
         const rectangle = ImageMagick._api._MagickImage_Page_Get(this._instance);
-        return MagickGeometry.fromRectangle(rectangle);
+        return MagickGeometry._fromRectangle(rectangle);
     }
     set page(value: MagickGeometry) {
-        value.toRectangle(rectangle => {
+        value._toRectangle(rectangle => {
             ImageMagick._api._MagickImage_Page_Set(this._instance, rectangle);
         });
     }
@@ -494,7 +494,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const geometry = new MagickGeometry(0, 0, width, height);
 
         Exception.use(exception => {
-            geometry.toRectangle(rectangle => {
+            geometry._toRectangle(rectangle => {
                 const instance = ImageMagick._api._MagickImage_Border(this._instance, rectangle, exception.ptr);
                 this._setInstance(instance, exception);
             });
