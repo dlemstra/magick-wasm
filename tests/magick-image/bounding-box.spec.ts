@@ -10,13 +10,15 @@ beforeAll(() => { ImageMagick._api = global.native; });
 describe('MagickImage#boundingBox', () => {
     it('should return the correct rectangle', async () => {
         await TestFiles.Builtin.wizard.read(image => {
-           const rectangle = image.boundingBox;
+            const rectangle = image.boundingBox;
 
-           expect(rectangle).not.toBeNull();
-           expect(rectangle!.width).toBe(480);
-           expect(rectangle!.height).toBe(629);
-           expect(rectangle!.x).toBe(0);
-           expect(rectangle!.y).toBe(11);
+            expect(rectangle).not.toBeNull();
+            if (rectangle !== null) {
+                expect(rectangle.width).toBe(480);
+                expect(rectangle.height).toBe(629);
+                expect(rectangle.x).toBe(0);
+                expect(rectangle.y).toBe(11);
+            }
         });
     });
 
