@@ -49,6 +49,7 @@ export * from './pixel-channel';
 export * from './pixel-interpolate-method';
 export * from './pixels/pixel-collection';
 export * from './point';
+export * from './primary-info';
 export * from './profiles/image-profile';
 export * from './quantum';
 export * from './settings/distort-settings';
