@@ -43,6 +43,7 @@ import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './gravity';
 import { _withDoubleArray } from './internal/native/array';
 import { IStatistics, Statistics } from './statistics';
+import { PrimaryInfo } from './primary-info';
 
 export interface IMagickImage extends IDisposable {
     /** @internal */
@@ -67,6 +68,7 @@ export interface IMagickImage extends IDisposable {
     boundingBox: MagickGeometry | null;
     readonly channelCount: number;
     readonly channels: ReadonlyArray<PixelChannel>;
+    chromaBluePrimary: PrimaryInfo;
     colorFuzz: Percentage;
     colorSpace: ColorSpace;
     comment: string | null;
@@ -333,6 +335,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         })
 
         return channels;
+    }
+
+    get chromaBluePrimary(): PrimaryInfo { return PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaBluePrimary_Get(this._instance)) }
+    set chromaBluePrimary(value: PrimaryInfo) {
+        value._use(primaryInfoPtr => {
+            ImageMagick._api._MagickImage_ChromaBluePrimary_Set(this._instance, primaryInfoPtr);
+        });
     }
 
     get colorFuzz(): Percentage { return Percentage.fromQuantum(ImageMagick._api._MagickImage_ColorFuzz_Get(this._instance)); }
