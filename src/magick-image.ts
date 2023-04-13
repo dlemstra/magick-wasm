@@ -71,6 +71,7 @@ export interface IMagickImage extends IDisposable {
     chromaBluePrimary: PrimaryInfo;
     chromaGreenPrimary: PrimaryInfo;
     chromaRedPrimary: PrimaryInfo;
+    chromaWhitePoint: PrimaryInfo;
     colorFuzz: Percentage;
     colorSpace: ColorSpace;
     comment: string | null;
@@ -357,6 +358,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set chromaRedPrimary(value: PrimaryInfo) {
         value._use(primaryInfoPtr => {
             ImageMagick._api._MagickImage_ChromaRedPrimary_Set(this._instance, primaryInfoPtr);
+        });
+    }
+
+    get chromaWhitePoint(): PrimaryInfo { return PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaWhitePoint_Get(this._instance)) }
+    set chromaWhitePoint(value: PrimaryInfo) {
+        value._use(primaryInfoPtr => {
+            ImageMagick._api._MagickImage_ChromaWhitePoint_Set(this._instance, primaryInfoPtr);
         });
     }
 
