@@ -69,6 +69,7 @@ export interface IMagickImage extends IDisposable {
     readonly channelCount: number;
     readonly channels: ReadonlyArray<PixelChannel>;
     chromaBluePrimary: PrimaryInfo;
+    chromaGreenPrimary: PrimaryInfo;
     colorFuzz: Percentage;
     colorSpace: ColorSpace;
     comment: string | null;
@@ -341,6 +342,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set chromaBluePrimary(value: PrimaryInfo) {
         value._use(primaryInfoPtr => {
             ImageMagick._api._MagickImage_ChromaBluePrimary_Set(this._instance, primaryInfoPtr);
+        });
+    }
+
+    get chromaGreenPrimary(): PrimaryInfo { return PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaGreenPrimary_Get(this._instance)) }
+    set chromaGreenPrimary(value: PrimaryInfo) {
+        value._use(primaryInfoPtr => {
+            ImageMagick._api._MagickImage_ChromaGreenPrimary_Set(this._instance, primaryInfoPtr);
         });
     }
 
