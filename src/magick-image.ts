@@ -20,31 +20,31 @@ import { Gravity } from './gravity';
 import { ImageMagick } from './image-magick';
 import { IDisposable } from './disposable';
 import { IDrawable } from './drawables/drawable';
-import { IImageProfile, ImageProfile } from './profiles/image-profile';
-import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
-import { NativeInstance } from './native-instance';
+import { ImageProfile, IImageProfile } from './profiles/image-profile';
 import { MagickColor } from './magick-color';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
 import { MagickGeometry } from './magick-geometry';
+import { MagickImageCollection, IMagickImageCollection } from './magick-image-collection';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickRectangle } from './internal/magick-rectangle';
 import { MagickSettings } from './settings/magick-settings';
+import { NativeInstance } from './native-instance';
 import { OrientationType } from './orientation-type';
 import { Percentage } from './percentage';
 import { PixelChannel } from './pixel-channel';
-import { IPixelCollection, PixelCollection } from './pixels/pixel-collection';
+import { PixelCollection, IPixelCollection } from './pixels/pixel-collection';
 import { PixelInterpolateMethod } from './pixel-interpolate-method';
 import { Point } from './point';
 import { Pointer } from './internal/pointer/pointer';
+import { PrimaryInfo } from './primary-info';
 import { Quantum } from './quantum';
+import { Statistics, IStatistics } from './statistics';
 import { StringInfo } from './internal/string-info';
 import { VirtualPixelMethod } from './virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './gravity';
 import { _withDoubleArray } from './internal/native/array';
-import { IStatistics, Statistics } from './statistics';
-import { PrimaryInfo } from './primary-info';
 
 export interface IMagickImage extends IDisposable {
     /** @internal */
