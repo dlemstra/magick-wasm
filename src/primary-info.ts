@@ -8,7 +8,7 @@ export class PrimaryInfo {
     private _y : number;
     private _z : number;
 
-    constructor(x: number, y: number, z:number) {
+    constructor(x: number, y: number, z: number) {
         this._x = x;
         this._y = y;
         this._z = z;

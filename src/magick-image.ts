@@ -4,6 +4,7 @@
 import { AlphaOption } from './alpha-option';
 import { AutoThresholdMethod } from './auto-threshold-method';
 import { Channels } from './channels';
+import { ChromaticityInfo } from './chromaticity-info';
 import { ColorSpace } from './color-space';
 import { CompositeOperator } from './composite-operator';
 import { Disposable } from './internal/disposable';
@@ -68,10 +69,7 @@ export interface IMagickImage extends IDisposable {
     boundingBox: MagickGeometry | null;
     readonly channelCount: number;
     readonly channels: ReadonlyArray<PixelChannel>;
-    chromaBluePrimary: PrimaryInfo;
-    chromaGreenPrimary: PrimaryInfo;
-    chromaRedPrimary: PrimaryInfo;
-    chromaWhitePoint: PrimaryInfo;
+    chromaticity: ChromaticityInfo;
     colorFuzz: Percentage;
     colorSpace: ColorSpace;
     comment: string | null;
@@ -340,32 +338,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return channels;
     }
 
-    get chromaBluePrimary(): PrimaryInfo { return PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaBluePrimary_Get(this._instance)) }
-    set chromaBluePrimary(value: PrimaryInfo) {
-        value._use(primaryInfoPtr => {
-            ImageMagick._api._MagickImage_ChromaBluePrimary_Set(this._instance, primaryInfoPtr);
-        });
+    get chromaticity(): ChromaticityInfo {
+        return new ChromaticityInfo(
+            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaRedPrimary_Get(this._instance)),
+            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaGreenPrimary_Get(this._instance)),
+            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaBluePrimary_Get(this._instance)),
+            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaWhitePoint_Get(this._instance)));
     }
-
-    get chromaGreenPrimary(): PrimaryInfo { return PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaGreenPrimary_Get(this._instance)) }
-    set chromaGreenPrimary(value: PrimaryInfo) {
-        value._use(primaryInfoPtr => {
-            ImageMagick._api._MagickImage_ChromaGreenPrimary_Set(this._instance, primaryInfoPtr);
-        });
-    }
-
-    get chromaRedPrimary(): PrimaryInfo { return PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaRedPrimary_Get(this._instance)) }
-    set chromaRedPrimary(value: PrimaryInfo) {
-        value._use(primaryInfoPtr => {
-            ImageMagick._api._MagickImage_ChromaRedPrimary_Set(this._instance, primaryInfoPtr);
-        });
-    }
-
-    get chromaWhitePoint(): PrimaryInfo { return PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaWhitePoint_Get(this._instance)) }
-    set chromaWhitePoint(value: PrimaryInfo) {
-        value._use(primaryInfoPtr => {
-            ImageMagick._api._MagickImage_ChromaWhitePoint_Set(this._instance, primaryInfoPtr);
-        });
+    set chromaticity(value: ChromaticityInfo) {
+        value.blue._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaBluePrimary_Set(this._instance, primaryInfoPtr));
+        value.green._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaGreenPrimary_Set(this._instance, primaryInfoPtr));
+        value.red._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaRedPrimary_Set(this._instance, primaryInfoPtr));
+        value.white._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaWhitePoint_Set(this._instance, primaryInfoPtr));
     }
 
     get colorFuzz(): Percentage { return Percentage.fromQuantum(ImageMagick._api._MagickImage_ColorFuzz_Get(this._instance)); }
