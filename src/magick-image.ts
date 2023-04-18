@@ -9,6 +9,7 @@ import { ClassType } from './class-type';
 import { ColorSpace } from './color-space';
 import { ColorType } from './color-type';
 import { CompositeOperator } from './composite-operator';
+import { CompressionMethod } from './compression-method';
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './distort-method';
@@ -79,6 +80,7 @@ export interface IMagickImage extends IDisposable {
     colorType : ColorType;
     comment: string | null;
     compose: CompositeOperator;
+    readonly compression: CompressionMethod;
     depth: number;
     filterType: FilterType;
     format: MagickFormat;
@@ -424,6 +426,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
     set compose(value: CompositeOperator) {
         ImageMagick._api._MagickImage_Compose_Set(this._instance, value);
+    }
+
+    get compression(): CompressionMethod {
+        return ImageMagick._api._MagickImage_Compression_Get(this._instance);
     }
 
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
