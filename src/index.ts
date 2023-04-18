@@ -6,6 +6,7 @@ export * from './auto-threshold-method';
 export * from './channel-statistics';
 export * from './channels';
 export * from './chromaticity-info';
+export * from './class-type';
 export * from './color-space';
 export * from './composite-operator';
 export * from './defines/define';
