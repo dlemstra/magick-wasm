@@ -73,6 +73,7 @@ export interface IMagickImage extends IDisposable {
     chromaticity: ChromaticityInfo;
     classType: ClassType;
     colorFuzz: Percentage;
+    colormapSize: number;
     colorSpace: ColorSpace;
     comment: string | null;
     depth: number;
@@ -367,6 +368,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get colorFuzz(): Percentage { return Percentage.fromQuantum(ImageMagick._api._MagickImage_ColorFuzz_Get(this._instance)); }
     set colorFuzz(value: Percentage) { ImageMagick._api._MagickImage_ColorFuzz_Set(this._instance, value.toQuantum()); }
+
+    get colormapSize(): number {
+        return Exception.usePointer(exception => {
+            return ImageMagick._api._MagickImage_ColormapSize_Get(this._instance, exception);
+        });
+    }
+    set colormapSize(value: number) {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_ColormapSize_Set(this._instance, value, exception);
+        });
+    }
 
     get colorSpace(): ColorSpace {
         return Exception.usePointer(exception => {
