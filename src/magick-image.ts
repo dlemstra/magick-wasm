@@ -7,6 +7,7 @@ import { Channels } from './channels';
 import { ChromaticityInfo } from './chromaticity-info';
 import { ClassType } from './class-type';
 import { ColorSpace } from './color-space';
+import { ColorType } from './color-type';
 import { CompositeOperator } from './composite-operator';
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
@@ -75,6 +76,7 @@ export interface IMagickImage extends IDisposable {
     colorFuzz: Percentage;
     colormapSize: number;
     colorSpace: ColorSpace;
+    colorType : ColorType;
     comment: string | null;
     depth: number;
     filterType: FilterType;
@@ -388,6 +390,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set colorSpace(value: ColorSpace) {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_ColorSpace_Set(this._instance, value, exception);
+        });
+    }
+
+    get colorType(): ColorType {
+        return Exception.usePointer(exception => {
+            return ImageMagick._api._MagickImage_ColorType_Get(this._instance, exception);
+        });
+    }
+    set colorType(value: ColorType) {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_ColorType_Set(this._instance, value, exception);
         });
     }
 
