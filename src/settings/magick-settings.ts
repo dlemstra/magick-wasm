@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { ColorType } from '../color-type';
 import { Disposable } from '../internal/disposable';
 import { IDefines } from '../defines/defines';
 import { MagickFormat } from '../magick-format';
@@ -21,6 +22,8 @@ export class MagickSettings {
     _quality?: number;
 
     backgroundColor?: MagickColor;
+
+    colorType?: ColorType;
 
     fillColor?: MagickColor;
 

@@ -394,6 +394,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get colorType(): ColorType {
+        if (this.settings.colorType !== undefined) {
+            return this.settings.colorType;
+        }
+
         return Exception.usePointer(exception => {
             return ImageMagick._api._MagickImage_ColorType_Get(this._instance, exception);
         });

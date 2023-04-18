@@ -14,6 +14,14 @@ describe('MagickImage#colorType', () => {
         });
     });
 
+    it('should return the color type of the settings when that is not undefined', () => {
+        TestFiles.Builtin.logo.read(image => {
+            image.settings.colorType = ColorType.Grayscale;
+
+            expect(image.colorType).toBe(ColorType.Grayscale);
+        });
+    });
+
     it('should change color type', () => {
         TestFiles.Builtin.logo.read(image => {
             image.colorType = ColorType.TrueColor;
