@@ -78,6 +78,7 @@ export interface IMagickImage extends IDisposable {
     colorSpace: ColorSpace;
     colorType : ColorType;
     comment: string | null;
+    compose: CompositeOperator;
     depth: number;
     filterType: FilterType;
     format: MagickFormat;
@@ -416,6 +417,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.removeAttribute('comment');
         else
             this.setAttribute('comment', value);
+    }
+
+    get compose(): CompositeOperator {
+        return ImageMagick._api._MagickImage_Compose_Get(this._instance);
+    }
+    set compose(value: CompositeOperator) {
+        ImageMagick._api._MagickImage_Compose_Set(this._instance, value);
     }
 
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
