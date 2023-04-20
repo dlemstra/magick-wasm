@@ -15,8 +15,8 @@ describe('MagickImageCollection#appendVertically', () => {
         }).toThrowError('operation requires at least one image');
     });
 
-    it('should create a new image with the images appended vertically', () => {
-        TestFiles.roseSparkleGif.readCollection(images => {
+    it('should create a new image with the images appended vertically', async () => {
+        await TestFiles.roseSparkleGif.readCollection(images => {
             images.appendVertically(image => {
                 expect(image.width).toBe(70);
                 expect(image.height).toBe(138);

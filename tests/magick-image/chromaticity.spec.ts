@@ -9,8 +9,8 @@ import { TestFiles } from '../test-files';
 beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#chromaBluePrimary', () => {
-    it('should return the chromaticity', () => {
-        TestFiles.redPng.read(image => {
+    it('should return the chromaticity', async () => {
+        await TestFiles.redPng.read(image => {
             const chromaticity = image.chromaticity;
 
             expect(chromaticity.red.x).toBeCloseTo(0.64);
@@ -28,8 +28,8 @@ describe('MagickImage#chromaBluePrimary', () => {
         });
     });
 
-    it('should return the changed value', () => {
-        TestFiles.Builtin.wizard.read(image => {
+    it('should return the changed value', async () => {
+        await TestFiles.Builtin.wizard.read(image => {
             image.chromaticity = new ChromaticityInfo(
                 new PrimaryInfo(1.2, 2.3, 3.4),
                 new PrimaryInfo(4.5, 5.6, 6.7),

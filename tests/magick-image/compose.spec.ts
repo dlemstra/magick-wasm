@@ -8,14 +8,14 @@ import { TestFiles } from '../test-files';
 beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#compose', () => {
-    it('should return the compose operator', () => {
-        TestFiles.Builtin.logo.read(image => {
+    it('should return the compose operator', async () => {
+        await TestFiles.Builtin.logo.read(image => {
             expect(image.compose).toBe(CompositeOperator.Over);
         });
     });
 
-    it('should change the compose operator', () => {
-        TestFiles.Builtin.logo.read(image => {
+    it('should change the compose operator', async () => {
+        await TestFiles.Builtin.logo.read(image => {
             image.compose = CompositeOperator.ChangeMask;
             expect(image.compose).toBe(CompositeOperator.ChangeMask);
         });

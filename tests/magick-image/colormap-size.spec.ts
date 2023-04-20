@@ -7,14 +7,14 @@ import { TestFiles } from '../test-files';
 beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#colormapSize', () => {
-    it('should return the colormap size of the image', () => {
-        TestFiles.Builtin.logo.read(image => {
+    it('should return the colormap size of the image', async () => {
+        await TestFiles.Builtin.logo.read(image => {
             expect(image.colormapSize).toBe(256);
         });
     });
 
-    it('should change the colormap size', () => {
-        TestFiles.Builtin.logo.read(image => {
+    it('should change the colormap size', async () => {
+        await TestFiles.Builtin.logo.read(image => {
             image.colormapSize = 100;
             expect(image.colormapSize).toBe(100);
         });

@@ -8,22 +8,22 @@ import { TestFiles } from '../test-files';
 beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#colorType', () => {
-    it('should return the color type', () => {
-        TestFiles.Builtin.logo.read(image => {
+    it('should return the color type', async () => {
+        await TestFiles.Builtin.logo.read(image => {
             expect(image.colorType).toBe(ColorType.Palette);
         });
     });
 
-    it('should return the color type of the settings when that is not undefined', () => {
-        TestFiles.Builtin.logo.read(image => {
+    it('should return the color type of the settings when that is not undefined', async () => {
+        await TestFiles.Builtin.logo.read(image => {
             image.settings.colorType = ColorType.Grayscale;
 
             expect(image.colorType).toBe(ColorType.Grayscale);
         });
     });
 
-    it('should change color type', () => {
-        TestFiles.Builtin.logo.read(image => {
+    it('should change color type', async () => {
+        await TestFiles.Builtin.logo.read(image => {
             image.colorType = ColorType.TrueColor;
             expect(image.colorType).toBe(ColorType.TrueColor);
         });

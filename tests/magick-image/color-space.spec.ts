@@ -8,14 +8,14 @@ import { TestFiles } from '../test-files';
 beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#colorSpace', () => {
-    it('should return the color space', () => {
-        TestFiles.Builtin.logo.read(image => {
+    it('should return the color space', async () => {
+        await TestFiles.Builtin.logo.read(image => {
             expect(image.colorSpace).toBe(ColorSpace.sRGB);
         });
     });
 
-    it('should change the color space', () => {
-        TestFiles.Builtin.logo.read(image => {
+    it('should change the color space', async () => {
+        await TestFiles.Builtin.logo.read(image => {
             image.colorSpace = ColorSpace.CMYK;
             expect(image.colorSpace).toBe(ColorSpace.CMYK);
         });

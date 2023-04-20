@@ -17,8 +17,8 @@ describe('MagickImageCollection#flatten', () => {
         }).toThrowError('operation requires at least one image');
     });
 
-    it('should flatten the images', () => {
-        TestFiles.roseSparkleGif.readCollection(images => {
+    it('should flatten the images', async () => {
+        await TestFiles.roseSparkleGif.readCollection(images => {
             images.flatten(image => {
                 expect(image.format).toBe(MagickFormat.Gif);
                 expect(image.width).toBe(70);
