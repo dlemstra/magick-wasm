@@ -19,7 +19,7 @@ afterEach(() => {
     image.dispose();
 });
 
-describe('MagickImage#oilPaint', () => {
+describe('MagickImage#charcoal', () => {
     it('should default to a radius of 0 and sigma of 1', () => {
         image.clone(other => {
             image.charcoal();
