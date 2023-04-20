@@ -7,7 +7,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.0-63 beta (2023-02-26) ] copyright:
+[ ImageMagick 7.1.1-8 beta (2023-04-18) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -1047,7 +1047,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ exr 3.1.5 (2022-04-12) ] copyright:
+[ exr 3.1.7 (2023-03-30) ] copyright:
 
 Copyright (c) 2006-2019 OpenEXR a Series of LF Projects, LLC. All rights reserved.
 
@@ -1785,7 +1785,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.15.1 (2023-02-16) ] copyright:
+[ heif 1.15.2 (2023-03-30) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
@@ -2661,7 +2661,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ highway 1.0.3 (2023-01-19) ] copyright:
+[ highway 1.0.4 (2023-03-17) ] copyright:
 
                                  Apache License
                            Version 2.0, January 2004
@@ -3035,7 +3035,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lcms 2.14.0 (2022-11-01) ] copyright:
+[ lcms 2.15.0 (2023-03-01) ] copyright:
 
 Little CMS
 Copyright (c) 1998-2020 Marti Maria Saguer
@@ -3509,7 +3509,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.10.3 (2022-10-14) ] copyright:
+[ xml 2.10.4 (2023-04-11) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files hash.c,
 list.c and the trio files, which are covered by a similar licence but
