@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import MagickNative, { ImageMagickApi } from '@dlemstra/magick-native/magick';
+import MagickNative, { ImageMagickApi, IWasmLocator } from '@dlemstra/magick-native/magick';
 import { IMagickImage, MagickImage } from './magick-image';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
 import { MagickColor } from './magick-color';
@@ -10,25 +10,47 @@ import { MagickFormat } from './magick-format';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
 
+class WasmLocator implements IWasmLocator {
+    private _wasmLocation: string | undefined;
+
+    constructor(wasmLocation?: string) {
+        this._wasmLocation = wasmLocation;
+    }
+
+    locateFile = (path: string, scriptDirectory: string): string => {
+        let wasmLocation = this._wasmLocation;
+
+        if (wasmLocation === undefined || wasmLocation.length === 0)
+            wasmLocation = scriptDirectory + path;
+
+        return wasmLocation;
+    }
+}
+
 export class ImageMagick {
-    private readonly loader: () => Promise<void>;
+    private readonly loader: (wasmLocation?: string) => Promise<void>;
     private api?: ImageMagickApi;
 
     private constructor() {
-        this.loader = () => new Promise(resolve => {
+        this.loader = (wasmLocation?: string) => new Promise((resolve, reject) => {
             if (this.api !== undefined) {
                 resolve();
                 return;
             }
 
-            MagickNative().then(api => {
-                _withNativeString(api, 'MAGICK_CONFIGURE_PATH', name => {
-                    _withNativeString(api, '/xml', value => {
-                        api._Environment_SetEnv(name, value);
-                        this.api = api;
+            const wasmLocator = new WasmLocator(wasmLocation);
+            MagickNative(wasmLocator).then(api => {
+                try {
+                    _withNativeString(api, 'MAGICK_CONFIGURE_PATH', name => {
+                        _withNativeString(api, '/xml', value => {
+                            api._Environment_SetEnv(name, value);
+                            this.api = api;
+                            resolve();
+                        });
                     });
-                });
-                resolve();
+                } catch (error) {
+                    reject(error);
+                }
             });
         });
     }
@@ -36,7 +58,9 @@ export class ImageMagick {
     static _create = (): ImageMagick => new ImageMagick();
 
     /** @internal */
-    async _initialize(): Promise<void> { await this.loader(); }
+    async _initialize(wasmLocation?: string): Promise<void> {
+        await this.loader(wasmLocation);
+     }
 
     /** @internal */
     static get _api(): ImageMagickApi {
@@ -143,4 +167,6 @@ export class ImageMagick {
 /** @internal */
 const instance = ImageMagick._create();
 
-export async function initializeImageMagick(): Promise<void> { await instance._initialize() }
+export async function initializeImageMagick(wasmLocation?: string): Promise<void> {
+    await instance._initialize(wasmLocation);
+}
