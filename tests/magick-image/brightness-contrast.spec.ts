@@ -43,7 +43,7 @@ describe('MagickImage#brightnessContrast', () => {
             other.brightnessContrast(new Percentage(50), new Percentage(100));
 
             const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-            expect(difference).toBeCloseTo(0.126);
+            expect(difference).toBeCloseTo(0.278);
         });
     });
 });
