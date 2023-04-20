@@ -7,9 +7,11 @@ import {
     Magick,
     MagickFormat,
     Quantum,
-} from '@imagemagick/magick-wasm';
+} from '../'; // Change to '@imagemagick/magick-wasm' when using this in your project.
 
-initializeImageMagick().then(async () => {
+// Remove '../' and use '@imagemagick/magick-wasm' when using this in your project.
+const wasmLocation = '../node_modules/@dlemstra/magick-native/magick.wasm';
+initializeImageMagick(wasmLocation).then(async () => {
     console.log(Magick.imageMagickVersion);
     console.log('Delegates:', Magick.delegates);
     console.log('Features:', Magick.features);
