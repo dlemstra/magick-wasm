@@ -15,6 +15,8 @@ export * from './defines/define';
 export * from './defines/defines-creator';
 export * from './defines/defines';
 export * from './defines/magick-define';
+export * from './density-unit';
+export * from './density';
 export * from './disposable';
 export * from './distort-method';
 export * from './drawables/drawable-color';
