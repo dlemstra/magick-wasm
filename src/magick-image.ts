@@ -10,6 +10,7 @@ import { ColorSpace } from './color-space';
 import { ColorType } from './color-type';
 import { CompositeOperator } from './composite-operator';
 import { CompressionMethod } from './compression-method';
+import { Density } from './density';
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './distort-method';
@@ -81,6 +82,7 @@ export interface IMagickImage extends IDisposable {
     comment: string | null;
     compose: CompositeOperator;
     readonly compression: CompressionMethod;
+    density: Density;
     depth: number;
     filterType: FilterType;
     format: MagickFormat;
@@ -421,15 +423,21 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.setAttribute('comment', value);
     }
 
-    get compose(): CompositeOperator {
-        return ImageMagick._api._MagickImage_Compose_Get(this._instance);
-    }
-    set compose(value: CompositeOperator) {
-        ImageMagick._api._MagickImage_Compose_Set(this._instance, value);
-    }
+    get compose(): CompositeOperator { return ImageMagick._api._MagickImage_Compose_Get(this._instance); }
+    set compose(value: CompositeOperator) { ImageMagick._api._MagickImage_Compose_Set(this._instance, value); }
 
-    get compression(): CompressionMethod {
-        return ImageMagick._api._MagickImage_Compression_Get(this._instance);
+    get compression(): CompressionMethod { return ImageMagick._api._MagickImage_Compression_Get(this._instance); }
+
+    get density(): Density {
+        return new Density(
+            ImageMagick._api._MagickImage_ResolutionX_Get(this._instance),
+            ImageMagick._api._MagickImage_ResolutionY_Get(this._instance),
+            ImageMagick._api._MagickImage_ResolutionUnits_Get(this._instance));
+    }
+    set density(value: Density) {
+        ImageMagick._api._MagickImage_ResolutionX_Set(this._instance, value.x);
+        ImageMagick._api._MagickImage_ResolutionY_Set(this._instance, value.y);
+        ImageMagick._api._MagickImage_ResolutionUnits_Set(this._instance, value.units);
     }
 
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
