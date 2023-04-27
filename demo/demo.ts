@@ -23,9 +23,9 @@ initializeImageMagick(wasmLocation).then(() => {
         image.blur(1, 5);
         console.log(image.toString());
 
-        image.write(data => {
+        image.write(MagickFormat.Jpeg, data => {
             console.log(data.length);
-        }, MagickFormat.Jpeg);
+        });
     });
 }).catch(err => {
     console.error(err);

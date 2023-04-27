@@ -10,9 +10,9 @@ beforeAll(() => { ImageMagick._api = global.native; });
 describe('Coders#heic', () => {
     it('should be able to write avif image', async () => {
         await TestFiles.Builtin.logo.read((image) => {
-            image.write(data => {
+            image.write(MagickFormat.Avif, data => {
                 expect(data.length).toBe(11413);
-            }, MagickFormat.Avif);
+            });
         });
     });
 });

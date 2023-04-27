@@ -243,8 +243,10 @@ export interface IMagickImage extends IDisposable {
     vignette(radius: number, sigma: number, x: number, y: number): void;
     wave(): void;
     wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
-    write<TReturnType>(func: (data: Uint8Array) => TReturnType, format?: MagickFormat): TReturnType;
-    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>, format?: MagickFormat): Promise<TReturnType>;
+    write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
+    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
     writeToCanvas(canvas: HTMLCanvasElement): void;
 }
 
@@ -1355,17 +1357,21 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    write<TReturnType>(func: (data: Uint8Array) => TReturnType, format?: MagickFormat): TReturnType;
-    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>, format?: MagickFormat): Promise<TReturnType>;
-    write<TReturnType>(func: (data: Uint8Array) => TReturnType | Promise<TReturnType>, format?: MagickFormat): TReturnType | Promise<TReturnType> {
+    write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
+    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
+    write<TReturnType>(funcOrFormat: ((data: Uint8Array) => TReturnType | Promise<TReturnType>) | MagickFormat, func?: (data: Uint8Array) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         let data = 0;
         let length = 0;
 
+        if (func !== undefined)
+            this._settings.format = funcOrFormat as MagickFormat;
+        else
+            func = funcOrFormat as (data: Uint8Array) => TReturnType | Promise<TReturnType>;
+
         Exception.use(exception => {
             Pointer.use(pointer => {
-                if (format !== undefined)
-                    this._settings.format = format;
-
                 this._settings._use(settings => {
                     try {
                         data = ImageMagick._api._MagickImage_WriteBlob(this._instance, settings._instance, pointer.ptr, exception.ptr);

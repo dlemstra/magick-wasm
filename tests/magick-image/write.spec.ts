@@ -2,33 +2,28 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../src/image-magick';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickFormat } from '../../src/magick-format';
-
-let image: IMagickImage;
+import { TestFiles } from '../test-files';
 
 beforeAll(() => { ImageMagick._api = global.native; });
 
-beforeEach(() => {
-    image = MagickImage.create();
-});
-
-afterEach(() => {
-    image.dispose();
-});
+function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
 
 describe('MagickImage#write', () => {
     it('should save the image to an array async', async () => {
-        image.read('wizard:');
-        await image.write(async (data) => {
-            expect(data.length).toBe(80796);
-        }, MagickFormat.Jpeg);
+        await TestFiles.imageMagickJpg.read(async (image) => {
+            await image.write(async (data) => {
+                expect(data.length).toBe(18830);
+                await bogusAsyncMethod();
+            });
+        });
     });
 
-    it('should save the image to an array', () => {
-        image.read('logo:');
-        image.write((data) => {
-            expect(data.length).toBe(27434);
-        }, MagickFormat.Png);
+    it('should save the image to an array', async () => {
+        await TestFiles.Builtin.wizard.read((image) => {
+            image.write(MagickFormat.Png, (data) => {
+                expect(data.length).toBe(87352);
+            });
+        });
     });
 });

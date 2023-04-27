@@ -10,9 +10,9 @@ beforeAll(() => { ImageMagick._api = global.native; });
 describe('Coders#jxl', () => {
     it('should be able to write jxl image', async () => {
         await TestFiles.Builtin.logo.read((image) => {
-            image.write(data => {
+            image.write(MagickFormat.Jxl, data => {
                 expect(data.length).toBe(31570);
-            }, MagickFormat.Jxl);
+            });
         });
     });
 });
