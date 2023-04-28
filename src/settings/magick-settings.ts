@@ -39,6 +39,8 @@ export class MagickSettings {
 
     textInterlineSpacing?: number;
 
+    textKerning?: number;
+
     getDefine(name: string): string;
     getDefine(format: MagickFormat, name: string): string;
     getDefine(nameOrFormat: MagickFormat | string, name?: string): string {
