@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../../src/image-magick';
-import { Magick } from '../../../src/magick';
 import { MagickColor } from '../../../src/magick-color';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
@@ -12,11 +11,8 @@ beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickSettings#fillColor', () => {
     it('should use the correct fill color', () => {
-        const data = TestFiles.kaushanScriptRegularTtf.toBufferSync();
-        Magick.addFont('test', data);
-
         const settings = new MagickReadSettings();
-        settings.font = 'test';
+        settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
         settings.fontPointsize = 100;
         settings.fillColor = new MagickColor('pink');
 

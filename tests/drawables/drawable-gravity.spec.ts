@@ -9,7 +9,6 @@ import { DrawableText } from '../../src/drawables/drawable-text';
 import { Gravity } from '../../src/gravity';
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
-import { Magick } from '../../src/magick';
 import { MagickColors } from '../../src/magick-colors';
 import { TestFiles } from '../test-files';
 import '../custom-matcher';
@@ -19,7 +18,6 @@ let image: IMagickImage;
 beforeAll(() => { ImageMagick._api = global.native; });
 
 beforeEach(() => {
-    Magick.addFont('test', TestFiles.kaushanScriptRegularTtf.toBufferSync());
     image = MagickImage.create();
     image.read(MagickColors.White, 50, 50);
 });
@@ -43,7 +41,7 @@ describe('DrawableGravity', () => {
         image.draw([
             new DrawableFillColor(MagickColors.Green),
             new DrawableGravity(gravity),
-            new DrawableFont('test'),
+            new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
             new DrawableFontPointSize(10),
             new DrawableText(0, 0, 'Magick'),
         ])

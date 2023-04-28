@@ -4,7 +4,6 @@
 import { ErrorMetric } from '../../src/error-metric';
 import { ImageMagick } from '../../src/image-magick';
 import { MagickImageCollection } from '../../src/magick-image-collection';
-import { Magick } from '../../src/magick';
 import { MagickGeometry } from '../../src/magick-geometry';
 import { MontageSettings } from '../../src/settings/montage-settings';
 import { TestFiles } from '../test-files';
@@ -24,11 +23,8 @@ describe('MagickImageCollection#montage', () => {
         await TestFiles.roseSparkleGif.readCollection(images => {
             images[1].page = new MagickGeometry(100, 100, images[1].width, images[1].height);
 
-            const data = TestFiles.kaushanScriptRegularTtf.toBufferSync();
-            Magick.addFont('montage-test', data);
-
             const settings = new MontageSettings();
-            settings.font = 'montage-test';
+            settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
             settings.borderWidth = 20;
 
             images.montage(settings, image => {

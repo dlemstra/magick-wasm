@@ -7,7 +7,6 @@ import { DrawableFont } from '../../src/drawables/drawable-font';
 import { DrawableFontPointSize } from '../../src/drawables/drawable-font-point-size';
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
-import { Magick } from '../../src/magick';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
 import { TestFiles } from '../test-files';
@@ -28,10 +27,8 @@ afterEach(() => {
 
 describe('DrawableText', () => {
     it('should write text to the image', () => {
-        Magick.addFont('test', TestFiles.kaushanScriptRegularTtf.toBufferSync());
-
         image.draw([
-            new DrawableFont('test'),
+            new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
             new DrawableFontPointSize(100),
             new DrawableFillColor(new MagickColor('pink')),
             new DrawableText(0, 109, 'X'),

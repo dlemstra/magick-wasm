@@ -76,17 +76,30 @@ export class TestFile {
     }
 }
 
+export class TestFont {
+    readonly name: string;
+    readonly file: TestFile;
+
+    constructor(name: string, fileName: string) {
+        this.name = name;
+        this.file = new TestFile(fileName);
+    }
+}
+
 export class TestFiles {
     static readonly cmykJpg = new TestFile('tests/images/cmyk.jpg');
     static readonly empty = new TestFile('');
     static readonly fujiFilmFinePixS1ProJpg = new TestFile('tests/images/fuji-film-fine-pix-s1-pro.jpg');
     static readonly imageMagickJpg = new TestFile('tests/images/image-magick.jpg');
-    static readonly kaushanScriptRegularTtf = new TestFile('tests/fonts/KaushanScript-Regular.ttf');
     static readonly redPng = new TestFile('tests/images/red.png');
     static readonly roseSparkleGif = new TestFile('tests/images/röse-sparkle.gif');
 
     static Builtin = class {
         static readonly logo = new TestFile('logo:');
         static readonly wizard = new TestFile('wizard:');
+    }
+
+    static Fonts = class {
+        static readonly kaushanScriptRegularTtf = new TestFont('KaushanScript', 'tests/fonts/KaushanScript-Regular.ttf');
     }
 }
