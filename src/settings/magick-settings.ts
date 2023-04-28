@@ -37,6 +37,8 @@ export class MagickSettings {
 
     strokeWidth?: number;
 
+    textInterlineSpacing?: number;
+
     getDefine(name: string): string;
     getDefine(format: MagickFormat, name: string): string;
     getDefine(nameOrFormat: MagickFormat | string, name?: string): string {

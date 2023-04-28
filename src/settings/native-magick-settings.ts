@@ -61,6 +61,9 @@ export class NativeMagickSettings extends NativeInstance {
         if (settings.strokeWidth !== undefined)
             this.setOption('strokeWidth', settings.strokeWidth.toString());
 
+        if (settings.textInterlineSpacing !== undefined)
+            this.setOption('interline-spacing', settings.textInterlineSpacing.toString());
+
         for (const option in settings._options)
             this.setOption(option, settings._options[option]);
     }
