@@ -13,9 +13,16 @@ import { _withNativeString } from './internal/native/string';
 class WasmLocator implements IWasmLocator {
     private _wasmLocation: string | undefined;
 
-    constructor(wasmLocation?: string) {
-        this._wasmLocation = wasmLocation;
+    constructor(wasmLocationOrData?: string | Buffer | Uint8Array) {
+        if (wasmLocationOrData !== undefined) {
+            if (typeof wasmLocationOrData === 'string')
+                this._wasmLocation = wasmLocationOrData;
+            else
+                this.wasmBinary = wasmLocationOrData;
+        }
     }
+
+    wasmBinary?: Uint8Array | Uint8Array;
 
     locateFile = (path: string, scriptDirectory: string): string => {
         let wasmLocation = this._wasmLocation;
@@ -28,17 +35,17 @@ class WasmLocator implements IWasmLocator {
 }
 
 export class ImageMagick {
-    private readonly loader: (wasmLocation?: string) => Promise<void>;
+    private readonly loader: (wasmLocationOrData?: string | Buffer | Uint8Array) => Promise<void>;
     private api?: ImageMagickApi;
 
     private constructor() {
-        this.loader = (wasmLocation?: string) => new Promise((resolve, reject) => {
+        this.loader = (wasmLocationOrData?: string | Buffer | Uint8Array) => new Promise((resolve, reject) => {
             if (this.api !== undefined) {
                 resolve();
                 return;
             }
 
-            const wasmLocator = new WasmLocator(wasmLocation);
+            const wasmLocator = new WasmLocator(wasmLocationOrData);
             MagickNative(wasmLocator).then(api => {
                 try {
                     _withNativeString(api, 'MAGICK_CONFIGURE_PATH', name => {
@@ -58,8 +65,8 @@ export class ImageMagick {
     static _create = (): ImageMagick => new ImageMagick();
 
     /** @internal */
-    async _initialize(wasmLocation?: string): Promise<void> {
-        await this.loader(wasmLocation);
+    async _initialize(wasmLocationOrData?: string | Buffer | Uint8Array ): Promise<void> {
+        await this.loader(wasmLocationOrData);
      }
 
     /** @internal */
@@ -167,6 +174,6 @@ export class ImageMagick {
 /** @internal */
 const instance = ImageMagick._create();
 
-export async function initializeImageMagick(wasmLocation?: string): Promise<void> {
-    await instance._initialize(wasmLocation);
+export async function initializeImageMagick(wasmLocationOrData?: string | Buffer | Uint8Array): Promise<void> {
+    await instance._initialize(wasmLocationOrData);
 }
