@@ -19,6 +19,7 @@
     ],
     "ignorePatterns": [
         "dist",
+        "deno/*.ts",
         "demo/*.js",
         "tools/*.js",
         "vite.config.ts"
