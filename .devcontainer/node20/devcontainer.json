@@ -1,0 +1,12 @@
+{
+    "name": "node20",
+    "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:20",
+    "postCreateCommand": "echo \"//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN\" >> /workspaces/magick-wasm/.npmrc",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "extensions.ignoreRecommendations": true
+            }
+        }
+    }
+}
