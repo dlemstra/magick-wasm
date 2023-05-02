@@ -1,4 +1,5 @@
 node_modules
+deno/*.png
 demo/*.js
 publish/etc
 publish/*.tgz
