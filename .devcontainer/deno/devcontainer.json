@@ -1,0 +1,14 @@
+{
+    "name": "deno",
+    "image": "denoland/deno:1.33.1",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "EditorConfig.EditorConfig"
+            ],
+            "settings": {
+                "extensions.ignoreRecommendations": true
+            }
+        }
+    }
+}
