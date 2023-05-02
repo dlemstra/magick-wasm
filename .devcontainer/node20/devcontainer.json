@@ -4,6 +4,9 @@
     "postCreateCommand": "echo \"//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN\" >> /workspaces/magick-wasm/.npmrc",
     "customizations": {
         "vscode": {
+            "extensions": [
+                "EditorConfig.EditorConfig"
+            ],
             "settings": {
                 "extensions.ignoreRecommendations": true
             }
