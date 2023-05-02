@@ -49,3 +49,30 @@ jobs:
         with:
           name: imagemagick-magick-wasm
           path: ./*.tgz
+
+  deno:
+    name: Test on deno 1.33.1
+    container:
+      image: denoland/deno:1.33.1
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: apt update && apt install -y curl
+
+      - run: curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+
+      - run: apt install -y nodejs
+
+      - uses: actions/checkout@v3
+
+      - name: Authenticate with GitHub package registry
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+
+      - run: npm install
+
+      - run: npm run build
+
+      - run: npm install
+
+      - run: ./example.sh
+        working-directory: deno
