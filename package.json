@@ -53,10 +53,10 @@
         "dts-bundle-generator": "^8.0.1",
         "eslint": "^8.39.0",
         "eslint-plugin-header": "^3.1.1",
-        "jsdom": "^21.1.2",
+        "jsdom": "^22.0.0",
         "set-value": "^4.1.0",
         "typescript": "^5.0.4",
-        "vite": "^4.3.3",
+        "vite": "^4.3.4",
         "vitest": "^0.30.1"
     }
 }
