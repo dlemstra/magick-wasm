@@ -1,6 +1,7 @@
 {
     "name": "deno",
     "image": "denoland/deno:1.33.1",
+    "postCreateCommand": "bash .devcontainer/deno/post-create-command.sh",
     "customizations": {
         "vscode": {
             "extensions": [
