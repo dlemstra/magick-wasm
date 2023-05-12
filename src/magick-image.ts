@@ -86,6 +86,7 @@ export interface IMagickImage extends IDisposable {
     density: Density;
     depth: number;
     endian: Endian;
+    readonly fileName: string | null;
     filterType: FilterType;
     format: MagickFormat;
     hasAlpha: boolean;
@@ -449,6 +450,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get endian(): number { return ImageMagick._api._MagickImage_Endian_Get(this._instance); }
     set endian(value: number) { ImageMagick._api._MagickImage_Endian_Set(this._instance, value); }
+
+    get fileName(): string | null {
+        const fileName = ImageMagick._api._MagickImage_FileName_Get(this._instance);
+        if (fileName === 0)
+            return null;
+        return ImageMagick._api.UTF8ToString(fileName);
+    }
 
     get filterType(): number { return ImageMagick._api._MagickImage_FilterType_Get(this._instance); }
     set filterType(value: number) { ImageMagick._api._MagickImage_FilterType_Set(this._instance, value); }
