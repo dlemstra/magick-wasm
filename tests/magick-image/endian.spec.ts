@@ -10,8 +10,8 @@ beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#endian', () => {
     it('should return the endianess of the image', async () => {
-        await TestFiles.Builtin.logo.read(input => {
-            input.write(MagickFormat.Farbfeld, (data) => {
+        await TestFiles.Builtin.logo.read(image => {
+            image.write(MagickFormat.Farbfeld, (data) => {
                 ImageMagick.read(data, output => {
                     expect(output.endian).toBe(Endian.MSB);
                 });
@@ -20,9 +20,9 @@ describe('MagickImage#endian', () => {
     });
 
     it('should change the endianess of the image', async () => {
-        await TestFiles.Builtin.logo.read(input => {
-            input.endian = Endian.LSB;
-            expect(input.endian).toBe(Endian.LSB);
+        await TestFiles.Builtin.logo.read(image => {
+            image.endian = Endian.LSB;
+            expect(image.endian).toBe(Endian.LSB);
         });
     });
 });
