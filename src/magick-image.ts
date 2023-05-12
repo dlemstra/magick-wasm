@@ -21,6 +21,7 @@ import { ErrorMetric } from './error-metric';
 import { EvaluateOperator } from './evaluate-operator';
 import { Exception } from './internal/exception/exception';
 import { FilterType } from './filter-type';
+import { GifDisposeMethod } from './gif-dispose-method';
 import { Gravity } from './gravity';
 import { ImageMagick } from './image-magick';
 import { IDisposable } from './disposable';
@@ -90,6 +91,7 @@ export interface IMagickImage extends IDisposable {
     filterType: FilterType;
     format: MagickFormat;
     gamma: number;
+    gifDisposeMethod: GifDisposeMethod;
     hasAlpha: boolean;
     readonly height: number;
     interpolate: PixelInterpolateMethod;
@@ -466,6 +468,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set format(value: MagickFormat) { _withString(value.toString(), instance => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
 
     get gamma(): number { return ImageMagick._api._MagickImage_Gamma_Get(this._instance); }
+
+    get gifDisposeMethod(): GifDisposeMethod { return ImageMagick._api._MagickImage_GifDisposeMethod_Get(this._instance); }
+    set gifDisposeMethod(value: GifDisposeMethod) { ImageMagick._api._MagickImage_GifDisposeMethod_Set(this._instance, value); }
 
     get hasAlpha(): boolean {
         return Exception.usePointer(exception => {
