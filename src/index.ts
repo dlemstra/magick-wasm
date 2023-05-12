@@ -30,6 +30,7 @@ export * from './drawables/drawable-round-rectangle';
 export * from './drawables/drawable-text';
 export * from './drawables/drawable';
 export * from './drawables/drawing-wand';
+export * from './endian';
 export * from './error-metric';
 export * from './evaluate-operator';
 export * from './filter-type';
