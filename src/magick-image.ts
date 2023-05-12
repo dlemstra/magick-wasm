@@ -16,6 +16,7 @@ import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './distort-method';
 import { DistortSettings } from './settings/distort-settings';
 import { DrawingWand } from './drawables/drawing-wand';
+import { Endian } from './endian';
 import { ErrorMetric } from './error-metric';
 import { EvaluateOperator } from './evaluate-operator';
 import { Exception } from './internal/exception/exception';
@@ -84,6 +85,7 @@ export interface IMagickImage extends IDisposable {
     readonly compression: CompressionMethod;
     density: Density;
     depth: number;
+    endian: Endian;
     filterType: FilterType;
     format: MagickFormat;
     hasAlpha: boolean;
@@ -444,6 +446,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
     set depth(value: number) { ImageMagick._api._MagickImage_Depth_Set(this._instance, value); }
+
+    get endian(): number { return ImageMagick._api._MagickImage_Endian_Get(this._instance); }
+    set endian(value: number) { ImageMagick._api._MagickImage_Endian_Set(this._instance, value); }
 
     get filterType(): number { return ImageMagick._api._MagickImage_FilterType_Get(this._instance); }
     set filterType(value: number) { ImageMagick._api._MagickImage_FilterType_Set(this._instance, value); }
