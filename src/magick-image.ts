@@ -89,6 +89,7 @@ export interface IMagickImage extends IDisposable {
     readonly fileName: string | null;
     filterType: FilterType;
     format: MagickFormat;
+    gamma: number;
     hasAlpha: boolean;
     readonly height: number;
     interpolate: PixelInterpolateMethod;
@@ -463,6 +464,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get format(): MagickFormat { return _createString(ImageMagick._api._MagickImage_Format_Get(this._instance), '') as MagickFormat; }
     set format(value: MagickFormat) { _withString(value.toString(), instance => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
+
+    get gamma(): number { return ImageMagick._api._MagickImage_Gamma_Get(this._instance); }
 
     get hasAlpha(): boolean {
         return Exception.usePointer(exception => {
