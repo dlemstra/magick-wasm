@@ -35,6 +35,9 @@ export class NativeMagickSettings extends NativeInstance {
         if (settings.colorType !== undefined)
             ImageMagick._api._MagickSettings_ColorType_Set(this._instance, settings.colorType);
 
+        if (settings.endian !== undefined)
+            ImageMagick._api._MagickSettings_Endian_Set(this._instance, settings.endian);
+
         if (settings.fillColor !== undefined)
             this.setOption('fill', settings.fillColor.toString());
 

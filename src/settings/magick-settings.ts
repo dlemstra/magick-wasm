@@ -3,6 +3,7 @@
 
 import { ColorType } from '../color-type';
 import { Disposable } from '../internal/disposable';
+import { Endian } from '../endian';
 import { IDefines } from '../defines/defines';
 import { MagickFormat } from '../magick-format';
 import { MagickColor } from '../magick-color';
@@ -24,6 +25,8 @@ export class MagickSettings {
     backgroundColor?: MagickColor;
 
     colorType?: ColorType;
+
+    endian?: Endian;
 
     fillColor?: MagickColor;
 
