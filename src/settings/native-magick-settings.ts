@@ -19,6 +19,7 @@ export class NativeMagickSettings extends NativeInstance {
                 ImageMagick._api._MagickSettings_SetFileName(this._instance, ptr);
             });
         }
+
         if (settings.interlace !== undefined)
             ImageMagick._api._MagickSettings_Interlace_Set(this._instance, settings.interlace);
 
