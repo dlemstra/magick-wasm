@@ -39,6 +39,7 @@ export * from './formats/dng/dng-read-defines';
 export * from './gif-dispose-method';
 export * from './gravity';
 export * from './image-magick';
+export * from './interlace';
 export * from './magick-color';
 export * from './magick-colors';
 export * from './magick-error-severity';
