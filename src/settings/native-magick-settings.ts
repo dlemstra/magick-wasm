@@ -20,9 +20,6 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
-        if (settings.interlace !== undefined)
-            ImageMagick._api._MagickSettings_Interlace_Set(this._instance, settings.interlace);
-
         if (settings._ping)
             ImageMagick._api._MagickSettings_SetPing(this._instance, 1);
 
@@ -60,6 +57,9 @@ export class NativeMagickSettings extends NativeInstance {
                 ImageMagick._api._MagickSettings_Format_Set(this._instance, ptr);
             });
         }
+
+        if (settings.interlace !== undefined)
+            ImageMagick._api._MagickSettings_Interlace_Set(this._instance, settings.interlace);
 
         if (settings.strokeColor !== undefined)
             this.setOption('stroke', settings.strokeColor.toString());
