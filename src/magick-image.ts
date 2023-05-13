@@ -27,6 +27,7 @@ import { ImageMagick } from './image-magick';
 import { IDisposable } from './disposable';
 import { IDrawable } from './drawables/drawable';
 import { ImageProfile, IImageProfile } from './profiles/image-profile';
+import { Interlace } from './interlace';
 import { MagickColor } from './magick-color';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
@@ -95,6 +96,7 @@ export interface IMagickImage extends IDisposable {
     hasAlpha: boolean;
     readonly height: number;
     interpolate: PixelInterpolateMethod;
+    readonly interlace: Interlace;
     label: string | null;
     orientation: OrientationType;
     page: MagickGeometry;
@@ -488,12 +490,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
 
-    get interpolate(): PixelInterpolateMethod {
-        return ImageMagick._api._MagickImage_Interpolate_Get(this._instance);
-    }
-    set interpolate(value: PixelInterpolateMethod) {
-        ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value);
-    }
+    get interlace(): Interlace { return ImageMagick._api._MagickImage_Interlace_Get(this._instance); }
+
+    get interpolate(): PixelInterpolateMethod { return ImageMagick._api._MagickImage_Interpolate_Get(this._instance);}
+    set interpolate(value: PixelInterpolateMethod) { ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value); }
 
     get label(): string | null {
         return this.getAttribute('label');
