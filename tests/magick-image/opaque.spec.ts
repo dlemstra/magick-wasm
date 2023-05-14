@@ -5,8 +5,6 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
 import '../custom-matcher';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickImage#opaque', () => {
     it('should change the target color to the fill color', () => {
         ImageMagick.read(MagickColors.Red, 1,1, image => {

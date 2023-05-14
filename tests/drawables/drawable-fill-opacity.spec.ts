@@ -4,7 +4,6 @@
 import { DrawableColor } from '../../src/drawables/drawable-color';
 import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
 import { DrawableFillOpacity } from '../../src/drawables/drawable-fill-opacity';
-import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
@@ -13,8 +12,6 @@ import { Percentage } from '../../src/percentage';
 import '../custom-matcher';
 
 let image: IMagickImage;
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 beforeEach(() => {
     image = MagickImage.create();

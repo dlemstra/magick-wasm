@@ -2,12 +2,9 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ErrorMetric } from '../../src/error-metric';
-import { ImageMagick } from '../../src/image-magick';
 import { MagickImageCollection } from '../../src/magick-image-collection';
 import { MagickFormat } from '../../src/magick-format';
 import { TestFiles } from '../test-files';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImageCollection#flatten', () => {
     it('should throw exception when collection is empty', () => {

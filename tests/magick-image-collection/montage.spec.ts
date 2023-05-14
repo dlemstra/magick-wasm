@@ -2,13 +2,10 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ErrorMetric } from '../../src/error-metric';
-import { ImageMagick } from '../../src/image-magick';
 import { MagickImageCollection } from '../../src/magick-image-collection';
 import { MagickGeometry } from '../../src/magick-geometry';
 import { MontageSettings } from '../../src/settings/montage-settings';
 import { TestFiles } from '../test-files';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImageCollection#montage', () => {
     it('should throw exception when collection is empty', () => {

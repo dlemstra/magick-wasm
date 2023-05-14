@@ -5,7 +5,6 @@ import { DrawableText } from '../../src/drawables/drawable-text';
 import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
 import { DrawableFont } from '../../src/drawables/drawable-font';
 import { DrawableFontPointSize } from '../../src/drawables/drawable-font-point-size';
-import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
@@ -13,8 +12,6 @@ import { TestFiles } from '../test-files';
 import '../custom-matcher';
 
 let image: IMagickImage;
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 beforeEach(() => {
     image = MagickImage.create();

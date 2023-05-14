@@ -5,8 +5,6 @@ import { Channels } from '../../src/channels';
 import { ImageMagick } from '../../src/image-magick';
 import { ColorSpace } from '../../src/color-space';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
 
 describe('MagickImage#separate', () => {

@@ -5,8 +5,6 @@ import { ImageMagick } from '../../src/image-magick';
 import { Interlace } from '../../src/interlace';
 import { TestFiles } from '../test-files';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickImage#interlace', () => {
     it('should return interlace of the image', async () => {
         await TestFiles.roseSparkleGif.read(image => {

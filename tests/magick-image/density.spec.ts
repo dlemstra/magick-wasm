@@ -3,10 +3,7 @@
 
 import { Density } from '../../src/density';
 import { DensityUnit } from '../../src/density-unit';
-import { ImageMagick } from '../../src/image-magick';
 import { TestFiles } from '../test-files';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('Magick#density', () => {
     it('should return the density of the image', () => {

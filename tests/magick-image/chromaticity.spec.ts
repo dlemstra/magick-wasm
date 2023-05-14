@@ -2,11 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ChromaticityInfo } from '../../src/chromaticity-info';
-import { ImageMagick } from '../../src/image-magick';
 import { PrimaryInfo } from '../../src/primary-info';
 import { TestFiles } from '../test-files';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#chromaBluePrimary', () => {
     it('should return the chromaticity', async () => {

@@ -3,9 +3,6 @@
 
 import { Density } from '../../src/density';
 import { DensityUnit } from '../../src/density-unit';
-import { ImageMagick } from '../../src/image-magick';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('Density#constructor', () => {
     it('should set the properties', () => {

@@ -5,8 +5,6 @@ import { ClassType } from '../../src/class-type';
 import { ImageMagick } from '../../src/image-magick';
 import { TestFiles } from '../test-files';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickImage#classType', () => {
     it('should return the class type the image', async () => {
         await TestFiles.Builtin.logo.read(image => {

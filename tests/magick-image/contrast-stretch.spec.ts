@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Channels } from '../../src/channels';
-import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
@@ -10,8 +9,6 @@ import { Percentage } from '../../src/percentage';
 import '../custom-matcher';
 
 let image: IMagickImage;
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 beforeEach(() => {
     image = MagickImage.create();

@@ -2,11 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Channels } from '../../src/channels';
-import { ImageMagick } from '../../src/image-magick';
 import { PixelChannel } from '../../src/pixel-channel';
 import { TestFiles } from '../test-files';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#statistics', () => {
     it('should return the statistics for the all channels', async () => {

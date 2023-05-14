@@ -2,13 +2,10 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { AutoThresholdMethod } from '../../src/auto-threshold-method';
-import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 
 let image: IMagickImage;
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 beforeEach(() => {
     image = MagickImage.create();

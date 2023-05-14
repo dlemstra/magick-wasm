@@ -7,15 +7,12 @@ import { DrawableFontPointSize } from '../../src/drawables/drawable-font-point-s
 import { DrawableGravity } from '../../src/drawables/drawable-gravity';
 import { DrawableText } from '../../src/drawables/drawable-text';
 import { Gravity } from '../../src/gravity';
-import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
 import { TestFiles } from '../test-files';
 import '../custom-matcher';
 
 let image: IMagickImage;
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 beforeEach(() => {
     image = MagickImage.create();

@@ -6,8 +6,6 @@ import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
 import { MagickFormat } from '../../src/magick-format';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
 
 describe('ImageMagick#readCollection', () => {

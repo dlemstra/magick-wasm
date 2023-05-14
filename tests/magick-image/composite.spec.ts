@@ -11,8 +11,6 @@ import { MagickColors } from '../../src/magick-colors';
 import { Point } from '../../src/point';
 import '../custom-matcher';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickImage#composite', () => {
     it('should preserve gray color space', () => {
         ImageMagick.read('logo:', (logo) => {

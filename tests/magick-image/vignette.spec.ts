@@ -2,12 +2,9 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ErrorMetric } from '../../src/error-metric';
-import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 
 let image: IMagickImage;
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 beforeEach(() => {
     image = MagickImage.create();

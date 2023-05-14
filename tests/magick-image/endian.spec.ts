@@ -6,8 +6,6 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickFormat } from '../../src/magick-format';
 import { TestFiles } from '../test-files';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickImage#endian', () => {
     it('should return the endianess of the image', async () => {
         await TestFiles.Builtin.logo.read(input => {

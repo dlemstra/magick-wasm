@@ -2,11 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { AlphaOption } from '../../src/alpha-option';
-import { ImageMagick } from '../../src/image-magick';
 import { PixelChannel } from '../../src/pixel-channel';
 import { TestFiles } from '../test-files';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#channels', () => {
     it('should return the correct channels', async () => {

@@ -5,8 +5,6 @@ import { GifDisposeMethod } from '../../src/gif-dispose-method';
 import { ImageMagick } from '../../src/image-magick';
 import { TestFiles } from '../test-files';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickImage#gifDisposeMethod', () => {
     it('should return the gif dispose method of the image', async () => {
         await TestFiles.roseSparkleGif.readCollection(images => {

@@ -3,14 +3,11 @@
 
 import { DrawableRoundRectangle } from '../../src/drawables/drawable-round-rectangle';
 import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
-import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
 import '../custom-matcher';
 
 let image: IMagickImage;
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 beforeEach(() => {
     image = MagickImage.create();

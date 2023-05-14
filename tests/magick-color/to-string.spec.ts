@@ -1,10 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../../src/image-magick';
 import { MagickColor } from '../../src/magick-color';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickColor#toString', () => {
     it('should format the color', () => {

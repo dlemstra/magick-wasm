@@ -2,10 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ColorSpace } from '../../src/color-space';
-import { ImageMagick } from '../../src/image-magick';
 import { TestFiles } from '../test-files';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#colorSpace', () => {
     it('should return the color space', async () => {

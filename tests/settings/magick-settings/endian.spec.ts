@@ -6,8 +6,6 @@ import { ImageMagick } from '../../../src/image-magick';
 import { MagickFormat } from '../../../src/magick-format';
 import { TestFiles } from '../../test-files';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickSettings#endian', () => {
     it('should be used when writing the image', async () => {
         await TestFiles.redPng.read(input => {

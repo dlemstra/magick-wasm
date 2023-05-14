@@ -6,8 +6,6 @@ import { Interlace } from '../../src/interlace';
 import { MagickFormat } from '../../src/magick-format';
 import { TestFiles } from '../test-files';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickSettings#interlace', () => {
     it('should change the interlace of the image', async () => {
         await TestFiles.redPng.read(input => {

@@ -2,10 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { CompositeOperator } from '../../src/composite-operator';
-import { ImageMagick } from '../../src/image-magick';
 import { TestFiles } from '../test-files';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImage#compose', () => {
     it('should return the compose operator', async () => {

@@ -4,7 +4,7 @@
 import { ImageMagickApi } from '@dlemstra/magick-native/magick';
 import { Magick } from '../src/magick';
 import { TestFiles } from './test-files';
-import * as ImageMagick from '../src/image-magick';
+import { ImageMagick, initializeImageMagick } from '../src/image-magick';
 import * as fs from 'fs';
 
 declare global {
@@ -14,13 +14,15 @@ declare global {
 if (!global.native) {
     if (Math.random() >= 0.5) {
         const bytes = fs.readFileSync('node_modules/@dlemstra/magick-native/magick.wasm');
-        await ImageMagick.initializeImageMagick(bytes);
+        await initializeImageMagick(bytes);
     } else {
-        await ImageMagick.initializeImageMagick();
+        await initializeImageMagick();
     }
 
     const font = TestFiles.Fonts.kaushanScriptRegularTtf;
     Magick.addFont(font.name, font.file.toBufferSync());
 
-    global.native = ImageMagick.ImageMagick._api;
+    global.native = ImageMagick._api;
 }
+
+beforeAll(() => { ImageMagick._api = global.native; });

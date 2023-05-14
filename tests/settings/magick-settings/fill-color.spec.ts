@@ -7,8 +7,6 @@ import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
 import '../../custom-matcher';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickSettings#fillColor', () => {
     it('should use the correct fill color', () => {
         const settings = new MagickReadSettings();

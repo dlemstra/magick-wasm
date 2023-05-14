@@ -9,8 +9,6 @@ import { MagickColors } from '../../src/magick-colors';
 import { Point } from '../../src/point';
 import '../custom-matcher';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickImage#compositeGravity', () => {
    it('should use the gravity', () => {
         ImageMagick.read(MagickColors.Red, 3, 3, (image) => {

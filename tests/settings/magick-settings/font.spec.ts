@@ -4,8 +4,6 @@
 import { ImageMagick } from '../../../src/image-magick';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickSettings#font', () => {
     it('should throw exception when font does not exist', () => {
         const settings = new MagickReadSettings();

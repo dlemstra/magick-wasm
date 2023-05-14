@@ -6,8 +6,6 @@ import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
 import '../../custom-matcher';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickSettings#textInterlineSpacing', () => {
     it.each([
         [30, 74, 69],

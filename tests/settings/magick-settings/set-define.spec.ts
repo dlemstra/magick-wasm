@@ -7,8 +7,6 @@ import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { MagickSettings } from '../../../src/settings/magick-settings';
 import { TestFiles } from '../../test-files';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickSettings#setDefine', () => {
     it('should change boolean value into a string', () => {
         const settings = new MagickSettings();

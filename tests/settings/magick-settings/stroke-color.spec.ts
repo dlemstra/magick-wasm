@@ -7,8 +7,6 @@ import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
 import '../../custom-matcher';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('MagickSettings#strokeColor', () => {
     it('should use the correct stroke color', () => {
         const settings = new MagickReadSettings();

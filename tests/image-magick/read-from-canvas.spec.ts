@@ -6,8 +6,6 @@ import { JSDOM } from 'jsdom';
 import { MagickColors } from '../../src/magick-colors';
 import '../custom-matcher';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 describe('ImageMagick#readFromCanvas', () => {
     it('should read the image data from the canvas', () => {
         const window = new JSDOM().window;

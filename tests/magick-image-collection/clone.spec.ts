@@ -2,10 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ErrorMetric } from '../../src/error-metric';
-import { ImageMagick } from '../../src/image-magick';
 import { TestFiles } from '../test-files';
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 describe('MagickImageCollection#clone', () => {
     it('should clone the images in the collection', async () => {

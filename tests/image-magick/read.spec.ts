@@ -8,8 +8,6 @@ import { TestFiles } from '../test-files';
 import '../custom-matcher';
 import { MagickFormat } from '../../src/magick-format';
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
 
 describe('ImageMagick#read', () => {

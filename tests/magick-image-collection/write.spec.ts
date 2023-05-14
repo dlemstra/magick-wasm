@@ -1,13 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../../src/image-magick';
 import { IMagickImageCollection, MagickImageCollection } from '../../src/magick-image-collection';
 import { TestFiles } from '../test-files';
 
 let images: IMagickImageCollection;
-
-beforeAll(() => { ImageMagick._api = global.native; });
 
 beforeEach(() => {
     images = MagickImageCollection.create();

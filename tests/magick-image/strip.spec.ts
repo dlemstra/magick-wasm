@@ -9,8 +9,6 @@ import '../custom-matcher';
 
 let image: IMagickImage;
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 beforeEach(() => {
     image = MagickImage.create();
     image.read(MagickColors.White, 5, 5);

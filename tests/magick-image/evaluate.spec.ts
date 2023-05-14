@@ -13,8 +13,6 @@ import '../custom-matcher';
 
 let image: IMagickImage;
 
-beforeAll(() => { ImageMagick._api = global.native; });
-
 beforeEach(() => {
     image = MagickImage.create();
 });
