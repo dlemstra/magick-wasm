@@ -4,7 +4,6 @@
 import { ErrorMetric } from '../../src/error-metric';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { Percentage } from '../../src/percentage';
-import '../custom-matcher';
 
 let image: IMagickImage;
 

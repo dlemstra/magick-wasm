@@ -4,8 +4,7 @@
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestFiles  } from '../test-files';
-import '../custom-matcher';
+import { TestFiles } from '../test-files';
 
 let image: IMagickImage;
 

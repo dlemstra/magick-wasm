@@ -9,7 +9,6 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
 import { Point } from '../../src/point';
-import '../custom-matcher';
 
 describe('MagickImage#composite', () => {
     it('should preserve gray color space', () => {

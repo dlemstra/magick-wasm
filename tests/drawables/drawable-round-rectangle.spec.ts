@@ -5,7 +5,6 @@ import { DrawableRoundRectangle } from '../../src/drawables/drawable-round-recta
 import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-import '../custom-matcher';
 
 let image: IMagickImage;
 

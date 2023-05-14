@@ -4,7 +4,6 @@
 import { ImageMagick } from '../../../src/image-magick';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
-import '../../custom-matcher';
 
 describe('MagickSettings#textKerning', () => {
     it.each([

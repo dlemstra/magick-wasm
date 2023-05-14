@@ -4,7 +4,6 @@
 import { ImageMagick } from '../../src/image-magick';
 import { JSDOM } from 'jsdom';
 import { MagickColors } from '../../src/magick-colors';
-import '../custom-matcher';
 
 describe('ImageMagick#readFromCanvas', () => {
     it('should read the image data from the canvas', () => {

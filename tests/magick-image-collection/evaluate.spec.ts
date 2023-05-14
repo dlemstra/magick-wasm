@@ -5,7 +5,6 @@ import { EvaluateOperator } from '../../src/evaluate-operator';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickImage } from '../../src/magick-image';
 import { MagickImageCollection } from '../../src/magick-image-collection';
-import '../custom-matcher'
 
 describe('MagickImageCollection#evaluate', () => {
     it('should throw exception when collection is empty', () => {

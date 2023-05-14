@@ -1,21 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { Percentage } from '../../src/percentage';
 import { TestFiles } from '../test-files';
-import '../custom-matcher';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-    image.read('wizard:');
-});
-
-afterEach(() => {
-    image.dispose();
-});
 
 describe('MagickImage#linearStretch', () => {
     it('should stretch the pixels of the image', async () => {

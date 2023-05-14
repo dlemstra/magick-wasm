@@ -4,7 +4,6 @@
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
-import '../custom-matcher';
 
 let image: IMagickImage;
 

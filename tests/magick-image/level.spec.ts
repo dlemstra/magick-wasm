@@ -4,7 +4,6 @@
 import { Channels } from '../../src/channels';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { Percentage } from '../../src/percentage';
-import '../custom-matcher';
 
 let image: IMagickImage;
 

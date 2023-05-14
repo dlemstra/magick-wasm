@@ -3,7 +3,6 @@
 
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickGeometry } from '../../src/magick-geometry';
-import '../custom-matcher';
 
 let image: IMagickImage;
 

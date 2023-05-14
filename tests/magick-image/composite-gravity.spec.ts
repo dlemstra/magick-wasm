@@ -7,7 +7,6 @@ import { Gravity } from '../../src/gravity';
 import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
 import { Point } from '../../src/point';
-import '../custom-matcher';
 
 describe('MagickImage#compositeGravity', () => {
    it('should use the gravity', () => {

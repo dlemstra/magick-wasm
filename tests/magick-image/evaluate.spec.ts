@@ -9,7 +9,6 @@ import { MagickColor } from '../../src/magick-color';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickGeometry } from '../../src/magick-geometry';
 import { Quantum } from '../../src/quantum';
-import '../custom-matcher';
 
 let image: IMagickImage;
 

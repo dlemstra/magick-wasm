@@ -3,7 +3,6 @@
 
 import { Channels } from '../../src/channels';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
-import '../custom-matcher';
 
 let image: IMagickImage;
 

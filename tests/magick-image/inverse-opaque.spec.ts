@@ -3,7 +3,6 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
-import '../custom-matcher';
 
 describe('MagickImage#inverseOpaque', () => {
     it('should change the everything except the target color to the fill color', () => {

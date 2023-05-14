@@ -3,10 +3,9 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
+import { MagickFormat } from '../../src/magick-format';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 import { TestFiles } from '../test-files';
-import '../custom-matcher';
-import { MagickFormat } from '../../src/magick-format';
 
 function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
 

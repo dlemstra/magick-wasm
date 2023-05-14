@@ -5,7 +5,6 @@ import { ImageMagick } from '../../../src/image-magick';
 import { MagickColor } from '../../../src/magick-color';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFiles } from '../../test-files';
-import '../../custom-matcher';
 
 describe('MagickSettings#backgroundColor', () => {
     it('should use the correct background color', () => {
