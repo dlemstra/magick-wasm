@@ -22,8 +22,7 @@ describe('MagickImageCollection#write', () => {
     });
 
     it('should write images to array', () => {
-        const data = TestImages.roseSparkleGif.toBufferSync();
-        images.read(data);
+        images.read(TestImages.roseSparkleGif.data);
 
         images.write(newData => {
             images.dispose();

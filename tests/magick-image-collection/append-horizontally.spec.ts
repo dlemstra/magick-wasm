@@ -12,8 +12,8 @@ describe('MagickImageCollection#appendHorizontally', () => {
         }).toThrowError('operation requires at least one image');
     });
 
-    it('should create a new image with the images appended horizontally', async () => {
-        await TestImages.roseSparkleGif.readCollection(images => {
+    it('should create a new image with the images appended horizontally', () => {
+        TestImages.roseSparkleGif.use(images => {
             images.appendHorizontally(image => {
                 expect(image.width).toBe(210);
                 expect(image.height).toBe(46);

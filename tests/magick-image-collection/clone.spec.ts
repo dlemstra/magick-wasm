@@ -5,8 +5,8 @@ import { ErrorMetric } from '../../src/error-metric';
 import { TestImages } from '../test-images';
 
 describe('MagickImageCollection#clone', () => {
-    it('should clone the images in the collection', async () => {
-        await TestImages.roseSparkleGif.readCollection(images => {
+    it('should clone the images in the collection', () => {
+        TestImages.roseSparkleGif.use(images => {
             images.clone(clones => {
                 expect(clones.length).toBe(3);
                 for (let i = 0; i < clones.length; i++)

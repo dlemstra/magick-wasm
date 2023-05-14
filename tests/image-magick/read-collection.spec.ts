@@ -27,8 +27,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array async', async () => {
-        const data = await TestImages.roseSparkleGif.toBuffer();
-        await ImageMagick.readCollection(data, async (images) => {
+        await ImageMagick.readCollection(TestImages.roseSparkleGif.data, async (images) => {
             expect(images.length).toBe(3);
             images.forEach(image => {
                 expect(image.width).toBe(70);
@@ -39,8 +38,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array', () => {
-        const data = TestImages.roseSparkleGif.toBufferSync();
-        ImageMagick.readCollection(data, (images) => {
+        ImageMagick.readCollection(TestImages.roseSparkleGif.data, (images) => {
             expect(images.length).toBe(3);
             images.forEach(image => {
                 expect(image.width).toBe(70);
@@ -50,9 +48,8 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array with specified format async', async () => {
-        const data = await TestImages.roseSparkleGif.toBuffer();
         await expect(async () => {
-            await ImageMagick.readCollection(data, MagickFormat.Png, async () => {
+            await ImageMagick.readCollection(TestImages.roseSparkleGif.data, MagickFormat.Png, async () => {
                 await bogusAsyncMethod();
             });
         })
@@ -61,9 +58,8 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array with specified format', () => {
-        const data = TestImages.roseSparkleGif.toBufferSync();
         expect(() => {
-            ImageMagick.readCollection(data, MagickFormat.Png, (image) => {
+            ImageMagick.readCollection(TestImages.roseSparkleGif.data, MagickFormat.Png, (image) => {
                 console.log(image);
             });
         })
@@ -75,9 +71,8 @@ describe('ImageMagick#readCollection', () => {
             format: MagickFormat.Png
         });
 
-        const data = await TestImages.roseSparkleGif.toBuffer();
         await expect(async () => {
-            await ImageMagick.readCollection(data, settings, async () => {
+            await ImageMagick.readCollection(TestImages.roseSparkleGif.data, settings, async () => {
                 await bogusAsyncMethod();
             });
         }).rejects.toThrowError('ImproperImageHeader');
@@ -88,9 +83,8 @@ describe('ImageMagick#readCollection', () => {
             format: MagickFormat.Png
         });
 
-        const data = TestImages.roseSparkleGif.toBufferSync();
         expect(() => {
-            ImageMagick.readCollection(data, settings, () => {
+            ImageMagick.readCollection(TestImages.roseSparkleGif.data, settings, () => {
                 // will never be reached
             });
         }).toThrowError('ImproperImageHeader');

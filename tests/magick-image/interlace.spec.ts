@@ -5,9 +5,9 @@ import { Interlace } from '../../src/interlace';
 import { TestImages } from '../test-images';
 
 describe('MagickImage#interlace', () => {
-    it('should return interlace of the image', async () => {
-        await TestImages.roseSparkleGif.read(image => {
-            expect(image.interlace).toBe(Interlace.NoInterlace);
+    it('should return interlace of the image', () => {
+        TestImages.roseSparkleGif.use(images => {
+            expect(images[0].interlace).toBe(Interlace.NoInterlace);
         });
     });
 });

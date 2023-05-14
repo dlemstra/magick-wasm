@@ -25,8 +25,7 @@ describe('MagickImageCollection#read', () => {
     });
 
     it('should read images from array', () => {
-        const data = TestImages.roseSparkleGif.toBufferSync();
-        images.read(data);
+        images.read(TestImages.roseSparkleGif.data);
 
         expect(images.length).toBe(3);
         images.forEach(image => {

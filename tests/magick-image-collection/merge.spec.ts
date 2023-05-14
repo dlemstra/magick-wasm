@@ -22,8 +22,8 @@ describe('MagickImageCollection#merge', () => {
         }).toThrowError('operation requires at least one image');
     });
 
-    it('should merge the images', async () => {
-        await TestImages.roseSparkleGif.readCollection(roses => {
+    it('should merge the images', () => {
+        TestImages.roseSparkleGif.use(roses => {
             TestImages.imageMagickJpg.use(imageMagickJpg => {
 
                 roses.unshift(imageMagickJpg);

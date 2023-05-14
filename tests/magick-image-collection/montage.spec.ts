@@ -17,8 +17,8 @@ describe('MagickImageCollection#montage', () => {
         }).toThrowError('operation requires at least one image');
     });
 
-    it('should create a mosaic of the images', async () => {
-        await TestImages.roseSparkleGif.readCollection(images => {
+    it('should create a mosaic of the images', () => {
+        TestImages.roseSparkleGif.use(images => {
             images[1].page = new MagickGeometry(100, 100, images[1].width, images[1].height);
 
             const settings = new MontageSettings();
