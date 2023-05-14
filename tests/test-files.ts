@@ -31,9 +31,7 @@ export class TestFile {
             });
         } else {
             if (this._image === null) {
-                if (this._fileName.length === 0) {
-                    this._image = MagickImage.create();
-                } else if (this._fileName[this._fileName.length - 1] === ':') {
+                if (this._fileName[this._fileName.length - 1] === ':') {
                     this._image = MagickImage.create(this._fileName);
                 } else {
                     const data = await this.toBuffer();
@@ -88,7 +86,6 @@ export class TestFont {
 
 export class TestFiles {
     static readonly cmykJpg = new TestFile('tests/images/cmyk.jpg');
-    static readonly empty = new TestFile('');
     static readonly fujiFilmFinePixS1ProJpg = new TestFile('tests/images/fuji-film-fine-pix-s1-pro.jpg');
     static readonly imageMagickJpg = new TestFile('tests/images/image-magick.jpg');
     static readonly redPng = new TestFile('tests/images/red.png');
