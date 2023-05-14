@@ -6,7 +6,7 @@ import { TestImages } from '../test-images';
 
 describe('MagickImage#compression', () => {
     it('should return the compression method', async () => {
-        await TestImages.redPng.read(image => {
+        TestImages.redPng.use(image => {
             expect(image.compression).toBe(CompressionMethod.Zip);
         });
     });

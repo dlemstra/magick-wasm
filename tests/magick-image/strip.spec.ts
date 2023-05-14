@@ -37,7 +37,7 @@ describe('MagickImage#strip', () => {
     });
 
     it('should remove the profiles', async () => {
-        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
+        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
             expect(image.getProfile('icc')).not.toBeNull();
 
             image.strip();

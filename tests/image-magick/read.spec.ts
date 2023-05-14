@@ -26,8 +26,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array async', async () => {
-        const data = await TestImages.imageMagickJpg.toBuffer();
-        await ImageMagick.read(data, async (image) => {
+        await ImageMagick.read(TestImages.imageMagickJpg.data, async (image) => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
             await bogusAsyncMethod();
@@ -35,17 +34,15 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array', () => {
-        const data = TestImages.imageMagickJpg.toBufferSync();
-        ImageMagick.read(data, (image) => {
+        ImageMagick.read(TestImages.imageMagickJpg.data, (image) => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
         });
     });
 
     it('should read image from array with specified format async', async () => {
-        const data = await TestImages.imageMagickJpg.toBuffer();
         await expect(async () => {
-            await ImageMagick.read(data, MagickFormat.Png, async () => {
+            await ImageMagick.read(TestImages.imageMagickJpg.data, MagickFormat.Png, async () => {
                 await bogusAsyncMethod();
             });
         })
@@ -54,9 +51,8 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array with specified format', () => {
-        const data = TestImages.imageMagickJpg.toBufferSync();
         expect(() => {
-            ImageMagick.read(data, MagickFormat.Png, (image) => {
+            ImageMagick.read(TestImages.imageMagickJpg.data, MagickFormat.Png, (image) => {
                 console.log(image);
             });
         })

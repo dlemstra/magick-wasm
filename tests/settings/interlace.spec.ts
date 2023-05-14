@@ -7,8 +7,8 @@ import { MagickFormat } from '../../src/magick-format';
 import { TestImages } from '../test-images';
 
 describe('MagickSettings#interlace', () => {
-    it('should change the interlace of the image', async () => {
-        await TestImages.redPng.read(input => {
+    it('should change the interlace of the image', () => {
+        TestImages.redPng.use(input => {
             input.settings.interlace = Interlace.Gif;
             input.write(MagickFormat.Gif, (data) => {
                 ImageMagick.read(data, output => {

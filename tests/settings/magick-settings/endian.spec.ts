@@ -7,8 +7,8 @@ import { MagickFormat } from '../../../src/magick-format';
 import { TestImages } from '../../test-images';
 
 describe('MagickSettings#endian', () => {
-    it('should be used when writing the image', async () => {
-        await TestImages.redPng.read(input => {
+    it('should be used when writing the image', () => {
+        TestImages.redPng.use(input => {
             expect(input.endian).toBe(Endian.Undefined);
 
             input.settings.endian = Endian.LSB;

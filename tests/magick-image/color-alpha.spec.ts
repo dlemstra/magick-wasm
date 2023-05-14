@@ -6,7 +6,7 @@ import { TestImages } from '../test-images';
 
 describe('MagickImage#colorAlpha', () => {
     it('should color the alpha channel', async () => {
-        await TestImages.redPng.read(image => {
+        TestImages.redPng.use(image => {
             image.colorAlpha(MagickColors.Magenta);
             expect(image).toHavePixelWithColor(350, 80, MagickColors.Magenta);
         });

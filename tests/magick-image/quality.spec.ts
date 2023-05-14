@@ -26,7 +26,7 @@ describe('MagickImage#quality', () => {
     });
 
     it('should return the image quality', async () => {
-        await TestImages.imageMagickJpg.read(image => {
+        TestImages.imageMagickJpg.use(image => {
             expect(image.quality).toBe(100);
         });
     });

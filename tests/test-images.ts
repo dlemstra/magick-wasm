@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+
 import { ImageMagick } from '../src/image-magick';
 import { IMagickImage, MagickImage } from '../src/magick-image';
 import { IMagickImageCollection, MagickImageCollection } from '../src/magick-image-collection';
@@ -74,35 +75,65 @@ export class TestImageFromFile {
     }
 }
 
-export class TestImage {
+interface Cloneable<T> {
+    clone<TReturnType>(func: (clone: T) => TReturnType): TReturnType;
+    clone<TReturnType>(func: (clone: T) => Promise<TReturnType>): Promise<TReturnType>;
+  }
+
+abstract class TestImageBase<TImageType extends Cloneable<TImageType>> {
+    private _image: TImageType | undefined;
+
+    use<TReturnType>(func: (image: TImageType) => TReturnType): TReturnType;
+    use<TReturnType>(func: (image: TImageType) => Promise<TReturnType>): Promise<TReturnType>;
+        use<TReturnType>(func: (image: TImageType) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+            if (this._image === undefined)
+                this._image = this.load();
+
+            return this._image.clone(image => {
+                return func(image);
+            });
+        }
+
+        abstract load(): TImageType;
+    }
+
+class BuiltinTestImage extends TestImageBase<IMagickImage> {
     private readonly _name: string;
-    private _image: IMagickImage | undefined;
 
     constructor(name: string) {
+        super();
+
         this._name = name;
     }
 
-    use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
-    use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        if (this._image === undefined)
-            this._image = MagickImage.create(this._name);
+    load(): IMagickImage {
+        return MagickImage.create(this._name);
+    }
+}
 
-        return this._image.clone(image => {
-            return func(image);
-        });
+class TestImage extends TestImageBase<IMagickImage> {
+    readonly data: Buffer;
+
+    constructor(fileName: string) {
+        super();
+
+        this.data = fs.readFileSync(fileName);
+    }
+
+    load(): IMagickImage {
+        return MagickImage.create(this.data);
     }
 }
 
 export class TestImages {
-    static readonly cmykJpg = new TestImageFromFile('tests/images/cmyk.jpg');
-    static readonly fujiFilmFinePixS1ProJpg = new TestImageFromFile('tests/images/fuji-film-fine-pix-s1-pro.jpg');
-    static readonly imageMagickJpg = new TestImageFromFile('tests/images/image-magick.jpg');
-    static readonly redPng = new TestImageFromFile('tests/images/red.png');
+    static readonly cmykJpg = new TestImage('tests/images/cmyk.jpg');
+    static readonly fujiFilmFinePixS1ProJpg = new TestImage('tests/images/fuji-film-fine-pix-s1-pro.jpg');
+    static readonly imageMagickJpg = new TestImage('tests/images/image-magick.jpg');
+    static readonly redPng = new TestImage('tests/images/red.png');
     static readonly roseSparkleGif = new TestImageFromFile('tests/images/röse-sparkle.gif');
 
     static Builtin = class {
-        static readonly logo = new TestImage('logo:');
-        static readonly wizard = new TestImage('wizard:');
+        static readonly logo = new BuiltinTestImage('logo:');
+        static readonly wizard = new BuiltinTestImage('wizard:');
     }
 }

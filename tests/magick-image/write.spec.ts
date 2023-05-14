@@ -8,7 +8,7 @@ function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => res
 
 describe('MagickImage#write', () => {
     it('should save the image to an array async', async () => {
-        await TestImages.imageMagickJpg.read(async (image) => {
+        await TestImages.imageMagickJpg.use(async (image) => {
             await image.write(async (data) => {
                 expect(data.length).toBe(18830);
                 await bogusAsyncMethod();

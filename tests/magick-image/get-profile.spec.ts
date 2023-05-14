@@ -14,8 +14,8 @@ describe('MagickImage#getProfile', () => {
         });
     });
 
-    it('should return the specified profile', async () => {
-        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
+    it('should return the specified profile', () => {
+        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
 
             const profile = image.getProfile('icc');
 

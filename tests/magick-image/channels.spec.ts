@@ -17,8 +17,8 @@ describe('MagickImage#channels', () => {
         });
     });
 
-    it('should return the correct channels for a cmyk image', async () => {
-        await TestImages.cmykJpg.read(image => {
+    it('should return the correct channels for a cmyk image', () => {
+        TestImages.cmykJpg.use(image => {
             image.alpha(AlphaOption.Activate);
 
             const channels = image.channels;

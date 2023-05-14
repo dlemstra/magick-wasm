@@ -5,8 +5,8 @@ import { Percentage } from '../../src/percentage';
 import { TestImages } from '../test-images';
 
 describe('MagickImage#linearStretch', () => {
-    it('should stretch the pixels of the image', async () => {
-        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
+    it('should stretch the pixels of the image', () => {
+        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
             image.resize(100, 100);
 
             image.linearStretch(new Percentage(10), new Percentage(90));

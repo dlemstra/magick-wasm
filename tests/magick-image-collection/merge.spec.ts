@@ -23,8 +23,8 @@ describe('MagickImageCollection#merge', () => {
     });
 
     it('should merge the images', async () => {
-        await TestImages.roseSparkleGif.readCollection(async roses => {
-            await TestImages.imageMagickJpg.read(imageMagickJpg => {
+        await TestImages.roseSparkleGif.readCollection(roses => {
+            TestImages.imageMagickJpg.use(imageMagickJpg => {
 
                 roses.unshift(imageMagickJpg);
 

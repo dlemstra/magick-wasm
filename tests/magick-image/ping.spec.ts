@@ -30,9 +30,7 @@ describe('MagickImage#ping', () => {
     });
 
     it('should ping image from array', () => {
-        const data = TestImages.imageMagickJpg.toBufferSync();
-
-        image.ping(data);
+        image.ping(TestImages.imageMagickJpg.data);
         expect(image.width).toBe(123);
         expect(image.height).toBe(118);
         exceptImageToNotHavePixelData(image);

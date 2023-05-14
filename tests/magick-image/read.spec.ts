@@ -24,8 +24,7 @@ describe('MagickImage#read', () => {
     });
 
     it('should read image from array', () => {
-        const data = TestImages.imageMagickJpg.toBufferSync();
-        image.read(data);
+        image.read(TestImages.imageMagickJpg.data);
         expect(image.width).toBe(123);
         expect(image.height).toBe(118);
     });

@@ -6,8 +6,8 @@ import { PixelChannel } from '../../src/pixel-channel';
 import { TestImages } from '../test-images';
 
 describe('MagickImage#statistics', () => {
-    it('should return the statistics for the all channels', async () => {
-        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
+    it('should return the statistics for the all channels', () => {
+        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics();
 
             expect(statistics.channels.length).toBe(4);
@@ -18,8 +18,8 @@ describe('MagickImage#statistics', () => {
         });
     });
 
-    it('should return the statistics for the specified channels', async () => {
-        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
+    it('should return the statistics for the specified channels', () => {
+        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics(Channels.Blue);
 
             expect(statistics.channels.length).toBe(2);
@@ -28,8 +28,8 @@ describe('MagickImage#statistics', () => {
         });
     });
 
-    it('should return the statistics for a channel', async () => {
-        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
+    it('should return the statistics for a channel', () => {
+        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics(Channels.Blue);
 
             const channelStatistics = statistics.getChannel(PixelChannel.Blue);
@@ -48,8 +48,8 @@ describe('MagickImage#statistics', () => {
         });
     });
 
-    it('should return the statistics for the composite channel', async () => {
-        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
+    it('should return the statistics for the composite channel', () => {
+        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics(Channels.Green);
 
             const channelStatistics = statistics.composite();
@@ -65,8 +65,8 @@ describe('MagickImage#statistics', () => {
         });
     });
 
-    it('should return null as the statistics for a unknown channel', async () => {
-        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
+    it('should return null as the statistics for a unknown channel', () => {
+        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics(Channels.Red);
 
             expect(statistics.getChannel(PixelChannel.Green)).toBeNull();

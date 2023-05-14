@@ -7,7 +7,7 @@ import { TestImages } from '../test-images';
 
 describe('MagickImage#chromaBluePrimary', () => {
     it('should return the chromaticity', async () => {
-        await TestImages.redPng.read(image => {
+        TestImages.redPng.use(image => {
             const chromaticity = image.chromaticity;
 
             expect(chromaticity.red.x).toBeCloseTo(0.64);
