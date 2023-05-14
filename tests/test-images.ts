@@ -74,6 +74,26 @@ export class TestImageFromFile {
     }
 }
 
+export class TestImage {
+    private readonly _name: string;
+    private _image: IMagickImage | undefined;
+
+    constructor(name: string) {
+        this._name = name;
+    }
+
+    use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        if (this._image === undefined)
+            this._image = MagickImage.create(this._name);
+
+        return this._image.clone(image => {
+            return func(image);
+        });
+    }
+}
+
 export class TestImages {
     static readonly cmykJpg = new TestImageFromFile('tests/images/cmyk.jpg');
     static readonly fujiFilmFinePixS1ProJpg = new TestImageFromFile('tests/images/fuji-film-fine-pix-s1-pro.jpg');
@@ -82,7 +102,7 @@ export class TestImages {
     static readonly roseSparkleGif = new TestImageFromFile('tests/images/röse-sparkle.gif');
 
     static Builtin = class {
-        static readonly logo = new TestImageFromFile('logo:');
-        static readonly wizard = new TestImageFromFile('wizard:');
+        static readonly logo = new TestImage('logo:');
+        static readonly wizard = new TestImage('wizard:');
     }
 }

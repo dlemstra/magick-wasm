@@ -16,8 +16,8 @@ describe('MagickImage#write', () => {
         });
     });
 
-    it('should save the image to an array', async () => {
-        await TestImages.Builtin.wizard.read((image) => {
+    it('should save the image to an array', () => {
+        TestImages.Builtin.wizard.use((image) => {
             image.write(MagickFormat.Png, (data) => {
                 expect(data.length).toBe(87352);
             });

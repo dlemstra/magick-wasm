@@ -5,14 +5,14 @@ import { ColorSpace } from '../../src/color-space';
 import { TestImages } from '../test-images';
 
 describe('MagickImage#colorSpace', () => {
-    it('should return the color space', async () => {
-        await TestImages.Builtin.logo.read(image => {
+    it('should return the color space', () => {
+        TestImages.Builtin.logo.use(image => {
             expect(image.colorSpace).toBe(ColorSpace.sRGB);
         });
     });
 
-    it('should change the color space', async () => {
-        await TestImages.Builtin.logo.read(image => {
+    it('should change the color space', () => {
+        TestImages.Builtin.logo.use(image => {
             image.colorSpace = ColorSpace.CMYK;
             expect(image.colorSpace).toBe(ColorSpace.CMYK);
         });

@@ -5,7 +5,7 @@ import { TestImages } from '../test-images';
 
 describe('MagickImage#fileName', () => {
     it('should return the name of the file', async () => {
-        await TestImages.Builtin.logo.read(image => {
+        TestImages.Builtin.logo.use(image => {
             expect(image.fileName).toBe('LOGO');
         });
     });

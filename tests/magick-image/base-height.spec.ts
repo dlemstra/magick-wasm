@@ -4,8 +4,8 @@
 import { TestImages } from '../test-images';
 
 describe('MagickImage#baseHeight', () => {
-    it('should return the height of the image before transformations.', async () => {
-        await TestImages.Builtin.logo.read(image => {
+    it('should return the height of the image before transformations.', () => {
+        TestImages.Builtin.logo.use(image => {
             image.resize(1, 1);
 
             expect(image.baseHeight).toBe(480);

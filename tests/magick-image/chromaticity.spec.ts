@@ -25,8 +25,8 @@ describe('MagickImage#chromaBluePrimary', () => {
         });
     });
 
-    it('should return the changed value', async () => {
-        await TestImages.Builtin.wizard.read(image => {
+    it('should return the changed value', () => {
+        TestImages.Builtin.wizard.use(image => {
             image.chromaticity = new ChromaticityInfo(
                 new PrimaryInfo(1.2, 2.3, 3.4),
                 new PrimaryInfo(4.5, 5.6, 6.7),

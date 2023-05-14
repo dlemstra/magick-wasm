@@ -5,8 +5,8 @@ import { MagickFormat } from '../../src/magick-format';
 import { TestImages } from '../test-images';
 
 describe('Coders#heic', () => {
-    it('should be able to write avif image', async () => {
-        await TestImages.Builtin.logo.read((image) => {
+    it('should be able to write avif image', () => {
+        TestImages.Builtin.logo.use((image) => {
             image.write(MagickFormat.Avif, data => {
                 expect(data.length).toBe(11410);
             });

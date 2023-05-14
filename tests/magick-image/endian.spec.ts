@@ -7,8 +7,8 @@ import { MagickFormat } from '../../src/magick-format';
 import { TestImages } from '../test-images';
 
 describe('MagickImage#endian', () => {
-    it('should return the endianess of the image', async () => {
-        await TestImages.Builtin.logo.read(input => {
+    it('should return the endianess of the image', () => {
+        TestImages.Builtin.logo.use(input => {
             input.write(MagickFormat.Farbfeld, (data) => {
                 ImageMagick.read(data, output => {
                     expect(output.endian).toBe(Endian.MSB);
@@ -17,8 +17,8 @@ describe('MagickImage#endian', () => {
         });
     });
 
-    it('should change the endianess of the image', async () => {
-        await TestImages.Builtin.logo.read(image => {
+    it('should change the endianess of the image', () => {
+        TestImages.Builtin.logo.use(image => {
             image.endian = Endian.LSB;
             expect(image.endian).toBe(Endian.LSB);
         });

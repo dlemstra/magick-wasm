@@ -6,13 +6,13 @@ import { TestImages } from '../test-images';
 
 describe('MagickImage#colorType', () => {
     it('should return the color type', async () => {
-        await TestImages.Builtin.logo.read(image => {
+        TestImages.Builtin.logo.use(image => {
             expect(image.colorType).toBe(ColorType.Palette);
         });
     });
 
     it('should return the color type of the settings when that is not undefined', async () => {
-        await TestImages.Builtin.logo.read(image => {
+        TestImages.Builtin.logo.use(image => {
             image.settings.colorType = ColorType.Grayscale;
 
             expect(image.colorType).toBe(ColorType.Grayscale);
@@ -20,7 +20,7 @@ describe('MagickImage#colorType', () => {
     });
 
     it('should change color type', async () => {
-        await TestImages.Builtin.logo.read(image => {
+        TestImages.Builtin.logo.use(image => {
             image.colorType = ColorType.TrueColor;
             expect(image.colorType).toBe(ColorType.TrueColor);
         });

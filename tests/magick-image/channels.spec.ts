@@ -6,8 +6,8 @@ import { PixelChannel } from '../../src/pixel-channel';
 import { TestImages } from '../test-images';
 
 describe('MagickImage#channels', () => {
-    it('should return the correct channels', async () => {
-        await TestImages.Builtin.logo.read(image => {
+    it('should return the correct channels', () => {
+         TestImages.Builtin.logo.use(image => {
             const channels = image.channels;
 
             expect(channels.length).toBe(3);

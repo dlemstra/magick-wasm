@@ -5,14 +5,14 @@ import { CompositeOperator } from '../../src/composite-operator';
 import { TestImages } from '../test-images';
 
 describe('MagickImage#compose', () => {
-    it('should return the compose operator', async () => {
-        await TestImages.Builtin.logo.read(image => {
+    it('should return the compose operator', () => {
+        TestImages.Builtin.logo.use(image => {
             expect(image.compose).toBe(CompositeOperator.Over);
         });
     });
 
-    it('should change the compose operator', async () => {
-        await TestImages.Builtin.logo.read(image => {
+    it('should change the compose operator', () => {
+        TestImages.Builtin.logo.use(image => {
             image.compose = CompositeOperator.ChangeMask;
             expect(image.compose).toBe(CompositeOperator.ChangeMask);
         });

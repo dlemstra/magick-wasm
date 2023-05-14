@@ -5,8 +5,8 @@ import { MagickFormat } from '../../src/magick-format';
 import { TestImages } from '../test-images';
 
 describe('Coders#jxl', () => {
-    it('should be able to write jxl image', async () => {
-        await TestImages.Builtin.logo.read((image) => {
+    it('should be able to write jxl image', () => {
+        TestImages.Builtin.logo.use((image) => {
             image.write(MagickFormat.Jxl, data => {
                 expect(data.length).toBe(31570);
             });

@@ -4,14 +4,14 @@
 import { TestImages } from '../test-images';
 
 describe('MagickImage#colormapSize', () => {
-    it('should return the colormap size of the image', async () => {
-        await TestImages.Builtin.logo.read(image => {
+    it('should return the colormap size of the image', () => {
+        TestImages.Builtin.logo.use(image => {
             expect(image.colormapSize).toBe(256);
         });
     });
 
-    it('should change the colormap size', async () => {
-        await TestImages.Builtin.logo.read(image => {
+    it('should change the colormap size', () => {
+        TestImages.Builtin.logo.use(image => {
             image.colormapSize = 100;
             expect(image.colormapSize).toBe(100);
         });
