@@ -223,8 +223,13 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return Disposable._disposeAfterExecution(array, array.func);
     }
 
-    static create(): IMagickImageCollection {
-        return MagickImageCollection.createObject();
+    static create(): IMagickImageCollection;
+    static create(array: Uint8Array): IMagickImageCollection;
+    static create(arrayOrUndefined?: Uint8Array): IMagickImageCollection {
+        const images = MagickImageCollection.createObject();
+        if (arrayOrUndefined !== undefined)
+            images.read(arrayOrUndefined);
+        return images;
     }
 
     /** @internal */
