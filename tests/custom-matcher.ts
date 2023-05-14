@@ -6,16 +6,13 @@ import { MagickColor } from '../src/magick-color';
 import { PixelChannel } from '../src/pixel-channel';
 import { Quantum } from '../src/quantum';
 
-interface CustomMatchers {
-    toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => void;
+interface MatcherResult {
+    pass: boolean;
+    message: () => string;
 }
-declare global {
-    namespace Vi { /* eslint-disable-line @typescript-eslint/no-namespace */
-        /* eslint-disable @typescript-eslint/no-empty-interface */
-        interface Assertion extends CustomMatchers {}
-        interface AsymmetricMatchersContaining extends CustomMatchers {}
-        /* eslint-enable @typescript-eslint/no-empty-interface */
-    }
+
+export interface ICustomMatchers {
+    toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => MatcherResult;
 }
 
 function toHex(value: number): string {
@@ -64,7 +61,7 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
     });
 }
 
-expect.extend({
+export const CustomMatchers = {
     toHavePixelWithColor: ((image: IMagickImage, x: number, y: number, colorOrString: MagickColor | string) => {
         const actualColor = pixelColor(image, x, y);
         const expectedColor = colorOrString.toString();
@@ -77,5 +74,5 @@ expect.extend({
             pass: false,
             message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`
         };
-    }) as () => { pass: boolean, message: () => string },
-});
+    }) as () => { pass: boolean, message: () => string }
+};
