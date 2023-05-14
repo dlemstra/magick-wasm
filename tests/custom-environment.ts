@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { CustomMatchers, ICustomMatchers } from './custom-matcher';
+import { ImageMagick, initializeImageMagick } from '../src/image-magick';
 import { ImageMagickApi } from '@dlemstra/magick-native/magick';
 import { Magick } from '../src/magick';
-import { TestFiles } from './test-files';
-import { ImageMagick, initializeImageMagick } from '../src/image-magick';
+import { TestFonts } from './test-fonts';
 import * as fs from 'fs';
 
 declare global {
@@ -27,8 +27,8 @@ if (!global.native) {
         await initializeImageMagick();
     }
 
-    const font = TestFiles.Fonts.kaushanScriptRegularTtf;
-    Magick.addFont(font.name, font.file.toBufferSync());
+    const font = TestFonts.kaushanScriptRegularTtf;
+    Magick.addFont(font.name, font.data);
 
     global.native = ImageMagick._api;
 }

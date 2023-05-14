@@ -9,7 +9,7 @@ import { DrawableText } from '../../src/drawables/drawable-text';
 import { Gravity } from '../../src/gravity';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-import { TestFiles } from '../test-files';
+import { TestFonts } from '../test-fonts';
 
 let image: IMagickImage;
 
@@ -37,7 +37,7 @@ describe('DrawableGravity', () => {
         image.draw([
             new DrawableFillColor(MagickColors.Green),
             new DrawableGravity(gravity),
-            new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
+            new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
             new DrawableFontPointSize(10),
             new DrawableText(0, 0, 'Magick'),
         ])

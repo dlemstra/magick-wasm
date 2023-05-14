@@ -4,12 +4,12 @@
 import { ImageMagick } from '../../../src/image-magick';
 import { MagickColor } from '../../../src/magick-color';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
-import { TestFiles } from '../../test-files';
+import { TestFonts } from '../../test-fonts';
 
 describe('MagickSettings#backgroundColor', () => {
     it('should use the correct background color', () => {
         const settings = new MagickReadSettings();
-        settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFonts.kaushanScriptRegularTtf.name;
         settings.backgroundColor = new MagickColor('pink');
 
         ImageMagick.read('label:magick-wasm', settings, (image) => {

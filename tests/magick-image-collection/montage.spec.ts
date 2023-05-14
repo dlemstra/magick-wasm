@@ -6,6 +6,7 @@ import { MagickImageCollection } from '../../src/magick-image-collection';
 import { MagickGeometry } from '../../src/magick-geometry';
 import { MontageSettings } from '../../src/settings/montage-settings';
 import { TestFiles } from '../test-files';
+import { TestFonts } from '../test-fonts';
 
 describe('MagickImageCollection#montage', () => {
     it('should throw exception when collection is empty', () => {
@@ -21,7 +22,7 @@ describe('MagickImageCollection#montage', () => {
             images[1].page = new MagickGeometry(100, 100, images[1].width, images[1].height);
 
             const settings = new MontageSettings();
-            settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
+            settings.font = TestFonts.kaushanScriptRegularTtf.name;
             settings.borderWidth = 20;
 
             images.montage(settings, image => {
