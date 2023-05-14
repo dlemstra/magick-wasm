@@ -1,8 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IMagickImage, MagickImage } from '../src/magick-image';
-import { IMagickImageCollection, MagickImageCollection } from '../src/magick-image-collection';
+import { MagickColor } from '../src/magick-color';
+import { MagickColors } from '../src/magick-colors';
+import { MagickImage, IMagickImage } from '../src/magick-image';
+import { MagickImageCollection, IMagickImageCollection } from '../src/magick-image-collection';
 import * as fs from 'fs';
 
 interface Cloneable<T> {
@@ -69,6 +71,24 @@ class TestImageCollection extends TestImageBase<IMagickImageCollection> {
     }
 }
 
+class TestImageFromColor extends TestImageBase<IMagickImage> {
+    private readonly _color: MagickColor;
+    private readonly _height: number;
+    private readonly _width: number;
+
+    constructor(color: MagickColor, width: number, height: number) {
+        super();
+
+        this._color = color;
+        this._width = width;
+        this._height = height;
+    }
+
+    load(): IMagickImage {
+        return MagickImage.create(this._color, this._width, this._height);
+    }
+}
+
 export class TestImages {
     static readonly cmykJpg = new TestImage('tests/images/cmyk.jpg');
     static readonly fujiFilmFinePixS1ProJpg = new TestImage('tests/images/fuji-film-fine-pix-s1-pro.jpg');
@@ -79,5 +99,9 @@ export class TestImages {
     static Builtin = class {
         static readonly logo = new BuiltinTestImage('logo:');
         static readonly wizard = new BuiltinTestImage('wizard:');
+    }
+
+    static Color = class {
+        static readonly red = new TestImageFromColor(MagickColors.Red, 1, 1);
     }
 }
