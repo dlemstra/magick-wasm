@@ -5,7 +5,7 @@ import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
 import { MagickFormat } from '../../src/magick-format';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
 
@@ -26,7 +26,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array async', async () => {
-        const data = await TestFiles.imageMagickJpg.toBuffer();
+        const data = await TestImages.imageMagickJpg.toBuffer();
         await ImageMagick.read(data, async (image) => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
@@ -35,7 +35,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array', () => {
-        const data = TestFiles.imageMagickJpg.toBufferSync();
+        const data = TestImages.imageMagickJpg.toBufferSync();
         ImageMagick.read(data, (image) => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
@@ -43,7 +43,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array with specified format async', async () => {
-        const data = await TestFiles.imageMagickJpg.toBuffer();
+        const data = await TestImages.imageMagickJpg.toBuffer();
         await expect(async () => {
             await ImageMagick.read(data, MagickFormat.Png, async () => {
                 await bogusAsyncMethod();
@@ -54,7 +54,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array with specified format', () => {
-        const data = TestFiles.imageMagickJpg.toBufferSync();
+        const data = TestImages.imageMagickJpg.toBufferSync();
         expect(() => {
             ImageMagick.read(data, MagickFormat.Png, (image) => {
                 console.log(image);

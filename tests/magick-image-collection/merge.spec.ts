@@ -3,7 +3,7 @@
 
 import { ErrorMetric } from '../../src/error-metric';
 import { IMagickImageCollection, MagickImageCollection } from '../../src/magick-image-collection';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 let images: IMagickImageCollection;
 
@@ -23,8 +23,8 @@ describe('MagickImageCollection#merge', () => {
     });
 
     it('should merge the images', async () => {
-        await TestFiles.roseSparkleGif.readCollection(async roses => {
-            await TestFiles.imageMagickJpg.read(imageMagickJpg => {
+        await TestImages.roseSparkleGif.readCollection(async roses => {
+            await TestImages.imageMagickJpg.read(imageMagickJpg => {
 
                 roses.unshift(imageMagickJpg);
 

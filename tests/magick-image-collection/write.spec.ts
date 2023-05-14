@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { IMagickImageCollection, MagickImageCollection } from '../../src/magick-image-collection';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 let images: IMagickImageCollection;
 
@@ -22,7 +22,7 @@ describe('MagickImageCollection#write', () => {
     });
 
     it('should write images to array', () => {
-        const data = TestFiles.roseSparkleGif.toBufferSync();
+        const data = TestImages.roseSparkleGif.toBufferSync();
         images.read(data);
 
         images.write(newData => {

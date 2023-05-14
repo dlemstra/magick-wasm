@@ -3,7 +3,7 @@
 
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestFiles  } from '../test-files';
+import { TestImages } from '../test-images';
 
 let image: IMagickImage;
 
@@ -30,7 +30,7 @@ describe('MagickImage#ping', () => {
     });
 
     it('should ping image from array', () => {
-        const data = TestFiles.imageMagickJpg.toBufferSync();
+        const data = TestImages.imageMagickJpg.toBufferSync();
 
         image.ping(data);
         expect(image.width).toBe(123);

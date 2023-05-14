@@ -4,7 +4,7 @@
 import { ErrorMetric } from '../../src/error-metric';
 import { MagickImageCollection } from '../../src/magick-image-collection';
 import { MagickFormat } from '../../src/magick-format';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('MagickImageCollection#flatten', () => {
     it('should throw exception when collection is empty', () => {
@@ -15,7 +15,7 @@ describe('MagickImageCollection#flatten', () => {
     });
 
     it('should flatten the images', async () => {
-        await TestFiles.roseSparkleGif.readCollection(images => {
+        await TestImages.roseSparkleGif.readCollection(images => {
             images.flatten(image => {
                 expect(image.format).toBe(MagickFormat.Gif);
                 expect(image.width).toBe(70);

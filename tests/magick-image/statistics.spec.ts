@@ -3,11 +3,11 @@
 
 import { Channels } from '../../src/channels';
 import { PixelChannel } from '../../src/pixel-channel';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('MagickImage#statistics', () => {
     it('should return the statistics for the all channels', async () => {
-        await TestFiles.fujiFilmFinePixS1ProJpg.read(image => {
+        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
             const statistics = image.statistics();
 
             expect(statistics.channels.length).toBe(4);
@@ -19,7 +19,7 @@ describe('MagickImage#statistics', () => {
     });
 
     it('should return the statistics for the specified channels', async () => {
-        await TestFiles.fujiFilmFinePixS1ProJpg.read(image => {
+        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
             const statistics = image.statistics(Channels.Blue);
 
             expect(statistics.channels.length).toBe(2);
@@ -29,7 +29,7 @@ describe('MagickImage#statistics', () => {
     });
 
     it('should return the statistics for a channel', async () => {
-        await TestFiles.fujiFilmFinePixS1ProJpg.read(image => {
+        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
             const statistics = image.statistics(Channels.Blue);
 
             const channelStatistics = statistics.getChannel(PixelChannel.Blue);
@@ -49,7 +49,7 @@ describe('MagickImage#statistics', () => {
     });
 
     it('should return the statistics for the composite channel', async () => {
-        await TestFiles.fujiFilmFinePixS1ProJpg.read(image => {
+        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
             const statistics = image.statistics(Channels.Green);
 
             const channelStatistics = statistics.composite();
@@ -66,7 +66,7 @@ describe('MagickImage#statistics', () => {
     });
 
     it('should return null as the statistics for a unknown channel', async () => {
-        await TestFiles.fujiFilmFinePixS1ProJpg.read(image => {
+        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
             const statistics = image.statistics(Channels.Red);
 
             expect(statistics.getChannel(PixelChannel.Green)).toBeNull();

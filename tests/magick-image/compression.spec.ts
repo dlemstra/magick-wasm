@@ -2,11 +2,11 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { CompressionMethod } from '../../src/compression-method';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('MagickImage#compression', () => {
     it('should return the compression method', async () => {
-        await TestFiles.redPng.read(image => {
+        await TestImages.redPng.read(image => {
             expect(image.compression).toBe(CompressionMethod.Zip);
         });
     });

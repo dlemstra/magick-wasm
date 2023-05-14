@@ -4,11 +4,11 @@
 import { Endian } from '../../../src/endian';
 import { ImageMagick } from '../../../src/image-magick';
 import { MagickFormat } from '../../../src/magick-format';
-import { TestFiles } from '../../test-files';
+import { TestImages } from '../../test-images';
 
 describe('MagickSettings#endian', () => {
     it('should be used when writing the image', async () => {
-        await TestFiles.redPng.read(input => {
+        await TestImages.redPng.read(input => {
             expect(input.endian).toBe(Endian.Undefined);
 
             input.settings.endian = Endian.LSB;

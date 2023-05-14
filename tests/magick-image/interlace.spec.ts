@@ -2,11 +2,11 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Interlace } from '../../src/interlace';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('MagickImage#interlace', () => {
     it('should return interlace of the image', async () => {
-        await TestFiles.roseSparkleGif.read(image => {
+        await TestImages.roseSparkleGif.read(image => {
             expect(image.interlace).toBe(Interlace.NoInterlace);
         });
     });

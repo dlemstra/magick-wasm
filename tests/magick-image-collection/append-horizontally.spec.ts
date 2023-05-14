@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { MagickImageCollection } from '../../src/magick-image-collection';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('MagickImageCollection#appendHorizontally', () => {
     it('should throw exception when collection is empty', () => {
@@ -13,7 +13,7 @@ describe('MagickImageCollection#appendHorizontally', () => {
     });
 
     it('should create a new image with the images appended horizontally', async () => {
-        await TestFiles.roseSparkleGif.readCollection(images => {
+        await TestImages.roseSparkleGif.readCollection(images => {
             images.appendHorizontally(image => {
                 expect(image.width).toBe(210);
                 expect(image.height).toBe(46);

@@ -8,7 +8,7 @@ import { MagickReadSettings } from '../src/settings/magick-read-settings';
 import * as fs from 'fs';
 import * as util from 'util';
 
-export class TestFile {
+export class TestImage {
     private readonly _fileName: string;
     private _image: IMagickImage | null = null;
     private _images: IMagickImageCollection | null = null;
@@ -74,15 +74,15 @@ export class TestFile {
     }
 }
 
-export class TestFiles {
-    static readonly cmykJpg = new TestFile('tests/images/cmyk.jpg');
-    static readonly fujiFilmFinePixS1ProJpg = new TestFile('tests/images/fuji-film-fine-pix-s1-pro.jpg');
-    static readonly imageMagickJpg = new TestFile('tests/images/image-magick.jpg');
-    static readonly redPng = new TestFile('tests/images/red.png');
-    static readonly roseSparkleGif = new TestFile('tests/images/röse-sparkle.gif');
+export class TestImages {
+    static readonly cmykJpg = new TestImage('tests/images/cmyk.jpg');
+    static readonly fujiFilmFinePixS1ProJpg = new TestImage('tests/images/fuji-film-fine-pix-s1-pro.jpg');
+    static readonly imageMagickJpg = new TestImage('tests/images/image-magick.jpg');
+    static readonly redPng = new TestImage('tests/images/red.png');
+    static readonly roseSparkleGif = new TestImage('tests/images/röse-sparkle.gif');
 
     static Builtin = class {
-        static readonly logo = new TestFile('logo:');
-        static readonly wizard = new TestFile('wizard:');
+        static readonly logo = new TestImage('logo:');
+        static readonly wizard = new TestImage('wizard:');
     }
 }

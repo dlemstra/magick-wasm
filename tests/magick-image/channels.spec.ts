@@ -3,11 +3,11 @@
 
 import { AlphaOption } from '../../src/alpha-option';
 import { PixelChannel } from '../../src/pixel-channel';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('MagickImage#channels', () => {
     it('should return the correct channels', async () => {
-        await TestFiles.Builtin.logo.read(image => {
+        await TestImages.Builtin.logo.read(image => {
             const channels = image.channels;
 
             expect(channels.length).toBe(3);
@@ -18,7 +18,7 @@ describe('MagickImage#channels', () => {
     });
 
     it('should return the correct channels for a cmyk image', async () => {
-        await TestFiles.cmykJpg.read(image => {
+        await TestImages.cmykJpg.read(image => {
             image.alpha(AlphaOption.Activate);
 
             const channels = image.channels;

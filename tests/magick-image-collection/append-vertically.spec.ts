@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { MagickImageCollection } from '../../src/magick-image-collection';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('MagickImageCollection#appendVertically', () => {
     it('should throw exception when collection is empty', () => {
@@ -13,7 +13,7 @@ describe('MagickImageCollection#appendVertically', () => {
     });
 
     it('should create a new image with the images appended vertically', async () => {
-        await TestFiles.roseSparkleGif.readCollection(images => {
+        await TestImages.roseSparkleGif.readCollection(images => {
             images.appendVertically(image => {
                 expect(image.width).toBe(70);
                 expect(image.height).toBe(138);

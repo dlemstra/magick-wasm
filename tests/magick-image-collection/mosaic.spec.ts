@@ -5,7 +5,7 @@ import { ErrorMetric } from '../../src/error-metric';
 import { MagickImageCollection } from '../../src/magick-image-collection';
 import { MagickFormat } from '../../src/magick-format';
 import { MagickGeometry } from '../../src/magick-geometry';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('MagickImageCollection#mosaic', () => {
     it('should throw exception when collection is empty', () => {
@@ -16,7 +16,7 @@ describe('MagickImageCollection#mosaic', () => {
     });
 
     it('should create a mosaic of the images', async () => {
-        await TestFiles.roseSparkleGif.readCollection(images => {
+        await TestImages.roseSparkleGif.readCollection(images => {
             images[1].page = new MagickGeometry(100, 100, images[1].width, images[1].height);
 
             images.mosaic(image => {

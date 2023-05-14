@@ -4,7 +4,7 @@
 import { ImageMagick } from '../../src/image-magick';
 import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 let image: IMagickImage;
 
@@ -37,7 +37,7 @@ describe('MagickImage#strip', () => {
     });
 
     it('should remove the profiles', async () => {
-        await TestFiles.fujiFilmFinePixS1ProJpg.read(image => {
+        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
             expect(image.getProfile('icc')).not.toBeNull();
 
             image.strip();

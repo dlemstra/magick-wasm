@@ -3,11 +3,11 @@
 
 import { Density } from '../../src/density';
 import { DensityUnit } from '../../src/density-unit';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('Magick#density', () => {
     it('should return the density of the image', () => {
-        TestFiles.redPng.read((image) => {
+        TestImages.redPng.read((image) => {
             const density = image.density;
 
             expect(density.x).toBe(27.95);
@@ -17,7 +17,7 @@ describe('Magick#density', () => {
     });
 
     it('should change the density of the image', () => {
-        TestFiles.redPng.read((image) => {
+        TestImages.redPng.read((image) => {
             image.density = new Density(42, 24, DensityUnit.PixelsPerInch);
             const density = image.density;
 

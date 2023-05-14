@@ -3,11 +3,11 @@
 
 import { GifDisposeMethod } from '../../src/gif-dispose-method';
 import { ImageMagick } from '../../src/image-magick';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('MagickImage#gifDisposeMethod', () => {
     it('should return the gif dispose method of the image', async () => {
-        await TestFiles.roseSparkleGif.readCollection(images => {
+        await TestImages.roseSparkleGif.readCollection(images => {
             expect(images[0].gifDisposeMethod).toBe(GifDisposeMethod.None);
             expect(images[1].gifDisposeMethod).toBe(GifDisposeMethod.None);
             expect(images[2].gifDisposeMethod).toBe(GifDisposeMethod.None);
@@ -15,7 +15,7 @@ describe('MagickImage#gifDisposeMethod', () => {
     });
 
     it('should change the gif dispose method', async () => {
-        await TestFiles.roseSparkleGif.readCollection(input => {
+        await TestImages.roseSparkleGif.readCollection(input => {
             input[0].gifDisposeMethod = GifDisposeMethod.Background;
             input[2].gifDisposeMethod = GifDisposeMethod.Previous;
 

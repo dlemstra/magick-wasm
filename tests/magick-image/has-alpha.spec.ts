@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { IMagickImage, MagickImage } from '../../src/magick-image';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 let image: IMagickImage;
 
@@ -16,13 +16,13 @@ afterEach(() => {
 
 describe('MagickImage#hasAlpha', () => {
     it('should return true when image has alpha channel', async () => {
-        await TestFiles.redPng.read(image => {
+        await TestImages.redPng.read(image => {
             expect(image.hasAlpha).toBe(true);
         });
     });
 
     it('should should disable the alpha channel', async () => {
-        await TestFiles.redPng.read(image => {
+        await TestImages.redPng.read(image => {
             image.hasAlpha = false;
 
             expect(image.hasAlpha).toBe(false);

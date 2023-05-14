@@ -3,7 +3,7 @@
 
 import { ImageMagick } from '../../src/image-magick';
 import { MagickColors } from '../../src/magick-colors';
-import { TestFiles } from '../test-files';
+import { TestImages } from '../test-images';
 
 describe('MagickImage#getProfile', () => {
     it('should return null when image does not contain profile', () => {
@@ -15,7 +15,7 @@ describe('MagickImage#getProfile', () => {
     });
 
     it('should return the specified profile', async () => {
-        await TestFiles.fujiFilmFinePixS1ProJpg.read(image => {
+        await TestImages.fujiFilmFinePixS1ProJpg.read(image => {
 
             const profile = image.getProfile('icc');
 
