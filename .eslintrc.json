@@ -21,6 +21,7 @@
         "dist",
         "deno/*.ts",
         "demo/*.js",
+        "issue/*.ts",
         "tools/*.js",
         "vite.config.ts"
     ],

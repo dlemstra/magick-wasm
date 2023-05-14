@@ -37,10 +37,11 @@
     ],
     "scripts": {
         "build": "vite build && dts-bundle-generator src/index.ts -o dist/index.d.ts --external-inlines @dlemstra/magick-native",
-        "test": "vitest run",
-        "lint": "eslint --max-warnings=0 .",
         "demo": "cd demo && tsc && node demo.js",
+        "lint": "eslint --max-warnings=0 .",
+        "issue": "cd issue && tsc && node issue.js",
         "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE . && copyfiles -f ./node_modules/@dlemstra/magick-native/magick.wasm dist",
+        "test": "vitest run",
         "update-index": "cd tools && tsc && node update-index.js ../src"
     },
     "devDependencies": {

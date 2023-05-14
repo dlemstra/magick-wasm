@@ -4,5 +4,6 @@ demo/*.js
 publish/etc
 publish/*.tgz
 tools/*.js
+issue/*.js
 dist
 NOTICE
