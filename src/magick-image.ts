@@ -217,6 +217,7 @@ export interface IMagickImage extends IDisposable {
     readFromCanvas(canvas: HTMLCanvasElement): void;
     removeArtifact(name: string): void;
     removeAttribute(name: string): void;
+    removeProfile(name: string): void;
     removeWriteMask(): void;
     repage(): void;
     resize(geometry: MagickGeometry): void;
@@ -1184,6 +1185,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     removeAttribute(name: string): void {
         _withString(name, namePtr => {
             ImageMagick._api._MagickImage_RemoveAttribute(this._instance, namePtr);
+        });
+    }
+
+    removeProfile(name: string): void {
+        _withString(name, namePtr => {
+            ImageMagick._api._MagickImage_RemoveProfile(this._instance, namePtr);
         });
     }
 
