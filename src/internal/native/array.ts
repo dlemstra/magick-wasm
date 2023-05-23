@@ -5,7 +5,7 @@ import { ImageMagick } from '../../image-magick';
 import { quantumArray } from '@dlemstra/magick-native/magick';
 
 /** @internal */
-export function _withArray<TReturnType>(array: Uint8Array, func: (instance: number) => TReturnType): TReturnType {
+export function _withArray<TReturnType>(array: Uint8Array | Uint8ClampedArray, func: (instance: number) => TReturnType): TReturnType {
     const length = array.length;
     if (length === 0)
         return func(0);

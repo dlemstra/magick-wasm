@@ -51,7 +51,7 @@ import { StringInfo } from './internal/string-info';
 import { VirtualPixelMethod } from './virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './gravity';
-import { _withDoubleArray } from './internal/native/array';
+import { _withDoubleArray, _withArray } from './internal/native/array';
 
 export interface IMagickImage extends IDisposable {
     /** @internal */
