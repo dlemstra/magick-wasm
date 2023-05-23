@@ -9,7 +9,6 @@ describe('MagickImage#getProfile', () => {
     it('should return null when image does not contain profile', () => {
         ImageMagick.read(MagickColors.Black, 1, 1, (image) => {
             const profile = image.getProfile('foo');
-
             expect(profile).toBeNull();
         });
     });
@@ -18,16 +17,14 @@ describe('MagickImage#getProfile', () => {
         TestImages.fujiFilmFinePixS1ProJpg.use(image => {
 
             const profile = image.getProfile('icc');
-
             expect(profile).not.toBeNull();
             if (profile !== null) {
                 expect(profile.name).toEqual('icc');
 
                 const data = profile.getData();
                 expect(data).not.toBeNull();
-                if (data !== null) {
+                if (data !== null)
                     expect(data.length).toBe(3144);
-                }
             }
         });
     });
