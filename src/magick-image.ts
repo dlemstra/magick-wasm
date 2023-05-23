@@ -106,6 +106,7 @@ export interface IMagickImage extends IDisposable {
     virtualPixelMethod: VirtualPixelMethod;
     width: number;
 
+    addProfile(name: string, data: Uint8Array): void
     alpha(value: AlphaOption): void;
     autoOrient(): void;
     autoThreshold(method: AutoThresholdMethod): void;
@@ -551,6 +552,24 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
+
+    addProfile(name: string, data:Uint8Array): void {
+        Exception.use(exception => {
+            _withString(name, namePtr => {
+                const length = data.byteLength;
+                let dataPtr = 0;
+                try {
+                    dataPtr = ImageMagick._api._malloc(length);
+                    ImageMagick._api.HEAPU8.set(data, dataPtr);
+                    ImageMagick._api._MagickImage_AddProfile(this._instance, namePtr, dataPtr, length, exception.ptr);
+                }
+                finally {
+                    if (dataPtr !== 0)
+                        ImageMagick._api._free(dataPtr);
+                }
+            });
+        });
+    }
 
     alpha(value: AlphaOption): void {
         Exception.usePointer(exception => {
