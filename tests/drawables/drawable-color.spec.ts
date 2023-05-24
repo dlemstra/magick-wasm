@@ -2,29 +2,20 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { DrawableColor } from '../../src/drawables/drawable-color';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
 import { PaintMethod } from '../../src/paint-method';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-    image.read(MagickColors.White, 2, 2);
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '../test-images';
 
 describe('DrawableColor', () => {
     it('should color the image with the default fill color', () => {
-        image.draw([new DrawableColor(0, 0, PaintMethod.Floodfill)]);
+        TestImages.Color.white.use((image) => {
+            image.draw([new DrawableColor(0, 0, PaintMethod.Floodfill)]);
 
-        const fillColor = MagickColors.Black;
-        expect(image).toHavePixelWithColor(0, 0, fillColor);
-        expect(image).toHavePixelWithColor(1, 0, fillColor);
-        expect(image).toHavePixelWithColor(0, 1, fillColor);
-        expect(image).toHavePixelWithColor(1, 1, fillColor);
+            const fillColor = MagickColors.Black;
+            expect(image).toHavePixelWithColor(0, 0, fillColor);
+            expect(image).toHavePixelWithColor(1, 0, fillColor);
+            expect(image).toHavePixelWithColor(0, 1, fillColor);
+            expect(image).toHavePixelWithColor(1, 1, fillColor);
+        });
     });
 });
