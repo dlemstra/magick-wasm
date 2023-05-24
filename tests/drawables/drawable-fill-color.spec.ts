@@ -3,30 +3,21 @@
 
 import { DrawableColor } from '../../src/drawables/drawable-color';
 import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
 import { PaintMethod } from '../../src/paint-method';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-    image.read(MagickColors.Black, 1, 1);
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '../test-images';
 
 describe('DrawableFillColor', () => {
     it('should set the fill color for following drawing actions', () => {
-        const fillColor = MagickColors.Red;
+        TestImages.Color.black.use((image) => {
+            const fillColor = MagickColors.Red;
 
-        image.draw([
-            new DrawableFillColor(fillColor),
-            new DrawableColor(0, 0, PaintMethod.Floodfill)
-        ]);
+            image.draw([
+                new DrawableFillColor(fillColor),
+                new DrawableColor(0, 0, PaintMethod.Floodfill)
+            ]);
 
-        expect(image).toHavePixelWithColor(0, 0, fillColor);
+            expect(image).toHavePixelWithColor(0, 0, fillColor);
+        });
     });
 });

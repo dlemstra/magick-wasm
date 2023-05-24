@@ -4,43 +4,35 @@
 import { DrawableColor } from '../../src/drawables/drawable-color';
 import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
 import { DrawableFillOpacity } from '../../src/drawables/drawable-fill-opacity';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColor } from '../../src/magick-color';
-import { MagickColors } from '../../src/magick-colors';
 import { PaintMethod } from '../../src/paint-method';
 import { Percentage } from '../../src/percentage';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-    image.read(MagickColors.Black, 1, 1);
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '../test-images';
 
 describe('DrawableFillOpacity', () => {
     it('should set the fill color opacity for following drawing actions', () => {
-        image.draw([
-            new DrawableFillColor(new MagickColor(255, 0, 0)),
-            new DrawableFillOpacity(new Percentage(10)),
-            new DrawableColor(0, 0, PaintMethod.Floodfill)
-        ]);
+        TestImages.Color.black.use((image) => {
+            image.draw([
+                new DrawableFillColor(new MagickColor(255, 0, 0)),
+                new DrawableFillOpacity(new Percentage(10)),
+                new DrawableColor(0, 0, PaintMethod.Floodfill)
+            ]);
 
-        const fillColor = new MagickColor(255, 0, 0, 26);
-        expect(image).toHavePixelWithColor(0, 0, fillColor);
+            const fillColor = new MagickColor(255, 0, 0, 26);
+            expect(image).toHavePixelWithColor(0, 0, fillColor);
+        });
     });
 
     it('should set the fill color opacity for a fully transparent fill color', () => {
-        image.draw([
-            new DrawableFillColor(new MagickColor(255, 0, 0, 0)),
-            new DrawableFillOpacity(new Percentage(10)),
-            new DrawableColor(0, 0, PaintMethod.Floodfill)
-        ]);
+        TestImages.Color.black.use((image) => {
+            image.draw([
+                new DrawableFillColor(new MagickColor(255, 0, 0, 0)),
+                new DrawableFillOpacity(new Percentage(10)),
+                new DrawableColor(0, 0, PaintMethod.Floodfill)
+            ]);
 
-        const fillColor = new MagickColor(255, 0, 0, 26);
-        expect(image).toHavePixelWithColor(0, 0, fillColor);
+            const fillColor = new MagickColor(255, 0, 0, 26);
+            expect(image).toHavePixelWithColor(0, 0, fillColor);
+        });
     });
 });

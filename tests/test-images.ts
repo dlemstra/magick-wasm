@@ -103,5 +103,7 @@ export class TestImages {
 
     static Color = class {
         static readonly red = new TestImageFromColor(MagickColors.Red, 1, 1);
+        static readonly black = new TestImageFromColor(MagickColors.Black, 1, 1);
+        static readonly white = new TestImageFromColor(MagickColors.Black, 2, 2);
     }
 }
