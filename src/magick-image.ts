@@ -51,7 +51,7 @@ import { StringInfo } from './internal/string-info';
 import { VirtualPixelMethod } from './virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './gravity';
-import { _withDoubleArray, _withArray } from './internal/native/array';
+import { _withByteArray, _withDoubleArray } from './internal/native/array';
 
 export interface IMagickImage extends IDisposable {
     /** @internal */
@@ -553,10 +553,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
 
-    addProfile(name: string, data:Uint8Array): void {
+    addProfile(name: string, data: Uint8Array): void {
         Exception.use(exception => {
             _withString(name, namePtr => {
-                _withArray(data, dataPtr => {
+                _withByteArray(data, dataPtr => {
                     ImageMagick._api._MagickImage_AddProfile(this._instance, namePtr, dataPtr, data.byteLength, exception.ptr);
                 });
             });
@@ -1569,8 +1569,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     private readFromArray(array: Uint8Array | Uint8ClampedArray, readSettings: MagickReadSettings, exception: Exception): void {
         readSettings._use(settings => {
-            _withArray(array, (data) => {
-                const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, data, 0, array.length, exception.ptr);
+            _withByteArray(array, (arrayPtr) => {
+                const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, arrayPtr, 0, array.byteLength, exception.ptr);
                 this._setInstance(instance, exception);
             });
         });

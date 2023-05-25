@@ -1,22 +1,24 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { ByteArray } from '../../byte-array';
 import { ImageMagick } from '../../image-magick';
 import { quantumArray } from '@dlemstra/magick-native/magick';
+import { MagickError } from '../../magick-error';
 
 /** @internal */
-export function _withArray<TReturnType>(array: Uint8Array | Uint8ClampedArray, func: (instance: number) => TReturnType): TReturnType {
-    const length = array.length;
-    if (length === 0)
-        return func(0);
+export function _withByteArray<TReturnType>(array: ByteArray, func: (instance: number) => TReturnType): TReturnType {
+    if (array.byteLength === 0)
+        throw new MagickError('The specified array cannot be empty.');
 
-    const instance = ImageMagick._api._malloc(length);
+    let instance = 0;
     try {
+        instance = ImageMagick._api._malloc(array.byteLength);
         ImageMagick._api.HEAPU8.set(array, instance);
         return func(instance);
     }
     finally {
-        if (instance != 0)
+        if (instance !== 0)
             ImageMagick._api._free(instance);
     }
 }
@@ -25,10 +27,11 @@ export function _withArray<TReturnType>(array: Uint8Array | Uint8ClampedArray, f
 export function _withDoubleArray<TReturnType>(array: number[], func: (instance: number) => TReturnType): TReturnType {
     const length = array.length * 8;
     if (length === 0)
-        return func(0);
+        throw new MagickError('The specified array cannot be empty.');
 
-    const instance = ImageMagick._api._malloc(length);
+    let instance = 0;
     try {
+        instance = ImageMagick._api._malloc(length);
         const buffer = new ArrayBuffer(length);
         const doubleArray = new Float64Array(buffer);
         for (let i = 0; i < array.length; i++)
@@ -37,22 +40,24 @@ export function _withDoubleArray<TReturnType>(array: number[], func: (instance: 
         return func(instance);
     }
     finally {
-        ImageMagick._api._free(instance);
+        if (instance !== 0)
+            ImageMagick._api._free(instance);
     }
 }
 
 /** @internal */
 export function _withQuantumArray<TReturnType>(array: quantumArray, func: (instance: number) => TReturnType): TReturnType {
-    const length = array.length * 8;
-    if (length === 0)
-        return func(0);
+    if (array.byteLength === 0)
+        throw new MagickError('The specified array cannot be empty.');
 
-    const instance = ImageMagick._api._malloc(length);
+    let instance = 0;
     try {
+        instance = ImageMagick._api._malloc(array.byteLength);
         ImageMagick._api.HEAPU8.set(array, instance);
         return func(instance);
     }
     finally {
-        ImageMagick._api._free(instance);
+        if (instance !== 0)
+            ImageMagick._api._free(instance);
     }
 }

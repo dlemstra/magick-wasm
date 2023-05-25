@@ -3,6 +3,7 @@
 
 export * from './alpha-option';
 export * from './auto-threshold-method';
+export * from './byte-array';
 export * from './channel-statistics';
 export * from './channels';
 export * from './chromaticity-info';
