@@ -51,7 +51,7 @@ import { StringInfo } from './internal/string-info';
 import { VirtualPixelMethod } from './virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './gravity';
-import { _withDoubleArray } from './internal/native/array';
+import { _withDoubleArray, _withArray } from './internal/native/array';
 
 export interface IMagickImage extends IDisposable {
     /** @internal */
@@ -556,17 +556,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     addProfile(name: string, data:Uint8Array): void {
         Exception.use(exception => {
             _withString(name, namePtr => {
-                const length = data.byteLength;
-                let dataPtr = 0;
-                try {
-                    dataPtr = ImageMagick._api._malloc(length);
-                    ImageMagick._api.HEAPU8.set(data, dataPtr);
-                    ImageMagick._api._MagickImage_AddProfile(this._instance, namePtr, dataPtr, length, exception.ptr);
-                }
-                finally {
-                    if (dataPtr !== 0)
-                        ImageMagick._api._free(dataPtr);
-                }
+                _withArray(data, dataPtr => {
+                    ImageMagick._api._MagickImage_AddProfile(this._instance, namePtr, dataPtr, data.byteLength, exception.ptr);
+                });
             });
         });
     }
@@ -1577,17 +1569,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     private readFromArray(array: Uint8Array | Uint8ClampedArray, readSettings: MagickReadSettings, exception: Exception): void {
         readSettings._use(settings => {
-            const length = array.byteLength;
-            let data = 0;
-            try {
-                data = ImageMagick._api._malloc(length);
-                ImageMagick._api.HEAPU8.set(array, data);
-                const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, data, 0, length, exception.ptr);
+            _withArray(array, (data) => {
+                const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, data, 0, array.length, exception.ptr);
                 this._setInstance(instance, exception);
-            } finally {
-                if (data !== 0)
-                    ImageMagick._api._free(data);
-            }
+            });
         });
     }
 
