@@ -9,7 +9,7 @@ import { MagickError } from '../../magick-error';
 /** @internal */
 export function _withByteArray<TReturnType>(array: ByteArray, func: (instance: number) => TReturnType): TReturnType {
     if (array.byteLength === 0)
-        throw new MagickError('The specified array cannot be empty.');
+        throw new MagickError('The specified array cannot be empty');
 
     let instance = 0;
     try {
@@ -27,7 +27,7 @@ export function _withByteArray<TReturnType>(array: ByteArray, func: (instance: n
 export function _withDoubleArray<TReturnType>(array: number[], func: (instance: number) => TReturnType): TReturnType {
     const length = array.length * 8;
     if (length === 0)
-        throw new MagickError('The specified array cannot be empty.');
+        throw new MagickError('The specified array cannot be empty');
 
     let instance = 0;
     try {
@@ -48,7 +48,7 @@ export function _withDoubleArray<TReturnType>(array: number[], func: (instance: 
 /** @internal */
 export function _withQuantumArray<TReturnType>(array: quantumArray, func: (instance: number) => TReturnType): TReturnType {
     if (array.byteLength === 0)
-        throw new MagickError('The specified array cannot be empty.');
+        throw new MagickError('The specified array cannot be empty');
 
     let instance = 0;
     try {

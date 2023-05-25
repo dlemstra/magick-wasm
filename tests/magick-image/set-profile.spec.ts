@@ -14,7 +14,13 @@ afterEach(() => {
     image.dispose();
 });
 
-describe('MagickImage#addProfile', () => {
+describe('MagickImage#setProfile', () => {
+    it('should throw error when array is empty', () => {
+        expect(() => {
+            image.setProfile('icc', new Uint8Array());
+        }).toThrowError('The specified array cannot be empty');
+    });
+
     it('should add the profile', () => {
         TestImages.fujiFilmFinePixS1ProJpg.use(sourceImage => {
             const profile = sourceImage.getProfile('icc');
@@ -27,7 +33,7 @@ describe('MagickImage#addProfile', () => {
 
                 if (profileData !== null) {
                     expect(profileData.length).toBe(3144);
-                    image.addProfile('icc', profileData);
+                    image.setProfile('icc', profileData);
                     const profile = image.getProfile('icc');
                     expect(profile).not.toBeNull();
 

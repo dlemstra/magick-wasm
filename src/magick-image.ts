@@ -106,7 +106,6 @@ export interface IMagickImage extends IDisposable {
     virtualPixelMethod: VirtualPixelMethod;
     width: number;
 
-    addProfile(name: string, data: Uint8Array): void
     alpha(value: AlphaOption): void;
     autoOrient(): void;
     autoThreshold(method: AutoThresholdMethod): void;
@@ -231,6 +230,7 @@ export interface IMagickImage extends IDisposable {
     setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
     setAttribute(name: string, value: string): void;
+    setProfile(name: string, data: Uint8Array): void
     setWriteMask(image: IMagickImage): void;
     sharpen(): void;
     sharpen(radius: number, sigma: number): void;
@@ -552,16 +552,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
-
-    addProfile(name: string, data: Uint8Array): void {
-        Exception.use(exception => {
-            _withString(name, namePtr => {
-                _withByteArray(data, dataPtr => {
-                    ImageMagick._api._MagickImage_AddProfile(this._instance, namePtr, dataPtr, data.byteLength, exception.ptr);
-                });
-            });
-        });
-    }
 
     alpha(value: AlphaOption): void {
         Exception.usePointer(exception => {
@@ -1268,6 +1258,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             _withString(name, namePtr => {
                 _withString(value, valuePtr => {
                     ImageMagick._api._MagickImage_SetAttribute(this._instance, namePtr, valuePtr, exception.ptr);
+                });
+            });
+        });
+    }
+
+    setProfile(name: string, data: Uint8Array): void {
+        Exception.use(exception => {
+            _withString(name, namePtr => {
+                _withByteArray(data, dataPtr => {
+                    ImageMagick._api._MagickImage_AddProfile(this._instance, namePtr, dataPtr, data.byteLength, exception.ptr);
                 });
             });
         });
