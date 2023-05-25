@@ -1267,7 +1267,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         Exception.use(exception => {
             _withString(name, namePtr => {
                 _withByteArray(data, dataPtr => {
-                    ImageMagick._api._MagickImage_AddProfile(this._instance, namePtr, dataPtr, data.byteLength, exception.ptr);
+                    ImageMagick._api._MagickImage_SetProfile(this._instance, namePtr, dataPtr, data.byteLength, exception.ptr);
                 });
             });
         });
