@@ -10,24 +10,24 @@ import * as fs from 'fs';
 interface Cloneable<T> {
     clone<TReturnType>(func: (clone: T) => TReturnType): TReturnType;
     clone<TReturnType>(func: (clone: T) => Promise<TReturnType>): Promise<TReturnType>;
-  }
+}
 
 abstract class TestImageBase<TImageType extends Cloneable<TImageType>> {
     private _image: TImageType | undefined;
 
     use<TReturnType>(func: (image: TImageType) => TReturnType): TReturnType;
     use<TReturnType>(func: (image: TImageType) => Promise<TReturnType>): Promise<TReturnType>;
-        use<TReturnType>(func: (image: TImageType) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-            if (this._image === undefined)
-                this._image = this.load();
+    use<TReturnType>(func: (image: TImageType) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        if (this._image === undefined)
+            this._image = this.load();
 
-            return this._image.clone(image => {
-                return func(image);
-            });
-        }
-
-        abstract load(): TImageType;
+        return this._image.clone(image => {
+            return func(image);
+        });
     }
+
+    abstract load(): TImageType;
+}
 
 class BuiltinTestImage extends TestImageBase<IMagickImage> {
     private readonly _name: string;
@@ -89,7 +89,18 @@ class TestImageFromColor extends TestImageBase<IMagickImage> {
     }
 }
 
+class EmptyTestImage {
+    use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        return MagickImage.create()._use(image => {
+            return func(image);
+        });
+    }
+}
+
 export class TestImages {
+    static readonly empty = new EmptyTestImage();
     static readonly cmykJpg = new TestImage('tests/images/cmyk.jpg');
     static readonly fujiFilmFinePixS1ProJpg = new TestImage('tests/images/fuji-film-fine-pix-s1-pro.jpg');
     static readonly imageMagickJpg = new TestImage('tests/images/image-magick.jpg');
