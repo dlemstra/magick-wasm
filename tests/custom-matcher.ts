@@ -12,8 +12,24 @@ interface MatcherResult {
 }
 
 export interface ICustomMatchers {
-    toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => MatcherResult;
+    toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => void;
 }
+
+export const CustomMatchers = {
+    toHavePixelWithColor: ((image: IMagickImage, x: number, y: number, colorOrString: MagickColor | string) => {
+        const actualColor = pixelColor(image, x, y);
+        const expectedColor = colorOrString.toString();
+
+        if (expectedColor === actualColor) {
+            return { pass: true, message: () => '' }
+        }
+
+        return {
+            pass: false,
+            message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`
+        };
+    }) as () => MatcherResult
+};
 
 function toHex(value: number): string {
     return value.toString(16).padStart(2, '0');
@@ -60,19 +76,3 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
         return result;
     });
 }
-
-export const CustomMatchers = {
-    toHavePixelWithColor: ((image: IMagickImage, x: number, y: number, colorOrString: MagickColor | string) => {
-        const actualColor = pixelColor(image, x, y);
-        const expectedColor = colorOrString.toString();
-
-        if (expectedColor === actualColor) {
-            return { pass: true, message: () => '' }
-        }
-
-        return {
-            pass: false,
-            message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`
-        };
-    }) as () => { pass: boolean, message: () => string }
-};
