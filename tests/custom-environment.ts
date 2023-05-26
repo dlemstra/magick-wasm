@@ -10,7 +10,7 @@ import * as fs from 'fs';
 
 declare global {
     var native: ImageMagickApi; /* eslint-disable-line no-var */
-    const expectToNotBeNull: <T>(value: any) => NonNullable<T>;
+    var expectToNotBeNull: <T>(value: T) => NonNullable<T>; /* eslint-disable-line no-var */
 
     namespace Chai { /* eslint-disable-line @typescript-eslint/no-namespace */
          /* eslint-disable @typescript-eslint/no-empty-interface */
@@ -40,7 +40,7 @@ expect.extend({
     toHavePixelWithColor: CustomMatchers.toHavePixelWithColor
 });
 
-(global as any).expectToNotBeNull = function <T>(value: T): NonNullable<T> {
+global.expectToNotBeNull = function <T>(value: T): NonNullable<T> {
     expect(value).not.toBeNull();
     return value as NonNullable<T>;
 }

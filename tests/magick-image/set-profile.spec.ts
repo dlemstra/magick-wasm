@@ -18,7 +18,7 @@ describe('MagickImage#setProfile', () => {
             profile = expectToNotBeNull(profile);
             expect(profile.name).toEqual('icc');
 
-            let profileData = profile.getData();
+            const profileData = profile.getData();
             expect(profileData.length).toBe(3144);
 
             TestImages.empty.use(image => {
