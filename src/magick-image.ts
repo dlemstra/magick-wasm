@@ -3,6 +3,7 @@
 
 import { AlphaOption } from './alpha-option';
 import { AutoThresholdMethod } from './auto-threshold-method';
+import { ByteArray } from './byte-array';
 import { Channels } from './channels';
 import { ChromaticityInfo } from './chromaticity-info';
 import { ClassType } from './class-type';
@@ -210,10 +211,10 @@ export interface IMagickImage extends IDisposable {
     oilPaint(radius: number): void;
     opaque(target: MagickColor, fill: MagickColor): void;
     ping(fileName: string, settings?: MagickReadSettings): void;
-    ping(array: Uint8Array, settings?: MagickReadSettings): void;
+    ping(array: ByteArray, settings?: MagickReadSettings): void;
     read(color: MagickColor, width: number, height: number): void;
     read(fileName: string, settings?: MagickReadSettings): void;
-    read(array: Uint8Array, settings?: MagickReadSettings): void;
+    read(array: ByteArray, settings?: MagickReadSettings): void;
     readFromCanvas(canvas: HTMLCanvasElement): void;
     removeArtifact(name: string): void;
     removeAttribute(name: string): void;
@@ -230,7 +231,7 @@ export interface IMagickImage extends IDisposable {
     setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
     setAttribute(name: string, value: string): void;
-    setProfile(name: string, data: Uint8Array): void
+    setProfile(name: string, data: ByteArray): void
     setWriteMask(image: IMagickImage): void;
     sharpen(): void;
     sharpen(radius: number, sigma: number): void;
@@ -795,8 +796,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     static create(): IMagickImage;
     static create(color: MagickColor, width: number, height: number): IMagickImage;
     static create(fileName: string, settings?: MagickReadSettings): IMagickImage;
-    static create(array: Uint8Array, settings?: MagickReadSettings): IMagickImage;
-    static create(fileNameOrArrayOrColorOrUndefined?: string | Uint8Array | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): IMagickImage {
+    static create(array: ByteArray, settings?: MagickReadSettings): IMagickImage;
+    static create(fileNameOrArrayOrColorOrUndefined?: string | ByteArray | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): IMagickImage {
         const image = new MagickImage(MagickImage.createInstance(), new MagickSettings());
         if (fileNameOrArrayOrColorOrUndefined !== undefined)
             image.readOrPing(false, fileNameOrArrayOrColorOrUndefined, settingsOrWidthOrUndefined, heightOrUndefined);
@@ -1148,15 +1149,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     opaque = (target: MagickColor, fill: MagickColor) => this._opaque(target, fill, false);
 
     ping(fileName: string, settings?: MagickReadSettings): void;
-    ping(array: Uint8Array, settings?: MagickReadSettings): void;
-    ping(fileNameOrArray: string | Uint8Array, settingsOrUndefined?: MagickReadSettings): void {
+    ping(array: ByteArray, settings?: MagickReadSettings): void;
+    ping(fileNameOrArray: string | ByteArray, settingsOrUndefined?: MagickReadSettings): void {
         this.readOrPing(true, fileNameOrArray, settingsOrUndefined);
     }
 
     read(color: MagickColor, width: number, height: number): void;
     read(fileName: string, settings?: MagickReadSettings): void;
-    read(array: Uint8Array, settings?: MagickReadSettings): void;
-    read(fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
+    read(array: ByteArray, settings?: MagickReadSettings): void;
+    read(fileNameOrArrayOrColor: string | ByteArray | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
         this.readOrPing(false, fileNameOrArrayOrColor, settingsOrWidthOrUndefined, heightOrUndefined);
     }
 
@@ -1263,7 +1264,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    setProfile(name: string, data: Uint8Array): void {
+    setProfile(name: string, data: ByteArray): void {
         Exception.use(exception => {
             _withString(name, namePtr => {
                 _withByteArray(data, dataPtr => {
@@ -1541,33 +1542,30 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return value ? 1 : 0;
     }
 
-    private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | Uint8Array | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
+    private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | ByteArray | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
         Exception.use(exception => {
-            if (fileNameOrArrayOrColor instanceof Uint8Array) {
-                const readSettings = settingsOrWidthOrUndefined instanceof MagickReadSettings  ? settingsOrWidthOrUndefined : new MagickReadSettings(this._settings);
-                readSettings._ping = ping;
-                this._settings._ping = ping;
-                this.readFromArray(fileNameOrArrayOrColor, readSettings, exception);
+            const readSettings = settingsOrWidthOrUndefined instanceof MagickReadSettings  ? settingsOrWidthOrUndefined : new MagickReadSettings(this._settings);
+            readSettings._ping = ping;
+            this._settings._ping = ping;
+
+            if (typeof fileNameOrArrayOrColor === 'string') {
+                readSettings._fileName = fileNameOrArrayOrColor;
+            } else if (fileNameOrArrayOrColor instanceof MagickColor) {
+                readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toShortString();
+                readSettings.width = typeof settingsOrWidthOrUndefined === 'number' ? settingsOrWidthOrUndefined : 0;
+                readSettings.height = typeof heightOrUndefined === 'number' ? heightOrUndefined : 0;
             } else {
-                const readSettings = settingsOrWidthOrUndefined instanceof MagickReadSettings ? settingsOrWidthOrUndefined : new MagickReadSettings(this._settings);
-                readSettings._ping = ping;
-                this._settings._ping = ping;
-                if (typeof fileNameOrArrayOrColor === 'string') {
-                    readSettings._fileName = fileNameOrArrayOrColor;
-                } else if (fileNameOrArrayOrColor instanceof MagickColor) {
-                    readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toShortString();
-                    readSettings.width = typeof settingsOrWidthOrUndefined === 'number' ? settingsOrWidthOrUndefined : 0;
-                    readSettings.height = typeof heightOrUndefined === 'number' ? heightOrUndefined : 0;
-                }
-                readSettings._use(settings => {
-                    const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
-                    this._setInstance(instance, exception);
-                });
+                this.readFromArray(fileNameOrArrayOrColor, readSettings, exception);
+                return;
             }
+            readSettings._use(settings => {
+                const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);
+                this._setInstance(instance, exception);
+            });
         });
     }
 
-    private readFromArray(array: Uint8Array | Uint8ClampedArray, readSettings: MagickReadSettings, exception: Exception): void {
+    private readFromArray(array: ByteArray, readSettings: MagickReadSettings, exception: Exception): void {
         readSettings._use(settings => {
             _withByteArray(array, (arrayPtr) => {
                 const instance = ImageMagick._api._MagickImage_ReadBlob(settings._instance, arrayPtr, 0, array.byteLength, exception.ptr);
