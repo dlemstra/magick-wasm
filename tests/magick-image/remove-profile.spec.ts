@@ -7,18 +7,14 @@ describe('MagickImage#removeProfile', () => {
     it('should remove the profile from the image', () => {
         TestImages.fujiFilmFinePixS1ProJpg.use(image => {
             let profile = image.getProfile('icc');
+            profile = expectToNotBeNull(profile);
+            expect(profile.name).toEqual('icc');
 
-            expect(profile).not.toBeNull();
+            image.removeProfile('icc');
 
-            if (profile !== null) {
-                expect(profile.name).toEqual('icc');
+            profile = image.getProfile('icc');
 
-                image.removeProfile('icc');
-
-                profile = image.getProfile('icc');
-
-                expect(profile).toBeNull();
-            }
+            expect(profile).toBeNull();
         });
     });
 });

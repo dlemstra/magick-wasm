@@ -32,19 +32,17 @@ describe('MagickImage#statistics', () => {
         TestImages.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics(Channels.Blue);
 
-            const channelStatistics = statistics.getChannel(PixelChannel.Blue);
-            expect(channelStatistics).not.toBeNull();
-            if (channelStatistics !== null) {
-                expect(channelStatistics.channel).toBe(PixelChannel.Blue);
-                expect(channelStatistics.depth).toBe(8);
-                expect(channelStatistics.entropy).toBeCloseTo(0.80694);
-                expect(channelStatistics.kurtosis).toBeCloseTo(-0.27825);
-                expect(channelStatistics.maximum).toBe(255);
-                expect(channelStatistics.mean).toBeCloseTo(130.64240);
-                expect(channelStatistics.minimum).toBe(2);
-                expect(channelStatistics.skewness).toBeCloseTo(-1.00552);
-                expect(channelStatistics.standardDeviation).toBeCloseTo(42.70252);
-            }
+            let channelStatistics = statistics.getChannel(PixelChannel.Blue);
+            channelStatistics = expectToNotBeNull(channelStatistics);
+            expect(channelStatistics.channel).toBe(PixelChannel.Blue);
+            expect(channelStatistics.depth).toBe(8);
+            expect(channelStatistics.entropy).toBeCloseTo(0.80694);
+            expect(channelStatistics.kurtosis).toBeCloseTo(-0.27825);
+            expect(channelStatistics.maximum).toBe(255);
+            expect(channelStatistics.mean).toBeCloseTo(130.64240);
+            expect(channelStatistics.minimum).toBe(2);
+            expect(channelStatistics.skewness).toBeCloseTo(-1.00552);
+            expect(channelStatistics.standardDeviation).toBeCloseTo(42.70252);
         });
     });
 

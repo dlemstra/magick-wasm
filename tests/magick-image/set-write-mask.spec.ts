@@ -1,37 +1,24 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-
-let image: IMagickImage;
-let writeMask: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-    writeMask = MagickImage.create();
-});
-
-afterEach(() => {
-    image.dispose();
-    writeMask.dispose();
-});
+import { TestImages } from '../test-images';
 
 describe('MagickImage#setWriteMask', () => {
     it('should set mask for whole image', () => {
-        image.read('logo:');
-        writeMask.read(MagickColors.White, 10, 15);
+        TestImages.Builtin.logo.use((image) => {
+            TestImages.empty.use((writeMask) => {
+                writeMask.read(MagickColors.White, 10, 15);
+                image.setWriteMask(writeMask);
 
-        image.setWriteMask(writeMask);
-
-        image.getWriteMask(mask => {
-            expect(mask).not.toBeNull();
-            if (mask !== null) {
-                expect(mask.width).toBe(640);
-                expect(mask.height).toBe(480);
-                expect(mask).toHavePixelWithColor(9, 14, '#ffff');
-                expect(mask).toHavePixelWithColor(10, 15, '#00ff');
-            }
+                image.getWriteMask(mask => {
+                    mask = expectToNotBeNull(mask);
+                    expect(mask.width).toBe(640);
+                    expect(mask.height).toBe(480);
+                    expect(mask).toHavePixelWithColor(9, 14, '#ffff');
+                    expect(mask).toHavePixelWithColor(10, 15, '#00ff');
+                });
+            });
         });
     });
 });

@@ -15,17 +15,14 @@ describe('MagickImage#getProfile', () => {
 
     it('should return the specified profile', () => {
         TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+            let profile = image.getProfile('icc');
+            profile = expectToNotBeNull(profile);
+            expect(profile.name).toEqual('icc');
 
-            const profile = image.getProfile('icc');
-            expect(profile).not.toBeNull();
-            if (profile !== null) {
-                expect(profile.name).toEqual('icc');
-
-                const data = profile.getData();
-                expect(data).not.toBeNull();
-                if (data !== null)
-                    expect(data.length).toBe(3144);
-            }
+            let data = profile.getData();
+            data = expectToNotBeNull(data);
+            expect(data).not.toBeNull();
+            expect(data.length).toBe(3144);
         });
     });
 });
