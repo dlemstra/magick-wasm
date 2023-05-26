@@ -9,11 +9,12 @@ import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
+import { ByteArray } from './byte-array';
 
 class WasmLocator implements IWasmLocator {
     private _wasmLocation: string | undefined;
 
-    constructor(wasmLocationOrData?: string | Buffer | Uint8Array) {
+    constructor(wasmLocationOrData?: string | ByteArray) {
         if (wasmLocationOrData !== undefined) {
             if (typeof wasmLocationOrData === 'string')
                 this._wasmLocation = wasmLocationOrData;
@@ -22,7 +23,7 @@ class WasmLocator implements IWasmLocator {
         }
     }
 
-    wasmBinary?: Uint8Array | Uint8Array;
+    wasmBinary?: ByteArray;
 
     locateFile = (path: string, scriptDirectory: string): string => {
         let wasmLocation = this._wasmLocation;
@@ -35,11 +36,11 @@ class WasmLocator implements IWasmLocator {
 }
 
 export class ImageMagick {
-    private readonly loader: (wasmLocationOrData?: string | Buffer | Uint8Array) => Promise<void>;
+    private readonly loader: (wasmLocationOrData?: string | ByteArray) => Promise<void>;
     private api?: ImageMagickApi;
 
     private constructor() {
-        this.loader = (wasmLocationOrData?: string | Buffer | Uint8Array) => new Promise((resolve, reject) => {
+        this.loader = (wasmLocationOrData?: string | ByteArray) => new Promise((resolve, reject) => {
             if (this.api !== undefined) {
                 resolve();
                 return;
@@ -65,7 +66,7 @@ export class ImageMagick {
     static _create = (): ImageMagick => new ImageMagick();
 
     /** @internal */
-    async _initialize(wasmLocationOrData?: string | Buffer | Uint8Array ): Promise<void> {
+    async _initialize(wasmLocationOrData?: string | ByteArray): Promise<void> {
         await this.loader(wasmLocationOrData);
      }
 
@@ -174,6 +175,6 @@ export class ImageMagick {
 /** @internal */
 const instance = ImageMagick._create();
 
-export async function initializeImageMagick(wasmLocationOrData?: string | Buffer | Uint8Array): Promise<void> {
+export async function initializeImageMagick(wasmLocationOrData?: string | ByteArray): Promise<void> {
     await instance._initialize(wasmLocationOrData);
 }
