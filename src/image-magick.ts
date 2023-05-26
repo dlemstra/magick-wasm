@@ -85,19 +85,19 @@ export class ImageMagick {
 
     static read<TReturnType>(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => TReturnType): TReturnType;
     static read<TReturnType>(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static read<TReturnType>(array: Uint8Array, format: MagickFormat, func: (image: IMagickImage) => TReturnType): TReturnType;
-    static read<TReturnType>(array: Uint8Array, format: MagickFormat, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static read<TReturnType>(array: Uint8Array, settings: MagickReadSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
-    static read<TReturnType>(array: Uint8Array, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static read<TReturnType>(array: Uint8Array, func: (image: IMagickImage) => TReturnType): TReturnType;
-    static read<TReturnType>(array: Uint8Array, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static read<TReturnType>(array: ByteArray, format: MagickFormat, func: (image: IMagickImage) => TReturnType): TReturnType;
+    static read<TReturnType>(array: ByteArray, format: MagickFormat, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static read<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
+    static read<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static read<TReturnType>(array: ByteArray, func: (image: IMagickImage) => TReturnType): TReturnType;
+    static read<TReturnType>(array: ByteArray, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static read<TReturnType>(fileName: string, format: MagickFormat, func: (image: IMagickImage) => TReturnType): TReturnType;
     static read<TReturnType>(fileName: string, format: MagickFormat, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static read<TReturnType>(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
     static read<TReturnType>(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static read<TReturnType>(fileName: string, func: (image: IMagickImage) => TReturnType): TReturnType;
     static read<TReturnType>(fileName: string, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static read<TReturnType>(colorOrArrayOrFileName: MagickColor | Uint8Array | string, widthOrFormatOrSetttingsOrFunc: number | MagickFormat | MagickReadSettings | ((image: IMagickImage) => TReturnType | Promise<TReturnType>) , heightOrFunc?: number | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static read<TReturnType>(colorOrArrayOrFileName: MagickColor | ByteArray | string, widthOrFormatOrSetttingsOrFunc: number | MagickFormat | MagickReadSettings | ((image: IMagickImage) => TReturnType | Promise<TReturnType>) , heightOrFunc?: number | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return MagickImage._use(image => {
             let callback = func;
             if (colorOrArrayOrFileName instanceof MagickColor) {
@@ -126,19 +126,19 @@ export class ImageMagick {
         });
     }
 
-    static readCollection<TReturnType>(array: Uint8Array, format: MagickFormat, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
-    static readCollection<TReturnType>(array: Uint8Array, format: MagickFormat, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    static readCollection<TReturnType>(array: Uint8Array, settings: MagickReadSettings, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
-    static readCollection<TReturnType>(array: Uint8Array, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    static readCollection<TReturnType>(array: Uint8Array, settings: MagickReadSettings, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
-    static readCollection<TReturnType>(array: Uint8Array, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    static readCollection<TReturnType>(array: Uint8Array, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
-    static readCollection<TReturnType>(array: Uint8Array, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    static readCollection<TReturnType>(array: ByteArray, format: MagickFormat, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    static readCollection<TReturnType>(array: ByteArray, format: MagickFormat, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    static readCollection<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    static readCollection<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    static readCollection<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    static readCollection<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    static readCollection<TReturnType>(array: ByteArray, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    static readCollection<TReturnType>(array: ByteArray, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     static readCollection<TReturnType>(fileName: string, settings: MagickReadSettings, func: (images: IMagickImageCollection) => TReturnType): TReturnType
     static readCollection<TReturnType>(fileName: string, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     static readCollection<TReturnType>(fileName: string, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     static readCollection<TReturnType>(fileName: string, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    static readCollection<TReturnType>(arrayOrFileName: Uint8Array | string, formatOrSettingsOrFunc: MagickFormat | MagickReadSettings | ((images: IMagickImageCollection) => TReturnType | Promise<TReturnType>), func?: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static readCollection<TReturnType>(arrayOrFileName: ByteArray | string, formatOrSettingsOrFunc: MagickFormat | MagickReadSettings | ((images: IMagickImageCollection) => TReturnType | Promise<TReturnType>), func?: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         const collection = MagickImageCollection.create();
         return collection._use(images => {
             let callback = func;
