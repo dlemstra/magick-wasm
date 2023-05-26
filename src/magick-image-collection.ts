@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { ByteArray } from './byte-array';
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
 import { EvaluateOperator } from './evaluate-operator';
@@ -59,7 +60,7 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     read(fileName: string, settings?: MagickReadSettings): void;
-    read(array: Uint8Array, settings?: MagickReadSettings): void;
+    read(array: ByteArray, settings?: MagickReadSettings): void;
     write<TReturnType>(func: (data: Uint8Array) => TReturnType, format?: MagickFormat): TReturnType;
     write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>, format?: MagickFormat): Promise<TReturnType>;
 }
@@ -159,13 +160,20 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     read(fileName: string, settings?: MagickReadSettings): void;
-    read(array: Uint8Array, settings?: MagickReadSettings): void;
-    read(fileNameOrArray: string | Uint8Array, settings?: MagickReadSettings): void {
+    read(array: ByteArray, settings?: MagickReadSettings): void;
+    read(fileNameOrArray: string | ByteArray, settings?: MagickReadSettings): void {
         this.dispose();
 
         Exception.use(exception => {
             const readSettings = MagickImageCollection.createSettings(settings);
-            if (fileNameOrArray instanceof Uint8Array) {
+            if (typeof fileNameOrArray === 'string') {
+                readSettings._fileName = fileNameOrArray;
+
+                readSettings._use(settings => {
+                    const instances = ImageMagick._api._MagickImageCollection_ReadFile(settings._instance, exception.ptr);
+                    this.addImages(instances, readSettings);
+                });
+            } else {
                 readSettings._use(settings => {
                     const length = fileNameOrArray.byteLength;
                     let data = 0;
@@ -178,13 +186,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                         if (data !== 0)
                             ImageMagick._api._free(data);
                     }
-                });
-            } else {
-                readSettings._fileName = fileNameOrArray;
-
-                readSettings._use(settings => {
-                    const instances = ImageMagick._api._MagickImageCollection_ReadFile(settings._instance, exception.ptr);
-                    this.addImages(instances, readSettings);
                 });
             }
         });
@@ -224,8 +225,8 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     static create(): IMagickImageCollection;
-    static create(array: Uint8Array): IMagickImageCollection;
-    static create(arrayOrUndefined?: Uint8Array): IMagickImageCollection {
+    static create(array: ByteArray): IMagickImageCollection;
+    static create(arrayOrUndefined?: ByteArray): IMagickImageCollection {
         const images = MagickImageCollection.createObject();
         if (arrayOrUndefined !== undefined)
             images.read(arrayOrUndefined);
