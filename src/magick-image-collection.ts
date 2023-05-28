@@ -61,8 +61,10 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: ByteArray, settings?: MagickReadSettings): void;
-    write<TReturnType>(func: (data: Uint8Array) => TReturnType, format?: MagickFormat): TReturnType;
-    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>, format?: MagickFormat): Promise<TReturnType>;
+    write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
+    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
 }
 
 export class MagickImageCollection extends Array<MagickImage> implements IMagickImageCollection {
@@ -191,23 +193,28 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         });
     }
 
-    write<TReturnType>(func: (data: Uint8Array) => TReturnType, format?: MagickFormat): TReturnType;
-    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>, format?: MagickFormat): Promise<TReturnType>;
-    write<TReturnType>(func: (data: Uint8Array) => TReturnType | Promise<TReturnType>, format?: MagickFormat): TReturnType | Promise<TReturnType> {
+
+    write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
+    write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
+    write<TReturnType>(funcOrFormat: ((data: Uint8Array) => TReturnType | Promise<TReturnType>) | MagickFormat, func?: (data: Uint8Array) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         this.throwIfEmpty();
 
         let data = 0;
         let length = 0;
+        const image = this[0];
+        const settings = this.getSettings();
+
+        if (func !== undefined) {
+            settings.format = funcOrFormat as MagickFormat;
+        } else {
+            func = funcOrFormat as (data: Uint8Array) => TReturnType | Promise<TReturnType>;
+            settings.format = image.format;
+        }
 
         Exception.use(exception => {
             Pointer.use(pointer => {
-                const image = this[0];
-                const settings = this.getSettings();
-                if (format !== undefined)
-                    settings.format = format;
-                else
-                    settings.format = image.format;
-
                 settings._use(nativeSettings => {
                     try {
                         this.attachImages();
