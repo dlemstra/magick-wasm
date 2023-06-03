@@ -23,6 +23,8 @@ export class MagickSettings {
     /** @internal */
     _quality?: number;
 
+    antiAlias?: boolean;
+
     backgroundColor?: MagickColor;
 
     colorType?: ColorType;
