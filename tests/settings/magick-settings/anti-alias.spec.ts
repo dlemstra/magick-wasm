@@ -6,8 +6,8 @@ import { ImageMagick } from '../../../src/image-magick';
 import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
 import { TestFonts } from '../../test-fonts';
 
-describe('MagickSettings#backgroundColor', () => {
-    it('should use the correct background color', () => {
+describe('MagickSettings#antiAlias', () => {
+    it('should use the correct anti alias setting', () => {
         const settings = new MagickReadSettings();
         settings.font = TestFonts.kaushanScriptRegularTtf.name;
 
