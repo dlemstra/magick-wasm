@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { ColorSpace } from '../color-space';
 import { ColorType } from '../color-type';
 import { Disposable } from '../internal/disposable';
 import { Endian } from '../endian';
@@ -26,6 +27,8 @@ export class MagickSettings {
     antiAlias?: boolean;
 
     backgroundColor?: MagickColor;
+
+    colorSpace?: ColorSpace;
 
     colorType?: ColorType;
 

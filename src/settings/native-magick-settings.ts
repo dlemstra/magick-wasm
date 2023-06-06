@@ -35,6 +35,9 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
+        if (settings.colorSpace !== undefined)
+            ImageMagick._api._MagickSettings_ColorSpace_Set(this._instance, settings.colorSpace);
+
         if (settings.colorType !== undefined)
             ImageMagick._api._MagickSettings_ColorType_Set(this._instance, settings.colorType);
 
