@@ -3,12 +3,13 @@
 
 import { ColorSpace } from '../color-space';
 import { ColorType } from '../color-type';
+import { CompressionMethod } from '../compression-method';
 import { Disposable } from '../internal/disposable';
 import { Endian } from '../endian';
 import { IDefines } from '../defines/defines';
 import { Interlace } from '../interlace';
-import { MagickFormat } from '../magick-format';
 import { MagickColor } from '../magick-color';
+import { MagickFormat } from '../magick-format';
 import { NativeMagickSettings } from './native-magick-settings';
 
 export class MagickSettings {
@@ -31,6 +32,8 @@ export class MagickSettings {
     colorSpace?: ColorSpace;
 
     colorType?: ColorType;
+
+    compression?: CompressionMethod;
 
     endian?: Endian;
 
