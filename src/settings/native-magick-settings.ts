@@ -44,6 +44,9 @@ export class NativeMagickSettings extends NativeInstance {
         if (settings.compression !== undefined)
             ImageMagick._api._MagickSettings_Compression_Set(this._instance, settings.compression);
 
+        if (settings.debug !== undefined)
+            ImageMagick._api._MagickSettings_Debug_Set(this._instance, settings.debug ? 1 : 0);
+
         if (settings.endian !== undefined)
             ImageMagick._api._MagickSettings_Endian_Set(this._instance, settings.endian);
 

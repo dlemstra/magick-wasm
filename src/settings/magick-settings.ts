@@ -35,6 +35,8 @@ export class MagickSettings {
 
     compression?: CompressionMethod;
 
+    debug?: boolean;
+
     endian?: Endian;
 
     fillColor?: MagickColor;
