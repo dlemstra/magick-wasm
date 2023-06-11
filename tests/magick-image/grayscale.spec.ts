@@ -8,7 +8,6 @@ import { TestImages } from '../test-images';
  
 describe('MagickImage#grayscale', () => {
     it('should use the default pixel intensity method', () => {
-
         TestImages.Color.purple.use(imageA => {
             TestImages.Color.purple.use(imageB => {
                 imageA.grayscale();
