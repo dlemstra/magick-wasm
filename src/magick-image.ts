@@ -42,6 +42,7 @@ import { OrientationType } from './orientation-type';
 import { Percentage } from './percentage';
 import { PixelChannel } from './pixel-channel';
 import { PixelCollection, IPixelCollection } from './pixels/pixel-collection';
+import { PixelIntensityMethod } from './pixel-intensity-method';
 import { PixelInterpolateMethod } from './pixel-interpolate-method';
 import { Point } from './point';
 import { Pointer } from './internal/pointer/pointer';
@@ -184,6 +185,8 @@ export interface IMagickImage extends IDisposable {
     getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => Promise<TReturnType>): Promise<TReturnType>;
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    grayscale(): void;
+    grayscale(method: PixelIntensityMethod): void;
     histogram(): Map<string, number>;
     inverseContrast(): void;
     inverseOpaque(target: MagickColor, fill: MagickColor): void;
@@ -1016,6 +1019,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             throw new MagickError('image contains no pixel data');
 
         return PixelCollection._use(this, func);
+    }
+
+    grayscale(method: PixelIntensityMethod = PixelIntensityMethod.Undefined): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_Grayscale(this._instance, method, exception )
+        });
     }
 
     histogram(): Map<string, number> {
