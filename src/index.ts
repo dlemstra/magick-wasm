@@ -41,6 +41,8 @@ export * from './gif-dispose-method';
 export * from './gravity';
 export * from './image-magick';
 export * from './interlace';
+export * from './log-event-types';
+export * from './log-event';
 export * from './magick-color';
 export * from './magick-colors';
 export * from './magick-error-severity';
