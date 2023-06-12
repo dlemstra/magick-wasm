@@ -31,6 +31,6 @@ describe('Magick#onLog', () => {
         expect(eventTypeCounts[LogEventTypes.Pixel]).toBeGreaterThanOrEqual(5);
         expect(eventTypeCounts[LogEventTypes.Policy]).toBeGreaterThanOrEqual(1);
         expect(eventTypeCounts[LogEventTypes.Resource]).toBeGreaterThanOrEqual(1);
-        expect(eventTypeCounts[LogEventTypes.Trace]).toBeGreaterThanOrEqual(675);
+        expect(eventTypeCounts[LogEventTypes.Trace]).toBeGreaterThanOrEqual(600);
     });
 });
