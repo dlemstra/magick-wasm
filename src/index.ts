@@ -58,6 +58,7 @@ export * from './orientation-type';
 export * from './paint-method';
 export * from './percentage';
 export * from './pixel-channel';
+export * from './pixel-intensity-method';
 export * from './pixel-interpolate-method';
 export * from './pixels/pixel-collection';
 export * from './point';
