@@ -1023,7 +1023,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     grayscale(method: PixelIntensityMethod = PixelIntensityMethod.Undefined): void {
         Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_Grayscale(this._instance, method, exception )
+            ImageMagick._api._MagickImage_Grayscale(this._instance, method, exception);
         });
     }
 
