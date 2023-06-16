@@ -37,6 +37,8 @@ export class MagickSettings {
 
     debug?: boolean;
 
+    depth?: number;
+
     endian?: Endian;
 
     fillColor?: MagickColor;
