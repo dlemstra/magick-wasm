@@ -232,7 +232,7 @@ export interface IMagickImage extends IDisposable {
     separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType, channels: Channels): TReturnType;
     separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>, channels: Channels): Promise<TReturnType>;
     sepiaTone(): void;
-    sepiaTone(threshold: Percentage): void;
+    sepiaTone(threshold: Percentage | number): void;
     setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
     setAttribute(name: string, value: string): void;
