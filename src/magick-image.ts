@@ -231,6 +231,8 @@ export interface IMagickImage extends IDisposable {
     separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType, channels: Channels): TReturnType;
     separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>, channels: Channels): Promise<TReturnType>;
+    sepiaTone(): void;
+    sepiaTone(threshold: Percentage | number): void;
     setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
     setAttribute(name: string, value: string): void;
@@ -1244,6 +1246,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             const images = ImageMagick._api._MagickImage_Separate(this._instance, channels, exception.ptr);
             const collection = MagickImageCollection._createFromImages(images, this._settings);
             return collection._use(func);
+        });
+    }
+
+    sepiaTone(): void
+    sepiaTone(threshold: Percentage | number = new Percentage(80)): void {
+        Exception.use(exception => {
+            threshold = typeof threshold === "number" ? new Percentage(threshold) : threshold;
+            if (!(threshold instanceof Percentage))
+                throw new MagickError('Invalid threshold specified, it should be a number or a Percentage instance.');
+
+            const instance = ImageMagick._api._MagickImage_SepiaTone(this._instance, threshold.toQuantum(), exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
