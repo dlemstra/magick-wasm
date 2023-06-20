@@ -1250,12 +1250,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     sepiaTone(): void
-    sepiaTone(threshold: Percentage | number = new Percentage(80)): void {
+    sepiaTone(thresholdOrNumber: Percentage | number = new Percentage(80)): void {
         Exception.use(exception => {
-            threshold = typeof threshold === "number" ? new Percentage(threshold) : threshold;
-            if (!(threshold instanceof Percentage))
-                throw new MagickError('Invalid threshold specified, it should be a number or a Percentage instance.');
-
+            const threshold = typeof thresholdOrNumber === "number" ? new Percentage(thresholdOrNumber) : thresholdOrNumber;
             const instance = ImageMagick._api._MagickImage_SepiaTone(this._instance, threshold.toQuantum(), exception.ptr);
             this._setInstance(instance, exception);
         });
