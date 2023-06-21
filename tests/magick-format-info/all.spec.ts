@@ -9,9 +9,9 @@ describe('MagickFormatInfo#all', () => {
         MagickFormatInfo.all.forEach(formatInfo => {
             try {
                 expect(formatInfo.format).not.toBe(MagickFormat.Unknown);
-            } catch(err) {
+            } catch (err) {
                 console.error(`Missing Magickformat for: ${formatInfo.description}.`);
-                throw(err);
+                throw (err);
             }
         });
     });

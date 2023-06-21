@@ -53,8 +53,8 @@ describe('ImageMagick#readCollection', () => {
                 await bogusAsyncMethod();
             });
         })
-        .rejects
-        .toThrowError('ReadPNGImage');
+            .rejects
+            .toThrowError('ReadPNGImage');
     });
 
     it('should read image from array with specified format', () => {
@@ -63,7 +63,7 @@ describe('ImageMagick#readCollection', () => {
                 console.log(image);
             });
         })
-        .toThrowError('ReadPNGImage');
+            .toThrowError('ReadPNGImage');
     });
 
     it('should read image from array with settings async', async () => {

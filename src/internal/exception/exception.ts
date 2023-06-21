@@ -86,8 +86,7 @@ export class Exception {
             return error;
 
         const relatedErrors: MagickError[] = [];
-        for (let i = 0; i < nestedCount; i++)
-        {
+        for (let i = 0; i < nestedCount; i++) {
             const related = ImageMagick._api._MagickExceptionHelper_Related(exception, i);
             const relatedSeverity = Exception.getErrorSeverity(related);
             const relatedError = Exception.createError(related, relatedSeverity);

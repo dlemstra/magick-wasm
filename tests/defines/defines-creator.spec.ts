@@ -7,11 +7,11 @@ import { MagickFormat } from '../../src/magick-format';
 import { MagickReadSettings } from '../../src/settings/magick-read-settings';
 
 class TestDefinesCreator extends DefinesCreator {
-    constructor () {
+    constructor() {
         super(MagickFormat.A);
     }
 
-    getDefines (): IDefine[] {
+    getDefines(): IDefine[] {
         return [this.createDefine('test', 'empty')];
     }
 }

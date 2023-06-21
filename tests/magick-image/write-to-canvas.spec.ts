@@ -22,15 +22,15 @@ describe('MagickImage#writeToCanvas', () => {
         const window = new JSDOM().window;
         const canvas = window.document.createElement('canvas');
 
-        window.HTMLCanvasElement.prototype.getContext = vi.fn(function(contextId: string) {
+        window.HTMLCanvasElement.prototype.getContext = vi.fn(function (contextId: string) {
             expect(contextId).toBe('2d');
             return {
-                createImageData: function(width: number, height: number) {
+                createImageData: function (width: number, height: number) {
                     return {
-                        data: new Array(width*height*4)
+                        data: new Array(width * height * 4)
                     };
                 },
-                putImageData: function(imageData: ImageData, x: number, y: number) {
+                putImageData: function (imageData: ImageData, x: number, y: number) {
                     expect(x).toBe(0);
                     expect(y).toBe(0);
 

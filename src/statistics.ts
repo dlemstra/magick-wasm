@@ -40,7 +40,7 @@ export class Statistics implements IStatistics {
 
         image.channels.forEach(channel => {
             if (((<number>channels >> <number>channel) & 0x01) != 0)
-            instance.addChannel(list, channel);
+                instance.addChannel(list, channel);
         });
 
         instance.addChannel(list, PixelChannel.Composite);
@@ -51,7 +51,7 @@ export class Statistics implements IStatistics {
     private addChannel(list: number, channel: PixelChannel) {
         const instance = ImageMagick._api._Statistics_GetInstance(list, channel);
         if (instance !== 0) {
-            this._channels[channel] =  new ChannelStatistics(channel, instance);
+            this._channels[channel] = new ChannelStatistics(channel, instance);
         }
     }
 }

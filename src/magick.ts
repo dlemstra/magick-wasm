@@ -41,7 +41,7 @@ export class Magick {
         }
 
         const eventTypeString = Magick.getEventTypeString(eventTypes);
-        _withString(eventTypeString, instance  => ImageMagick._api._Magick_SetLogEvents(instance));
+        _withString(eventTypeString, instance => ImageMagick._api._Magick_SetLogEvents(instance));
     }
 
     /** @internal */
@@ -89,7 +89,7 @@ export class Magick {
             case LogEventTypes.Wand: return 'Wand';
             case LogEventTypes.None:
             default:
-                    return 'None';
+                return 'None';
         }
     }
 }

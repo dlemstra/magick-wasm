@@ -18,7 +18,7 @@ export enum Gravity {
 /** @internal */
 export function* _getEdges(gravities: Gravity[]): Generator<string> {
     for (const gravity of gravities) {
-        switch(gravity) {
+        switch (gravity) {
             case Gravity.North:
                 yield 'north'
                 break

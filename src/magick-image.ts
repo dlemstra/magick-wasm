@@ -83,7 +83,7 @@ export interface IMagickImage extends IDisposable {
     colorFuzz: Percentage;
     colormapSize: number;
     colorSpace: ColorSpace;
-    colorType : ColorType;
+    colorType: ColorType;
     comment: string | null;
     compose: CompositeOperator;
     readonly compression: CompressionMethod;
@@ -500,7 +500,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get interlace(): Interlace { return ImageMagick._api._MagickImage_Interlace_Get(this._instance); }
 
-    get interpolate(): PixelInterpolateMethod { return ImageMagick._api._MagickImage_Interpolate_Get(this._instance);}
+    get interpolate(): PixelInterpolateMethod { return ImageMagick._api._MagickImage_Interpolate_Get(this._instance); }
     set interpolate(value: PixelInterpolateMethod) { ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value); }
 
     get label(): string | null {
@@ -619,7 +619,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
 
         Exception.use(exception => {
-           ImageMagick._api._MagickImage_BrightnessContrast(this._instance, brightness.toDouble(), contrast.toDouble(), channels, exception.ptr);
+            ImageMagick._api._MagickImage_BrightnessContrast(this._instance, brightness.toDouble(), contrast.toDouble(), channels, exception.ptr);
         });
     }
 
@@ -634,7 +634,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     charcoal(radius: number, sigma: number): void;
     charcoal(radiusOrUndefined?: number, sigmaOrUndefined?: number): void {
         const radius = radiusOrUndefined === undefined ? 0 : radiusOrUndefined;
-        const sigma =sigmaOrUndefined === undefined ? 1 :sigmaOrUndefined;
+        const sigma = sigmaOrUndefined === undefined ? 1 : sigmaOrUndefined;
         Exception.use(exception => {
             const instance = ImageMagick._api._MagickImage_Charcoal(this._instance, radius, sigma, exception.ptr);
             this._setInstance(instance, exception);
@@ -688,7 +688,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     composite(image: IMagickImage, compose: CompositeOperator, point: Point, channels: Channels): void;
     composite(image: IMagickImage, compose: CompositeOperator, point: Point, args: string): void;
     composite(image: IMagickImage, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
-    composite(image: IMagickImage, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?:  Channels | string, channelsOrUndefined?: Channels): void {
+    composite(image: IMagickImage, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?: Channels | string, channelsOrUndefined?: Channels): void {
         let x = 0;
         let y = 0;
         let compose = CompositeOperator.In;
@@ -741,7 +741,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, channels: Channels): void;
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
-    compositeGravity(image: IMagickImage, gravity: Gravity, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?:  Channels | string, channelsOrUndefined?: Channels): void {
+    compositeGravity(image: IMagickImage, gravity: Gravity, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?: Channels | string, channelsOrUndefined?: Channels): void {
         let x = 0;
         let y = 0;
         let compose = CompositeOperator.In;
@@ -833,8 +833,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    cropToTiles(geometry: MagickGeometry): IMagickImageCollection
-    {
+    cropToTiles(geometry: MagickGeometry): IMagickImageCollection {
         return Exception.use(exception => {
             return _withString(geometry.toString(), geometryPtr => {
                 const images = ImageMagick._api._MagickImage_CropToTiles(this._instance, geometryPtr, exception.ptr);
@@ -1236,7 +1235,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType ): TReturnType;
+    separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType, channels: Channels): TReturnType;
     separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>, channels: Channels): Promise<TReturnType>;
@@ -1334,7 +1333,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             Exception.use(exception => {
                 const instance = ImageMagick._api._MagickImage_Splice(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(instance, exception);
-        });
+            });
         });
     }
 
@@ -1344,7 +1343,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Default);
         return Exception.usePointer(exception => {
             const list = ImageMagick._api._MagickImage_Statistics(this._instance, channels, exception);
-            const statistics =  Statistics._create(this, list, channels);
+            const statistics = Statistics._create(this, list, channels);
             ImageMagick._api._Statistics_DisposeList(list);
             return statistics;
         });
@@ -1564,7 +1563,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | ByteArray | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
         Exception.use(exception => {
-            const readSettings = settingsOrWidthOrUndefined instanceof MagickReadSettings  ? settingsOrWidthOrUndefined : new MagickReadSettings(this._settings);
+            const readSettings = settingsOrWidthOrUndefined instanceof MagickReadSettings ? settingsOrWidthOrUndefined : new MagickReadSettings(this._settings);
             readSettings._ping = ping;
             this._settings._ping = ping;
 

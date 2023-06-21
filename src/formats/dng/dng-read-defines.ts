@@ -7,8 +7,8 @@ import { IDefine } from '../../defines/define';
 import { MagickFormat } from '../../magick-format';
 
 export class DngReadDefines extends DefinesCreator {
-    constructor () {
-      super(MagickFormat.Dng);
+    constructor() {
+        super(MagickFormat.Dng);
     }
 
     disableAutoBrightness?: boolean;

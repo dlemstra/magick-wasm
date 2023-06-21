@@ -1,8 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-export enum LogEventTypes
-{
+export enum LogEventTypes {
     None = 0x000000,
     Accelerate = 0x00001,
     Annotate = 0x00002,

@@ -9,7 +9,7 @@ import { MagickColors } from '../../src/magick-colors';
 import { Point } from '../../src/point';
 
 describe('MagickImage#compositeGravity', () => {
-   it('should use the gravity', () => {
+    it('should use the gravity', () => {
         ImageMagick.read(MagickColors.Red, 3, 3, (image) => {
             ImageMagick.read(MagickColors.White, 1, 1, (white) => {
 
@@ -122,24 +122,24 @@ describe('MagickImage#compositeGravity', () => {
     });
 
     it('should use the gravity and position', () => {
-         ImageMagick.read(MagickColors.Red, 3, 3, (image) => {
-             ImageMagick.read(MagickColors.White, 1, 1, (white) => {
+        ImageMagick.read(MagickColors.Red, 3, 3, (image) => {
+            ImageMagick.read(MagickColors.White, 1, 1, (white) => {
 
-                 image.compositeGravity(white, Gravity.Northeast, new Point(1, 1));
-                 expect(image).toHavePixelWithColor(1, 1, MagickColors.White);
-             });
-         });
-     });
+                image.compositeGravity(white, Gravity.Northeast, new Point(1, 1));
+                expect(image).toHavePixelWithColor(1, 1, MagickColors.White);
+            });
+        });
+    });
 
-     it('should use the gravity, position and channels', () => {
-          ImageMagick.read(MagickColors.Red, 3, 3, (image) => {
-              ImageMagick.read(MagickColors.White, 1, 1, (white) => {
+    it('should use the gravity, position and channels', () => {
+        ImageMagick.read(MagickColors.Red, 3, 3, (image) => {
+            ImageMagick.read(MagickColors.White, 1, 1, (white) => {
 
-                  image.compositeGravity(white, Gravity.Southwest, new Point(1, 1), Channels.Green);
-                  expect(image).toHavePixelWithColor(1, 1, MagickColors.Yellow);
-              });
-          });
-      });
+                image.compositeGravity(white, Gravity.Southwest, new Point(1, 1), Channels.Green);
+                expect(image).toHavePixelWithColor(1, 1, MagickColors.Yellow);
+            });
+        });
+    });
 
     it('should use the gravity, operator and position', () => {
         ImageMagick.read(MagickColors.Red, 3, 3, (image) => {

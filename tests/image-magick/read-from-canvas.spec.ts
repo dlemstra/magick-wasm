@@ -13,10 +13,10 @@ describe('ImageMagick#readFromCanvas', () => {
         canvas.width = 1;
         canvas.height = 2;
 
-        window.HTMLCanvasElement.prototype.getContext = vi.fn(function(contextId: string) {
+        window.HTMLCanvasElement.prototype.getContext = vi.fn(function (contextId: string) {
             expect(contextId).toBe('2d');
             return {
-                getImageData: function(x: number, y: number, width: number, height: number) {
+                getImageData: function (x: number, y: number, width: number, height: number) {
                     expect(x).toBe(0);
                     expect(y).toBe(0);
                     expect(width).toBe(canvas.width);
@@ -47,10 +47,10 @@ describe('ImageMagick#readFromCanvas', () => {
         canvas.width = 1;
         canvas.height = 2;
 
-        window.HTMLCanvasElement.prototype.getContext = vi.fn(function(contextId: string) {
+        window.HTMLCanvasElement.prototype.getContext = vi.fn(function (contextId: string) {
             expect(contextId).toBe('2d');
             return {
-                getImageData: function(x: number, y: number, width: number, height: number) {
+                getImageData: function (x: number, y: number, width: number, height: number) {
                     expect(x).toBe(0);
                     expect(y).toBe(0);
                     expect(width).toBe(canvas.width);

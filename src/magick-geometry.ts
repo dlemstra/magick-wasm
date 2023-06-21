@@ -43,7 +43,7 @@ export class MagickGeometry {
         } else {
             const instance = ImageMagick._api._MagickGeometry_Create();
             try {
-                _withString(widthOrValueOrX, valuePtr  => {
+                _withString(widthOrValueOrX, valuePtr => {
                     const flags = ImageMagick._api._MagickGeometry_Initialize(instance, valuePtr);
                     if (flags === GeometryFlags.NoValue)
                         throw new MagickError('invalid geometry specified');
