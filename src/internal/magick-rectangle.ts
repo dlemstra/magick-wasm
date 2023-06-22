@@ -17,8 +17,8 @@ export class MagickRectangle {
             let width = geometry.width;
             let height = geometry.height;
             if (geometry.isPercentage) {
-                width =  new Percentage(geometry.width).multiply(image.width);
-                height =  new Percentage(geometry.height).multiply(image.height);
+                width = new Percentage(geometry.width).multiply(image.width);
+                height = new Percentage(geometry.height).multiply(image.height);
             }
 
             ImageMagick._api._MagickRectangle_Width_Set(rectangle, width);

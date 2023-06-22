@@ -68,8 +68,8 @@ export class MagickSettings {
         return this._options[nameOrFormat] ?? null;
     }
 
-    setDefine(name: string, value: string ): void;
-    setDefine(format: MagickFormat, name: string, value: string ): void;
+    setDefine(name: string, value: string): void;
+    setDefine(format: MagickFormat, name: string, value: string): void;
     setDefine(format: MagickFormat, name: string, value: number): void;
     setDefine(format: MagickFormat, name: string, value: boolean): void;
     setDefine(nameOrFormat: MagickFormat | string, nameOrValue: string, value?: string | number | boolean): void {
@@ -98,7 +98,7 @@ export class MagickSettings {
         const clone = new MagickSettings();
         Object.assign(clone, this);
         return clone;
-     }
+    }
 
     /** @internal */
     _use<TReturnType>(func: (settings: NativeMagickSettings) => TReturnType): TReturnType {

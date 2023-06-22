@@ -17,7 +17,7 @@ describe('MagickColor#toString', () => {
     });
 
     it('should return cmyka color for cmyk color', () => {
-        const color = new MagickColor(10, 20, 30,40, 50);
+        const color = new MagickColor(10, 20, 30, 40, 50);
 
         expect(color.toString()).toBe('cmyka(10,20,30,40,0.1961)');
     });

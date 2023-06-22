@@ -143,7 +143,7 @@ describe('MagickImage#composite', () => {
     it('should remove the artifact when offset and arguments are specified', () => {
         ImageMagick.read(MagickColors.Red, 1, 1, (image) => {
             ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
-                image.composite(blur,  CompositeOperator.Blur, new Point(1, 1), '3');
+                image.composite(blur, CompositeOperator.Blur, new Point(1, 1), '3');
 
                 expect(image.artifactNames.length).toBe(0);
             });
@@ -162,7 +162,7 @@ describe('MagickImage#composite', () => {
     it('should remove the artifact when offset, arguments and channels are specified', () => {
         ImageMagick.read(MagickColors.Red, 1, 1, (image) => {
             ImageMagick.read(MagickColors.White, 1, 1, (blur) => {
-                image.composite(blur,  CompositeOperator.Blur, new Point(1, 1), '3', Channels.Red);
+                image.composite(blur, CompositeOperator.Blur, new Point(1, 1), '3', Channels.Red);
 
                 expect(image.artifactNames.length).toBe(0);
             });

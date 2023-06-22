@@ -16,11 +16,11 @@ export class DisposableArray<TReturnType> implements IDisposable {
         this._bytes = ImageMagick._api.HEAPU8.subarray(pointer, pointer + length);
     }
 
-    func(array : DisposableArray<TReturnType>): TReturnType | Promise<TReturnType>  {
+    func(array: DisposableArray<TReturnType>): TReturnType | Promise<TReturnType> {
         if (array._bytes === undefined)
             return array._func(new Uint8Array());
         else
-           return array._func(array._bytes);
+            return array._func(array._bytes);
     }
 
     dispose(): void {

@@ -6,7 +6,7 @@ import { MagickColors } from '../../src/magick-colors';
 
 describe('MagickImage#inverseOpaque', () => {
     it('should change the everything except the target color to the fill color', () => {
-        ImageMagick.read(MagickColors.Red, 1,1, image => {
+        ImageMagick.read(MagickColors.Red, 1, 1, image => {
             image.extent(2, 1, MagickColors.Green);
             image.inverseOpaque(MagickColors.Red, MagickColors.Purple);
 

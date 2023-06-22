@@ -19,11 +19,11 @@ describe('MagickImage#boundingBox', () => {
 
     it('should return null when there is no bounding box', async () => {
         TestImages.Builtin.wizard.use(image => {
-           image.inverseOpaque(MagickColors.Purple, MagickColors.Black);
+            image.inverseOpaque(MagickColors.Purple, MagickColors.Black);
 
             const rectangle = image.boundingBox;
 
             expect(rectangle).toBeNull();
-         });
+        });
     });
 });

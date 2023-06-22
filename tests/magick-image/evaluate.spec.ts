@@ -44,7 +44,7 @@ describe('MagickImage#evaluate', () => {
 
         ImageMagick.read(MagickColors.White, 2, 1, mask => {
             mask.getPixels(pixels => {
-                pixels.setPixel(0, 0, [ 0, 0, 0 ]);
+                pixels.setPixel(0, 0, [0, 0, 0]);
             });
 
             image.setWriteMask(mask);

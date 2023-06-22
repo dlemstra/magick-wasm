@@ -5,7 +5,7 @@ import { ErrorMetric } from '../../src/error-metric';
 import { PixelChannel } from '../../src/pixel-channel';
 import { PixelIntensityMethod } from '../../src/pixel-intensity-method';
 import { TestImages } from '../test-images';
- 
+
 describe('MagickImage#grayscale', () => {
     it('should use the default pixel intensity method', () => {
         TestImages.Color.purple.use(imageA => {

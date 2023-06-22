@@ -4,9 +4,9 @@
 import { ImageMagick } from "./image-magick";
 
 export class PrimaryInfo {
-    private _x : number;
-    private _y : number;
-    private _z : number;
+    private _x: number;
+    private _y: number;
+    private _z: number;
 
     constructor(x: number, y: number, z: number) {
         this._x = x;

@@ -75,7 +75,9 @@ describe('ImageMagick#readCollection', () => {
             await ImageMagick.readCollection(TestImages.roseSparkleGif.data, settings, async () => {
                 await bogusAsyncMethod();
             });
-        }).rejects.toThrowError('ImproperImageHeader');
+        })
+        .rejects
+        .toThrowError('ImproperImageHeader');
     });
 
     it('should read image from array with settings', () => {

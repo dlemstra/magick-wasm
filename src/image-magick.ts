@@ -68,7 +68,7 @@ export class ImageMagick {
     /** @internal */
     async _initialize(wasmLocationOrData?: string | ByteArray): Promise<void> {
         await this.loader(wasmLocationOrData);
-     }
+    }
 
     /** @internal */
     static get _api(): ImageMagickApi {
@@ -97,7 +97,7 @@ export class ImageMagick {
     static read<TReturnType>(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static read<TReturnType>(fileName: string, func: (image: IMagickImage) => TReturnType): TReturnType;
     static read<TReturnType>(fileName: string, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static read<TReturnType>(colorOrArrayOrFileName: MagickColor | ByteArray | string, widthOrFormatOrSetttingsOrFunc: number | MagickFormat | MagickReadSettings | ((image: IMagickImage) => TReturnType | Promise<TReturnType>) , heightOrFunc?: number | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static read<TReturnType>(colorOrArrayOrFileName: MagickColor | ByteArray | string, widthOrFormatOrSetttingsOrFunc: number | MagickFormat | MagickReadSettings | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), heightOrFunc?: number | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return MagickImage._use(image => {
             let callback = func;
             if (colorOrArrayOrFileName instanceof MagickColor) {

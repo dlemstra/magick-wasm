@@ -8,13 +8,13 @@ import { MagickGeometry } from '../magick-geometry';
 import { NativeMontageSettings } from './native-montage-settings';
 
 export class MontageSettings {
-    backgroundColor? : MagickColor;
+    backgroundColor?: MagickColor;
 
-    borderColor? : MagickColor;
+    borderColor?: MagickColor;
 
     borderWidth?: number;
 
-    fillColor? : MagickColor;
+    fillColor?: MagickColor;
 
     font?: string;
 
@@ -30,7 +30,7 @@ export class MontageSettings {
 
     shadow?: boolean;
 
-    strokeColor? : MagickColor;
+    strokeColor?: MagickColor;
 
     textureFileName?: string;
 
@@ -38,7 +38,7 @@ export class MontageSettings {
 
     title?: string;
 
-    transparentColor? : MagickColor;
+    transparentColor?: MagickColor;
 
     /** @internal */
     _use<TReturnType>(func: (settings: NativeMontageSettings) => TReturnType): TReturnType

@@ -21,7 +21,7 @@ afterEach(() => {
 
 describe('PixelCollection#setArea', () => {
     it('should set the pixels at the specified location', () => {
-        const data = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+        const data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         pixels.setArea(0, 0, 2, 2, data);
 
         expect(image).toHavePixelWithColor(0, 0, MagickColors.Black);
