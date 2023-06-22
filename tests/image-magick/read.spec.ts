@@ -46,8 +46,8 @@ describe('ImageMagick#read', () => {
                 await bogusAsyncMethod();
             });
         })
-            .rejects
-            .toThrowError('ReadPNGImage');
+        .rejects
+        .toThrowError('ReadPNGImage');
     });
 
     it('should read image from array with specified format', () => {
@@ -56,7 +56,7 @@ describe('ImageMagick#read', () => {
                 console.log(image);
             });
         })
-            .toThrowError('ReadPNGImage');
+        .toThrowError('ReadPNGImage');
     });
 
     it('should read image from filename with specified format async', async () => {
@@ -65,8 +65,8 @@ describe('ImageMagick#read', () => {
                 await bogusAsyncMethod();
             });
         })
-            .rejects
-            .toThrowError('ReadPNGImage');
+        .rejects
+        .toThrowError('ReadPNGImage');
     });
 
     it('should read image from filename with specified format', () => {
@@ -75,7 +75,7 @@ describe('ImageMagick#read', () => {
                 console.log(image);
             });
         })
-            .toThrowError('ReadPNGImage');
+        .toThrowError('ReadPNGImage');
     });
 
     it('should read correct image when width and height are specified', () => {
