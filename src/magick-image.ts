@@ -248,7 +248,8 @@ export interface IMagickImage extends IDisposable {
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     splice(geometry: MagickGeometry): void;
     solarize(): void;
-    solarize(factor: Percentage | number): void;
+    solarize(factor: number): void;
+    solarize(factor: Percentage): void;
     statistics(): IStatistics;
     statistics(channels: Channels): IStatistics;
     strip(): void;
