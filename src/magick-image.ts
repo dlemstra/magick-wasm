@@ -247,6 +247,9 @@ export interface IMagickImage extends IDisposable {
     sigmoidalContrast(contrast: number, midpoint: number): void;
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     splice(geometry: MagickGeometry): void;
+    solarize(): void;
+    solarize(factor: number): void;
+    solarize(factor: Percentage): void;
     statistics(): IStatistics;
     statistics(channels: Channels): IStatistics;
     strip(): void;
@@ -1326,6 +1329,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     sigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
         this._sigmoidalContrast(true, contrast, midpointOrPercentage, channelsOrUndefined)
+    }
+
+    solarize(): void
+    solarize(numberOrPercentage: Percentage | number = new Percentage(50)): void {
+        Exception.use(exception => {
+            const factor = typeof numberOrPercentage === "number" ? new Percentage(numberOrPercentage) : numberOrPercentage;
+            ImageMagick._api._MagickImage_Solarize(this._instance, factor.toQuantum(), exception.ptr);
+        });
     }
 
     splice(geometry: MagickGeometry): void {
