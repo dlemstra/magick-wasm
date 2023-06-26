@@ -232,7 +232,8 @@ export interface IMagickImage extends IDisposable {
     separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType, channels: Channels): TReturnType;
     separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>, channels: Channels): Promise<TReturnType>;
     sepiaTone(): void;
-    sepiaTone(threshold: Percentage | number): void;
+    sepiaTone(threshold: number): void;
+    sepiaTone(threshold: Percentage): void;
     setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
     setAttribute(name: string, value: string): void;
@@ -1252,9 +1253,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     sepiaTone(): void
-    sepiaTone(thresholdOrNumber: Percentage | number = new Percentage(80)): void {
+    sepiaTone(numberOrPercentage: Percentage | number = new Percentage(80)): void {
         Exception.use(exception => {
-            const threshold = typeof thresholdOrNumber === "number" ? new Percentage(thresholdOrNumber) : thresholdOrNumber;
+            const threshold = typeof numberOrPercentage === 'number' ? new Percentage(numberOrPercentage) : numberOrPercentage;
             const instance = ImageMagick._api._MagickImage_SepiaTone(this._instance, threshold.toQuantum(), exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -1334,7 +1335,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     solarize(): void
     solarize(numberOrPercentage: Percentage | number = new Percentage(50)): void {
         Exception.use(exception => {
-            const factor = typeof numberOrPercentage === "number" ? new Percentage(numberOrPercentage) : numberOrPercentage;
+            const factor = typeof numberOrPercentage === 'number' ? new Percentage(numberOrPercentage) : numberOrPercentage;
             ImageMagick._api._MagickImage_Solarize(this._instance, factor.toQuantum(), exception.ptr);
         });
     }
