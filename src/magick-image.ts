@@ -1332,9 +1332,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     solarize(): void
-    solarize(factorOrNumber: Percentage | number = new Percentage(50)): void {
+    solarize(numberOrPercentage: Percentage | number = new Percentage(50)): void {
         Exception.use(exception => {
-            const factor = typeof factorOrNumber === "number" ? new Percentage(factorOrNumber) : factorOrNumber;
+            const factor = typeof numberOrPercentage === "number" ? new Percentage(numberOrPercentage) : numberOrPercentage;
             ImageMagick._api._MagickImage_Solarize(this._instance, factor.toQuantum(), exception.ptr);
         });
     }
