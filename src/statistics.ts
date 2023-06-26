@@ -1,11 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ChannelStatistics, IChannelStatistics } from "./channel-statistics";
-import { Channels } from "./channels";
-import { ImageMagick } from "./image-magick";
-import { MagickImage } from "./magick-image";
-import { PixelChannel } from "./pixel-channel";
+import { ChannelStatistics, IChannelStatistics } from './channel-statistics';
+import { Channels } from './channels';
+import { ImageMagick } from './image-magick';
+import { MagickImage } from './magick-image';
+import { PixelChannel } from './pixel-channel';
 
 export interface IStatistics {
     readonly channels: ReadonlyArray<PixelChannel>;
