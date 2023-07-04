@@ -21,6 +21,7 @@ export interface IDrawingWand extends IDisposable {
     fillOpacity(value: number): void;
     font(family: string): void;
     fontPointSize(value: number): void;
+    kerning(value: number): void;
     gravity(value: Gravity): void;
     rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void;
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
@@ -78,6 +79,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     fontPointSize(value: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_FontPointSize(this._instance, value, exception);
+        });
+    }
+
+    kerning(value: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_TextKerning(this._instance, value, exception);
         });
     }
 
