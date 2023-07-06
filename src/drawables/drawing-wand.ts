@@ -22,6 +22,7 @@ export interface IDrawingWand extends IDisposable {
     font(family: string): void;
     fontPointSize(value: number): void;
     gravity(value: Gravity): void;
+    interlineSpacing(value: number): void;
     kerning(value: number): void;
     rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void;
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
@@ -88,6 +89,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
         });
     }
 
+    interlineSpacing(value: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_TextInterlineSpacing(this._instance, value, exception);
+        });
+    }
+    
     kerning(value: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_TextKerning(this._instance, value, exception);
