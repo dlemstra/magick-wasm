@@ -9,7 +9,7 @@ import { TestImages } from '../test-images';
 let image: IMagickImage;
 
 beforeEach(() => {
-    image = MagickImage.create();
+image = MagickImage.create();
 });
 
 afterEach(() => {

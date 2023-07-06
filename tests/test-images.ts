@@ -101,6 +101,7 @@ class EmptyTestImage {
 
 export class TestImages {
     static readonly empty = new EmptyTestImage();
+    static readonly emptyCanvas = new TestImageFromColor(MagickColors.White, 150, 150);
     static readonly cmykJpg = new TestImage('tests/images/cmyk.jpg');
     static readonly fujiFilmFinePixS1ProJpg = new TestImage('tests/images/fuji-film-fine-pix-s1-pro.jpg');
     static readonly imageMagickJpg = new TestImage('tests/images/image-magick.jpg');
