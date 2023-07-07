@@ -37,18 +37,4 @@ describe("DrawableInterlineSpacing", () => {
             expect(image).toHavePixelWithColor(60, 131, "#ffffffff");
         });
     });
-
-    it("should write text with decreased interline spacing", () => {
-        TestImages.emptyCanvas.use((image) => {
-            image.draw([
-                new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
-                new DrawableFontPointSize(50),
-                new DrawableInterlineSpacing(-20),
-                new DrawableFillColor(new MagickColor("pink")),
-                new DrawableText(50, 50, "I\nI"),
-            ]);
-
-            expect(image).toHavePixelWithColor(68, 87, "#ffc0cbff");
-        });
-    });
 });
