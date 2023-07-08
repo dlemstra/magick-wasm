@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { DrawableText } from "../../src/drawables/drawable-text";
-import { DrawableInterlineSpacing } from "../../src/drawables/drawable-interline-spacing";
+import { DrawableTextInterlineSpacing } from "../../src/drawables/drawable-text-interline-spacing";
 import { DrawableFillColor } from "../../src/drawables/drawable-fill-color";
 import { DrawableFont } from "../../src/drawables/drawable-font";
 import { DrawableFontPointSize } from "../../src/drawables/drawable-font-point-size";
@@ -16,8 +16,8 @@ describe("DrawableInterlineSpacing", () => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
-                new DrawableInterlineSpacing(10),
                 new DrawableFillColor(new MagickColor("pink")),
+                new DrawableTextInterlineSpacing(10),
                 new DrawableText(50, 50, "I\nI"),
             ]);
 

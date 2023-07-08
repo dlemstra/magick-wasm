@@ -22,11 +22,11 @@ export interface IDrawingWand extends IDisposable {
     font(family: string): void;
     fontPointSize(value: number): void;
     gravity(value: Gravity): void;
-    interlineSpacing(value: number): void;
-    kerning(value: number): void;
     rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void;
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
     text(x: number, y: number, value: string): void;
+    textInterlineSpacing(value: number): void;
+    textKerning(value: number): void;
 }
 
 export class DrawingWand extends NativeInstance implements IDrawingWand {
@@ -89,18 +89,6 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
         });
     }
 
-    interlineSpacing(value: number): void {
-        Exception.usePointer(exception => {
-            ImageMagick._api._DrawingWand_TextInterlineSpacing(this._instance, value, exception);
-        });
-    }
-    
-    kerning(value: number): void {
-        Exception.usePointer(exception => {
-            ImageMagick._api._DrawingWand_TextKerning(this._instance, value, exception);
-        });
-    }
-
     rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_Rectangle(this._instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, exception);
@@ -118,6 +106,18 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
             _withString(value, valuePtr => {
                 ImageMagick._api._DrawingWand_Text(this._instance, x, y, valuePtr, exception);
             });
+        });
+    }
+
+    textInterlineSpacing(value: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_TextInterlineSpacing(this._instance, value, exception);
+        });
+    }
+
+    textKerning(value: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_TextKerning(this._instance, value, exception);
         });
     }
 
