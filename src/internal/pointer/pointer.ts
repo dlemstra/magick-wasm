@@ -8,13 +8,13 @@ export class Pointer {
     private readonly instance: number;
 
     private constructor() {
-        this.instance = ImageMagick._api._malloc(8);
-        ImageMagick._api.setValue(this.instance, 0, 'i64');
+        this.instance = ImageMagick._api._malloc(4);
+        ImageMagick._api.setValue(this.instance, 0, 'i32');
     }
 
     get ptr(): number { return this.instance; }
 
-    get value(): number { return ImageMagick._api.getValue(this.instance, 'i64'); }
+    get value(): number { return ImageMagick._api.getValue(this.instance, 'i32'); }
 
     static use<TReturnType>(func: (pointer: Pointer) => TReturnType): TReturnType {
         const pointer = new Pointer();
