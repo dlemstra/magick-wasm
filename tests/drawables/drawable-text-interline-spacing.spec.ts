@@ -10,7 +10,20 @@ import { MagickColor } from "../../src/magick-color";
 import { TestFonts } from "../test-fonts";
 import { TestImages } from "../test-images";
 
-describe("DrawableInterlineSpacing", () => {
+describe("DrawableTextInterlineSpacing", () => {
+    it("should write text with default interline spacing", () => {
+        TestImages.emptyCanvas.use((image) => {
+            image.draw([
+                new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
+                new DrawableFontPointSize(50),
+                new DrawableFillColor(new MagickColor("pink")),
+                new DrawableText(50, 50, "I\nI"),
+            ]);
+
+            expect(image).toHavePixelWithColor(60, 131, "#ffffffff");
+        });
+    });
+
     it("should write text with increased interline spacing", () => {
         TestImages.emptyCanvas.use((image) => {
             image.draw([
@@ -22,19 +35,6 @@ describe("DrawableInterlineSpacing", () => {
             ]);
 
             expect(image).toHavePixelWithColor(60, 131, "#ffc0cbff");
-        });
-    });
-
-    it("should write text with default interline spacing", () => {
-        TestImages.emptyCanvas.use((image) => {
-            image.draw([
-                new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
-                new DrawableFontPointSize(50),
-                new DrawableFillColor(new MagickColor("pink")),
-                new DrawableText(50, 50, "I\nI"),
-            ]);
-
-            expect(image).toHavePixelWithColor(60, 131, "#ffffffff");
         });
     });
 });

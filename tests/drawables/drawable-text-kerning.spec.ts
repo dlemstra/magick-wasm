@@ -10,7 +10,7 @@ import { MagickColor } from "../../src/magick-color";
 import { TestFonts } from "../test-fonts";
 import { TestImages } from "../test-images";
 
-describe("DrawableKerning", () => {
+describe("DrawableTextKerning", () => {
     it("should write text with kerning to the image", () => {
         TestImages.emptyCanvas.use((image) => {
             image.draw([
