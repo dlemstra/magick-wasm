@@ -1,11 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawableText } from "../../src/drawables/drawable-text";
-import { DrawableTextKerning } from "../../src/drawables/drawable-text-kerning";
 import { DrawableFillColor } from "../../src/drawables/drawable-fill-color";
 import { DrawableFont } from "../../src/drawables/drawable-font";
 import { DrawableFontPointSize } from "../../src/drawables/drawable-font-point-size";
+import { DrawableText } from "../../src/drawables/drawable-text";
+import { DrawableTextKerning } from "../../src/drawables/drawable-text-kerning";
 import { MagickColor } from "../../src/magick-color";
 import { TestFonts } from "../test-fonts";
 import { TestImages } from "../test-images";
