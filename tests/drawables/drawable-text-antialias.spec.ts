@@ -2,15 +2,14 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { DrawableText } from "../../src/drawables/drawable-text";
-import { DrawableTextAlignment } from "../../src/drawables/drawable-text-alignment";
+import { DrawableTextAntialias } from "../../src/drawables/drawable-text-antialias";
 import { DrawableFont } from "../../src/drawables/drawable-font";
 import { DrawableFontPointSize } from "../../src/drawables/drawable-font-point-size";
 import { TestFonts } from "../test-fonts";
 import { TestImages } from "../test-images";
-import { TextAlignment } from "../../src/text-alignment";
 
-describe("DrawableTextAlignment", () => {
-    it("should write text without alignment to the image", () => {
+describe("DrawableTextAntialias", () => {
+    it("should write text with antialias to the image", () => {
         TestImages.emptyCanvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
@@ -18,22 +17,20 @@ describe("DrawableTextAlignment", () => {
                 new DrawableText(0, 100, "Test"),
             ]);
 
-            expect(image).toHavePixelWithColor(126, 75, "#000000ff");
-            expect(image).toHavePixelWithColor(49, 79, "#ffffffff");
+            expect(image).toHavePixelWithColor(95, 67, "#b1b1b1ff");
         });
     });
 
-    it("should write text with alignment to the image", () => {
+    it("should write text without antialias to the image", () => {
         TestImages.emptyCanvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
-                new DrawableTextAlignment(TextAlignment.Center),
+                DrawableTextAntialias.Disabled,
                 new DrawableText(0, 100, "Test"),
             ]);
 
-            expect(image).toHavePixelWithColor(126, 75, "#ffffffff");
-            expect(image).toHavePixelWithColor(49, 79, "#000000ff");
+            expect(image).toHavePixelWithColor(95, 67, "#000000ff");
         });
     });
 });

@@ -27,6 +27,7 @@ export interface IDrawingWand extends IDisposable {
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
     text(x: number, y: number, value: string): void;
     textAlignment(value: TextAlignment): void;
+    textAntialias(value: boolean): void;
     textInterlineSpacing(value: number): void;
     textKerning(value: number): void;
 }
@@ -114,6 +115,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     textAlignment(value: TextAlignment): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_TextAlignment(this._instance, value, exception);
+        });
+    }
+
+    textAntialias(value: boolean): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_TextAntialias(this._instance, value ? 1 : 0, exception);
         });
     }
 
