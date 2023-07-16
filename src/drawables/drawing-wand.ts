@@ -12,6 +12,7 @@ import { MagickColor } from '../magick-color';
 import { MagickSettings } from '../settings/magick-settings';
 import { NativeInstance } from '../native-instance';
 import { PaintMethod } from '../paint-method';
+import { TextAlignment } from '../text-alignment';
 import { _withString } from '../internal/native/string';
 
 export interface IDrawingWand extends IDisposable {
@@ -25,6 +26,7 @@ export interface IDrawingWand extends IDisposable {
     rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void;
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
     text(x: number, y: number, value: string): void;
+    textAlignment(value: TextAlignment): void;
     textInterlineSpacing(value: number): void;
     textKerning(value: number): void;
 }
@@ -106,6 +108,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
             _withString(value, valuePtr => {
                 ImageMagick._api._DrawingWand_Text(this._instance, x, y, valuePtr, exception);
             });
+        });
+    }
+
+    textAlignment(value: TextAlignment): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_TextAlignment(this._instance, value, exception);
         });
     }
 
