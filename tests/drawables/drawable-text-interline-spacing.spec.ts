@@ -37,4 +37,18 @@ describe("DrawableTextInterlineSpacing", () => {
             expect(image).toHavePixelWithColor(60, 131, "#ffc0cbff");
         });
     });
+
+    it("should write text with negative interline spacing", () => {
+        TestImages.emptyCanvas.use((image) => {
+            image.draw([
+                new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
+                new DrawableFontPointSize(50),
+                new DrawableFillColor(new MagickColor("pink")),
+                new DrawableTextInterlineSpacing(-30),
+                new DrawableText(50, 50, "I\nI"),
+            ]);
+
+            expect(image).toHavePixelWithColor(68, 59, "#ffc0cbff");
+        });
+    });
 });
