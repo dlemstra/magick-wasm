@@ -140,6 +140,7 @@ export enum MagickFormat {
     Mpc = 'MPC',
     Mpeg = 'MPEG',
     Mpg = 'MPG',
+    Mpo = 'MPO',
     Mrw = 'MRW',
     Msl = 'MSL',
     Msvg = 'MSVG',
