@@ -14,6 +14,7 @@ import { NativeInstance } from '../native-instance';
 import { PaintMethod } from '../paint-method';
 import { TextAlignment } from '../text-alignment';
 import { _withString } from '../internal/native/string';
+import { TextDecoration } from '../text-decoration';
 
 export interface IDrawingWand extends IDisposable {
     color(x: number, y: number, paintMethod: number): void;
@@ -28,6 +29,7 @@ export interface IDrawingWand extends IDisposable {
     text(x: number, y: number, value: string): void;
     textAlignment(value: TextAlignment): void;
     textAntialias(value: boolean): void;
+    textDecoration(value: TextDecoration): void;
     textInterlineSpacing(value: number): void;
     textKerning(value: number): void;
 }
@@ -121,6 +123,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     textAntialias(value: boolean): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_TextAntialias(this._instance, value ? 1 : 0, exception);
+        });
+    }
+
+    textDecoration(value: TextDecoration): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_TextDecoration(this._instance, value, exception);
         });
     }
 
