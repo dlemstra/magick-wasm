@@ -32,6 +32,7 @@ export * from './drawables/drawable-text-alignment';
 export * from './drawables/drawable-text-antialias';
 export * from './drawables/drawable-text-decoration';
 export * from './drawables/drawable-text-interline-spacing';
+export * from './drawables/drawable-text-interword-spacing';
 export * from './drawables/drawable-text-kerning';
 export * from './drawables/drawable-text';
 export * from './drawables/drawable';

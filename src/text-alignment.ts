@@ -5,5 +5,5 @@ export enum TextAlignment {
     Undefined,
     Left,
     Center,
-    Right
+    Right,
 }

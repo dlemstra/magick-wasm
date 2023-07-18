@@ -13,8 +13,8 @@ import { MagickSettings } from '../settings/magick-settings';
 import { NativeInstance } from '../native-instance';
 import { PaintMethod } from '../paint-method';
 import { TextAlignment } from '../text-alignment';
-import { _withString } from '../internal/native/string';
 import { TextDecoration } from '../text-decoration';
+import { _withString } from '../internal/native/string';
 
 export interface IDrawingWand extends IDisposable {
     color(x: number, y: number, paintMethod: number): void;
@@ -31,6 +31,7 @@ export interface IDrawingWand extends IDisposable {
     textAntialias(value: boolean): void;
     textDecoration(value: TextDecoration): void;
     textInterlineSpacing(value: number): void;
+    textInterwordspacing(value: number): void;
     textKerning(value: number): void;
 }
 
@@ -135,6 +136,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     textInterlineSpacing(value: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_TextInterlineSpacing(this._instance, value, exception);
+        });
+    }
+
+    textInterwordspacing(value: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_TextInterwordSpacing(this._instance, value, exception);
         });
     }
 
