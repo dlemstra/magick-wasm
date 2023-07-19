@@ -34,6 +34,7 @@ export * from './drawables/drawable-text-decoration';
 export * from './drawables/drawable-text-interline-spacing';
 export * from './drawables/drawable-text-interword-spacing';
 export * from './drawables/drawable-text-kerning';
+export * from './drawables/drawable-text-under-color';
 export * from './drawables/drawable-text';
 export * from './drawables/drawable';
 export * from './drawables/drawing-wand';

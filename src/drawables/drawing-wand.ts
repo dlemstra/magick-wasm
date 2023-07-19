@@ -33,6 +33,7 @@ export interface IDrawingWand extends IDisposable {
     textInterlineSpacing(value: number): void;
     textInterwordspacing(value: number): void;
     textKerning(value: number): void;
+    textUnderColor(value: MagickColor): void;
 }
 
 export class DrawingWand extends NativeInstance implements IDrawingWand {
@@ -148,6 +149,14 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     textKerning(value: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_TextKerning(this._instance, value, exception);
+        });
+    }
+
+    textUnderColor(value: MagickColor): void {
+        Exception.usePointer(exception => {
+            value._use(valuePtr => {
+                ImageMagick._api._DrawingWand_TextUnderColor(this._instance, valuePtr, exception);
+            });
         });
     }
 
