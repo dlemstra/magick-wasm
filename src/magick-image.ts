@@ -205,8 +205,7 @@ export interface IMagickImage extends IDisposable {
     modulate(brightness: Percentage): void;
     modulate(brightness: Percentage, saturation: Percentage): void;
     modulate(brightness: Percentage, saturation: Percentage, hue: Percentage): void;
-    motionBlur():void;
-    motionBlur(radius?: number, sigma?: number, angle?: number): void;
+    motionBlur(radius: number, sigma: number, angle: number): void;
     negate(): void;
     negate(channels: Channels): void;
     negateGrayScale(): void;
@@ -1151,12 +1150,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    motionBlur():void;
-    motionBlur(radiusOrUndefined?: number, sigmaOrUndefined?: number, angleOrUndefined?: number): void {
-        const radius = this.valueOrDefault(radiusOrUndefined, 10);
-        const sigma = this.valueOrDefault(sigmaOrUndefined, 1);
-        const angle = this.valueOrDefault(angleOrUndefined, 0);
-
+    motionBlur(radius: number, sigma: number, angle: number): void {
         Exception.use(exception => {
             const instance = ImageMagick._api._MagickImage_MotionBlur(this._instance, radius, sigma, angle, exception.ptr);
             this._setInstance(instance, exception);
