@@ -3,26 +3,17 @@
 
 import { AutoThresholdMethod } from '../../src/auto-threshold-method';
 import { MagickColors } from '../../src/magick-colors';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-    image.read('logo:');
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '../test-images';
 
 describe('MagickImage#autoThreshold', () => {
     it('should threshold the image', () => {
-        image.autoThreshold(AutoThresholdMethod.OTSU);
+        TestImages.Builtin.logo.use(image => {
+            image.autoThreshold(AutoThresholdMethod.OTSU);
 
-        const histogram = image.histogram();
-        expect(histogram.size).toBe(2);
-        expect(histogram.get(MagickColors.Black.toString())).toBe(39359);
-        expect(histogram.get(MagickColors.White.toString())).toBe(267841);
+            const histogram = image.histogram();
+            expect(histogram.size).toBe(2);
+            expect(histogram.get(MagickColors.Black.toString())).toBe(39359);
+            expect(histogram.get(MagickColors.White.toString())).toBe(267841);
+        });
     });
 });

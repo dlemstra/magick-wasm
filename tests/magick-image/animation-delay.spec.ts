@@ -1,25 +1,19 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IMagickImage, MagickImage } from '../../src/magick-image';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '../test-images';
 
 describe('MagickImage#animationDelay', () => {
     it('should return the animation delay', () => {
-        expect(image.animationDelay).toBe(0);
+        TestImages.empty.use(image => {
+            expect(image.animationDelay).toBe(0);
+        });
     });
 
     it('should change the animation delay', () => {
-        image.animationDelay = 10;
-        expect(image.animationDelay).toBe(10);
+        TestImages.empty.use(image => {
+            image.animationDelay = 10;
+            expect(image.animationDelay).toBe(10);
+        });
     });
 });
