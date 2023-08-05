@@ -2,25 +2,17 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ErrorMetric } from '../../src/error-metric';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '../test-images';
 
 describe('MagickImage#channelCount', () => {
     it('should create a clone of the image', () => {
-        image.read(MagickColors.Magenta, 1, 1);
-        image.clone(clone => {
-            const difference = image.compare(clone, ErrorMetric.RootMeanSquared);
-            expect(difference).toBe(0);
+        TestImages.empty.use(image => {
+            image.read(MagickColors.Magenta, 1, 1);
+            image.clone(clone => {
+                const difference = image.compare(clone, ErrorMetric.RootMeanSquared);
+                expect(difference).toBe(0);
+            });
         });
     });
 });
