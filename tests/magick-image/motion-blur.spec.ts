@@ -6,9 +6,9 @@ import { TestImages } from "../test-images";
 describe('MagickImage#motionBlur', () => {
     it('should change pixels of the image', () => {
         TestImages.Builtin.logo.use((image) => {
-            image.motionBlur(100, 10, -90);
+            image.motionBlur(10, 10, -90);
 
-            expect(image).toHavePixelWithColor(222, 60, '#ff0d0dff');
+            expect(image).toHavePixelWithColor(222, 60, '#ff0404ff');
         });
     });
 });
