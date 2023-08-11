@@ -1,26 +1,20 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { PixelInterpolateMethod } from '../../src/pixel-interpolate-method';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '../test-images';
 
 describe('MagickImage#interpolate', () => {
     it('should return the correct default value', () => {
-        expect(image.interpolate).toBe(PixelInterpolateMethod.Undefined);
+        TestImages.empty.use(image => {
+            expect(image.interpolate).toBe(PixelInterpolateMethod.Undefined);
+        });
     });
 
     it('should return the correct value after it has been changed', () => {
-        image.interpolate = PixelInterpolateMethod.Blend;
-        expect(image.interpolate).toBe(PixelInterpolateMethod.Blend);
+        TestImages.empty.use(image => {
+            image.interpolate = PixelInterpolateMethod.Blend;
+            expect(image.interpolate).toBe(PixelInterpolateMethod.Blend);
+        });
     });
 });

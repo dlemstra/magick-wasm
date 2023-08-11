@@ -7,13 +7,9 @@ import { DrawableFontPointSize } from '../../src/drawables/drawable-font-point-s
 import { DrawableGravity } from '../../src/drawables/drawable-gravity';
 import { DrawableText } from '../../src/drawables/drawable-text';
 import { Gravity } from '../../src/gravity';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
 import { MagickColors } from '../../src/magick-colors';
 import { TestFonts } from '../test-fonts';
-
-let image: IMagickImage;
-beforeEach(() => { image = MagickImage.create(); });
-afterEach(() => image.dispose());
+import { TestImages } from '../test-images';
 
 describe('DrawableGravity', () => {
     it.each([
@@ -27,16 +23,18 @@ describe('DrawableGravity', () => {
         [Gravity.South, 31, 39],
         [Gravity.Southeast, 40, 39],
     ])('should draw text at the expected gravity %s', (gravity: Gravity, x: number, y: number) => {
-        image.read(MagickColors.White, 50, 50);
-        image.draw([
-            new DrawableFillColor(MagickColors.Green),
-            new DrawableGravity(gravity),
-            new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
-            new DrawableFontPointSize(10),
-            new DrawableText(0, 0, 'Magick'),
-        ])
+        TestImages.empty.use(image => {
+            image.read(MagickColors.White, 50, 50);
+            image.draw([
+                new DrawableFillColor(MagickColors.Green),
+                new DrawableGravity(gravity),
+                new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
+                new DrawableFontPointSize(10),
+                new DrawableText(0, 0, 'Magick'),
+            ])
 
-        // Check for the dot on the `i` at the expected position
-        expect(image).toHavePixelWithColor(x, y, '#108810ff');
+            // Check for the dot on the `i` at the expected position
+            expect(image).toHavePixelWithColor(x, y, '#108810ff');
+        });
     });
 });

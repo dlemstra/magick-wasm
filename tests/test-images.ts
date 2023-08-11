@@ -110,6 +110,7 @@ export class TestImages {
 
     static Builtin = class {
         static readonly logo = new BuiltinTestImage('logo:');
+        static readonly rose = new BuiltinTestImage('rose:');
         static readonly wizard = new BuiltinTestImage('wizard:');
     }
 
