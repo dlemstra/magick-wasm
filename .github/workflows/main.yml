@@ -20,7 +20,7 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Use node ${{ matrix.node }}
         uses: actions/setup-node@v3
@@ -63,7 +63,7 @@ jobs:
 
       - run: apt install -y nodejs
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
