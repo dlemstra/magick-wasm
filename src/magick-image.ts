@@ -257,6 +257,8 @@ export interface IMagickImage extends IDisposable {
     statistics(): IStatistics;
     statistics(channels: Channels): IStatistics;
     strip(): void;
+    threshold(percentage: Percentage): void;
+    threshold(percentage: Percentage, channels: Channels): void;
     toString(): string;
     transparent(color: MagickColor): void;
     trim(): void;
@@ -1383,6 +1385,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     strip(): void {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_Strip(this._instance, exception);
+        });
+    }
+
+    threshold(percentage: Percentage): void
+    threshold(percentage: Percentage, channels: Channels): void
+    threshold(percentage: Percentage, channelsOrUndefined?: Channels): void {
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+        Exception.usePointer(exception => {
+            ImageMagick._api._MagickImage_Threshold(this._instance, percentage.toQuantum(), channels, exception);
         });
     }
 
