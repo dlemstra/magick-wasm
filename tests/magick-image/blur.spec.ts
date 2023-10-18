@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Channels } from '../../src/channels';
-import { TestImages } from '../test-images';
+import { Channels } from '@src/channels';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#blur', () => {
     it('should change pixels of the image', () => {

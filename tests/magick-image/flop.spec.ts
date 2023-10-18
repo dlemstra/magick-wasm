@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IMagickImageCollection, MagickImageCollection } from '../../src/magick-image-collection';
-import { MagickColors } from '../../src/magick-colors';
-import { MagickImage } from '../../src/magick-image';
+import { IMagickImageCollection, MagickImageCollection } from '@src/magick-image-collection';
+import { MagickColors } from '@src/magick-colors';
+import { MagickImage } from '@src/magick-image';
 
 let images: IMagickImageCollection;
 

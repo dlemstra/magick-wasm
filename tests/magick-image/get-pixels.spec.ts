@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { PixelCollection } from '../../src/pixels/pixel-collection';
-import { TestImages } from '../test-images';
+import { PixelCollection } from '@src/pixels/pixel-collection';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#getPixels', () => {
     it('should dispose pixel instance', () => {

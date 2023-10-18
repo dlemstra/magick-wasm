@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { AlphaOption } from '../../src/alpha-option';
-import { Channels } from '../../src/channels';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
-import { MagickColors } from '../../src/magick-colors';
+import { AlphaOption } from '@src/alpha-option';
+import { Channels } from '@src/channels';
+import { IMagickImage, MagickImage } from '@src/magick-image';
+import { MagickColors } from '@src/magick-colors';
 
 let image: IMagickImage;
 

@@ -1,13 +1,13 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawableColor } from '../../src/drawables/drawable-color';
-import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
-import { DrawableFillOpacity } from '../../src/drawables/drawable-fill-opacity';
-import { MagickColor } from '../../src/magick-color';
-import { PaintMethod } from '../../src/paint-method';
-import { Percentage } from '../../src/percentage';
-import { TestImages } from '../test-images';
+import { DrawableColor } from '@src/drawables/drawable-color';
+import { DrawableFillColor } from '@src/drawables/drawable-fill-color';
+import { DrawableFillOpacity } from '@src/drawables/drawable-fill-opacity';
+import { MagickColor } from '@src/magick-color';
+import { PaintMethod } from '@src/paint-method';
+import { Percentage } from '@src/percentage';
+import { TestImages } from '@test/test-images';
 
 describe('DrawableFillOpacity', () => {
     it('should set the fill color opacity for following drawing actions', () => {

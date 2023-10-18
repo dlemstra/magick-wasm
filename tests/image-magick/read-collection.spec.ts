@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../../src/image-magick';
-import { MagickFormat } from '../../src/magick-format';
-import { MagickReadSettings } from '../../src/settings/magick-read-settings';
-import { TestImages } from '../test-images';
+import { ImageMagick } from '@src/image-magick';
+import { MagickFormat } from '@src/magick-format';
+import { MagickReadSettings } from '@src/settings/magick-read-settings';
+import { TestImages } from '@test/test-images';
 
 function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
 

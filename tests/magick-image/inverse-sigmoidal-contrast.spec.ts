@@ -1,11 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Channels } from '../../src/channels';
-import { ErrorMetric } from '../../src/error-metric';
-import { Percentage } from '../../src/percentage';
-import { Quantum } from '../../src/quantum';
-import { TestImages } from '../test-images';
+import { Channels } from '@src/channels';
+import { ErrorMetric } from '@src/error-metric';
+import { Percentage } from '@src/percentage';
+import { Quantum } from '@src/quantum';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#inverseSigmoidalContrast', () => {
     it('should use half of quantum for midpoint by default', () => {

@@ -2,9 +2,9 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { CustomMatchers, ICustomMatchers } from './custom-matcher';
-import { ImageMagick, initializeImageMagick } from '../src/image-magick';
+import { ImageMagick, initializeImageMagick } from '@src/image-magick';
 import { ImageMagickApi } from '@dlemstra/magick-native/magick';
-import { Magick } from '../src/magick';
+import { Magick } from '@src/magick';
 import { TestFonts } from './test-fonts';
 import * as fs from 'fs';
 

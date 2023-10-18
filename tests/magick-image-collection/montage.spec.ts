@@ -1,12 +1,12 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ErrorMetric } from '../../src/error-metric';
-import { MagickImageCollection } from '../../src/magick-image-collection';
-import { MagickGeometry } from '../../src/magick-geometry';
-import { MontageSettings } from '../../src/settings/montage-settings';
-import { TestImages } from '../test-images';
-import { TestFonts } from '../test-fonts';
+import { ErrorMetric } from '@src/error-metric';
+import { MagickImageCollection } from '@src/magick-image-collection';
+import { MagickGeometry } from '@src/magick-geometry';
+import { MontageSettings } from '@src/settings/montage-settings';
+import { TestImages } from '@test/test-images';
+import { TestFonts } from '@test/test-fonts';
 
 describe('MagickImageCollection#montage', () => {
     it('should throw exception when collection is empty', () => {

@@ -1,5 +1,6 @@
 import { builtinModules } from 'module';
 import { defineConfig } from 'vitest/config';
+import path from 'path';
 
 export default defineConfig({
     build: {
@@ -18,5 +19,11 @@ export default defineConfig({
         setupFiles: './tests/custom-environment.ts',
         threads: false,
         logHeapUsage: true,
+    },
+    resolve: {
+        alias: {
+            '@src': path.resolve(__dirname, './src'),
+            '@test': path.resolve(__dirname, './tests')
+        },
     },
 });

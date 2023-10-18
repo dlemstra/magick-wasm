@@ -1,11 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../../../src/image-magick';
-import { MagickFormat } from '../../../src/magick-format';
-import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
-import { MagickSettings } from '../../../src/settings/magick-settings';
-import { TestImages } from '../../test-images';
+import { ImageMagick } from '@src/image-magick';
+import { MagickFormat } from '@src/magick-format';
+import { MagickReadSettings } from '@src/settings/magick-read-settings';
+import { MagickSettings } from '@src/settings/magick-settings';
+import { TestImages } from '@test/test-images';
 
 describe('MagickSettings#setDefine', () => {
     it('should change boolean value into a string', () => {

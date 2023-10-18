@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ColorSpace } from '../../src/color-space';
-import { TestImages } from '../test-images';
+import { ColorSpace } from '@src/color-space';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#colorSpace', () => {
     it('should return the color space', () => {

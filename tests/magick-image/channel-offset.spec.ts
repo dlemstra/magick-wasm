@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { PixelChannel } from '../../src/pixel-channel';
-import { TestImages } from '../test-images';
+import { PixelChannel } from '@src/pixel-channel';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#channelCount', () => {
     it('should return -1 when image does not contain channel', () => {

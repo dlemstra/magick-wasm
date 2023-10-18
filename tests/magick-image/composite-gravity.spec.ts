@@ -1,12 +1,12 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Channels } from '../../src/channels';
-import { CompositeOperator } from '../../src/composite-operator';
-import { Gravity } from '../../src/gravity';
-import { ImageMagick } from '../../src/image-magick';
-import { MagickColors } from '../../src/magick-colors';
-import { Point } from '../../src/point';
+import { Channels } from '@src/channels';
+import { CompositeOperator } from '@src/composite-operator';
+import { Gravity } from '@src/gravity';
+import { ImageMagick } from '@src/image-magick';
+import { MagickColors } from '@src/magick-colors';
+import { Point } from '@src/point';
 
 describe('MagickImage#compositeGravity', () => {
     it('should use the gravity', () => {

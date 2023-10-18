@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ErrorMetric } from '../../src/error-metric';
-import { Percentage } from '../../src/percentage';
-import { TestImages } from '../test-images';
+import { ErrorMetric } from '@src/error-metric';
+import { Percentage } from '@src/percentage';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#brightnessContrast', () => {
     it('should not change at all', () => {

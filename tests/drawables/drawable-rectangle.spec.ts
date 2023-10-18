@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawableRectangle } from '../../src/drawables/drawable-rectangle';
-import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
-import { MagickColors } from '../../src/magick-colors';
-import { TestImages } from '../test-images';
+import { DrawableRectangle } from '@src/drawables/drawable-rectangle';
+import { DrawableFillColor } from '@src/drawables/drawable-fill-color';
+import { MagickColors } from '@src/magick-colors';
+import { TestImages } from '@test/test-images';
 
 describe('DrawableRectangle', () => {
     it('should draw a rectangle', () => {

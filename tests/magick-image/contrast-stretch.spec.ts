@@ -1,11 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Channels } from '../../src/channels';
-import { MagickColor } from '../../src/magick-color';
-import { MagickColors } from '../../src/magick-colors';
-import { Percentage } from '../../src/percentage';
-import { TestImages } from '../test-images';
+import { Channels } from '@src/channels';
+import { MagickColor } from '@src/magick-color';
+import { MagickColors } from '@src/magick-colors';
+import { Percentage } from '@src/percentage';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#contrastStretch', () => {
     it('should stretch the image contrast to the given blackpoint', () => {

@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Density } from '../../src/density';
-import { DensityUnit } from '../../src/density-unit';
-import { TestImages } from '../test-images';
+import { Density } from '@src/density';
+import { DensityUnit } from '@src/density-unit';
+import { TestImages } from '@test/test-images';
 
 describe('Magick#density', () => {
     it('should return the density of the image', () => {

@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IDefine } from '../../src/defines/define';
-import { DefinesCreator } from '../../src/defines/defines-creator';
-import { MagickFormat } from '../../src/magick-format';
-import { MagickReadSettings } from '../../src/settings/magick-read-settings';
+import { IDefine } from '@src/defines/define';
+import { DefinesCreator } from '@src/defines/defines-creator';
+import { MagickFormat } from '@src/magick-format';
+import { MagickReadSettings } from '@src/settings/magick-read-settings';
 
 class TestDefinesCreator extends DefinesCreator {
     constructor() {

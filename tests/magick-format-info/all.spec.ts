@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickFormat } from '../../src/magick-format';
-import { MagickFormatInfo } from '../../src/magick-format-info';
+import { MagickFormat } from '@src/magick-format';
+import { MagickFormatInfo } from '@src/magick-format-info';
 
 describe('MagickFormatInfo#all', () => {
     it('should have a format for all values', () => {

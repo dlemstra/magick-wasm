@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { JSDOM } from 'jsdom';
-import { MagickColors } from '../../src/magick-colors';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
+import { MagickColors } from '@src/magick-colors';
+import { IMagickImage, MagickImage } from '@src/magick-image';
 
 let image: IMagickImage;
 

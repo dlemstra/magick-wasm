@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickColor } from '../src/magick-color';
-import { MagickColors } from '../src/magick-colors';
-import { MagickImage, IMagickImage } from '../src/magick-image';
-import { MagickImageCollection, IMagickImageCollection } from '../src/magick-image-collection';
+import { MagickColor } from '@src/magick-color';
+import { MagickColors } from '@src/magick-colors';
+import { MagickImage, IMagickImage } from '@src/magick-image';
+import { MagickImageCollection, IMagickImageCollection } from '@src/magick-image-collection';
 import * as fs from 'fs';
 
 interface Cloneable<T> {

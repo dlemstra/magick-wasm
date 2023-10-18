@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ErrorMetric } from '../../../src/error-metric';
-import { ImageMagick } from '../../../src/image-magick';
-import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
-import { TestFonts } from '../../test-fonts';
+import { ErrorMetric } from '@src/error-metric';
+import { ImageMagick } from '@src/image-magick';
+import { MagickReadSettings } from '@src/settings/magick-read-settings';
+import { TestFonts } from '@test/test-fonts';
 
 describe('MagickSettings#antiAlias', () => {
     it('should use the correct anti alias setting', () => {

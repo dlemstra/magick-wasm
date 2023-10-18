@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../../src/image-magick';
+import { ImageMagick } from '@src/image-magick';
 import { JSDOM } from 'jsdom';
-import { MagickColors } from '../../src/magick-colors';
+import { MagickColors } from '@src/magick-colors';
 
 describe('ImageMagick#readFromCanvas', () => {
     it('should read the image data from the canvas', () => {

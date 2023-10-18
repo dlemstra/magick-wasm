@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { GifDisposeMethod } from '../../src/gif-dispose-method';
-import { ImageMagick } from '../../src/image-magick';
-import { TestImages } from '../test-images';
+import { GifDisposeMethod } from '@src/gif-dispose-method';
+import { ImageMagick } from '@src/image-magick';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#gifDisposeMethod', () => {
     it('should return the gif dispose method of the image', () => {

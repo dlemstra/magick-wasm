@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickColor } from '../../src/magick-color';
+import { MagickColor } from '@src/magick-color';
 
 describe('MagickColor#constructor', () => {
     it('should set throw error when color is invalid', () => {

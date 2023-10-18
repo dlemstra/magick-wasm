@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Density } from '../../src/density';
-import { DensityUnit } from '../../src/density-unit';
+import { Density } from '@src/density';
+import { DensityUnit } from '@src/density-unit';
 
 describe('Density#constructor', () => {
     it('should set the properties', () => {

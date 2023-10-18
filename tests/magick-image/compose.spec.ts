@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { CompositeOperator } from '../../src/composite-operator';
-import { TestImages } from '../test-images';
+import { CompositeOperator } from '@src/composite-operator';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#compose', () => {
     it('should return the compose operator', () => {

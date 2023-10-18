@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { CompressionMethod } from '../../../src/compression-method';
-import { ImageMagick } from '../../../src/image-magick';
-import { MagickFormat } from '../../../src/magick-format';
-import { TestImages } from '../../test-images';
+import { CompressionMethod } from '@src/compression-method';
+import { ImageMagick } from '@src/image-magick';
+import { MagickFormat } from '@src/magick-format';
+import { TestImages } from '@test/test-images';
 
 describe('MagickSettings#compression', () => {
     it('should be used when saving image', () => {

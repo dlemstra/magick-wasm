@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../../src/image-magick';
-import { LogEventTypes } from '../../src/log-event-types';
-import { Magick } from '../../src/magick';
-import { TestImages } from '../test-images';
+import { ImageMagick } from '@src/image-magick';
+import { LogEventTypes } from '@src/log-event-types';
+import { Magick } from '@src/magick';
+import { TestImages } from '@test/test-images';
 
 describe('Magick#onLog', () => {
     it('should raise log events from ImageMagick', () => {

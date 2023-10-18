@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Channels } from '../../src/channels';
-import { PixelChannel } from '../../src/pixel-channel';
-import { TestImages } from '../test-images';
+import { Channels } from '@src/channels';
+import { PixelChannel } from '@src/pixel-channel';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#statistics', () => {
     it('should return the statistics for the all channels', () => {

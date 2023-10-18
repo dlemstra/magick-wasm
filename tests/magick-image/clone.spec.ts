@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ErrorMetric } from '../../src/error-metric';
-import { MagickColors } from '../../src/magick-colors';
-import { TestImages } from '../test-images';
+import { ErrorMetric } from '@src/error-metric';
+import { MagickColors } from '@src/magick-colors';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#channelCount', () => {
     it('should create a clone of the image', () => {

@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from '../../../src/image-magick';
-import { MagickColor } from '../../../src/magick-color';
-import { MagickReadSettings } from '../../../src/settings/magick-read-settings';
-import { TestFonts } from '../../test-fonts';
+import { ImageMagick } from '@src/image-magick';
+import { MagickColor } from '@src/magick-color';
+import { MagickReadSettings } from '@src/settings/magick-read-settings';
+import { TestFonts } from '@test/test-fonts';
 
 describe('MagickSettings#strokeWidth', () => {
     it('should use the correct stroke width', () => {

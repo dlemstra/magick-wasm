@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Channels } from '../../src/channels';
-import { IMagickImage, MagickImage } from '../../src/magick-image';
-import { Percentage } from '../../src/percentage';
+import { Channels } from '@src/channels';
+import { IMagickImage, MagickImage } from '@src/magick-image';
+import { Percentage } from '@src/percentage';
 
 let image: IMagickImage;
 

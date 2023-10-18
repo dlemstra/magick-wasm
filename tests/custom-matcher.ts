@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IMagickImage } from '../src/magick-image';
-import { MagickColor } from '../src/magick-color';
-import { PixelChannel } from '../src/pixel-channel';
-import { Quantum } from '../src/quantum';
+import { IMagickImage } from '@src/magick-image';
+import { MagickColor } from '@src/magick-color';
+import { PixelChannel } from '@src/pixel-channel';
+import { Quantum } from '@src/quantum';
 
 interface MatcherResult {
     pass: boolean;

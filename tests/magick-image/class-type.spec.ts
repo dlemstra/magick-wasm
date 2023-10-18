@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ClassType } from '../../src/class-type';
-import { TestImages } from '../test-images';
+import { ClassType } from '@src/class-type';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#classType', () => {
     it('should return the class type the image', () => {

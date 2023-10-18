@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Kernel } from '../../src/kernel';
-import { MorphologyMethod } from '../../src/morphology-method';
-import { MorphologySettings } from '../../src/settings/morphology-settings';
-import { TestImages } from '../test-images';
+import { Kernel } from '@src/kernel';
+import { MorphologyMethod } from '@src/morphology-method';
+import { MorphologySettings } from '@src/settings/morphology-settings';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#morphology', () => {
     it('should apply the kernel with the specified method', () => {

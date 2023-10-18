@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ChromaticityInfo } from '../../src/chromaticity-info';
-import { PrimaryInfo } from '../../src/primary-info';
-import { TestImages } from '../test-images';
+import { ChromaticityInfo } from '@src/chromaticity-info';
+import { PrimaryInfo } from '@src/primary-info';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#chromaBluePrimary', () => {
     it('should return the chromaticity', async () => {

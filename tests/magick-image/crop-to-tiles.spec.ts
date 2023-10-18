@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickColors } from '../../src/magick-colors';
-import { MagickGeometry } from '../../src/magick-geometry';
-import { TestImages } from '../test-images';
+import { MagickColors } from '@src/magick-colors';
+import { MagickGeometry } from '@src/magick-geometry';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#cropToTiles', () => {
     it('should crop the image to tiles', () => {

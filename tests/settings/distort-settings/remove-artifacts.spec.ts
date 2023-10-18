@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DistortSettings } from '../../../src/settings/distort-settings';
-import { IMagickImage, MagickImage } from '../../../src/magick-image';
-import { MagickGeometry } from '../../../src/magick-geometry';
+import { DistortSettings } from '@src/settings/distort-settings';
+import { IMagickImage, MagickImage } from '@src/magick-image';
+import { MagickGeometry } from '@src/magick-geometry';
 
 let image: IMagickImage;
 

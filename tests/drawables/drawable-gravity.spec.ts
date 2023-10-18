@@ -1,15 +1,15 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
-import { DrawableFont } from '../../src/drawables/drawable-font';
-import { DrawableFontPointSize } from '../../src/drawables/drawable-font-point-size';
-import { DrawableGravity } from '../../src/drawables/drawable-gravity';
-import { DrawableText } from '../../src/drawables/drawable-text';
-import { Gravity } from '../../src/gravity';
-import { MagickColors } from '../../src/magick-colors';
-import { TestFonts } from '../test-fonts';
-import { TestImages } from '../test-images';
+import { DrawableFillColor } from '@src/drawables/drawable-fill-color';
+import { DrawableFont } from '@src/drawables/drawable-font';
+import { DrawableFontPointSize } from '@src/drawables/drawable-font-point-size';
+import { DrawableGravity } from '@src/drawables/drawable-gravity';
+import { DrawableText } from '@src/drawables/drawable-text';
+import { Gravity } from '@src/gravity';
+import { MagickColors } from '@src/magick-colors';
+import { TestFonts } from '@test/test-fonts';
+import { TestImages } from '@test/test-images';
 
 describe('DrawableGravity', () => {
     it.each([
