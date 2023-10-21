@@ -49,7 +49,6 @@
         "@types/jsdom": "^21.1.4",
         "@typescript-eslint/eslint-plugin": "^6.8.0",
         "@typescript-eslint/parser": "^6.8.0",
-        "ansi-regex": ">=6.0.1",
         "copyfiles": "^2.4.1",
         "dts-bundle-generator": "^8.0.1",
         "eslint": "^8.52.0",
