@@ -52,7 +52,7 @@
         "ansi-regex": ">=6.0.1",
         "copyfiles": "^2.4.1",
         "dts-bundle-generator": "^8.0.1",
-        "eslint": "^8.51.0",
+        "eslint": "^8.52.0",
         "eslint-plugin-header": "^3.1.1",
         "jsdom": "^22.1.0",
         "set-value": "^4.1.0",
