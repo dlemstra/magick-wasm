@@ -36,9 +36,7 @@ if (!global.native) {
 
 beforeAll(() => { ImageMagick._api = global.native; });
 
-expect.extend({
-    toHavePixelWithColor: CustomMatchers.toHavePixelWithColor
-});
+expect.extend(CustomMatchers);
 
 global.expectToNotBeNull = function <T>(value: T): NonNullable<T> {
     expect(value).not.toBeNull();
