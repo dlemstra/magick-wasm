@@ -1,0 +1,86 @@
+// Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
+// Licensed under the Apache License, Version 2.0.
+
+import { ImageMagick } from './image-magick';
+import { MagickColor } from './magick-color';
+import { MagickGeometry } from './magick-geometry';
+import { Point } from './point';
+
+/**
+ * An ImageMagick connected component object.
+ */
+export class ConnectedComponent {
+    /**
+     * The pixel count of the area.
+     */
+    readonly area: number;
+    /**
+     * The centroid of the area.
+     */
+    readonly centroid: Point;
+    /**
+     * The color of the area.
+     */
+    readonly color?: MagickColor;
+    /**
+     * The height of the area.
+     */
+    readonly height: number;
+    /**
+     * The id of the area.
+     */
+    readonly id: number;
+    /**
+     * The width of the area.
+     */
+    readonly width: number;
+    /**
+     * The X offset from origin.
+     */
+    readonly x: number;
+    /**
+     * The Y offset from origin.
+     */
+    readonly y: number;
+
+    constructor(instance: number) {
+        this.area = ImageMagick._api._ConnectedComponent_GetArea(instance);
+        this.centroid = Point._create(ImageMagick._api._ConnectedComponent_GetCentroid(instance));
+        this.color = MagickColor._create(ImageMagick._api._ConnectedComponent_GetColor(instance));
+        this.height = ImageMagick._api._ConnectedComponent_GetHeight(instance);
+        this.id = ImageMagick._api._ConnectedComponent_GetId(instance);
+        this.width = ImageMagick._api._ConnectedComponent_GetWidth(instance);
+        this.x = ImageMagick._api._ConnectedComponent_GetX(instance);
+        this.y = ImageMagick._api._ConnectedComponent_GetY(instance);
+    }
+
+    /** @internal */
+    static _create(list: number, length: number): ReadonlyArray<ConnectedComponent> {
+        const result: ConnectedComponent[] = [];
+
+        if (list === 0) {
+            return result;
+        }
+
+        for (let i = 0; i < length; i++) {
+            const instance = ImageMagick._api._ConnectedComponent_GetInstance(list, i);
+
+            if (instance === 0) {
+                continue;
+            }
+
+            result.push(new ConnectedComponent(instance));
+        }
+
+        return result;
+    }
+
+    /**
+     * Returns the geometry of the area of the connected component.
+     */
+    toGeometry(extent: number = 0): MagickGeometry {
+        const extra = extent * 2;
+
+        return new MagickGeometry(this.x - extent, this.y - extent, this.width + extra, this.height + extra);
+    }
+}

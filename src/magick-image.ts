@@ -11,6 +11,7 @@ import { ColorSpace } from './color-space';
 import { ColorType } from './color-type';
 import { CompositeOperator } from './composite-operator';
 import { CompressionMethod } from './compression-method';
+import { ConnectedComponent } from './connected-component';
 import { Density } from './density';
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
@@ -49,6 +50,7 @@ import { Point } from './point';
 import { Pointer } from './internal/pointer/pointer';
 import { PrimaryInfo } from './primary-info';
 import { Quantum } from './quantum';
+import { ConnectedComponentsSettings, Connectivity } from './settings/connected-components-settings';
 import { Statistics, IStatistics } from './statistics';
 import { StringInfo } from './internal/string-info';
 import { VirtualPixelMethod } from './virtual-pixel-method';
@@ -152,6 +154,35 @@ export interface IMagickImage extends IDisposable {
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, channels: Channels): void;
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
+    /**
+     * Determines the connected-components of the image.
+     * 
+     * @param connectivity The number of neighbors to visit (4 or 8).
+     * @see {@link https://imagemagick.org/script/connected-components.php}
+     * 
+     * @example
+     * declare const image: MagickImage;
+     * const components = image.connectedComponents(4);
+     * //    ^? ReadonlyArray<ConnectedComponent>
+     */
+    connectedComponents(connectivity: Connectivity): ReadonlyArray<ConnectedComponent>;
+    /**
+     * Determines the connected-components of the image.
+     * 
+     * @param settings The connected-components operation settings.
+     * @see {@link https://imagemagick.org/script/connected-components.php}
+     * 
+     * @example
+     * declare const image: MagickImage;
+     * 
+     * const settings = new ConnectedComponentsSettings(4);
+     * settings.areaThreshold = new Threshold(50);
+     * settings.meanColor = true;
+     * 
+     * const components = image.connectedComponents(settings);
+     * //    ^? ReadonlyArray<ConnectedComponent>
+     */
+    connectedComponents(settings: ConnectedComponentsSettings): ReadonlyArray<ConnectedComponent>;
     contrast(): void;
     contrastStretch(blackPoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage): void;
@@ -790,6 +821,32 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         if (args !== null)
             this.removeArtifact('compose:args');
+    }
+
+    connectedComponents(connectivity: Connectivity): ReadonlyArray<ConnectedComponent>;
+    connectedComponents(settings: ConnectedComponentsSettings): ReadonlyArray<ConnectedComponent>;
+    connectedComponents(connectivityOrSettings: Connectivity | ConnectedComponentsSettings): ReadonlyArray<ConnectedComponent> {
+        const settings = typeof connectivityOrSettings === 'number' ? new ConnectedComponentsSettings(connectivityOrSettings) : connectivityOrSettings;
+
+        settings._setArtifacts(this);
+
+        const connectedComponents = Exception.use((exception) => {
+            return Pointer.use((objects) => {
+                try {
+                    const instance = ImageMagick._api._MagickImage_ConnectedComponents(this._instance, settings.connectivity, objects.ptr, exception.ptr);
+                    const colormapSize = ImageMagick._api._MagickImage_ColormapSize_Get(instance, exception.ptr);
+
+                    return ConnectedComponent._create(objects.value, colormapSize);
+                } finally {
+                    if (objects.value !== 0) {
+                        ImageMagick._api._ConnectedComponent_DisposeList(objects.value);
+                    }
+                }
+            });
+        });
+
+        settings._removeArtifacts(this);
+        return connectedComponents;
     }
 
     contrast = () => this._contrast(true);
