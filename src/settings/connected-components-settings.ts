@@ -30,6 +30,10 @@ export class ConnectedComponentsSettings {
      */
     circularityThreshold?: Threshold;
     /**
+     * The number of neighbors to visit (4 or 8).
+     */
+    connectivity: Connectivity;
+    /**
      * The threshold that merges any object not within the min and max diameter
      * threshold.
      */
@@ -60,12 +64,9 @@ export class ConnectedComponentsSettings {
      */
     perimeterThreshold?: Threshold;
 
-    constructor(
-        /**
-         * The number of neighbors to visit (4 or 8).
-         */
-        public connectivity: Connectivity,
-    ) {}
+    constructor(connectivity: Connectivity) {
+        this.connectivity = connectivity;
+    }
 
     /** @internal */
     _removeArtifacts(image: IMagickImage): void {

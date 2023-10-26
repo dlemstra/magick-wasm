@@ -13,7 +13,6 @@ interface MatcherResult {
 
 export interface ICustomMatchers {
     toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => void;
-    toBeWithinRangeDelta: (expected: number, delta: number) => void;
 }
 
 export const CustomMatchers = {
@@ -30,22 +29,6 @@ export const CustomMatchers = {
             message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`
         };
     }) as () => MatcherResult,
-    toBeWithinRangeDelta: (received: number, expected: number, delta: number) => {
-        const diff = expected - delta;
-        const sum = expected + delta;
-
-        const minimum = Math.min(diff, sum);
-        const maximum = Math.max(diff, sum);
-
-        if (received >= minimum && received <= maximum) {
-            return { pass: true, message: () => '' };
-        }
-
-        return {
-            pass: false,
-            message: () => `Expected ${expected} to be within ±${delta} of ${received.toFixed(2)}.`,
-        };
-    },
 };
 
 function toHex(value: number): string {

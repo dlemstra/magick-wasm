@@ -2,12 +2,13 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ConnectedComponent } from '@src/connected-component';
-import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
 import { IMagickImage } from '@src/magick-image';
 import { Percentage } from '@src/percentage';
 import { Point } from '@src/point';
 import { TestImages } from '@test/test-images';
+
+type ComponentTestData = Required<Omit<ConnectedComponent, 'toGeometry'>>;
 
 describe('MagickImage#connectedComponents', () => {
     test('should return the connected components', () => {
@@ -29,7 +30,7 @@ describe('MagickImage#connectedComponents', () => {
                     width: 128,
                     height: 151,
                     area: 11783,
-                    centroid: new Point(158, 372),
+                    centroid: new Point(157.209, 371.743),
                     color,
                 });
                 assertComponent(image, connectedComponents[2], {
@@ -39,7 +40,7 @@ describe('MagickImage#connectedComponents', () => {
                     width: 128,
                     height: 150,
                     area: 11772,
-                    centroid: new Point(162, 628),
+                    centroid: new Point(162.24, 628.234),
                     color,
                 });
                 assertComponent(image, connectedComponents[3], {
@@ -49,7 +50,7 @@ describe('MagickImage#connectedComponents', () => {
                     width: 89,
                     height: 139,
                     area: 11792,
-                    centroid: new Point(310, 501),
+                    centroid: new Point(310.84, 501.142),
                     color,
                 });
                 assertComponent(image, connectedComponents[4], {
@@ -59,7 +60,7 @@ describe('MagickImage#connectedComponents', () => {
                     width: 148,
                     height: 143,
                     area: 11801,
-                    centroid: new Point(374, 272),
+                    centroid: new Point(374.831, 272.887),
                     color,
                 });
                 assertComponent(image, connectedComponents[5], {
@@ -69,7 +70,7 @@ describe('MagickImage#connectedComponents', () => {
                     width: 136,
                     height: 150,
                     area: 11793,
-                    centroid: new Point(408, 696),
+                    centroid: new Point(408.52, 696.301),
                     color,
                 });
                 assertComponent(image, connectedComponents[6], {
@@ -79,7 +80,7 @@ describe('MagickImage#connectedComponents', () => {
                     width: 88,
                     height: 139,
                     area: 11835,
-                    centroid: new Point(477, 480),
+                    centroid: new Point(477.281, 480.149),
                     color,
                 });
             });
@@ -87,45 +88,25 @@ describe('MagickImage#connectedComponents', () => {
     });
 });
 
-function assertComponent(
-    image: IMagickImage,
-    component: ConnectedComponent,
-    {
-        id,
-        area,
-        x,
-        y,
-        width,
-        height,
-        color,
-        centroid,
-    }: {
-        id: number;
-        area: number;
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-        color: MagickColor;
-        centroid: Point;
-    },
-) {
-    const delta = 2;
-
+function assertComponent(image: IMagickImage, component: ConnectedComponent, { id, area, x, y, width, height, color, centroid }: ComponentTestData) {
     expect(component.id).toBe(id);
-    expect(component.area).toBeWithinRangeDelta(area, delta);
-    expect(component.x).toBeWithinRangeDelta(x, delta);
-    expect(component.y).toBeWithinRangeDelta(y, delta);
-    expect(component.width).toBeWithinRangeDelta(width, delta);
-    expect(component.height).toBeWithinRangeDelta(height, delta);
+    expect(component.area).toBe(area);
+    expect(component.x).toBe(x);
+    expect(component.y).toBe(y);
+    expect(component.width).toBe(width);
+    expect(component.height).toBe(height);
     expect(component.color).toEqual(color);
-    expect(component.centroid.x).toBeWithinRangeDelta(centroid.x, delta);
-    expect(component.centroid.y).toBeWithinRangeDelta(centroid.y, delta);
+    expect(component.centroid.x).toBeCloseTo(centroid.x);
+    expect(component.centroid.y).toBeCloseTo(centroid.y);
 
     image.clone((clone) => {
         clone.crop(component.toGeometry(10));
 
-        expect(clone.width).toBeWithinRangeDelta(width, 20 + delta);
-        expect(clone.height).toBeWithinRangeDelta(height, 20 + delta);
+        const delta = 20;
+
+        expect(clone.width).toBeGreaterThanOrEqual(width - delta);
+        expect(clone.width).toBeLessThanOrEqual(width + delta);
+        expect(clone.height).toBeGreaterThanOrEqual(height - delta);
+        expect(clone.height).toBeLessThanOrEqual(height + delta);
     });
 }
