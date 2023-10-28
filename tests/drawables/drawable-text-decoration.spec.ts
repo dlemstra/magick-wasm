@@ -11,7 +11,7 @@ import { TextDecoration } from "../../src/text-decoration";
 
 describe("DrawableTextDecoration", () => {
     it("should write text without decoration to the image", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
@@ -23,7 +23,7 @@ describe("DrawableTextDecoration", () => {
     });
 
     it("should write text with decoration to the image", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),

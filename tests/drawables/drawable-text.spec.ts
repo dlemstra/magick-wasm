@@ -11,7 +11,7 @@ import { TestImages } from '@test/test-images';
 
 describe('DrawableText', () => {
     it('should write text to the image', () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(100),

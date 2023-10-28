@@ -8,7 +8,7 @@ import { TestImages } from '@test/test-images';
 
 describe('DrawablePoint', () => {
     it('should set point in the image', () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFillColor(new MagickColor('pink')),
                 new DrawablePoint(100, 100),

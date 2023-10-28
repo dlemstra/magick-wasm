@@ -12,7 +12,7 @@ import { TestImages } from "../test-images";
 
 describe("DrawableTextInterlineSpacing", () => {
     it("should write text with default interline spacing", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
@@ -25,7 +25,7 @@ describe("DrawableTextInterlineSpacing", () => {
     });
 
     it("should write text with increased interline spacing", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
@@ -39,7 +39,7 @@ describe("DrawableTextInterlineSpacing", () => {
     });
 
     it("should write text with negative interline spacing", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),

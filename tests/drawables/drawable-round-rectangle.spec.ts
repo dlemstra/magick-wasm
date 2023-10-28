@@ -8,7 +8,7 @@ import { TestImages } from '@test/test-images';
 
 describe('DrawableRoundRectangle', () => {
     it('should draw a rounded rectangle', () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFillColor(MagickColors.Green),
                 new DrawableRoundRectangle(0, 0, 11, 11, 5, 5),

@@ -10,7 +10,7 @@ import { TestImages } from "../test-images";
 
 describe("DrawableTextAntialias", () => {
     it("should write text with antialias to the image", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
@@ -22,7 +22,7 @@ describe("DrawableTextAntialias", () => {
     });
 
     it("should write text without antialias to the image", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),

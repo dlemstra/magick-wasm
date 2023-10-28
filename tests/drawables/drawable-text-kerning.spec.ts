@@ -12,7 +12,7 @@ import { TestImages } from "../test-images";
 
 describe("DrawableTextKerning", () => {
     it("should write text with kerning to the image", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(100),
@@ -26,7 +26,7 @@ describe("DrawableTextKerning", () => {
     });
 
     it("should write text without kerning to the image", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(100),

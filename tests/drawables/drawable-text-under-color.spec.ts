@@ -11,7 +11,7 @@ import { TestImages } from "../test-images";
 
 describe("DrawableTextUnderColor", () => {
     it("should write text without text under color to the image", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
@@ -25,7 +25,7 @@ describe("DrawableTextUnderColor", () => {
     });
 
     it("should write text with text under color to the image", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),

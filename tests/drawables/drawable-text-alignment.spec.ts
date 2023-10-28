@@ -11,7 +11,7 @@ import { TextAlignment } from "../../src/text-alignment";
 
 describe("DrawableTextAlignment", () => {
     it("should write text without alignment to the image", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
@@ -24,7 +24,7 @@ describe("DrawableTextAlignment", () => {
     });
 
     it("should write text with alignment to the image", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),

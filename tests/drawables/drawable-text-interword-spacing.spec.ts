@@ -10,7 +10,7 @@ import { TestImages } from "../test-images";
 
 describe("DrawableTextInterwordSpacing", () => {
     it("should write text with default interword spacing", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
@@ -25,7 +25,7 @@ describe("DrawableTextInterwordSpacing", () => {
     });
 
     it("should write text with increased interword spacing", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
@@ -41,7 +41,7 @@ describe("DrawableTextInterwordSpacing", () => {
     });
 
     it("should write text with negative interword spacing", () => {
-        TestImages.emptyCanvas.use((image) => {
+        TestImages.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
