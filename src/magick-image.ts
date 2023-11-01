@@ -100,6 +100,13 @@ export interface IMagickImage extends IDisposable {
     readonly height: number;
     interpolate: PixelInterpolateMethod;
     readonly interlace: Interlace;
+
+    /**
+     * Gets a value indicating whether none of the pixels in the image have an alpha value other
+     * than OpaqueAlpha (QuantumRange).
+     */
+    readonly isOpaque: boolean;
+
     label: string | null;
     orientation: OrientationType;
     page: MagickGeometry;
@@ -508,6 +515,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
 
     get interlace(): Interlace { return ImageMagick._api._MagickImage_Interlace_Get(this._instance); }
+
+    get isOpaque(): boolean {
+        return Exception.usePointer(exception => {
+            return this.toBool(ImageMagick._api._MagickImage_IsOpaque_Get(this._instance, exception));
+        });
+    }
 
     get interpolate(): PixelInterpolateMethod { return ImageMagick._api._MagickImage_Interpolate_Get(this._instance); }
     set interpolate(value: PixelInterpolateMethod) { ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value); }
