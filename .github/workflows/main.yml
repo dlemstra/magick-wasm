@@ -1,12 +1,12 @@
 on:
   push:
     branches:
-    - main
+      - main
     tags:
-    - '!*'
+      - '!*'
   pull_request:
     branches:
-    - main
+      - main
 
 name: main
 jobs:
@@ -39,6 +39,8 @@ jobs:
       - run: npm run build
 
       - run: npm run test
+
+      - run: npm run test-dist
 
       - run: npm run demo
 
