@@ -42,7 +42,7 @@
         "issue": "cd issue && tsc && node issue.js",
         "prepare": "copyfiles -f ./node_modules/@dlemstra/magick-native/NOTICE . && copyfiles -f ./node_modules/@dlemstra/magick-native/magick.wasm dist",
         "test": "vitest run",
-        "test-dist": "vite build && cd tests/dist && node test-dist",
+        "test-dist": "cd tests/dist && node test-dist",
         "update-index": "cd tools && tsc && node update-index.js ../src"
     },
     "devDependencies": {
