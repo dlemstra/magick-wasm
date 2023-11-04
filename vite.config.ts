@@ -1,5 +1,6 @@
 import { builtinModules } from 'module';
 import { defineConfig } from 'vitest/config';
+import esmShim from '@rollup/plugin-esm-shim';
 import path from 'path';
 
 export default defineConfig({
@@ -13,6 +14,9 @@ export default defineConfig({
         commonjsOptions: {
             ignore: [...builtinModules, 'ws'],
         },
+        rollupOptions: {
+            plugins: [esmShim()],
+        },
     },
     test: {
         globals: true,
@@ -23,7 +27,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@src': path.resolve(__dirname, './src'),
-            '@test': path.resolve(__dirname, './tests')
+            '@test': path.resolve(__dirname, './tests'),
         },
     },
 });

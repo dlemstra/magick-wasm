@@ -46,6 +46,7 @@
     },
     "devDependencies": {
         "@dlemstra/magick-native": "0.202310.142050",
+        "@rollup/plugin-esm-shim": "^0.1.4",
         "@types/jsdom": "21.1.4",
         "@typescript-eslint/eslint-plugin": "6.9.1",
         "@typescript-eslint/parser": "6.9.1",
