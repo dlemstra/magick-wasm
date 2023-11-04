@@ -13,13 +13,6 @@ const versionRegEx =
 
 let foundError = false;
 
-function clearBuildInfo() {
-  for (let i = 0; i < 5; i++) {
-    process.stdout.moveCursor(0, -1);
-    process.stdout.clearLine(1);
-  }
-}
-
 async function runTest(filename) {
   try {
     return await exec(`node ${filename}`);
@@ -50,7 +43,7 @@ async function testDistFile(filename) {
 }
 
 async function testDist() {
-  clearBuildInfo();
+  console.log('');
 
   await testDistFile('test-ESM.mjs');
   await testDistFile('test-CJS.js');
