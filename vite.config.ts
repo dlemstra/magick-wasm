@@ -1,3 +1,4 @@
+import { builtinModules } from 'module';
 import { defineConfig } from 'vitest/config';
 import path from 'path';
 
@@ -8,6 +9,9 @@ export default defineConfig({
             entry: 'src/index.ts',
             name: 'magick-wasm',
             fileName: 'index',
+        },
+        commonjsOptions: {
+            ignore: [...builtinModules, 'ws'],
         },
     },
     test: {
