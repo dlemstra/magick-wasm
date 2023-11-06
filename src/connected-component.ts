@@ -65,7 +65,7 @@ export class ConnectedComponent {
         for (let i = 0; i < length; i++) {
             const instance = ImageMagick._api._ConnectedComponent_GetInstance(list, i);
 
-            if (instance === 0) {
+            if (instance === 0 || ImageMagick._api._ConnectedComponent_GetArea(instance) < Number.EPSILON) {
                 continue;
             }
 
