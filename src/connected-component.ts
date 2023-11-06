@@ -43,7 +43,7 @@ export class ConnectedComponent {
      */
     readonly y: number;
 
-    constructor(instance: number) {
+    private constructor(instance: number) {
         this.area = ImageMagick._api._ConnectedComponent_GetArea(instance);
         this.centroid = Point._create(ImageMagick._api._ConnectedComponent_GetCentroid(instance));
         this.color = MagickColor._create(ImageMagick._api._ConnectedComponent_GetColor(instance));
