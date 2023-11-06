@@ -78,9 +78,7 @@ export class ConnectedComponent {
     /**
      * Returns the geometry of the area of the connected component.
      */
-    toGeometry(extent: number = 0): MagickGeometry {
-        const extra = extent * 2;
-
-        return new MagickGeometry(this.x - extent, this.y - extent, this.width + extra, this.height + extra);
+    toGeometry(): MagickGeometry {
+        return new MagickGeometry(this.x, this.y, this.width, this.height);
     }
 }
