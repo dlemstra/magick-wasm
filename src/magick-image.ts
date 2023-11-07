@@ -161,35 +161,23 @@ export interface IMagickImage extends IDisposable {
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, channels: Channels): void;
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
+
     /**
      * Determines the connected-components of the image.
-     * 
+     *
      * @param connectivity The number of neighbors to visit (4 or 8).
      * @see {@link https://imagemagick.org/script/connected-components.php}
-     * 
-     * @example
-     * declare const image: MagickImage;
-     * const components = image.connectedComponents(4);
-     * //    ^? ConnectedComponent[]
      */
     connectedComponents(connectivity: Connectivity): ConnectedComponent[];
+
     /**
      * Determines the connected-components of the image.
-     * 
+     *
      * @param settings The connected-components operation settings.
      * @see {@link https://imagemagick.org/script/connected-components.php}
-     * 
-     * @example
-     * declare const image: MagickImage;
-     * 
-     * const settings = new ConnectedComponentsSettings(4);
-     * settings.areaThreshold = new Threshold(50);
-     * settings.meanColor = true;
-     * 
-     * const components = image.connectedComponents(settings);
-     * //    ^? ConnectedComponent[]
      */
     connectedComponents(settings: ConnectedComponentsSettings): ConnectedComponent[];
+
     contrast(): void;
     contrastStretch(blackPoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage): void;

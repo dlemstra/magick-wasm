@@ -14,16 +14,6 @@ export class Threshold {
 
     /**
      * Convert the threshold to a string.
-     *
-     * @example
-     * // no maximum
-     * const threshold = new Threshold(50);
-     * threshold.toString(); // '50'
-     *
-     * @example
-     * // with maximum
-     * const threshold = new Threshold(50, 100);
-     * threshold.toString(); // '50-100'
      */
     toString(): string {
         if (this.maximum === 0) {
