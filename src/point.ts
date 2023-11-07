@@ -1,6 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { ImageMagick } from "./image-magick";
+
 export class Point {
     private _x: number;
     private _y: number;
@@ -17,4 +19,12 @@ export class Point {
 
     get y(): number { return this._y; }
     set y(value: number) { this._y = value; }
+
+    /** @internal */
+    static _create(instance: number): Point {
+        if (instance === 0)
+            return new Point(0, 0);
+
+        return new Point(ImageMagick._api._PointInfo_X_Get(instance), ImageMagick._api._PointInfo_Y_Get(instance));
+    }
 }
