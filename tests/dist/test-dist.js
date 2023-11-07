@@ -8,8 +8,7 @@ const colorReset = '\x1b[0m';
 const colorGreen = '\x1b[32m';
 const colorRed = '\x1b[31m';
 
-const versionRegEx =
-  /^ImageMagick \d+\.\d+\.\d+-\d+ Q8 x86_64 [\w\d]+:[\w\d]+ https:\/\/imagemagick\.org$/;
+const features = 'Cipher';
 
 let foundError = false;
 
@@ -29,7 +28,7 @@ async function testDistFile(filename) {
 
   const name = filename.substring(5, 8);
 
-  if (stdout.trim().match(versionRegEx)) {
+  if (stdout.trim() === features) {
     console.log(`${colorGreen}${name} build passed${colorReset}`);
     return;
   }
@@ -37,9 +36,7 @@ async function testDistFile(filename) {
   foundError = true;
 
   console.error(`${colorRed}${name} build failed:${colorReset}`);
-  console.error(
-    stderr || `"${stdout.trim()}"\ndoes not match\n${versionRegEx}`
-  );
+  console.error(stderr || `"${stdout.trim()}"\ndoes not match\n"${features}"`);
 }
 
 async function testDist() {
