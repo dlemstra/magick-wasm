@@ -15,10 +15,10 @@ describe('ConnectedComponent#toGeometry', () => {
 
                 const geometry = connectedComponents[1].toGeometry();
 
-                expect(geometry.x).toBe(94);
-                expect(geometry.y).toBe(297);
-                expect(geometry.width).toBe(128);
-                expect(geometry.height).toBe(151);
+                expect(geometry.x).toBe(57);
+                expect(geometry.y).toBe(250);
+                expect(geometry.width).toBe(88);
+                expect(geometry.height).toBe(139);
             });
         });
     });

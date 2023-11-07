@@ -24,63 +24,63 @@ describe('MagickImage#connectedComponents', () => {
                 const color = MagickColors.Black;
 
                 assertComponent(image, connectedComponents[1], {
-                    id: 2,
-                    x: 94,
-                    y: 297,
-                    width: 128,
-                    height: 151,
-                    area: 11783,
-                    centroid: new Point(157.209, 371.743),
-                    color,
-                });
-                assertComponent(image, connectedComponents[2], {
-                    id: 5,
-                    x: 99,
-                    y: 554,
-                    width: 128,
-                    height: 150,
-                    area: 11772,
-                    centroid: new Point(162.24, 628.234),
-                    color,
-                });
-                assertComponent(image, connectedComponents[3], {
                     id: 4,
-                    x: 267,
-                    y: 432,
-                    width: 89,
-                    height: 139,
-                    area: 11792,
-                    centroid: new Point(310.84, 501.142),
-                    color,
-                });
-                assertComponent(image, connectedComponents[4], {
-                    id: 1,
-                    x: 301,
-                    y: 202,
-                    width: 148,
-                    height: 143,
-                    area: 11801,
-                    centroid: new Point(374.831, 272.887),
-                    color,
-                });
-                assertComponent(image, connectedComponents[5], {
-                    id: 6,
-                    x: 341,
-                    y: 622,
-                    width: 136,
-                    height: 150,
-                    area: 11793,
-                    centroid: new Point(408.52, 696.301),
-                    color,
-                });
-                assertComponent(image, connectedComponents[6], {
-                    id: 3,
-                    x: 434,
-                    y: 411,
+                    x: 57,
+                    y: 250,
                     width: 88,
                     height: 139,
                     area: 11835,
-                    centroid: new Point(477.281, 480.149),
+                    centroid: new Point(100.718, 318.8505),
+                    color,
+                });
+                assertComponent(image, connectedComponents[2], {
+                    id: 1,
+                    x: 102,
+                    y: 28,
+                    width: 136,
+                    height: 150,
+                    area: 11793,
+                    centroid: new Point(169.479, 102.698),
+                    color,
+                });
+                assertComponent(image, connectedComponents[3], {
+                    id: 6,
+                    x: 130,
+                    y: 455,
+                    width: 148,
+                    height: 143,
+                    area: 11801,
+                    centroid: new Point(203.168, 526.112),
+                    color,
+                });
+                assertComponent(image, connectedComponents[4], {
+                    id: 3,
+                    x: 223,
+                    y: 229,
+                    width: 89,
+                    height: 139,
+                    area: 11792,
+                    centroid: new Point(267.159, 297.857),
+                    color,
+                });
+                assertComponent(image, connectedComponents[5], {
+                    id: 2,
+                    x: 352,
+                    y: 96,
+                    width: 128,
+                    height: 150,
+                    area: 11772,
+                    centroid: new Point(415.759, 170.765),
+                    color,
+                });
+                assertComponent(image, connectedComponents[6], {
+                    id: 5,
+                    x: 357,
+                    y: 352,
+                    width: 128,
+                    height: 151,
+                    area: 11783,
+                    centroid: new Point(420.79, 427.256),
                     color,
                 });
             });
@@ -89,18 +89,21 @@ describe('MagickImage#connectedComponents', () => {
 });
 
 function assertComponent(image: IMagickImage, component: ConnectedComponent, { id, area, x, y, width, height, color, centroid }: ComponentTestData) {
-    expect(component.id).toBe(id);
-    expect(component.area).toBe(area);
-    expect(component.x).toBe(x);
-    expect(component.y).toBe(y);
-    expect(component.width).toBe(width);
-    expect(component.height).toBe(height);
-    expect(component.color).toEqual(color);
+    expect(component).toEqual({
+        id,
+        area,
+        x,
+        y,
+        width,
+        height,
+        color,
+        centroid: expect.any(Point),
+    });
     expect(component.centroid.x).toBeCloseTo(centroid.x);
     expect(component.centroid.y).toBeCloseTo(centroid.y);
 
     image.clone((clone) => {
-        clone.crop(component.toGeometry(10));
+        clone.crop(component.toGeometry());
 
         const delta = 20;
 
