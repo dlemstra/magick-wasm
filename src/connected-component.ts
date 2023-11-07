@@ -55,7 +55,7 @@ export class ConnectedComponent {
     }
 
     /** @internal */
-    static _create(list: number, length: number): ReadonlyArray<ConnectedComponent> {
+    static _create(list: number, length: number): ConnectedComponent[] {
         const result: ConnectedComponent[] = [];
 
         if (list === 0) {

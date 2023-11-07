@@ -163,9 +163,9 @@ export interface IMagickImage extends IDisposable {
      * @example
      * declare const image: MagickImage;
      * const components = image.connectedComponents(4);
-     * //    ^? ReadonlyArray<ConnectedComponent>
+     * //    ^? ConnectedComponent[]
      */
-    connectedComponents(connectivity: Connectivity): ReadonlyArray<ConnectedComponent>;
+    connectedComponents(connectivity: Connectivity): ConnectedComponent[];
     /**
      * Determines the connected-components of the image.
      * 
@@ -180,9 +180,9 @@ export interface IMagickImage extends IDisposable {
      * settings.meanColor = true;
      * 
      * const components = image.connectedComponents(settings);
-     * //    ^? ReadonlyArray<ConnectedComponent>
+     * //    ^? ConnectedComponent[]
      */
-    connectedComponents(settings: ConnectedComponentsSettings): ReadonlyArray<ConnectedComponent>;
+    connectedComponents(settings: ConnectedComponentsSettings): ConnectedComponent[];
     contrast(): void;
     contrastStretch(blackPoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage): void;
@@ -823,9 +823,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.removeArtifact('compose:args');
     }
 
-    connectedComponents(connectivity: Connectivity): ReadonlyArray<ConnectedComponent>;
-    connectedComponents(settings: ConnectedComponentsSettings): ReadonlyArray<ConnectedComponent>;
-    connectedComponents(connectivityOrSettings: Connectivity | ConnectedComponentsSettings): ReadonlyArray<ConnectedComponent> {
+    connectedComponents(connectivity: Connectivity): ConnectedComponent[];
+    connectedComponents(settings: ConnectedComponentsSettings): ConnectedComponent[];
+    connectedComponents(connectivityOrSettings: Connectivity | ConnectedComponentsSettings): ConnectedComponent[] {
         const settings = typeof connectivityOrSettings === 'number' ? new ConnectedComponentsSettings(connectivityOrSettings) : connectivityOrSettings;
 
         settings._setArtifacts(this);
