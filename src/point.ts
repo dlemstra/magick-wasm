@@ -22,7 +22,8 @@ export class Point {
 
     /** @internal */
     static _create(instance: number): Point {
-        if (instance === 0) return new Point(0, 0);
+        if (instance === 0)
+            return new Point(0, 0);
 
         return new Point(ImageMagick._api._PointInfo_X_Get(instance), ImageMagick._api._PointInfo_Y_Get(instance));
     }
