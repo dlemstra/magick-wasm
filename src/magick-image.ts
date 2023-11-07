@@ -834,9 +834,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return Pointer.use((objects) => {
                 try {
                     const instance = ImageMagick._api._MagickImage_ConnectedComponents(this._instance, settings.connectivity, objects.ptr, exception.ptr);
-                    const colormapSize = ImageMagick._api._MagickImage_ColormapSize_Get(instance, exception.ptr);
-
-                    return ConnectedComponent._create(objects.value, colormapSize);
+                    this._setInstance(instance, exception)
+                    return ConnectedComponent._create(objects.value, this.colormapSize);
                 } finally {
                     if (objects.value !== 0) {
                         ImageMagick._api._ConnectedComponent_DisposeList(objects.value);
