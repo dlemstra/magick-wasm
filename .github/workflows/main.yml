@@ -1,12 +1,12 @@
 on:
   push:
     branches:
-    - main
+      - main
     tags:
-    - '!*'
+      - '!*'
   pull_request:
     branches:
-    - main
+      - main
 
 name: main
 jobs:
