@@ -3,7 +3,7 @@
 
 import { CustomMatchers, ICustomMatchers } from './custom-matcher';
 import { ImageMagick, initializeImageMagick } from '@src/image-magick';
-import { ImageMagickApi } from '@dlemstra/magick-native/magick';
+import { ImageMagickApi } from '@dlemstra/magick-native';
 import { Magick } from '@src/magick';
 import { TestFonts } from './test-fonts';
 import * as fs from 'fs';
