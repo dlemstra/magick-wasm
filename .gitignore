@@ -5,5 +5,5 @@ publish/etc
 publish/*.tgz
 tools/*.js
 issue/*.js
-dist
+/dist
 NOTICE

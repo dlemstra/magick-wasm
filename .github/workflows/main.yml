@@ -40,6 +40,8 @@ jobs:
 
       - run: npm run test
 
+      - run: npm run test-dist
+
       - run: npm run demo
 
       - if: matrix.node == '18' && matrix.os == 'ubuntu-latest'
