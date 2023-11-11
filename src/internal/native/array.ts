@@ -3,7 +3,7 @@
 
 import { ByteArray } from '../../byte-array';
 import { ImageMagick } from '../../image-magick';
-import { quantumArray } from '@dlemstra/magick-native/magick';
+import { quantumArray } from '@dlemstra/magick-native';
 import { MagickError } from '../../magick-error';
 
 /** @internal */

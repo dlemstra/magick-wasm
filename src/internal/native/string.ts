@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../image-magick';
-import { ImageMagickApi } from '@dlemstra/magick-native/magick';
+import { ImageMagickApi } from '@dlemstra/magick-native';
 
 /** @internal */
 export function _createString(instance: number): string | null;

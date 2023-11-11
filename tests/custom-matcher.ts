@@ -28,7 +28,7 @@ export const CustomMatchers = {
             pass: false,
             message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`
         };
-    }) as () => MatcherResult
+    }) as () => MatcherResult,
 };
 
 function toHex(value: number): string {

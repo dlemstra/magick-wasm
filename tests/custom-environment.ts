@@ -3,7 +3,7 @@
 
 import { CustomMatchers, ICustomMatchers } from './custom-matcher';
 import { ImageMagick, initializeImageMagick } from '@src/image-magick';
-import { ImageMagickApi } from '@dlemstra/magick-native/magick';
+import { ImageMagickApi } from '@dlemstra/magick-native';
 import { Magick } from '@src/magick';
 import { TestFonts } from './test-fonts';
 import * as fs from 'fs';
@@ -36,9 +36,7 @@ if (!global.native) {
 
 beforeAll(() => { ImageMagick._api = global.native; });
 
-expect.extend({
-    toHavePixelWithColor: CustomMatchers.toHavePixelWithColor
-});
+expect.extend(CustomMatchers);
 
 global.expectToNotBeNull = function <T>(value: T): NonNullable<T> {
     expect(value).not.toBeNull();
