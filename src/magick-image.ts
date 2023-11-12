@@ -51,6 +51,7 @@ import { Point } from './point';
 import { Pointer } from './internal/pointer/pointer';
 import { PrimaryInfo } from './primary-info';
 import { Quantum } from './quantum';
+import { RenderingIntent } from './rendering-intent';
 import { Statistics, IStatistics } from './statistics';
 import { StringInfo } from './internal/string-info';
 import { VirtualPixelMethod } from './virtual-pixel-method';
@@ -274,6 +275,11 @@ export interface IMagickImage extends IDisposable {
      * Gets or sets the JPEG/MIFF/PNG compression level (default 75).
      */
     quality: number;
+
+    /**
+     * Gets or sets the type of rendering intent.
+     */
+    renderingIntent: RenderingIntent;
 
     /**
      * Gets the settings for this instance.
@@ -761,6 +767,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         ImageMagick._api._MagickImage_Quality_Set(this._instance, quality);
         this._settings._quality = quality;
+    }
+
+    get renderingIntent(): RenderingIntent {
+        return ImageMagick._api._MagickImage_RenderingIntent_Get(this._instance);
+    }
+    set renderingIntent(value: RenderingIntent) {
+        ImageMagick._api._MagickImage_RenderingIntent_Set(this._instance, value);
     }
 
     get settings(): MagickSettings {
