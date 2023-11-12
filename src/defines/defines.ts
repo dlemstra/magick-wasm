@@ -3,6 +3,12 @@
 
 import { IDefine } from './define';
 
+/**
+ * Interface for an object that specifies defines for an image.
+ */
 export interface IDefines {
+    /**
+     * Gets the defines that should be set as a define on an image.
+     */
     getDefines(): IDefine[];
 }
