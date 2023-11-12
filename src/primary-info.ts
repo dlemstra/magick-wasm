@@ -4,19 +4,15 @@
 import { ImageMagick } from './image-magick';
 
 export class PrimaryInfo {
-    private _x: number;
-    private _y: number;
-    private _z: number;
-
     constructor(x: number, y: number, z: number) {
-        this._x = x;
-        this._y = y;
-        this._z = z;
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
-    get x(): number { return this._x; }
-    get y(): number { return this._y; }
-    get z(): number { return this._z; }
+    readonly x;
+    readonly y;
+    readonly z;
 
     /** @internal */
     static _create(instance: number): PrimaryInfo {

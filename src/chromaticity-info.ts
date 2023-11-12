@@ -15,22 +15,22 @@ export class ChromaticityInfo {
     }
 
     /**
-     * Gets or sets the chromaticity red primary point.
+     * Gets the chromaticity red primary point.
      */
-    red: PrimaryInfo;
+    readonly red: PrimaryInfo;
 
     /**
-     * Gets or sets the chromaticity green primary point.
+     * Gets the chromaticity green primary point.
      */
-    green: PrimaryInfo;
+    readonly green: PrimaryInfo;
 
     /**
-     * Gets or sets the chromaticity blue primary point.
+     * Gets the chromaticity blue primary point.
      */
-    blue: PrimaryInfo;
+    readonly blue: PrimaryInfo;
 
     /**
-     * Gets or sets the chromaticity white primary point.
+     * Gets the chromaticity white primary point.
      */
-    white: PrimaryInfo;
+    readonly white: PrimaryInfo;
 }
