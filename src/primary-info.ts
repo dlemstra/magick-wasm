@@ -30,9 +30,9 @@ export class PrimaryInfo {
         let instance = 0;
         try {
             instance = ImageMagick._api._PrimaryInfo_Create();
-            ImageMagick._api._PrimaryInfo_X_Set(instance, this._x);
-            ImageMagick._api._PrimaryInfo_Y_Set(instance, this._y);
-            ImageMagick._api._PrimaryInfo_Z_Set(instance, this._z);
+            ImageMagick._api._PrimaryInfo_X_Set(instance, this.x);
+            ImageMagick._api._PrimaryInfo_Y_Set(instance, this.y);
+            ImageMagick._api._PrimaryInfo_Z_Set(instance, this.z);
             func(instance);
         } finally {
             ImageMagick._api._free(instance);
