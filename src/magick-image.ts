@@ -68,40 +68,181 @@ export interface IMagickImage extends IDisposable {
     /** @internal */
     _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
 
+    /**
+     * Gets or sets the time in 1/100ths of a second which must expire before splaying the next image in an
+     * animated sequence.
+     */
     animationDelay: number;
+
+    /**
+     * Gets or sets the number of iterations to loop an animation (e.g. Netscape loop extension) for.
+     */
     animationIterations: number;
+
+    /**
+     * Gets or sets the ticks per seconds for the animation delay.
+     */
     animationTicksPerSecond: number;
+
+    /**
+     * Gets the names of the artifacts.
+     */
     readonly artifactNames: ReadonlyArray<string>;
+
+    /**
+     * Gets the names of the attributes.
+     */
     readonly attributeNames: ReadonlyArray<string>;
+
+    /**
+     * Gets or sets the background color of the image.
+     */
     backgroundColor: MagickColor;
+
+    /**
+     * Gets the height of the image before transformations.
+     */
     readonly baseHeight: number;
+
+    /**
+     * Gets the width of the image before transformations.
+     */
     readonly baseWidth: number;
+
+    /**
+     * Gets or sets a value indicating whether black point compensation should be used
+     */
     blackPointCompensation: boolean;
+
+    /**
+     * Gets or sets the border color of the image.
+     */
     borderColor: MagickColor;
+
+    /**
+     * Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
+     * when discriminating between pixels.
+     */
     boundingBox: MagickGeometry | null;
+
+    /**
+     * Gets the number of channels that the image contains.
+     */
     readonly channelCount: number;
+
+    /**
+     * Gets the channels of the image.
+     */
     readonly channels: ReadonlyArray<PixelChannel>;
+
+    /**
+     * Gets or sets the chromaticity of the image.
+     */
     chromaticity: ChromaticityInfo;
+
+    /**
+     * Gets or sets the image class (DirectClass or PseudoClass)
+     * NOTE: Setting a DirectClass image to PseudoClass will result in the loss of color information
+     * if the number of colors in the image is greater than the maximum palette size (either 256 (Q8)
+     * or 65536 (Q16).
+     */
     classType: ClassType;
+
+    /**
+     * Gets or sets the distance where colors are considered equal.
+     */
     colorFuzz: Percentage;
+
+    /**
+     * Gets or sets the color space of the image.
+     */
     colormapSize: number;
+
+    /**
+     * Gets or sets the color space of the image.
+     */
     colorSpace: ColorSpace;
+
+    /**
+     * Gets or sets the color type of the image.
+     */
     colorType: ColorType;
+
+    /**
+     * Gets or sets the comment text of the image.
+     */
     comment: string | null;
+
+    /**
+     * Gets or sets the composition operator to be used when composition is implicitly used (such as for image flattening).
+     */
     compose: CompositeOperator;
+
+    /**
+     * Gets the compression method of the image.
+     */
     readonly compression: CompressionMethod;
+
+    /**
+     * Gets or sets the vertical and horizontal resolution in pixels of the image.
+     */
     density: Density;
+
+    /**
+     * Gets or sets the depth (bits allocated to red/green/blue components).
+     */
     depth: number;
+
+    /**
+     * Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
+     * endian-specific options.
+     */
     endian: Endian;
+
+    /**
+     * Gets the original file name of the image (only available if read from disk).
+     */
     readonly fileName: string | null;
+
+    /**
+     * Gets or sets the filter to use when resizing image.
+     */
     filterType: FilterType;
+
+    /**
+     * Gets or sets the format of the image.
+     */
     format: MagickFormat;
+
+    /**
+     * Gets the gamma level of the image.
+     */
     gamma: number;
+
+    /***
+     * Gets or sets the gif disposal method.
+     */
     gifDisposeMethod: GifDisposeMethod;
+
+    /**
+     * Gets or sets a value indicating whether the image supports transparency (alpha channel).
+     */
     hasAlpha: boolean;
+
+    /**
+     * Gets the height of the image.
+     */
     readonly height: number;
-    interpolate: PixelInterpolateMethod;
+
+    /**
+     * Gets or sets the type of interlacing to use.
+     */
     readonly interlace: Interlace;
+
+    /**
+     * Gets or sets the pixel color interpolate method to use.
+     */
+    interpolate: PixelInterpolateMethod;
 
     /**
      * Gets a value indicating whether none of the pixels in the image have an alpha value other
@@ -109,13 +250,44 @@ export interface IMagickImage extends IDisposable {
      */
     readonly isOpaque: boolean;
 
+    /**
+     * Gets or sets the label of the image.
+     */
     label: string | null;
+
+    /**
+     * Gets or sets the photo orientation of the image.
+     */
     orientation: OrientationType;
+
+    /**
+     * Gets or sets the preferred size and location of an image canvas.
+     */
     page: MagickGeometry;
+
+    /**
+     * Gets or sets the JPEG/MIFF/PNG compression level (default 75).
+     */
     quality: number;
+
+    /**
+     * Gets the settings for this instance.
+     */
     readonly settings: MagickSettings;
+
+    /**
+     * Gets the signature of this image.
+     */
     readonly signature: string | null;
+
+    /**
+     * Gets or sets the virtual pixel method.
+     */
     virtualPixelMethod: VirtualPixelMethod;
+
+    /**
+     * Gets the width of the image.
+     */
     width: number;
 
     alpha(value: AlphaOption): void;
