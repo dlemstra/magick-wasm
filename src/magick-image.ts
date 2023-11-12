@@ -256,6 +256,11 @@ export interface IMagickImage extends IDisposable {
     label: string | null;
 
     /**
+     * Gets or sets the matte color.
+     */
+    matteColor: MagickColor;
+
+    /**
      * Gets or sets the photo orientation of the image.
      */
     orientation: OrientationType;
@@ -726,6 +731,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.setAttribute('label', value);
     }
 
+    get matteColor(): MagickColor {
+        const colorPtr = ImageMagick._api._MagickImage_MatteColor_Get(this._instance);
+        return MagickColor._create(colorPtr);
+    }
+    set matteColor(value: MagickColor) {
+        value._use(valuePtr => {
+            ImageMagick._api._MagickImage_MatteColor_Set(this._instance, valuePtr);
+        });
+    }
 
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
