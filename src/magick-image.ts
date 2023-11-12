@@ -292,6 +292,11 @@ export interface IMagickImage extends IDisposable {
     readonly signature: string | null;
 
     /**
+     * Gets the number of colors in the image.
+     */
+    readonly totalColors: number;
+
+    /**
      * Gets or sets the virtual pixel method.
      */
     virtualPixelMethod: VirtualPixelMethod;
@@ -783,6 +788,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     get signature(): string | null {
         return Exception.usePointer(exception => {
             return _createString(ImageMagick._api._MagickImage_Signature_Get(this._instance, exception));
+        });
+    }
+
+    get totalColors(): number {
+        return Exception.usePointer(exception => {
+            return ImageMagick._api._MagickImage_TotalColors_Get(this._instance, exception);
         });
     }
 
