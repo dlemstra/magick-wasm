@@ -76,6 +76,7 @@ export * from './point';
 export * from './primary-info';
 export * from './profiles/image-profile';
 export * from './quantum';
+export * from './rendering-intent';
 export * from './settings/connected-components-settings';
 export * from './settings/distort-settings';
 export * from './settings/drawing-settings';
