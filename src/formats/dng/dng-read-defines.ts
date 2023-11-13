@@ -51,8 +51,4 @@ export class DngReadDefines extends DefinesCreator {
 
         return defines;
     }
-
-    private hasValue(value: boolean | DngOutputColor | undefined): boolean {
-        return value !== undefined && value !== null;
-    }
 }
