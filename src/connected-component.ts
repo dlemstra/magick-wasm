@@ -10,39 +10,6 @@ import { Point } from './point';
  * An ImageMagick connected component object.
  */
 export class ConnectedComponent {
-    /**
-     * The pixel count of the area.
-     */
-    readonly area: number;
-    /**
-     * The centroid of the area.
-     */
-    readonly centroid: Point;
-    /**
-     * The color of the area.
-     */
-    readonly color?: MagickColor;
-    /**
-     * The height of the area.
-     */
-    readonly height: number;
-    /**
-     * The id of the area.
-     */
-    readonly id: number;
-    /**
-     * The width of the area.
-     */
-    readonly width: number;
-    /**
-     * The X offset from origin.
-     */
-    readonly x: number;
-    /**
-     * The Y offset from origin.
-     */
-    readonly y: number;
-
     private constructor(instance: number) {
         this.area = ImageMagick._api._ConnectedComponent_GetArea(instance);
         this.centroid = Point._create(ImageMagick._api._ConnectedComponent_GetCentroid(instance));
@@ -53,6 +20,46 @@ export class ConnectedComponent {
         this.x = ImageMagick._api._ConnectedComponent_GetX(instance);
         this.y = ImageMagick._api._ConnectedComponent_GetY(instance);
     }
+
+    /**
+     * The pixel count of the area.
+     */
+    readonly area: number;
+
+    /**
+     * The centroid of the area.
+     */
+    readonly centroid: Point;
+
+    /**
+     * The color of the area.
+     */
+    readonly color?: MagickColor;
+
+    /**
+     * The height of the area.
+     */
+    readonly height: number;
+
+    /**
+     * The id of the area.
+     */
+    readonly id: number;
+
+    /**
+     * The width of the area.
+     */
+    readonly width: number;
+
+    /**
+     * The X offset from origin.
+     */
+    readonly x: number;
+
+    /**
+     * The Y offset from origin.
+     */
+    readonly y: number;
 
     /** @internal */
     static _create(list: number, length: number): ConnectedComponent[] {
