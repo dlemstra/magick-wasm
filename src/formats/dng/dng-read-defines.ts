@@ -6,17 +6,32 @@ import { DngOutputColor } from './dng-output-color';
 import { IDefine } from '../../defines/define';
 import { MagickFormat } from '../../magick-format';
 
+/**
+ * Class for defines that are used when a Dng image is read.
+ */
 export class DngReadDefines extends DefinesCreator {
     constructor() {
         super(MagickFormat.Dng);
     }
 
+    /**
+     * Gets or sets a value indicating wether auto brightness should be used (dng:no-auto-bright).
+     */
     disableAutoBrightness?: boolean;
 
+    /**
+     * Gets or sets the output color (dng:output-color).
+     */
     outputColor?: DngOutputColor;
 
+    /**
+    * Gets or sets a value indicating wether auto whitebalance should be used (dng:use-auto-wb).
+    */
     useAutoWhitebalance?: boolean;
 
+    /**
+     * Gets or sets a value indicating wether the whitebalance of the camera should be used (dng:use-camera-wb).
+     */
     useCameraWhitebalance?: boolean;
 
     getDefines(): IDefine[] {
