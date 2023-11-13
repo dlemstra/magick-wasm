@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { AlphaOption } from '@src/alpha-option';
-import { PixelChannel } from '@src/pixel-channel';
+import { AlphaOption } from '@src/enums/alpha-option';
+import { PixelChannel } from '@src/enums/pixel-channel';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#channels', () => {

@@ -4,7 +4,7 @@
 import { DngInterpolation } from '@src/formats/dng/dng-interpolation';
 import { DngOutputColor } from '@src/formats/dng/dng-output-color';
 import { DngReadDefines } from '@src/formats/dng/dng-read-defines';
-import { MagickFormat } from '@src/magick-format';
+import { MagickFormat } from '@src/enums/magick-format';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
 
 describe('DngReadDefines', () => {

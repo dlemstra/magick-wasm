@@ -1,13 +1,13 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawableFont } from "../../src/drawables/drawable-font";
-import { DrawableFontPointSize } from "../../src/drawables/drawable-font-point-size";
-import { DrawableText } from "../../src/drawables/drawable-text";
-import { DrawableTextAlignment } from "../../src/drawables/drawable-text-alignment";
-import { TestFonts } from "../test-fonts";
-import { TestImages } from "../test-images";
-import { TextAlignment } from "../../src/enums/text-alignment";
+import { DrawableFont } from "@src/drawables/drawable-font";
+import { DrawableFontPointSize } from "@src/drawables/drawable-font-point-size";
+import { DrawableText } from "@src/drawables/drawable-text";
+import { DrawableTextAlignment } from "@src/drawables/drawable-text-alignment";
+import { TestFonts } from "@test/test-fonts";
+import { TestImages } from "@test/test-images";
+import { TextAlignment } from "@src/enums/text-alignment";
 
 describe("DrawableTextAlignment", () => {
     it("should write text without alignment to the image", () => {

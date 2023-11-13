@@ -3,7 +3,7 @@
 
 import { DrawableColor } from '@src/drawables/drawable-color';
 import { MagickColors } from '@src/magick-colors';
-import { PaintMethod } from '@src/paint-method';
+import { PaintMethod } from '@src/enums/paint-method';
 import { TestImages } from '@test/test-images';
 
 describe('DrawableColor', () => {

@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ErrorMetric } from '@src/error-metric';
-import { PixelChannel } from '@src/pixel-channel';
-import { PixelIntensityMethod } from '@src/pixel-intensity-method';
+import { ErrorMetric } from '@src/enums/error-metric';
+import { PixelChannel } from '@src/enums/pixel-channel';
+import { PixelIntensityMethod } from '@src/enums/pixel-intensity-method';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#grayscale', () => {

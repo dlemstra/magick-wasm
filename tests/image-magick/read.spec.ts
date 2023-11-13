@@ -3,7 +3,7 @@
 
 import { ImageMagick } from '@src/image-magick';
 import { MagickColors } from '@src/magick-colors';
-import { MagickFormat } from '@src/magick-format';
+import { MagickFormat } from '@src/enums/magick-format';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
 import { TestImages } from '@test/test-images';
 

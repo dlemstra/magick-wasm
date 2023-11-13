@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Endian } from '@src/endian';
+import { Endian } from '@src/enums/endian';
 import { ImageMagick } from '@src/image-magick';
-import { MagickFormat } from '@src/magick-format';
+import { MagickFormat } from '@src/enums/magick-format';
 import { TestImages } from '@test/test-images';
 
 describe('MagickSettings#endian', () => {

@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Kernel } from '@src/kernel';
-import { MorphologyMethod } from '@src/morphology-method';
+import { Kernel } from '@src/enums/kernel';
+import { MorphologyMethod } from '@src/enums/morphology-method';
 import { MorphologySettings } from '@src/settings/morphology-settings';
 import { TestImages } from '@test/test-images';
 

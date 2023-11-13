@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Density } from '@src/density';
-import { DensityUnit } from '@src/density-unit';
+import { DensityUnit } from '@src/enums/density-unit';
 
 describe('Density#constructor', () => {
     it('should set the properties', () => {

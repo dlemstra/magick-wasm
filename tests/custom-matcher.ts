@@ -3,7 +3,7 @@
 
 import { IMagickImage } from '@src/magick-image';
 import { MagickColor } from '@src/magick-color';
-import { PixelChannel } from '@src/pixel-channel';
+import { PixelChannel } from '@src/enums/pixel-channel';
 import { Quantum } from '@src/quantum';
 
 interface MatcherResult {

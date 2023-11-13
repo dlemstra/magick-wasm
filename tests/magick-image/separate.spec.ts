@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Channels } from '@src/channels';
+import { Channels } from '@src/enums/channels';
 import { ImageMagick } from '@src/image-magick';
-import { ColorSpace } from '@src/color-space';
+import { ColorSpace } from '@src/enums/color-space';
 
 function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
 

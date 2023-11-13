@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { AlphaOption } from '@src/alpha-option';
-import { DistortMethod } from '@src/distort-method';
-import { VirtualPixelMethod } from '@src/virtual-pixel-method';
+import { AlphaOption } from '@src/enums/alpha-option';
+import { DistortMethod } from '@src/enums/distort-method';
+import { VirtualPixelMethod } from '@src/enums/virtual-pixel-method';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#distort', () => {

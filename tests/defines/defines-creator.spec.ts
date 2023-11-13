@@ -3,7 +3,7 @@
 
 import { IDefine } from '@src/defines/define';
 import { DefinesCreator } from '@src/defines/defines-creator';
-import { MagickFormat } from '@src/magick-format';
+import { MagickFormat } from '@src/enums/magick-format';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
 
 class TestDefinesCreator extends DefinesCreator {

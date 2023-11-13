@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { AlphaOption } from '@src/alpha-option';
+import { AlphaOption } from '@src/enums/alpha-option';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#alpha', () => {

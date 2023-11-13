@@ -5,7 +5,7 @@ import { DrawableColor } from '@src/drawables/drawable-color';
 import { DrawableFillColor } from '@src/drawables/drawable-fill-color';
 import { DrawableFillOpacity } from '@src/drawables/drawable-fill-opacity';
 import { MagickColor } from '@src/magick-color';
-import { PaintMethod } from '@src/paint-method';
+import { PaintMethod } from '@src/enums/paint-method';
 import { Percentage } from '@src/percentage';
 import { TestImages } from '@test/test-images';
 

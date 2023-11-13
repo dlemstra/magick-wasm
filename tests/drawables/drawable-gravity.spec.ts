@@ -6,7 +6,7 @@ import { DrawableFont } from '@src/drawables/drawable-font';
 import { DrawableFontPointSize } from '@src/drawables/drawable-font-point-size';
 import { DrawableGravity } from '@src/drawables/drawable-gravity';
 import { DrawableText } from '@src/drawables/drawable-text';
-import { Gravity } from '@src/gravity';
+import { Gravity } from '@src/enums/gravity';
 import { MagickColors } from '@src/magick-colors';
 import { TestFonts } from '@test/test-fonts';
 import { TestImages } from '@test/test-images';

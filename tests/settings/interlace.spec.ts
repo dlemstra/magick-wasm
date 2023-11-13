@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '@src/image-magick';
-import { Interlace } from '@src/interlace';
-import { MagickFormat } from '@src/magick-format';
+import { Interlace } from '@src/enums/interlace';
+import { MagickFormat } from '@src/enums/magick-format';
 import { TestImages } from '@test/test-images';
 
 describe('MagickSettings#interlace', () => {

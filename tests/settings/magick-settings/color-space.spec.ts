@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ColorSpace } from '@src/color-space';
-import { ErrorMetric } from '@src/error-metric';
+import { ColorSpace } from '@src/enums/color-space';
+import { ErrorMetric } from '@src/enums/error-metric';
 import { ImageMagick } from '@src/image-magick';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
 import { TestImages } from '@test/test-images';

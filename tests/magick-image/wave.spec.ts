@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ErrorMetric } from '@src/error-metric';
-import { PixelInterpolateMethod } from '@src/pixel-interpolate-method';
+import { ErrorMetric } from '@src/enums/error-metric';
+import { PixelInterpolateMethod } from '@src/enums/pixel-interpolate-method';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#wave', () => {

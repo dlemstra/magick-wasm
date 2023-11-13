@@ -4,7 +4,7 @@
 import { DrawableColor } from '@src/drawables/drawable-color';
 import { DrawableFillColor } from '@src/drawables/drawable-fill-color';
 import { MagickColors } from '@src/magick-colors';
-import { PaintMethod } from '@src/paint-method';
+import { PaintMethod } from '@src/enums/paint-method';
 import { TestImages } from '@test/test-images';
 
 describe('DrawableFillColor', () => {

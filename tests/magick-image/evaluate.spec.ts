@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Channels } from '@src/channels';
-import { EvaluateOperator } from '@src/evaluate-operator';
+import { Channels } from '@src/enums/channels';
+import { EvaluateOperator } from '@src/enums/evaluate-operator';
 import { ImageMagick } from '@src/image-magick';
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';

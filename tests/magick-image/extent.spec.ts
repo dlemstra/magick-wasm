@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Gravity } from '@src/gravity';
+import { Gravity } from '@src/enums/gravity';
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/magick-geometry';
 import { TestImages } from '@test/test-images';

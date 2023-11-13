@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { PixelInterpolateMethod } from '@src/pixel-interpolate-method';
+import { PixelInterpolateMethod } from '@src/enums/pixel-interpolate-method';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#interpolate', () => {
