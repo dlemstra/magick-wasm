@@ -4,7 +4,7 @@
 import { ImageMagick } from './image-magick';
 import { LogEvent } from './log-event';
 import { MagickFormatInfo } from './magick-format-info';
-import { LogEventTypes } from './log-event-types';
+import { LogEventTypes } from './enums/log-event-types';
 import { _createString, _withString } from './internal/native/string';
 
 export class Magick {

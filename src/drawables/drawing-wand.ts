@@ -3,7 +3,7 @@
 
 import { DrawingSettings } from '../internal/settings/drawing-settings';
 import { Exception } from '../internal/exception/exception';
-import { Gravity } from '../gravity';
+import { Gravity } from '../enums/gravity';
 import { IDisposable } from '../disposable';
 import { IDrawable } from './drawable';
 import { ImageMagick } from '../image-magick';
@@ -11,9 +11,9 @@ import { IMagickImage } from '../magick-image';
 import { MagickColor } from '../magick-color';
 import { MagickSettings } from '../settings/magick-settings';
 import { NativeInstance } from '../native-instance';
-import { PaintMethod } from '../paint-method';
-import { TextAlignment } from '../text-alignment';
-import { TextDecoration } from '../text-decoration';
+import { PaintMethod } from '../enums/paint-method';
+import { TextAlignment } from '../enums/text-alignment';
+import { TextDecoration } from '../enums/text-decoration';
 import { _withString } from '../internal/native/string';
 
 /**

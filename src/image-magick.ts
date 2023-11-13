@@ -6,7 +6,7 @@ import { IMagickImage, MagickImage } from './magick-image';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
 import { MagickColor } from './magick-color';
 import { MagickError } from './magick-error';
-import { MagickFormat } from './magick-format';
+import { MagickFormat } from './enums/magick-format';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
 import { ByteArray } from './byte-array';

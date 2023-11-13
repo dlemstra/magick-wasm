@@ -5,7 +5,7 @@ import { DefinesCreator } from '../../defines/defines-creator';
 import { DngInterpolation } from './dng-interpolation';
 import { DngOutputColor } from './dng-output-color';
 import { IDefine } from '../../defines/define';
-import { MagickFormat } from '../../magick-format';
+import { MagickFormat } from '../../enums/magick-format';
 
 /**
  * Class for defines that are used when a Dng image is read.

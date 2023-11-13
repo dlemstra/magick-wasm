@@ -1,15 +1,15 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ColorSpace } from '../color-space';
-import { ColorType } from '../color-type';
-import { CompressionMethod } from '../compression-method';
+import { ColorSpace } from '../enums/color-space';
+import { ColorType } from '../enums/color-type';
+import { CompressionMethod } from '../enums/compression-method';
 import { Disposable } from '../internal/disposable';
-import { Endian } from '../endian';
+import { Endian } from '../enums/endian';
 import { IDefines } from '../defines/defines';
-import { Interlace } from '../interlace';
+import { Interlace } from '../enums/interlace';
 import { MagickColor } from '../magick-color';
-import { MagickFormat } from '../magick-format';
+import { MagickFormat } from '../enums/magick-format';
 import { NativeMagickSettings } from './native-magick-settings';
 
 /**

@@ -7,7 +7,7 @@ import { DrawableText } from "../../src/drawables/drawable-text";
 import { DrawableTextAlignment } from "../../src/drawables/drawable-text-alignment";
 import { TestFonts } from "../test-fonts";
 import { TestImages } from "../test-images";
-import { TextAlignment } from "../../src/text-alignment";
+import { TextAlignment } from "../../src/enums/text-alignment";
 
 describe("DrawableTextAlignment", () => {
     it("should write text without alignment to the image", () => {

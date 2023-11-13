@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ChannelStatistics, IChannelStatistics } from './channel-statistics';
-import { Channels } from './channels';
+import { Channels } from './enums/channels';
 import { ImageMagick } from './image-magick';
 import { MagickImage } from './magick-image';
-import { PixelChannel } from './pixel-channel';
+import { PixelChannel } from './enums/pixel-channel';
 
 export interface IStatistics {
     readonly channels: ReadonlyArray<PixelChannel>;

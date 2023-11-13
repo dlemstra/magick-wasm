@@ -3,7 +3,7 @@
 
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
-import { PaintMethod } from '../paint-method';
+import { PaintMethod } from '../enums/paint-method';
 
 /**
  * Draws color on image using the current fill color, starting at specified position, and using

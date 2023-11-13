@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from './image-magick';
-import { PixelChannel } from './pixel-channel';
+import { PixelChannel } from './enums/pixel-channel';
 
 export interface IChannelStatistics {
     channel: PixelChannel;

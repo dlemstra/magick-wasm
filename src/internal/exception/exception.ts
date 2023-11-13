@@ -3,7 +3,7 @@
 
 import { ImageMagick } from '../../image-magick';
 import { MagickError } from '../../magick-error';
-import { MagickErrorSeverity } from '../../magick-error-severity';
+import { MagickErrorSeverity } from '../../enums/magick-error-severity';
 import { Pointer } from '../pointer/pointer';
 import { _createString } from '../native/string';
 

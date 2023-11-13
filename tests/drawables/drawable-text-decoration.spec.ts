@@ -7,7 +7,7 @@ import { DrawableText } from "../../src/drawables/drawable-text";
 import { DrawableTextDecoration } from "../../src/drawables/drawable-text-decoration";
 import { TestFonts } from "../test-fonts";
 import { TestImages } from "../test-images";
-import { TextDecoration } from "../../src/text-decoration";
+import { TextDecoration } from "../../src/enums/text-decoration";
 
 describe("DrawableTextDecoration", () => {
     it("should write text without decoration to the image", () => {

@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { TextDecoration } from '../text-decoration';
+import { TextDecoration } from '../enums/text-decoration';
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 

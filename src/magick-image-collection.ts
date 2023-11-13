@@ -4,14 +4,14 @@
 import { ByteArray } from './byte-array';
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
-import { EvaluateOperator } from './evaluate-operator';
+import { EvaluateOperator } from './enums/evaluate-operator';
 import { Exception } from './internal/exception/exception';
 import { IDisposable } from './disposable';
 import { ImageMagick } from './image-magick';
 import { IMagickImage } from './magick-image';
-import { LayerMethod } from './layer-method';
+import { LayerMethod } from './enums/layer-method';
 import { MagickError } from './magick-error';
-import { MagickFormat } from './magick-format';
+import { MagickFormat } from './enums/magick-format';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';

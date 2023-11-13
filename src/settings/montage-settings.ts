@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Disposable } from '../internal/disposable';
-import { Gravity } from '../gravity';
+import { Gravity } from '../enums/gravity';
 import { MagickColor } from '../magick-color';
 import { MagickGeometry } from '../magick-geometry';
 import { NativeMontageSettings } from './native-montage-settings';

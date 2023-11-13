@@ -1,10 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Channels } from '../channels';
-import { Kernel } from '../kernel';
+import { Channels } from '../enums/channels';
+import { Kernel } from '../enums/kernel';
 import { MagickGeometry } from '../magick-geometry';
-import { MorphologyMethod } from '../morphology-method';
+import { MorphologyMethod } from '../enums/morphology-method';
 import { Percentage } from '../percentage';
 
 /**

@@ -3,7 +3,7 @@
 
 import { IDefine } from './define';
 import { IDefines } from './defines';
-import { MagickFormat } from '../magick-format';
+import { MagickFormat } from '../enums/magick-format';
 import { MagickDefine } from './magick-define';
 
 export abstract class DefinesCreator implements IDefines {
