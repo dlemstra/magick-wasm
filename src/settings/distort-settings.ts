@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickGeometry } from '../types/magick-geometry';
+import { IMagickGeometry } from '../types/magick-geometry';
 import { IMagickImage } from '../magick-image';
 
 /**
@@ -24,7 +24,7 @@ export class DistortSettings {
      * Gets or sets the viewport that directly set the output image canvas area and offest to use for the
      * resulting image, rather than use the original images canvas, or a calculated 'bestfit' canvas.
      */
-    viewport?: MagickGeometry;
+    viewport?: IMagickGeometry;
 
     /** @internal */
     _removeArtifacts(image: IMagickImage): void {

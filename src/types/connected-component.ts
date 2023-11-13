@@ -3,7 +3,7 @@
 
 import { ImageMagick } from '../image-magick';
 import { MagickColor } from '../magick-color';
-import { MagickGeometry } from './magick-geometry';
+import { MagickGeometry, IMagickGeometry } from './magick-geometry';
 import { Point } from './point';
 
 /**
@@ -85,7 +85,7 @@ export class ConnectedComponent {
     /**
      * Returns the geometry of the area of the connected component.
      */
-    toGeometry(): MagickGeometry {
+    toGeometry(): IMagickGeometry {
         return new MagickGeometry(this.x, this.y, this.width, this.height);
     }
 }

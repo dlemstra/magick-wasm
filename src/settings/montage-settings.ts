@@ -3,8 +3,8 @@
 
 import { Disposable } from '../internal/disposable';
 import { Gravity } from '../enums/gravity';
+import { IMagickGeometry } from '../types/magick-geometry';
 import { MagickColor } from '../magick-color';
-import { MagickGeometry } from '../types/magick-geometry';
 import { NativeMontageSettings } from './native-montage-settings';
 
 /**
@@ -44,12 +44,12 @@ export class MontageSettings {
     /**
      * Gets or sets the frame geometry (width & height frame thickness).
      */
-    frameGeometry?: MagickGeometry;
+    frameGeometry?: IMagickGeometry;
 
     /**
      * Gets or sets the thumbnail width & height plus border width &amp; height.
      */
-    geometry?: MagickGeometry;
+    geometry?: IMagickGeometry;
 
     /**
      * Gets or sets the thumbnail position (e.g. Southwest).
@@ -79,7 +79,7 @@ export class MontageSettings {
     /**
      * Gets or sets the frame geometry (width &amp; height frame thickness).
      */
-    tileGeometry?: MagickGeometry;
+    tileGeometry?: IMagickGeometry;
 
     /**
      * Gets or sets the montage title.

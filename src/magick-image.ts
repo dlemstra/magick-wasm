@@ -34,7 +34,7 @@ import { Interlace } from './enums/interlace';
 import { MagickColor } from './magick-color';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './enums/magick-format';
-import { MagickGeometry } from './types/magick-geometry';
+import { MagickGeometry as MagickGeometry, IMagickGeometry } from './types/magick-geometry';
 import { MagickImageCollection, IMagickImageCollection } from './magick-image-collection';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickRectangle } from './internal/magick-rectangle';
@@ -124,7 +124,7 @@ export interface IMagickImage extends IDisposable {
      * Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
      * when discriminating between pixels.
      */
-    boundingBox: MagickGeometry | null;
+    boundingBox: IMagickGeometry | null;
 
     /**
      * Gets the number of channels that the image contains.
@@ -269,7 +269,7 @@ export interface IMagickImage extends IDisposable {
     /**
      * Gets or sets the preferred size and location of an image canvas.
      */
-    page: MagickGeometry;
+    page: IMagickGeometry;
 
     /**
      * Gets or sets the JPEG/MIFF/PNG compression level (default 75).
@@ -370,11 +370,11 @@ export interface IMagickImage extends IDisposable {
     contrastStretch(blackPoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, whitePoint?: Percentage, channels?: Channels): void;
-    crop(geometry: MagickGeometry): void;
-    crop(geometry: MagickGeometry, gravity: Gravity): void;
+    crop(geometry: IMagickGeometry): void;
+    crop(geometry: IMagickGeometry, gravity: Gravity): void;
     crop(width: number, height: number): void;
     crop(width: number, height: number, gravity: Gravity): void;
-    cropToTiles(geometry: MagickGeometry): IMagickImageCollection;
+    cropToTiles(geometry: IMagickGeometry): IMagickImageCollection;
     deskew(threshold: Percentage): number;
     distort(method: DistortMethod, params: number[]): void;
     distort(method: DistortMethod, settings: DistortSettings, params: number[]): void;
@@ -382,15 +382,15 @@ export interface IMagickImage extends IDisposable {
     draw(...drawables: IDrawable[]): void;
     evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
     evaluate(channels: Channels, operator: EvaluateOperator, value: Percentage): void;
-    evaluate(channels: Channels, geometry: MagickGeometry, operator: EvaluateOperator, value: number): void;
-    evaluate(channels: Channels, geometry: MagickGeometry, operator: EvaluateOperator, value: Percentage): void;
+    evaluate(channels: Channels, geometry: IMagickGeometry, operator: EvaluateOperator, value: number): void;
+    evaluate(channels: Channels, geometry: IMagickGeometry, operator: EvaluateOperator, value: Percentage): void;
     extent(width: number, height: number): void;
     extent(width: number, height: number, gravity: Gravity): void;
     extent(width: number, height: number, backgroundColor: MagickColor): void;
-    extent(geometry: MagickGeometry): void;
-    extent(geometry: MagickGeometry, gravity: Gravity): void;
-    extent(geometry: MagickGeometry, gravity: Gravity, backgroundColor: MagickColor): void;
-    extent(geometry: MagickGeometry, backgroundColor: MagickColor): void;
+    extent(geometry: IMagickGeometry): void;
+    extent(geometry: IMagickGeometry, gravity: Gravity): void;
+    extent(geometry: IMagickGeometry, gravity: Gravity, backgroundColor: MagickColor): void;
+    extent(geometry: IMagickGeometry, backgroundColor: MagickColor): void;
     flip(): void;
     flop(): void;
     getArtifact(name: string): string | null;
@@ -415,7 +415,7 @@ export interface IMagickImage extends IDisposable {
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
     linearStretch(blackPoint: Percentage, whitePoint: Percentage): void;
-    liquidRescale(geometry: MagickGeometry): void;
+    liquidRescale(geometry: IMagickGeometry): void;
     liquidRescale(width: number, height: number): void;
     modulate(brightness: Percentage): void;
     modulate(brightness: Percentage, saturation: Percentage): void;
@@ -441,7 +441,7 @@ export interface IMagickImage extends IDisposable {
     removeProfile(name: string): void;
     removeWriteMask(): void;
     repage(): void;
-    resize(geometry: MagickGeometry): void;
+    resize(geometry: IMagickGeometry): void;
     resize(width: number, height: number): void;
     rotate(degrees: number): void;
     separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
@@ -464,7 +464,7 @@ export interface IMagickImage extends IDisposable {
     sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
     sigmoidalContrast(contrast: number, midpoint: number): void;
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
-    splice(geometry: MagickGeometry): void;
+    splice(geometry: IMagickGeometry): void;
     solarize(): void;
     solarize(factor: number): void;
     solarize(factor: Percentage): void;
@@ -566,7 +566,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get boundingBox(): MagickGeometry | null {
+    get boundingBox(): IMagickGeometry | null {
         return Exception.usePointer(exception => {
             const boundingBox = ImageMagick._api._MagickImage_BoundingBox_Get(this._instance, exception);
             const geometry = MagickGeometry._fromRectangle(boundingBox);
@@ -755,11 +755,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
 
-    get page(): MagickGeometry {
+    get page(): IMagickGeometry {
         const rectangle = ImageMagick._api._MagickImage_Page_Get(this._instance);
         return MagickGeometry._fromRectangle(rectangle);
     }
-    set page(value: MagickGeometry) {
+    set page(value: IMagickGeometry) {
         value._toRectangle(rectangle => {
             ImageMagick._api._MagickImage_Page_Set(this._instance, rectangle);
         });
@@ -1085,15 +1085,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return image;
     }
 
-    crop(geometry: MagickGeometry): void;
-    crop(geometry: MagickGeometry, gravity: Gravity): void;
+    crop(geometry: IMagickGeometry): void;
+    crop(geometry: IMagickGeometry, gravity: Gravity): void;
     crop(width: number, height: number): void;
     crop(width: number, height: number, gravity: Gravity): void;
-    crop(geometryOrWidth: MagickGeometry | number, heightOrGravity?: number | Gravity, gravityOrUndefined?: Gravity): void {
-        let geometry: MagickGeometry;
+    crop(geometryOrWidth: IMagickGeometry | number, heightOrGravity?: number | Gravity, gravityOrUndefined?: Gravity): void {
+        let geometry: IMagickGeometry;
         let gravity: Gravity;
 
-        if (geometryOrWidth instanceof MagickGeometry) {
+        if (typeof geometryOrWidth !== 'number' ) {
             geometry = geometryOrWidth;
             gravity = this.valueOrDefault(heightOrGravity, Gravity.Undefined);
         } else if (heightOrGravity !== undefined) {
@@ -1109,7 +1109,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    cropToTiles(geometry: MagickGeometry): IMagickImageCollection {
+    cropToTiles(geometry: IMagickGeometry): IMagickImageCollection {
         return Exception.use(exception => {
             return _withString(geometry.toString(), geometryPtr => {
                 const images = ImageMagick._api._MagickImage_CropToTiles(this._instance, geometryPtr, exception.ptr);
@@ -1172,9 +1172,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
     evaluate(channels: Channels, operator: EvaluateOperator, value: Percentage): void;
-    evaluate(channels: Channels, geometry: MagickGeometry, operator: EvaluateOperator, value: number): void;
-    evaluate(channels: Channels, geometry: MagickGeometry, operator: EvaluateOperator, value: Percentage): void;
-    evaluate(channels: Channels, operatorOrGeometry: EvaluateOperator | MagickGeometry, valueOrPercentageOrOperator: number | Percentage | EvaluateOperator, valueOrPercentage?: number | Percentage): void {
+    evaluate(channels: Channels, geometry: IMagickGeometry, operator: EvaluateOperator, value: number): void;
+    evaluate(channels: Channels, geometry: IMagickGeometry, operator: EvaluateOperator, value: Percentage): void;
+    evaluate(channels: Channels, operatorOrGeometry: EvaluateOperator | IMagickGeometry, valueOrPercentageOrOperator: number | Percentage | EvaluateOperator, valueOrPercentage?: number | Percentage): void {
         if (typeof operatorOrGeometry === 'number') {
             const operator = operatorOrGeometry;
             const value = typeof valueOrPercentageOrOperator === 'number' ? valueOrPercentageOrOperator : valueOrPercentageOrOperator._toQuantum();
@@ -1204,15 +1204,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     extent(width: number, height: number): void;
     extent(width: number, height: number, gravity: Gravity): void;
     extent(width: number, height: number, backgroundColor: MagickColor): void;
-    extent(geometry: MagickGeometry): void;
-    extent(geometry: MagickGeometry, gravity: Gravity): void;
-    extent(geometry: MagickGeometry, gravity: Gravity, backgroundColor: MagickColor): void;
-    extent(geometry: MagickGeometry, backgroundColor: MagickColor): void;
-    extent(geometryOrWidth: MagickGeometry | number, widthOrGravityOrBackgroundColor?: Gravity | MagickColor | number, backgroundColorOrGravity?: MagickColor | Gravity): void {
+    extent(geometry: IMagickGeometry): void;
+    extent(geometry: IMagickGeometry, gravity: Gravity): void;
+    extent(geometry: IMagickGeometry, gravity: Gravity, backgroundColor: MagickColor): void;
+    extent(geometry: IMagickGeometry, backgroundColor: MagickColor): void;
+    extent(geometryOrWidth: IMagickGeometry | number, widthOrGravityOrBackgroundColor?: Gravity | MagickColor | number, backgroundColorOrGravity?: MagickColor | Gravity): void {
         let gravity = Gravity.Undefined;
-        let geometry: MagickGeometry;
+        let geometry: IMagickGeometry;
 
-        if (geometryOrWidth instanceof MagickGeometry)
+        if (typeof geometryOrWidth !== 'number')
             geometry = geometryOrWidth;
         else if (typeof widthOrGravityOrBackgroundColor === 'number')
             geometry = new MagickGeometry(geometryOrWidth, widthOrGravityOrBackgroundColor);
@@ -1373,9 +1373,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    liquidRescale(geometry: MagickGeometry): void;
+    liquidRescale(geometry: IMagickGeometry): void;
     liquidRescale(width: number, height: number): void;
-    liquidRescale(widthOrGeometry: number | MagickGeometry, height?: number): void {
+    liquidRescale(widthOrGeometry: number | IMagickGeometry, height?: number): void {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
         Exception.use(exception => {
             _withString(geometry.toString(), geometryPtr => {
@@ -1508,9 +1508,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.page = new MagickGeometry(0, 0, 0, 0);
     }
 
-    resize(geometry: MagickGeometry): void;
+    resize(geometry: IMagickGeometry): void;
     resize(width: number, height: number): void;
-    resize(widthOrGeometry: number | MagickGeometry, heightOrUndefined?: number): void {
+    resize(widthOrGeometry: number | IMagickGeometry, heightOrUndefined?: number): void {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, heightOrUndefined as number) : widthOrGeometry;
         Exception.use(exception => {
             _withString(geometry.toString(), geometryPtr => {
@@ -1628,7 +1628,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    splice(geometry: MagickGeometry): void {
+    splice(geometry: IMagickGeometry): void {
         MagickRectangle.use(this, geometry, geometryPtr => {
             Exception.use(exception => {
                 const instance = ImageMagick._api._MagickImage_Splice(this._instance, geometryPtr, exception.ptr);

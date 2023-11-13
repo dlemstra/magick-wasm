@@ -2,13 +2,13 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../image-magick';
-import { MagickGeometry } from '../types/magick-geometry';
+import { IMagickGeometry } from '../types/magick-geometry';
 import { MagickImage } from '../magick-image';
 import { Percentage } from '../types/percentage';
 
 /** @internal */
 export class MagickRectangle {
-    static use<TReturnType>(image: MagickImage, geometry: MagickGeometry, func: (rectangle: number) => TReturnType): TReturnType {
+    static use<TReturnType>(image: MagickImage, geometry: IMagickGeometry, func: (rectangle: number) => TReturnType): TReturnType {
         const rectangle = ImageMagick._api._MagickRectangle_Create();
         try {
             ImageMagick._api._MagickRectangle_X_Set(rectangle, geometry.x);

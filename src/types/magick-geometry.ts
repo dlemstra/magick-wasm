@@ -6,7 +6,70 @@ import { GeometryFlags } from '../internal/geometry-flags';
 import { MagickError } from '../magick-error';
 import { _withString } from '../internal/native/string';
 
-export class MagickGeometry {
+/**
+ * Encapsulation of the ImageMagick geometry object.
+ */
+export interface IMagickGeometry {
+    /**
+     * Gets a value indicating whether the value is an aspect ratio.
+     */
+    readonly aspectRatio: boolean;
+
+    /**
+     * Gets or sets a value indicating whether the image is resized based on the smallest fitting dimension (^).
+     */
+    fillArea: boolean;
+
+    /**
+     * Gets or sets a value indicating whether the image is resized if image is greater than size (>).
+     */
+    greater: boolean;
+
+    /**
+     * Gets or sets the height of the geometry.
+     */
+    height: number;
+
+    /**
+     * Gets or sets a value indicating whether the image is resized without preserving aspect ratio (!).
+     */
+    ignoreAspectRatio: boolean;
+
+    /**
+     * Gets or sets a value indicating whether the width and height are expressed as percentages.
+     */
+    isPercentage: boolean;
+
+    /**
+     * Gets or sets a value indicating whether the image is resized if image is less than size (<).
+     */
+    less: boolean;
+
+    /**
+     * Gets or sets a value indicating whether the image size is limited to the given size (@).
+     */
+    limitPixels: boolean;
+
+    /**
+     * Gets or sets the width of the geometry.
+     */
+    width: number;
+
+    /**
+     * Gets or sets the X offset from origin.
+     */
+    x: number;
+
+    /**
+     * Gets or sets the Y offset from origin.
+     */
+    y: number;
+
+     /** @internal */
+     _toRectangle(func: (rectangle: number) => void): void;
+}
+
+export class MagickGeometry implements IMagickGeometry {
     private _width = 0;
     private _height = 0;
     private _x = 0;
@@ -69,6 +132,9 @@ export class MagickGeometry {
     get greater(): boolean { return this._greater; }
     set greater(value: boolean) { this._greater = value; }
 
+    get height(): number { return this._height; }
+    set height(value: number) { this._height = value; }
+
     get ignoreAspectRatio(): boolean { return this._ignoreAspectRatio; }
     set ignoreAspectRatio(value: boolean) { this._ignoreAspectRatio = value; }
 
@@ -80,9 +146,6 @@ export class MagickGeometry {
 
     get limitPixels(): boolean { return this._limitPixels; }
     set limitPixels(value: boolean) { this._limitPixels = value; }
-
-    get height(): number { return this._height; }
-    set height(value: number) { this._height = value; }
 
     get width(): number { return this._width; }
     set width(value: number) { this._width = value; }
@@ -141,7 +204,7 @@ export class MagickGeometry {
     }
 
     /** @internal */
-    static _fromRectangle(rectangle: number): MagickGeometry {
+    static _fromRectangle(rectangle: number): IMagickGeometry {
         if (rectangle === 0)
             throw new MagickError('unable to allocate memory');
 

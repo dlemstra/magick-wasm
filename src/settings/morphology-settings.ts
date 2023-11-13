@@ -3,7 +3,7 @@
 
 import { Channels } from '../enums/channels';
 import { Kernel } from '../enums/kernel';
-import { MagickGeometry } from '../types/magick-geometry';
+import { IMagickGeometry } from '../types/magick-geometry';
 import { MorphologyMethod } from '../enums/morphology-method';
 import { Percentage } from '../types/percentage';
 
@@ -31,7 +31,7 @@ export class MorphologySettings {
     /**
      * Gets or sets the scale to use when the method is Convolve.
      */
-    convolveScale: MagickGeometry | undefined;
+    convolveScale: IMagickGeometry | undefined;
 
     /**
      * Gets or sets the number of iterations.
