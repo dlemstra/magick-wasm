@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from './image-magick';
-import { LogEvent } from './log-event';
+import { LogEvent } from './events/log-event';
 import { MagickFormatInfo } from './magick-format-info';
 import { LogEventTypes } from './enums/log-event-types';
 import { _createString, _withString } from './internal/native/string';
