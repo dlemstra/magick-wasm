@@ -31,6 +31,15 @@ describe('DngReadDefines', () => {
         expect(readSettings.getDefine(MagickFormat.Dng, 'no-auto-bright')).toBe('true');
     });
 
+    it('should set define when output color has been set', () => {
+        const dngReadDefines = new DngReadDefines();
+        dngReadDefines.outputColor = DngOutputColor.KodakProPhotoRGB;
+
+        readSettings.setDefines(dngReadDefines);
+
+        expect(readSettings.getDefine(MagickFormat.Dng, 'output-color')).toBe('4');
+    });
+
     it('should set define when use camera white balance has been set', () => {
         const dngReadDefines = new DngReadDefines();
         dngReadDefines.useCameraWhitebalance = true;
@@ -47,14 +56,5 @@ describe('DngReadDefines', () => {
         readSettings.setDefines(dngReadDefines);
 
         expect(readSettings.getDefine(MagickFormat.Dng, 'use-auto-wb')).toBe('true');
-    });
-
-    it('should set define when output color has been set', () => {
-        const dngReadDefines = new DngReadDefines();
-        dngReadDefines.outputColor = DngOutputColor.KodakProPhotoRGB;
-
-        readSettings.setDefines(dngReadDefines);
-
-        expect(readSettings.getDefine(MagickFormat.Dng, 'output-color')).toBe('4');
     });
 });
