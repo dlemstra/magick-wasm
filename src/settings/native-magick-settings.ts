@@ -73,8 +73,8 @@ export class NativeMagickSettings extends NativeInstance {
             });
         }
 
-        if (settings.interlace !== undefined)
-            ImageMagick._api._MagickSettings_Interlace_Set(this._instance, settings.interlace);
+        if (settings._interlace !== undefined)
+            ImageMagick._api._MagickSettings_Interlace_Set(this._instance, settings._interlace);
 
         if (settings.strokeColor !== undefined)
             this.setOption('stroke', settings.strokeColor.toString());
