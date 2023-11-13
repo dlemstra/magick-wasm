@@ -19,45 +19,54 @@ export class ConnectedComponentsSettings {
      * threshold.
      **/
     angleThreshold?: Threshold;
+
     /**
      * The threshold that eliminates small objects by merging them with their
      * larger neighbors.
      */
     areaThreshold?: Threshold;
+
     /**
      * The threshold that merges any object not within the min and max
      * circularity threshold.
      */
     circularityThreshold?: Threshold;
+
     /**
      * The number of neighbors to visit (4 or 8).
      */
     connectivity: Connectivity;
+
     /**
      * The threshold that merges any object not within the min and max diameter
      * threshold.
      */
     diameterThreshold?: Threshold;
+
     /**
      * The threshold that merges any object not within the min and max
      * eccentricity threshold.
      */
     eccentricityThreshold?: Threshold;
+
     /**
      * The threshold that merges any object not within the min and max ellipse
      * major threshold.
      */
     majorAxisThreshold?: Threshold;
+
     /**
      * Whether the object color in the component labeled image will be replaced
      * with the mean color from the source image (defaults to grayscale).
      */
     meanColor?: boolean;
+
     /**
      * The threshold that merges any object not within the min and max ellipse
      * minor threshold.
      */
     minorAxisThreshold?: Threshold;
+
     /**
      * The threshold that merges any object not within the min and max perimeter
      * threshold.

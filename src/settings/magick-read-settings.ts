@@ -7,6 +7,9 @@ import { MagickSettings } from './magick-settings';
 import { NativeMagickSettings } from './native-magick-settings';
 import { _withString } from '../internal/native/string';
 
+/**
+ * Class that contains setting for when an image is being read.
+ */
 export class MagickReadSettings extends MagickSettings {
 
     constructor(partialSettings?: Partial<MagickReadSettings>) {
@@ -15,8 +18,14 @@ export class MagickReadSettings extends MagickSettings {
         Object.assign(this, partialSettings);
     }
 
+    /**
+     * Gets or sets the height.
+     */
     height?: number;
 
+    /**
+     * Gets or sets the width.
+     */
     width?: number;
 
     /** @internal */
