@@ -44,6 +44,7 @@ export * from './endian';
 export * from './error-metric';
 export * from './evaluate-operator';
 export * from './filter-type';
+export * from './formats/dng/dng-interpolation';
 export * from './formats/dng/dng-output-color';
 export * from './formats/dng/dng-read-defines';
 export * from './gif-dispose-method';

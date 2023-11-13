@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { DefinesCreator } from '../../defines/defines-creator';
+import { DngInterpolation } from './dng-interpolation';
 import { DngOutputColor } from './dng-output-color';
 import { IDefine } from '../../defines/define';
 import { MagickFormat } from '../../magick-format';
@@ -20,6 +21,11 @@ export class DngReadDefines extends DefinesCreator {
     disableAutoBrightness?: boolean;
 
     /**
+     * Gets or sets a value indicating the interpolation quality (dng:interpolation-quality).
+     */
+    interpolationQuality?: DngInterpolation;
+
+    /**
      * Gets or sets the output color (dng:output-color).
      */
     outputColor?: DngOutputColor;
@@ -36,6 +42,9 @@ export class DngReadDefines extends DefinesCreator {
 
     getDefines(): IDefine[] {
         const defines: IDefine[] = [];
+
+        if (this.hasValue(this.interpolationQuality))
+            defines.push(this.createDefine('interpolation-quality', this.interpolationQuality as number));
 
         if (this.hasValue(this.disableAutoBrightness))
             defines.push(this.createDefine('no-auto-bright', this.disableAutoBrightness as boolean));
