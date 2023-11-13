@@ -23,9 +23,6 @@ export class MagickSettings {
     _fileName?: string;
 
     /** @internal */
-    _interlace?: Interlace;
-
-    /** @internal */
     _ping = false;
 
     /** @internal */
@@ -91,6 +88,11 @@ export class MagickSettings {
      * Gets or sets the the format of the image.
      */
     format?: MagickFormat;
+
+    /**
+     * Gets or sets the interlace method.
+     */
+    interlace?: Interlace;
 
     /**
      * Gets or sets the color to use when drawing object outlines.
