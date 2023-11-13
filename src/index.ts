@@ -80,7 +80,6 @@ export * from './quantum';
 export * from './rendering-intent';
 export * from './settings/connected-components-settings';
 export * from './settings/distort-settings';
-export * from './settings/drawing-settings';
 export * from './settings/magick-read-settings';
 export * from './settings/magick-settings';
 export * from './settings/montage-settings';

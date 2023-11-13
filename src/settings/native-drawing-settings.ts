@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawingSettings } from './drawing-settings';
+import { DrawingSettings } from '../internal/settings/drawing-settings';
 import { ImageMagick } from '../image-magick';
 import { Magick } from '../magick';
 import { NativeInstance } from '../native-instance';

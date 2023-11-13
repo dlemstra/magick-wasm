@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawingSettings } from '../settings/drawing-settings';
+import { DrawingSettings } from '../internal/settings/drawing-settings';
 import { Exception } from '../internal/exception/exception';
 import { Gravity } from '../gravity';
 import { IDisposable } from '../disposable';
