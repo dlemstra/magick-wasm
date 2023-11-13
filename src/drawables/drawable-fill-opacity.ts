@@ -3,7 +3,7 @@
 
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
-import { Percentage } from '../percentage';
+import { Percentage } from '../types/percentage';
 
 /**
  * Sets the alpha to use when drawing using the fill color or fill texture.

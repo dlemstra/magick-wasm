@@ -4,7 +4,7 @@
 import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickImageCollection } from '@src/magick-image-collection';
 import { MagickFormat } from '@src/enums/magick-format';
-import { MagickGeometry } from '@src/magick-geometry';
+import { MagickGeometry } from '@src/types/magick-geometry';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImageCollection#mosaic', () => {

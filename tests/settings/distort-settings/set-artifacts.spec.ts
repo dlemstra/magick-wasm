@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { DistortSettings } from '@src/settings/distort-settings';
-import { MagickGeometry } from '@src/magick-geometry';
+import { MagickGeometry } from '@src/types/magick-geometry';
 import { TestImages } from '@test/test-images';
 
 describe('DistortSettings#setArtifacts', () => {

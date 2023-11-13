@@ -4,8 +4,8 @@
 import { ConnectedComponent } from '@src/connected-component';
 import { MagickColors } from '@src/magick-colors';
 import { IMagickImage } from '@src/magick-image';
-import { Percentage } from '@src/percentage';
-import { Point } from '@src/point';
+import { Percentage } from '@src/types/percentage';
+import { Point } from '@src/types/point';
 import { TestImages } from '@test/test-images';
 
 type ComponentTestData = Required<Omit<ConnectedComponent, 'toGeometry'>>;

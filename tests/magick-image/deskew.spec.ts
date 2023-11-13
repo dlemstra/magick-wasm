@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { MagickColors } from '@src/magick-colors';
-import { Percentage } from '@src/percentage';
+import { Percentage } from '@src/types/percentage';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#deskew', () => {

@@ -6,7 +6,7 @@ import { CompositeOperator } from '@src/enums/composite-operator';
 import { Gravity } from '@src/enums/gravity';
 import { ImageMagick } from '@src/image-magick';
 import { MagickColors } from '@src/magick-colors';
-import { Point } from '@src/point';
+import { Point } from '@src/types/point';
 
 describe('MagickImage#compositeGravity', () => {
     it('should use the gravity', () => {

@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Quantum } from './quantum';
+import { Quantum } from '../quantum';
 
 export class Percentage {
     private _value: number;

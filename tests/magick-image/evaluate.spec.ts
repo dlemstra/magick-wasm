@@ -6,7 +6,7 @@ import { EvaluateOperator } from '@src/enums/evaluate-operator';
 import { ImageMagick } from '@src/image-magick';
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
-import { MagickGeometry } from '@src/magick-geometry';
+import { MagickGeometry } from '@src/types/magick-geometry';
 import { Quantum } from '@src/quantum';
 import { TestImages } from '@test/test-images';
 

@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ConnectedComponentsSettings } from '@src/settings/connected-components-settings';
-import { Threshold } from '@src/threshold';
+import { Threshold } from '@src/types/threshold';
 import { TestImages } from '@test/test-images';
 
 describe('ConnectedComponentsSettings', () => {

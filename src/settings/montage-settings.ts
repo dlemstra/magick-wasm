@@ -4,7 +4,7 @@
 import { Disposable } from '../internal/disposable';
 import { Gravity } from '../enums/gravity';
 import { MagickColor } from '../magick-color';
-import { MagickGeometry } from '../magick-geometry';
+import { MagickGeometry } from '../types/magick-geometry';
 import { NativeMontageSettings } from './native-montage-settings';
 
 /**

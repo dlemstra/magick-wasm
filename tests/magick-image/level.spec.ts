@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Channels } from '@src/enums/channels';
-import { Percentage } from '@src/percentage';
+import { Percentage } from '@src/types/percentage';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#level', () => {

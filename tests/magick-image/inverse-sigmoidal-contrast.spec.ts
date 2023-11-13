@@ -3,7 +3,7 @@
 
 import { Channels } from '@src/enums/channels';
 import { ErrorMetric } from '@src/enums/error-metric';
-import { Percentage } from '@src/percentage';
+import { Percentage } from '@src/types/percentage';
 import { Quantum } from '@src/quantum';
 import { TestImages } from '@test/test-images';
 

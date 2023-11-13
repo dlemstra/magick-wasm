@@ -8,7 +8,7 @@ import { Gravity } from '@src/enums/gravity';
 import { ImageMagick } from '@src/image-magick';
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
-import { Point } from '@src/point';
+import { Point } from '@src/types/point';
 
 describe('MagickImage#composite', () => {
     it('should preserve gray color space', () => {

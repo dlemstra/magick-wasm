@@ -4,7 +4,7 @@
 import { Gravity } from '@src/enums/gravity';
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
-import { MagickGeometry } from '@src/magick-geometry';
+import { MagickGeometry } from '@src/types/magick-geometry';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#inverseTransparent', () => {

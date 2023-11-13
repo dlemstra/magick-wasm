@@ -4,7 +4,7 @@
 import { Channels } from '@src/enums/channels';
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
-import { Percentage } from '@src/percentage';
+import { Percentage } from '@src/types/percentage';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#contrastStretch', () => {

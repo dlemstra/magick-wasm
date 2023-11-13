@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { IMagickImage } from '../magick-image';
-import { Threshold } from '../threshold';
+import { Threshold } from '../types/threshold';
 
 /**
  * Represents the number of neighbors to visit in the connected components

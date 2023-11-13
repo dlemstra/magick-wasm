@@ -3,7 +3,7 @@
 
 import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickImageCollection } from '@src/magick-image-collection';
-import { MagickGeometry } from '@src/magick-geometry';
+import { MagickGeometry } from '@src/types/magick-geometry';
 import { MontageSettings } from '@src/settings/montage-settings';
 import { TestImages } from '@test/test-images';
 import { TestFonts } from '@test/test-fonts';

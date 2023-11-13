@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { Threshold } from '@src/threshold'
+import { Threshold } from '@src/types/threshold'
 
 describe('Threshold#toString', () => {
     it('should return the minimum value as a string when maximum is 0', () => {

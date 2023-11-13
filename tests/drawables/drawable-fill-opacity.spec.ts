@@ -6,7 +6,7 @@ import { DrawableFillColor } from '@src/drawables/drawable-fill-color';
 import { DrawableFillOpacity } from '@src/drawables/drawable-fill-opacity';
 import { MagickColor } from '@src/magick-color';
 import { PaintMethod } from '@src/enums/paint-method';
-import { Percentage } from '@src/percentage';
+import { Percentage } from '@src/types/percentage';
 import { TestImages } from '@test/test-images';
 
 describe('DrawableFillOpacity', () => {

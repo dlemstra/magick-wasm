@@ -3,9 +3,9 @@
 
 import { Channels } from '../enums/channels';
 import { Kernel } from '../enums/kernel';
-import { MagickGeometry } from '../magick-geometry';
+import { MagickGeometry } from '../types/magick-geometry';
 import { MorphologyMethod } from '../enums/morphology-method';
-import { Percentage } from '../percentage';
+import { Percentage } from '../types/percentage';
 
 /**
  * Class that contains setting for the morphology operation.

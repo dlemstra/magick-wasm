@@ -2,9 +2,9 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../image-magick';
-import { MagickGeometry } from '../magick-geometry';
+import { MagickGeometry } from '../types/magick-geometry';
 import { MagickImage } from '../magick-image';
-import { Percentage } from '../percentage';
+import { Percentage } from '../types/percentage';
 
 /** @internal */
 export class MagickRectangle {
