@@ -9,6 +9,7 @@ import { Exception } from './internal/exception/exception';
 import { IDisposable } from './disposable';
 import { ImageMagick } from './image-magick';
 import { IMagickImage } from './magick-image';
+import { LayerMethod } from './layer-method';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './magick-format';
 import { MagickImage } from './magick-image';
@@ -16,26 +17,6 @@ import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
 import { MontageSettings } from './settings/montage-settings';
 import { Pointer } from './internal/pointer/pointer';
-
-enum LayerMethod {
-    Undefined,
-    Coalesce,
-    CompareAny,
-    CompareClear,
-    CompareOverlay,
-    Dispose,
-    Optimize,
-    OptimizeImage,
-    OptimizePlus,
-    OptimizeTrans,
-    RemoveDups,
-    RemoveZero,
-    Composite,
-    Merge,
-    Flatten,
-    Mosaic,
-    Trimbounds,
-}
 
 export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable {
     /** @internal */
