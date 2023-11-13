@@ -99,8 +99,19 @@ class EmptyTestImage {
     }
 }
 
+class EmptyTestImageCollection {
+    use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    use<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        return MagickImageCollection.create()._use(images => {
+            return func(images);
+        });
+    }
+}
+
 export class TestImages {
     static readonly empty = new EmptyTestImage();
+    static readonly emptyCollection = new EmptyTestImageCollection();
     static readonly empty150x150Canvas = new TestImageFromColor(MagickColors.White, 150, 150);
     static readonly cmykJpg = new TestImage('tests/images/cmyk.jpg');
     static readonly connectedComponents = new TestImage('tests/images/connected-components.png');
