@@ -52,7 +52,7 @@ import { Pointer } from './internal/pointer/pointer';
 import { PrimaryInfo } from './primary-info';
 import { Quantum } from './quantum';
 import { RenderingIntent } from './enums/rendering-intent';
-import { Statistics, IStatistics } from './statistics';
+import { Statistics, IStatistics } from './statistics/statistics';
 import { StringInfo } from './internal/string-info';
 import { VirtualPixelMethod } from './enums/virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';

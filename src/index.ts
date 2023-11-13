@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 export * from './byte-array';
-export * from './channel-statistics';
 export * from './chromaticity-info';
 export * from './connected-component';
 export * from './defines/define';
@@ -87,5 +86,6 @@ export * from './settings/magick-read-settings';
 export * from './settings/magick-settings';
 export * from './settings/montage-settings';
 export * from './settings/morphology-settings';
-export * from './statistics';
+export * from './statistics/channel-statistics';
+export * from './statistics/statistics';
 export * from './threshold';
