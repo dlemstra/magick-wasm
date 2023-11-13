@@ -943,7 +943,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         let x = 0;
         let y = 0;
         let compose = CompositeOperator.In;
-        let channels = Channels.Default;
+        let channels = Channels.All;
         let args: string | null = null;
 
         if (composeOrPoint instanceof Point) {
@@ -996,7 +996,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         let x = 0;
         let y = 0;
         let compose = CompositeOperator.In;
-        let channels = Channels.Default;
+        let channels = Channels.All;
         let args: string | null = null;
 
         if (composeOrPoint instanceof Point) {
@@ -1640,7 +1640,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     statistics(): IStatistics;
     statistics(channels: Channels): IStatistics;
     statistics(channelsOrUndefined?: Channels): IStatistics {
-        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Default);
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.All);
         return Exception.usePointer(exception => {
             const list = ImageMagick._api._MagickImage_Statistics(this._instance, channels, exception);
             const statistics = Statistics._create(this, list, channels);
