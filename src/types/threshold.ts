@@ -6,7 +6,7 @@
  */
 export class Threshold {
     /**
-     * Initializes a new instance of the Threshold class.
+     * Initializes a new instance of the {@link Threshold} class.
      * @param minimum - The minimum value of the threshold.
      * @param maximum - The maximum value of the threshold (or 0 if no maximum).
      */

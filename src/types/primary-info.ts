@@ -8,7 +8,7 @@ import { ImageMagick } from '../image-magick';
  */
 export class PrimaryInfo {
     /**
-     * Initializes a new instance of the PrimaryInfo class.
+     * Initializes a new instance of the {@link PrimaryInfo} class.
      * @param x - The x,
      * @param y - The y.
      * @param z - The z.

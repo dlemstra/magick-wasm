@@ -10,7 +10,7 @@ export class Percentage {
     private _value: number;
 
     /**
-     * Initializes a new instance of the Percentage class.
+     * Initializes a new instance of the {@link Percentage} class.
      * @param value -The value (0% = 0.0, 100% = 100.0)
      */
     constructor(value: number) {

@@ -8,18 +8,18 @@ import { DensityUnit } from '../enums/density-unit';
  */
 export class Density {
     /**
-     *Initializes a new instance of the Density class with the density set to inches.
+     *Initializes a new instance of the {@link Density} class with the density set to inches.
      * @param xy - The x and y.
      */
     constructor(xy: number);
     /**
-     * Initializes a new instance of the Density class.
+     * Initializes a new instance of the {@link Density} class.
      * @param xy - The x and y.
      * @param units - The units.
      */
     constructor(xy: number, unit: DensityUnit);
     /**
-     * Initializes a new instance of the Density class.
+     * Initializes a new instance of the {@link Density} class.
      * @param x - The x.
      * @param y - The y.
      * @param units - The units.
