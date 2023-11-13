@@ -3,15 +3,33 @@
 
 import { ImageMagick } from '../image-magick';
 
+/**
+ *  PrimaryInfo information.
+ */
 export class PrimaryInfo {
+    /**
+     * Initializes a new instance of the PrimaryInfo class.
+     * @param x - The x,
+     * @param y - The y.
+     * @param z - The z.
+     */
     constructor(x: number, y: number, z: number) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
+    /**
+     * Gets the X value.
+     */
     readonly x;
+    /**
+     * Gets the Y value.
+     */
     readonly y;
+    /**
+     * Gets the Z value.
+     */
     readonly z;
 
     /** @internal */

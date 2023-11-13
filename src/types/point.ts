@@ -3,22 +3,35 @@
 
 import { ImageMagick } from "../image-magick";
 
+/**
+ * Class for a point with doubles.
+ */
 export class Point {
-    private _x: number;
-    private _y: number;
-
+    /**
+     * Initializes a new instance of the Point class.
+     * @param xy - The x and y.
+     */
     constructor(xy: number);
+    /**
+     * Initializes a new instance of the Point class.
+     * @param x - The x.
+     * @param y - The y.
+     */
     constructor(x: number, y: number);
     constructor(x: number, y?: number) {
-        this._x = x;
-        this._y = y ?? x;
+        this.x = x;
+        this.y = y ?? x;
     }
 
-    get x(): number { return this._x; }
-    set x(value: number) { this._x = value; }
+    /**
+     * Gets the x-coordinate of this point.
+     */
+    readonly x: number;
 
-    get y(): number { return this._y; }
-    set y(value: number) { this._y = value; }
+    /**
+     * Gets the y-coordinate of this point.
+     */
+    readonly y: number;
 
     /** @internal */
     static _create(instance: number): Point {
