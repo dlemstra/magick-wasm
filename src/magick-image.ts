@@ -615,7 +615,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get colorFuzz(): Percentage { return Percentage.fromQuantum(ImageMagick._api._MagickImage_ColorFuzz_Get(this._instance)); }
-    set colorFuzz(value: Percentage) { ImageMagick._api._MagickImage_ColorFuzz_Set(this._instance, value.toQuantum()); }
+    set colorFuzz(value: Percentage) { ImageMagick._api._MagickImage_ColorFuzz_Set(this._instance, value._toQuantum()); }
 
     get colormapSize(): number {
         return Exception.usePointer(exception => {
@@ -1121,7 +1121,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     deskew(threshold: Percentage): number {
         Exception.use(exception => {
-            const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold.toQuantum(), exception.ptr);
+            const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold._toQuantum(), exception.ptr);
             this._setInstance(instance, exception);
         });
 
@@ -1177,7 +1177,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     evaluate(channels: Channels, operatorOrGeometry: EvaluateOperator | MagickGeometry, valueOrPercentageOrOperator: number | Percentage | EvaluateOperator, valueOrPercentage?: number | Percentage): void {
         if (typeof operatorOrGeometry === 'number') {
             const operator = operatorOrGeometry;
-            const value = typeof valueOrPercentageOrOperator === 'number' ? valueOrPercentageOrOperator : valueOrPercentageOrOperator.toQuantum();
+            const value = typeof valueOrPercentageOrOperator === 'number' ? valueOrPercentageOrOperator : valueOrPercentageOrOperator._toQuantum();
             Exception.usePointer(exception => {
                 ImageMagick._api._MagickImage_EvaluateOperator(this._instance, channels, operator, value, exception);
             });
@@ -1187,7 +1187,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
             const geometry = operatorOrGeometry;
             const operator = valueOrPercentageOrOperator;
-            const value = typeof valueOrPercentage === 'number' ? valueOrPercentage : valueOrPercentage.toQuantum();
+            const value = typeof valueOrPercentage === 'number' ? valueOrPercentage : valueOrPercentage._toQuantum();
 
             if (geometry.isPercentage)
                 throw new MagickError('percentage is not supported');
@@ -1363,13 +1363,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         }
 
         Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint.toQuantum(), gamma, channels, exception);
+            ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, channels, exception);
         });
     }
 
     linearStretch(blackPoint: Percentage, whitePoint: Percentage): void {
         Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_LinearStretch(this._instance, blackPoint.toDouble(), whitePoint.toQuantum(), exception);
+            ImageMagick._api._MagickImage_LinearStretch(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), exception);
         });
     }
 
@@ -1544,7 +1544,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     sepiaTone(numberOrPercentage: Percentage | number = new Percentage(80)): void {
         Exception.use(exception => {
             const threshold = typeof numberOrPercentage === 'number' ? new Percentage(numberOrPercentage) : numberOrPercentage;
-            const instance = ImageMagick._api._MagickImage_SepiaTone(this._instance, threshold.toQuantum(), exception.ptr);
+            const instance = ImageMagick._api._MagickImage_SepiaTone(this._instance, threshold._toQuantum(), exception.ptr);
             this._setInstance(instance, exception);
         });
     }
@@ -1624,7 +1624,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     solarize(numberOrPercentage: Percentage | number = new Percentage(50)): void {
         Exception.use(exception => {
             const factor = typeof numberOrPercentage === 'number' ? new Percentage(numberOrPercentage) : numberOrPercentage;
-            ImageMagick._api._MagickImage_Solarize(this._instance, factor.toQuantum(), exception.ptr);
+            ImageMagick._api._MagickImage_Solarize(this._instance, factor._toQuantum(), exception.ptr);
         });
     }
 
@@ -1660,7 +1660,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     threshold(percentage: Percentage, channelsOrUndefined?: Channels): void {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
         Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_Threshold(this._instance, percentage.toQuantum(), channels, exception);
+            ImageMagick._api._MagickImage_Threshold(this._instance, percentage._toQuantum(), channels, exception);
         });
     }
 

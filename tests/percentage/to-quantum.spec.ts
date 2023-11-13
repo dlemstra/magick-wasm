@@ -3,10 +3,10 @@
 
 import { Percentage } from '@src/types/percentage';
 
-describe('MagickGeometry#toQuantum', () => {
+describe('MagickGeometry#_toQuantum', () => {
     it('should return the value as a percentage of the Quantum max.', () => {
         const percentage = new Percentage(10);
 
-        expect(percentage.toQuantum()).toBe(25.5);
+        expect(percentage._toQuantum()).toBe(25.5);
     });
 });

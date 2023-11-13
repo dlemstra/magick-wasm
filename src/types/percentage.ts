@@ -3,9 +3,16 @@
 
 import { Quantum } from '../quantum';
 
+/**
+ * Represents a percentage value.
+ */
 export class Percentage {
     private _value: number;
 
+    /**
+     * Initializes a new instance of the Percentage class.
+     * @param value -The value (0% = 0.0, 100% = 100.0)
+     */
     constructor(value: number) {
         this._value = value;
     }
@@ -15,15 +22,25 @@ export class Percentage {
         return new Percentage((value / Quantum.max) * 100);
     }
 
+    /**
+     * ultiplies the value by the specified percentage.
+     * @param value - The value to use.
+     * @returns - The new value.
+     */
     multiply(value: number): number {
         return (value * this._value) / 100.0;
     }
 
+    /**
+     * Returns a double that represents the current percentage.
+     * @returns - A double that represents the current percentage.
+     */
     toDouble(): number {
         return this._value;
     }
 
-    toQuantum(): number {
+    /** @internal */
+    _toQuantum(): number {
         return Quantum.max * (this._value / 100);
     }
 }
