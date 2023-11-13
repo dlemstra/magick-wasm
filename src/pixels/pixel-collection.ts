@@ -70,14 +70,14 @@ export interface IPixelCollection extends IDisposable {
     setPixel(x: number, y: number, numberPixels: number[]): void;
 
     /**
-     * Returns the values of the pixels as an array.
+     * Returns the values of the pixels as a byte array.
      * @param x - The X coordinate of the area.
      * @param y - The Y coordinate of the area.
      * @param width - The width of the area.
      * @param height - The height of the area.
      * @param mapping - The mapping of the pixels.
      */
-    toByteArray(x: number, y: number, width: number, height: number, mapping: string): quantumArray | null;
+    toByteArray(x: number, y: number, width: number, height: number, mapping: string): Uint8Array | null;
 }
 
 export class PixelCollection extends NativeInstance implements IPixelCollection {
@@ -153,7 +153,7 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
             this.setArea(x, y, 1, 1, quantumPixelsOrNumberPixels);
     }
 
-    toByteArray(x: number, y: number, width: number, height: number, mapping: string): quantumArray | null {
+    toByteArray(x: number, y: number, width: number, height: number, mapping: string): Uint8Array | null {
         return this.use(x, y, width, height, mapping, instance => {
             return PixelCollection.createArray(instance, width, height, mapping.length);
         });
