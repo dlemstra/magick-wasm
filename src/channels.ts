@@ -89,4 +89,9 @@ export enum Channels {
      * CMYK.
      */
     CMYK = Cyan | Magenta | Yellow | Black,
+
+    /**
+     * CMYKA.
+     */
+    CMYKA = Cyan | Magenta | Yellow | Black | Alpha,
 }
