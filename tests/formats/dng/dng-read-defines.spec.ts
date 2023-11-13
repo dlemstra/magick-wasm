@@ -7,14 +7,9 @@ import { DngReadDefines } from '@src/formats/dng/dng-read-defines';
 import { MagickFormat } from '@src/magick-format';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
 
-let readSettings: MagickReadSettings;
-
-beforeEach(() => {
-    readSettings = new MagickReadSettings();
-});
-
 describe('DngReadDefines', () => {
     it('constructor should not set any defines', () => {
+        const readSettings = new MagickReadSettings();
         readSettings.setDefines(new DngReadDefines());
 
         expect(readSettings.getDefine(MagickFormat.Dng, 'use-camera-wb')).toBeNull();
@@ -24,6 +19,7 @@ describe('DngReadDefines', () => {
     });
 
     it('should set define when disable auto brightness has been set', () => {
+        const readSettings = new MagickReadSettings();
         const dngReadDefines = new DngReadDefines();
         dngReadDefines.disableAutoBrightness = true;
 
@@ -33,6 +29,7 @@ describe('DngReadDefines', () => {
     });
 
     it('should set define when output interpolation quality has been set', () => {
+        const readSettings = new MagickReadSettings();
         const dngReadDefines = new DngReadDefines();
         dngReadDefines.interpolationQuality = DngInterpolation.ModifiedAhd;
 
@@ -42,6 +39,7 @@ describe('DngReadDefines', () => {
     });
 
     it('should set define when output color has been set', () => {
+        const readSettings = new MagickReadSettings();
         const dngReadDefines = new DngReadDefines();
         dngReadDefines.outputColor = DngOutputColor.KodakProPhotoRGB;
 
@@ -51,6 +49,7 @@ describe('DngReadDefines', () => {
     });
 
     it('should set define when use camera white balance has been set', () => {
+        const readSettings = new MagickReadSettings();
         const dngReadDefines = new DngReadDefines();
         dngReadDefines.useCameraWhitebalance = true;
 
@@ -60,6 +59,7 @@ describe('DngReadDefines', () => {
     });
 
     it('should set define when use auto white balance has been set', () => {
+        const readSettings = new MagickReadSettings();
         const dngReadDefines = new DngReadDefines();
         dngReadDefines.useAutoWhitebalance = true;
 

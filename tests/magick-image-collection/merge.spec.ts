@@ -2,24 +2,15 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ErrorMetric } from '@src/error-metric';
-import { IMagickImageCollection, MagickImageCollection } from '@src/magick-image-collection';
 import { TestImages } from '@test/test-images';
-
-let images: IMagickImageCollection;
-
-beforeEach(() => {
-    images = MagickImageCollection.create();
-});
-
-afterEach(() => {
-    images.dispose();
-});
 
 describe('MagickImageCollection#merge', () => {
     it('should throw exception when collection is empty', () => {
-        expect(() => {
-            images.merge(() => { /* never reached */ });
-        }).toThrowError('operation requires at least one image');
+        TestImages.emptyCollection.use((images) => {
+            expect(() => {
+                images.merge(() => { /* never reached */ });
+            }).toThrowError('operation requires at least one image');
+        });
     });
 
     it('should merge the images', () => {

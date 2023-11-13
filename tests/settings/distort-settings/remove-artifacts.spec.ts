@@ -2,39 +2,33 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { DistortSettings } from '@src/settings/distort-settings';
-import { IMagickImage, MagickImage } from '@src/magick-image';
 import { MagickGeometry } from '@src/magick-geometry';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '@test/test-images';
 
 describe('DistortSettings#setArtifacts', () => {
     it('should remove the scale artifact from the image', () => {
-        const settings = new DistortSettings();
+        TestImages.empty.use((image) => {
+            const settings = new DistortSettings();
 
-        settings.scale = 4.5;
-        settings._setArtifacts(image);
+            settings.scale = 4.5;
+            settings._setArtifacts(image);
 
-        settings._removeArtifacts(image);
+            settings._removeArtifacts(image);
 
-        expect(image.artifactNames.length).toBe(0);
+            expect(image.artifactNames.length).toBe(0);
+        });
     });
 
     it('should remove the viewport artifact from the image', () => {
-        const settings = new DistortSettings();
+        TestImages.empty.use((image) => {
+            const settings = new DistortSettings();
 
-        settings.viewport = new MagickGeometry(1);
-        settings._setArtifacts(image);
+            settings.viewport = new MagickGeometry(1);
+            settings._setArtifacts(image);
 
-        settings._removeArtifacts(image);
+            settings._removeArtifacts(image);
 
-        expect(image.artifactNames.length).toBe(0);
+            expect(image.artifactNames.length).toBe(0);
+        });
     });
 });

@@ -2,28 +2,20 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { MagickGeometry } from '@src/magick-geometry';
-import { IMagickImage, MagickImage } from '@src/magick-image';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#repage', () => {
     it('should reset the page', () => {
-        image.page = new MagickGeometry(1, 2, 3, 4);
+        TestImages.empty.use((image) => {
+            image.page = new MagickGeometry(1, 2, 3, 4);
 
-        image.repage();
+            image.repage();
 
-        const page = image.page;
-        expect(page.x).toBe(0);
-        expect(page.y).toBe(0);
-        expect(page.width).toBe(0);
-        expect(page.height).toBe(0);
+            const page = image.page;
+            expect(page.x).toBe(0);
+            expect(page.y).toBe(0);
+            expect(page.width).toBe(0);
+            expect(page.height).toBe(0);
+        });
     });
 });

@@ -3,47 +3,42 @@
 
 import { Channels } from '@src/channels';
 import { ErrorMetric } from '@src/error-metric';
-import { IMagickImage, MagickImage } from '@src/magick-image';
 import { Percentage } from '@src/percentage';
 import { Quantum } from '@src/quantum';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-    image.read('logo:');
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#sigmoidalContrast', () => {
     it('should use half of quantum for midpoint by default', () => {
-        image.clone(other => {
-            image.sigmoidalContrast(4.0);
-            other.sigmoidalContrast(4.0, new Percentage(50));
+        TestImages.Builtin.logo.use((image) => {
+            image.clone(other => {
+                image.sigmoidalContrast(4.0);
+                other.sigmoidalContrast(4.0, new Percentage(50));
 
-            const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-            expect(difference).toBe(0);
+                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
+                expect(difference).toBe(0);
+            });
         });
     });
 
     it('should adjust the image contrast', () => {
-        image.clone(other => {
-            other.sigmoidalContrast(4.0, new Percentage(25));
+        TestImages.Builtin.logo.use((image) => {
+            image.clone(other => {
+                other.sigmoidalContrast(4.0, new Percentage(25));
 
-            const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-            expect(difference).toBeCloseTo(0.04179);
+                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
+                expect(difference).toBeCloseTo(0.04179);
+            });
         });
     });
 
     it('should adjust the specified channel', () => {
-        image.clone(other => {
-            other.sigmoidalContrast(4.0, Quantum.max * 0.25, Channels.Blue);
+        TestImages.Builtin.logo.use((image) => {
+            image.clone(other => {
+                other.sigmoidalContrast(4.0, Quantum.max * 0.25, Channels.Blue);
 
-            const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-            expect(difference).toBeCloseTo(0.03082);
+                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
+                expect(difference).toBeCloseTo(0.03082);
+            });
         });
     });
 });

@@ -2,30 +2,21 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Gravity } from '@src/gravity';
-import { IMagickImage, MagickImage } from '@src/magick-image';
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/magick-geometry';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-    image.read(MagickColors.Red, 1, 1);
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#trim', () => {
     it('should trim the image', () => {
-        image.extent(new MagickGeometry('3x3'), Gravity.Center, MagickColors.White)
+        TestImages.Color.red.use(image => {
+            image.extent(new MagickGeometry('3x3'), Gravity.Center, MagickColors.White)
 
-        image.trim();
+            image.trim();
 
-        expect(image.width).toBe(1);
-        expect(image.height).toBe(1);
+            expect(image.width).toBe(1);
+            expect(image.height).toBe(1);
+        });
     });
 
     it.each([
@@ -36,15 +27,17 @@ describe('MagickImage#trim', () => {
         [[Gravity.East, Gravity.West], 1, 3, MagickColors.Red, 0, 1],
         [[Gravity.North, Gravity.South], 3, 1, MagickColors.Lime, 0, 1]
     ])('should trim the specified edges', (gravity: Gravity[], width: number, height: number, color: MagickColor, x: number, y: number) => {
-        image.extent(new MagickGeometry('3x3'), Gravity.Center, MagickColors.Lime)
+        TestImages.Color.red.use(image => {
+            image.extent(new MagickGeometry('3x3'), Gravity.Center, MagickColors.Lime)
 
-        if (gravity.length === 1)
-            image.trim(gravity[0]);
-        else if (gravity.length === 2)
-            image.trim(gravity[0], gravity[1]);
+            if (gravity.length === 1)
+                image.trim(gravity[0]);
+            else if (gravity.length === 2)
+                image.trim(gravity[0], gravity[1]);
 
-        expect(image.width).toBe(width);
-        expect(image.height).toBe(height);
-        expect(image).toHavePixelWithColor(x, y, color);
+            expect(image.width).toBe(width);
+            expect(image.height).toBe(height);
+            expect(image).toHavePixelWithColor(x, y, color);
+        });
     });
 });

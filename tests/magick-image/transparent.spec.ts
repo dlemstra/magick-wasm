@@ -2,29 +2,20 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Gravity } from '@src/gravity';
-import { IMagickImage, MagickImage } from '@src/magick-image';
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/magick-geometry';
-
-let image: IMagickImage;
-
-beforeEach(() => {
-    image = MagickImage.create();
-    image.read(MagickColors.Red, 1, 1);
-});
-
-afterEach(() => {
-    image.dispose();
-});
+import { TestImages } from '@test/test-images';
 
 describe('MagickImage#transparent', () => {
     it('should change pixels with matching color to transparent', () => {
-        image.extent(new MagickGeometry('1x2'), Gravity.South, MagickColors.White)
+        TestImages.Color.red.use(image => {
+            image.extent(new MagickGeometry('1x2'), Gravity.South, MagickColors.White)
 
-        image.transparent(MagickColors.Red);
+            image.transparent(MagickColors.Red);
 
-        expect(image).toHavePixelWithColor(0, 0, MagickColors.White);
-        expect(image).toHavePixelWithColor(0, 1, new MagickColor('#ff000000'));
+            expect(image).toHavePixelWithColor(0, 0, MagickColors.White);
+            expect(image).toHavePixelWithColor(0, 1, new MagickColor('#ff000000'));
+        });
     });
 });

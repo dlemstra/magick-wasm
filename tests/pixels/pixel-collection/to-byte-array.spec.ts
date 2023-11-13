@@ -1,27 +1,17 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { IMagickImage, MagickImage } from '@src/magick-image';
-import { PixelCollection } from '@src/pixels/pixel-collection';
-
-let image: IMagickImage;
-let pixels: PixelCollection;
-
-beforeEach(() => {
-    image = MagickImage.create();
-    image.read('logo:');
-    pixels = PixelCollection._create(image);
-});
-
-afterEach(() => {
-    pixels.dispose();
-    image.dispose();
-});
+import { TestImages } from '@test/test-images';
 
 describe('PixelCollection#toByteArray', () => {
     it('should return array with the correct size', () => {
-        const data = pixels.toByteArray(0, 0, 2, 3, 'rgb');
-        expect(data).not.toBeNull();
-        expect(data.length).toBe(18);
+        TestImages.Builtin.logo.use((image) => {
+            image.getPixels(pixels => {
+                const data = pixels.toByteArray(0, 0, 2, 3, 'rgb');
+                expect(data).not.toBeNull();
+                if (data !== null)
+                    expect(data.length).toBe(18);
+            });
+        });
     });
 });
