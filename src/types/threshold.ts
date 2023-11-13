@@ -5,27 +5,34 @@
  * Represents a threshold with a minimum and (optional) maximum value.
  */
 export class Threshold {
-    private readonly _minimum: number;
-    private readonly _maximum: number;
-
     /**
      * Initializes a new instance of the Threshold class.
      * @param minimum - The minimum value of the threshold.
      * @param maximum - The maximum value of the threshold (or 0 if no maximum).
      */
     constructor(minimum: number, maximum: number = 0) {
-        this._minimum = minimum;
-        this._maximum = maximum;
+        this.minimum = minimum;
+        this.maximum = maximum;
      }
+
+     /**
+      * Gets the minimum of this threshold.
+      */
+     readonly minimum: number;
+
+    /**
+    * Gets the maximum of this threshold.
+    */
+     readonly maximum: number;
 
     /**
      * Convert the threshold to a string.
      */
     toString(): string {
-        if (this._maximum === 0) {
-            return this._minimum.toString();
+        if (this.maximum === 0) {
+            return this.minimum.toString();
         } else {
-            return `${this._minimum}-${this._maximum}`;
+            return `${this.minimum}-${this.maximum}`;
         }
     }
 }
