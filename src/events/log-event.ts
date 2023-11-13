@@ -4,11 +4,23 @@
 import { LogEventTypes } from '../enums/log-event-types';
 
 export class LogEvent {
-    eventType: LogEventTypes;
-    message: string;
-
+    /**
+     * Initializes a new instance of the {@link LogEvent} class.
+     * @param eventType - The type of the log message.
+     * @param message - The log message.
+     */
     constructor(eventType: LogEventTypes, message?: string) {
         this.eventType = eventType;
         this.message = message ?? '';
     }
+
+    /**
+     * Gets the type of the log message.
+     */
+    readonly eventType: LogEventTypes;
+
+    /**
+     * Gets the log message.
+     */
+    readonly message: string;
 }
