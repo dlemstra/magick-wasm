@@ -1,17 +1,63 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+/**
+ * Specifies the placement gravity.
+ */
 export enum Gravity {
+    /**
+     * Undefined.
+     */
     Undefined,
+
+    /**
+     * Forget.
+     */
     Forget = 0,
+
+    /**
+     * Northwest
+     */
     Northwest = 1,
+
+    /**
+     * North
+     */
     North = 2,
+
+    /**
+     * Northeast
+     */
     Northeast = 3,
+
+    /**
+     * West
+     */
     West = 4,
+
+    /**
+     * Center
+     */
     Center = 5,
+
+    /**
+     * East
+     */
     East = 6,
+
+    /**
+     * Southwest
+     */
     Southwest = 7,
+
+    /**
+     * South
+     */
     South = 8,
+
+    /**
+     * Southeast
+     */
     Southeast = 9,
 }
 
