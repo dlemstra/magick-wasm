@@ -1,8 +1,18 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+/**
+ * Interface that describes an image profile.
+ */
 export interface IImageProfile {
+    /**
+     * Gets the name of the profile.
+     */
     readonly name: string;
+
+    /**
+     * Returns the byte array of this profile.
+     */
     getData(): Uint8Array;
 }
 
