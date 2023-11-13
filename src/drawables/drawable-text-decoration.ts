@@ -5,6 +5,9 @@ import { TextDecoration } from '../text-decoration';
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Specifies a decoration to be applied when annotating with text.
+ */
 export class DrawableTextDecoration implements IDrawable {
     private readonly _decoration: TextDecoration;
 

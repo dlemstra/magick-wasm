@@ -5,6 +5,9 @@ import { TextAlignment } from '../text-alignment';
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Specifies a text alignment to be applied when annotating with text.
+ */
 export class DrawableTextAlignment implements IDrawable {
     private readonly _alignment: TextAlignment;
 

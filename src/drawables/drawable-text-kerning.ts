@@ -4,6 +4,9 @@
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Sets the spacing between characters in text.
+ */
 export class DrawableTextKerning implements IDrawable {
     private readonly _kerning: number;
 

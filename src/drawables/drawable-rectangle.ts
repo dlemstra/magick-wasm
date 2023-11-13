@@ -4,6 +4,10 @@
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Draws a rectangle given two coordinates and using the current stroke, stroke width, and fill
+ * settings.
+ */
 export class DrawableRectangle implements IDrawable {
     private readonly _upperLeftX: number;
     private readonly _upperLeftY: number;

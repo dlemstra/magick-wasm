@@ -4,6 +4,9 @@
 import { IDrawable } from "./drawable";
 import { IDrawingWand } from "./drawing-wand";
 
+/**
+ * Sets the spacing between words in text.
+ */
 export class DrawableTextInterwordSpacing implements IDrawable {
     private readonly _spacing: number;
 

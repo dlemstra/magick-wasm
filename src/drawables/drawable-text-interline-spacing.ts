@@ -4,6 +4,9 @@
 import { IDrawable } from "./drawable";
 import { IDrawingWand } from "./drawing-wand";
 
+/**
+ * Sets the spacing between line in text.
+ */
 export class DrawableTextInterlineSpacing implements IDrawable {
     private readonly _spacing: number;
 

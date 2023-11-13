@@ -16,6 +16,9 @@ import { TextAlignment } from '../text-alignment';
 import { TextDecoration } from '../text-decoration';
 import { _withString } from '../internal/native/string';
 
+/**
+ * Interface for drawing on an wand.
+ */
 export interface IDrawingWand extends IDisposable {
     color(x: number, y: number, paintMethod: number): void;
     draw(drawables: IDrawable[]): void;

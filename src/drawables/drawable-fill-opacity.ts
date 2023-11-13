@@ -5,6 +5,9 @@ import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 import { Percentage } from '../percentage';
 
+/**
+ * Sets the alpha to use when drawing using the fill color or fill texture.
+ */
 export class DrawableFillOpacity implements IDrawable {
     private readonly _opacity: Percentage;
 

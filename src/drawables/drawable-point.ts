@@ -4,6 +4,9 @@
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Draws a point using the current fill color.
+ */
 export class DrawablePoint implements IDrawable {
     private readonly _x: number;
     private readonly _y: number;

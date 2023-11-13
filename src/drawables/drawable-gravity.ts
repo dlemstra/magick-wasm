@@ -5,6 +5,9 @@ import { Gravity } from '../gravity';
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Sets the gravity to use when drawing.
+ */
 export class DrawableGravity implements IDrawable {
     private readonly _gravity: Gravity;
 

@@ -3,6 +3,9 @@
 
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Interface for drawables.
+ */
 export interface IDrawable {
     draw(wand: IDrawingWand): void;
 }

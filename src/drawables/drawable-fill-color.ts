@@ -5,6 +5,9 @@ import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 import { MagickColor } from '../magick-color';
 
+/**
+ * Sets the fill color to be used for drawing filled objects.
+ */
 export class DrawableFillColor implements IDrawable {
     private readonly _color: MagickColor;
 

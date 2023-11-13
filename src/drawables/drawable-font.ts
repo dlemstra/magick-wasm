@@ -5,6 +5,9 @@ import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 import { Magick } from '../magick';
 
+/**
+ * Sets the font to use when annotating with text.
+ */
 export class DrawableFont implements IDrawable {
     private readonly _font: string;
 

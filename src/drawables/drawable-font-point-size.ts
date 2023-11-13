@@ -4,6 +4,9 @@
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Sets the alpha to use when drawing using the fill color or fill texture.
+ */
 export class DrawableFontPointSize implements IDrawable {
     private readonly _pointSize: number;
 

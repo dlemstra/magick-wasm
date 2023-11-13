@@ -4,6 +4,9 @@
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Draws text on the image.
+ */
 export class DrawableText implements IDrawable {
     private readonly _x: number;
     private readonly _y: number;

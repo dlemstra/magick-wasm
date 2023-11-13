@@ -4,6 +4,10 @@
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Draws a rounted rectangle given two coordinates, x &amp; y corner radiuses and using the current
+ * stroke, stroke width, and fill settings.
+ */
 export class DrawableRoundRectangle implements IDrawable {
     private readonly _upperLeftX: number;
     private readonly _upperLeftY: number;

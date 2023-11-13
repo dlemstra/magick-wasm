@@ -4,6 +4,9 @@
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
 
+/**
+ * Controls whether text is antialiased. Text is antialiased by default.
+ */
 export class DrawableTextAntialias implements IDrawable {
     private readonly _isEnabled: boolean;
 
