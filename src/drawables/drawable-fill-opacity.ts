@@ -11,6 +11,10 @@ import { Percentage } from '../types/percentage';
 export class DrawableFillOpacity implements IDrawable {
     private readonly _opacity: Percentage;
 
+    /**
+     * Initializes a new instance of the {@link DrawableFillOpacity} class.
+     * @param opacity - The opacity.
+     */
     constructor(opacity: Percentage) {
         this._opacity = opacity;
     }

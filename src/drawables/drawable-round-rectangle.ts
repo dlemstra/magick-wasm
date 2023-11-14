@@ -16,6 +16,15 @@ export class DrawableRoundRectangle implements IDrawable {
     private readonly _cornerWidth: number;
     private readonly _cornerHeight: number;
 
+    /**
+     * Initializes a new instance of the {@link DrawableRoundRectangle} class.
+     * @param upperLeftX - The upper left X coordinate.
+     * @param upperLeftY- The upper left Y coordinate.
+     * @param lowerRightX - The lower right X coordinate.
+     * @param lowerRightY - The lower right Y coordinate.
+     * @param cornerWidth - The corner width.
+     * @param cornerHeight - The corner height.
+     */
     constructor(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number) {
         this._upperLeftX = upperLeftX;
         this._upperLeftY = upperLeftY;

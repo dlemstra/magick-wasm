@@ -14,11 +14,17 @@ export class DrawableTextAntialias implements IDrawable {
         this._isEnabled = isEnabled;
     }
 
+    /**
+     * Initializes a new instance of the {@link DrawableTextAntialias} class with antialias disabled.
+     */
     public static get Disabled(): DrawableTextAntialias
     {
         return new DrawableTextAntialias(false);
     }
 
+    /**
+     * Initializes a new instance of the {@link DrawableTextAntialias} class with antialias enabled.
+     */
     public static get Enabled(): DrawableTextAntialias
     {
         return new DrawableTextAntialias(true);

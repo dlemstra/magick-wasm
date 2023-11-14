@@ -10,6 +10,10 @@ import { IDrawingWand } from './drawing-wand';
 export class DrawableTextKerning implements IDrawable {
     private readonly _kerning: number;
 
+    /**
+     * Initializes a new instance of the {@link DrawableTextKerning} class.
+     * @param decoration - The kerning to use.
+     */
     constructor(kerning: number) {
         this._kerning = kerning;
     }

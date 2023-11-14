@@ -14,6 +14,13 @@ export class DrawableRectangle implements IDrawable {
     private readonly _lowerRightX: number;
     private readonly _lowerRightY: number;
 
+   /**
+     * Initializes a new instance of the {@link DrawablePoint} class.
+     * @param upperLeftX - The upper left X coordinate.
+     * @param upperLeftY - The upper left Y coordinate.
+     * @param lowerRightX - The lower right X coordinate.
+     * @param lowerRightY - The lower right Y coordinate.
+     */
     constructor(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number) {
         this._upperLeftX = upperLeftX;
         this._upperLeftY = upperLeftY;

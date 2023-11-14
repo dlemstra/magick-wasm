@@ -11,6 +11,11 @@ export class DrawablePoint implements IDrawable {
     private readonly _x: number;
     private readonly _y: number;
 
+    /**
+     * Initializes a new instance of the {@link DrawablePoint} class.
+     * @param x - The X coordinate.
+     * @param y - The X coordinate.
+     */
     constructor(x: number, y: number) {
         this._x = x;
         this._y = y;

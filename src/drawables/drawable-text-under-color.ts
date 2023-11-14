@@ -11,6 +11,10 @@ import { MagickColor } from '../magick-color';
 export class DrawableTextUnderColor implements IDrawable {
     private readonly _color: MagickColor;
 
+    /**
+     * Initializes a new instance of the {@link DrawableTextUnderColor} class.
+     * @param decoration - The color to use.
+     */
     constructor(color: MagickColor) {
         this._color = color;
     }

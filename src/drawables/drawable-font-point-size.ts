@@ -10,6 +10,10 @@ import { IDrawingWand } from './drawing-wand';
 export class DrawableFontPointSize implements IDrawable {
     private readonly _pointSize: number;
 
+    /**
+     * Initializes a new instance of the {@link DrawableFontPointSize} class.
+     * @param opacity - The point size.
+     */
     constructor(pointSize: number) {
         this._pointSize = pointSize;
     }

@@ -10,6 +10,10 @@ import { IDrawingWand } from "./drawing-wand";
 export class DrawableTextInterlineSpacing implements IDrawable {
     private readonly _spacing: number;
 
+    /**
+     * Initializes a new instance of the {@link DrawableTextInterlineSpacing} class.
+     * @param decoration - The spacing to use.
+     */
     constructor(spacing: number) {
         this._spacing = spacing;
     }

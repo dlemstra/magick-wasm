@@ -11,6 +11,10 @@ import { Magick } from '../magick';
 export class DrawableFont implements IDrawable {
     private readonly _font: string;
 
+    /**
+     * Initializes a new instance of the {@link DrawableFont} class.
+     * @param opacity - The name of the font that was registered.
+     */
     constructor(font: string) {
         this._font = font;
     }

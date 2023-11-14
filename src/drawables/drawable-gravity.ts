@@ -10,7 +10,7 @@ import { IDrawingWand } from './drawing-wand';
  */
 export class DrawableGravity implements IDrawable {
     private readonly _gravity: Gravity;
-
+src/drawables/drawable-font-point-size.ts
     constructor(gravity: Gravity) {
         this._gravity = gravity;
     }

@@ -11,6 +11,10 @@ import { IDrawingWand } from './drawing-wand';
 export class DrawableTextDecoration implements IDrawable {
     private readonly _decoration: TextDecoration;
 
+    /**
+     * Initializes a new instance of the {@link DrawableTextDecoration} class.
+     * @param decoration - The text decoration.
+     */
     constructor(decoration: TextDecoration) {
         this._decoration = decoration;
     }
