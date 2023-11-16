@@ -4,16 +4,54 @@
 import { ImageMagick } from '../image-magick';
 import { PixelChannel } from '../enums/pixel-channel';
 
+/**
+ * Encapsulation of the ImageMagick cannel statistics object.
+ */
 export interface IChannelStatistics {
-    channel: PixelChannel;
-    depth: number;
-    entropy: number;
-    kurtosis: number;
-    maximum: number;
-    mean: number;
-    minimum: number;
-    skewness: number;
-    standardDeviation: number;
+    /**
+     * Gets the channel.
+     */
+    readonly channel: PixelChannel;
+
+    /**
+     * Gets the depth of the channel.
+     */
+    readonly depth: number;
+
+    /**
+     * Gets the entropy.
+     */
+    readonly entropy: number;
+
+    /**
+     * Gets the kurtosis.
+     */
+    readonly kurtosis: number;
+
+    /**
+     * Gets the maximum value observed.
+     */
+    readonly maximum: number;
+
+    /**
+     * Gets the average (mean) value observed.
+     */
+    readonly mean: number;
+
+    /**
+     *  Gets the minimum value observed.
+     */
+    readonly minimum: number;
+
+    /**
+     * Gets the skewness.
+     */
+    readonly skewness: number;
+
+    /**
+     * Gets the standard deviation, sqrt(variance).
+     */
+    readonly standardDeviation: number;
 }
 
 /** @internal */

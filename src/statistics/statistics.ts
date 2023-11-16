@@ -7,9 +7,24 @@ import { ImageMagick } from '../image-magick';
 import { MagickImage } from '../magick-image';
 import { PixelChannel } from '../enums/pixel-channel';
 
+/**
+ * Encapsulation of the ImageMagick ImageStatistics object.
+ */
 export interface IStatistics {
+    /**
+     * Gets the channels.
+     */
     readonly channels: ReadonlyArray<PixelChannel>;
+
+    /**
+     * Returns the statistics for the all the channels.
+     */
     composite(): IChannelStatistics;
+
+    /**
+     * Returns the statistics for the specified channel.
+     * @param channel - The channel to get the statistics for.
+     */
     getChannel(channel: PixelChannel): IChannelStatistics | null;
 }
 
