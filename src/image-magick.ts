@@ -39,7 +39,8 @@ export class ImageMagick {
     private readonly loader: (wasmLocationOrData?: string | ByteArray) => Promise<void>;
     private api?: ImageMagickApi;
 
-    private constructor() {
+    /** @internal */
+    constructor() {
         this.loader = (wasmLocationOrData?: string | ByteArray) => new Promise((resolve, reject) => {
             if (this.api !== undefined) {
                 resolve();
@@ -63,8 +64,6 @@ export class ImageMagick {
         });
     }
 
-    static _create = (): ImageMagick => new ImageMagick();
-
     /** @internal */
     async _initialize(wasmLocationOrData?: string | ByteArray): Promise<void> {
         await this.loader(wasmLocationOrData);
@@ -83,19 +82,101 @@ export class ImageMagick {
         instance.api = value;
     }
 
+    /**
+     * Read single image frame.
+     * @param color - The color to fill the image with.
+     * @param width - The width of the image.
+     * @param height - The height of the image.
+     * @param func - The function that will be invoked with the image.
+     */
     static read<TReturnType>(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => TReturnType): TReturnType;
+    /**
+     * Read single image frame.
+     * @param color - The color to fill the image with.
+     * @param width - The width of the image.
+     * @param height - The height of the image.
+     * @param func - The async function that will be invoked with the image.
+     */
     static read<TReturnType>(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    /**
+     * Read single image frame.
+     * @param array - The array to read the image from.
+     * @param format - The format of the image.
+     * @param func - The function that will be invoked with the image.
+     */
     static read<TReturnType>(array: ByteArray, format: MagickFormat, func: (image: IMagickImage) => TReturnType): TReturnType;
+    /**
+     * Read single image frame.
+     * @param array - The array to read the image from.
+     * @param format - The format of the image.
+     * @param func - The async function that will be invoked with the image.
+     */
     static read<TReturnType>(array: ByteArray, format: MagickFormat, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    /**
+     * Read single image frame.
+     * @param array - The array to read the image from.
+     * @param settings - The settings to use when reading the image.
+     * @param func - The function that will be invoked with the image.
+     */
     static read<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
+    /**
+     * Read single image frame.
+     * @param array - The array to read the image from.
+     * @param settings - The settings to use when reading the image.
+     * @param func - The async function that will be invoked with the image.
+     */
     static read<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    /**
+     * Read single image frame.
+     * @param array - The array to read the image from.
+     * @param func - The function that will be invoked with the image.
+     */
     static read<TReturnType>(array: ByteArray, func: (image: IMagickImage) => TReturnType): TReturnType;
+    /**
+     * Read single image frame.
+     * @param array - The array to read the image from.
+     * @param func - The async function that will be invoked with the image.
+     */
     static read<TReturnType>(array: ByteArray, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    /**
+     * Read single image frame.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param format - The format of the image.
+     * @param func - The function that will be invoked with the image.
+     */
     static read<TReturnType>(fileName: string, format: MagickFormat, func: (image: IMagickImage) => TReturnType): TReturnType;
+    /**
+     * Read single image frame.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param format - The format of the image.
+     * @param func - The async function that will be invoked with the image.
+     */
     static read<TReturnType>(fileName: string, format: MagickFormat, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    /**
+     * Read single image frame.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The settings to use when reading the image.
+     * @param func - The function that will be invoked with the image.
+     */
     static read<TReturnType>(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
+    /**
+     * Read single image frame.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The settings to use when reading the image.
+     * @param func - The async function that will be invoked with the image.
+     */
     static read<TReturnType>(fileName: string, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    /**
+     * Read single image frame.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param func - The function that will be invoked with the image.
+     */
     static read<TReturnType>(fileName: string, func: (image: IMagickImage) => TReturnType): TReturnType;
+    /**
+     * Read single image frame.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param func - The async function that will be invoked with the image.
+     */
     static read<TReturnType>(fileName: string, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static read<TReturnType>(colorOrArrayOrFileName: MagickColor | ByteArray | string, widthOrFormatOrSetttingsOrFunc: number | MagickFormat | MagickReadSettings | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), heightOrFunc?: number | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return MagickImage._use(image => {
@@ -126,17 +207,71 @@ export class ImageMagick {
         });
     }
 
+    /**
+     * Read all image frames.
+     * @param array - The array to read the images from.
+     * @param format - The format of the image.
+     * @param func - The function that will be invoked with the image collection.
+     */
     static readCollection<TReturnType>(array: ByteArray, format: MagickFormat, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    /**
+     * Read all image frames.
+     * @param array - The array to read the images from.
+     * @param format - The format of the image.
+     * @param func - The async function that will be invoked with the image collection.
+     */
     static readCollection<TReturnType>(array: ByteArray, format: MagickFormat, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    /**
+     * Read all image frames.
+     * @param array - The array to read the images from.
+     * @param settings - The settings to use when reading the images.
+     * @param func - The function that will be invoked with the image collection.
+     */
     static readCollection<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    /**
+     * Read all image frames.
+     * @param array - The array to read the images from.
+     * @param settings - The settings to use when reading the images.
+     * @param func - The async function that will be invoked with the image collection.
+     */
     static readCollection<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    static readCollection<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
-    static readCollection<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    /**
+     * Read all image frames.
+     * @param array - The array to read the images from.
+     * @param func - The function that will be invoked with the image collection.
+     */
     static readCollection<TReturnType>(array: ByteArray, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    /**
+     * Read all image frames.
+     * @param array - The array to read the images from.
+     * @param func - The async function that will be invoked with the image collection.
+     */
     static readCollection<TReturnType>(array: ByteArray, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    /**
+     * Read all image frames.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The settings to use when reading the images.
+     * @param func - The function that will be invoked with the image collection.
+     */
     static readCollection<TReturnType>(fileName: string, settings: MagickReadSettings, func: (images: IMagickImageCollection) => TReturnType): TReturnType
+    /**
+     * Read all image frames.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The settings to use when reading the images.
+     * @param func - The async function that will be invoked with the image collection.
+     */
     static readCollection<TReturnType>(fileName: string, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    /**
+     * Read all image frames.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param func - The function that will be invoked with the image collection.
+     */
     static readCollection<TReturnType>(fileName: string, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    /**
+     * Read all image frames.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param func - The async function that will be invoked with the image collection.
+     */
     static readCollection<TReturnType>(fileName: string, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     static readCollection<TReturnType>(arrayOrFileName: ByteArray | string, formatOrSettingsOrFunc: MagickFormat | MagickReadSettings | ((images: IMagickImageCollection) => TReturnType | Promise<TReturnType>), func?: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         const collection = MagickImageCollection.create();
@@ -162,7 +297,17 @@ export class ImageMagick {
         });
     }
 
+    /**
+     * Read single image frame from canvas.
+     * @param canvas - The canvas to read the image from.
+     * @param func - The function that will be invoked with the image.
+     */
     static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => TReturnType): TReturnType;
+    /**
+     * Read single image frame from canvas.
+     * @param canvas - The canvas to read the image from.
+     * @param func - The async function that will be invoked with the image.
+     */
     static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return MagickImage._use(image => {
@@ -173,7 +318,7 @@ export class ImageMagick {
 }
 
 /** @internal */
-const instance = ImageMagick._create();
+const instance = new ImageMagick();
 
 export async function initializeImageMagick(wasmLocationOrData?: string | ByteArray): Promise<void> {
     await instance._initialize(wasmLocationOrData);
