@@ -7,13 +7,6 @@ import { Quantum } from './quantum';
 import { _withString } from './internal/native/string';
 
 export class MagickColor {
-    private _r = 0;
-    private _g = 0;
-    private _b = 0;
-    private _a = 0;
-    private _k = 0;
-    private _isCmyk = false;
-
     constructor(color?: string);
     constructor(r: number, g: number, b: number);
     constructor(r: number, g: number, b: number, a: number);
@@ -35,18 +28,25 @@ export class MagickColor {
                 ImageMagick._api._free(instance);
             }
         } else {
-            this._r = colorOrRed;
-            this._g = g ?? 0;
-            this._b = b ?? 0;
+            this.r = colorOrRed;
+            this.g = g ?? 0;
+            this.b = b ?? 0;
             if (a === undefined) {
-                this._a = aOrK ?? Quantum.max;
+                this.a = aOrK ?? Quantum.max;
             } else {
-                this._k = aOrK ?? 0;
-                this._a = a;
-                this._isCmyk = true;
+                this.k = aOrK ?? 0;
+                this.a = a;
+                this.isCmyk = true;
             }
         }
     }
+
+    public r = 0;
+    public g = 0;
+    public b = 0;
+    public a = 0;
+    public k = 0;
+    public isCmyk = false;
 
     /** @internal */
     static _create(colorPtr: number): MagickColor {
@@ -56,38 +56,21 @@ export class MagickColor {
         return color;
     }
 
-    get r(): number { return this._r }
-    set r(value: number) { this._r = value; }
-
-    get g(): number { return this._g }
-    set g(value: number) { this._g = value; }
-
-    get b(): number { return this._b }
-    set b(value: number) { this._b = value; }
-
-    get a(): number { return this._a }
-    set a(value: number) { this._a = value; }
-
-    get k(): number { return this._k }
-    set k(value: number) { this._k = value; }
-
-    get isCmyk(): boolean { return this._isCmyk }
-
     toShortString(): string {
-        if (this._a !== Quantum.max)
+        if (this.a !== Quantum.max)
             return this.toString();
 
         if (this.isCmyk)
-            return `cmyka(${this._r},${this._g},${this._b},${this._k})`;
+            return `cmyka(${this.r},${this.g},${this.b},${this.k})`;
 
-        return `#${this.toHex(this._r)}${this.toHex(this._g)}${this.toHex(this._b)}`;
+        return `#${this.toHex(this.r)}${this.toHex(this.g)}${this.toHex(this.b)}`;
     }
 
     toString(): string {
         if (this.isCmyk)
-            return `cmyka(${this._r},${this._g},${this._b},${this._k},${(this._a / Quantum.max).toFixed(4)})`;
+            return `cmyka(${this.r},${this.g},${this.b},${this.k},${(this.a / Quantum.max).toFixed(4)})`;
 
-        return `#${this.toHex(this._r)}${this.toHex(this._g)}${this.toHex(this._b)}${this.toHex(this._a)}`;
+        return `#${this.toHex(this.r)}${this.toHex(this.g)}${this.toHex(this.b)}${this.toHex(this.a)}`;
     }
 
     /** @internal */
@@ -95,11 +78,11 @@ export class MagickColor {
         let instance = 0;
         try {
             instance = ImageMagick._api._MagickColor_Create();
-            ImageMagick._api._MagickColor_Red_Set(instance, this._r);
-            ImageMagick._api._MagickColor_Green_Set(instance, this._g);
-            ImageMagick._api._MagickColor_Blue_Set(instance, this._b);
-            ImageMagick._api._MagickColor_Alpha_Set(instance, this._a);
-            ImageMagick._api._MagickColor_IsCMYK_Set(instance, this._isCmyk ? 1 : 0);
+            ImageMagick._api._MagickColor_Red_Set(instance, this.r);
+            ImageMagick._api._MagickColor_Green_Set(instance, this.g);
+            ImageMagick._api._MagickColor_Blue_Set(instance, this.b);
+            ImageMagick._api._MagickColor_Alpha_Set(instance, this.a);
+            ImageMagick._api._MagickColor_IsCMYK_Set(instance, this.isCmyk ? 1 : 0);
             func(instance);
         } finally {
             ImageMagick._api._free(instance);
@@ -107,11 +90,11 @@ export class MagickColor {
     }
 
     private initialize(instance: number) {
-        this._r = ImageMagick._api._MagickColor_Red_Get(instance);
-        this._g = ImageMagick._api._MagickColor_Green_Get(instance);
-        this._b = ImageMagick._api._MagickColor_Blue_Get(instance);
-        this._a = ImageMagick._api._MagickColor_Alpha_Get(instance);
-        this._isCmyk = ImageMagick._api._MagickColor_IsCMYK_Get(instance) === 1;
+        this.r = ImageMagick._api._MagickColor_Red_Get(instance);
+        this.g = ImageMagick._api._MagickColor_Green_Get(instance);
+        this.b = ImageMagick._api._MagickColor_Blue_Get(instance);
+        this.a = ImageMagick._api._MagickColor_Alpha_Get(instance);
+        this.isCmyk = ImageMagick._api._MagickColor_IsCMYK_Get(instance) === 1;
     }
 
     private toHex(value: number) {
