@@ -10,6 +10,9 @@ import { _withString } from './internal/native/string';
  * Interface that represents a color.
  */
 export interface IMagickColor {
+    /** @internal */
+    _use(func: (colorPtr: number) => void): void;
+
     /**
      * Gets or sets the red component value of this color.
      */
@@ -49,9 +52,6 @@ export interface IMagickColor {
      * Converts the value of this instance to a string representation.
      */
     toString(): string;
-
-    /** @internal */
-    _use(func: (colorPtr: number) => void): void;
 }
 
 export class MagickColor implements IMagickColor {

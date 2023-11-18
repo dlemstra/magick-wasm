@@ -10,6 +10,9 @@ import { _withString } from '../internal/native/string';
  * Encapsulation of the ImageMagick geometry object.
  */
 export interface IMagickGeometry {
+    /** @internal */
+    _toRectangle(func: (rectangle: number) => void): void;
+
     /**
      * Gets a value indicating whether the value is an aspect ratio.
      */
@@ -64,9 +67,6 @@ export interface IMagickGeometry {
      * Gets or sets the Y offset from origin.
      */
     y: number;
-
-     /** @internal */
-     _toRectangle(func: (rectangle: number) => void): void;
 }
 
 export class MagickGeometry implements IMagickGeometry {
