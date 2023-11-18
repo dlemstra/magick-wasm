@@ -729,8 +729,32 @@ export interface IMagickImage extends IDisposable {
     /**
      * Creates tiles of the current image in the specified dimension.
      * @param geometry - The dimension of the tiles.
+     * @param func: - The function to execute with the tiles.
      */
-    cropToTiles(geometry: IMagickGeometry): IMagickImageCollection;
+    cropToTiles<TReturnType>(geometry: IMagickGeometry, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+
+    /**
+     * Creates tiles of the current image in the specified dimension.
+     * @param geometry - The dimension of the tiles.
+     * @param func: - The async function to execute with the tiles.
+     */
+    cropToTiles<TReturnType>(geometry: IMagickGeometry, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Creates tiles of the current image in the specified dimension.
+     * @param width: - The width of the tiles.
+     * @param height: - The height of the tiles.
+     * @param func: - The function to execute with the tiles.
+     */
+    cropToTiles<TReturnType>(width: number, height: number, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+
+    /**
+     * Creates tiles of the current image in the specified dimension.
+     * @param width: - The width of the tiles.
+     * @param height: - The height of the tiles.
+     * @param func: - The async function to execute with the tiles.
+     */
+    cropToTiles<TReturnType>(width: number, height: number, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
      * Removes skew from the image. Skew is an artifact that occurs in scanned images because of
@@ -2120,12 +2144,26 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    cropToTiles(geometry: IMagickGeometry): IMagickImageCollection {
+    cropToTiles<TReturnType>(geometry: IMagickGeometry, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    cropToTiles<TReturnType>(geometry: IMagickGeometry, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    cropToTiles<TReturnType>(width: number, height: number, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    cropToTiles<TReturnType>(width: number, height: number, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    cropToTiles<TReturnType>(widthOrGeometry: number | IMagickGeometry, funcOrHeight: ((images: IMagickImageCollection) => TReturnType | Promise<TReturnType>) | number, funcOrUndefined?: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        let geometry: IMagickGeometry;
+        let func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>;
+        if (typeof widthOrGeometry === 'number' && typeof funcOrHeight === 'number' && funcOrUndefined !== undefined) {
+            geometry = new MagickGeometry(0, 0, widthOrGeometry, funcOrHeight);
+            func = funcOrUndefined;
+        } else if (typeof widthOrGeometry !== 'number' && typeof funcOrHeight !== 'number') {
+            geometry = widthOrGeometry;
+            func = funcOrHeight;
+        }
+
         return Exception.use(exception => {
             return _withString(geometry.toString(), geometryPtr => {
                 const images = ImageMagick._api._MagickImage_CropToTiles(this._instance, geometryPtr, exception.ptr);
                 const collection = MagickImageCollection._createFromImages(images, this._settings);
-                return collection;
+                return collection._use(func);
             });
         });
     }

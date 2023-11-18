@@ -10,25 +10,29 @@ describe('MagickImage#cropToTiles', () => {
         TestImages.empty.use(image => {
             image.read(MagickColors.Black, 3, 3);
 
-            const images = image.cropToTiles(new MagickGeometry(2, 2));
+            const result = image.cropToTiles(new MagickGeometry(2, 2), (images) => {
+                expect(images.length).toBe(4);
 
-            expect(images.length).toBe(4);
+                const first = images[0];
+                expect(first.width).toBe(2);
+                expect(first.height).toBe(2);
 
-            const first = images[0];
-            expect(first.width).toBe(2);
-            expect(first.height).toBe(2);
+                const second = images[1];
+                expect(second.width).toBe(1);
+                expect(second.height).toBe(2);
 
-            const second = images[1];
-            expect(second.width).toBe(1);
-            expect(second.height).toBe(2);
+                const third = images[2];
+                expect(third.width).toBe(2);
+                expect(third.height).toBe(1);
 
-            const third = images[2];
-            expect(third.width).toBe(2);
-            expect(third.height).toBe(1);
+                const fourth = images[3];
+                expect(fourth.width).toBe(1);
+                expect(fourth.height).toBe(1);
 
-            const fourth = images[3];
-            expect(fourth.width).toBe(1);
-            expect(fourth.height).toBe(1);
+                return 'foo';
+            });
+
+            expect(result).toBe('foo');
         });
     });
 });
