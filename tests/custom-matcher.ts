@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { IMagickImage } from '@src/magick-image';
-import { MagickColor } from '@src/magick-color';
+import { IMagickColor } from '@src/magick-color';
 import { PixelChannel } from '@src/enums/pixel-channel';
 import { Quantum } from '@src/quantum';
 
@@ -12,11 +12,11 @@ interface MatcherResult {
 }
 
 export interface ICustomMatchers {
-    toHavePixelWithColor: (x: number, y: number, colorOrString: MagickColor | string) => void;
+    toHavePixelWithColor: (x: number, y: number, colorOrString: IMagickColor | string) => void;
 }
 
 export const CustomMatchers = {
-    toHavePixelWithColor: ((image: IMagickImage, x: number, y: number, colorOrString: MagickColor | string) => {
+    toHavePixelWithColor: ((image: IMagickImage, x: number, y: number, colorOrString: IMagickColor | string) => {
         const actualColor = pixelColor(image, x, y);
         const expectedColor = colorOrString.toString();
 

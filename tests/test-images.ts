@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { MagickColor } from '@src/magick-color';
+import { IMagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
 import { MagickImage, IMagickImage } from '@src/magick-image';
 import { MagickImageCollection, IMagickImageCollection } from '@src/magick-image-collection';
@@ -72,11 +72,11 @@ class TestImageCollection extends TestImageBase<IMagickImageCollection> {
 }
 
 class TestImageFromColor extends TestImageBase<IMagickImage> {
-    private readonly _color: MagickColor;
+    private readonly _color: IMagickColor;
     private readonly _height: number;
     private readonly _width: number;
 
-    constructor(color: MagickColor, width: number, height: number) {
+    constructor(color: IMagickColor, width: number, height: number) {
         super();
 
         this._color = color;
