@@ -71,15 +71,15 @@ export class ImageMagick {
 
     /** @internal */
     static get _api(): ImageMagickApi {
-        if (!instance.api)
+        if (!_instance.api)
             throw new MagickError('`await initializeImageMagick` should be called to initialize the library');
 
-        return instance.api;
+        return _instance.api;
     }
 
     /** @internal */
     static set _api(value: ImageMagickApi) {
-        instance.api = value;
+        _instance.api = value;
     }
 
     /**
@@ -100,41 +100,41 @@ export class ImageMagick {
     static read<TReturnType>(color: IMagickColor, width: number, height: number, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     /**
      * Read single image frame.
-     * @param array - The array to read the image from.
+     * @param array - The byte array to read the image from.
      * @param format - The format of the image.
      * @param func - The function that will be invoked with the image.
      */
     static read<TReturnType>(array: ByteArray, format: MagickFormat, func: (image: IMagickImage) => TReturnType): TReturnType;
     /**
      * Read single image frame.
-     * @param array - The array to read the image from.
+     * @param array - The byte array to read the image from.
      * @param format - The format of the image.
      * @param func - The async function that will be invoked with the image.
      */
     static read<TReturnType>(array: ByteArray, format: MagickFormat, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     /**
      * Read single image frame.
-     * @param array - The array to read the image from.
+     * @param array - The byte array to read the image from.
      * @param settings - The settings to use when reading the image.
      * @param func - The function that will be invoked with the image.
      */
     static read<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
     /**
      * Read single image frame.
-     * @param array - The array to read the image from.
+     * @param array - The byte array to read the image from.
      * @param settings - The settings to use when reading the image.
      * @param func - The async function that will be invoked with the image.
      */
     static read<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     /**
      * Read single image frame.
-     * @param array - The array to read the image from.
+     * @param array - The byte array to read the image from.
      * @param func - The function that will be invoked with the image.
      */
     static read<TReturnType>(array: ByteArray, func: (image: IMagickImage) => TReturnType): TReturnType;
     /**
      * Read single image frame.
-     * @param array - The array to read the image from.
+     * @param array - The byte array to read the image from.
      * @param func - The async function that will be invoked with the image.
      */
     static read<TReturnType>(array: ByteArray, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
@@ -209,41 +209,41 @@ export class ImageMagick {
 
     /**
      * Read all image frames.
-     * @param array - The array to read the images from.
+     * @param array - The byte array to read the images from.
      * @param format - The format of the image.
      * @param func - The function that will be invoked with the image collection.
      */
     static readCollection<TReturnType>(array: ByteArray, format: MagickFormat, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     /**
      * Read all image frames.
-     * @param array - The array to read the images from.
+     * @param array - The byte array to read the images from.
      * @param format - The format of the image.
      * @param func - The async function that will be invoked with the image collection.
      */
     static readCollection<TReturnType>(array: ByteArray, format: MagickFormat, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     /**
      * Read all image frames.
-     * @param array - The array to read the images from.
+     * @param array - The byte array to read the images from.
      * @param settings - The settings to use when reading the images.
      * @param func - The function that will be invoked with the image collection.
      */
     static readCollection<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     /**
      * Read all image frames.
-     * @param array - The array to read the images from.
+     * @param array - The byte array to read the images from.
      * @param settings - The settings to use when reading the images.
      * @param func - The async function that will be invoked with the image collection.
      */
     static readCollection<TReturnType>(array: ByteArray, settings: MagickReadSettings, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     /**
      * Read all image frames.
-     * @param array - The array to read the images from.
+     * @param array - The byte array to read the images from.
      * @param func - The function that will be invoked with the image collection.
      */
     static readCollection<TReturnType>(array: ByteArray, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     /**
      * Read all image frames.
-     * @param array - The array to read the images from.
+     * @param array - The byte array to read the images from.
      * @param func - The async function that will be invoked with the image collection.
      */
     static readCollection<TReturnType>(array: ByteArray, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
@@ -318,8 +318,8 @@ export class ImageMagick {
 }
 
 /** @internal */
-const instance = new ImageMagick();
+const _instance = new ImageMagick();
 
 export async function initializeImageMagick(wasmLocationOrData?: string | ByteArray): Promise<void> {
-    await instance._initialize(wasmLocationOrData);
+    await _instance._initialize(wasmLocationOrData);
 }
