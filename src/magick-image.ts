@@ -3,7 +3,7 @@
 
 import { AlphaOption } from './enums/alpha-option';
 import { AutoThresholdMethod } from './enums/auto-threshold-method';
-import { ByteArray } from './byte-array';
+import { ByteArray, isByteArray } from './byte-array';
 import { Channels } from './enums/channels';
 import { ChromaticityInfo } from './types/chromaticity-info';
 import { ClassType } from './enums/class-type';
@@ -31,7 +31,7 @@ import { IDisposable } from './disposable';
 import { IDrawable } from './drawables/drawable';
 import { ImageProfile, IImageProfile } from './profiles/image-profile';
 import { Interlace } from './enums/interlace';
-import { MagickColor } from './magick-color';
+import { MagickColor, IMagickColor } from './magick-color';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './enums/magick-format';
 import { MagickGeometry as MagickGeometry, IMagickGeometry } from './types/magick-geometry';
@@ -98,7 +98,7 @@ export interface IMagickImage extends IDisposable {
     /**
      * Gets or sets the background color of the image.
      */
-    backgroundColor: MagickColor;
+    backgroundColor: IMagickColor;
 
     /**
      * Gets the height of the image before transformations.
@@ -118,7 +118,7 @@ export interface IMagickImage extends IDisposable {
     /**
      * Gets or sets the border color of the image.
      */
-    borderColor: MagickColor;
+    borderColor: IMagickColor;
 
     /**
      * Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
@@ -259,7 +259,7 @@ export interface IMagickImage extends IDisposable {
     /**
      * Gets or sets the matte color.
      */
-    matteColor: MagickColor;
+    matteColor: IMagickColor;
 
     /**
      * Gets or sets the photo orientation of the image.
@@ -324,7 +324,7 @@ export interface IMagickImage extends IDisposable {
     clahe(xTiles: Percentage, yTiles: Percentage, numberBins: number, clipLimit: number): void;
     clone<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     clone<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    colorAlpha(color: MagickColor): void;
+    colorAlpha(color: IMagickColor): void;
     compare(image: IMagickImage, metric: ErrorMetric): number;
     compare(image: IMagickImage, metric: ErrorMetric, channels: Channels): number;
     composite(image: IMagickImage): void;
@@ -386,11 +386,11 @@ export interface IMagickImage extends IDisposable {
     evaluate(channels: Channels, geometry: IMagickGeometry, operator: EvaluateOperator, value: Percentage): void;
     extent(width: number, height: number): void;
     extent(width: number, height: number, gravity: Gravity): void;
-    extent(width: number, height: number, backgroundColor: MagickColor): void;
+    extent(width: number, height: number, backgroundColor: IMagickColor): void;
     extent(geometry: IMagickGeometry): void;
     extent(geometry: IMagickGeometry, gravity: Gravity): void;
-    extent(geometry: IMagickGeometry, gravity: Gravity, backgroundColor: MagickColor): void;
-    extent(geometry: IMagickGeometry, backgroundColor: MagickColor): void;
+    extent(geometry: IMagickGeometry, gravity: Gravity, backgroundColor: IMagickColor): void;
+    extent(geometry: IMagickGeometry, backgroundColor: IMagickColor): void;
     flip(): void;
     flop(): void;
     getArtifact(name: string): string | null;
@@ -404,12 +404,12 @@ export interface IMagickImage extends IDisposable {
     grayscale(method: PixelIntensityMethod): void;
     histogram(): Map<string, number>;
     inverseContrast(): void;
-    inverseOpaque(target: MagickColor, fill: MagickColor): void;
+    inverseOpaque(target: IMagickColor, fill: IMagickColor): void;
     inverseSigmoidalContrast(contrast: number): void;
     inverseSigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
-    inverseTransparent(color: MagickColor): void;
+    inverseTransparent(color: IMagickColor): void;
     level(blackPoint: Percentage, whitePoint: Percentage): void;
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
@@ -429,10 +429,10 @@ export interface IMagickImage extends IDisposable {
     normalize(): void;
     oilPaint(): void;
     oilPaint(radius: number): void;
-    opaque(target: MagickColor, fill: MagickColor): void;
+    opaque(target: IMagickColor, fill: IMagickColor): void;
     ping(fileName: string, settings?: MagickReadSettings): void;
     ping(array: ByteArray, settings?: MagickReadSettings): void;
-    read(color: MagickColor, width: number, height: number): void;
+    read(color: IMagickColor, width: number, height: number): void;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: ByteArray, settings?: MagickReadSettings): void;
     readFromCanvas(canvas: HTMLCanvasElement): void;
@@ -474,7 +474,7 @@ export interface IMagickImage extends IDisposable {
     threshold(percentage: Percentage): void;
     threshold(percentage: Percentage, channels: Channels): void;
     toString(): string;
-    transparent(color: MagickColor): void;
+    transparent(color: IMagickColor): void;
     trim(): void;
     trim(...edges: Gravity[]): void;
     trim(percentage: Percentage): void;
@@ -530,11 +530,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return artifactNames;
     }
 
-    get backgroundColor(): MagickColor {
+    get backgroundColor(): IMagickColor {
         const colorPtr = ImageMagick._api._MagickImage_BackgroundColor_Get(this._instance);
         return MagickColor._create(colorPtr);
     }
-    set backgroundColor(value: MagickColor) {
+    set backgroundColor(value: IMagickColor) {
         value._use(valuePtr => {
             ImageMagick._api._MagickImage_BackgroundColor_Set(this._instance, valuePtr);
         });
@@ -556,11 +556,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         ImageMagick._api._MagickImage_BlackPointCompensation_Set(this._instance, value ? 1 : 0);
     }
 
-    get borderColor(): MagickColor {
+    get borderColor(): IMagickColor {
         const colorPtr = ImageMagick._api._MagickImage_BorderColor_Get(this._instance);
         return MagickColor._create(colorPtr);
     }
-    set borderColor(value: MagickColor) {
+    set borderColor(value: IMagickColor) {
         value._use(valuePtr => {
             ImageMagick._api._MagickImage_BorderColor_Set(this._instance, valuePtr);
         });
@@ -742,11 +742,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.setAttribute('label', value);
     }
 
-    get matteColor(): MagickColor {
+    get matteColor(): IMagickColor {
         const colorPtr = ImageMagick._api._MagickImage_MatteColor_Get(this._instance);
         return MagickColor._create(colorPtr);
     }
-    set matteColor(value: MagickColor) {
+    set matteColor(value: IMagickColor) {
         value._use(valuePtr => {
             ImageMagick._api._MagickImage_MatteColor_Set(this._instance, valuePtr);
         });
@@ -909,7 +909,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return image._use(func);
     }
 
-    colorAlpha(color: MagickColor): void {
+    colorAlpha(color: IMagickColor): void {
         if (!this.hasAlpha)
             return;
 
@@ -1075,10 +1075,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     static create(): IMagickImage;
-    static create(color: MagickColor, width: number, height: number): IMagickImage;
+    static create(color: IMagickColor, width: number, height: number): IMagickImage;
     static create(fileName: string, settings?: MagickReadSettings): IMagickImage;
     static create(array: ByteArray, settings?: MagickReadSettings): IMagickImage;
-    static create(fileNameOrArrayOrColorOrUndefined?: string | ByteArray | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): IMagickImage {
+    static create(fileNameOrArrayOrColorOrUndefined?: string | ByteArray | IMagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): IMagickImage {
         const image = new MagickImage(MagickImage.createInstance(), new MagickSettings());
         if (fileNameOrArrayOrColorOrUndefined !== undefined)
             image.readOrPing(false, fileNameOrArrayOrColorOrUndefined, settingsOrWidthOrUndefined, heightOrUndefined);
@@ -1203,12 +1203,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     extent(width: number, height: number): void;
     extent(width: number, height: number, gravity: Gravity): void;
-    extent(width: number, height: number, backgroundColor: MagickColor): void;
+    extent(width: number, height: number, backgroundColor: IMagickColor): void;
     extent(geometry: IMagickGeometry): void;
     extent(geometry: IMagickGeometry, gravity: Gravity): void;
-    extent(geometry: IMagickGeometry, gravity: Gravity, backgroundColor: MagickColor): void;
-    extent(geometry: IMagickGeometry, backgroundColor: MagickColor): void;
-    extent(geometryOrWidth: IMagickGeometry | number, widthOrGravityOrBackgroundColor?: Gravity | MagickColor | number, backgroundColorOrGravity?: MagickColor | Gravity): void {
+    extent(geometry: IMagickGeometry, gravity: Gravity, backgroundColor: IMagickColor): void;
+    extent(geometry: IMagickGeometry, backgroundColor: IMagickColor): void;
+    extent(geometryOrWidth: IMagickGeometry | number, widthOrGravityOrBackgroundColor?: Gravity | IMagickColor | number, backgroundColorOrGravity?: IMagickColor | Gravity): void {
         let gravity = Gravity.Undefined;
         let geometry: IMagickGeometry;
 
@@ -1217,15 +1217,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         else if (typeof widthOrGravityOrBackgroundColor === 'number')
             geometry = new MagickGeometry(geometryOrWidth, widthOrGravityOrBackgroundColor);
 
-        if (widthOrGravityOrBackgroundColor instanceof MagickColor)
-            this.backgroundColor = widthOrGravityOrBackgroundColor;
-        else if (widthOrGravityOrBackgroundColor !== undefined)
+        if (typeof widthOrGravityOrBackgroundColor === 'number')
             gravity = widthOrGravityOrBackgroundColor;
+        else if (widthOrGravityOrBackgroundColor !== undefined)
+            this.backgroundColor = widthOrGravityOrBackgroundColor;
 
-        if (backgroundColorOrGravity instanceof MagickColor)
-            this.backgroundColor = backgroundColorOrGravity;
-        else if (backgroundColorOrGravity !== undefined)
+        if (typeof backgroundColorOrGravity === 'number')
             gravity = backgroundColorOrGravity;
+        else if (backgroundColorOrGravity !== undefined)
+            this.backgroundColor = backgroundColorOrGravity;
 
         Exception.use(exception => {
             _withString(geometry.toString(), geometryPtr => {
@@ -1329,7 +1329,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     inverseContrast = () => this._contrast(false);
 
-    inverseOpaque = (target: MagickColor, fill: MagickColor) => this._opaque(target, fill, true);
+    inverseOpaque = (target: IMagickColor, fill: IMagickColor) => this._opaque(target, fill, true);
 
     inverseSigmoidalContrast(contrast: number): void;
     inverseSigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
@@ -1339,7 +1339,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this._sigmoidalContrast(false, contrast, midpointOrPercentage, channelsOrUndefined)
     }
 
-    inverseTransparent = (color: MagickColor) => this._transparent(color, true);
+    inverseTransparent = (color: IMagickColor) => this._transparent(color, true);
 
     level(blackPoint: Percentage, whitePoint: Percentage): void;
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
@@ -1448,7 +1448,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    opaque = (target: MagickColor, fill: MagickColor) => this._opaque(target, fill, false);
+    opaque = (target: IMagickColor, fill: IMagickColor) => this._opaque(target, fill, false);
 
     ping(fileName: string, settings?: MagickReadSettings): void;
     ping(array: ByteArray, settings?: MagickReadSettings): void;
@@ -1456,10 +1456,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.readOrPing(true, fileNameOrArray, settingsOrUndefined);
     }
 
-    read(color: MagickColor, width: number, height: number): void;
+    read(color: IMagickColor, width: number, height: number): void;
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: ByteArray, settings?: MagickReadSettings): void;
-    read(fileNameOrArrayOrColor: string | ByteArray | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
+    read(fileNameOrArrayOrColor: string | ByteArray | IMagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
         this.readOrPing(false, fileNameOrArrayOrColor, settingsOrWidthOrUndefined, heightOrUndefined);
     }
 
@@ -1666,7 +1666,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
 
-    transparent(color: MagickColor): void {
+    transparent(color: IMagickColor): void {
         color._use(valuePtr => {
             Exception.usePointer(exception => {
                 ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, 0, exception);
@@ -1826,7 +1826,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    private _opaque(target: MagickColor, fill: MagickColor, invert: boolean) {
+    private _opaque(target: IMagickColor, fill: IMagickColor, invert: boolean) {
         Exception.usePointer(exception => {
             target._use(targetPtr => {
                 fill._use(filltPtr => {
@@ -1852,7 +1852,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    private _transparent(color: MagickColor, invert: boolean) {
+    private _transparent(color: IMagickColor, invert: boolean) {
         color._use(valuePtr => {
             Exception.usePointer(exception => {
                 ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, this.fromBool(invert), exception);
@@ -1870,7 +1870,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return value ? 1 : 0;
     }
 
-    private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | ByteArray | MagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
+    private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | ByteArray | IMagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
         Exception.use(exception => {
             const readSettings = settingsOrWidthOrUndefined instanceof MagickReadSettings ? settingsOrWidthOrUndefined : new MagickReadSettings(this._settings);
             readSettings._ping = ping;
@@ -1878,13 +1878,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
             if (typeof fileNameOrArrayOrColor === 'string') {
                 readSettings._fileName = fileNameOrArrayOrColor;
-            } else if (fileNameOrArrayOrColor instanceof MagickColor) {
+            } else if (isByteArray(fileNameOrArrayOrColor)) {
+                this.readFromArray(fileNameOrArrayOrColor, readSettings, exception);
+                return;
+            } else {
                 readSettings._fileName = 'xc:' + fileNameOrArrayOrColor.toShortString();
                 readSettings.width = typeof settingsOrWidthOrUndefined === 'number' ? settingsOrWidthOrUndefined : 0;
                 readSettings.height = typeof heightOrUndefined === 'number' ? heightOrUndefined : 0;
-            } else {
-                this.readFromArray(fileNameOrArrayOrColor, readSettings, exception);
-                return;
             }
             readSettings._use(settings => {
                 const instance = ImageMagick._api._MagickImage_ReadFile(settings._instance, exception.ptr);

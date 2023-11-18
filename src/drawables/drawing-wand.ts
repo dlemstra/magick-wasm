@@ -8,7 +8,7 @@ import { IDisposable } from '../disposable';
 import { IDrawable } from './drawable';
 import { ImageMagick } from '../image-magick';
 import { IMagickImage } from '../magick-image';
-import { MagickColor } from '../magick-color';
+import { IMagickColor } from '../magick-color';
 import { MagickSettings } from '../settings/magick-settings';
 import { NativeInstance } from '../native-instance';
 import { PaintMethod } from '../enums/paint-method';
@@ -22,7 +22,7 @@ import { _withString } from '../internal/native/string';
 export interface IDrawingWand extends IDisposable {
     color(x: number, y: number, paintMethod: number): void;
     draw(drawables: IDrawable[]): void;
-    fillColor(value: MagickColor): void;
+    fillColor(value: IMagickColor): void;
     fillOpacity(value: number): void;
     font(family: string): void;
     fontPointSize(value: number): void;
@@ -37,7 +37,7 @@ export interface IDrawingWand extends IDisposable {
     textInterlineSpacing(value: number): void;
     textInterwordspacing(value: number): void;
     textKerning(value: number): void;
-    textUnderColor(value: MagickColor): void;
+    textUnderColor(value: IMagickColor): void;
 }
 
 export class DrawingWand extends NativeInstance implements IDrawingWand {
@@ -66,7 +66,7 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
         });
     }
 
-    fillColor(value: MagickColor): void {
+    fillColor(value: IMagickColor): void {
         Exception.usePointer(exception => {
             value._use(valuePtr => {
                 ImageMagick._api._DrawingWand_FillColor(this._instance, valuePtr, exception);
@@ -162,7 +162,7 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
         });
     }
 
-    textUnderColor(value: MagickColor): void {
+    textUnderColor(value: IMagickColor): void {
         Exception.usePointer(exception => {
             value._use(valuePtr => {
                 ImageMagick._api._DrawingWand_TextUnderColor(this._instance, valuePtr, exception);

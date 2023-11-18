@@ -3,19 +3,19 @@
 
 import { IDrawable } from './drawable';
 import { IDrawingWand } from './drawing-wand';
-import { MagickColor } from '../magick-color';
+import { IMagickColor } from '../magick-color';
 
 /**
  * Sets the fill color to be used for drawing filled objects.
  */
 export class DrawableFillColor implements IDrawable {
-    private readonly _color: MagickColor;
+    private readonly _color: IMagickColor;
 
     /**
      * Initializes a new instance of the {@link DrawableFillColor} class.
      * @param color - The color to use.
      */
-    constructor(color: MagickColor) {
+    constructor(color: IMagickColor) {
         this._color = color;
     }
 

@@ -6,7 +6,55 @@ import { MagickError } from './magick-error';
 import { Quantum } from './quantum';
 import { _withString } from './internal/native/string';
 
-export class MagickColor {
+/**
+ * Interface that represents a color.
+ */
+export interface IMagickColor {
+    /**
+     * Gets or sets the red component value of this color.
+     */
+    r: number;
+
+    /**
+     * Gets or sets the green component value of this color.
+     */
+    g: number;
+
+    /**
+     * Gets or sets the blue component value of this color.
+     */
+    b: number;
+
+    /**
+     * Gets or sets the alpha component value of this color.
+     */
+    a: number;
+
+    /**
+     * Gets or sets the key (black) component value of this color.
+     */
+    k: number;
+
+    /**
+     * Gets a value indicating whether this color is a CMYK color.
+     */
+    isCmyk: boolean;
+
+    /**
+     * Converts the value of this instance to a string representation that will not include the alpha channel if it is opaque.
+     */
+    toShortString(): string;
+
+    /**
+     * Converts the value of this instance to a string representation.
+     */
+    toString(): string;
+
+    /** @internal */
+    _use(func: (colorPtr: number) => void): void;
+}
+
+export class MagickColor implements IMagickColor {
     constructor(color?: string);
     constructor(r: number, g: number, b: number);
     constructor(r: number, g: number, b: number, a: number);
@@ -49,7 +97,7 @@ export class MagickColor {
     public isCmyk = false;
 
     /** @internal */
-    static _create(colorPtr: number): MagickColor {
+    static _create(colorPtr: number): IMagickColor {
         const color = new MagickColor();
         color.initialize(colorPtr);
 

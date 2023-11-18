@@ -4,12 +4,12 @@
 import MagickNative, { ImageMagickApi, IWasmLocator } from '@dlemstra/magick-native';
 import { IMagickImage, MagickImage } from './magick-image';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
-import { MagickColor } from './magick-color';
+import { IMagickColor } from './magick-color';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './enums/magick-format';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
-import { ByteArray } from './byte-array';
+import { ByteArray, isByteArray } from './byte-array';
 
 class WasmLocator implements IWasmLocator {
     private _wasmLocation: string | undefined;
@@ -89,7 +89,7 @@ export class ImageMagick {
      * @param height - The height of the image.
      * @param func - The function that will be invoked with the image.
      */
-    static read<TReturnType>(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => TReturnType): TReturnType;
+    static read<TReturnType>(color: IMagickColor, width: number, height: number, func: (image: IMagickImage) => TReturnType): TReturnType;
     /**
      * Read single image frame.
      * @param color - The color to fill the image with.
@@ -97,7 +97,7 @@ export class ImageMagick {
      * @param height - The height of the image.
      * @param func - The async function that will be invoked with the image.
      */
-    static read<TReturnType>(color: MagickColor, width: number, height: number, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static read<TReturnType>(color: IMagickColor, width: number, height: number, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     /**
      * Read single image frame.
      * @param array - The array to read the image from.
@@ -178,10 +178,10 @@ export class ImageMagick {
      * @param func - The async function that will be invoked with the image.
      */
     static read<TReturnType>(fileName: string, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static read<TReturnType>(colorOrArrayOrFileName: MagickColor | ByteArray | string, widthOrFormatOrSetttingsOrFunc: number | MagickFormat | MagickReadSettings | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), heightOrFunc?: number | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static read<TReturnType>(colorOrArrayOrFileName: IMagickColor | ByteArray | string, widthOrFormatOrSetttingsOrFunc: number | MagickFormat | MagickReadSettings | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), heightOrFunc?: number | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return MagickImage._use(image => {
             let callback = func;
-            if (colorOrArrayOrFileName instanceof MagickColor) {
+            if (typeof colorOrArrayOrFileName !== 'string' && !isByteArray(colorOrArrayOrFileName)) {
                 if (typeof widthOrFormatOrSetttingsOrFunc === 'number' && typeof heightOrFunc === 'number')
                     image.read(colorOrArrayOrFileName, widthOrFormatOrSetttingsOrFunc, heightOrFunc);
             } else if (typeof widthOrFormatOrSetttingsOrFunc !== 'number' && typeof heightOrFunc !== 'number') {

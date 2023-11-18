@@ -8,7 +8,7 @@ import { Disposable } from '../internal/disposable';
 import { Endian } from '../enums/endian';
 import { IDefines } from '../defines/defines';
 import { Interlace } from '../enums/interlace';
-import { MagickColor } from '../magick-color';
+import { IMagickColor } from '../magick-color';
 import { MagickFormat } from '../enums/magick-format';
 import { NativeMagickSettings } from './native-magick-settings';
 
@@ -36,7 +36,7 @@ export class MagickSettings {
     /**
      * Gets or sets the background color.
      */
-    backgroundColor?: MagickColor;
+    backgroundColor?: IMagickColor;
 
     /**
      * Gets or sets the color space.
@@ -72,7 +72,7 @@ export class MagickSettings {
     /**
      * Gets or sets the fill color.
      */
-    fillColor?: MagickColor;
+    fillColor?: IMagickColor;
 
     /**
      * Gets or sets the text rendering font.
@@ -97,7 +97,7 @@ export class MagickSettings {
     /**
      * Gets or sets the color to use when drawing object outlines.
      */
-    strokeColor?: MagickColor;
+    strokeColor?: IMagickColor;
 
     /**
      * Gets or sets the stroke width for drawing lines, circles, ellipses, etc.

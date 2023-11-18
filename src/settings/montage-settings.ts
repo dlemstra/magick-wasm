@@ -4,7 +4,7 @@
 import { Disposable } from '../internal/disposable';
 import { Gravity } from '../enums/gravity';
 import { IMagickGeometry } from '../types/magick-geometry';
-import { MagickColor } from '../magick-color';
+import { IMagickColor } from '../magick-color';
 import { NativeMontageSettings } from './native-montage-settings';
 
 /**
@@ -14,12 +14,12 @@ export class MontageSettings {
     /**
      * Gets or sets the color of the background that thumbnails are composed on.
      */
-    backgroundColor?: MagickColor;
+    backgroundColor?: IMagickColor;
 
     /**
      * Gets or sets the frame border color.
      */
-    borderColor?: MagickColor;
+    borderColor?: IMagickColor;
 
     /**
      * Gets or sets the pixels between thumbnail and surrounding frame.
@@ -29,7 +29,7 @@ export class MontageSettings {
     /**
      * Gets or sets the fill color.
      */
-    fillColor?: MagickColor;
+    fillColor?: IMagickColor;
 
     /**
      * Gets or sets the label font.
@@ -69,7 +69,7 @@ export class MontageSettings {
     /**
      * Gets or sets the outline color.
      */
-    strokeColor?: MagickColor;
+    strokeColor?: IMagickColor;
 
     /**
      * Gets or sets the background texture image.
@@ -89,7 +89,7 @@ export class MontageSettings {
     /**
      * Gets or sets the transparent color.
      */
-    transparentColor?: MagickColor;
+    transparentColor?: IMagickColor;
 
     /** @internal */
     _use<TReturnType>(func: (settings: NativeMontageSettings) => TReturnType): TReturnType

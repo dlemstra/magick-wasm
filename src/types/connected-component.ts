@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../image-magick';
-import { MagickColor } from '../magick-color';
+import { MagickColor, IMagickColor } from '../magick-color';
 import { MagickGeometry, IMagickGeometry } from './magick-geometry';
 import { Point } from './point';
 
@@ -34,7 +34,7 @@ export class ConnectedComponent {
     /**
      * The color of the area.
      */
-    readonly color?: MagickColor;
+    readonly color?: IMagickColor;
 
     /**
      * The height of the area.

@@ -2,21 +2,21 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Disposable } from '../disposable';
-import { MagickColor } from '../../magick-color';
+import { IMagickColor } from '../../magick-color';
 import { MagickSettings } from '../../settings/magick-settings';
 import { NativeDrawingSettings } from '../../settings/native-drawing-settings';
 
 /** @internal */
 export class DrawingSettings {
-    backgroundColor?: MagickColor;
+    backgroundColor?: IMagickColor;
 
-    fillColor?: MagickColor;
+    fillColor?: IMagickColor;
 
     font?: string;
 
     fontPointsize?: number;
 
-    strokeColor?: MagickColor;
+    strokeColor?: IMagickColor;
 
     strokeWidth?: number;
 
