@@ -3,7 +3,7 @@
 
 import { ImageMagick } from './image-magick';
 import { LogEvent } from './events/log-event';
-import { MagickFormatInfo } from './magick-format-info';
+import { MagickFormatInfo, IMagickFormatInfo } from './magick-format-info';
 import { LogEventTypes } from './enums/log-event-types';
 import { _createString, _withString } from './internal/native/string';
 
@@ -16,7 +16,7 @@ export class Magick {
 
     static get imageMagickVersion(): string { return _createString(ImageMagick._api._Magick_ImageMagickVersion_Get(), 'Unknown'); }
 
-    static get supportedFormats(): ReadonlyArray<MagickFormatInfo> { return MagickFormatInfo.all; }
+    static get supportedFormats(): ReadonlyArray<IMagickFormatInfo> { return MagickFormatInfo.all; }
 
     static onLog?: (event: LogEvent) => void
 

@@ -6,47 +6,60 @@ import { Exception } from './internal/exception/exception';
 import { Pointer } from './internal/pointer/pointer';
 import { MagickFormat } from './enums/magick-format';
 import { _createString } from './internal/native/string';
-import { MagickError } from './magick-error';
 
-export class MagickFormatInfo {
-    private readonly _format: MagickFormat;
-    private readonly _description: string;
-    private readonly _supportsMultipleFrames: boolean;
-    private readonly _supportsReading: boolean;
-    private readonly _supportsWriting: boolean;
-    private static _all: ReadonlyArray<MagickFormatInfo>;
+export interface IMagickFormatInfo {
+    /**
+     * Gets the description of the format.
+     */
+    readonly description: string;
+
+    /**
+     * Gets the format.
+     */
+    readonly format: MagickFormat;
+
+    /**
+     * Gets a value indicating whether the format supports multiple frames.
+     */
+    readonly supportsMultipleFrames: boolean;
+
+    /**
+     * Gets a value indicating whether the format can be read.
+     */
+    readonly supportsReading: boolean;
+
+    /**
+     * Gets a value indicating whether the format can be written.
+     */
+    readonly supportsWriting: boolean;
+}
+
+/** @internal */
+export class MagickFormatInfo implements IMagickFormatInfo {
+    private static _allFormats: ReadonlyArray<IMagickFormatInfo>;
 
     private constructor(format: MagickFormat, description: string, supportsMultipleFrames: boolean, supportsReading: boolean, supportsWriting: boolean) {
-        this._format = format;
-        this._description = description;
-        this._supportsMultipleFrames = supportsMultipleFrames;
-        this._supportsReading = supportsReading;
-        this._supportsWriting = supportsWriting;
+        this.format = format;
+        this.description = description;
+        this.supportsMultipleFrames = supportsMultipleFrames;
+        this.supportsReading = supportsReading;
+        this.supportsWriting = supportsWriting;
     }
 
-    get description(): string { return this._description; }
+    readonly description: string;
 
-    get format(): MagickFormat { return this._format; }
+    readonly format: MagickFormat;
 
-    get supportsMultipleFrames(): boolean { return this._supportsMultipleFrames; }
+    readonly supportsMultipleFrames: boolean;
 
-    get supportsReading(): boolean { return this._supportsReading; }
+    readonly supportsReading: boolean;
 
-    get supportsWriting(): boolean { return this._supportsWriting; }
+    readonly supportsWriting: boolean;
 
-    static get all(): ReadonlyArray<MagickFormatInfo> {
-        if (MagickFormatInfo._all === undefined)
-            MagickFormatInfo._all = MagickFormatInfo.loadFormats();
-        return MagickFormatInfo._all;
-    }
-
-    static create(format: MagickFormat): MagickFormatInfo {
-        for (const formatInfo of MagickFormatInfo.all) {
-            if (formatInfo.format === format)
-                return formatInfo;
-        }
-
-        throw new MagickError(`unable to get format info for ${format}`);
+    static get all(): ReadonlyArray<IMagickFormatInfo> {
+        if (MagickFormatInfo._allFormats === undefined)
+            MagickFormatInfo._allFormats = MagickFormatInfo.loadFormats();
+        return MagickFormatInfo._allFormats;
     }
 
     private static loadFormats() {
@@ -55,7 +68,7 @@ export class MagickFormatInfo {
                 const list = ImageMagick._api._MagickFormatInfo_CreateList(pointer.ptr, exception);
                 const count = pointer.value;
                 try {
-                    const result = new Array<MagickFormatInfo>(count);
+                    const result = new Array<IMagickFormatInfo>(count);
                     const values = Object.values(MagickFormat);
                     for (let i = 0; i < count; i++) {
                         const info = ImageMagick._api._MagickFormatInfo_GetInfo(list, i, exception);
