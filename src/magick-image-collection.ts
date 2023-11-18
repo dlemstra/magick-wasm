@@ -24,33 +24,175 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     /** @internal */
     _use<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
 
+    /**
+     * Creates a single image, by appending all the images in the collection horizontally (+append).
+     * @param func - The function to execute with the image.
+     */
     appendHorizontally<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Creates a single image, by appending all the images in the collection horizontally (+append).
+     * @param func - The async function to execute with the image.
+     */
     appendHorizontally<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Creates a single image, by appending all the images in the collection vertically (-append).
+     * @param func - The function to execute with the image.
+     */
     appendVertically<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Creates a single image, by appending all the images in the collection vertically (-append).
+     * @param func - The async function to execute with the image.
+     */
     appendVertically<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Creates a clone of the current image collection.
+     * @param func - The function to execute with the images.
+     */
     clone<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+
+    /**
+     * Creates a clone of the current image collection.
+     * @param func - The async function to execute with the images.
+     */
     clone<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Evaluate image pixels into a single image. All the images in the collection must be the
+     * same size in pixels.
+     * @param evaluateOperator - The operator.
+     * @param func - The function to execute with the image.
+     */
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Evaluate image pixels into a single image. All the images in the collection must be the
+     * same size in pixels.
+     * @param evaluateOperator - The operator.
+     * @param func - The async function to execute with the image.
+     */
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Flatten this collection into a single image.
+     * Use the virtual canvas size of first image. Images which fall outside this canvas is clipped.
+     * This can be used to 'fill out' a given virtual canvas.
+     * @param func - The function to execute with the image.
+     */
     flatten<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Flatten this collection into a single image.
+     * Use the virtual canvas size of first image. Images which fall outside this canvas is clipped.
+     * This can be used to 'fill out' a given virtual canvas.
+     * @param func - The async function to execute with the image.
+     */
     flatten<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
+     * canvas of the first image is preserved but otherwise ignored.
+     * @param func - The function to execute with the image.
+     */
     merge<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
+     * canvas of the first image is preserved but otherwise ignored.
+     * @param func - The async function to execute with the image.
+     */
     merge<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Create a composite image by combining the images with the specified settings.
+     * @param settings - The settings to use.
+     * @param func - The function to execute with the image.
+     */
     montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Create a composite image by combining the images with the specified settings.
+     * @param settings - The settings to use.
+     * @param func - The async function to execute with the image.
+     */
     montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Start with the virtual canvas of the first image, enlarging left and right edges to contain
+     * all images. Images with negative offsets will be clipped.
+     * @param func - The function to execute with the image.
+     */
     mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Start with the virtual canvas of the first image, enlarging left and right edges to contain
+     * all images. Images with negative offsets will be clipped.
+     * @param func - The async function to execute with the image.
+     */
     mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Read all image frames.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The read settings.
+     */
     read(fileName: string, settings?: MagickReadSettings): void;
+
+    /**
+     * Read all image frames.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The read settings.
+     */
     read(array: ByteArray, settings?: MagickReadSettings): void;
+
+    /**
+     * Write all image frames to a byte array.
+     * @param func - The function to execute with the byte array.
+     */
     write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
-    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
+
+    /**
+     * Write all image frames to a byte array.
+     * @param func - The async function to execute with the byte array.
+     */
     write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Write all image frames to a byte array.
+     * @param format - The format to use.
+     * @param func - The async function to execute with the byte array.
+     */
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
+
+    /**
+     * Write all image frames to a byte array.
+     * @param format - The format to use.
+     * @param func - The async async function to execute with the byte array.
+     */
     write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
 }
 
 export class MagickImageCollection extends Array<MagickImage> implements IMagickImageCollection {
     private constructor() {
         super();
+    }
+
+    /**
+     * Creates a new {@link IMagickImageCollection} instance.
+     */
+    static create(): IMagickImageCollection;
+    /**
+     * Creates a new {@link IMagickImageCollection} instance from the specified byte array.
+     */
+    static create(array: ByteArray): IMagickImageCollection;
+    static create(arrayOrUndefined?: ByteArray): IMagickImageCollection {
+        const images = MagickImageCollection.createObject();
+        if (arrayOrUndefined !== undefined)
+            images.read(arrayOrUndefined);
+        return images;
     }
 
     dispose(): void {
@@ -210,15 +352,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
         const array = new DisposableArray(data, length, func);
         return Disposable._disposeAfterExecution(array, array.func);
-    }
-
-    static create(): IMagickImageCollection;
-    static create(array: ByteArray): IMagickImageCollection;
-    static create(arrayOrUndefined?: ByteArray): IMagickImageCollection {
-        const images = MagickImageCollection.createObject();
-        if (arrayOrUndefined !== undefined)
-            images.read(arrayOrUndefined);
-        return images;
     }
 
     /** @internal */
