@@ -3,18 +3,24 @@
 
 import { MagickErrorSeverity } from './enums/magick-error-severity';
 
+/**
+ *
+ */
 export class MagickError extends Error {
-    private readonly _severity: MagickErrorSeverity;
     private _relatedErrors: MagickError[] = [];
 
     constructor(message: string, severity: MagickErrorSeverity = MagickErrorSeverity.Error) {
         super(message);
 
-        this._severity = severity;
+        this.severity = severity;
     }
 
+    /**
+     *
+     */
+    readonly severity: MagickErrorSeverity;
+
     get relatedErrors(): ReadonlyArray<MagickError> { return this._relatedErrors; }
-    get severity(): MagickErrorSeverity { return this._severity; }
 
     /** @internal */
     public _setRelatedErrors(relatedErrors: MagickError[]) {
