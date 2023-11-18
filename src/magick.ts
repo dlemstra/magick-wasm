@@ -7,19 +7,42 @@ import { MagickFormatInfo, IMagickFormatInfo } from './magick-format-info';
 import { LogEventTypes } from './enums/log-event-types';
 import { _createString, _withString } from './internal/native/string';
 
+/**
+ * Interface that represents Magick.
+ */
 export class Magick {
     private static _logDelegate?: number;
 
+    /**
+     * Gets the ImageMagick delegate libraries.
+     */
     static get delegates(): string { return _createString(ImageMagick._api._Magick_Delegates_Get(), 'Unknown'); }
 
+    /**
+     * Gets the ImageMagick features.
+     */
     static get features(): string { return _createString(ImageMagick._api._Magick_Features_Get(), ' ').slice(0, -1); }
 
+    /**
+     * Gets the ImageMagick version.
+     */
     static get imageMagickVersion(): string { return _createString(ImageMagick._api._Magick_ImageMagickVersion_Get(), 'Unknown'); }
 
+    /**
+     * Gets information about the supported formats.
+     */
     static get supportedFormats(): ReadonlyArray<IMagickFormatInfo> { return MagickFormatInfo.all; }
 
+    /**
+     * Function that will be executed when something is logged by ImageMagick.
+     */
     static onLog?: (event: LogEvent) => void
 
+    /**
+     * Registers a font.
+     * @param name - The name of the font.
+     * @param data - The byte array containing the font.
+     */
     static addFont(name: string, data: Uint8Array): void {
         const fileSystem = ImageMagick._api.FS;
         const stats = fileSystem.analyzePath('/fonts');
@@ -32,8 +55,18 @@ export class Magick {
         fileSystem.close(stream);
     }
 
+    /**
+     * Sets the pseudo-random number generator secret key.
+     * @param seed - The secret key.
+     */
     static setRandomSeed = (seed: number): void => ImageMagick._api._Magick_SetRandomSeed(seed);
 
+    /**
+     * Set the events that will be written to the log. The log will be written to the Log event
+     * and the debug window in VisualStudio. To change the log settings you must use a custom
+     * log.xml file.
+     * @param eventTypes - The events that should be logged.
+     */
     static setLogEvents(eventTypes: LogEventTypes): void {
         if (Magick._logDelegate === undefined) {
             Magick._logDelegate = ImageMagick._api.addFunction(Magick.logDelegate, 'vii');
