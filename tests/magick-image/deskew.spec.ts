@@ -18,6 +18,17 @@ describe('MagickImage#deskew', () => {
         TestImages.Builtin.logo.use(image => {
             const angle = image.deskew(new Percentage(42));
             expect(angle).toEqual(0.8951737102110744);
+            expect(image.width).toEqual(649);
+            expect(image.height).toEqual(492);
+        });
+    });
+
+    it('should use the autocrop parameter', () => {
+        TestImages.Builtin.logo.use(image => {
+            const angle = image.deskew(new Percentage(42), true);
+            expect(angle).toEqual(0.8951737102110744);
+            expect(image.width).toEqual(453);
+            expect(image.height).toEqual(478);
         });
     });
 });

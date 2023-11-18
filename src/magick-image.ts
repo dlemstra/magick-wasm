@@ -54,6 +54,7 @@ import { Quantum } from './quantum';
 import { RenderingIntent } from './enums/rendering-intent';
 import { Statistics, IStatistics } from './statistics/statistics';
 import { StringInfo } from './internal/string-info';
+import { TemporaryDefines } from './helpers/temporary-defines';
 import { VirtualPixelMethod } from './enums/virtual-pixel-method';
 import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './enums/gravity';
@@ -766,6 +767,16 @@ export interface IMagickImage extends IDisposable {
     deskew(threshold: Percentage): number;
 
     /**
+     * Removes skew from the image. Skew is an artifact that occurs in scanned images because of
+     * the camera being misaligned, imperfections in the scanning or surface, or simply because
+     * the paper was not placed completely flat when scanned. The value of threshold ranges
+     * from 0 to QuantumRange.
+     * @param threshold - The threshold.
+     * @param autoCrop-  A value indicating whether the image should be auto cropped after deskewing.
+     */
+    deskew(threshold: Percentage, autoCrop: boolean): number;
+
+    /**
      * Distorts an image using various distortion methods, by mapping color lookups of the source
      * image to a new destination image of the same size as the source image.
      * @param method - The distortion method to use.
@@ -1272,14 +1283,7 @@ export interface IMagickImage extends IDisposable {
      * @param name - The name of the artifact.
      * @param value - The value of the artifact.
      */
-    setArtifact(name: string, value: string): void;
-
-    /**
-     *  Inserts the artifact with the specified name and value into the artifact tree of the image.
-     * @param name - The name of the artifact.
-     * @param value - The value of the artifact.
-     */
-    setArtifact(name: string, value: boolean): void;
+    setArtifact(name: string, value: string | boolean): void;
 
     /**
      *  Inserts the attribute with the specified name and value into the artifact tree of the image.
@@ -2168,14 +2172,22 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    deskew(threshold: Percentage): number {
-        Exception.use(exception => {
-            const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold._toQuantum(), exception.ptr);
-            this._setInstance(instance, exception);
-        });
+    deskew(threshold: Percentage): number
+    deskew(threshold: Percentage, autoCrop: boolean): number;
+    deskew(threshold: Percentage, autoCrop?: boolean): number {
+        return TemporaryDefines.use(this, temporaryDefines => {
+            if (autoCrop !== undefined) {
+                temporaryDefines.setArtifact("deskew:auto-crop", autoCrop);
+            }
 
-        const angle = Number(this.getArtifact('deskew:angle'));
-        return isNaN(angle) ? 0.0 : angle;
+            Exception.use(exception => {
+                const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold._toQuantum(), exception.ptr);
+                this._setInstance(instance, exception);
+            });
+
+            const angle = Number(this.getArtifact('deskew:angle'));
+            return isNaN(angle) ? 0.0 : angle;
+        })
     }
 
     distort(method: DistortMethod, params: number[]): void;
@@ -2608,8 +2620,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    setArtifact(name: string, value: string): void;
-    setArtifact(name: string, value: boolean): void;
     setArtifact(name: string, value: string | boolean): void {
         let strValue: string;
         if (typeof value === 'string') {
