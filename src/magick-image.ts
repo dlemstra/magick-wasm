@@ -787,11 +787,10 @@ export interface IMagickImage extends IDisposable {
     /**
      * Distorts an image using various distortion methods, by mapping color lookups of the source
      * image to a new destination image of the same size as the source image.
-     * @param method - The distortion method to use.
      * @param settings - The settings for the distortion.
      * @param params - An array containing the arguments for the distortion.
      */
-    distort(method: DistortMethod, settings: DistortSettings, params: number[]): void;
+    distort(settings: DistortSettings, params: number[]): void;
 
     /**
      * Draw on image using one or more drawables.
@@ -2191,32 +2190,34 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     distort(method: DistortMethod, params: number[]): void;
-    distort(method: DistortMethod, settings: DistortSettings, params: number[]): void;
-    distort(method: DistortMethod, settingsOrParams: number[] | DistortSettings, params?: number[]): void {
-        let distortArgs: number[];
-        let bestFit = 0;
-        let settings: DistortSettings | null = null;
-        if (settingsOrParams instanceof Array) {
-            distortArgs = settingsOrParams;
-        } else if (params instanceof Array) {
-            distortArgs = params;
-            settings = <DistortSettings>settingsOrParams;
-            bestFit = settings.bestFit ? 1 : 0;
+    distort(settings: DistortSettings, params: number[]): void;
+    distort(methodOrSettings: DistortMethod | DistortSettings, params?: number[]): void {
+        TemporaryDefines.use(this, temporaryDefines => {
+            let method: DistortMethod;
+            let bestFit = 0;
+            if (typeof methodOrSettings === 'number') {
+                method = methodOrSettings;
+            } else {
+                method = methodOrSettings.method;
+                bestFit = methodOrSettings.bestFit ? 1 : 0;
 
-            settings._setArtifacts(this);
-        } else {
-            distortArgs = [];
-        }
+                if (methodOrSettings.scale !== undefined) {
+                    temporaryDefines.setArtifact("distort:scale", methodOrSettings.scale.toString());
+                }
 
-        Exception.use(exception => {
-            _withDoubleArray(distortArgs, (distortArgsPtr: number) => {
-                const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, distortArgsPtr, distortArgs.length, exception.ptr);
-                this._setInstance(instance, exception)
+                if (methodOrSettings.viewport !== undefined) {
+                    temporaryDefines.setArtifact("distort:viewport", methodOrSettings.viewport.toString());
+                }
+            }
+
+            const distortArgs = params ?? [];
+            Exception.use(exception => {
+                _withDoubleArray(distortArgs, (distortArgsPtr: number) => {
+                    const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, distortArgsPtr, distortArgs.length, exception.ptr);
+                    this._setInstance(instance, exception)
+                });
             });
         });
-
-        if (settings !== null)
-            settings._removeArtifacts(this);
     }
 
     draw(drawables: IDrawable[]): void;

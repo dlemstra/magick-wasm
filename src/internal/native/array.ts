@@ -24,19 +24,19 @@ export function _withByteArray<TReturnType>(array: ByteArray, func: (instance: n
 }
 
 /** @internal */
-export function _withDoubleArray<TReturnType>(array: number[], func: (instance: number) => TReturnType): TReturnType {
+export function _withDoubleArray(array: number[], func: (instance: number) => void): void {
     const length = array.length * 8;
-    if (length === 0)
-        throw new MagickError('The specified array cannot be empty');
 
     let instance = 0;
     try {
-        instance = ImageMagick._api._malloc(length);
-        const buffer = new ArrayBuffer(length);
-        const doubleArray = new Float64Array(buffer);
-        for (let i = 0; i < array.length; i++)
-            doubleArray[i] = array[i];
-        ImageMagick._api.HEAPU8.set(new Int8Array(buffer), instance);
+        if (length !== 0) {
+            instance = ImageMagick._api._malloc(length);
+            const buffer = new ArrayBuffer(length);
+            const doubleArray = new Float64Array(buffer);
+            for (let i = 0; i < array.length; i++)
+                doubleArray[i] = array[i];
+            ImageMagick._api.HEAPU8.set(new Int8Array(buffer), instance);
+        }
         return func(instance);
     }
     finally {
