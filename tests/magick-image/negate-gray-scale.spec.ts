@@ -24,7 +24,7 @@ describe('MagickImage#negateGrayScale', () => {
 
     it('should only negate grascale on specified channels', () => {
         TestImages.empty.use((image) => {
-            image.read(MagickColors.Black, 2, 1);
+            image.read(MagickColors.White, 2, 1);
             image.alpha(AlphaOption.Opaque);
 
             image.getPixels(pixels => {
