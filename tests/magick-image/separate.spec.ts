@@ -20,18 +20,18 @@ describe('MagickImage#separate', () => {
 
     it('should only supply the specified channels', () => {
         ImageMagick.read('logo:', (image) => {
-            image.separate((images) => {
+            image.separate(Channels.Red | Channels.Green, (images) => {
                 expect(images.length).toBe(2);
-            }, Channels.Red | Channels.Green);
+            });
         });
     });
 
     it('should supply image with gray colorspace', async () => {
         await ImageMagick.read('logo:', async (image) => {
-            image.separate((images) => {
+            image.separate(Channels.Red, (images) => {
                 expect(images.length).toBe(1);
                 expect(images[0].colorSpace).toBe(ColorSpace.Gray);
-            }, Channels.Red);
+            });
 
             await bogusAsyncMethod();
         });

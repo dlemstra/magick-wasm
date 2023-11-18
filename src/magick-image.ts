@@ -1238,14 +1238,14 @@ export interface IMagickImage extends IDisposable {
      * @param channels - The channel(s) to separate.
      * @param func - The function to execute with the separated images.
      */
-    separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType, channels: Channels): TReturnType;
+    separate<TReturnType>(channels: Channels, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
 
     /**
      * Separates the channels from the image and returns it as grayscale images.
      * @param channels - The channel(s) to separate.
      * @param func - The async function to execute with the separated images.
      */
-    separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>, channels: Channels): Promise<TReturnType>;
+    separate<TReturnType>(channels: Channels, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
      * Applies a special effect to the image, similar to the effect achieved in a photo darkroom
@@ -2578,11 +2578,21 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType, channels: Channels): TReturnType;
-    separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>, channels: Channels): Promise<TReturnType>;
-    separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>, channelsOrUndefined?: Channels): TReturnType | Promise<TReturnType> {
+    separate<TReturnType>(channels: Channels, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    separate<TReturnType>(channels: Channels, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    separate<TReturnType>(funcOrChannels: ((images: IMagickImageCollection) => TReturnType | Promise<TReturnType>) | Channels, funcOrUndefined?: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return Exception.use(exception => {
-            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+            let func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>;
+            let channels: Channels = Channels.Undefined;
+            if (typeof funcOrChannels === 'number' && funcOrUndefined !== undefined) {
+                channels = funcOrChannels;
+                func = funcOrUndefined;
+            } else if (typeof funcOrChannels === 'function') {
+                func = funcOrChannels;
+            } else {
+                throw new MagickError('invalid arguments');
+            }
+
             const images = ImageMagick._api._MagickImage_Separate(this._instance, channels, exception.ptr);
             const collection = MagickImageCollection._createFromImages(images, this._settings);
             return collection._use(func);

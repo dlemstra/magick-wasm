@@ -13,12 +13,12 @@ import { Point } from '@src/types/point';
 describe('MagickImage#composite', () => {
     it('should preserve gray color space', () => {
         ImageMagick.read('logo:', (logo) => {
-            logo.separate(images => {
+            logo.separate(Channels.Blue, (images) => {
                 const blue = images[0];
                 blue.composite(logo, CompositeOperator.Modulate);
 
                 expect(blue.colorSpace).toBe(ColorSpace.Gray);
-            }, Channels.Blue);
+            });
         });
     });
 
