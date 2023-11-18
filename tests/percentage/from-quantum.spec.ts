@@ -3,9 +3,9 @@
 
 import { Percentage } from '@src/types/percentage';
 
-describe('MagickGeometry#fromQuantum', () => {
+describe('MagickGeometry#_fromQuantum', () => {
     it('should return the percentage of the Quantum max as a normal percentage.', () => {
-        const percentage = Percentage.fromQuantum(25.5);
+        const percentage = Percentage._fromQuantum(25.5);
         expect(percentage.toDouble()).toBe(10);
     });
 });

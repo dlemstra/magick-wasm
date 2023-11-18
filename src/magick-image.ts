@@ -614,7 +614,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get colorFuzz(): Percentage { return Percentage.fromQuantum(ImageMagick._api._MagickImage_ColorFuzz_Get(this._instance)); }
+    get colorFuzz(): Percentage { return Percentage._fromQuantum(ImageMagick._api._MagickImage_ColorFuzz_Get(this._instance)); }
     set colorFuzz(value: Percentage) { ImageMagick._api._MagickImage_ColorFuzz_Set(this._instance, value._toQuantum()); }
 
     get colormapSize(): number {

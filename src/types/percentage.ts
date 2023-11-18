@@ -18,7 +18,7 @@ export class Percentage {
     }
 
     /** @internal */
-    static fromQuantum(value: number): Percentage {
+    static _fromQuantum(value: number): Percentage {
         return new Percentage((value / Quantum.max) * 100);
     }
 
