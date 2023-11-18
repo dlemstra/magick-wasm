@@ -1,9 +1,13 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { Channels } from '@src/enums/channels';
+import { ImageMagick } from '@src/image-magick';
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { TestImages } from '@test/test-images';
+
+function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
 
 describe('MagickImage#cropToTiles', () => {
     it('should crop the image to tiles', () => {
@@ -35,4 +39,15 @@ describe('MagickImage#cropToTiles', () => {
             expect(result).toBe('foo');
         });
     });
+
+    it('should crop the image to tiles', async () => {
+        await ImageMagick.read('logo:', async (image) => {
+            image.separate(Channels.Red, (images) => {
+                expect(images.length).toBe(1);
+            });
+
+            await bogusAsyncMethod();
+        });
+    });
 });
+
