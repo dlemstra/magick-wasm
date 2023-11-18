@@ -1812,10 +1812,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     /** @internal */
-    static _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    static _create<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     /** @internal */
-    static _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static _create<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    static _create<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         const image = MagickImage.create();
         return image._use<TReturnType>(func);
     }

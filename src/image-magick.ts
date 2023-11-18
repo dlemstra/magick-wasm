@@ -179,7 +179,7 @@ export class ImageMagick {
      */
     static read<TReturnType>(fileName: string, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static read<TReturnType>(colorOrArrayOrFileName: IMagickColor | ByteArray | string, widthOrFormatOrSetttingsOrFunc: number | MagickFormat | MagickReadSettings | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), heightOrFunc?: number | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        return MagickImage._use(image => {
+        return MagickImage._create(image => {
             let callback = func;
             if (typeof colorOrArrayOrFileName !== 'string' && !isByteArray(colorOrArrayOrFileName)) {
                 if (typeof widthOrFormatOrSetttingsOrFunc === 'number' && typeof heightOrFunc === 'number')
@@ -310,7 +310,7 @@ export class ImageMagick {
      */
     static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        return MagickImage._use(image => {
+        return MagickImage._create(image => {
             image.readFromCanvas(canvas);
             return func(image);
         });
