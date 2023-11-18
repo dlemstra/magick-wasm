@@ -9,7 +9,7 @@ import { MagickError } from './magick-error';
 import { MagickFormat } from './enums/magick-format';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
-import { ByteArray, isByteArray } from './byte-array';
+import { ByteArray, _isByteArray } from './byte-array';
 
 class WasmLocator implements IWasmLocator {
     private _wasmLocation: string | undefined;
@@ -181,7 +181,7 @@ export class ImageMagick {
     static read<TReturnType>(colorOrArrayOrFileName: IMagickColor | ByteArray | string, widthOrFormatOrSetttingsOrFunc: number | MagickFormat | MagickReadSettings | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), heightOrFunc?: number | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         return MagickImage._create(image => {
             let callback = func;
-            if (typeof colorOrArrayOrFileName !== 'string' && !isByteArray(colorOrArrayOrFileName)) {
+            if (typeof colorOrArrayOrFileName !== 'string' && !_isByteArray(colorOrArrayOrFileName)) {
                 if (typeof widthOrFormatOrSetttingsOrFunc === 'number' && typeof heightOrFunc === 'number')
                     image.read(colorOrArrayOrFileName, widthOrFormatOrSetttingsOrFunc, heightOrFunc);
             } else if (typeof widthOrFormatOrSetttingsOrFunc !== 'number' && typeof heightOrFunc !== 'number') {

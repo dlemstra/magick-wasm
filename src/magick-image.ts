@@ -3,7 +3,7 @@
 
 import { AlphaOption } from './enums/alpha-option';
 import { AutoThresholdMethod } from './enums/auto-threshold-method';
-import { ByteArray, isByteArray } from './byte-array';
+import { ByteArray, _isByteArray } from './byte-array';
 import { Channels } from './enums/channels';
 import { ChromaticityInfo } from './types/chromaticity-info';
 import { ClassType } from './enums/class-type';
@@ -1878,7 +1878,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
             if (typeof fileNameOrArrayOrColor === 'string') {
                 readSettings._fileName = fileNameOrArrayOrColor;
-            } else if (isByteArray(fileNameOrArrayOrColor)) {
+            } else if (_isByteArray(fileNameOrArrayOrColor)) {
                 this.readFromArray(fileNameOrArrayOrColor, readSettings, exception);
                 return;
             } else {
