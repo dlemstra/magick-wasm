@@ -38,7 +38,7 @@ function toHex(value: number): string {
 function pixelColor(image: IMagickImage, x: number, y: number): string {
     return image.getPixels(pixels => {
         let channelCount = image.channelCount;
-        if (image.channelOffset(PixelChannel.Index) !== -1)
+        if (image._channelOffset(PixelChannel.Index) !== -1)
             channelCount--;
 
         const pixel = pixels.getPixel(x, y);
@@ -50,24 +50,24 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
                 result += toHex(Quantum.max);
                 break;
             case 2:
-                result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
+                result += toHex(pixel[image._channelOffset(PixelChannel.Red)]);
                 if (image.hasAlpha)
-                    result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
+                    result += toHex(pixel[image._channelOffset(PixelChannel.Alpha)]);
                 else
                     result += toHex(Quantum.max);
                 break;
             case 3:
-                result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
-                result += toHex(pixel[image.channelOffset(PixelChannel.Green)]);
-                result += toHex(pixel[image.channelOffset(PixelChannel.Blue)]);
+                result += toHex(pixel[image._channelOffset(PixelChannel.Red)]);
+                result += toHex(pixel[image._channelOffset(PixelChannel.Green)]);
+                result += toHex(pixel[image._channelOffset(PixelChannel.Blue)]);
                 result += toHex(Quantum.max);
                 break;
             case 4:
-                result += toHex(pixel[image.channelOffset(PixelChannel.Red)]);
-                result += toHex(pixel[image.channelOffset(PixelChannel.Green)]);
-                result += toHex(pixel[image.channelOffset(PixelChannel.Blue)]);
+                result += toHex(pixel[image._channelOffset(PixelChannel.Red)]);
+                result += toHex(pixel[image._channelOffset(PixelChannel.Green)]);
+                result += toHex(pixel[image._channelOffset(PixelChannel.Blue)]);
                 if (image.hasAlpha)
-                    result += toHex(pixel[image.channelOffset(PixelChannel.Alpha)]);
+                    result += toHex(pixel[image._channelOffset(PixelChannel.Alpha)]);
                 else
                     result += toHex(Quantum.max);
                 break;

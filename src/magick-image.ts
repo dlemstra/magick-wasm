@@ -63,6 +63,8 @@ export interface IMagickImage extends IDisposable {
     /** @internal */
     _instance: number;
     /** @internal */
+    _channelOffset(pixelChannel: PixelChannel): number;
+    /** @internal */
     _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     /** @internal */
     _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
@@ -306,48 +308,329 @@ export interface IMagickImage extends IDisposable {
      */
     width: number;
 
+    /**
+     * Applies the specified alpha option.
+     * @param value - The option to use.
+     */
     alpha(value: AlphaOption): void;
+
+    /**
+     * Adjusts an image so that its orientation is suitable for viewing.
+     */
     autoOrient(): void;
+
+    /**
+     * Automatically selects a threshold and replaces each pixel in the image with a black pixel if
+     * the image intentsity is less than the selected threshold otherwise white.
+     * @param method - The threshold method to use.
+     */
     autoThreshold(method: AutoThresholdMethod): void;
+
+    /**
+     * Blur image with the default blur factor (0x1).
+     */
     blur(): void;
+
+    /**
+     * Blur the specified channel of the image with the default blur factor (0x1).
+     * @param channels - The channel(s) that should be blurred.
+     */
     blur(channels: Channels): void;
+
+    /**
+     * Blur image with specified blur factor.
+     * @param radius - The radius of the Gaussian in pixels, not counting the center pixel.
+     * @param sigma - The standard deviation of the Laplacian, in pixels.
+     */
     blur(radius: number, sigma: number): void;
+
+    /**
+     * Blur the specified channel(s) of the image with the specified blur factor.
+     * @param radius - The radius of the Gaussian in pixels, not counting the center pixel.
+     * @param sigma - The standard deviation of the Laplacian, in pixels.
+     * @param channels - The channel(s) that should be blurred.
+     */
     blur(radius: number, sigma: number, channels: Channels): void;
+
+    /**
+     * Add a border to the image.
+     * @param size - The size of the border.
+     */
     border(size: number): void;
+
+    /**
+     * Add a border to the image.
+     * @param width - The width of the border.
+     * @param height - The height of the border.
+     */
     border(width: number, height: number): void;
+
+    /**
+     * Changes the brightness and/or contrast of an image. It converts the brightness and
+     * contrast parameters into slope and intercept and calls a polynomical function to apply
+     * to the image.
+     * @param brightness - The brightness.
+     * @param contrast - The contrast.
+     */
     brightnessContrast(brightness: Percentage, contrast: Percentage): void;
+
+    /**
+     * Changes the brightness and/or contrast of an image. It converts the brightness and
+     * contrast parameters into slope and intercept and calls a polynomical function to apply
+     * to the image.
+     * @param brightness - The brightness.
+     * @param contrast - The contrast.
+     * @param channels - The channel(s) that should be changed.
+     */
     brightnessContrast(brightness: Percentage, contrast: Percentage, channels: Channels): void;
-    channelOffset(pixelChannel: PixelChannel): number;
+
+    /**
+     * Charcoal effect image (looks like charcoal sketch).
+     */
     charcoal(): void;
+
+    /**
+     * Charcoal effect image (looks like charcoal sketch).
+     * @param radius - The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma - The standard deviation of the Gaussian, in pixels.
+     */
     charcoal(radius: number, sigma: number): void;
+
+    /**
+     * A variant of adaptive histogram equalization in which the contrast amplification is limited,
+     * so as to reduce this problem of noise amplification.
+     * @param xTiles - The number of tile divisions to use in horizontal direction
+     * @param yTiles - The number of tile divisions to use in vertical direction.
+     * @param numberBins- The number of bins for histogram ("dynamic range").
+     * @param clipLimit - The contrast limit for localised changes in contrast. A limit less than 1 results in standard non-contrast limited AHE.
+     */
     clahe(xTiles: number, yTiles: number, numberBins: number, clipLimit: number): void;
+
+    /**
+     * A variant of adaptive histogram equalization in which the contrast amplification is limited,
+     * so as to reduce this problem of noise amplification.
+     * @param xTiles - The percentage of tile divisions to use in horizontal direction.
+     * @param yTiles - The percentage of tile divisions to use in vertical direction.
+     * @param numberBins - The number of bins for histogram ("dynamic range").
+     * @param clipLimit - The contrast limit for localised changes in contrast. A limit less than 1 results in standard non-contrast limited AHE.
+     */
     clahe(xTiles: Percentage, yTiles: Percentage, numberBins: number, clipLimit: number): void;
+
+    /**
+     * Creates a clone of the current image.
+     * @param func - The function to execute with the image.
+     */
     clone<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Creates a clone of the current image.
+     * @param func - The async function to execute with the image.
+     */
     clone<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Sets the alpha channel to the specified color.
+     * @param color - The color to use
+     */
     colorAlpha(color: IMagickColor): void;
+
+    /**
+     * Returns the distortion based on the specified metric.
+     * @param image - The other image to compare with this image.
+     * @param metric - The metric to use.
+     */
     compare(image: IMagickImage, metric: ErrorMetric): number;
+
+    /**
+     * Returns the distortion based on the specified metric.
+     * @param image - The other image to compare with this image.
+     * @param metric - The metric to use.
+     * @param channels - The channel(s) to compare.
+     */
     compare(image: IMagickImage, metric: ErrorMetric, channels: Channels): number;
+
+    /**
+     * Compose an image onto another at specified offset using the 'In' operator.
+     * @param image - The image to composite with this image.
+     */
     composite(image: IMagickImage): void;
+
+    /**
+     * Compose an image onto another using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param compose - The algorithm to use.
+     */
     composite(image: IMagickImage, compose: CompositeOperator): void;
+
+    /**
+     * Compose an image onto another using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param compose - The algorithm to use.
+     * @param channels - The channel(s) to composite.
+     */
     composite(image: IMagickImage, compose: CompositeOperator, channels: Channels): void;
+
+    /**
+     * Compose an image onto another using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param compose - The algorithm to use.
+     * @param args - The arguments for the algorithm (compose:args).
+     */
     composite(image: IMagickImage, compose: CompositeOperator, args: string): void;
+
+    /**
+     * Compose an image onto another using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param compose - The algorithm to use.
+     * @param args - The arguments for the algorithm (compose:args).
+     * @param channels - The channel(s) to composite.
+     */
     composite(image: IMagickImage, compose: CompositeOperator, args: string, channels: Channels): void;
+
+    /**
+     * Compose an image onto another at specified offset using the 'In' operator.
+     * @param image - The image to composite with this image.
+     * @param point - The offset to use.
+     */
     composite(image: IMagickImage, point: Point): void;
+
+    /**
+     * Compose an image onto another at specified offset using the 'In' operator.
+     * @param image - The image to composite with this image.
+     * @param point - The offset to use.
+     * @param channels - The channel(s) to composite.
+     */
     composite(image: IMagickImage, point: Point, channels: Channels): void;
+
+    /**
+     * Compose an image onto another at specified offset using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param compose - The algorithm to use.
+     * @param point - The offset to use.
+     */
     composite(image: IMagickImage, compose: CompositeOperator, point: Point): void;
+
+    /**
+     * Compose an image onto another at specified offset using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param compose - The algorithm to use.
+     * @param point - The offset to use.
+     * @param channels - The channel(s) to composite.
+     */
     composite(image: IMagickImage, compose: CompositeOperator, point: Point, channels: Channels): void;
+
+    /**
+     * Compose an image onto another at specified offset using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param compose - The algorithm to use.
+     * @param point - The offset to use.
+     * @param args - The arguments for the algorithm (compose:args).
+     */
     composite(image: IMagickImage, compose: CompositeOperator, point: Point, args: string): void;
+
+    /**
+     * Compose an image onto another at specified offset using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param compose - The algorithm to use.
+     * @param point - The offset to use.
+     * @param args - The arguments for the algorithm (compose:args).
+     * @param channels - The channel(s) to composite.
+     */
     composite(image: IMagickImage, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
+
+    /**
+     * Compose an image onto another using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param compose - The algorithm to use.
+     * @param gravity - The placement gravity.
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity): void;
+
+    /**
+     * Compose an image onto another using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param gravity - The placement gravity.
+     * @param channels - The channel(s) to composite.
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator): void;
+
+    /**
+     * Compose an image onto another using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param gravity - The placement gravity.
+     * @param compose - The algorithm to use.
+     * @param channels - The channel(s) to composite.
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, channels: Channels): void;
+
+    /**
+     * Compose an image onto another using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param gravity - The placement gravity.
+     * @param compose - The algorithm to use.
+     * @param args - The arguments for the algorithm (compose:args).
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, args: string): void;
+
+    /**
+     * Compose an image onto another using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param gravity - The placement gravity.
+     * @param compose - The algorithm to use.
+     * @param args - The arguments for the algorithm (compose:args).
+     * @param channels - The channel(s) to composite.
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, args: string, channels: Channels): void;
+
+    /**
+     * Compose an image onto another at specified offset using the 'In' operator.
+     * @param image - The image to composite with this image.
+     * @param point - The offset to use.
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity, point: Point): void;
+
+    /**
+     * Compose an image onto another at specified offset using the 'In' operator.
+     * @param image - The image to composite with this image.
+     * @param point - The offset to use.
+     * @param channels - The channel(s) to composite.
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity, point: Point, channels: Channels): void;
+
+    /**
+     * Compose an image onto another at specified offset using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param gravity - The placement gravity.
+     * @param point - The offset to use.
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point): void;
+
+    /**
+     * Compose an image onto another at specified offset using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param gravity - The placement gravity.
+     * @param point - The offset to use.
+     * @param channels - The channel(s) to composite.
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, channels: Channels): void;
+
+    /**
+     * Compose an image onto another at specified offset using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param gravity - The placement gravity.
+     * @param point - The offset to use.
+     * @param args - The arguments for the algorithm (compose:args).
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string): void;
+
+    /**
+     * Compose an image onto another at specified offset using the specified algorithm.
+     * @param image - The image to composite with this image.
+     * @param gravity - The placement gravity.
+     * @param point - The offset to use.
+     * @param args - The arguments for the algorithm (compose:args).
+     * @param channels - The channel(s) to composite.
+     */
     compositeGravity(image: IMagickImage, gravity: Gravity, compose: CompositeOperator, point: Point, args: string, channels: Channels): void;
 
     /**
@@ -366,126 +649,833 @@ export interface IMagickImage extends IDisposable {
      */
     connectedComponents(settings: ConnectedComponentsSettings): ConnectedComponent[];
 
+    /**
+     * Contrast image (enhance intensity differences in image).
+     */
     contrast(): void;
+
+    /**
+     * A simple image enhancement technique that attempts to improve the contrast in an image by
+     * 'stretching' the range of intensity values it contains to span a desired range of values.
+     * It differs from the more sophisticated histogram equalization in that it can only apply a
+     * linear scaling function to the image pixel values. As a result the 'enhancement' is less harsh.
+     * @param blackPoint - The black point.
+     */
     contrastStretch(blackPoint: Percentage): void;
+
+    /**
+     * A simple image enhancement technique that attempts to improve the contrast in an image by
+     * 'stretching' the range of intensity values it contains to span a desired range of values.
+     * It differs from the more sophisticated histogram equalization in that it can only apply a
+     * linear scaling function to the image pixel values. As a result the 'enhancement' is less harsh.
+     * @param blackPoint - The black point.
+     * @param channels - The channel(s) to use.
+     */
+    contrastStretch(blackPoint: Percentage, channels: Channels): void;
+
+    /**
+     * A simple image enhancement technique that attempts to improve the contrast in an image by
+     * 'stretching' the range of intensity values it contains to span a desired range of values.
+     * It differs from the more sophisticated histogram equalization in that it can only apply a
+     * linear scaling function to the image pixel values. As a result the 'enhancement' is less harsh.
+     * @param blackPoint - The black point.
+     * @param whitePoint - The white point.
+     */
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage): void;
-    contrastStretch(blackPoint: Percentage, whitePoint?: Percentage, channels?: Channels): void;
+
+    /**
+     * A simple image enhancement technique that attempts to improve the contrast in an image by
+     * 'stretching' the range of intensity values it contains to span a desired range of values.
+     * It differs from the more sophisticated histogram equalization in that it can only apply a
+     * linear scaling function to the image pixel values. As a result the 'enhancement' is less harsh.
+     * @param blackPoint - The black point.
+     * @param whitePoint - The white point.
+     * @param channels - The channel(s) to use.
+     */
+    contrastStretch(blackPoint: Percentage, whitePoint: Percentage, channels: Channels): void;
+
+    /**
+     * Crop image (subregion of original image). {@link repage } should be called unless the
+     * {@link page} information is needed.
+     * @param geometry - The subregion to crop.
+     */
     crop(geometry: IMagickGeometry): void;
+
+    /**
+     * Crop image (subregion of original image). {@link repage } should be called unless the
+     * {@link page} information is needed.
+     * @param geometry - The subregion to crop.
+     * @param gravity - The position where the cropping should start from.
+     */
     crop(geometry: IMagickGeometry, gravity: Gravity): void;
+
+    /**
+     * Crop image (subregion of original image). {@link repage } should be called unless the
+     * {@link page} information is needed.
+     * @param width  - The width of the subregion to crop.
+     * @param height - The height of the subregion to crop.
+     */
     crop(width: number, height: number): void;
+
+    /**
+     * Crop image (subregion of original image). {@link repage } should be called unless the
+     * {@link page} information is needed.
+     * @param width - The width of the subregion to crop.
+     * @param height - The height of the subregion to crop.
+     * @param gravity - The position where the cropping should start from.
+     */
     crop(width: number, height: number, gravity: Gravity): void;
+
+    /**
+     * Creates tiles of the current image in the specified dimension.
+     * @param geometry - The dimension of the tiles.
+     */
     cropToTiles(geometry: IMagickGeometry): IMagickImageCollection;
+
+    /**
+     * Removes skew from the image. Skew is an artifact that occurs in scanned images because of
+     * the camera being misaligned, imperfections in the scanning or surface, or simply because
+     * the paper was not placed completely flat when scanned. The value of threshold ranges
+     * from 0 to QuantumRange.
+     * @param threshold - The threshold.
+     */
     deskew(threshold: Percentage): number;
+
+    /**
+     * Distorts an image using various distortion methods, by mapping color lookups of the source
+     * image to a new destination image of the same size as the source image.
+     * @param method - The distortion method to use.
+     * @param params - An array containing the arguments for the distortion.
+     */
     distort(method: DistortMethod, params: number[]): void;
+
+    /**
+     * Distorts an image using various distortion methods, by mapping color lookups of the source
+     * image to a new destination image of the same size as the source image.
+     * @param method - The distortion method to use.
+     * @param settings - The settings for the distortion.
+     * @param params - An array containing the arguments for the distortion.
+     */
     distort(method: DistortMethod, settings: DistortSettings, params: number[]): void;
+
+    /**
+     * Draw on image using one or more drawables.
+     * @param drawables - The drawable(s) to draw on the image.
+     */
     draw(drawables: IDrawable[]): void;
+
+    /**
+     * Draw on image using one or more drawables.
+     * @param drawables - The drawable(s) to draw on the image.
+     */
     draw(...drawables: IDrawable[]): void;
+
+    /**
+     * Apply an arithmetic or bitwise operator to the image pixel quantums.
+     * @param channels - The channel(s) to apply the operator on.
+     * @param operator - The operator to use.
+     * @param value- The value to use.
+     */
     evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
+
+    /**
+     * Apply an arithmetic or bitwise operator to the image pixel quantums.
+     * @param channels - The channel(s) to apply the operator on.
+     * @param operator - The operator to use.
+     * @param value- The value to use.
+     */
     evaluate(channels: Channels, operator: EvaluateOperator, value: Percentage): void;
+
+    /**
+     * Apply an arithmetic or bitwise operator to the image pixel quantums.
+     * @param channels - The channel(s) to apply the operator on.
+     * @param geometry - The geometry to use.
+     * @param operator - The operator to use.
+     * @param value- The value to use.
+     */
     evaluate(channels: Channels, geometry: IMagickGeometry, operator: EvaluateOperator, value: number): void;
+
+    /**
+     * Apply an arithmetic or bitwise operator to the image pixel quantums.
+     * @param channels - The channel(s) to apply the operator on.
+     * @param geometry - The geometry to use.
+     * @param operator - The operator to use.
+     * @param value- The value to use.
+     */
     evaluate(channels: Channels, geometry: IMagickGeometry, operator: EvaluateOperator, value: Percentage): void;
+
+    /**
+     *  Extend the image as defined by the width and height.
+     * @param width - The width to extend the image to.
+     * @param height - The height to extend the image to.
+     */
     extent(width: number, height: number): void;
+
+    /**
+     *  Extend the image as defined by the width and height.
+     * @param width - The width to extend the image to.
+     * @param height - The height to extend the image to.
+     * @param gravity - The placement gravity.
+     */
     extent(width: number, height: number, gravity: Gravity): void;
+
+    /**
+     *  Extend the image as defined by the width and height.
+     * @param width - The width to extend the image to.
+     * @param height - The height to extend the image to.
+     * @param gravity - The placement gravity.
+     * @param backgroundColor - The background color to use.
+     */
     extent(width: number, height: number, backgroundColor: IMagickColor): void;
+
+    /**
+     *  Extend the image as defined by the width and height.
+     * @param geometry - The geometry to extend the image to.
+     */
     extent(geometry: IMagickGeometry): void;
+
+    /**
+     *  Extend the image as defined by the width and height.
+     * @param geometry - The geometry to extend the image to.
+     * @param gravity - The placement gravity.
+     */
     extent(geometry: IMagickGeometry, gravity: Gravity): void;
+
+    /**
+     *  Extend the image as defined by the width and height.
+     * @param geometry - The geometry to extend the image to.
+     * @param gravity - The placement gravity.
+     * @param backgroundColor - The background color to use.
+     */
     extent(geometry: IMagickGeometry, gravity: Gravity, backgroundColor: IMagickColor): void;
+
+    /**
+     *  Extend the image as defined by the width and height.
+     * @param geometry - The geometry to extend the image to.
+     * @param backgroundColor - The background color to use.
+     */
     extent(geometry: IMagickGeometry, backgroundColor: IMagickColor): void;
+
+    /**
+     * Flips image (reflect each scanline in the vertical direction).
+     */
     flip(): void;
+
+    /**
+     * Flop image (reflect each scanline in the horizontal direction).
+     */
     flop(): void;
+
+    /**
+     * Returns the value of the artifact with the specified name.
+     * @param name - The name of the artifact.
+     */
     getArtifact(name: string): string | null;
+
+    /**
+     * Returns the value of the attribute with the specified name.
+     * @param name - The name of the attribute.
+     */
     getAttribute(name: string): string | null;
-    getProfile(name: string): IImageProfile | null;
-    getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => TReturnType): TReturnType;
-    getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Get a pixel collection that can be used to read or modify the pixels of this image.
+     * @param func - The function to execute with the pixel collection.
+     */
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
+
+    /**
+     * Get a pixel collection that can be used to read or modify the pixels of this image.
+     * @param func - The async function to execute with the pixel collection.
+     */
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Retrieve a named profile from the image.
+     * @param name - The name of the profile.
+     */
+    getProfile(name: string): IImageProfile | null;
+
+    /**
+     * Gets the associated write mask of the image.
+     * @param func - The function to execute with the write mask.
+     */
+    getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => TReturnType): TReturnType;
+
+    /**
+     * Gets the associated write mask of the image.
+     * @param func - The async function to execute with the write mask.
+     */
+    getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Converts the colors in the image to gray.
+     */
     grayscale(): void;
+
+    /**
+     * Converts the colors in the image to gray.
+     * @param method - The pixel intensity method to use.
+     */
     grayscale(method: PixelIntensityMethod): void;
+
+    /**
+     * Creates a color histogram.
+     */
     histogram(): Map<string, number>;
+
+    /**
+     * Inverse contrast image (diminish intensity differences in image).
+     */
     inverseContrast(): void;
+
+    /**
+     * Changes any pixel that does not match the target with the color defined by fill.
+     * @param target - The color to replace.
+     * @param fill - The color to replace opaque color with.
+     */
     inverseOpaque(target: IMagickColor, fill: IMagickColor): void;
+
+    /**
+     * Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+     * @param contrast - The contrast.
+     */
     inverseSigmoidalContrast(contrast: number): void;
-    inverseSigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
+
+    /**
+     * Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+     * @param contrast - The contrast to use.
+     * @param midpoint - The midpoint to use.
+     */
+    inverseSigmoidalContrast(contrast: number, midpoint: Percentage): void;
+
+    /**
+     * Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+     * @param contrast - The contrast to use.
+     * @param midpoint - The midpoint to use.
+     */
     inverseSigmoidalContrast(contrast: number, midpoint: number): void;
+
+    /**
+     * Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+     * @param contrast - The contrast to use.
+     * @param midpoint - The midpoint to use.
+     * @param channels - The channel(s) that should be adjusted.
+     */
     inverseSigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
+
+    /**
+     * Add alpha channel to image, setting pixels that don't match the specified color to transparent.
+     * @param color - The color that should not be made transparent.
+     */
     inverseTransparent(color: IMagickColor): void;
+
+    /**
+     * Adjust the levels of the image by scaling the colors falling between specified white and
+     * black points to the full available quantum range. Uses a midpoint of 1.0.
+     * @param blackPoint - The darkest color in the image. Colors darker are set to zero.
+     * @param whitePoint - The lightest color in the image. Colors brighter are set to the maximum quantum value.
+     */
     level(blackPoint: Percentage, whitePoint: Percentage): void;
+
+    /**
+     * Adjust the levels of the image by scaling the colors falling between specified white and
+     * black points to the full available quantum range.
+     * @param blackPoint - The darkest color in the image. Colors darker are set to zero.
+     * @param whitePoint - The lightest color in the image. Colors brighter are set to the maximum quantum value.
+     * @param gamma - The gamma correction to apply to the image. (Useful range of 0 to 10).
+     */
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
+
+    /**
+     * Adjust the levels of the image by scaling the colors falling between specified white and
+     * black points to the full available quantum range.
+     * @param channels - The channel(s) to level.
+     * @param blackPoint - The darkest color in the image. Colors darker are set to zero.
+     * @param whitePoint - The lightest color in the image. Colors brighter are set to the maximum quantum value.
+     */
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
+
+    /**
+     * Adjust the levels of the image by scaling the colors falling between specified white and
+     * black points to the full available quantum range.
+     * @param channels - The channel(s) to level.
+     * @param blackPoint - The darkest color in the image. Colors darker are set to zero.
+     * @param whitePoint - The lightest color in the image. Colors brighter are set to the maximum quantum value.
+     * @param gamma - The gamma correction to apply to the image. (Useful range of 0 to 10).
+     */
     level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
+
+    /**
+     * Discards any pixels below the black point and above the white point and levels the remaining pixels.
+     * @param blackPoint - The black point.
+     * @param whitePoint - The white point.
+     */
     linearStretch(blackPoint: Percentage, whitePoint: Percentage): void;
+
+    /**
+     * Rescales image with seam carving.
+     * @param geometry - The geometry to use.
+     */
     liquidRescale(geometry: IMagickGeometry): void;
+
+    /**
+     * Rescales image with seam carving.
+     * @param width - The new width.
+     * @param height - The new height.
+     */
     liquidRescale(width: number, height: number): void;
+
+    /**
+     * Modulate percent brightness of an image.
+     * @param brightness - The brightness percentage.
+     */
     modulate(brightness: Percentage): void;
+
+    /**
+     * Modulate percent brightness and saturation of an image.
+     * @param brightness - The brightness percentage.
+     * @param saturation - The saturation percentage.
+     */
     modulate(brightness: Percentage, saturation: Percentage): void;
+
+    /**
+     * Modulate percent brightness, saturation and hue of an image.
+     * @param brightness - The brightness percentage.
+     * @param saturation - The saturation percentage.
+     * @param hue - The hue percentage.
+     */
     modulate(brightness: Percentage, saturation: Percentage, hue: Percentage): void;
-    motionBlur(radius: number, sigma: number, angle: number): void;
+
+    /**
+     * Applies a kernel to the image according to the given mophology settings.
+     * @param settings - The settings to use.
+     */
     morphology(settings: MorphologySettings): void;
+
+    /**
+     * Motion blur image with specified blur factor.
+     * @param radius - The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma - The standard deviation of the Gaussian, in pixels.
+     * @param angle - The angle the object appears to be comming from (zero degrees is from the right).
+     */
+    motionBlur(radius: number, sigma: number, angle: number): void;
+
+    /**
+     * Negate colors in image.
+     */
     negate(): void;
+
+    /**
+     * Negate colors in image for the specified channel.
+     * @param channels  - The channel(s) that should be negated.
+     */
     negate(channels: Channels): void;
+
+    /**
+     * Negate the grayscale colors in image.
+     */
     negateGrayScale(): void;
+
+    /**
+     * Negate the grayscale colors in image for the specified channel.
+     * @param channels - The channel(s) that should be negated.
+     */
     negateGrayScale(channels: Channels): void;
+
+    /**
+     * Normalize image (increase contrast by normalizing the pixel values to span the full range
+     * of color values).
+     */
     normalize(): void;
+
+    /**
+     * Oilpaint image (image looks like oil painting).
+     */
     oilPaint(): void;
+
+    /**
+     * Oilpaint image (image looks like oil painting).
+     * @param radius - The radius of the circular neighborhood.
+     */
     oilPaint(radius: number): void;
+
+    /**
+     * Changes any pixel that matches target with the color defined by fill.
+     * @param target - The color to replace.
+     * @param fill - The color to replace opaque color with.
+     */
     opaque(target: IMagickColor, fill: IMagickColor): void;
+
+    /**
+     * Reads only metadata and not the pixel data.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The settings to use when reading the image.
+     */
     ping(fileName: string, settings?: MagickReadSettings): void;
+
+    /**
+     * Reads only metadata and not the pixel data.
+     * @param array - The byte array to read the information from.
+     * @param settings - The settings to use when reading the image.
+     */
     ping(array: ByteArray, settings?: MagickReadSettings): void;
+
+    /**
+     * Read single image frame.
+     * @param color - The color to fill the image with.
+     * @param width - The width of the image.
+     * @param height - The height of the image.
+     */
     read(color: IMagickColor, width: number, height: number): void;
+
+    /**
+     * Read single image frame.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The settings to use when reading the image.
+     */
     read(fileName: string, settings?: MagickReadSettings): void;
+
+    /**
+     * Read single image frame.
+     * @param array - The byte array to read the image from.
+     * @param settings - The settings to use when reading the image.
+     */
     read(array: ByteArray, settings?: MagickReadSettings): void;
+
+    /**
+     * Read single image frame from canvas.
+     * @param canvas - The canvas to read the image from.
+     */
     readFromCanvas(canvas: HTMLCanvasElement): void;
+
+    /**
+     * Removes the artifact with the specified name.
+     * @param name - The name of the artifact.
+     */
     removeArtifact(name: string): void;
+
+    /**
+     * Removes the attribute with the specified name.
+     * @param name - The name of the attribute.
+     */
     removeAttribute(name: string): void;
+
+    /**
+     * Remove a named profile from the image.
+     * @param name - The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).
+     */
     removeProfile(name: string): void;
+
+    /**
+     * Removes the associated write mask of the image.
+     */
     removeWriteMask(): void;
+
+    /**
+     * Resets the page property of this image.
+     */
     repage(): void;
+
+    /**
+     * Resize image in terms of its pixel size.
+     * @param geometry - The geometry to use.
+     */
     resize(geometry: IMagickGeometry): void;
+
+    /**
+     * Resize image in terms of its pixel size.
+     * @param width - The new width.
+     * @param height - The new height.
+     */
     resize(width: number, height: number): void;
+
+    /**
+     * Rotate image clockwise by specified number of degrees.
+     * Specify a negative number for <paramref name="degrees"/> to rotate counter-clockwise.
+     * @param degrees - The number of degrees to rotate (positive to rotate clockwise, negative to rotate counter-clockwise).
+     */
     rotate(degrees: number): void;
+
+    /**
+     * Separates the channels from the image and returns it as grayscale images.
+     * @param func - The function to execute with the separated images.
+     */
     separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+
+    /**
+     * Separates the channels from the image and returns it as grayscale images.
+     * @param func - The async function to execute with the separated images.
+     */
     separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Separates the channels from the image and returns it as grayscale images.
+     * @param channels - The channel(s) to separate.
+     * @param func - The function to execute with the separated images.
+     */
     separate<TReturnType>(func: (images: IMagickImageCollection) => TReturnType, channels: Channels): TReturnType;
+
+    /**
+     * Separates the channels from the image and returns it as grayscale images.
+     * @param channels - The channel(s) to separate.
+     * @param func - The async function to execute with the separated images.
+     */
     separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>, channels: Channels): Promise<TReturnType>;
+
+    /**
+     * Applies a special effect to the image, similar to the effect achieved in a photo darkroom
+     * by sepia toning.
+     */
     sepiaTone(): void;
+
+    /**
+     * Applies a special effect to the image, similar to the effect achieved in a photo darkroom
+     * by sepia toning.
+     * @param threshold - The tone threshold.
+     */
     sepiaTone(threshold: number): void;
+
+    /**
+     * Applies a special effect to the image, similar to the effect achieved in a photo darkroom
+     * by sepia toning.
+     * @param threshold - The tone threshold.
+     */
     sepiaTone(threshold: Percentage): void;
+
+    /**
+     *  Inserts the artifact with the specified name and value into the artifact tree of the image.
+     * @param name - The name of the artifact.
+     * @param value - The value of the artifact.
+     */
     setArtifact(name: string, value: string): void;
+
+    /**
+     *  Inserts the artifact with the specified name and value into the artifact tree of the image.
+     * @param name - The name of the artifact.
+     * @param value - The value of the artifact.
+     */
     setArtifact(name: string, value: boolean): void;
+
+    /**
+     *  Inserts the attribute with the specified name and value into the artifact tree of the image.
+     * @param name - The name of the attribute.
+     * @param value - The value of the attribute.
+     */
     setAttribute(name: string, value: string): void;
+
+    /**
+     * Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
+     * @param name
+     * @param data
+     */
     setProfile(name: string, data: ByteArray): void
+
+    /**
+     * Sets the associated write mask of the image. The mask must be the same dimensions as the image and
+     * only contains the colors black and white or have grayscale values that will cause blended updates of
+     * the image.
+     * @param image - The image that contains the write mask.
+     */
     setWriteMask(image: IMagickImage): void;
+
+    /**
+     * Sharpen pixels in image.
+     */
     sharpen(): void;
+
+    /**
+     * Sharpen pixels in image.
+     * @param radius - The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma - The standard deviation of the Gaussian, in pixels.
+     */
     sharpen(radius: number, sigma: number): void;
+
+    /**
+     * Sharpen pixels in image.
+     * @param radius - The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma - The standard deviation of the Gaussian, in pixels.
+     * @param channels - The channel(s) that should be sharpened.
+     */
     sharpen(radius: number, sigma: number, channels: Channels): void;
+
+    /**
+     * Shave pixels from image edges.
+     * @param leftRight - The number of pixels to shave left and right.
+     * @param topBottom - The number of pixels to shave top and bottom.
+     */
     shave(leftRight: number, topBottom: number): void;
+
+    /**
+     * Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+     * @param contrast - The contrast to use.
+     */
     sigmoidalContrast(contrast: number): void;
-    sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
+
+    /**
+     * Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+     * @param contrast - The contrast to use.
+     * @param midpoint - The midpoint to use.
+     */
+    sigmoidalContrast(contrast: number, midpoint: Percentage): void;
+
+    /**
+     * Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+     * @param contrast - The contrast to use.
+     * @param midpoint - The midpoint to use.
+     */
     sigmoidalContrast(contrast: number, midpoint: number): void;
+
+    /**
+     * Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+     * @param contrast - The contrast to use.
+     * @param midpoint - The midpoint to use.
+     * @param channels - The channel(s) that should be adjusted.
+     */
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
-    splice(geometry: IMagickGeometry): void;
+
+    /**
+     * Solarize image (similar to effect seen when exposing a photographic film to light during
+     * the development process).
+     */
     solarize(): void;
+
+    /**
+     * Solarize image (similar to effect seen when exposing a photographic film to light during
+     * the development process).
+     * @param factor - The factor to use.
+     */
     solarize(factor: number): void;
+
+    /**
+     * Solarize image (similar to effect seen when exposing a photographic film to light during
+     * the development process).
+     * @param factor - The factor to use.
+     */
     solarize(factor: Percentage): void;
+
+    /**
+     * Splice the background color into the image.
+     * @param geometry - The geometry to use.
+     */
+    splice(geometry: IMagickGeometry): void;
+
+    /**
+     * Returns the image statistics.
+     */
     statistics(): IStatistics;
+
+    /**
+     * Returns the image statistics.
+     * @param channels - The channel(s) to use.
+     */
     statistics(channels: Channels): IStatistics;
+
+    /**
+     * Strips an image of all profiles and comments.
+     */
     strip(): void;
+
+    /**
+     * Threshold image.
+     * @param percentage - The threshold percentage.
+     */
     threshold(percentage: Percentage): void;
+
+    /**
+     * Threshold image.
+     * @param percentage - The threshold percentage.
+     * @param channels - The channel(s) that should be thresholded.
+     */
     threshold(percentage: Percentage, channels: Channels): void;
+
+    /**
+     * Returns a string that represents the current image.
+     */
     toString(): string;
+
+    /**
+     * Add alpha channel to image, setting pixels matching color to transparent.
+     * @param color The color to make transparent.
+     */
     transparent(color: IMagickColor): void;
+
+    /**
+     * Trim edges that are the background color from the image. The property {@link boundingBox} can be used to the
+     * coordinates of the area that will be extracted.
+     */
     trim(): void;
+
+    /**
+     * Trim the specified edges that are the background color from the image.
+     * @param edges The edges that need to be trimmed.
+     */
     trim(...edges: Gravity[]): void;
+
+    /**
+     * Trim edges that are the background color from the image. The property {@link boundingBox} can be used to the
+     * coordinates of the area that will be extracted.
+     * @param percentage - The percentage of background pixels permitted in the outer rows and columns.
+     */
     trim(percentage: Percentage): void;
+
+    /**
+     * Softens the edges of the image in vignette style.
+     */
     vignette(): void;
+
+    /**
+     * Softens the edges of the image in vignette style.
+     * @param radius - The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma - The standard deviation of the Gaussian, in pixels.
+     * @param x - The x ellipse offset.
+     * @param y - The y ellipse offset.
+     */
     vignette(radius: number, sigma: number, x: number, y: number): void;
+
+    /**
+     * Map image pixels to a sine wave.
+     */
     wave(): void;
+
+    /**
+     * Map image pixels to a sine wave.
+     * @param method - The pixel interpolate method.
+     * @param amplitude - The amplitude.
+     * @param length - The length of the wave.
+     */
     wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
+
+    /**
+     * Writes the image to a byte array.
+     * @param func - The function to execute with the byte array.
+     */
     write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
-    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
+
+    /**
+     * Writes the image to a byte array.
+     * @param func - The async function to execute with the byte array.
+     */
     write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Writes the image to a byte array.
+     * @param format - The format to use.
+     * @param func - The function to execute with the byte array.
+     */
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
+
+    /**
+     * Writes the image to a byte array.
+     * @param format - The format to use.
+     * @param func - The async function to execute with the byte array.
+     */
     write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Writes the image to the specified canvas.
+     * @param canvas - The canvas to write the image to.
+     */
     writeToCanvas(canvas: HTMLCanvasElement): void;
 }
 
@@ -874,13 +1864,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    channelOffset(pixelChannel: PixelChannel): number {
-        if (!ImageMagick._api._MagickImage_HasChannel(this._instance, pixelChannel))
-            return -1;
-
-        return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
-    }
-
     charcoal(): void;
     charcoal(radius: number, sigma: number): void;
     charcoal(radiusOrUndefined?: number, sigmaOrUndefined?: number): void {
@@ -1062,21 +2045,49 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     contrast = () => this._contrast(true);
 
     contrastStretch(blackPoint: Percentage): void;
+    contrastStretch(blackPoint: Percentage, channnels: Channels): void;
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage): void;
-    contrastStretch(blackPoint: Percentage, whitePointOrUndefined?: Percentage, channelsOrUndefined?: Channels): void {
+    contrastStretch(blackPoint: Percentage, whitePoint: Percentage, channnels: Channels): void;
+    contrastStretch(blackPoint: Percentage, whitePointOrChannelsOrUndefined?: Percentage | Channels, channelsOrUndefined?: Channels): void {
         const pixels = this.width * this.height;
         const lower = blackPoint.multiply(pixels);
-        const upper = pixels - (whitePointOrUndefined ?? blackPoint).multiply(pixels);
-        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+        let upper = 0;
+        let channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+        if (whitePointOrChannelsOrUndefined instanceof Percentage) {
+            upper = pixels - whitePointOrChannelsOrUndefined.multiply(pixels);
+        } else {
+            upper = pixels - blackPoint.multiply(pixels);
+            if (whitePointOrChannelsOrUndefined !== undefined)
+                channels = whitePointOrChannelsOrUndefined;
+        }
 
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_ContrastStretch(this._instance, lower, upper, channels, exception);
         });
     }
 
+    /**
+     * Creates a new {@link IMagickImage} instance.
+     */
     static create(): IMagickImage;
+    /**
+     * Creates a new {@link IMagickImage} instance.
+     * @param color - The color to fill the image with.
+     * @param width - The width of the image.
+     * @param height - The height of the image.
+     */
     static create(color: IMagickColor, width: number, height: number): IMagickImage;
+    /**
+     * Creates a new {@link IMagickImage} instance.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The settings to use when reading the image.
+     */
     static create(fileName: string, settings?: MagickReadSettings): IMagickImage;
+    /**
+     * Creates a new {@link IMagickImage} instance.
+     * @param array - The byte array to read the image from.
+     * @param settings - The settings to use when reading the image.
+     */
     static create(array: ByteArray, settings?: MagickReadSettings): IMagickImage;
     static create(fileNameOrArrayOrColorOrUndefined?: string | ByteArray | IMagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): IMagickImage {
         const image = new MagickImage(MagickImage.createInstance(), new MagickSettings());
@@ -1093,7 +2104,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         let geometry: IMagickGeometry;
         let gravity: Gravity;
 
-        if (typeof geometryOrWidth !== 'number' ) {
+        if (typeof geometryOrWidth !== 'number') {
             geometry = geometryOrWidth;
             gravity = this.valueOrDefault(heightOrGravity, Gravity.Undefined);
         } else if (heightOrGravity !== undefined) {
@@ -1265,6 +2276,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
+    getPixels<TReturnType>(func: (pixels: IPixelCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        if (this._settings._ping)
+            throw new MagickError('image contains no pixel data');
+
+        return PixelCollection._use(this, func);
+    }
+
     getProfile(name: string): IImageProfile | null {
         return _withString(name, namePtr => {
             const value = ImageMagick._api._MagickImage_GetProfile(this._instance, namePtr);
@@ -1287,15 +2307,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return func(image);
         else
             return image._use(func);
-    }
-
-    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
-    getPixels<TReturnType>(func: (pixels: IPixelCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        if (this._settings._ping)
-            throw new MagickError('image contains no pixel data');
-
-        return PixelCollection._use(this, func);
     }
 
     grayscale(method: PixelIntensityMethod = PixelIntensityMethod.Undefined): void {
@@ -1332,7 +2343,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     inverseOpaque = (target: IMagickColor, fill: IMagickColor) => this._opaque(target, fill, true);
 
     inverseSigmoidalContrast(contrast: number): void;
-    inverseSigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
+    inverseSigmoidalContrast(contrast: number, midpoint: Percentage): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     inverseSigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
@@ -1421,19 +2432,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    motionBlur(radius: number, sigma: number, angle: number): void {
-        Exception.use(exception => {
-            const instance = ImageMagick._api._MagickImage_MotionBlur(this._instance, radius, sigma, angle, exception.ptr);
-            this._setInstance(instance, exception);
-        });
-    }
-
     morphology(settings: MorphologySettings): void {
         Exception.use(exception => {
             _withString(settings.kernel, kernelPtr => {
                 const instance = ImageMagick._api._MagickImage_Morphology(this._instance, settings.method, kernelPtr, settings.channels, settings.iterations, exception.ptr);
                 this._setInstance(instance, exception);
             });
+        });
+    }
+
+    motionBlur(radius: number, sigma: number, angle: number): void {
+        Exception.use(exception => {
+            const instance = ImageMagick._api._MagickImage_MotionBlur(this._instance, radius, sigma, angle, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
@@ -1613,7 +2624,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     sigmoidalContrast(contrast: number): void;
-    sigmoidalContrast(contrast: number, midpointPercentage: Percentage): void;
+    sigmoidalContrast(contrast: number, midpoint: Percentage): void;
     sigmoidalContrast(contrast: number, midpoint: number): void;
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     sigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
@@ -1726,8 +2737,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
-    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
     write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
+    write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
     write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
     write<TReturnType>(funcOrFormat: ((data: Uint8Array) => TReturnType | Promise<TReturnType>) | MagickFormat, func?: (data: Uint8Array) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         let data = 0;
@@ -1784,6 +2795,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     /** @internal */
     static _createFromImage(instance: number, settings: MagickSettings): MagickImage {
         return new MagickImage(instance, settings);
+    }
+
+    /** @internal */
+    _channelOffset(pixelChannel: PixelChannel): number {
+        if (!ImageMagick._api._MagickImage_HasChannel(this._instance, pixelChannel))
+            return -1;
+
+        return ImageMagick._api._MagickImage_ChannelOffset(this._instance, pixelChannel);
     }
 
     /** @internal */
