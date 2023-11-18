@@ -4,11 +4,12 @@
 import { MagickErrorSeverity } from './enums/magick-error-severity';
 
 /**
- *
+ * Encapsulation of the ImageMagick exception object.
  */
 export class MagickError extends Error {
     private _relatedErrors: MagickError[] = [];
 
+    /** @internal */
     constructor(message: string, severity: MagickErrorSeverity = MagickErrorSeverity.Error) {
         super(message);
 
@@ -16,10 +17,13 @@ export class MagickError extends Error {
     }
 
     /**
-     *
+     * Gets the severity of an exception.
      */
     readonly severity: MagickErrorSeverity;
 
+    /**
+     * Gets the exceptions that are related to this exception.
+     */
     get relatedErrors(): ReadonlyArray<MagickError> { return this._relatedErrors; }
 
     /** @internal */
