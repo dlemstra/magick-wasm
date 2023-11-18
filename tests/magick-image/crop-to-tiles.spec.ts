@@ -6,8 +6,7 @@ import { ImageMagick } from '@src/image-magick';
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { TestImages } from '@test/test-images';
-
-function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
+import { bogusAsyncMethod } from '@test/bogus-async';
 
 describe('MagickImage#cropToTiles', () => {
     it('should crop the image to tiles', () => {

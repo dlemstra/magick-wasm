@@ -6,8 +6,7 @@ import { MagickColors } from '@src/magick-colors';
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
 import { TestImages } from '@test/test-images';
-
-function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
+import { bogusAsyncMethod } from '@test/bogus-async';
 
 describe('ImageMagick#read', () => {
     it('should read built-in image async', async () => {

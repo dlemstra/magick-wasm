@@ -4,8 +4,7 @@
 import { Channels } from '@src/enums/channels';
 import { ImageMagick } from '@src/image-magick';
 import { ColorSpace } from '@src/enums/color-space';
-
-function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
+import { bogusAsyncMethod } from '@test/bogus-async';
 
 describe('MagickImage#separate', () => {
     it('should supply the correct number of channels', () => {

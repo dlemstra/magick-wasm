@@ -3,8 +3,7 @@
 
 import { MagickFormat } from '@src/enums/magick-format';
 import { TestImages } from '@test/test-images';
-
-function bogusAsyncMethod(): Promise<number> { return new Promise(resolve => resolve(1)); }
+import { bogusAsyncMethod } from '@test/bogus-async';
 
 describe('MagickImage#write', () => {
     it('should save the image to an array async', async () => {
