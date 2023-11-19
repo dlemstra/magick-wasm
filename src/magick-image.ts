@@ -1656,16 +1656,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get chromaticity(): ChromaticityInfo {
         return new ChromaticityInfo(
-            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaRedPrimary_Get(this._instance)),
-            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaGreenPrimary_Get(this._instance)),
-            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaBluePrimary_Get(this._instance)),
-            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaWhitePoint_Get(this._instance)));
+            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaRed_Get(this._instance)),
+            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaGreen_Get(this._instance)),
+            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaBlue_Get(this._instance)),
+            PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaWhite_Get(this._instance)));
     }
     set chromaticity(value: ChromaticityInfo) {
-        value.blue._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaBluePrimary_Set(this._instance, primaryInfoPtr));
-        value.green._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaGreenPrimary_Set(this._instance, primaryInfoPtr));
-        value.red._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaRedPrimary_Set(this._instance, primaryInfoPtr));
-        value.white._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaWhitePoint_Set(this._instance, primaryInfoPtr));
+        value.blue._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaBlue_Set(this._instance, primaryInfoPtr));
+        value.green._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaGreen_Set(this._instance, primaryInfoPtr));
+        value.red._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaRed_Set(this._instance, primaryInfoPtr));
+        value.white._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaWhite_Set(this._instance, primaryInfoPtr));
     }
 
     get classType(): ClassType {
@@ -2461,7 +2461,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         }
 
         Exception.usePointer(exception => {
-            ImageMagick._api._MagickImage_Levelize(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, channels, exception);
+            ImageMagick._api._MagickImage_InverseLevel(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, channels, exception);
         });
     }
 
