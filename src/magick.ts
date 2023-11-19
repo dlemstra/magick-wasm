@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { DelegateRegistry } from './helpers/delegate-registry';
 import { ImageMagick } from './image-magick';
 import { LogEvent } from './events/log-event';
 import { MagickFormatInfo, IMagickFormatInfo } from './magick-format-info';
@@ -11,8 +12,6 @@ import { _createString, _withString } from './internal/native/string';
  * Interface that represents Magick.
  */
 export class Magick {
-    private static _logDelegate?: number;
-
     /**
      * Gets the ImageMagick delegate libraries.
      */
@@ -68,10 +67,8 @@ export class Magick {
      * @param eventTypes - The events that should be logged.
      */
     static setLogEvents(eventTypes: LogEventTypes): void {
-        if (Magick._logDelegate === undefined) {
-            Magick._logDelegate = ImageMagick._api.addFunction(Magick.logDelegate, 'vii');
-            ImageMagick._api._Magick_SetLogDelegate(Magick._logDelegate);
-        }
+        const delegate = eventTypes == LogEventTypes.None ? undefined : Magick.logDelegate;
+        DelegateRegistry.setLogDelegate(delegate);
 
         const eventTypeString = Magick.getEventTypeString(eventTypes);
         _withString(eventTypeString, instance => ImageMagick._api._Magick_SetLogEvents(instance));
@@ -86,13 +83,6 @@ export class Magick {
         }
 
         return fileName;
-    }
-
-    private static logDelegate(eventType: number, message: number): void {
-        if (Magick.onLog === undefined)
-            return;
-
-        Magick.onLog(new LogEvent(eventType as LogEventTypes, _createString(message, '')));
     }
 
     private static getEventTypeString(eventType: LogEventTypes): string {
@@ -124,5 +114,12 @@ export class Magick {
             default:
                 return 'None';
         }
+    }
+
+    private static logDelegate(event: LogEvent): void {
+        if (Magick.onLog === undefined)
+            return;
+
+        Magick.onLog(event);
     }
 }
