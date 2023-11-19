@@ -46,14 +46,14 @@
         "update-index": "cd tools && tsc && node update-index.js ../src"
     },
     "devDependencies": {
-        "@dlemstra/magick-native": "0.202311.101710",
+        "@dlemstra/magick-native": "0.202311.190807",
         "@rollup/plugin-esm-shim": "^0.1.5",
         "@types/jsdom": "21.1.5",
-        "@typescript-eslint/eslint-plugin": "6.10.0",
-        "@typescript-eslint/parser": "6.10.0",
+        "@typescript-eslint/eslint-plugin": "6.11.0",
+        "@typescript-eslint/parser": "6.11.0",
         "copyfiles": "2.4.1",
         "dts-bundle-generator": "8.1.2",
-        "eslint": "8.53.0",
+        "eslint": "8.54.0",
         "eslint-plugin-header": "3.1.1",
         "jsdom": "22.1.0",
         "set-value": "4.1.0",
