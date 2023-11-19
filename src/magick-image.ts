@@ -1233,6 +1233,12 @@ export interface IMagickImage extends IDisposable {
 
     /**
      * Remove a named profile from the image.
+     * @param profile - The profile to remove.
+     */
+    removeProfile(profile: IImageProfile): void;
+
+    /**
+     * Remove a named profile from the image.
      * @param name - The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).
      */
     removeProfile(name: string): void;
@@ -1329,8 +1335,14 @@ export interface IMagickImage extends IDisposable {
 
     /**
      * Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
-     * @param name
-     * @param data
+     * @param profile - The profile to set.
+     */
+    setProfile(profile: IImageProfile): void
+
+    /**
+     * Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
+     * @param name - The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).
+     * @param data - The profile data.
      */
     setProfile(name: string, data: ByteArray): void
 
@@ -2616,7 +2628,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    removeProfile(name: string): void {
+    removeProfile(profile: IImageProfile): void;
+    removeProfile(name: string): void;
+    removeProfile(nameOrProfile: string | IImageProfile): void {
+        const name = typeof nameOrProfile === 'string' ? nameOrProfile : nameOrProfile.name;
         _withString(name, namePtr => {
             ImageMagick._api._MagickImage_RemoveProfile(this._instance, namePtr);
         });
@@ -2707,7 +2722,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    setProfile(name: string, data: ByteArray): void {
+    setProfile(profile: IImageProfile): void
+    setProfile(pname: string, data: ByteArray): void
+    setProfile(nameOrProfile: string | IImageProfile, dataOrUndefined?: ByteArray): void {
+        const name = typeof nameOrProfile === 'string' ? nameOrProfile : nameOrProfile.name;
+        let data: ByteArray;
+        if (dataOrUndefined !== undefined)
+            data = dataOrUndefined;
+        else if (typeof nameOrProfile !== 'string')
+            data = nameOrProfile.data;
+
         Exception.use(exception => {
             _withString(name, namePtr => {
                 _withByteArray(data, dataPtr => {

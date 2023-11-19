@@ -13,20 +13,16 @@ export interface IImageProfile {
     /**
      * Returns the byte array of this profile.
      */
-    getData(): Uint8Array;
+    readonly data: Uint8Array;
 }
 
 export class ImageProfile implements IImageProfile {
-    private _data: Uint8Array;
-
     constructor(name: string, data: Uint8Array) {
         this.name = name;
-        this._data = data;
+        this.data = data;
     }
 
     readonly name: string;
 
-    getData(): Uint8Array {
-        return this._data;
-    }
+    readonly data: Uint8Array;
 }
