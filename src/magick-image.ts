@@ -13,6 +13,7 @@ import { CompositeOperator } from './enums/composite-operator';
 import { CompressionMethod } from './enums/compression-method';
 import { ConnectedComponent } from './types/connected-component';
 import { ConnectedComponentsSettings, Connectivity } from './settings/connected-components-settings';
+import { DelegateRegistry } from './helpers/delegate-registry';
 import { Density } from './types/density';
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
@@ -50,6 +51,7 @@ import { PixelInterpolateMethod } from './enums/pixel-interpolate-method';
 import { Point } from './types/point';
 import { Pointer } from './internal/pointer/pointer';
 import { PrimaryInfo } from './types/primary-info';
+import { ProgressEvent } from './events/progress-event';
 import { Quantum } from './quantum';
 import { RenderingIntent } from './enums/rendering-intent';
 import { Statistics, IStatistics } from './statistics/statistics';
@@ -273,6 +275,11 @@ export interface IMagickImage extends IDisposable {
      * Gets or sets the preferred size and location of an image canvas.
      */
     page: IMagickGeometry;
+
+    /**
+     * Event that will be raised when progress is reported by this image.
+     */
+    onProgress?: (event: ProgressEvent) => void;
 
     /**
      * Gets or sets the JPEG/MIFF/PNG compression level (default 75).
@@ -1556,6 +1563,7 @@ export interface IMagickImage extends IDisposable {
 
 export class MagickImage extends NativeInstance implements IMagickImage {
     private readonly _settings: MagickSettings;
+    private _progress?: (event: ProgressEvent) => number;
 
     private constructor(instance: number, settings: MagickSettings) {
         super(instance, ImageMagick._api._MagickImage_Dispose);
@@ -1828,6 +1836,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         value._toRectangle(rectangle => {
             ImageMagick._api._MagickImage_Page_Set(this._instance, rectangle);
         });
+    }
+
+    get onProgress(): ((event: ProgressEvent) => number) | undefined { return this._progress; }
+    set onProgress(value: ((event: ProgressEvent) => number) | undefined) {
+        if (value !== undefined)
+            DelegateRegistry.setProgressDelegate(this);
+        else
+            this.disposeProgressDelegate();
+
+        this._progress = value;
     }
 
     get quality(): number { return ImageMagick._api._MagickImage_Quality_Get(this._instance); }
@@ -2984,6 +3002,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return image._use<TReturnType>(func);
     }
 
+    protected override onDispose(): void {
+        this.disposeProgressDelegate();
+    }
+
     private _contrast(enhance: boolean) {
         Exception.usePointer(exception => {
             ImageMagick._api._MagickImage_Contrast(this._instance, this.fromBool(enhance), exception);
@@ -3032,6 +3054,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     private fromBool(value: boolean): number {
         return value ? 1 : 0;
+    }
+
+    private disposeProgressDelegate(): void {
+        DelegateRegistry.removeProgressDelegate(this);
+        this._progress = undefined;
     }
 
     private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | ByteArray | IMagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {

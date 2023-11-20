@@ -8,6 +8,8 @@ export abstract class NativeInstance {
     private readonly disposeMethod: (instance: number) => void;
     private instance: number;
 
+    protected onDispose?(): void;
+
     /** @internal */
     protected constructor(instance: number, disposeMethod: (instance: number) => void) {
         this.instance = instance;
@@ -50,8 +52,11 @@ export abstract class NativeInstance {
     }
 
     private disposeInstance(instance: number): number {
-        if (instance > 0)
+        if (instance > 0) {
+            if (this.onDispose !== undefined)
+                this.onDispose();
             this.disposeMethod(instance);
+        }
 
         return 0;
     }

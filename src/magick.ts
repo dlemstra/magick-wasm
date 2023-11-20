@@ -67,8 +67,8 @@ export class Magick {
      * @param eventTypes - The events that should be logged.
      */
     static setLogEvents(eventTypes: LogEventTypes): void {
-        const delegate = eventTypes == LogEventTypes.None ? undefined : Magick.logDelegate;
-        DelegateRegistry.setLogDelegate(delegate);
+        const logDelegate = eventTypes == LogEventTypes.None ? undefined : Magick.logDelegate;
+        DelegateRegistry.setLogDelegate(logDelegate);
 
         const eventTypeString = Magick.getEventTypeString(eventTypes);
         _withString(eventTypeString, instance => ImageMagick._api._Magick_SetLogEvents(instance));
