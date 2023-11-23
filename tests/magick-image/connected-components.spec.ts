@@ -12,7 +12,7 @@ type ComponentTestData = Required<Omit<ConnectedComponent, 'toGeometry'>>;
 
 describe('MagickImage#connectedComponents', () => {
     test('should return the connected components', () => {
-        TestImages.connectedComponents.use((image) => {
+        TestImages.connectedComponentsPng.use((image) => {
             image.clone((clone) => {
                 clone.blur(0, 10);
                 clone.threshold(new Percentage(50));

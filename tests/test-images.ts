@@ -114,7 +114,7 @@ export class TestImages {
     static readonly emptyCollection = new EmptyTestImageCollection();
     static readonly empty150x150Canvas = new TestImageFromColor(MagickColors.White, 150, 150);
     static readonly cmykJpg = new TestImage('tests/images/cmyk.jpg');
-    static readonly connectedComponents = new TestImage('tests/images/connected-components.png');
+    static readonly connectedComponentsPng = new TestImage('tests/images/connected-components.png');
     static readonly fujiFilmFinePixS1ProJpg = new TestImage('tests/images/fuji-film-fine-pix-s1-pro.jpg');
     static readonly imageMagickJpg = new TestImage('tests/images/image-magick.jpg');
     static readonly redPng = new TestImage('tests/images/red.png');
