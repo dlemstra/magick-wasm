@@ -59,6 +59,7 @@ export * from './enums/text-decoration';
 export * from './enums/virtual-pixel-method';
 export * from './events/log-event';
 export * from './events/progress-event';
+export * from './events/warning-event';
 export * from './formats/dng/dng-interpolation';
 export * from './formats/dng/dng-output-color';
 export * from './formats/dng/dng-read-defines';

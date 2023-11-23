@@ -6,6 +6,121 @@
  */
 export enum MagickErrorSeverity {
     /**
+     * Warning.
+     */
+    Warning = 300,
+
+    /**
+     * Resource limit warning.
+     */
+    ResourceLimitWarning = 300,
+
+    /**
+     * Type warning.
+     */
+    TypeWarning = 305,
+
+    /**
+     * Option warning.
+     */
+    OptionWarning = 310,
+
+    /**
+     * Delegate warning.
+     */
+    DelegateWarning = 315,
+
+    /**
+     * Missing delegate warning.
+     */
+    MissingDelegateWarning = 320,
+
+    /**
+     * Corrupt image warning.
+     */
+    CorruptImageWarning = 325,
+
+    /**
+     * File open warning.
+     */
+    FileOpenWarning = 330,
+
+    /**
+     * Blob warning.
+     */
+    BlobWarning = 335,
+
+    /**
+     * Stream warning.
+     */
+    StreamWarning = 340,
+
+    /**
+     * Cache warning.
+     */
+    CacheWarning = 345,
+
+    /**
+     * Coder warning.
+     */
+    CoderWarning = 350,
+
+    /**
+     * Filter warning.
+     */
+    FilterWarning = 352,
+
+    /**
+     * Module warning.
+     */
+    ModuleWarning = 355,
+
+    /**
+     * Draw warning.
+     */
+    DrawWarning = 360,
+
+    /**
+     * Image warning.
+     */
+    ImageWarning = 365,
+
+    /**
+     * Wand warning.
+     */
+    WandWarning = 370,
+
+    /**
+     * Random warning.
+     */
+    RandomWarning = 375,
+
+    /**
+     * X server warning.
+     */
+    XServerWarning = 380,
+
+    /**
+     * Monitor warning.
+     */
+    MonitorWarning = 385,
+
+    /**
+     * Registry warning.
+     */
+    RegistryWarning = 390,
+
+    /**
+     * Configure warning.
+     */
+    ConfigureWarning = 395,
+
+    /**
+     * Policy warning.
+     */
+    PolicyWarning = 399,
+
+    /**
      * Error.
      */
     Error = 400,

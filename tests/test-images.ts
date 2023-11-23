@@ -119,6 +119,7 @@ export class TestImages {
     static readonly imageMagickJpg = new TestImage('tests/images/image-magick.jpg');
     static readonly redPng = new TestImage('tests/images/red.png');
     static readonly roseSparkleGif = new TestImageCollection('tests/images/röse-sparkle.gif');
+    static readonly warningJpg = new TestImage('tests/images/warning.jpg');
 
     static Builtin = class {
         static readonly logo = new BuiltinTestImage('logo:');

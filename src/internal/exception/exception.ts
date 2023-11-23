@@ -24,31 +24,35 @@ export class Exception {
         return success();
     }
 
-    static usePointer<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
+    static usePointer<TReturnType>(func: (exception: number) => TReturnType, onWarning?: (error: MagickError) => void): TReturnType {
         return Pointer.use(pointer => {
             const result = func(pointer.ptr);
 
-            return Exception.checkException(pointer, result);
+            return Exception.checkException(pointer, result, onWarning);
         });
     }
 
-    static use<TReturnType>(func: (exception: Exception) => TReturnType): TReturnType {
+    static use<TReturnType>(func: (exception: Exception) => TReturnType, onWarning?: (error: MagickError) => void): TReturnType {
         return Pointer.use(pointer => {
             const result = func(new Exception(pointer));
 
-            return Exception.checkException(pointer, result);
+            return Exception.checkException(pointer, result, onWarning);
         });
     }
 
-    private static checkException<TReturnType>(exception: Pointer, result: TReturnType): TReturnType {
+    private static checkException<TReturnType>(exception: Pointer, result: TReturnType, onWarning?: (error: MagickError) => void): TReturnType {
         if (!Exception.isRaised(exception))
             return result;
 
         const severity = Exception.getErrorSeverity(exception.value);
         if (severity >= MagickErrorSeverity.Error)
             Exception.throw(exception, severity);
-        else
+        else if (onWarning !== undefined) {
+            const error = Exception.createError(exception.value, severity);
+            onWarning(error);
+        } else {
             Exception.dispose(exception);
+        }
 
         return result;
     }

@@ -58,6 +58,7 @@ import { Statistics, IStatistics } from './statistics/statistics';
 import { StringInfo } from './internal/string-info';
 import { TemporaryDefines } from './helpers/temporary-defines';
 import { VirtualPixelMethod } from './enums/virtual-pixel-method';
+import { WarningEvent } from './events/warning-event';
 import { _createString, _withString } from './internal/native/string';
 import { _getEdges } from './enums/gravity';
 import { _withByteArray, _withDoubleArray } from './internal/native/array';
@@ -280,6 +281,11 @@ export interface IMagickImage extends IDisposable {
      * Event that will be raised when progress is reported by this image.
      */
     onProgress?: (event: ProgressEvent) => void;
+
+    /**
+     * Event that will we raised when a warning is raised by ImageMagick.
+     */
+    onWarning?: (event:  WarningEvent) => void;
 
     /**
      * Gets or sets the JPEG/MIFF/PNG compression level (default 75).
@@ -1564,6 +1570,7 @@ export interface IMagickImage extends IDisposable {
 export class MagickImage extends NativeInstance implements IMagickImage {
     private readonly _settings: MagickSettings;
     private _progress?: (event: ProgressEvent) => number;
+    private _warning?: (event: WarningEvent) => number;
 
     private constructor(instance: number, settings: MagickSettings) {
         super(instance, ImageMagick._api._MagickImage_Dispose);
@@ -1640,7 +1647,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get boundingBox(): IMagickGeometry | null {
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             const boundingBox = ImageMagick._api._MagickImage_BoundingBox_Get(this._instance, exception);
             const geometry = MagickGeometry._fromRectangle(boundingBox);
             if (geometry.width === 0 || geometry.height === 0)
@@ -1677,12 +1684,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get classType(): ClassType {
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             return ImageMagick._api._MagickImage_ClassType_Get(this._instance, exception);
         });
     }
     set classType(value: ClassType) {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_ClassType_Set(this._instance, value, exception);
         });
     }
@@ -1691,23 +1698,23 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set colorFuzz(value: Percentage) { ImageMagick._api._MagickImage_ColorFuzz_Set(this._instance, value._toQuantum()); }
 
     get colormapSize(): number {
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             return ImageMagick._api._MagickImage_ColormapSize_Get(this._instance, exception);
         });
     }
     set colormapSize(value: number) {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_ColormapSize_Set(this._instance, value, exception);
         });
     }
 
     get colorSpace(): ColorSpace {
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             return ImageMagick._api._MagickImage_ColorSpace_Get(this._instance, exception);
         });
     }
     set colorSpace(value: ColorSpace) {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_ColorSpace_Set(this._instance, value, exception);
         });
     }
@@ -1717,12 +1724,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return this.settings.colorType;
         }
 
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             return ImageMagick._api._MagickImage_ColorType_Get(this._instance, exception);
         });
     }
     set colorType(value: ColorType) {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_ColorType_Set(this._instance, value, exception);
         });
     }
@@ -1779,12 +1786,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set gifDisposeMethod(value: GifDisposeMethod) { ImageMagick._api._MagickImage_GifDisposeMethod_Set(this._instance, value); }
 
     get hasAlpha(): boolean {
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             return this.toBool(ImageMagick._api._MagickImage_HasAlpha_Get(this._instance, exception));
         });
     }
     set hasAlpha(value: boolean) {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             if (value)
                 this.alpha(AlphaOption.Opaque);
 
@@ -1797,7 +1804,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     get interlace(): Interlace { return ImageMagick._api._MagickImage_Interlace_Get(this._instance); }
 
     get isOpaque(): boolean {
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             return this.toBool(ImageMagick._api._MagickImage_IsOpaque_Get(this._instance, exception));
         });
     }
@@ -1848,6 +1855,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this._progress = value;
     }
 
+    get onWarning(): ((event: WarningEvent) => number) | undefined { return this._warning; }
+    set onWarning(value: ((event: WarningEvent) => number) | undefined) { this._warning = value; }
+
     get quality(): number { return ImageMagick._api._MagickImage_Quality_Get(this._instance); }
     set quality(value: number) {
         let quality = value < 1 ? 1 : value;
@@ -1869,24 +1879,24 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get signature(): string | null {
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             return _createString(ImageMagick._api._MagickImage_Signature_Get(this._instance, exception));
         });
     }
 
     get totalColors(): number {
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             return ImageMagick._api._MagickImage_TotalColors_Get(this._instance, exception);
         });
     }
 
     get virtualPixelMethod(): VirtualPixelMethod {
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             return ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance, exception);
         });
     }
     set virtualPixelMethod(value: VirtualPixelMethod) {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_VirtualPixelMethod_Set(this._instance, value, exception);
         });
     }
@@ -1894,20 +1904,20 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
 
     alpha(value: AlphaOption): void {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_SetAlpha(this._instance, value, exception);
         });
     }
 
     autoOrient(): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_AutoOrient(this._instance, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
 
     autoThreshold(method: AutoThresholdMethod): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             ImageMagick._api._MagickImage_AutoThreshold(this._instance, method, exception.ptr);
         });
     }
@@ -1926,7 +1936,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         else if (radiusOrChannel !== undefined)
             channels = radiusOrChannel;
 
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Blur(this._instance, radius, sigma, channels, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -1939,7 +1949,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const height = this.valueOrDefault(heightOrUndefined, sizeOrWidth);
         const geometry = new MagickGeometry(0, 0, width, height);
 
-        Exception.use(exception => {
+        this.useException(exception => {
             geometry._toRectangle(rectangle => {
                 const instance = ImageMagick._api._MagickImage_Border(this._instance, rectangle, exception.ptr);
                 this._setInstance(instance, exception);
@@ -1952,7 +1962,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     brightnessContrast(brightness: Percentage, contrast: Percentage, channelsOrUndefined?: Channels): void {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
 
-        Exception.use(exception => {
+        this.useException(exception => {
             ImageMagick._api._MagickImage_BrightnessContrast(this._instance, brightness.toDouble(), contrast.toDouble(), channels, exception.ptr);
         });
     }
@@ -1962,7 +1972,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     charcoal(radiusOrUndefined?: number, sigmaOrUndefined?: number): void {
         const radius = radiusOrUndefined === undefined ? 0 : radiusOrUndefined;
         const sigma = sigmaOrUndefined === undefined ? 1 : sigmaOrUndefined;
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Charcoal(this._instance, radius, sigma, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -1971,7 +1981,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     clahe(xTiles: number, yTiles: number, numberBins: number, clipLimit: number): void;
     clahe(xTiles: Percentage, yTiles: Percentage, numberBins: number, clipLimit: number): void;
     clahe(xTiles: number | Percentage, yTiles: number | Percentage, numberBins: number, clipLimit: number): void {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             const xTilesValue = xTiles instanceof Percentage ? xTiles.multiply(this.width) : xTiles;
             const yTilesValue = yTiles instanceof Percentage ? yTiles.multiply(this.height) : yTiles;
             ImageMagick._api._MagickImage_Clahe(this._instance, xTilesValue, yTilesValue, numberBins, clipLimit, exception);
@@ -1998,7 +2008,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     compare(image: IMagickImage, metric: ErrorMetric): number;
     compare(image: IMagickImage, metric: ErrorMetric, channels: Channels): number;
     compare(image: IMagickImage, metric: ErrorMetric, channelsOrUndefined?: Channels): number {
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
             return ImageMagick._api._MagickImage_CompareDistortion(this._instance, image._instance, metric, channels, exception);
         });
@@ -2049,7 +2059,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         if (args !== null)
             this.setArtifact('compose:args', args);
 
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Composite(this._instance, image._instance, x, y, compose, channels, exception);
         });
 
@@ -2102,7 +2112,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         if (args !== null)
             this.setArtifact('compose:args', args);
 
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_CompositeGravity(this._instance, image._instance, gravity, x, y, compose, channels, exception);
         });
 
@@ -2117,7 +2127,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         settings._setArtifacts(this);
 
-        const connectedComponents = Exception.use((exception) => {
+        const connectedComponents = this.useException((exception) => {
             return Pointer.use((objects) => {
                 try {
                     const instance = ImageMagick._api._MagickImage_ConnectedComponents(this._instance, settings.connectivity, objects.ptr, exception.ptr);
@@ -2154,7 +2164,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 channels = whitePointOrChannelsOrUndefined;
         }
 
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_ContrastStretch(this._instance, lower, upper, channels, exception);
         });
     }
@@ -2205,7 +2215,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             gravity = this.valueOrDefault(gravityOrUndefined, Gravity.Undefined);
         }
 
-        Exception.use(exception => {
+        this.useException(exception => {
             _withString(geometry.toString(), geometryPtr => {
                 const instance = ImageMagick._api._MagickImage_Crop(this._instance, geometryPtr, gravity, exception.ptr);
                 this._setInstance(instance, exception);
@@ -2228,7 +2238,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             func = funcOrHeight;
         }
 
-        return Exception.use(exception => {
+        return this.useException(exception => {
             return _withString(geometry.toString(), geometryPtr => {
                 const images = ImageMagick._api._MagickImage_CropToTiles(this._instance, geometryPtr, exception.ptr);
                 const collection = MagickImageCollection._createFromImages(images, this._settings);
@@ -2245,7 +2255,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 temporaryDefines.setArtifact("deskew:auto-crop", autoCrop);
             }
 
-            Exception.use(exception => {
+            this.useException(exception => {
                 const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold._toQuantum(), exception.ptr);
                 this._setInstance(instance, exception);
             });
@@ -2277,7 +2287,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             }
 
             const distortArgs = params ?? [];
-            Exception.use(exception => {
+            this.useException(exception => {
                 _withDoubleArray(distortArgs, (distortArgsPtr: number) => {
                     const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, distortArgsPtr, distortArgs.length, exception.ptr);
                     this._setInstance(instance, exception)
@@ -2306,7 +2316,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         if (typeof operatorOrGeometry === 'number') {
             const operator = operatorOrGeometry;
             const value = typeof valueOrPercentageOrOperator === 'number' ? valueOrPercentageOrOperator : valueOrPercentageOrOperator._toQuantum();
-            Exception.usePointer(exception => {
+            this.useExceptionPointer(exception => {
                 ImageMagick._api._MagickImage_EvaluateOperator(this._instance, channels, operator, value, exception);
             });
         } else if (valueOrPercentage !== undefined) {
@@ -2320,7 +2330,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             if (geometry.isPercentage)
                 throw new MagickError('percentage is not supported');
 
-            Exception.usePointer(exception => {
+            this.useExceptionPointer(exception => {
                 MagickRectangle.use(this, geometry, rectangle => {
                     ImageMagick._api._MagickImage_EvaluateGeometry(this._instance, channels, rectangle, operator, value, exception);
                 })
@@ -2355,7 +2365,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         else if (backgroundColorOrGravity !== undefined)
             this.backgroundColor = backgroundColorOrGravity;
 
-        Exception.use(exception => {
+        this.useException(exception => {
             _withString(geometry.toString(), geometryPtr => {
                 const instance = ImageMagick._api._MagickImage_Extent(this._instance, geometryPtr, gravity, exception.ptr);
                 this._setInstance(instance, exception);
@@ -2364,14 +2374,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     flip(): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Flip(this._instance, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
 
     flop(): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Flop(this._instance, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -2385,7 +2395,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     getAttribute(name: string): string | null {
-        return Exception.use(exception => {
+        return this.useException(exception => {
             return _withString(name, namePtr => {
                 const value = ImageMagick._api._MagickImage_GetAttribute(this._instance, namePtr, exception.ptr);
                 return _createString(value);
@@ -2416,7 +2426,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => TReturnType): TReturnType;
     getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => Promise<TReturnType>): Promise<TReturnType>;
     getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        const instance = Exception.usePointer(exception => {
+        const instance = this.useExceptionPointer(exception => {
             return ImageMagick._api._MagickImage_GetWriteMask(this._instance, exception);
         });
         const image = instance === 0 ? null : new MagickImage(instance, new MagickSettings());
@@ -2427,7 +2437,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     grayscale(method: PixelIntensityMethod = PixelIntensityMethod.Undefined): void {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Grayscale(this._instance, method, exception);
         });
     }
@@ -2435,7 +2445,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     histogram(): Map<string, number> {
         const result = new Map<string, number>();
 
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             Pointer.use(lengthPointer => {
                 const histogram = ImageMagick._api._MagickImage_Histogram(this._instance, lengthPointer.ptr, exception);
                 if (histogram !== 0) {
@@ -2478,7 +2488,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 gamma = whitePointPercentageOrGamma;
         }
 
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_InverseLevel(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, channels, exception);
         });
     }
@@ -2516,13 +2526,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 gamma = whitePointPercentageOrGamma;
         }
 
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, channels, exception);
         });
     }
 
     linearStretch(blackPoint: Percentage, whitePoint: Percentage): void {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_LinearStretch(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), exception);
         });
     }
@@ -2531,7 +2541,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     liquidRescale(width: number, height: number): void;
     liquidRescale(widthOrGeometry: number | IMagickGeometry, height?: number): void {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, height as number) : widthOrGeometry;
-        Exception.use(exception => {
+        this.useException(exception => {
             _withString(geometry.toString(), geometryPtr => {
                 const instance = ImageMagick._api._MagickImage_LiquidRescale(this._instance, geometryPtr, geometry.x, geometry.y, exception.ptr);
                 this._setInstance(instance, exception);
@@ -2541,7 +2551,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     negate(): void;
     negate(channelsOrUndefined?: Channels): void {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
             ImageMagick._api._MagickImage_Negate(this._instance, 0, channels, exception);
         });
@@ -2549,14 +2559,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     negateGrayScale(): void;
     negateGrayScale(channelsOrUndefined?: Channels): void {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
             ImageMagick._api._MagickImage_Negate(this._instance, 1, channels, exception);
         });
     }
 
     normalize(): void {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Normalize(this._instance, exception);
         });
     }
@@ -2567,7 +2577,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     modulate(brightness: Percentage, saturationOrUndefined?: Percentage, hueOrUndefined?: Percentage): void {
         const saturation = this.valueOrDefault(saturationOrUndefined, new Percentage(100));
         const hue = this.valueOrDefault(hueOrUndefined, new Percentage(100));
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             const modulate = `${brightness.toDouble()}/${saturation.toDouble()}/${hue.toDouble()}`;
             _withString(modulate, modulatePtr => {
                 ImageMagick._api._MagickImage_Modulate(this._instance, modulatePtr, exception);
@@ -2576,7 +2586,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     morphology(settings: MorphologySettings): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             _withString(settings.kernel, kernelPtr => {
                 const instance = ImageMagick._api._MagickImage_Morphology(this._instance, settings.method, kernelPtr, settings.channels, settings.iterations, exception.ptr);
                 this._setInstance(instance, exception);
@@ -2585,7 +2595,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     motionBlur(radius: number, sigma: number, angle: number): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_MotionBlur(this._instance, radius, sigma, angle, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -2596,7 +2606,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     oilPaint(radiusOrUndefined?: number): void {
         const radius = this.valueOrDefault(radiusOrUndefined, 3);
         const sigma = 0.0; // Not used due to precision issue in GetOptimalKernelWidth2D.
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_OilPaint(this._instance, radius, sigma, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -2629,7 +2639,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         settings.width = canvas.width;
         settings.height = canvas.height;
 
-        Exception.use(exception => {
+        this.useException(exception => {
             this.readFromArray(imageData.data, settings, exception);
         });
     }
@@ -2656,7 +2666,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     removeWriteMask(): void {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_SetWriteMask(this._instance, 0, exception);
         });
     }
@@ -2669,7 +2679,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     resize(width: number, height: number): void;
     resize(widthOrGeometry: number | IMagickGeometry, heightOrUndefined?: number): void {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, heightOrUndefined as number) : widthOrGeometry;
-        Exception.use(exception => {
+        this.useException(exception => {
             _withString(geometry.toString(), geometryPtr => {
                 const instance = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(instance, exception);
@@ -2678,7 +2688,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     rotate(degrees: number): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Rotate(this._instance, degrees, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -2689,7 +2699,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     separate<TReturnType>(channels: Channels, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     separate<TReturnType>(channels: Channels, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     separate<TReturnType>(funcOrChannels: ((images: IMagickImageCollection) => TReturnType | Promise<TReturnType>) | Channels, funcOrUndefined?: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        return Exception.use(exception => {
+        return this.useException(exception => {
             let func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>;
             let channels: Channels = Channels.Undefined;
             if (typeof funcOrChannels === 'number' && funcOrUndefined !== undefined) {
@@ -2709,7 +2719,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     sepiaTone(): void
     sepiaTone(numberOrPercentage: Percentage | number = new Percentage(80)): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             const threshold = typeof numberOrPercentage === 'number' ? new Percentage(numberOrPercentage) : numberOrPercentage;
             const instance = ImageMagick._api._MagickImage_SepiaTone(this._instance, threshold._toQuantum(), exception.ptr);
             this._setInstance(instance, exception);
@@ -2731,7 +2741,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     setAttribute(name: string, value: string): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             _withString(name, namePtr => {
                 _withString(value, valuePtr => {
                     ImageMagick._api._MagickImage_SetAttribute(this._instance, namePtr, valuePtr, exception.ptr);
@@ -2750,7 +2760,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         else if (typeof nameOrProfile !== 'string')
             data = nameOrProfile.data;
 
-        Exception.use(exception => {
+        this.useException(exception => {
             _withString(name, namePtr => {
                 _withByteArray(data, dataPtr => {
                     ImageMagick._api._MagickImage_SetProfile(this._instance, namePtr, dataPtr, data.byteLength, exception.ptr);
@@ -2760,7 +2770,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     setWriteMask(image: IMagickImage): void {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_SetWriteMask(this._instance, image._instance, exception);
         });
     }
@@ -2773,14 +2783,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const sigma = this.valueOrDefault(sigmaOrUndefined, 1.0);
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
 
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Sharpen(this._instance, radius, sigma, channels, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
 
     shave(leftRight: number, topBottom: number) {
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Shave(this._instance, leftRight, topBottom, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -2796,7 +2806,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     solarize(): void
     solarize(numberOrPercentage: Percentage | number = new Percentage(50)): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             const factor = typeof numberOrPercentage === 'number' ? new Percentage(numberOrPercentage) : numberOrPercentage;
             ImageMagick._api._MagickImage_Solarize(this._instance, factor._toQuantum(), exception.ptr);
         });
@@ -2804,7 +2814,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     splice(geometry: IMagickGeometry): void {
         MagickRectangle.use(this, geometry, geometryPtr => {
-            Exception.use(exception => {
+            this.useException(exception => {
                 const instance = ImageMagick._api._MagickImage_Splice(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(instance, exception);
             });
@@ -2815,7 +2825,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     statistics(channels: Channels): IStatistics;
     statistics(channelsOrUndefined?: Channels): IStatistics {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.All);
-        return Exception.usePointer(exception => {
+        return this.useExceptionPointer(exception => {
             const list = ImageMagick._api._MagickImage_Statistics(this._instance, channels, exception);
             const statistics = Statistics._create(this, list, channels);
             ImageMagick._api._Statistics_DisposeList(list);
@@ -2824,7 +2834,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     strip(): void {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Strip(this._instance, exception);
         });
     }
@@ -2833,7 +2843,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     threshold(percentage: Percentage, channels: Channels): void
     threshold(percentage: Percentage, channelsOrUndefined?: Channels): void {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Threshold(this._instance, percentage._toQuantum(), channels, exception);
         });
     }
@@ -2842,7 +2852,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     transparent(color: IMagickColor): void {
         color._use(valuePtr => {
-            Exception.usePointer(exception => {
+            this.useExceptionPointer(exception => {
                 ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, 0, exception);
             });
         });
@@ -2863,7 +2873,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             }
         }
 
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Trim(this._instance, exception.ptr);
             this._setInstance(instance, exception);
 
@@ -2879,7 +2889,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const amplitude = this.valueOrDefault(amplitudeOrUndefined, 25);
         const length = this.valueOrDefault(lengthOrUndefined, 150);
 
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Wave(this._instance, method, amplitude, length, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -2893,7 +2903,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const x = this.valueOrDefault(xOrUndefined, 0);
         const y = this.valueOrDefault(yOrUndefined, 0);
 
-        Exception.use(exception => {
+        this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Vignette(this._instance, radius, sigma, x, y, exception.ptr);
             this._setInstance(instance, exception);
         });
@@ -2912,7 +2922,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         else
             func = funcOrFormat as (data: Uint8Array) => TReturnType | Promise<TReturnType>;
 
-        Exception.use(exception => {
+        this.useException(exception => {
             Pointer.use(pointer => {
                 this._settings._use(settings => {
                     try {
@@ -3007,13 +3017,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     private _contrast(enhance: boolean) {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Contrast(this._instance, this.fromBool(enhance), exception);
         });
     }
 
     private _opaque(target: IMagickColor, fill: IMagickColor, invert: boolean) {
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             target._use(targetPtr => {
                 fill._use(filltPtr => {
                     ImageMagick._api._MagickImage_Opaque(this._instance, targetPtr, filltPtr, this.fromBool(invert), exception);
@@ -3033,14 +3043,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             midpoint = Quantum.max * 0.5;
         }
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-        Exception.usePointer(exception => {
+        this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, this.fromBool(sharpen), contrast, midpoint, channels, exception);
         });
     }
 
     private _transparent(color: IMagickColor, invert: boolean) {
         color._use(valuePtr => {
-            Exception.usePointer(exception => {
+            this.useExceptionPointer(exception => {
                 ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, this.fromBool(invert), exception);
             });
         });
@@ -3062,7 +3072,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | ByteArray | IMagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
-        Exception.use(exception => {
+        this.useException(exception => {
             const readSettings = settingsOrWidthOrUndefined instanceof MagickReadSettings ? settingsOrWidthOrUndefined : new MagickReadSettings(this._settings);
             readSettings._ping = ping;
             this._settings._ping = ping;
@@ -3102,5 +3112,23 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return defaultValue;
 
         return value;
+    }
+
+    private useException<TReturnType>(func: (exception: Exception) => TReturnType): TReturnType {
+        return Exception.use<TReturnType>(exception => {
+            return func(exception);
+        }, (error: MagickError) => {
+            if (this.onWarning !== undefined)
+                this.onWarning(new WarningEvent(error));
+        });
+    }
+
+    private useExceptionPointer<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
+        return Exception.usePointer<TReturnType>(exception => {
+            return func(exception);
+        }, (error: MagickError) => {
+            if (this.onWarning !== undefined)
+                this.onWarning(new WarningEvent(error));
+        });
     }
 }
