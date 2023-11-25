@@ -27,6 +27,7 @@ export interface IDrawingWand extends IDisposable {
     font(family: string): void;
     fontPointSize(value: number): void;
     gravity(value: Gravity): void;
+    line(startX: number, startY: number, endX: number, endY: number): void;
     point(x: number, y: number): void;
     rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void;
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
@@ -97,6 +98,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     gravity(value: Gravity): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_Gravity(this._instance, value, exception);
+        });
+    }
+
+    line(startX: number, startY: number, endX: number, endY: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_Line(this._instance, startX, startY, endX, endY, exception);
         });
     }
 
