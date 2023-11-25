@@ -16,7 +16,9 @@ describe('DrawableLine', () => {
                 new DrawableLine(10, 10, 40, 50)
             ]);
 
-            expect(image).toHavePixelWithColor(0, 0, MagickColors.White);
+            expect(image).toHavePixelWithColor(9, 9, MagickColors.White);
+            expect(image).toHavePixelWithColor(10, 9, MagickColors.White);
+            expect(image).toHavePixelWithColor(9, 10, MagickColors.White);
             expect(image).toHavePixelWithColor(10, 10, fillColor);
             expect(image).toHavePixelWithColor(22, 26, fillColor);
             expect(image).toHavePixelWithColor(40, 50, fillColor);
