@@ -31,6 +31,7 @@ export interface IDrawingWand extends IDisposable {
     point(x: number, y: number): void;
     rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void;
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
+    strokeColor(value: IMagickColor): void;
     text(x: number, y: number, value: string): void;
     textAlignment(value: TextAlignment): void;
     textAntialias(value: boolean): void;
@@ -122,6 +123,14 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_RoundRectangle(this._instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight, exception);
+        });
+    }
+
+    strokeColor(value: IMagickColor): void {
+        Exception.usePointer(exception => {
+            value._use(valuePtr => {
+                ImageMagick._api._DrawingWand_StrokeColor(this._instance, valuePtr, exception);
+            });
         });
     }
 
