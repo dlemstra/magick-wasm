@@ -24,7 +24,7 @@
         "issue/*.ts",
         "issue/*.js",
         "tools/*.js",
-        "vite.config.ts"
+        "vite.config.mts"
     ],
     "rules": {
         "header/header": [
