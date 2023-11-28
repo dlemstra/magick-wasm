@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  LATEST_NODE: 20
+  LATEST_NODE_VERSION: 20
 
 name: main
 jobs:
@@ -47,10 +47,10 @@ jobs:
 
       - run: npm run demo
 
-      - if: matrix.node == env.LATEST_NODE && matrix.os == 'ubuntu-latest'
+      - if: matrix.node == env.LATEST_NODE_VERSION && matrix.os == 'ubuntu-latest'
         run: npm pack
 
-      - if: matrix.node == env.LATEST_NODE && matrix.os == 'ubuntu-latest'
+      - if: matrix.node == env.LATEST_NODE_VERSION && matrix.os == 'ubuntu-latest'
         name: Upload package
         uses: actions/upload-artifact@v3
         with:
@@ -66,7 +66,7 @@ jobs:
     steps:
       - run: apt update && apt install -y curl
 
-      - run: curl -fsSL https://deb.nodesource.com/setup_${{ env.LATEST_NODE }}.x | bash -
+      - run: curl -fsSL https://deb.nodesource.com/setup_${{ env.LATEST_NODE_VERSION }}.x | bash -
 
       - run: apt install -y nodejs
 
