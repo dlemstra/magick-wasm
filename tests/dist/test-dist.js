@@ -4,10 +4,6 @@
 const util = require('node:util');
 const exec = util.promisify(require('node:child_process').exec);
 
-const colorReset = '\x1b[0m';
-const colorGreen = '\x1b[32m';
-const colorRed = '\x1b[31m';
-
 const features = 'Cipher';
 
 let foundError = false;
@@ -29,25 +25,21 @@ async function testDistFile(filename) {
   const name = filename.substring(5, 8);
 
   if (stdout.trim() === features) {
-    console.log(`${colorGreen}${name} build passed${colorReset}`);
+    console.log(`${name} build passed`);
     return;
   }
 
   foundError = true;
 
-  console.error(`${colorRed}${name} build failed:${colorReset}`);
+  console.error(`${name} build failed:`);
   console.error(stderr || `"${stdout.trim()}"\ndoes not match\n"${features}"`);
 }
 
 async function testDist() {
-  console.log('');
-
   await testDistFile('test-ESM.mjs');
   await testDistFile('test-CJS.js');
 
   if (foundError) process.exit(1);
-
-  console.log('');
 }
 
 testDist();
