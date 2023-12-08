@@ -8,10 +8,12 @@ import {
     MagickFormat,
     Quantum,
 } from '../'; // Change to '@imagemagick/magick-wasm' when using this in your project.
+import * as fs from 'fs';
 
 // Remove '../' and use '@imagemagick/magick-wasm' when using this in your project.
 const wasmLocation = '../node_modules/@dlemstra/magick-native/magick.wasm';
-initializeImageMagick(wasmLocation).then(() => {
+const wasmBytes = fs.readFileSync(wasmLocation);
+initializeImageMagick(wasmBytes).then(() => {
     console.log(Magick.imageMagickVersion);
     console.log('Delegates:', Magick.delegates);
     console.log('Features:', Magick.features);

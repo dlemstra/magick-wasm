@@ -13,20 +13,26 @@ declare global {
     var expectToNotBeNull: <T>(value: T) => NonNullable<T>; /* eslint-disable-line no-var */
 
     namespace Chai { /* eslint-disable-line @typescript-eslint/no-namespace */
-         /* eslint-disable @typescript-eslint/no-empty-interface */
-        interface Assertion extends ICustomMatchers {}
-        interface AsymmetricMatchersContaining extends ICustomMatchers {}
+        /* eslint-disable @typescript-eslint/no-empty-interface */
+        interface Assertion extends ICustomMatchers { }
+        interface AsymmetricMatchersContaining extends ICustomMatchers { }
         /* eslint-enable @typescript-eslint/no-empty-interface */
     }
 }
 
 if (!global.native) {
-    if (Math.random() >= 0.5) {
-        const bytes = fs.readFileSync('node_modules/@dlemstra/magick-native/magick.wasm');
-        await initializeImageMagick(bytes);
-    } else {
-        await initializeImageMagick();
+    let exceptionRaised = false;
+    try {
+        await initializeImageMagick(new URL('file:///test'));
+    } catch {
+        exceptionRaised = true;
     }
+
+    if (exceptionRaised === false)
+        throw new Error('The initializeImageMagick method should have thrown an exception.');
+
+    const bytes = fs.readFileSync('node_modules/@dlemstra/magick-native/magick.wasm');
+    await initializeImageMagick(bytes);
 
     const font = TestFonts.kaushanScriptRegularTtf;
     Magick.addFont(font.name, font.data);

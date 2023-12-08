@@ -14,12 +14,16 @@ import { ByteArray, _isByteArray } from './byte-array';
 class WasmLocator implements IWasmLocator {
     private _wasmLocation: string | undefined;
 
-    constructor(wasmLocationOrData?: string | ByteArray) {
+    constructor(wasmLocationOrData: URL | ByteArray) {
         if (wasmLocationOrData !== undefined) {
-            if (typeof wasmLocationOrData === 'string')
-                this._wasmLocation = wasmLocationOrData;
-            else
+            if (wasmLocationOrData instanceof URL) {
+                if (wasmLocationOrData.protocol !== 'http:' && wasmLocationOrData.protocol !== 'https:')
+                    throw new Error('Only http/https protocol is supported');
+
+                this._wasmLocation = wasmLocationOrData.href;
+            } else {
                 this.wasmBinary = wasmLocationOrData;
+            }
         }
     }
 
@@ -36,12 +40,12 @@ class WasmLocator implements IWasmLocator {
 }
 
 export class ImageMagick {
-    private readonly loader: (wasmLocationOrData?: string | ByteArray) => Promise<void>;
+    private readonly loader: (wasmLocationOrData: URL | ByteArray) => Promise<void>;
     private api?: ImageMagickApi;
 
     /** @internal */
     constructor() {
-        this.loader = (wasmLocationOrData?: string | ByteArray) => new Promise((resolve, reject) => {
+        this.loader = (wasmLocationOrData: URL | ByteArray) => new Promise((resolve, reject) => {
             if (this.api !== undefined) {
                 resolve();
                 return;
@@ -65,7 +69,7 @@ export class ImageMagick {
     }
 
     /** @internal */
-    async _initialize(wasmLocationOrData?: string | ByteArray): Promise<void> {
+    async _initialize(wasmLocationOrData: URL | ByteArray): Promise<void> {
         await this.loader(wasmLocationOrData);
     }
 
@@ -320,6 +324,6 @@ export class ImageMagick {
 /** @internal */
 const _instance = new ImageMagick();
 
-export async function initializeImageMagick(wasmLocationOrData?: string | ByteArray): Promise<void> {
+export async function initializeImageMagick(wasmLocationOrData: URL | ByteArray): Promise<void> {
     await _instance._initialize(wasmLocationOrData);
 }
