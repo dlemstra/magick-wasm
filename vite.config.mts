@@ -10,9 +10,6 @@ export default defineConfig({
             name: 'magick-wasm',
             fileName: 'index',
         },
-        commonjsOptions: {
-            ignore: [...builtinModules, 'ws'],
-        },
     },
     test: {
         globals: true,
