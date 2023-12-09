@@ -12,7 +12,7 @@ describe('MagickImage#linearStretch', () => {
             image.linearStretch(new Percentage(10), new Percentage(90));
 
             const histogram = image.histogram();
-            expect(histogram.get('#66d4ffff')).toBe(88);
+            expect(histogram.get('#66d4ffff')).toBe(88n);
         });
     });
 });

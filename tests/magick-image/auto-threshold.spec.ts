@@ -12,8 +12,8 @@ describe('MagickImage#autoThreshold', () => {
 
             const histogram = image.histogram();
             expect(histogram.size).toBe(2);
-            expect(histogram.get(MagickColors.Black.toString())).toBe(39359);
-            expect(histogram.get(MagickColors.White.toString())).toBe(267841);
+            expect(histogram.get(MagickColors.Black.toString())).toBe(39359n);
+            expect(histogram.get(MagickColors.White.toString())).toBe(267841n);
         });
     });
 });

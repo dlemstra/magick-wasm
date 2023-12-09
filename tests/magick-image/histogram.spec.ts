@@ -11,8 +11,8 @@ describe('MagickImage#histogram', () => {
 
             expect(histogram).not.toBeNull();
             expect(histogram.size).toBe(256);
-            expect(histogram.get(MagickColors.Red.toString())).toBe(2942);
-            expect(histogram.get(MagickColors.White.toString())).toBe(256244);
+            expect(histogram.get(MagickColors.Red.toString())).toBe(2942n);
+            expect(histogram.get(MagickColors.White.toString())).toBe(256244n);
         });
     });
 });
