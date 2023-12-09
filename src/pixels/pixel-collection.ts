@@ -155,21 +155,12 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
 
     toByteArray(x: number, y: number, width: number, height: number, mapping: string): Uint8Array | null {
         return this.use(x, y, width, height, mapping, instance => {
-            return PixelCollection.createArray(instance, width, height, mapping.length);
-        });
-    }
+            if (instance === 0)
+                return null;
 
-    private static createArray(instance: number, width: number, height: number, channelCount: number): quantumArray | null {
-        if (instance === 0)
-            return null;
-
-        try {
-            const count = width * height * channelCount;
+            const count = width * height * mapping.length;
             return ImageMagick._api.HEAPU8.slice(instance, instance + count);
-        }
-        finally {
-            instance = ImageMagick._api._MagickMemory_Relinquish(instance);
-        }
+        });
     }
 
     private use<TReturnType>(x: number, y: number, width: number, height: number, mapping: string, func: (instance: number) => TReturnType): TReturnType | null {
