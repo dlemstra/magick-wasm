@@ -305,17 +305,19 @@ export class ImageMagick {
      * Read single image frame from canvas.
      * @param canvas - The canvas to read the image from.
      * @param func - The function that will be invoked with the image.
+     * @param settings - The {@link CanvasRenderingContext2DSettings} to use when reading the image.
      */
-    static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => TReturnType): TReturnType;
+    static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => TReturnType, settings?: CanvasRenderingContext2DSettings): TReturnType;
     /**
      * Read single image frame from canvas.
      * @param canvas - The canvas to read the image from.
      * @param func - The async function that will be invoked with the image.
+     * @param settings - The {@link CanvasRenderingContext2DSettings} to use when reading the image.
      */
-    static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => Promise<TReturnType>, settings?: CanvasRenderingContext2DSettings): Promise<TReturnType>;
+    static readFromCanvas<TReturnType>(canvas: HTMLCanvasElement, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>, settings?: CanvasRenderingContext2DSettings): TReturnType | Promise<TReturnType> {
         return MagickImage._create(image => {
-            image.readFromCanvas(canvas);
+            image.readFromCanvas(canvas, settings);
             return func(image);
         });
     }

@@ -1229,8 +1229,9 @@ export interface IMagickImage extends IDisposable {
     /**
      * Read single image frame from canvas.
      * @param canvas - The canvas to read the image from.
+     * @param settings - The {@link CanvasRenderingContext2DSettings} to use when reading the image.
      */
-    readFromCanvas(canvas: HTMLCanvasElement): void;
+    readFromCanvas(canvas: HTMLCanvasElement, settings?: CanvasRenderingContext2DSettings): void;
 
     /**
      * Removes the artifact with the specified name.
@@ -2627,20 +2628,20 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.readOrPing(false, fileNameOrArrayOrColor, settingsOrWidthOrUndefined, heightOrUndefined);
     }
 
-    readFromCanvas(canvas: HTMLCanvasElement): void {
+    readFromCanvas(canvas: HTMLCanvasElement, settings?: CanvasRenderingContext2DSettings): void {
         const ctx = canvas.getContext('2d');
         if (ctx === null)
             return;
 
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height, settings);
 
-        const settings = new MagickReadSettings();
-        settings.format = MagickFormat.Rgba;
-        settings.width = canvas.width;
-        settings.height = canvas.height;
+        const readSettings = new MagickReadSettings();
+        readSettings.format = MagickFormat.Rgba;
+        readSettings.width = canvas.width;
+        readSettings.height = canvas.height;
 
         this.useException(exception => {
-            this.readFromArray(imageData.data, settings, exception);
+            this.readFromArray(imageData.data, readSettings, exception);
         });
     }
 
