@@ -3,7 +3,7 @@ import {
     initializeImageMagick,
     ImageMagick,
     MagickFormat
-} from '../dist/index.mjs'
+} from '../dist/index.js'
 
 const wasm = await Deno.readFile('../dist/magick.wasm');
 await initializeImageMagick(wasm);

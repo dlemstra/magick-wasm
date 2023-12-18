@@ -2,11 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import * as fs from 'fs';
-import {
-    initializeImageMagick,
-    ImageMagick,
-    MagickFormat,
-} from '../';
+import { initializeImageMagick, ImageMagick } from '@imagemagick/magick-wasm';
 
 const inputFile = '';
 const bytes = fs.readFileSync(inputFile);
