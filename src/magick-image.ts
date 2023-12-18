@@ -2253,7 +2253,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     deskew(threshold: Percentage, autoCrop?: boolean): number {
         return TemporaryDefines.use(this, temporaryDefines => {
             if (autoCrop !== undefined) {
-                temporaryDefines.setArtifact("deskew:auto-crop", autoCrop);
+                temporaryDefines.setArtifact('deskew:auto-crop', autoCrop);
             }
 
             this.useException(exception => {
@@ -2279,11 +2279,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 bestFit = methodOrSettings.bestFit ? 1 : 0;
 
                 if (methodOrSettings.scale !== undefined) {
-                    temporaryDefines.setArtifact("distort:scale", methodOrSettings.scale.toString());
+                    temporaryDefines.setArtifact('distort:scale', methodOrSettings.scale.toString());
                 }
 
                 if (methodOrSettings.viewport !== undefined) {
-                    temporaryDefines.setArtifact("distort:viewport", methodOrSettings.viewport.toString());
+                    temporaryDefines.setArtifact('distort:viewport', methodOrSettings.viewport.toString());
                 }
             }
 

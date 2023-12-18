@@ -1,12 +1,12 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { LogEvent } from "../events/log-event";
-import { LogEventTypes } from "../enums/log-event-types";
-import { IMagickImage } from "../magick-image";
-import { ImageMagick } from "../image-magick";
-import { ProgressEvent } from "../events/progress-event";
-import { _createString } from "../internal/native/string";
+import { LogEvent } from '../events/log-event';
+import { LogEventTypes } from '../enums/log-event-types';
+import { IMagickImage } from '../magick-image';
+import { ImageMagick } from '../image-magick';
+import { ProgressEvent } from '../events/progress-event';
+import { _createString } from '../internal/native/string';
 
 /** @internal */
 export class DelegateRegistry {
