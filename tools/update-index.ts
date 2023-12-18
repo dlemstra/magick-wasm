@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import * as fs from 'fs';
+import fs from 'node:fs';
 
 function fileHasExports(fileName: string): boolean {
     const lines = fs.readFileSync(fileName, 'utf-8').split(/\r?\n/);

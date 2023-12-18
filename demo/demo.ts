@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { readFileSync } from 'node:fs';
 import {
     initializeImageMagick,
     ImageMagick,
@@ -8,11 +9,10 @@ import {
     MagickFormat,
     Quantum,
 } from '@imagemagick/magick-wasm';
-import * as fs from 'fs';
 
 // Remove '../' and use '@imagemagick/magick-wasm' when using this in your project.
 const wasmLocation = '../node_modules/@dlemstra/magick-native/magick.wasm';
-const wasmBytes = fs.readFileSync(wasmLocation);
+const wasmBytes = readFileSync(wasmLocation);
 initializeImageMagick(wasmBytes).then(() => {
     console.log(Magick.imageMagickVersion);
     console.log('Delegates:', Magick.delegates);

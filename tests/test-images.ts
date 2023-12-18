@@ -1,11 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { readFileSync } from 'node:fs';
 import { IMagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
 import { MagickImage, IMagickImage } from '@src/magick-image';
 import { MagickImageCollection, IMagickImageCollection } from '@src/magick-image-collection';
-import * as fs from 'fs';
 
 interface Cloneable<T> {
     clone<TReturnType>(func: (clone: T) => TReturnType): TReturnType;
@@ -49,7 +49,7 @@ class TestImage extends TestImageBase<IMagickImage> {
     constructor(fileName: string) {
         super();
 
-        this.data = fs.readFileSync(fileName);
+        this.data = readFileSync(fileName);
     }
 
     load() {
@@ -63,7 +63,7 @@ class TestImageCollection extends TestImageBase<IMagickImageCollection> {
     constructor(fileName: string) {
         super();
 
-        this.data = fs.readFileSync(fileName);
+        this.data = readFileSync(fileName);
     }
 
     load() {

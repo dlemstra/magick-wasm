@@ -1,12 +1,12 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { readFileSync } from 'node:fs';
 import { CustomMatchers, ICustomMatchers } from './custom-matcher';
 import { ImageMagick, initializeImageMagick } from '@src/image-magick';
 import { ImageMagickApi } from '@dlemstra/magick-native';
 import { Magick } from '@src/magick';
 import { TestFonts } from './test-fonts';
-import * as fs from 'fs';
 
 declare global {
     var native: ImageMagickApi; /* eslint-disable-line no-var */
@@ -31,7 +31,7 @@ if (!global.native) {
     if (exceptionRaised === false)
         throw new Error('The initializeImageMagick method should have thrown an exception.');
 
-    const bytes = fs.readFileSync('node_modules/@dlemstra/magick-native/magick.wasm');
+    const bytes = readFileSync('node_modules/@dlemstra/magick-native/magick.wasm');
     await initializeImageMagick(bytes);
 
     const font = TestFonts.kaushanScriptRegularTtf;
