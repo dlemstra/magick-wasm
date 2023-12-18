@@ -7,7 +7,7 @@ import {
     Magick,
     MagickFormat,
     Quantum,
-} from '../'; // Change to '@imagemagick/magick-wasm' when using this in your project.
+} from '@imagemagick/magick-wasm';
 import * as fs from 'fs';
 
 // Remove '../' and use '@imagemagick/magick-wasm' when using this in your project.

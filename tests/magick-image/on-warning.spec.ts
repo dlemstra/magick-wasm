@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { TestImages } from '@test/test-images';
-import { MagickErrorSeverity } from '../../dist/index.mjs';
+import { MagickErrorSeverity } from '@src/enums/magick-error-severity';
 
 describe('MagickImage#onWarning', () => {
     it('should be called when ImageMagick raises a warning.', () => {

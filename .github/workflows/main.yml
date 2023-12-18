@@ -39,9 +39,11 @@ jobs:
 
       - run: npm run update-index
 
+      - run: npm run test
+
       - run: npm run build
 
-      - run: npm run test
+      - run: npm run prepare
 
       - run: npm run test-dist
 

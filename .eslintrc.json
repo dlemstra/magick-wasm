@@ -1,8 +1,5 @@
 {
-    "plugins": [
-        "@typescript-eslint",
-        "header"
-    ],
+    "plugins": ["@typescript-eslint", "header"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "project": [
@@ -24,7 +21,7 @@
         "issue/*.ts",
         "issue/*.js",
         "tools/*.js",
-        "vite.config.mts"
+        "vite.config.ts"
     ],
     "rules": {
         "header/header": [
