@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import * as fs from 'fs';
+import { readFileSync } from 'node:fs';
 
 export class TestFont {
     readonly name: string;
@@ -9,7 +9,7 @@ export class TestFont {
 
     constructor(name: string, fileName: string) {
         this.name = name;
-        this.data = fs.readFileSync(fileName);
+        this.data = readFileSync(fileName);
     }
 }
 

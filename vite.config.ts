@@ -1,6 +1,5 @@
-import { builtinModules } from 'module';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vitest/config';
-import path from 'path';
 
 export default defineConfig({
     build: {
@@ -18,8 +17,8 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            '@src': path.resolve(__dirname, './src'),
-            '@test': path.resolve(__dirname, './tests'),
+            '@src': resolve(__dirname, './src'),
+            '@test': resolve(__dirname, './tests'),
         },
     },
 });

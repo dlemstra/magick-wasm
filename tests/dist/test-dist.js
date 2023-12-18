@@ -1,9 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { promisify } from 'node:util';
 import { exec as execWithCallback } from 'node:child_process';
 import { createRequire } from 'node:module';
+import { promisify } from 'node:util';
+
 const exec = promisify(execWithCallback);
 const require = createRequire(import.meta.url);
 
