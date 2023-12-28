@@ -18,7 +18,7 @@ describe('DrawableFillOpacity', () => {
                 new DrawableColor(0, 0, PaintMethod.Floodfill)
             ]);
 
-            const fillColor = new MagickColor(255, 0, 0, 26);
+            const fillColor = new MagickColor(255, 0, 0, 25);
             expect(image).toHavePixelWithColor(0, 0, fillColor);
         });
     });
