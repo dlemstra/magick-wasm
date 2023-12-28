@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { IDisposable } from '../disposable';
+import { MagickError } from '../magick-error';
 
 /** @internal */
 export class Disposable {
@@ -13,15 +14,27 @@ export class Disposable {
             if (result instanceof Promise) {
                 return Promise.resolve(result).then(resolvedResult => {
                     instance.dispose();
+                    Disposable.checkResult(instance, resolvedResult);
+
                     return resolvedResult;
                 });
             } else {
                 instance.dispose();
+                Disposable.checkResult(instance, result);
+
                 return result;
             }
         } catch (error) {
             instance.dispose();
             throw (error);
         }
+    }
+
+    private static checkResult<TInstanceType extends IDisposable, TReturnType>(instance: TInstanceType, result: TReturnType) {
+        if (result === <any>instance) {
+            throw new MagickError('The result of the function cannot be the instance that has been disposed.');
+        }
+
+        return result;
     }
 }

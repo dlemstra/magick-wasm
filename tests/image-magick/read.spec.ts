@@ -118,4 +118,24 @@ describe('ImageMagick#read', () => {
             await bogusAsyncMethod();
         });
     });
+
+    it('should throw error when image is returned', async () => {
+        expect(() => {
+            ImageMagick.read('logo:', (image) => {
+                return image;
+            });
+        })
+        .toThrowError('The result of the function cannot be the instance that has been disposed.');
+    });
+
+    it('should throw error when image is returned async', async () => {
+        await expect(async () => {
+            await ImageMagick.read('logo:', async (image) => {
+                await bogusAsyncMethod();
+                return image;
+            });
+        })
+        .rejects
+        .toThrowError('The result of the function cannot be the instance that has been disposed.');
+    });
 });
