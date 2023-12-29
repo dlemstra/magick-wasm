@@ -2629,11 +2629,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     readFromCanvas(canvas: HTMLCanvasElement, settings?: CanvasRenderingContext2DSettings): void {
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', settings);
         if (ctx === null)
             return;
 
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height, settings);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
         const readSettings = new MagickReadSettings();
         readSettings.format = MagickFormat.Rgba;
