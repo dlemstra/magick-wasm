@@ -1,6 +1,6 @@
 {
     "name": "@imagemagick/magick-wasm",
-    "version": "0.0.26",
+    "version": "0.0.27",
     "description": "The WASM library for ImageMagick",
     "keywords": [
         "imagemagick",
