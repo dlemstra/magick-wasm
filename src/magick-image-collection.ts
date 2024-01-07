@@ -61,6 +61,12 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     clone<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
+     * Merge a sequence of images. This is useful for GIF animation sequences that have page
+     * offsets and disposal methods.
+     */
+    coalesce(): void;
+
+    /**
      * Evaluate image pixels into a single image. All the images in the collection must be the
      * same size in pixels.
      * @param evaluateOperator - The operator.
@@ -227,6 +233,27 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             images.push(MagickImage._clone(this[i]));
 
         return images._use(func);
+    }
+
+    coalesce(): void {
+        this.throwIfEmpty();
+
+        let result = 0;
+
+        try {
+            this.attachImages();
+
+            result = Exception.use(exception => {
+                const result = ImageMagick._api._MagickImageCollection_Coalesce(this[0]._instance, exception.ptr);
+                return this.checkResult(result, exception);
+            });
+        } finally {
+            this.detachImages();
+        }
+
+        const settings = this.getSettings()._clone();
+        this.dispose();
+        this.addImages(result, settings);
     }
 
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType): TReturnType;
