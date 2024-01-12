@@ -32,7 +32,12 @@ if (!global.native) {
         throw new Error('The initializeImageMagick method should have thrown an exception.');
 
     const bytes = readFileSync('node_modules/@dlemstra/magick-native/magick.wasm');
-    await initializeImageMagick(bytes);
+    if (Math.random() >= 0.5) {
+        const module = await WebAssembly.compile(bytes);
+        await initializeImageMagick(module);
+    } else {
+        await initializeImageMagick(bytes);
+    }
 
     const font = TestFonts.kaushanScriptRegularTtf;
     Magick.addFont(font.name, font.data);
