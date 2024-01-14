@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 import MagickNative, { ImageMagickApi, IWasmLocator } from '@dlemstra/magick-native';
+import { ByteArray, _isByteArray } from './byte-array';
+import { IConfigurationFiles, ConfigurationFiles } from './configuration/configuration-files';
 import { IMagickImage, MagickImage } from './magick-image';
 import { IMagickImageCollection, MagickImageCollection } from './magick-image-collection';
 import { IMagickColor } from './magick-color';
@@ -9,7 +11,6 @@ import { MagickError } from './magick-error';
 import { MagickFormat } from './enums/magick-format';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
-import { ByteArray, _isByteArray } from './byte-array';
 
 class WasmLocator implements IWasmLocator {
     constructor(wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module) {
@@ -17,7 +18,7 @@ class WasmLocator implements IWasmLocator {
             if (wasmLocationDataOrAssembly.protocol !== 'http:' && wasmLocationDataOrAssembly.protocol !== 'https:')
                 throw new Error('Only http/https protocol is supported');
 
-            this.locateFile =  (): string => {
+            this.locateFile = (): string => {
                 return wasmLocationDataOrAssembly.href;
             };
         } else if (wasmLocationDataOrAssembly instanceof WebAssembly.Module) {
@@ -38,12 +39,12 @@ class WasmLocator implements IWasmLocator {
 }
 
 export class ImageMagick {
-    private readonly loader: (wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module) => Promise<void>;
+    private readonly loader: (wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module, configurationFiles: IConfigurationFiles) => Promise<void>;
     private api?: ImageMagickApi;
 
     /** @internal */
     constructor() {
-        this.loader = (wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module) => new Promise((resolve, reject) => {
+        this.loader = (wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module, configurationFiles: IConfigurationFiles) => new Promise((resolve, reject) => {
             if (this.api !== undefined) {
                 resolve();
                 return;
@@ -52,6 +53,8 @@ export class ImageMagick {
             const wasmLocator = new WasmLocator(wasmLocationDataOrAssembly);
             MagickNative(wasmLocator).then(api => {
                 try {
+                    this.writeConfigurationFiles(api, configurationFiles);
+
                     _withNativeString(api, 'MAGICK_CONFIGURE_PATH', name => {
                         _withNativeString(api, '/xml', value => {
                             api._Environment_SetEnv(name, value);
@@ -67,8 +70,8 @@ export class ImageMagick {
     }
 
     /** @internal */
-    async _initialize(wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module): Promise<void> {
-        await this.loader(wasmLocationDataOrAssembly);
+    async _initialize(wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module, configurationFiles: IConfigurationFiles): Promise<void> {
+        await this.loader(wasmLocationDataOrAssembly, configurationFiles);
     }
 
     /** @internal */
@@ -319,11 +322,24 @@ export class ImageMagick {
             return func(image);
         });
     }
+
+    private writeConfigurationFiles(api: ImageMagickApi, configurationFiles: IConfigurationFiles) {
+        const pathInfo = api.FS.analyzePath('/xml');
+        if (!pathInfo.exists)
+            api.FS.mkdir('/xml');
+
+        for (const configurationFile of configurationFiles.all()) {
+            const stream = api.FS.open(`/xml/${configurationFile.fileName}`, 'w');
+            const data = new TextEncoder().encode(configurationFile.data);
+            api.FS.write(stream, data, 0, data.length);
+            api.FS.close(stream);
+        }
+    }
 }
 
 /** @internal */
 const _instance = new ImageMagick();
 
-export async function initializeImageMagick(wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module): Promise<void> {
-    await _instance._initialize(wasmLocationDataOrAssembly);
+export async function initializeImageMagick(wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module, configurationFiles?: IConfigurationFiles): Promise<void> {
+    await _instance._initialize(wasmLocationDataOrAssembly, configurationFiles ?? ConfigurationFiles.default);
 }
