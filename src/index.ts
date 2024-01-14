@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 export * from './byte-array';
+export * from './configuration/configuration-file';
+export * from './configuration/configuration-files';
 export * from './defines/define';
 export * from './defines/defines-creator';
 export * from './defines/defines';
