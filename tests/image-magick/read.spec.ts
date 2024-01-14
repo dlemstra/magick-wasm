@@ -8,6 +8,13 @@ import { MagickReadSettings } from '@src/settings/magick-read-settings';
 import { TestImages } from '@test/test-images';
 import { bogusAsyncMethod } from '@test/bogus-async';
 
+const emptyFile = '/empty';
+
+beforeAll(() => {
+    const stream = ImageMagick._api.FS.open(emptyFile, 'w');
+    ImageMagick._api.FS.close(stream);
+});
+
 describe('ImageMagick#read', () => {
     it('should read built-in image async', async () => {
         await ImageMagick.read('logo:', async (image) => {
@@ -60,7 +67,7 @@ describe('ImageMagick#read', () => {
 
     it('should read image from filename with specified format async', async () => {
         await expect(async () => {
-            await ImageMagick.read('/xml/empty', MagickFormat.Png, async () => {
+            await ImageMagick.read(emptyFile, MagickFormat.Png, async () => {
                 await bogusAsyncMethod();
             });
         })
@@ -70,7 +77,7 @@ describe('ImageMagick#read', () => {
 
     it('should read image from filename with specified format', () => {
         expect(() => {
-            ImageMagick.read('/xml/empty', MagickFormat.Png, (image) => {
+            ImageMagick.read(emptyFile, MagickFormat.Png, (image) => {
                 console.log(image);
             });
         })
