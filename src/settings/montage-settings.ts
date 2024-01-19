@@ -93,7 +93,6 @@ export class MontageSettings {
 
     /** @internal */
     _use<TReturnType>(func: (settings: NativeMontageSettings) => TReturnType): TReturnType
-
     /** @internal */
     _use<TReturnType>(func: (settings: NativeMontageSettings) => Promise<TReturnType>): Promise<TReturnType>
     _use<TReturnType>(func: (settings: NativeMontageSettings) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
