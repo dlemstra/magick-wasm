@@ -1,11 +1,10 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { DitherMethod } from '../enums/dither-method';
 import { ImageMagick } from '../image-magick';
 import { NativeInstance } from '../native-instance';
-import { _withString } from '../internal/native/string';
 import { QuantizeSettings } from './quantize-settings';
-import { DitherMethod } from '../enums/dither-method';
 
 /** @internal */
 export class NativeQuantizeSettings extends NativeInstance {
