@@ -52,6 +52,7 @@ import { Point } from './types/point';
 import { Pointer } from './internal/pointer/pointer';
 import { PrimaryInfo } from './types/primary-info';
 import { ProgressEvent } from './events/progress-event';
+import { QuantizeSettings } from './settings/quantize-settings';
 import { Quantum } from './quantum';
 import { RenderingIntent } from './enums/rendering-intent';
 import { Statistics, IStatistics } from './statistics/statistics';
@@ -1203,6 +1204,12 @@ export interface IMagickImage extends IDisposable {
      * @param settings - The settings to use when reading the image.
      */
     ping(array: ByteArray, settings?: MagickReadSettings): void;
+
+    /**
+     * Quantize image (reduce number of colors).
+     * @param settings - The settings to use when quantizing the image.
+     */
+    quantize(settings: QuantizeSettings): void;
 
     /**
      * Read single image frame.
@@ -2619,6 +2626,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     ping(array: ByteArray, settings?: MagickReadSettings): void;
     ping(fileNameOrArray: string | ByteArray, settingsOrUndefined?: MagickReadSettings): void {
         this.readOrPing(true, fileNameOrArray, settingsOrUndefined);
+    }
+
+    quantize(settings: QuantizeSettings): void {
+        this.useException(exception => {
+            settings._use((settings) => {
+                ImageMagick._api._MagickImage_Quantize(this._instance, settings._instance, exception.ptr);
+            });
+        });
     }
 
     read(color: IMagickColor, width: number, height: number): void;
