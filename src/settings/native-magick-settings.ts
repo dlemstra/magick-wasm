@@ -60,7 +60,7 @@ export class NativeMagickSettings extends NativeInstance {
             const fileName = Magick._getFontFileName(settings.font);
 
             _withString(fileName, ptr => {
-                ImageMagick._api._MagickSettings_Font_Set(this._instance, ptr);
+                ImageMagick._api._MagickSettings_SetFont(this._instance, ptr);
             });
         }
 
