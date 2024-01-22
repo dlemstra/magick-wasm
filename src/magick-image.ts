@@ -1572,7 +1572,7 @@ export interface IMagickImage extends IDisposable {
      * Writes the image to the specified canvas.
      * @param canvas - The canvas to write the image to.
      */
-    writeToCanvas(canvas: HTMLCanvasElement): void;
+    writeToCanvas(canvas: HTMLCanvasElement, settings?: CanvasRenderingContext2DSettings): void;
 }
 
 export class MagickImage extends NativeInstance implements IMagickImage {
@@ -2956,11 +2956,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return Disposable._disposeAfterExecution(array, array.func);
     }
 
-    writeToCanvas(canvas: HTMLCanvasElement): void {
+    writeToCanvas(canvas: HTMLCanvasElement, settings?: CanvasRenderingContext2DSettings): void {
         canvas.width = this.width;
         canvas.height = this.height;
 
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', settings);
         if (ctx === null)
             return;
 
