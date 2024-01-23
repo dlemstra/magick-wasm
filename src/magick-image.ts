@@ -1571,6 +1571,7 @@ export interface IMagickImage extends IDisposable {
     /**
      * Writes the image to the specified canvas.
      * @param canvas - The canvas to write the image to.
+     * @param settings - The {@link CanvasRenderingContext2DSettings} to use when writing the image.
      */
     writeToCanvas(canvas: HTMLCanvasElement, settings?: CanvasRenderingContext2DSettings): void;
 }
