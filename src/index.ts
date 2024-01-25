@@ -30,6 +30,7 @@ export * from './drawables/drawable-text-kerning';
 export * from './drawables/drawable-text-under-color';
 export * from './drawables/drawable-text';
 export * from './drawables/drawable';
+export * from './drawables/drawables';
 export * from './drawables/drawing-wand';
 export * from './enums/alpha-option';
 export * from './enums/auto-threshold-method';
