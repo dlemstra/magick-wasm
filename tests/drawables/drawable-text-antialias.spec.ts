@@ -26,7 +26,7 @@ describe('DrawableTextAntialias', () => {
             image.draw([
                 new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
-                DrawableTextAntialias.Disabled,
+                DrawableTextAntialias.disabled,
                 new DrawableText(0, 100, 'Test'),
             ]);
 
