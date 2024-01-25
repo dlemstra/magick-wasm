@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { Disposable } from '../internal/disposable';
 import { DrawingSettings } from '../internal/settings/drawing-settings';
 import { Exception } from '../internal/exception/exception';
 import { Gravity } from '../enums/gravity';
@@ -194,7 +195,8 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     }
 
     /** @internal */
-    static _create(image: IMagickImage, settings: MagickSettings): DrawingWand {
-        return new DrawingWand(image, settings);
+    static _use(image: IMagickImage, func: (wand: DrawingWand) => void): void {
+        const wand = new DrawingWand(image, image.settings);
+        Disposable._disposeAfterExecution(wand, func);
     }
 }

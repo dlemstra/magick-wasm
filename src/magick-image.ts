@@ -2308,13 +2308,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     draw(drawables: IDrawable[]): void;
     draw(...drawables: IDrawable[]): void;
     draw(...drawables: IDrawable[][] | IDrawable[]): void {
-        const wand = DrawingWand._create(this, this._settings);
-        try {
+        DrawingWand._use(this, (wand) => {
             wand.draw(drawables.flat());
-        }
-        finally {
-            wand.dispose();
-        }
+        });
     }
 
     evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
