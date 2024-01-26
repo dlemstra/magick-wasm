@@ -20,13 +20,16 @@ import { DrawableTextInterlineSpacing } from "./drawable-text-interline-spacing"
 import { DrawableTextInterwordSpacing } from "./drawable-text-interword-spacing";
 import { DrawableTextKerning } from "./drawable-text-kerning";
 import { DrawableTextUnderColor } from "./drawable-text-under-color";
+import { DrawingWand } from "./drawing-wand";
 import { Gravity } from "../enums/gravity";
 import { IDrawable } from "./drawable";
-import { IMagickImage } from "../magick-image";
+import { IMagickImage, MagickImage } from "../magick-image";
 import { IMagickColor } from "../magick-color";
+import { MagickColors } from "../magick-colors";
 import { Percentage } from "../types/percentage";
 import { TextAlignment } from "../enums/text-alignment";
 import { TextDecoration } from "../enums/text-decoration";
+import { TypeMetric } from "../types/type-metric";
 
 export class Drawables {
     private _drawables: IDrawable[] = [];
@@ -81,6 +84,21 @@ export class Drawables {
     fontPointSize(pointSize: number): Drawables {
         this._drawables.push(new DrawableFontPointSize(pointSize));
         return this;
+    }
+
+    /**
+     * Obtain font metrics for text string given current font, pointsize, and density settings.
+     * @param text - The text to get the metrics for.
+     * @param ignoreNewlines - A value indicating whether newlines should be ignored.
+     */
+    fontTypeMetrics(text: string, ignoreNewlines = false): TypeMetric | null {
+        return MagickImage._create((image) => {
+            image.read(MagickColors.Transparent, 1, 1);
+            return DrawingWand._use(image, (wand) => {
+                wand.draw(this._drawables);
+                return wand.fontTypeMetrics(text, ignoreNewlines);
+            });
+        });
     }
 
     /**

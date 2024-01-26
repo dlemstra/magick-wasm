@@ -99,3 +99,4 @@ export * from './types/percentage';
 export * from './types/point';
 export * from './types/primary-info';
 export * from './types/threshold';
+export * from './types/type-metric';

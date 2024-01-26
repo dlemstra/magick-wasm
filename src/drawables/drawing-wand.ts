@@ -16,6 +16,7 @@ import { PaintMethod } from '../enums/paint-method';
 import { TextAlignment } from '../enums/text-alignment';
 import { TextDecoration } from '../enums/text-decoration';
 import { _withString } from '../internal/native/string';
+import { TypeMetric } from '../types/type-metric';
 
 /**
  * Interface for drawing on an wand.
@@ -95,6 +96,16 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     fontPointSize(value: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_FontPointSize(this._instance, value, exception);
+        });
+    }
+
+    /** @internal */
+    fontTypeMetrics(value: string, ignoreNewlines: boolean): TypeMetric | null {
+        return Exception.usePointer(exception => {
+            return _withString(value, (valuePtr) => {
+                const instance = ImageMagick._api._DrawingWand_FontTypeMetrics(this._instance, valuePtr, ignoreNewlines ? 1 : 0, exception);
+                return TypeMetric._create(instance);
+            });
         });
     }
 
@@ -195,8 +206,8 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     }
 
     /** @internal */
-    static _use(image: IMagickImage, func: (wand: DrawingWand) => void): void {
+    static _use<TReturnValue>(image: IMagickImage, func: (wand: DrawingWand) => TReturnValue): TReturnValue {
         const wand = new DrawingWand(image, image.settings);
-        Disposable._disposeAfterExecution(wand, func);
+        return Disposable._disposeAfterExecution(wand, func);
     }
 }
