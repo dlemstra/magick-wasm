@@ -39,6 +39,9 @@ export abstract class NativeInstance {
     /** @internal */
     protected _setInstance(instance: number, exception: Exception): void {
         exception.check(() => {
+            if (instance == 0)
+                throw new MagickError('out of memory');
+
             this.dispose();
             this.instance = instance;
         }, () => {
