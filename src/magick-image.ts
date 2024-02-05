@@ -330,6 +330,17 @@ export interface IMagickImage extends IDisposable {
     alpha(value: AlphaOption): void;
 
     /**
+     * Extracts the 'mean' from the image and adjust the image to try make set its gamma appropriately.
+     */
+    autoGamma(): void;
+
+    /**
+     * Extracts the 'mean' from the image and adjust the image to try make set its gamma appropriately.
+     * @param channels - The channel(s) to set the gamma for.
+     */
+    autoGamma(channels: Channels): void;
+
+    /**
      * Adjusts an image so that its orientation is suitable for viewing.
      */
     autoOrient(): void;
@@ -1915,6 +1926,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     alpha(value: AlphaOption): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_SetAlpha(this._instance, value, exception);
+        });
+    }
+
+    autoGamma(): void;
+    autoGamma(channelsOrUndefined?: Channels): void {
+        this.useExceptionPointer(exception => {
+            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Composite);
+            ImageMagick._api._MagickImage_AutoGamma(this._instance, channels, exception);
         });
     }
 
