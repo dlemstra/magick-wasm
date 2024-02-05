@@ -1935,15 +1935,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     blur(channels: Channels): void;
     blur(radius: number, sigma: number): void;
     blur(radius: number, sigma: number, channels: Channels): void;
-    blur(radiusOrChannel?: number | Channels, sigmaOrUndefined?: number, channelsOrUndefined?: Channels): void {
+    blur(radiusOrChannels?: number | Channels, sigmaOrUndefined?: number, channelsOrUndefined?: Channels): void {
         let radius = 0;
         const sigma = this.valueOrDefault(sigmaOrUndefined, 1);
         let channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
 
-        if (typeof radiusOrChannel === 'number')
-            radius = radiusOrChannel;
-        else if (radiusOrChannel !== undefined)
-            channels = radiusOrChannel;
+        if (radiusOrChannels !== undefined) {
+            if (sigmaOrUndefined === undefined)
+                channels = radiusOrChannels;
+            else
+                radius = radiusOrChannels;
+        }
 
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Blur(this._instance, radius, sigma, channels, exception.ptr);
