@@ -939,6 +939,27 @@ export interface IMagickImage extends IDisposable {
     flop(): void;
 
     /**
+     * Gaussian blur image.
+     * @param radius - The number of neighbor pixels to be included in the convolution.
+     */
+    gaussianBlur(radius: number): void;
+
+    /**
+     * Gaussian blur image.
+     * @param radius - The number of neighbor pixels to be included in the convolution.
+     * @param sigma - The standard deviation of the gaussian bell curve.
+    */
+    gaussianBlur(radius: number, sigma: number): void;
+
+   /**
+    * Gaussian blur image.
+    * @param radius - The number of neighbor pixels to be included in the convolution.
+    * @param sigma - The standard deviation of the gaussian bell curve.
+    * @param sigma - The channel(s) to blur.
+    */
+    gaussianBlur(radius: number, sigma: number, channels: Channels): void;
+
+    /**
      * Returns the value of the artifact with the specified name.
      * @param name - The name of the artifact.
      */
@@ -2430,6 +2451,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     flop(): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Flop(this._instance, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    gaussianBlur(radius: number): void;
+    gaussianBlur(radius: number, sigma: number): void;
+    gaussianBlur(radius: number, sigma: number, channels: Channels): void;
+    gaussianBlur(radius: number, sigmaOrUndefined?: number, channelsOrUndefined?: Channels): void {
+        const sigma = this.valueOrDefault(sigmaOrUndefined, 1.0);
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_GaussianBlur(this._instance, radius, sigma, channels, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
