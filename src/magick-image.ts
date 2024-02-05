@@ -341,6 +341,19 @@ export interface IMagickImage extends IDisposable {
     autoGamma(channels: Channels): void;
 
     /**
+     * Adjusts the levels of a particular image channel by scaling the minimum and maximum
+     * values to the full quantum range.
+     */
+    autoLevel(): void;
+
+    /**
+     * Adjusts the levels of a particular image channel by scaling the minimum and maximum
+     * values to the full quantum range.
+     * @param channels - The channel(s) to level.
+     */
+    autoLevel(channels: Channels): void;
+
+    /**
      * Adjusts an image so that its orientation is suitable for viewing.
      */
     autoOrient(): void;
@@ -1934,6 +1947,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useExceptionPointer(exception => {
             const channels = this.valueOrDefault(channelsOrUndefined, Channels.Composite);
             ImageMagick._api._MagickImage_AutoGamma(this._instance, channels, exception);
+        });
+    }
+
+    autoLevel(): void;
+    autoLevel(channelsOrUndefined?: Channels): void {
+        this.useExceptionPointer(exception => {
+            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+            ImageMagick._api._MagickImage_AutoLevel(this._instance, channels, exception);
         });
     }
 
