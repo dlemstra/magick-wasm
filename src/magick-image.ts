@@ -3009,6 +3009,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     /** @internal */
+    protected _setInstance(instance: number, exception: Exception): boolean {
+        if (super._setInstance(instance, exception) === true)
+            return true;
+
+        // Assume the task was cancelled if the instance is 0 and the progress delegate is set.
+        if (instance === 0 && this.onProgress !== undefined)
+            return true;
+
+        throw new MagickError('out of memory');
+    }
+
+    /** @internal */
     _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     /** @internal */
     _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
