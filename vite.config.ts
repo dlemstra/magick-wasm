@@ -14,6 +14,11 @@ export default defineConfig({
         globals: true,
         setupFiles: './tests/custom-environment.ts',
         logHeapUsage: true,
+        poolOptions: {
+            threads: {
+                isolate: false,
+            },
+        },
     },
     resolve: {
         alias: {
