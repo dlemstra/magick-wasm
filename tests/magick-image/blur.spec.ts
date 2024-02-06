@@ -14,12 +14,12 @@ describe('MagickImage#blur', () => {
     });
 
     it('should not confuse channels for radius', () => {
-        TestImages.Builtin.logo.use(imageA => {
-            imageA.clone(imageB => {
-                imageA.blur(Channels.Blue);
-                imageB.blur(4, 1);
+        TestImages.Builtin.logo.use(image => {
+            image.clone(other => {
+                image.blur(Channels.Blue);
+                other.blur(4, 1);
 
-                const difference = imageB.compare(imageA, ErrorMetric.RootMeanSquared);
+                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
                 expect(difference).not.toBe(0);
             })
         });
