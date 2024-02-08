@@ -7,11 +7,11 @@ import { TestImages } from '@test/test-images';
 describe('ConnectedComponent#toGeometry', () => {
     it('converts the component to a geometry', () => {
         TestImages.connectedComponentsPng.use((image) => {
-            image.clone((clone) => {
-                clone.blur(0, 10);
-                clone.threshold(new Percentage(50));
+            image.clone(other => {
+                other.blur(0, 10);
+                other.threshold(new Percentage(50));
 
-                const connectedComponents = [...clone.connectedComponents(4)].sort((a, b) => a.x - b.x);
+                const connectedComponents = [...other.connectedComponents(4)].sort((a, b) => a.x - b.x);
 
                 const geometry = connectedComponents[1].toGeometry();
 
