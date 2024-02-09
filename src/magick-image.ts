@@ -1042,21 +1042,12 @@ export interface IMagickImage extends IDisposable {
     /**
      * Applies the reversed level operation to just the specific channels specified. It compresses
      * the full range of color values, so that they lie between the given black and white points.
-     * @param channels - The channel(s) to level.
-     * @param blackPoint - The darkest color in the image. Colors darker are set to zero.
-     * @param whitePoint - The lightest color in the image. Colors brighter are set to the maximum quantum value.
-     */
-    inverseLevel(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
-
-    /**
-     * Applies the reversed level operation to just the specific channels specified. It compresses
-     * the full range of color values, so that they lie between the given black and white points.
-     * @param channels - The channel(s) to level.
      * @param blackPoint - The darkest color in the image. Colors darker are set to zero.
      * @param whitePoint - The lightest color in the image. Colors brighter are set to the maximum quantum value.
      * @param gamma - The gamma correction to apply to the image. (Useful range of 0 to 10).
+     * @param channels - The channel(s) to level.
      */
-    inverseLevel(channels: Channels, blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
+    inverseLevel(blackPoint: Percentage, whitePoint: Percentage, gamma: number, channels: Channels): void;
 
     /**
      * Changes any pixel that does not match the target with the color defined by fill.
@@ -1119,21 +1110,12 @@ export interface IMagickImage extends IDisposable {
     /**
      * Adjust the levels of the image by scaling the colors falling between specified white and
      * black points to the full available quantum range.
-     * @param channels - The channel(s) to level.
-     * @param blackPoint - The darkest color in the image. Colors darker are set to zero.
-     * @param whitePoint - The lightest color in the image. Colors brighter are set to the maximum quantum value.
-     */
-    level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
-
-    /**
-     * Adjust the levels of the image by scaling the colors falling between specified white and
-     * black points to the full available quantum range.
-     * @param channels - The channel(s) to level.
      * @param blackPoint - The darkest color in the image. Colors darker are set to zero.
      * @param whitePoint - The lightest color in the image. Colors brighter are set to the maximum quantum value.
      * @param gamma - The gamma correction to apply to the image. (Useful range of 0 to 10).
+     * @param channels - The channel(s) to level.
      */
-    level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
+    level(blackPoint: Percentage, whitePoint: Percentage, gamma: number, channels: Channels): void;
 
     /**
      * Discards any pixels below the black point and above the white point and levels the remaining pixels.
@@ -2554,25 +2536,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     inverseLevel(blackPoint: Percentage, whitePoint: Percentage): void;
     inverseLevel(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
-    inverseLevel(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
-    inverseLevel(channels: Channels, blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
-    inverseLevel(channelsOrBlackPoint: Channels | Percentage, blackPointOrWhitePoint: Percentage, whitePointPercentageOrGamma?: Percentage | number, gammaOrUndefined?: number): void {
-        let channels = Channels.Composite;
-        let blackPoint: Percentage;
-        let whitePoint: Percentage;
-        let gamma = this.valueOrDefault(gammaOrUndefined, 1.0);
-        if (typeof channelsOrBlackPoint === 'number') {
-            channels = channelsOrBlackPoint;
-            blackPoint = blackPointOrWhitePoint;
-            if (whitePointPercentageOrGamma instanceof Percentage)
-                whitePoint = whitePointPercentageOrGamma;
-        } else {
-            blackPoint = channelsOrBlackPoint;
-            whitePoint = blackPointOrWhitePoint;
-            if (typeof whitePointPercentageOrGamma === 'number')
-                gamma = whitePointPercentageOrGamma;
-        }
-
+    inverseLevel(blackPoint: Percentage, whitePoint: Percentage, gamma: number, channels: Channels): void;
+    inverseLevel(blackPoint: Percentage, whitePoint: Percentage, gammaOrUndefined?: number, channelsOrUndefined?: Channels): void {
+        const gamma = this.valueOrDefault(gammaOrUndefined, 1.0);
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Composite);
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_InverseLevel(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, channels, exception);
         });
@@ -2592,25 +2559,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     level(blackPoint: Percentage, whitePoint: Percentage): void;
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
-    level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage): void;
-    level(channels: Channels, blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
-    level(channelsOrBlackPoint: Channels | Percentage, blackPointOrWhitePoint: Percentage, whitePointPercentageOrGamma?: Percentage | number, gammaOrUndefined?: number): void {
-        let channels = Channels.Composite;
-        let blackPoint: Percentage;
-        let whitePoint: Percentage;
-        let gamma = this.valueOrDefault(gammaOrUndefined, 1.0);
-        if (typeof channelsOrBlackPoint === 'number') {
-            channels = channelsOrBlackPoint;
-            blackPoint = blackPointOrWhitePoint;
-            if (whitePointPercentageOrGamma instanceof Percentage)
-                whitePoint = whitePointPercentageOrGamma;
-        } else {
-            blackPoint = channelsOrBlackPoint;
-            whitePoint = blackPointOrWhitePoint;
-            if (typeof whitePointPercentageOrGamma === 'number')
-                gamma = whitePointPercentageOrGamma;
-        }
-
+    level(blackPoint: Percentage, whitePoint: Percentage, gamma: number, channels: Channels): void;
+    level(blackPoint: Percentage, whitePoint: Percentage, gammaOrUndefined?: number, channelsOrUndefined?: Channels): void {
+        const gamma = this.valueOrDefault(gammaOrUndefined, 1.0);
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Composite);
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, channels, exception);
         });

@@ -6,22 +6,11 @@ import { Percentage } from '@src/types/percentage';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#inverseLevel', () => {
-    it('should use composite as default channels', () => {
-        TestImages.Builtin.logo.use((image) => {
+    it('should use composite as default channels and 1 as default gamma', () => {
+        TestImages.Builtin.logo.use(image => {
             image.clone(other => {
                 image.inverseLevel(new Percentage(50), new Percentage(10));
-                other.inverseLevel(Channels.Composite, new Percentage(50), new Percentage(10));
-
-                expect(image.signature).toBe(other.signature);
-            });
-        });
-    });
-
-    it('should use 1 as default gamma', () => {
-        TestImages.Builtin.logo.use((image) => {
-            image.clone(other => {
-                image.inverseLevel(new Percentage(50), new Percentage(10));
-                other.inverseLevel(Channels.Composite, new Percentage(50), new Percentage(10), 1.0);
+                other.inverseLevel(new Percentage(50), new Percentage(10), 1.0, Channels.Composite);
 
                 expect(image.signature).toBe(other.signature);
             });
