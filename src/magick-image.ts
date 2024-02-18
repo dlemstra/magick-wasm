@@ -274,11 +274,6 @@ export interface IMagickImage extends IDisposable {
     orientation: OrientationType;
 
     /**
-     * Gets or sets the preferred size and location of an image canvas.
-     */
-    page: IMagickGeometry;
-
-    /**
      * Event that will be raised when progress is reported by this image.
      */
     onProgress?: (event: ProgressEvent) => void;
@@ -287,6 +282,11 @@ export interface IMagickImage extends IDisposable {
      * Event that will we raised when a warning is raised by ImageMagick.
      */
     onWarning?: (event:  WarningEvent) => void;
+
+    /**
+     * Gets or sets the preferred size and location of an image canvas.
+     */
+    page: IMagickGeometry;
 
     /**
      * Gets or sets the JPEG/MIFF/PNG compression level (default 75).
@@ -1871,16 +1871,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
 
-    get page(): IMagickGeometry {
-        const rectangle = ImageMagick._api._MagickImage_Page_Get(this._instance);
-        return MagickGeometry._fromRectangle(rectangle);
-    }
-    set page(value: IMagickGeometry) {
-        value._toRectangle(rectangle => {
-            ImageMagick._api._MagickImage_Page_Set(this._instance, rectangle);
-        });
-    }
-
     get onProgress(): ((event: ProgressEvent) => number) | undefined { return this._progress; }
     set onProgress(value: ((event: ProgressEvent) => number) | undefined) {
         if (value !== undefined)
@@ -1893,6 +1883,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get onWarning(): ((event: WarningEvent) => number) | undefined { return this._warning; }
     set onWarning(value: ((event: WarningEvent) => number) | undefined) { this._warning = value; }
+
+    get page(): IMagickGeometry {
+        const rectangle = ImageMagick._api._MagickImage_Page_Get(this._instance);
+        return MagickGeometry._fromRectangle(rectangle);
+    }
+    set page(value: IMagickGeometry) {
+        value._toRectangle(rectangle => {
+            ImageMagick._api._MagickImage_Page_Set(this._instance, rectangle);
+        });
+    }
 
     get quality(): number { return ImageMagick._api._MagickImage_Quality_Get(this._instance); }
     set quality(value: number) {
