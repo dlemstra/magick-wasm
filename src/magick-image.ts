@@ -289,6 +289,11 @@ export interface IMagickImage extends IDisposable {
     page: IMagickGeometry;
 
     /**
+     * Gets the names of the profiles.
+     */
+    readonly profileNames: ReadonlyArray<string>;
+
+    /**
      * Gets or sets the JPEG/MIFF/PNG compression level (default 75).
      */
     quality: number;
@@ -1892,6 +1897,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         value._toRectangle(rectangle => {
             ImageMagick._api._MagickImage_Page_Set(this._instance, rectangle);
         });
+    }
+
+    get profileNames(): ReadonlyArray<string> {
+        const profileNames: string[] = [];
+        ImageMagick._api._MagickImage_ResetProfileIterator(this._instance);
+        let name = ImageMagick._api._MagickImage_GetNextProfileName(this._instance);
+        while (name !== 0) {
+            profileNames.push(ImageMagick._api.UTF8ToString(name));
+            name = ImageMagick._api._MagickImage_GetNextProfileName(this._instance);
+        }
+
+        return profileNames;
     }
 
     get quality(): number { return ImageMagick._api._MagickImage_Quality_Get(this._instance); }
