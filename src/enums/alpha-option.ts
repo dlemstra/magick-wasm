@@ -98,4 +98,9 @@ export enum AlphaOption {
      * RGB data still intact, but fully transparent.
     */
     Transparent,
+
+    /**
+     * Removes the alpha channel when the alpha value is opaque for all pixels.
+     */
+    OffIfOpaque,
 }
