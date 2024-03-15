@@ -329,6 +329,24 @@ export interface IMagickImage extends IDisposable {
     width: number;
 
     /**
+     * Adaptive-blur image with the default blur factor (0x1).
+     */
+    adaptiveBlur(): void;
+
+    /**
+     * Adaptive-blur image with the default blur factor (0x1).
+     * @param radius - The radius of the Gaussian, in pixels, not counting the center pixel.
+     */
+    adaptiveBlur(radius: number): void;
+
+    /**
+     * Adaptive-blur image with specified blur factor.
+     * @param radius - The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma - The standard deviation of the Laplacian, in pixels.
+     */
+    adaptiveBlur(radius: number, sigma: number): void;
+
+    /**
      * Applies the specified alpha option.
      * @param value - The option to use.
      */
@@ -1955,6 +1973,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
+
+    adaptiveBlur(): void;
+    adaptiveBlur(radius: number): void;
+    adaptiveBlur(radius: number, sigma: number): void;
+    adaptiveBlur(radiusOrUndefined?: number, sigmaOrUndefined?: number): void {
+        const radius = this.valueOrDefault(radiusOrUndefined, 0);
+        const sigma = this.valueOrDefault(sigmaOrUndefined, 1);
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_AdaptiveBlur(this._instance, radius, sigma, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
 
     alpha(value: AlphaOption): void {
         this.useExceptionPointer(exception => {
