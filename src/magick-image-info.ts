@@ -118,4 +118,10 @@ export class MagickImageInfo implements IMagickImageInfo {
             this._width = image.width;
         });
     }
+
+    static create(array: ByteArray, settings?: MagickReadSettings): IMagickImageInfo {
+        const result = new MagickImageInfo();
+        result.read(array, settings);
+        return result;
+    }
 }
