@@ -76,6 +76,7 @@ export * from './magick-colors';
 export * from './magick-error';
 export * from './magick-format-info';
 export * from './magick-image-collection';
+export * from './magick-image-info';
 export * from './magick-image';
 export * from './magick';
 export * from './native-instance';
