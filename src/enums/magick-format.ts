@@ -336,6 +336,11 @@ export enum MagickFormat {
     Ff = 'FF',
 
     /**
+     * Hasselblad CFV/H3D39II Raw Format.
+     */
+    Fff = 'FFF',
+
+    /**
      * Uniform Resource Locator (file://).
      */
     File = 'FILE',
@@ -646,6 +651,11 @@ export enum MagickFormat {
     Matte = 'MATTE',
 
     /**
+     * Minolta Digital Camera Raw Format.
+     */
+    Mdc = 'MDC',
+
+    /**
      * Mamiya Raw Format.
      */
     Mef = 'MEF',
@@ -674,6 +684,11 @@ export enum MagickFormat {
      * MPEG Video Stream.
      */
     Mov = 'MOV',
+
+    /**
+     * Aptus Leaf Raw Format.
+     */
+    Mos = 'MOS',
 
     /**
      * MPEG-4 Video Stream.
@@ -1061,6 +1076,11 @@ export enum MagickFormat {
     Rw2 = 'RW2',
 
     /**
+     * Leica Raw Format.
+     */
+    Rwl = 'RWL',
+
+    /**
      * ZX-Spectrum SCREEN$.
      */
     Scr = 'SCR',
@@ -1116,9 +1136,19 @@ export enum MagickFormat {
     Srf = 'SRF',
 
     /**
+     * Samsung Raw Format.
+     */
+    Srw = 'SRW',
+
+    /**
      * Steganographic image.
      */
     Stegano = 'STEGANO',
+
+    /**
+     * Sinar CaptureShop Raw Format.
+     */
+    Sti = 'STI',
 
     /**
      * String to image and back.
@@ -1154,6 +1184,11 @@ export enum MagickFormat {
      * EXIF Profile Thumbnail.
      */
     Thumbnail = 'THUMBNAIL',
+
+    /**
+     * Tagged Image File Format.
+     */
+    Tif = 'TIF',
 
     /**
      * Tagged Image File Format.
@@ -1318,12 +1353,12 @@ export enum MagickFormat {
     /**
      * Raw Y, Cb, and Cr samples.
      */
-    Ycbcr = 'YCBCR',
+    Ycbcr = 'YCbCr',
 
     /**
      * Raw Y, Cb, Cr, and alpha samples.
      */
-    Ycbcra = 'YCBCRA',
+    Ycbcra = 'YCbCrA',
 
     /**
      * CCIR 601 4:1:1 or 4:2:2.
