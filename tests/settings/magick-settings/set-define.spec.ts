@@ -19,7 +19,7 @@ describe('MagickSettings#setDefine', () => {
 
     it('should change number value into a string', () => {
         const settings = new MagickSettings();
-        settings.setDefine(MagickFormat.Webp, 'method', 1);
+        settings.setDefine(MagickFormat.WebP, 'method', 1);
 
         const result = settings.getDefine('WEBP:method');
 
