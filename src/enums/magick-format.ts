@@ -11,137 +11,137 @@ export enum MagickFormat {
     Unknown = 'UNKNOWN',
 
     /**
-     * 3FR.
+     * Hasselblad CFV/H3D39II Raw Format.
      */
     ThreeFr = '3FR',
 
     /**
-     * 3G2.
+     * Media Container.
      */
     ThreeG2 = '3G2',
 
     /**
-     * 3GP.
+     * Media Container.
      */
     ThreeGp = '3GP',
 
     /**
-     * A.
+     * Raw alpha samples.
      */
     A = 'A',
 
     /**
-     * Aai.
+     * AAI Dune image.
      */
     Aai = 'AAI',
 
     /**
-     * Ai.
+     * Adobe Illustrator CS2.
      */
     Ai = 'AI',
 
     /**
-     * Apng.
+     * Animated Portable Network Graphics.
      */
-    Apng = 'APNG',
+    APng = 'APNG',
 
     /**
-     * ART.
+     * PFS: 1st Publisher Clip Art.
      */
     Art = 'ART',
 
     /**
-     * Arw.
+     * Sony Alpha Raw Format.
      */
     Arw = 'ARW',
 
     /**
-     * Ashlar.
+     * Image sequence laid out in continuous irregular courses (Unknown).
      */
     Ashlar = 'ASHLAR',
 
     /**
-     * Avi.
+     * Microsoft Audio/Visual Interleaved.
      */
     Avi = 'AVI',
 
     /**
-     * Avif.
+     * AV1 Image File Format (Heic).
      */
     Avif = 'AVIF',
 
     /**
-     * Avs.
+     * AVS X image.
      */
     Avs = 'AVS',
 
     /**
-     * B.
+     * Raw blue samples.
      */
     B = 'B',
 
     /**
-     * Bayer
+     * Raw mosaiced samples.
      */
     Bayer = 'BAYER',
 
     /**
-     * Bayera.
+     * Raw mosaiced and alpha samples.
      */
     Bayera = 'BAYERA',
 
     /**
-     * Bgr.
+     * Raw blue, green, and red samples.
      */
     Bgr = 'BGR',
 
     /**
-     * Bgra.
+     * Raw blue, green, red, and alpha samples.
      */
     Bgra = 'BGRA',
 
     /**
-     * Bgro.
+     * Raw blue, green, red, and opacity samples.
      */
     Bgro = 'BGRO',
 
     /**
-     * Bmp.
+     * Microsoft Windows bitmap image.
      */
     Bmp = 'BMP',
 
     /**
-     * Bmp 2.
+     * Microsoft Windows bitmap image (V2).
      */
     Bmp2 = 'BMP2',
 
     /**
-     * Bmp 3.
+     * Microsoft Windows bitmap image (V3).
      */
     Bmp3 = 'BMP3',
 
     /**
-     * Brf.
+     * BRF ASCII Braille format.
      */
     Brf = 'BRF',
 
     /**
-     * C.
+     * Raw cyan samples.
      */
     C = 'C',
 
     /**
-     * Cal.
+     * Continuous Acquisition and Life-cycle Support Type 1.
      */
     Cal = 'CAL',
 
     /**
-     * Cals.
+     * Continuous Acquisition and Life-cycle Support Type 1.
      */
     Cals = 'CALS',
 
     /**
-     * Canvas.
+     * Constant image uniform color.
      */
     Canvas = 'CANVAS',
 
@@ -151,172 +151,172 @@ export enum MagickFormat {
     Caption = 'CAPTION',
 
     /**
-     * Cin.
+     * Cineon Image File.
      */
     Cin = 'CIN',
 
     /**
-     * Cip.
+     * Cisco IP phone image format.
      */
     Cip = 'CIP',
 
     /**
-     * Clip.
+     * Image Clip Mask.
      */
     Clip = 'CLIP',
 
     /**
-     * Cmyk.
+     * Raw cyan, magenta, yellow, and black samples.
      */
     Cmyk = 'CMYK',
 
     /**
-     * Cmyka.
+     * Raw cyan, magenta, yellow, black, and alpha samples.
      */
     Cmyka = 'CMYKA',
 
     /**
-     * Cr2.
+     * Canon Digital Camera Raw Format.
      */
     Cr2 = 'CR2',
 
     /**
-     * Cr3.
+     * Canon Digital Camera Raw Format.
      */
     Cr3 = 'CR3',
 
     /**
-     * Crw.
+     * Canon Digital Camera Raw Format.
      */
     Crw = 'CRW',
 
     /**
-     * Cube.
+     * Cube color lookup table image.
      */
     Cube = 'CUBE',
 
     /**
-     * Cur.
+     * Microsoft icon.
      */
     Cur = 'CUR',
 
     /**
-     * Cut.
+     * DR Halo.
      */
     Cut = 'CUT',
 
     /**
-     * Data
+     * Base64-encoded inline images.
      */
     Data = 'DATA',
 
     /**
-     * Dcm.
+     * Digital Imaging and Communications in Medicine image.
      */
     Dcm = 'DCM',
 
     /**
-     * Dcr.
+     * Kodak Digital Camera Raw Format.
      */
     Dcr = 'DCR',
 
     /**
-     * Dcraw.
+     * Raw Photo Decoder (dcraw).
      */
     Dcraw = 'DCRAW',
 
     /**
-     * Dcx.
+     * ZSoft IBM PC multi-page Paintbrush.
      */
     Dcx = 'DCX',
 
     /**
-     * Dds.
+     * Microsoft DirectDraw Surface.
      */
     Dds = 'DDS',
 
     /**
-     * Dfont.
+     * Multi-face font package.
      */
     Dfont = 'DFONT',
 
     /**
-     * Dng.
+     * Digital Negative Raw Format.
      */
     Dng = 'DNG',
 
     /**
-     * Dpx.
+     * SMPTE 268M-2003 (DPX 2.0).
      */
     Dpx = 'DPX',
 
     /**
-     * Dxt1.
+     * Microsoft DirectDraw Surface.
      */
     Dxt1 = 'DXT1',
 
     /**
-     * Dxt5.
+     * Microsoft DirectDraw Surface.
      */
     Dxt5 = 'DXT5',
 
     /**
-     * Epdf.
+     * Encapsulated Portable Document Format.
      */
     Epdf = 'EPDF',
 
     /**
-     * Epi.
+     * Encapsulated PostScript Interchange format.
      */
     Epi = 'EPI',
 
     /**
-     * Eps.
+     * Encapsulated PostScript.
      */
     Eps = 'EPS',
 
     /**
-     * Eps 2.
+     * Level II Encapsulated PostScript.
      */
     Eps2 = 'EPS2',
 
     /**
-     * Eps 3.
+     * Level III Encapsulated PostScript.
      */
     Eps3 = 'EPS3',
 
     /**
-     * Epsf.
+     * Encapsulated PostScript.
      */
     Epsf = 'EPSF',
 
     /**
-     * Epsi.
+     * Encapsulated PostScript Interchange format.
      */
     Epsi = 'EPSI',
 
     /**
-     * Ept.
+     * Encapsulated PostScript with TIFF preview.
      */
     Ept = 'EPT',
 
     /**
-     * Ept 2.
+     * Encapsulated PostScript Level II with TIFF preview.
      */
     Ept2 = 'EPT2',
 
     /**
-     * Ept 3.
+     * Encapsulated PostScript Level III with TIFF preview.
      */
     Ept3 = 'EPT3',
 
     /**
-     * Erf.
+     * Epson Raw Format.
      */
     Erf = 'ERF',
 
     /**
-     * Exr.
+     * High Dynamic-range (HDR).
      */
     Exr = 'EXR',
 
@@ -326,687 +326,687 @@ export enum MagickFormat {
     Farbfeld = 'FARBFELD',
 
     /**
-     * Fax.
+     * Group 3 FAX.
      */
     Fax = 'FAX',
 
     /**
-     * Ff.
+     * Farbfeld.
      */
     Ff = 'FF',
 
     /**
-     * File.
+     * Uniform Resource Locator (file://).
      */
     File = 'FILE',
 
     /**
-     * Fits.
+     * Flexible Image Transport System.
      */
     Fits = 'FITS',
 
     /**
-     * Fl32.
+     * FilmLight.
      */
     Fl32 = 'FL32',
 
     /**
-     * Flv.
+     * Flash Video Stream.
      */
     Flv = 'FLV',
 
     /**
-     * Fractal.
+     * Plasma fractal image.
      */
     Fractal = 'FRACTAL',
 
     /**
-     * Ftp.
+     * Uniform Resource Locator (ftp://).
      */
     Ftp = 'FTP',
 
     /**
-     * Ftxt.
-     */
-    Ftxt = 'FTXT',
-
-    /**
-     * Fts.
+     * Flexible Image Transport System.
      */
     Fts = 'FTS',
 
     /**
-     * G.
+     * Formatted text image.
+     */
+    Ftxt = 'FTXT',
+
+    /**
+     * Raw green samples.
      */
     G = 'G',
 
     /**
-     * G3.
+     * Group 3 FAX.
      */
     G3 = 'G3',
 
     /**
-     * G4.
+     * Group 4 FAX.
      */
     G4 = 'G4',
 
     /**
-     * Gif.
+     * CompuServe graphics interchange format.
      */
     Gif = 'GIF',
 
     /**
-     * Gif 87.
+     * CompuServe graphics interchange format.
      */
     Gif87 = 'GIF87',
 
     /**
-     * Gradient.
+     * Gradual linear passing from one shade to another.
      */
     Gradient = 'GRADIENT',
 
     /**
-     * Gray.
+     * Raw gray samples.
      */
     Gray = 'GRAY',
 
     /**
-     * Graya.
+     * Raw gray and alpha samples.
      */
-
     Graya = 'GRAYA',
+
     /**
-     * Group 4.
+     * Raw CCITT Group4.
      */
     Group4 = 'GROUP4',
 
     /**
-     * Hald.
+     * Identity Hald color lookup table image.
      */
     Hald = 'HALD',
 
     /**
-     * Hdr.
+     * Radiance RGBE image format.
      */
     Hdr = 'HDR',
 
     /**
-     * Heic.
+     * High Efficiency Image Format.
      */
     Heic = 'HEIC',
 
     /**
-     * Heif.
+     * High Efficiency Image Format.
      */
     Heif = 'HEIF',
 
     /**
-     * Histogram.
+     * Histogram of the image.
      */
     Histogram = 'HISTOGRAM',
 
     /**
-     * Hrz.
+     * Slow Scan TeleVision.
      */
     Hrz = 'HRZ',
 
     /**
-     * Htm.
+     * Hypertext Markup Language and a client-side image map.
      */
     Htm = 'HTM',
 
     /**
-     * Html.
+     * Hypertext Markup Language and a client-side image map.
      */
     Html = 'HTML',
 
     /**
-     * Http.
+     * Uniform Resource Locator (http://).
      */
     Http = 'HTTP',
 
     /**
-     * Https.
+     * Uniform Resource Locator (https://).
      */
     Https = 'HTTPS',
 
     /**
-     * Icb.
+     * Truevision Targa image.
      */
     Icb = 'ICB',
 
     /**
-     * Ico.
+     * Microsoft icon.
      */
     Ico = 'ICO',
 
     /**
-     * Icon.
+     * Microsoft icon.
      */
     Icon = 'ICON',
 
     /**
-     * Iiq.
+     * Phase One Raw Format.
      */
     Iiq = 'IIQ',
 
     /**
-     * Info.
+     * The image format and characteristics.
      */
     Info = 'INFO',
 
     /**
-     * Inline.
+     * Base64-encoded inline images.
      */
     Inline = 'INLINE',
 
     /**
-     * Ipl.
+     * IPL Image Sequence.
      */
     Ipl = 'IPL',
 
     /**
-     * Isobrl.
+     * ISO/TR 11548-1 format.
      */
     Isobrl = 'ISOBRL',
 
     /**
-     * Isobrl 6.
+     * ISO/TR 11548-1 format 6dot.
      */
     Isobrl6 = 'ISOBRL6',
 
     /**
-     * J2c.
+     * JPEG-2000 Code Stream Syntax.
      */
     J2c = 'J2C',
 
     /**
-     * J2k.
+     * JPEG-2000 Code Stream Syntax.
      */
     J2k = 'J2K',
 
     /**
-     * Jng.
+     * JPEG Network Graphics.
      */
     Jng = 'JNG',
 
     /**
-     * Jnx.
+     * Garmin tile format.
      */
     Jnx = 'JNX',
 
     /**
-     * Jp2.
+     * JPEG-2000 File Format Syntax.
      */
     Jp2 = 'JP2',
 
     /**
-     * Jpc.
+     * JPEG-2000 Code Stream Syntax.
      */
     Jpc = 'JPC',
 
     /**
-     * Jpe.
+     * Joint Photographic Experts Group JFIF format.
      */
     Jpe = 'JPE',
 
     /**
-     * Jpeg.
+     * Joint Photographic Experts Group JFIF format.
      */
     Jpeg = 'JPEG',
 
     /**
-     * Jpg.
+     * Joint Photographic Experts Group JFIF format.
      */
     Jpg = 'JPG',
 
     /**
-     * Jpm.
+     * JPEG-2000 File Format Syntax.
      */
     Jpm = 'JPM',
 
     /**
-     * Jps.
+     * Joint Photographic Experts Group JFIF format.
      */
     Jps = 'JPS',
 
     /**
-     * Jpt.
+     * JPEG-2000 File Format Syntax.
      */
     Jpt = 'JPT',
 
     /**
-     * Json.
+     * The image format and characteristics.
      */
     Json = 'JSON',
 
     /**
-     * Jxl.
+     * JPEG XL Lossless JPEG1 Recompression.
      */
     Jxl = 'JXL',
 
     /**
-     * K.
+     * Raw black samples.
      */
     K = 'K',
 
     /**
-     * K25.
+     * Kodak Digital Camera Raw Format.
      */
     K25 = 'K25',
 
     /**
-     * Kdc.
+     * Kodak Digital Camera Raw Format.
      */
     Kdc = 'KDC',
 
     /**
-     * Label.
+     * Image label.
      */
     Label = 'LABEL',
 
     /**
-     * M.
+     * Raw magenta samples.
      */
     M = 'M',
 
     /**
-     * M2v.
+     * MPEG Video Stream.
      */
     M2v = 'M2V',
 
     /**
-     * M4v.
+     * Raw MPEG-4 Video.
      */
     M4v = 'M4V',
 
     /**
-     * Mac.
+     * MAC Paint.
      */
     Mac = 'MAC',
 
     /**
-     * Map.
+     * Colormap intensities and indices.
      */
     Map = 'MAP',
 
     /**
-     * Mask.
+     * Image Clip Mask.
      */
     Mask = 'MASK',
 
     /**
-     * Mat.
+     * MATLAB level 5 image format.
      */
     Mat = 'MAT',
 
     /**
-     * Matte.
+     * MATTE format.
      */
     Matte = 'MATTE',
 
     /**
-     * Mef.
+     * Mamiya Raw Format.
      */
     Mef = 'MEF',
 
     /**
-     * Miff.
+     * Magick Image File Format.
      */
     Miff = 'MIFF',
 
     /**
-     * Mkv.
+     * Multimedia Container.
      */
     Mkv = 'MKV',
 
     /**
-     * Mng.
+     * Multiple-image Network Graphics.
      */
     Mng = 'MNG',
 
     /**
-     * Mono.
+     * Raw bi-level bitmap.
      */
     Mono = 'MONO',
 
     /**
-     * Mov.
+     * MPEG Video Stream.
      */
     Mov = 'MOV',
 
     /**
-     * Mp4.
+     * MPEG-4 Video Stream.
      */
     Mp4 = 'MP4',
 
     /**
-     * Mpc.
+     * Magick Persistent Cache image format.
      */
     Mpc = 'MPC',
 
     /**
-     * Mpeg.
+     * MPEG Video Stream.
      */
     Mpeg = 'MPEG',
 
     /**
-     * Mpg.
+     * MPEG Video Stream.
      */
     Mpg = 'MPG',
 
     /**
-     * Mpo.
+     * Joint Photographic Experts Group JFIF format (Jpeg).
      */
     Mpo = 'MPO',
 
     /**
-     * Mrw.
+     * Sony (Minolta) Raw Format.
      */
     Mrw = 'MRW',
 
     /**
-     * Msl.
+     * Magick Scripting Language.
      */
     Msl = 'MSL',
 
     /**
-     * Msvg.
+     * ImageMagick's own SVG internal renderer.
      */
     Msvg = 'MSVG',
 
     /**
-     * Mtv.
+     * MTV Raytracing image format.
      */
     Mtv = 'MTV',
 
     /**
-     * Mvg.
+     * Magick Vector Graphics.
      */
     Mvg = 'MVG',
 
     /**
-     * Nef.
+     * Nikon Digital SLR Camera Raw Format.
      */
     Nef = 'NEF',
 
     /**
-     * Nrw.
+     * Nikon Digital SLR Camera Raw Format.
      */
     Nrw = 'NRW',
 
     /**
-     * Null.
+     * Constant image of uniform color.
      */
     Null = 'NULL',
 
     /**
-     * O.
+     * Raw opacity samples.
      */
     O = 'O',
 
     /**
-     * Ora.
+     * OpenRaster format.
      */
     Ora = 'ORA',
 
     /**
-     * Orf.
+     * Olympus Digital Camera Raw Format.
      */
     Orf = 'ORF',
 
     /**
-     * Otb.
+     * On-the-air bitmap.
      */
     Otb = 'OTB',
 
     /**
-     * Otf.
+     * Open Type font.
      */
     Otf = 'OTF',
 
     /**
-     * Pal.
+     * 16bit/pixel interleaved YUV.
      */
     Pal = 'PAL',
 
     /**
-     * Palm.
+     * Palm pixmap.
      */
     Palm = 'PALM',
 
     /**
-     * Pam.
+     * Common 2-dimensional bitmap format.
      */
     Pam = 'PAM',
 
     /**
-     * Pango.
+     * Pango Markup Language.
      */
     Pango = 'PANGO',
 
     /**
-     * Pattern.
+     * Predefined pattern.
      */
     Pattern = 'PATTERN',
 
     /**
-     * Pbm.
+     * Portable bitmap format (black and white).
      */
     Pbm = 'PBM',
 
     /**
-     * Pcd.
+     * Photo CD.
      */
     Pcd = 'PCD',
 
     /**
-     * Pcds.
+     * Photo CD.
      */
     Pcds = 'PCDS',
 
     /**
-     * Pcl.
+     * Printer Control Language.
      */
     Pcl = 'PCL',
 
     /**
-     * Pct.
+     * Apple Macintosh QuickDraw/PICT.
      */
     Pct = 'PCT',
 
     /**
-     * Pcx.
+     * ZSoft IBM PC Paintbrush.
      */
     Pcx = 'PCX',
 
     /**
-     * Pdb.
+     * Palm Database ImageViewer Format.
      */
     Pdb = 'PDB',
 
     /**
-     * Pdf.
+     * Portable Document Format.
      */
     Pdf = 'PDF',
 
     /**
-     * Pdfa.
+     * Portable Document Archive Format.
      */
     Pdfa = 'PDFA',
 
     /**
-     * Pef.
+     * Pentax Electronic Raw Format.
      */
     Pef = 'PEF',
 
     /**
-     * Pes.
+     * Embrid Embroidery Format.
      */
     Pes = 'PES',
 
     /**
-     * Pfa.
+     * Postscript Type 1 font (ASCII).
      */
     Pfa = 'PFA',
 
     /**
-     * Pfb.
+     * Postscript Type 1 font (binary).
      */
     Pfb = 'PFB',
 
     /**
-     * Pfm.
+     * Portable float format.
      */
     Pfm = 'PFM',
 
     /**
-     * Pgm.
+     * Portable graymap format (gray scale).
      */
     Pgm = 'PGM',
 
     /**
-     * Pgx.
+     * JPEG 2000 uncompressed format.
      */
     Pgx = 'PGX',
 
     /**
-     * Phm.
+     * Portable half float format.
      */
     Phm = 'PHM',
 
     /**
-     * Picon.
+     * Personal Icon.
      */
     Picon = 'PICON',
 
     /**
-     * Pict.
+     * Apple Macintosh QuickDraw/PICT.
      */
     Pict = 'PICT',
 
     /**
-     * Pix.
+     * Alias/Wavefront RLE image format.
      */
     Pix = 'PIX',
 
     /**
-     * Pjpeg.
+     * Joint Photographic Experts Group JFIF format.
      */
     Pjpeg = 'PJPEG',
 
     /**
-     * Plasma.
+     * Plasma fractal image.
      */
     Plasma = 'PLASMA',
 
     /**
-     * Png.
+     * Portable Network Graphics.
      */
     Png = 'PNG',
 
     /**
-     * Png 00.
+     * PNG inheriting bit-depth and color-type from original.
      */
     Png00 = 'PNG00',
 
     /**
-     * Png 24.
+     * opaque or binary transparent 24-bit RGB.
      */
     Png24 = 'PNG24',
 
     /**
-     * Png 32.
+     * opaque or transparent 32-bit RGBA.
      */
     Png32 = 'PNG32',
 
     /**
-     * Png 48.
+     * opaque or binary transparent 48-bit RGB.
      */
     Png48 = 'PNG48',
 
     /**
-     * Png 64.
+     * opaque or transparent 64-bit RGBA.
      */
     Png64 = 'PNG64',
 
     /**
-     * Png 8.
+     * 8-bit indexed with optional binary transparency.
      */
     Png8 = 'PNG8',
 
     /**
-     * Pnm.
+     * Portable anymap.
      */
     Pnm = 'PNM',
 
     /**
-     * Pocketmod.
+     * Pocketmod Personal Organizer (Pdf).
      */
     Pocketmod = 'POCKETMOD',
 
     /**
-     * Ppm.
+     * Portable pixmap format (color).
      */
     Ppm = 'PPM',
 
     /**
-     * Ps.
+     * PostScript.
      */
     Ps = 'PS',
 
     /**
-     * Ps 2.
+     * Level II PostScript.
      */
     Ps2 = 'PS2',
 
     /**
-     * Ps 3.
+     * Level III PostScript.
      */
     Ps3 = 'PS3',
 
     /**
-     * Psb.
+     * Adobe Large Document Format.
      */
     Psb = 'PSB',
 
     /**
-     * Psd.
+     * Adobe Photoshop bitmap.
      */
     Psd = 'PSD',
 
     /**
-     * Ptif.
+     * Pyramid encoded TIFF.
      */
     Ptif = 'PTIF',
 
     /**
-     * Pwp.
+     * Seattle Film Works.
      */
     Pwp = 'PWP',
 
     /**
-     * Qoi
+     * Quite OK image format.
      */
     Qoi = 'QOI',
 
     /**
-     * R.
+     * Raw red samples.
      */
     R = 'R',
 
     /**
-     * Radial gradient.
+     * Gradual radial passing from one shade to another.
      */
     RadialGradient = 'RADIAL-GRADIENT',
 
     /**
-     * Raf.
+     * Fuji CCD-RAW Graphic File.
      */
     Raf = 'RAF',
 
     /**
-     * Ras.
+     * SUN Rasterfile.
      */
     Ras = 'RAS',
 
@@ -1016,127 +1016,127 @@ export enum MagickFormat {
     Raw = 'RAW',
 
     /**
-     * Rgb.
+     * Raw red, green, and blue samples.
      */
     Rgb = 'RGB',
 
     /**
-     * Rgb 565.
+     * Raw red, green, blue samples in 565 format.
      */
     Rgb565 = 'RGB565',
 
     /**
-     * Rgba.
+     * Raw red, green, blue, and alpha samples.
      */
     Rgba = 'RGBA',
 
     /**
-     * Rgbo.
+     * Raw red, green, blue, and opacity samples.
      */
     Rgbo = 'RGBO',
 
     /**
-     * Rgf.
+     * LEGO Mindstorms EV3 Robot Graphic Format (black and white).
      */
     Rgf = 'RGF',
 
     /**
-     * Rla.
+     * Alias/Wavefront image.
      */
     Rla = 'RLA',
 
     /**
-     * Rle.
+     * Utah Run length encoded image.
      */
     Rle = 'RLE',
 
     /**
-     * Rmf.
+     * Raw Media Format.
      */
     Rmf = 'RMF',
 
     /**
-     * Rw 2.
+     * Panasonic Lumix Raw Format.
      */
     Rw2 = 'RW2',
 
     /**
-     * Scr.
+     * ZX-Spectrum SCREEN$.
      */
     Scr = 'SCR',
 
     /**
-     * Screenshot.
+     * Screen shot.
      */
     Screenshot = 'SCREENSHOT',
 
     /**
-     * Sct.
+     * Scitex HandShake.
      */
     Sct = 'SCT',
 
     /**
-     * Sfw.
+     * Seattle Film Works.
      */
     Sfw = 'SFW',
 
     /**
-     * Sgi.
+     * Irix RGB image.
      */
     Sgi = 'SGI',
 
     /**
-     * Shtml.
+     * Hypertext Markup Language and a client-side image map.
      */
     Shtml = 'SHTML',
 
     /**
-     * Six.
+     * DEC SIXEL Graphics Format.
      */
     Six = 'SIX',
 
     /**
-     * Sixel.
+     * DEC SIXEL Graphics Format.
      */
     Sixel = 'SIXEL',
 
     /**
-     * Sparse color.
+     * Sparse Color.
      */
     SparseColor = 'SPARSE-COLOR',
 
     /**
-     * Sr2.
+     * Sony Raw Format 2.
      */
     Sr2 = 'SR2',
 
     /**
-     * Srf.
+     * Sony Raw Format.
      */
     Srf = 'SRF',
 
     /**
-     * Stegano.
+     * Steganographic image.
      */
     Stegano = 'STEGANO',
 
     /**
-     * Str img.
+     * String to image and back.
      */
     StrImg = 'STRIMG',
 
     /**
-     * Sun.
+     * SUN Rasterfile.
      */
     Sun = 'SUN',
 
     /**
-     * Svg.
+     * Scalable Vector Graphics.
      */
     Svg = 'SVG',
 
     /**
-     * Svgz.
+     * Compressed Scalable Vector Graphics.
      */
     Svgz = 'SVGZ',
 
@@ -1146,187 +1146,187 @@ export enum MagickFormat {
     Text = 'TEXT',
 
     /**
-     * Tga.
+     * Truevision Targa image.
      */
     Tga = 'TGA',
 
     /**
-     * Thumbnail.
+     * EXIF Profile Thumbnail.
      */
     Thumbnail = 'THUMBNAIL',
 
     /**
-     * Tiff.
+     * Tagged Image File Format.
      */
     Tiff = 'TIFF',
 
     /**
-     * Tiff 64.
+     * Tagged Image File Format (64-bit).
      */
     Tiff64 = 'TIFF64',
 
     /**
-     * Tile.
+     * Tile image with a texture.
      */
     Tile = 'TILE',
 
     /**
-     * Tim.
+     * PSX TIM.
      */
     Tim = 'TIM',
 
     /**
-     * Tm 2.
+     * PS2 TIM2.
      */
     Tm2 = 'TM2',
 
     /**
-     * Ttc.
+     * TrueType font collection.
      */
     Ttc = 'TTC',
 
     /**
-     * Ttf.
+     * TrueType font.
      */
     Ttf = 'TTF',
 
     /**
-     * Txt.
+     * Text.
      */
     Txt = 'TXT',
 
     /**
-     * Ubrl.
+     * Unicode Text format.
      */
     Ubrl = 'UBRL',
 
     /**
-     * Ubrl 6.
+     * Unicode Text format 6dot.
      */
     Ubrl6 = 'UBRL6',
 
     /**
-     * Uil.
+     * X-Motif UIL table.
      */
     Uil = 'UIL',
 
     /**
-     * Uyvy.
+     * 16bit/pixel interleaved YUV.
      */
     Uyvy = 'UYVY',
 
     /**
-     * Vda.
+     * Truevision Targa image.
      */
     Vda = 'VDA',
 
     /**
-     * Vicar.
+     * VICAR rasterfile format.
      */
     Vicar = 'VICAR',
 
     /**
-     * Vid.
+     * Visual Image Directory.
      */
     Vid = 'VID',
 
     /**
-     * Viff.
+     * Khoros Visualization image.
      */
     Viff = 'VIFF',
 
     /**
-     * Vips.
+     * VIPS image.
      */
     Vips = 'VIPS',
 
     /**
-     * Vst.
+     * Truevision Targa image.
      */
     Vst = 'VST',
 
     /**
-     * Wbmp.
+     * Open Web Media.
+     */
+    WebM = 'WEBM',
+
+    /**
+     * WebP Image Format.
+     */
+    WebP = 'WEBP',
+
+    /**
+     * Wireless Bitmap (level 0) image.
      */
     Wbmp = 'WBMP',
 
     /**
-     * Webp.
-     */
-    Webp = 'WEBP',
-
-    /**
-     * Webm.
-     */
-    Webm = 'WEBM',
-
-    /**
-     * Wmv.
+     * Windows Media Video.
      */
     Wmv = 'WMV',
 
     /**
-     * Wpg.
+     * Word Perfect Graphics.
      */
     Wpg = 'WPG',
 
     /**
-     * X3f.
+     * Sigma Camera RAW Format.
      */
     X3f = 'X3F',
 
     /**
-     * Xbm.
+     * X Windows system bitmap (black and white).
      */
     Xbm = 'XBM',
 
     /**
-     * Xc.
+     * Constant image uniform color.
      */
     Xc = 'XC',
 
     /**
-     * Xcf.
+     * GIMP image.
      */
     Xcf = 'XCF',
 
     /**
-     * Xpm.
+     * X Windows system pixmap (color).
      */
     Xpm = 'XPM',
 
     /**
-     * Xps.
+     * Microsoft XML Paper Specification.
      */
     Xps = 'XPS',
 
     /**
-     * Xv.
+     * Khoros Visualization image.
      */
     Xv = 'XV',
 
     /**
-     * Y.
+     * Raw yellow samples.
      */
     Y = 'Y',
 
     /**
-     * Yaml.
+     * The image format and characteristics.
      */
     Yaml = 'YAML',
 
     /**
-     * Ycbcr.
+     * Raw Y, Cb, and Cr samples.
      */
-    Ycbcr = 'YCbCr',
+    Ycbcr = 'YCBCR',
 
     /**
-     * Ycbcra.
+     * Raw Y, Cb, Cr, and alpha samples.
      */
-    Ycbcra = 'YCbCrA',
+    Ycbcra = 'YCBCRA',
 
     /**
-     * Yuv.
+     * CCIR 601 4:1:1 or 4:2:2.
      */
-    Yuv = 'YUV'
+    Yuv = 'YUV',
 }
