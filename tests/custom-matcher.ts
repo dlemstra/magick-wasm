@@ -3,6 +3,7 @@
 
 import { IMagickImage } from '@src/magick-image';
 import { IMagickColor } from '@src/magick-color';
+import { MagickFormat } from '@src/enums/magick-format';
 import { PixelChannel } from '@src/enums/pixel-channel';
 import { Quantum } from '@src/quantum';
 
@@ -13,6 +14,7 @@ interface MatcherResult {
 
 export interface ICustomMatchers {
     toHavePixelWithColor: (x: number, y: number, colorOrString: IMagickColor | string) => void;
+    toNotBeUnknown: (message: string) => void;
 }
 
 export const CustomMatchers = {
@@ -28,6 +30,14 @@ export const CustomMatchers = {
             pass: false,
             message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`
         };
+    }) as () => MatcherResult,
+
+    toNotBeUnknown: ((actual: MagickFormat, message: string) => {
+        if (actual !== MagickFormat.Unknown) {
+            return { pass: true, message: () => '' }
+        }
+
+        return { pass: false, message: () => message };
     }) as () => MatcherResult,
 };
 
