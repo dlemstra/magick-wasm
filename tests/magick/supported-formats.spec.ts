@@ -7,12 +7,7 @@ import { Magick } from '@src/magick';
 describe('Magick#supportedFormats', () => {
     it('should have a format for all values', () => {
         Magick.supportedFormats.forEach(formatInfo => {
-            try {
-                expect(formatInfo.format).not.toBe(MagickFormat.Unknown);
-            } catch (err) {
-                console.error(`Missing Magickformat for: ${formatInfo.description}.`);
-                throw (err);
-            }
+            expect(formatInfo.format).toNotBeUnknown(`Missing Magickformat for: ${formatInfo.description}.`);
         });
     });
 
