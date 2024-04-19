@@ -962,6 +962,19 @@ export interface IMagickImage extends IDisposable {
     flop(): void;
 
     /**
+     * Gamma correct image.
+     * @param gamma - The image gamma.
+     */
+    gammaCorrect(gamma: number): void;
+
+    /**
+     * Gamma correct image.
+     * @param gamma - The image gamma for the channel.
+     * @param channels - The channel(s) to gamma correct.
+     */
+    gammaCorrect(gamma: number, channels: Channels): void;
+
+    /**
      * Gaussian blur image.
      * @param radius - The number of neighbor pixels to be included in the convolution.
      */
@@ -2485,6 +2498,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Flop(this._instance, exception.ptr);
             this._setInstance(instance, exception);
+        });
+    }
+
+    gammaCorrect(gamma: number): void;
+    gammaCorrect(gamma: number, channels: Channels): void;
+    gammaCorrect(gamma: number, channelsOrUndefined?: Channels): void {
+        const channels = this.valueOrDefault(
+            channelsOrUndefined,
+            Channels.Undefined
+        );
+
+        this.useExceptionPointer((exception) => {
+            ImageMagick._api._MagickImage_GammaCorrect(this._instance, gamma, channels, exception);
         });
     }
 
