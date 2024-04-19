@@ -281,7 +281,7 @@ export interface IMagickImage extends IDisposable {
     /**
      * Event that will we raised when a warning is raised by ImageMagick.
      */
-    onWarning?: (event:  WarningEvent) => void;
+    onWarning?: (event: WarningEvent) => void;
 
     /**
      * Gets or sets the preferred size and location of an image canvas.
@@ -987,12 +987,12 @@ export interface IMagickImage extends IDisposable {
     */
     gaussianBlur(radius: number, sigma: number): void;
 
-   /**
-    * Gaussian blur image.
-    * @param radius - The number of neighbor pixels to be included in the convolution.
-    * @param sigma - The standard deviation of the gaussian bell curve.
-    * @param sigma - The channel(s) to blur.
-    */
+    /**
+     * Gaussian blur image.
+     * @param radius - The number of neighbor pixels to be included in the convolution.
+     * @param sigma - The standard deviation of the gaussian bell curve.
+     * @param sigma - The channel(s) to blur.
+     */
     gaussianBlur(radius: number, sigma: number, channels: Channels): void;
 
     /**
@@ -2504,10 +2504,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     gammaCorrect(gamma: number): void;
     gammaCorrect(gamma: number, channels: Channels): void;
     gammaCorrect(gamma: number, channelsOrUndefined?: Channels): void {
-        const channels = this.valueOrDefault(
-            channelsOrUndefined,
-            Channels.Undefined
-        );
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
 
         this.useExceptionPointer((exception) => {
             ImageMagick._api._MagickImage_GammaCorrect(this._instance, gamma, channels, exception);
