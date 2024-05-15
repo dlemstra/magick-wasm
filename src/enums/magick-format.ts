@@ -1353,12 +1353,12 @@ export enum MagickFormat {
     /**
      * Raw Y, Cb, and Cr samples.
      */
-    Ycbcr = 'YCbCr',
+    Ycbcr = 'YCBCR',
 
     /**
      * Raw Y, Cb, Cr, and alpha samples.
      */
-    Ycbcra = 'YCbCrA',
+    Ycbcra = 'YCBCRA',
 
     /**
      * CCIR 601 4:1:1 or 4:2:2.
