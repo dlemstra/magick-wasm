@@ -29,6 +29,4 @@ initializeImageMagick(wasmBytes).then(() => {
             console.log(data.length);
         });
     });
-}).catch(err => {
-    console.error(err);
 });
