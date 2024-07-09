@@ -1756,9 +1756,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get classType(): ClassType {
-        return this.useExceptionPointer(exception => {
-            return ImageMagick._api._MagickImage_ClassType_Get(this._instance, exception);
-        });
+        return ImageMagick._api._MagickImage_ClassType_Get(this._instance);
     }
     set classType(value: ClassType) {
         this.useExceptionPointer(exception => {
@@ -1770,9 +1768,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set colorFuzz(value: Percentage) { ImageMagick._api._MagickImage_ColorFuzz_Set(this._instance, value._toQuantum()); }
 
     get colormapSize(): number {
-        return this.useExceptionPointer(exception => {
-            return ImageMagick._api._MagickImage_ColormapSize_Get(this._instance, exception);
-        });
+        return ImageMagick._api._MagickImage_ColormapSize_Get(this._instance);
     }
     set colormapSize(value: number) {
         this.useExceptionPointer(exception => {
@@ -1781,9 +1777,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get colorSpace(): ColorSpace {
-        return this.useExceptionPointer(exception => {
-            return ImageMagick._api._MagickImage_ColorSpace_Get(this._instance, exception);
-        });
+        return ImageMagick._api._MagickImage_ColorSpace_Get(this._instance);
     }
     set colorSpace(value: ColorSpace) {
         this.useExceptionPointer(exception => {
@@ -1796,9 +1790,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return this.settings.colorType;
         }
 
-        return this.useExceptionPointer(exception => {
-            return ImageMagick._api._MagickImage_ColorType_Get(this._instance, exception);
-        });
+        return ImageMagick._api._MagickImage_ColorType_Get(this._instance);
     }
     set colorType(value: ColorType) {
         this.useExceptionPointer(exception => {
@@ -1858,9 +1850,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set gifDisposeMethod(value: GifDisposeMethod) { ImageMagick._api._MagickImage_GifDisposeMethod_Set(this._instance, value); }
 
     get hasAlpha(): boolean {
-        return this.useExceptionPointer(exception => {
-            return this.toBool(ImageMagick._api._MagickImage_HasAlpha_Get(this._instance, exception));
-        });
+        return this.toBool(ImageMagick._api._MagickImage_HasAlpha_Get(this._instance));
     }
     set hasAlpha(value: boolean) {
         this.useExceptionPointer(exception => {
@@ -1975,9 +1965,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get virtualPixelMethod(): VirtualPixelMethod {
-        return this.useExceptionPointer(exception => {
-            return ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance, exception);
-        });
+        return ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance);
     }
     set virtualPixelMethod(value: VirtualPixelMethod) {
         this.useExceptionPointer(exception => {
