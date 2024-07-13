@@ -62,4 +62,31 @@ describe('MagickGeometry#toString', () => {
 
         expect(geometry.toString()).toBe('11x6@');
     });
+
+    it('should return the correct string when both width and height are zero', () => {
+        const geometry = new MagickGeometry(0, 0);
+
+        expect(geometry.toString()).toBe('0x0');
+    });
+
+    it('should return the correct string when all values are zero', () => {
+        const geometry = new MagickGeometry(0, 0, 0, 0);
+
+        expect(geometry.toString()).toBe('0x0+0+0');
+    });
+
+    it('should include zero x and y when specified in string constructor', () => {
+        const testCases = [
+            '0x0+0+0',
+            '0x0-0+0',
+            '0x0+0-0',
+            '0x0-0-0',
+        ];
+
+        testCases.forEach((testCase) => {
+            const geometry = new MagickGeometry(testCase);
+
+            expect(geometry.toString()).toBe('0x0+0+0');
+        });
+    });
 });

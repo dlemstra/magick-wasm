@@ -70,6 +70,7 @@ export interface IMagickGeometry {
 }
 
 export class MagickGeometry implements IMagickGeometry {
+    private readonly _includeXyInToString;
     private _width = 0;
     private _height = 0;
     private _x = 0;
@@ -93,17 +94,20 @@ export class MagickGeometry implements IMagickGeometry {
                 this._height = height;
                 this._x = widthOrValueOrX;
                 this._y = heightOrY ?? 0;
+                this._includeXyInToString = true;
             } else {
                 this._width = widthOrValueOrX;
                 this._height = heightOrY ?? this._width;
                 this._x = 0;
                 this._y = 0;
+                this._includeXyInToString = false;
             }
             if (this._width < 0)
                 throw new MagickError('negative width is not allowed');
             if (this._height < 0)
                 throw new MagickError('negative height is not allowed');
         } else {
+            this._includeXyInToString = widthOrValueOrX.indexOf('+') >= 0 || widthOrValueOrX.indexOf('-') >= 0;
             const instance = ImageMagick._api._MagickGeometry_Create();
             try {
                 _withString(widthOrValueOrX, valuePtr => {
@@ -161,15 +165,19 @@ export class MagickGeometry implements IMagickGeometry {
 
         let result = '';
 
-        if (this._width > 0)
-            result += this._width.toString();
+        if (this._width == 0 && this._height == 0) {
+            result += '0x0';
+        } else {
+            if (this._width > 0)
+                result += this._width.toString();
 
-        if (this._height > 0)
-            result += 'x' + this._height.toString();
-        else
-            result += 'x'
+            if (this._height > 0)
+                result += 'x' + this._height.toString();
+            else
+                result += 'x'
+        }
 
-        if (this._x != 0 || this._y != 0) {
+        if (this._x != 0 || this._y != 0 || this._includeXyInToString) {
             if (this._x >= 0)
                 result += '+';
 
