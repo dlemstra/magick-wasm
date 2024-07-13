@@ -111,11 +111,10 @@ export class MagickGeometry implements IMagickGeometry {
                     if (flags === GeometryFlags.NoValue)
                         throw new MagickError('invalid geometry specified');
 
-                    if (this.hasFlag(flags, GeometryFlags.AspectRatio)) {
+                    if (this.hasFlag(flags, GeometryFlags.AspectRatio))
                         this.initializeFromAspectRation(instance, widthOrValueOrX);
-                    } else {
+                    else
                         this.initialize(instance, flags);
-                    }
                 });
             }
             finally {
