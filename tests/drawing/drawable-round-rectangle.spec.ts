@@ -1,8 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawableRoundRectangle } from '@src/drawables/drawable-round-rectangle';
-import { DrawableFillColor } from '@src/drawables/drawable-fill-color';
+import { DrawableRoundRectangle } from '@src/drawing/drawable-round-rectangle';
+import { DrawableFillColor } from '@src/drawing/drawable-fill-color';
 import { MagickColors } from '@src/magick-colors';
 import { TestImages } from '@test/test-images';
 

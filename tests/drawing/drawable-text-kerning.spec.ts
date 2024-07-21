@@ -1,14 +1,14 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawableFillColor } from '../../src/drawables/drawable-fill-color';
-import { DrawableFont } from '../../src/drawables/drawable-font';
-import { DrawableFontPointSize } from '../../src/drawables/drawable-font-point-size';
-import { DrawableText } from '../../src/drawables/drawable-text';
-import { DrawableTextKerning } from '../../src/drawables/drawable-text-kerning';
-import { MagickColor } from '../../src/magick-color';
-import { TestFonts } from '../test-fonts';
-import { TestImages } from '../test-images';
+import { DrawableFillColor } from '@src/drawing/drawable-fill-color';
+import { DrawableFont } from '@src/drawing/drawable-font';
+import { DrawableFontPointSize } from '@src/drawing/drawable-font-point-size';
+import { DrawableText } from '@src/drawing/drawable-text';
+import { DrawableTextKerning } from '@src/drawing/drawable-text-kerning';
+import { MagickColor } from '@src/magick-color';
+import { TestFonts } from '@test/test-fonts';
+import { TestImages } from '@test/test-images';
 
 describe('DrawableTextKerning', () => {
     it('should write text with kerning to the image', () => {

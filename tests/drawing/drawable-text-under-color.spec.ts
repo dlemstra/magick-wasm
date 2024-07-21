@@ -1,13 +1,13 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { DrawableFont } from '../../src/drawables/drawable-font';
-import { DrawableFontPointSize } from '../../src/drawables/drawable-font-point-size';
-import { DrawableText } from '../../src/drawables/drawable-text';
-import { DrawableTextUnderColor } from '../../src/drawables/drawable-text-under-color';
-import { MagickColors } from '../../src/magick-colors';
-import { TestFonts } from '../test-fonts';
-import { TestImages } from '../test-images';
+import { DrawableFont } from '@src/drawing/drawable-font';
+import { DrawableFontPointSize } from '@src/drawing/drawable-font-point-size';
+import { DrawableText } from '@src/drawing/drawable-text';
+import { DrawableTextUnderColor } from '@src/drawing/drawable-text-under-color';
+import { MagickColors } from '@src/magick-colors';
+import { TestFonts } from '@test/test-fonts';
+import { TestImages } from '@test/test-images';
 
 describe('DrawableTextUnderColor', () => {
     it('should write text without text under color to the image', () => {
