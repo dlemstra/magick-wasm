@@ -9,6 +9,7 @@ import { ChromaticityInfo } from './types/chromaticity-info';
 import { ClassType } from './enums/class-type';
 import { ColorSpace } from './enums/color-space';
 import { ColorType } from './enums/color-type';
+import { CompareResult } from './types/compare-result';
 import { CompositeOperator } from './enums/composite-operator';
 import { CompressionMethod } from './enums/compression-method';
 import { ConnectedComponent } from './types/connected-component';
@@ -20,6 +21,7 @@ import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './enums/distort-method';
 import { DistortSettings } from './settings/distort-settings';
 import { DrawingWand } from './drawing/drawing-wand';
+import { DoublePointer } from './internal/pointer/double-pointer';
 import { Endian } from './enums/endian';
 import { ErrorMetric } from './enums/error-metric';
 import { EvaluateOperator } from './enums/evaluate-operator';
@@ -507,9 +509,37 @@ export interface IMagickImage extends IDisposable {
      * Returns the distortion based on the specified metric.
      * @param image - The other image to compare with this image.
      * @param metric - The metric to use.
+     */
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, func: (compareResult: CompareResult) => TReturnType): TReturnType;
+
+    /**
+     * Returns the distortion based on the specified metric.
+     * @param image - The other image to compare with this image.
+     * @param metric - The metric to use.
+     */
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, func: (compareResult: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Returns the distortion based on the specified metric.
+     * @param image - The other image to compare with this image.
+     * @param metric - The metric to use.
      * @param channels - The channel(s) to compare.
      */
     compare(image: IMagickImage, metric: ErrorMetric, channels: Channels): number;
+
+    /**
+     * Returns the distortion based on the specified metric.
+     * @param image - The other image to compare with this image.
+     * @param metric - The metric to use.
+     */
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channels: Channels, func: (compareResult: CompareResult) => TReturnType): TReturnType;
+
+    /**
+     * Returns the distortion based on the specified metric.
+     * @param image - The other image to compare with this image.
+     * @param metric - The metric to use.
+     */
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channels: Channels, func: (compareResult: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
      * Compose an image onto another at specified offset using the 'In' operator.
@@ -2109,10 +2139,40 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     compare(image: IMagickImage, metric: ErrorMetric): number;
     compare(image: IMagickImage, metric: ErrorMetric, channels: Channels): number;
-    compare(image: IMagickImage, metric: ErrorMetric, channelsOrUndefined?: Channels): number {
-        return this.useExceptionPointer(exception => {
-            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-            return ImageMagick._api._MagickImage_CompareDistortion(this._instance, image._instance, metric, channels, exception);
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, func: (image: CompareResult) => TReturnType): TReturnType;
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, func: (image: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channels: Channels, func: (image: CompareResult) => TReturnType): TReturnType;
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channels: Channels, func: (image: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channelsFuncOrUndefined?: Channels | ((image: CompareResult) => TReturnType | Promise<TReturnType>), funcOrUndefined?: (image: CompareResult) => TReturnType | Promise<TReturnType>): number | TReturnType | Promise<TReturnType> {
+        let func = channelsFuncOrUndefined;
+        if (funcOrUndefined !== undefined)
+            func = funcOrUndefined;
+
+        let channels = Channels.Undefined;
+        if (typeof func !== 'function') {
+            if (func !== undefined)
+                channels = func;
+
+            return this.useExceptionPointer(exception => {
+                return ImageMagick._api._MagickImage_CompareDistortion(this._instance, image._instance, metric, channels, exception);
+            });
+        }
+
+        if (channelsFuncOrUndefined !== undefined && typeof channelsFuncOrUndefined !== 'function')
+            channels = channelsFuncOrUndefined;
+
+        const compareResult = DoublePointer.use((pointer) => {
+            const instance = this.useExceptionPointer(exception => {
+                return ImageMagick._api._MagickImage_Compare(this._instance, image._instance, metric, channels, pointer.ptr, exception);
+            });
+
+            const distortion = pointer.value;
+            const difference = MagickImage._createFromImage(instance, this._settings);
+            return CompareResult._create(distortion, difference);
+        });
+
+        return compareResult.difference._use(() => {
+            return func(compareResult);
         });
     }
 
