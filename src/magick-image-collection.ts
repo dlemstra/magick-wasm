@@ -9,6 +9,7 @@ import { Exception } from './internal/exception/exception';
 import { IDisposable } from './disposable';
 import { ImageMagick } from './image-magick';
 import { IMagickImage } from './magick-image';
+import { IntPointer } from './internal/pointer/int-pointer';
 import { LayerMethod } from './enums/layer-method';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './enums/magick-format';
@@ -16,7 +17,6 @@ import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
 import { MontageSettings } from './settings/montage-settings';
-import { Pointer } from './internal/pointer/pointer';
 
 export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable {
     /** @internal */
@@ -364,7 +364,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
 
         Exception.use(exception => {
-            Pointer.use(pointer => {
+            IntPointer.use(pointer => {
                 settings._use(nativeSettings => {
                     try {
                         this.attachImages();

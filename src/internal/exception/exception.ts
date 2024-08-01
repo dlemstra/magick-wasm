@@ -2,16 +2,16 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { ImageMagick } from '../../image-magick';
+import { IntPointer } from '../pointer/int-pointer';
 import { MagickError } from '../../magick-error';
 import { MagickErrorSeverity } from '../../enums/magick-error-severity';
-import { Pointer } from '../pointer/pointer';
 import { _createString } from '../native/string';
 
 /** @internal */
 export class Exception {
-    private readonly pointer: Pointer;
+    private readonly pointer: IntPointer;
 
-    private constructor(pointer: Pointer) {
+    private constructor(pointer: IntPointer) {
         this.pointer = pointer;
     }
 
@@ -25,7 +25,7 @@ export class Exception {
     }
 
     static usePointer<TReturnType>(func: (exception: number) => TReturnType, onWarning?: (error: MagickError) => void): TReturnType {
-        return Pointer.use(pointer => {
+        return IntPointer.use(pointer => {
             const result = func(pointer.ptr);
 
             return Exception.checkException(pointer, result, onWarning);
@@ -33,14 +33,14 @@ export class Exception {
     }
 
     static use<TReturnType>(func: (exception: Exception) => TReturnType, onWarning?: (error: MagickError) => void): TReturnType {
-        return Pointer.use(pointer => {
+        return IntPointer.use(pointer => {
             const result = func(new Exception(pointer));
 
             return Exception.checkException(pointer, result, onWarning);
         });
     }
 
-    private static checkException<TReturnType>(exception: Pointer, result: TReturnType, onWarning?: (error: MagickError) => void): TReturnType {
+    private static checkException<TReturnType>(exception: IntPointer, result: TReturnType, onWarning?: (error: MagickError) => void): TReturnType {
         if (!Exception.isRaised(exception))
             return result;
 
@@ -69,11 +69,11 @@ export class Exception {
         return ImageMagick._api._MagickExceptionHelper_Severity(exception) as MagickErrorSeverity;
     }
 
-    private static isRaised(exception: Pointer): boolean {
+    private static isRaised(exception: IntPointer): boolean {
         return exception.value !== 0;
     }
 
-    private static throw(exception: Pointer, severity: MagickErrorSeverity): void {
+    private static throw(exception: IntPointer, severity: MagickErrorSeverity): void {
         const error = Exception.createError(exception.value, severity);
 
         Exception.dispose(exception);
@@ -114,7 +114,7 @@ export class Exception {
         return errorMessage;
     }
 
-    private static dispose(exception: Pointer): void {
+    private static dispose(exception: IntPointer): void {
         ImageMagick._api._MagickExceptionHelper_Dispose(exception.value);
     }
 }

@@ -29,9 +29,10 @@ import { Exception } from './internal/exception/exception';
 import { FilterType } from './enums/filter-type';
 import { GifDisposeMethod } from './enums/gif-dispose-method';
 import { Gravity } from './enums/gravity';
-import { ImageMagick } from './image-magick';
+import { IntPointer } from './internal/pointer/int-pointer';
 import { IDisposable } from './disposable';
 import { IDrawable } from './drawing/drawable';
+import { ImageMagick } from './image-magick';
 import { ImageProfile, IImageProfile } from './profiles/image-profile';
 import { Interlace } from './enums/interlace';
 import { MagickColor, IMagickColor } from './magick-color';
@@ -51,7 +52,6 @@ import { PixelCollection, IPixelCollection } from './pixels/pixel-collection';
 import { PixelIntensityMethod } from './enums/pixel-intensity-method';
 import { PixelInterpolateMethod } from './enums/pixel-interpolate-method';
 import { Point } from './types/point';
-import { Pointer } from './internal/pointer/pointer';
 import { PrimaryInfo } from './types/primary-info';
 import { ProgressEvent } from './events/progress-event';
 import { QuantizeSettings } from './settings/quantize-settings';
@@ -2290,7 +2290,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         settings._setArtifacts(this);
 
         const connectedComponents = this.useException((exception) => {
-            return Pointer.use((objects) => {
+            return IntPointer.use((objects) => {
                 try {
                     const instance = ImageMagick._api._MagickImage_ConnectedComponents(this._instance, settings.connectivity, objects.ptr, exception.ptr);
                     this._setInstance(instance, exception)
@@ -2631,7 +2631,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const result = new Map<string, number>();
 
         this.useExceptionPointer(exception => {
-            Pointer.use(lengthPointer => {
+            IntPointer.use(lengthPointer => {
                 const histogram = ImageMagick._api._MagickImage_Histogram(this._instance, lengthPointer.ptr, exception);
                 if (histogram !== 0) {
                     const length = lengthPointer.value;
@@ -3086,7 +3086,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             func = funcOrFormat as (data: Uint8Array) => TReturnType | Promise<TReturnType>;
 
         this.useException(exception => {
-            Pointer.use(pointer => {
+            IntPointer.use(pointer => {
                 this._settings._use(settings => {
                     try {
                         data = ImageMagick._api._MagickImage_WriteBlob(this._instance, settings._instance, pointer.ptr, exception.ptr);

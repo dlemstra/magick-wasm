@@ -4,7 +4,7 @@
 import { ImageMagick } from '../../image-magick';
 
 /** @internal */
-export class Pointer {
+export class IntPointer {
     private readonly instance: number;
 
     private constructor() {
@@ -16,8 +16,8 @@ export class Pointer {
 
     get value(): number { return ImageMagick._api.getValue(this.instance, 'i32'); }
 
-    static use<TReturnType>(func: (pointer: Pointer) => TReturnType): TReturnType {
-        const pointer = new Pointer();
+    static use<TReturnType>(func: (pointer: IntPointer) => TReturnType): TReturnType {
+        const pointer = new IntPointer();
         try {
             return func(pointer);
         } finally {

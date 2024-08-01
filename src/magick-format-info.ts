@@ -1,9 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
-import { ImageMagick } from './image-magick';
 import { Exception } from './internal/exception/exception';
-import { Pointer } from './internal/pointer/pointer';
+import { ImageMagick } from './image-magick';
+import { IntPointer } from './internal/pointer/int-pointer';
 import { MagickFormat } from './enums/magick-format';
 import { _createString } from './internal/native/string';
 
@@ -64,7 +64,7 @@ export class MagickFormatInfo implements IMagickFormatInfo {
 
     private static loadFormats() {
         return Exception.usePointer(exception => {
-            return Pointer.use(pointer => {
+            return IntPointer.use(pointer => {
                 const list = ImageMagick._api._MagickFormatInfo_CreateList(pointer.ptr, exception);
                 const count = pointer.value;
                 try {
