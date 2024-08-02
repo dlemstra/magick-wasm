@@ -10,6 +10,7 @@ import { ClassType } from './enums/class-type';
 import { ColorSpace } from './enums/color-space';
 import { ColorType } from './enums/color-type';
 import { CompareResult } from './types/compare-result';
+import { CompareSettings } from './settings/compare-settings';
 import { CompositeOperator } from './enums/composite-operator';
 import { CompressionMethod } from './enums/compression-method';
 import { ConnectedComponent } from './types/connected-component';
@@ -504,6 +505,34 @@ export interface IMagickImage extends IDisposable {
      * @param metric - The metric to use.
      */
     compare(image: IMagickImage, metric: ErrorMetric): number;
+
+    /**
+     * Returns the distortion based on the specified metric.
+     * @param image - The other image to compare with this image.
+     * @param settings - The settings to use.
+     */
+    compare<TReturnType>(image: IMagickImage, settings: CompareSettings, func: (compareResult: CompareResult) => TReturnType): TReturnType;
+
+    /**
+     * Returns the distortion based on the specified metric.
+     * @param image - The other image to compare with this image.
+     * @param settings - The settings to use.
+     */
+    compare<TReturnType>(image: IMagickImage, settings: CompareSettings, func: (compareResult: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Returns the distortion based on the specified metric.
+     * @param image - The other image to compare with this image.
+     * @param settings - The settings to use.
+     */
+    compare<TReturnType>(image: IMagickImage, settings: CompareSettings, channels: Channels, func: (compareResult: CompareResult) => TReturnType): TReturnType;
+
+    /**
+     * Returns the distortion based on the specified metric.
+     * @param image - The other image to compare with this image.
+     * @param settings - The settings to use.
+     */
+    compare<TReturnType>(image: IMagickImage, settings: CompareSettings, channels: Channels, func: (compareResult: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
      * Returns the distortion based on the specified metric.
@@ -1438,7 +1467,7 @@ export interface IMagickImage extends IDisposable {
      * @param name - The name of the artifact.
      * @param value - The value of the artifact.
      */
-    setArtifact(name: string, value: string | boolean): void;
+    setArtifact(name: string, value: string | boolean | IMagickColor): void;
 
     /**
      *  Inserts the attribute with the specified name and value into the artifact tree of the image.
@@ -2139,11 +2168,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     compare(image: IMagickImage, metric: ErrorMetric): number;
     compare(image: IMagickImage, metric: ErrorMetric, channels: Channels): number;
+    compare<TReturnType>(image: IMagickImage, settings: CompareSettings, func: (compareResult: CompareResult) => TReturnType): TReturnType;
+    compare<TReturnType>(image: IMagickImage, settings: CompareSettings, func: (compareResult: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
+    compare<TReturnType>(image: IMagickImage, settings: CompareSettings, channels: Channels, func: (compareResult: CompareResult) => TReturnType): TReturnType;
+    compare<TReturnType>(image: IMagickImage, settings: CompareSettings, channels: Channels, func: (compareResult: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
     compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, func: (image: CompareResult) => TReturnType): TReturnType;
     compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, func: (image: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
     compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channels: Channels, func: (image: CompareResult) => TReturnType): TReturnType;
     compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channels: Channels, func: (image: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
-    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channelsFuncOrUndefined?: Channels | ((image: CompareResult) => TReturnType | Promise<TReturnType>), funcOrUndefined?: (image: CompareResult) => TReturnType | Promise<TReturnType>): number | TReturnType | Promise<TReturnType> {
+    compare<TReturnType>(image: IMagickImage, metricOrSettings: CompareSettings | ErrorMetric, channelsFuncOrUndefined?: Channels | ((image: CompareResult) => TReturnType | Promise<TReturnType>), funcOrUndefined?: (image: CompareResult) => TReturnType | Promise<TReturnType>): number | TReturnType | Promise<TReturnType> {
+        const hasCompareSettings = metricOrSettings instanceof CompareSettings;
+        const errorMetric = hasCompareSettings ? metricOrSettings.metric : metricOrSettings;
+
         let func = channelsFuncOrUndefined;
         if (funcOrUndefined !== undefined)
             func = funcOrUndefined;
@@ -2154,21 +2190,34 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 channels = func;
 
             return this.useExceptionPointer(exception => {
-                return ImageMagick._api._MagickImage_CompareDistortion(this._instance, image._instance, metric, channels, exception);
+                return ImageMagick._api._MagickImage_CompareDistortion(this._instance, image._instance, errorMetric, channels, exception);
             });
         }
 
         if (channelsFuncOrUndefined !== undefined && typeof channelsFuncOrUndefined !== 'function')
             channels = channelsFuncOrUndefined;
 
-        const compareResult = DoublePointer.use((pointer) => {
-            const instance = this.useExceptionPointer(exception => {
-                return ImageMagick._api._MagickImage_Compare(this._instance, image._instance, metric, channels, pointer.ptr, exception);
-            });
+        const compareResult = TemporaryDefines.use(this, temporaryDefines => {
+            if (hasCompareSettings) {
+                if (metricOrSettings.highlightColor !== undefined)
+                    temporaryDefines.setArtifact('compare:highlight-color', metricOrSettings.highlightColor);
 
-            const distortion = pointer.value;
-            const difference = MagickImage._createFromImage(instance, this._settings);
-            return CompareResult._create(distortion, difference);
+                if (metricOrSettings.lowlightColor !== undefined)
+                    temporaryDefines.setArtifact('compare:lowlight-color', metricOrSettings.lowlightColor);
+
+                if (metricOrSettings.masklightColor !== undefined)
+                    temporaryDefines.setArtifact('compare:masklight-color', metricOrSettings.masklightColor);
+            }
+
+            return DoublePointer.use((pointer) => {
+                const instance = this.useExceptionPointer(exception => {
+                    return ImageMagick._api._MagickImage_Compare(this._instance, image._instance, errorMetric, channels, pointer.ptr, exception);
+                });
+
+                const distortion = pointer.value;
+                const difference = MagickImage._createFromImage(instance, this._settings);
+                return CompareResult._create(distortion, difference);
+            });
         });
 
         return compareResult.difference._use(() => {
@@ -2413,9 +2462,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     deskew(threshold: Percentage, autoCrop: boolean): number;
     deskew(threshold: Percentage, autoCrop?: boolean): number {
         return TemporaryDefines.use(this, temporaryDefines => {
-            if (autoCrop !== undefined) {
+            if (autoCrop !== undefined)
                 temporaryDefines.setArtifact('deskew:auto-crop', autoCrop);
-            }
 
             this.useException(exception => {
                 const instance = ImageMagick._api._MagickImage_Deskew(this._instance, threshold._toQuantum(), exception.ptr);
@@ -2439,13 +2487,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 method = methodOrSettings.method;
                 bestFit = methodOrSettings.bestFit ? 1 : 0;
 
-                if (methodOrSettings.scale !== undefined) {
+                if (methodOrSettings.scale !== undefined)
                     temporaryDefines.setArtifact('distort:scale', methodOrSettings.scale.toString());
-                }
 
-                if (methodOrSettings.viewport !== undefined) {
+                if (methodOrSettings.viewport !== undefined)
                     temporaryDefines.setArtifact('distort:viewport', methodOrSettings.viewport.toString());
-                }
             }
 
             const distortArgs = params ?? [];
@@ -2889,13 +2935,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    setArtifact(name: string, value: string | boolean): void {
+    setArtifact(name: string, value: string | boolean | IMagickColor): void {
         let strValue: string;
-        if (typeof value === 'string') {
+        if (typeof value === 'string')
             strValue = value;
-        } else {
+        else if (typeof value === 'boolean')
             strValue = this.fromBool(value).toString();
-        }
+        else
+            strValue = value.toString();
+
         _withString(name, namePtr => {
             _withString(strValue, valuePtr => {
                 ImageMagick._api._MagickImage_SetArtifact(this._instance, namePtr, valuePtr);

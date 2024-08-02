@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 import { Channels } from '@src/enums/channels';
+import { CompareSettings } from '@src/settings/compare-settings';
 import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
@@ -46,6 +47,50 @@ describe('MagickImage#compare', () => {
         });
     });
 
+    it('should call function with compare result and use the settings', () => {
+        TestImages.empty.use(image => {
+            TestImages.empty.use(other => {
+                image.read(MagickColors.Red, 1, 1);
+                other.read(MagickColors.RosyBrown, 1, 1);
+
+                const settings = new CompareSettings(ErrorMetric.RootMeanSquared);
+                settings.highlightColor = MagickColors.Orange;
+
+                const result = image.compare(other, settings, compareResult => {
+                    expect(compareResult.difference).not.toBeNull();
+                    expect(compareResult.difference.width).toBeCloseTo(1);
+                    expect(compareResult.difference.height).toBeCloseTo(1);
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#ffa500ff'));
+
+                    return compareResult;
+                });
+
+                expect(() => { result.difference._instance }).toThrowError('instance is disposed');
+                expect(result.distortion).toBeCloseTo(0.48);
+            });
+        });
+    });
+
+    it('should set the correct artifacts from the settings', () => {
+        TestImages.empty.use(image => {
+            TestImages.empty.use(other => {
+                image.read(MagickColors.Red, 1, 1);
+                other.read(MagickColors.RosyBrown, 1, 1);
+
+                const settings = new CompareSettings(ErrorMetric.RootMeanSquared);
+                settings.highlightColor = MagickColors.Red;
+                settings.lowlightColor = MagickColors.Lime;
+                settings.masklightColor = MagickColors.Blue;
+
+                image.compare(other, settings, compareResult => {
+                    expect(compareResult.difference.getArtifact('compare:highlight-color')).toBe('#ff0000ff');
+                    expect(compareResult.difference.getArtifact('compare:lowlight-color')).toBe('#00ff00ff');
+                    expect(compareResult.difference.getArtifact('compare:masklight-color')).toBe('#0000ffff');
+                });
+            });
+        });
+    });
+
     it('should call function with compare result async', async () => {
         await TestImages.empty.use(async image => {
             await TestImages.empty.use(async other => {
@@ -59,6 +104,33 @@ describe('MagickImage#compare', () => {
                     await bogusAsyncMethod();
 
                     expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#f40018'));
+
+                    return compareResult;
+                });
+
+                expect(() => { result.difference._instance }).toThrowError('instance is disposed');
+                expect(result.distortion).toBeCloseTo(0.48);
+            });
+        });
+    });
+
+    it('should call function with compare result async and use the settings', async () => {
+        await TestImages.empty.use(async image => {
+            await TestImages.empty.use(async other => {
+                image.read(MagickColors.Red, 1, 1);
+                other.read(MagickColors.RosyBrown, 1, 1);
+
+                const settings = new CompareSettings(ErrorMetric.RootMeanSquared);
+                settings.highlightColor = MagickColors.Purple;
+
+                const result = await image.compare(other, settings, async compareResult => {
+                    expect(compareResult.difference).not.toBeNull();
+                    expect(compareResult.difference.width).toBeCloseTo(1);
+                    expect(compareResult.difference.height).toBeCloseTo(1);
+
+                    await bogusAsyncMethod();
+
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#800080'));
 
                     return compareResult;
                 });
@@ -100,6 +172,31 @@ describe('MagickImage#compare', () => {
         });
     });
 
+    it('should compare the specified channels, use the settings and call function with compare result', () => {
+        TestImages.empty.use(image => {
+            TestImages.empty.use(other => {
+                image.read(MagickColors.Red, 1, 1);
+                other.read(MagickColors.RosyBrown, 1, 1);
+
+                const settings = new CompareSettings(ErrorMetric.RootMeanSquared);
+                settings.highlightColor = MagickColors.Pink;
+
+                const result = image.compare(other, settings, Channels.Red, compareResult => {
+                    expect(compareResult.difference).not.toBeNull();
+                    expect(compareResult.difference.width).toBeCloseTo(1);
+                    expect(compareResult.difference.height).toBeCloseTo(1);
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#ffc0cb'));
+
+                    return compareResult;
+                });
+
+                expect(() => { result.difference._instance }).toThrowError('instance is disposed');
+                expect(result.distortion).toBeCloseTo(0.15);
+            });
+        });
+    });
+
+
     it('should compare the specified channels and call function with compare result async', async () => {
         await TestImages.empty.use(async image => {
             await TestImages.empty.use(async other => {
@@ -114,6 +211,34 @@ describe('MagickImage#compare', () => {
                     await bogusAsyncMethod();
 
                     expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#f40018'));
+
+                    return compareResult;
+                });
+
+                expect(() => { result.difference._instance }).toThrowError('instance is disposed');
+                expect(result.distortion).toBeCloseTo(0.15);
+            });
+        });
+    });
+
+
+    it('should compare the specified channels, use the settings and call function with compare result async', async () => {
+        await TestImages.empty.use(async image => {
+            await TestImages.empty.use(async other => {
+                image.read(MagickColors.Red, 1, 1);
+                other.read(MagickColors.RosyBrown, 1, 1);
+
+                const settings = new CompareSettings(ErrorMetric.RootMeanSquared);
+                settings.highlightColor = MagickColors.Gold;
+
+                const result = await image.compare(other, settings, Channels.Red, async compareResult => {
+                    expect(compareResult.difference).not.toBeNull();
+                    expect(compareResult.difference.width).toBeCloseTo(1);
+                    expect(compareResult.difference.height).toBeCloseTo(1);
+
+                    await bogusAsyncMethod();
+
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#ffd700ff'));
 
                     return compareResult;
                 });

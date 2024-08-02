@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
 // Licensed under the Apache License, Version 2.0.
 
+import { IMagickColor } from '../magick-color';
 import { IMagickImage } from '../magick-image';
 
 /** @internal */
@@ -14,7 +15,8 @@ export class TemporaryDefines {
 
     setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
-    setArtifact(name: string, value: string | boolean): void {
+    setArtifact(name: string, value: IMagickColor): void;
+    setArtifact(name: string, value: string | boolean | IMagickColor): void {
         this._names.push(name);
         this._image.setArtifact(name, value);
     }
