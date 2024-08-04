@@ -4,6 +4,7 @@
 */
 
 import { ByteArray } from './byte-array';
+import { ColorSpace } from './enums/color-space';
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
 import { EvaluateOperator } from './enums/evaluate-operator';
@@ -67,6 +68,32 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * offsets and disposal methods.
      */
     coalesce(): void;
+
+    /**
+     * Combines the images into a single image. The typical ordering would be
+     * image 1 => Red, 2 => Green, 3 => Blue, etc.
+     */
+    combine<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Merge a sequence of images. This is useful for GIF animation sequences that have page
+     * offsets and disposal methods.
+     */
+    combine<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Combines the images into a single image. The typical ordering would be
+     * image 1 => Red, 2 => Green, 3 => Blue, etc.
+     * @param colorSpace - The image colorspace.
+     */
+    combine<TReturnType>(colorSpace: ColorSpace, func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Combines the images into a single image. The typical ordering would be
+     * image 1 => Red, 2 => Green, 3 => Blue, etc.
+     * @param colorSpace - The image colorspace.
+     */
+    combine<TReturnType>(colorSpace: ColorSpace, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
      * Evaluate image pixels into a single image. All the images in the collection must be the
@@ -252,6 +279,23 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         this.addImages(result, settings);
     }
 
+    combine<TReturnType>(func: (func: IMagickImage) => TReturnType): TReturnType;
+    combine<TReturnType>(func: (func: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    combine<TReturnType>(colorSpace: ColorSpace, func: (image: IMagickImage) => TReturnType): TReturnType;
+    combine<TReturnType>(colorSpace: ColorSpace, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>
+    combine<TReturnType>(colorSpaceOrfunc: ColorSpace | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (images: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        let callback = func;
+        let colorSpace = ColorSpace.sRGB;
+        if (typeof colorSpaceOrfunc === 'number')
+            colorSpace = colorSpaceOrfunc;
+        else
+            callback = colorSpaceOrfunc;
+
+        return this.createImage((instance, exception) => {
+            return ImageMagick._api._MagickImageCollection_Combine(instance, colorSpace, exception.ptr);
+        }, callback!);
+    }
+
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType): TReturnType;
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
@@ -402,15 +446,13 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     private attachImages<TReturnType>(func: (instance: number) => TReturnType): TReturnType {
-        try
-        {
+        try {
             for (let i = 0; i < this.length - 1; i++)
                 ImageMagick._api._MagickImage_SetNext(this[i]._instance, this[i + 1]._instance);
 
             return func(this[0]._instance);
         }
-        finally
-        {
+        finally {
             for (let i = 0; i < this.length - 1; i++)
                 ImageMagick._api._MagickImage_SetNext(this[i]._instance, 0);
         }
