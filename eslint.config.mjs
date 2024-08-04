@@ -16,13 +16,14 @@ const compat = new FlatCompat({
 
 export default [{
     ignores: [
-        "**/dist",
         "deno/*.ts",
         "demo/*.js",
         "issue/*.ts",
         "issue/*.js",
         "tools/*.js",
+        "**/dist",
         "**/vite.config.ts",
+        "eslint.config.mjs",
     ],
 }, ...compat.extends(
     "eslint:recommended",

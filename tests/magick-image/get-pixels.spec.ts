@@ -14,7 +14,7 @@ describe('MagickImage#getPixels', () => {
                 pixels = p as PixelCollection;
             });
 
-            expect(() => { pixels._instance }).toThrowError('instance is disposed');
+            expect(() => { expect(pixels._instance).toBeUndefined() }).toThrowError('instance is disposed');
         });
     });
 });

@@ -15,10 +15,10 @@ declare global {
     var expectToNotBeNull: <T>(value: T) => NonNullable<T>; /* eslint-disable-line no-var */
 
     namespace Chai { /* eslint-disable-line @typescript-eslint/no-namespace */
-        /* eslint-disable @typescript-eslint/no-empty-interface */
+        /* eslint-disable @typescript-eslint/no-empty-object-type */
         interface Assertion extends ICustomMatchers { }
         interface AsymmetricMatchersContaining extends ICustomMatchers { }
-        /* eslint-enable @typescript-eslint/no-empty-interface */
+        /* eslint-enable @typescript-eslint/no-empty-object-type */
     }
 }
 
