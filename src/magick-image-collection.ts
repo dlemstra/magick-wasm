@@ -240,18 +240,12 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     coalesce(): void {
         this.throwIfEmpty();
 
-        let result = 0;
-
-        try {
-            this.attachImages();
-
-            result = Exception.use(exception => {
-                const result = ImageMagick._api._MagickImageCollection_Coalesce(this[0]._instance, exception.ptr);
+        const result = this.attachImages((instance) => {
+            return Exception.use(exception => {
+                const result = ImageMagick._api._MagickImageCollection_Coalesce(instance, exception.ptr);
                 return this.checkResult(result, exception);
             });
-        } finally {
-            this.detachImages();
-        }
+        });
 
         const settings = this.getSettings()._clone();
         this.dispose();
@@ -283,12 +277,10 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         this.throwIfEmpty();
 
-        try {
-            this.attachImages();
-
+        return this.attachImages((instance) => {
             const result = settings._use(settingsPtr => {
                 return Exception.use(exception => {
-                    const images = ImageMagick._api._MagickImageCollection_Montage(this[0]._instance, settingsPtr._instance, exception.ptr);
+                    const images = ImageMagick._api._MagickImageCollection_Montage(instance, settingsPtr._instance, exception.ptr);
                     return this.checkResult(images, exception);
                 });
             });
@@ -302,9 +294,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             }
 
             return collection.merge(func);
-        } finally {
-            this.detachImages();
-        }
+        });
     }
 
     mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
@@ -368,13 +358,10 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         Exception.use(exception => {
             IntPointer.use(pointer => {
                 settings._use(nativeSettings => {
-                    try {
-                        this.attachImages();
-                        data = ImageMagick._api._MagickImage_WriteBlob(image._instance, nativeSettings._instance, pointer.ptr, exception.ptr);
+                    this.attachImages((instance) => {
+                        data = ImageMagick._api._MagickImage_WriteBlob(instance, nativeSettings._instance, pointer.ptr, exception.ptr);
                         length = pointer.value;
-                    } finally {
-                        this.detachImages();
-                    }
+                    });
                 });
             });
         });
@@ -414,9 +401,19 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
     }
 
-    private attachImages() {
-        for (let i = 0; i < this.length - 1; i++)
-            ImageMagick._api._MagickImage_SetNext(this[i]._instance, this[i + 1]._instance);
+    private attachImages<TReturnType>(func: (instance: number) => TReturnType): TReturnType {
+        try
+        {
+            for (let i = 0; i < this.length - 1; i++)
+                ImageMagick._api._MagickImage_SetNext(this[i]._instance, this[i + 1]._instance);
+
+            return func(this[0]._instance);
+        }
+        finally
+        {
+            for (let i = 0; i < this.length - 1; i++)
+                ImageMagick._api._MagickImage_SetNext(this[i]._instance, 0);
+        }
     }
 
     private static createObject(): MagickImageCollection {
@@ -426,19 +423,15 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     private createImage<TReturnType>(createImages: (instance: number, exception: Exception) => number, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         this.throwIfEmpty();
 
-        try {
-            this.attachImages();
-
-            const result = Exception.use(exception => {
-                const images = createImages(this[0]._instance, exception);
+        const result = this.attachImages((instance) => {
+            return Exception.use(exception => {
+                const images = createImages(instance, exception);
                 return this.checkResult(images, exception);
             });
+        });
 
-            const image = MagickImage._createFromImage(result, this.getSettings());
-            return image._use(func);
-        } finally {
-            this.detachImages();
-        }
+        const image = MagickImage._createFromImage(result, this.getSettings());
+        return image._use(func);
     }
 
     private static createSettings(settings?: MagickReadSettings): MagickSettings {
@@ -446,11 +439,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             return new MagickSettings();
 
         return new MagickReadSettings(settings);
-    }
-
-    private detachImages() {
-        for (let i = 0; i < this.length - 1; i++)
-            ImageMagick._api._MagickImage_SetNext(this[i]._instance, 0);
     }
 
     private getSettings(): MagickSettings {
