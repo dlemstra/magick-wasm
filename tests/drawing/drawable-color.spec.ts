@@ -1,5 +1,7 @@
-// Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
-// Licensed under the Apache License, Version 2.0.
+/*
+  Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
+  Licensed under the Apache License, Version 2.0.
+*/
 
 import { DrawableColor } from '@src/drawing/drawable-color';
 import { MagickColors } from '@src/magick-colors';

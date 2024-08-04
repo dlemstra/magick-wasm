@@ -1,5 +1,7 @@
-// Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
-// Licensed under the Apache License, Version 2.0.
+/*
+  Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
+  Licensed under the Apache License, Version 2.0.
+*/
 
 import { AlphaOption } from './enums/alpha-option';
 import { AutoThresholdMethod } from './enums/auto-threshold-method';

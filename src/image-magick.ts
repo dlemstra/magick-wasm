@@ -1,5 +1,7 @@
-// Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
-// Licensed under the Apache License, Version 2.0.
+/*
+  Copyright Dirk Lemstra https://github.com/dlemstra/magick-wasm.
+  Licensed under the Apache License, Version 2.0.
+*/
 
 import MagickNative, { ImageMagickApi, IWasmLocator } from '@dlemstra/magick-native';
 import { ByteArray, _isByteArray } from './byte-array';
