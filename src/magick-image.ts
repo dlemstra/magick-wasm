@@ -2338,23 +2338,24 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     connectedComponents(connectivityOrSettings: Connectivity | ConnectedComponentsSettings): ConnectedComponent[] {
         const settings = typeof connectivityOrSettings === 'number' ? new ConnectedComponentsSettings(connectivityOrSettings) : connectivityOrSettings;
 
-        settings._setArtifacts(this);
+        const connectedComponents = TemporaryDefines.use(this, temporaryDefines => {
+            settings._setArtifacts(temporaryDefines);
 
-        const connectedComponents = this.useException((exception) => {
-            return IntPointer.use((objects) => {
-                try {
-                    const instance = ImageMagick._api._MagickImage_ConnectedComponents(this._instance, settings.connectivity, objects.ptr, exception.ptr);
-                    this._setInstance(instance, exception)
-                    return ConnectedComponent._create(objects.value, this.colormapSize);
-                } finally {
-                    if (objects.value !== 0) {
-                        ImageMagick._api._ConnectedComponent_DisposeList(objects.value);
+             return this.useException((exception) => {
+                return IntPointer.use((objects) => {
+                    try {
+                        const instance = ImageMagick._api._MagickImage_ConnectedComponents(this._instance, settings.connectivity, objects.ptr, exception.ptr);
+                        this._setInstance(instance, exception)
+                        return ConnectedComponent._create(objects.value, this.colormapSize);
+                    } finally {
+                        if (objects.value !== 0) {
+                            ImageMagick._api._ConnectedComponent_DisposeList(objects.value);
+                        }
                     }
-                }
+                });
             });
         });
 
-        settings._removeArtifacts(this);
         return connectedComponents;
     }
 

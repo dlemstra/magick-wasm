@@ -3,7 +3,7 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { IMagickImage } from '../magick-image';
+import { TemporaryDefines } from '../helpers/temporary-defines';
 import { Threshold } from '../types/threshold';
 
 /**
@@ -80,64 +80,32 @@ export class ConnectedComponentsSettings {
     }
 
     /** @internal */
-    _removeArtifacts(image: IMagickImage): void {
-        if (this.angleThreshold !== undefined) {
-            image.removeArtifact('connected-components:angle-threshold');
-        }
-        if (this.areaThreshold !== undefined) {
-            image.removeArtifact('connected-components:area-threshold');
-        }
-        if (this.circularityThreshold !== undefined) {
-            image.removeArtifact('connected-components:circularity-threshold');
-        }
-        if (this.diameterThreshold !== undefined) {
-            image.removeArtifact('connected-components:diameter-threshold');
-        }
-        if (this.eccentricityThreshold !== undefined) {
-            image.removeArtifact('connected-components:eccentricity-threshold');
-        }
-        if (this.majorAxisThreshold !== undefined) {
-            image.removeArtifact('connected-components:major-axis-threshold');
-        }
-        if (this.meanColor !== undefined) {
-            image.removeArtifact('connected-components:mean-color');
-        }
-        if (this.minorAxisThreshold !== undefined) {
-            image.removeArtifact('connected-components:minor-axis-threshold');
-        }
-        if (this.perimeterThreshold !== undefined) {
-            image.removeArtifact('connected-components:perimeter-threshold');
-        }
-    }
+    _setArtifacts(temporaryDefines: TemporaryDefines): void {
+        if (this.angleThreshold !== undefined)
+            temporaryDefines.setArtifact('connected-components:angle-threshold', this.angleThreshold.toString());
 
-    /** @internal */
-    _setArtifacts(image: IMagickImage): void {
-        if (this.angleThreshold !== undefined) {
-            image.setArtifact('connected-components:angle-threshold', this.angleThreshold.toString());
-        }
-        if (this.areaThreshold !== undefined) {
-            image.setArtifact('connected-components:area-threshold', this.areaThreshold.toString());
-        }
-        if (this.circularityThreshold !== undefined) {
-            image.setArtifact('connected-components:circularity-threshold', this.circularityThreshold.toString());
-        }
-        if (this.diameterThreshold !== undefined) {
-            image.setArtifact('connected-components:diameter-threshold', this.diameterThreshold.toString());
-        }
-        if (this.eccentricityThreshold !== undefined) {
-            image.setArtifact('connected-components:eccentricity-threshold', this.eccentricityThreshold.toString());
-        }
-        if (this.majorAxisThreshold !== undefined) {
-            image.setArtifact('connected-components:major-axis-threshold', this.majorAxisThreshold.toString());
-        }
-        if (this.meanColor !== undefined) {
-            image.setArtifact('connected-components:mean-color', this.meanColor.toString());
-        }
-        if (this.minorAxisThreshold !== undefined) {
-            image.setArtifact('connected-components:minor-axis-threshold', this.minorAxisThreshold.toString());
-        }
-        if (this.perimeterThreshold !== undefined) {
-            image.setArtifact('connected-components:perimeter-threshold', this.perimeterThreshold.toString());
-        }
+        if (this.areaThreshold !== undefined)
+            temporaryDefines.setArtifact('connected-components:area-threshold', this.areaThreshold.toString());
+
+        if (this.circularityThreshold !== undefined)
+            temporaryDefines.setArtifact('connected-components:circularity-threshold', this.circularityThreshold.toString());
+
+        if (this.diameterThreshold !== undefined)
+            temporaryDefines.setArtifact('connected-components:diameter-threshold', this.diameterThreshold.toString());
+
+        if (this.eccentricityThreshold !== undefined)
+            temporaryDefines.setArtifact('connected-components:eccentricity-threshold', this.eccentricityThreshold.toString());
+
+        if (this.majorAxisThreshold !== undefined)
+            temporaryDefines.setArtifact('connected-components:major-axis-threshold', this.majorAxisThreshold.toString());
+
+        if (this.meanColor !== undefined)
+            temporaryDefines.setArtifact('connected-components:mean-color', this.meanColor.toString());
+
+        if (this.minorAxisThreshold !== undefined)
+            temporaryDefines.setArtifact('connected-components:minor-axis-threshold', this.minorAxisThreshold.toString());
+
+        if (this.perimeterThreshold !== undefined)
+            temporaryDefines.setArtifact('connected-components:perimeter-threshold', this.perimeterThreshold.toString());
     }
 }
