@@ -8,7 +8,7 @@ import { ErrorMetric } from '@src/enums/error-metric';
 import { ComplexSettings } from '@src/settings/complex-settings';
 import { TestImages } from '@test/test-images';
 
-describe('MagickImageCollection#coalesce', () => {
+describe('MagickImageCollection#complex', () => {
     it('should throw exception when collection is empty', () => {
         const settings = new ComplexSettings(ComplexOperator.Add);
 
