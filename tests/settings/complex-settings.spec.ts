@@ -8,7 +8,7 @@ import { TemporaryDefines } from '@src/helpers/temporary-defines';
 import { ComplexSettings } from '@src/settings/complex-settings';
 import { TestImages } from '@test/test-images';
 
-describe('ConnectedComponentsSettings', () => {
+describe('ComplexSettings', () => {
     const settings = new ComplexSettings(ComplexOperator.Multiply);
     settings.signalToNoiseRatio = 42;
 
