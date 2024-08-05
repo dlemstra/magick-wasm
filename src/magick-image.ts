@@ -1469,7 +1469,7 @@ export interface IMagickImage extends IDisposable {
      * @param name - The name of the artifact.
      * @param value - The value of the artifact.
      */
-    setArtifact(name: string, value: string | boolean | IMagickColor): void;
+    setArtifact(name: string, value: boolean | IMagickColor | number | string): void;
 
     /**
      *  Inserts the attribute with the specified name and value into the artifact tree of the image.
@@ -2938,7 +2938,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    setArtifact(name: string, value: string | boolean | IMagickColor): void {
+    setArtifact(name: string, value: boolean | IMagickColor | number | string): void {
         let strValue: string;
         if (typeof value === 'string')
             strValue = value;

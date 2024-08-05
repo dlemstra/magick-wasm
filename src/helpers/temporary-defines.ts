@@ -15,10 +15,11 @@ export class TemporaryDefines {
         this._image = image;
     }
 
-    setArtifact(name: string, value: string): void;
     setArtifact(name: string, value: boolean): void;
     setArtifact(name: string, value: IMagickColor): void;
-    setArtifact(name: string, value: string | boolean | IMagickColor): void {
+    setArtifact(name: string, value: number): void;
+    setArtifact(name: string, value: string): void;
+    setArtifact(name: string, value: boolean | IMagickColor | number | string): void {
         this._names.push(name);
         this._image.setArtifact(name, value);
     }

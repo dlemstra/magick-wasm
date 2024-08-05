@@ -5,6 +5,7 @@
 
 import { ByteArray } from './byte-array';
 import { ColorSpace } from './enums/color-space';
+import { ComplexSettings } from './settings/complex-settings';
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
 import { EvaluateOperator } from './enums/evaluate-operator';
@@ -20,6 +21,7 @@ import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
 import { MontageSettings } from './settings/montage-settings';
+import { TemporaryDefines } from './helpers/temporary-defines';
 
 export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable {
     /** @internal */
@@ -94,6 +96,19 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * @param colorSpace - The image colorspace.
      */
     combine<TReturnType>(colorSpace: ColorSpace, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Perform complex mathematics on an image sequence.
+     * @param func - The function to execute with the image.
+     */
+    complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Perform complex mathematics on an image sequence.
+     * @param func - The function to execute with the image.
+     */
+    complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
 
     /**
      * Evaluate image pixels into a single image. All the images in the collection must be the
@@ -219,6 +234,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
      * Creates a new {@link IMagickImageCollection} instance.
      */
     static create(): IMagickImageCollection;
+
     /**
      * Creates a new {@link IMagickImageCollection} instance from the specified byte array.
      */
@@ -294,6 +310,17 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return this.createImage((instance, exception) => {
             return ImageMagick._api._MagickImageCollection_Combine(instance, colorSpace, exception.ptr);
         }, callback!);
+    }
+
+    complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
+    complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>
+    complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        return TemporaryDefines.use(this[0], temporaryDefines => {
+            settings._setArtifacts(temporaryDefines);
+            return this.createImage((instance, exception) => {
+                return ImageMagick._api._MagickImageCollection_Complex(instance, settings.complexOperator, exception.ptr);
+            }, func);
+        });
     }
 
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType): TReturnType;
