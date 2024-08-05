@@ -21,7 +21,7 @@ describe('ConnectedComponentsSettings', () => {
     settings.minorAxisThreshold = new Threshold(70);
     settings.perimeterThreshold = new Threshold(80);
 
-    describe('#_addArtifacts', () => {
+    describe('#_setArtifacts', () => {
         it('should add all defined artifacts to the provided image', () => {
             TestImages.Builtin.logo.use((image) => {
                 TemporaryDefines.use(image, (temporaryDefines) => {
