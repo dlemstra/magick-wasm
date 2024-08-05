@@ -5,16 +5,16 @@
 
 import { ColorSpace } from '@src/enums/color-space';
 import { ErrorMetric } from '@src/enums/error-metric';
-import { MagickImageCollection } from '@src/magick-image-collection';
 import { MagickFormat } from '@src/enums/magick-format';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImageCollection#combine', () => {
     it('should throw exception when collection is empty', () => {
-        expect(() => {
-            const images = MagickImageCollection.create();
-            images.combine(() => { /* never reached */ });
-        }).toThrowError('operation requires at least one image');
+        TestImages.emptyCollection.use((images) => {
+            expect(() => {
+                images.combine(() => { /* never reached */ });
+            }).toThrowError('operation requires at least one image');
+        });
     });
 
     it('should combine the channels into an image', () => {

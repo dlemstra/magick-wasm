@@ -4,17 +4,17 @@
 */
 
 import { ErrorMetric } from '@src/enums/error-metric';
-import { MagickImageCollection } from '@src/magick-image-collection';
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImageCollection#mosaic', () => {
     it('should throw exception when collection is empty', () => {
-        expect(() => {
-            const images = MagickImageCollection.create();
-            images.mosaic(() => { /* never reached */ });
-        }).toThrowError('operation requires at least one image');
+        TestImages.emptyCollection.use((images) => {
+            expect(() => {
+                images.mosaic(() => { /* never reached */ });
+            }).toThrowError('operation requires at least one image');
+        });
     });
 
     it('should create a mosaic of the images', () => {

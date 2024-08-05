@@ -5,15 +5,15 @@
 
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
-import { MagickImageCollection } from '@src/magick-image-collection';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImageCollection#coalesce', () => {
     it('should throw exception when collection is empty', () => {
-        expect(() => {
-            const images = MagickImageCollection.create();
-            images.coalesce();
-        }).toThrowError('operation requires at least one image');
+        TestImages.emptyCollection.use((images) => {
+            expect(() => {
+                images.coalesce();
+            }).toThrowError('operation requires at least one image');
+        });
     });
 
     it('should update the colors for each frame', () => {

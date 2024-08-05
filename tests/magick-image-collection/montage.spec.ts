@@ -4,7 +4,6 @@
 */
 
 import { ErrorMetric } from '@src/enums/error-metric';
-import { MagickImageCollection } from '@src/magick-image-collection';
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { MontageSettings } from '@src/settings/montage-settings';
 import { TestImages } from '@test/test-images';
@@ -12,11 +11,12 @@ import { TestFonts } from '@test/test-fonts';
 
 describe('MagickImageCollection#montage', () => {
     it('should throw exception when collection is empty', () => {
-        expect(() => {
-            const settings = new MontageSettings();
-            const images = MagickImageCollection.create();
-            images.montage(settings, () => { /* never reached */ });
-        }).toThrowError('operation requires at least one image');
+        const settings = new MontageSettings();
+        TestImages.emptyCollection.use((images) => {
+            expect(() => {
+                images.montage(settings, () => { /* never reached */ });
+            }).toThrowError('operation requires at least one image');
+        });
     });
 
     it('should create a mosaic of the images', () => {

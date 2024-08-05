@@ -4,16 +4,16 @@
 */
 
 import { ErrorMetric } from '@src/enums/error-metric';
-import { MagickImageCollection } from '@src/magick-image-collection';
 import { MagickFormat } from '@src/enums/magick-format';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImageCollection#flatten', () => {
     it('should throw exception when collection is empty', () => {
-        expect(() => {
-            const images = MagickImageCollection.create();
-            images.flatten(() => { /* never reached */ });
-        }).toThrowError('operation requires at least one image');
+        TestImages.emptyCollection.use((images) => {
+            expect(() => {
+                images.flatten(() => { /* never reached */ });
+            }).toThrowError('operation requires at least one image');
+        });
     });
 
     it('should flatten the images', () => {

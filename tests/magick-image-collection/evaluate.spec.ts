@@ -7,13 +7,15 @@ import { EvaluateOperator } from '@src/enums/evaluate-operator';
 import { MagickColors } from '@src/magick-colors';
 import { MagickImage } from '@src/magick-image';
 import { MagickImageCollection } from '@src/magick-image-collection';
+import { TestImages } from '@test/test-images';
 
 describe('MagickImageCollection#evaluate', () => {
     it('should throw exception when collection is empty', () => {
-        expect(() => {
-            const images = MagickImageCollection.create();
-            images.evaluate(EvaluateOperator.Abs, () => { /* never reached */ });
-        }).toThrowError('operation requires at least one image');
+        TestImages.emptyCollection.use((images) => {
+            expect(() => {
+                images.evaluate(EvaluateOperator.Abs, () => { /* never reached */ });
+            }).toThrowError('operation requires at least one image');
+        });
     });
 
     it('should evaluate the images', () => {
