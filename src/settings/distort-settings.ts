@@ -4,6 +4,7 @@
 */
 
 import { DistortMethod } from '../enums/distort-method';
+import { TemporaryDefines } from '../helpers/temporary-defines';
 import { IMagickGeometry } from '../types/magick-geometry';
 
 /**
@@ -36,4 +37,13 @@ export class DistortSettings {
      * resulting image, rather than use the original images canvas, or a calculated 'bestfit' canvas.
      */
     viewport?: IMagickGeometry;
+
+    /** @internal */
+    _setArtifacts(temporaryDefines: TemporaryDefines): void {
+        if (this.scale !== undefined)
+            temporaryDefines.setArtifact('distort:scale', this.scale.toString());
+
+        if (this.viewport !== undefined)
+            temporaryDefines.setArtifact('distort:viewport', this.viewport.toString());
+    }
 }

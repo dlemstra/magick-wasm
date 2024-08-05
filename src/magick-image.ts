@@ -2201,14 +2201,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         const compareResult = TemporaryDefines.use(this, temporaryDefines => {
             if (hasCompareSettings) {
-                if (metricOrSettings.highlightColor !== undefined)
-                    temporaryDefines.setArtifact('compare:highlight-color', metricOrSettings.highlightColor);
-
-                if (metricOrSettings.lowlightColor !== undefined)
-                    temporaryDefines.setArtifact('compare:lowlight-color', metricOrSettings.lowlightColor);
-
-                if (metricOrSettings.masklightColor !== undefined)
-                    temporaryDefines.setArtifact('compare:masklight-color', metricOrSettings.masklightColor);
+                metricOrSettings._setArtifacts(temporaryDefines);
             }
 
             return DoublePointer.use((pointer) => {
@@ -2489,12 +2482,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             } else {
                 method = methodOrSettings.method;
                 bestFit = methodOrSettings.bestFit ? 1 : 0;
-
-                if (methodOrSettings.scale !== undefined)
-                    temporaryDefines.setArtifact('distort:scale', methodOrSettings.scale.toString());
-
-                if (methodOrSettings.viewport !== undefined)
-                    temporaryDefines.setArtifact('distort:viewport', methodOrSettings.viewport.toString());
+                methodOrSettings._setArtifacts(temporaryDefines);
             }
 
             const distortArgs = params ?? [];
