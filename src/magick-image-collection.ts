@@ -109,6 +109,11 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      */
     complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
 
+    /**
+     * Break down an image sequence into constituent parts. This is useful for creating GIF or
+     * MNG animation sequences.
+     */
+    deconstruct(): void;
 
     /**
      * Evaluate image pixels into a single image. All the images in the collection must be the
@@ -321,6 +326,21 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                 return ImageMagick._api._MagickImageCollection_Complex(instance, settings.complexOperator, exception.ptr);
             }, func);
         });
+    }
+
+    deconstruct(): void {
+        this.throwIfEmpty();
+
+        const result = this.attachImages((instance) => {
+            return Exception.use(exception => {
+                const result = ImageMagick._api._MagickImageCollection_Deconstruct(instance, exception.ptr);
+                return this.checkResult(result, exception);
+            });
+        });
+
+        const settings = this.getSettings()._clone();
+        this.dispose();
+        this.addImages(result, settings);
     }
 
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType): TReturnType;
