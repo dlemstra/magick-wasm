@@ -3,6 +3,7 @@
   Licensed under the Apache License, Version 2.0.
 */
 
+import { AsyncImageCallback, AsyncImageCollectionCallback, ImageCallback, ImageCollectionCallback, SyncImageCallback, SyncImageCollectionCallback } from './types/callbacks';
 import { ByteArray } from './byte-array';
 import { ColorSpace } from './enums/color-space';
 import { ComplexSettings } from './settings/complex-settings';
@@ -25,33 +26,33 @@ import { TemporaryDefines } from './helpers/temporary-defines';
 
 export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable {
     /** @internal */
-    _use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    _use<TReturnType>(func: SyncImageCollectionCallback<TReturnType>): TReturnType;
     /** @internal */
-    _use<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
+    _use<TReturnType>(func: AsyncImageCollectionCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Creates a single image, by appending all the images in the collection horizontally (+append).
      * @param func - The function to execute with the image.
      */
-    appendHorizontally<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    appendHorizontally<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Creates a single image, by appending all the images in the collection horizontally (+append).
      * @param func - The async function to execute with the image.
      */
-    appendHorizontally<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    appendHorizontally<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Creates a single image, by appending all the images in the collection vertically (-append).
      * @param func - The function to execute with the image.
      */
-    appendVertically<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    appendVertically<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Creates a single image, by appending all the images in the collection vertically (-append).
      * @param func - The async function to execute with the image.
      */
-    appendVertically<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    appendVertically<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Creates a clone of the current image collection.
@@ -75,39 +76,39 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * Combines the images into a single image. The typical ordering would be
      * image 1 => Red, 2 => Green, 3 => Blue, etc.
      */
-    combine<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    combine<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Merge a sequence of images. This is useful for GIF animation sequences that have page
      * offsets and disposal methods.
      */
-    combine<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    combine<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Combines the images into a single image. The typical ordering would be
      * image 1 => Red, 2 => Green, 3 => Blue, etc.
      * @param colorSpace - The image colorspace.
      */
-    combine<TReturnType>(colorSpace: ColorSpace, func: (image: IMagickImage) => TReturnType): TReturnType;
+    combine<TReturnType>(colorSpace: ColorSpace, func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Combines the images into a single image. The typical ordering would be
      * image 1 => Red, 2 => Green, 3 => Blue, etc.
      * @param colorSpace - The image colorspace.
      */
-    combine<TReturnType>(colorSpace: ColorSpace, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    combine<TReturnType>(colorSpace: ColorSpace, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Perform complex mathematics on an image sequence.
      * @param func - The function to execute with the image.
      */
-    complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
+    complex<TReturnType>(settings: ComplexSettings, func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Perform complex mathematics on an image sequence.
      * @param func - The function to execute with the image.
      */
-    complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    complex<TReturnType>(settings: ComplexSettings, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Break down an image sequence into constituent parts. This is useful for creating GIF or
@@ -121,7 +122,7 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * @param evaluateOperator - The operator.
      * @param func - The function to execute with the image.
      */
-    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType): TReturnType;
+    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Evaluate image pixels into a single image. All the images in the collection must be the
@@ -129,7 +130,7 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * @param evaluateOperator - The operator.
      * @param func - The async function to execute with the image.
      */
-    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Flatten this collection into a single image.
@@ -137,7 +138,7 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * This can be used to 'fill out' a given virtual canvas.
      * @param func - The function to execute with the image.
      */
-    flatten<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    flatten<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Flatten this collection into a single image.
@@ -145,49 +146,49 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * This can be used to 'fill out' a given virtual canvas.
      * @param func - The async function to execute with the image.
      */
-    flatten<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    flatten<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
      * canvas of the first image is preserved but otherwise ignored.
      * @param func - The function to execute with the image.
      */
-    merge<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    merge<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
      * canvas of the first image is preserved but otherwise ignored.
      * @param func - The async function to execute with the image.
      */
-    merge<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    merge<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Create a composite image by combining the images with the specified settings.
      * @param settings - The settings to use.
      * @param func - The function to execute with the image.
      */
-    montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
+    montage<TReturnType>(settings: MontageSettings, func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Create a composite image by combining the images with the specified settings.
      * @param settings - The settings to use.
      * @param func - The async function to execute with the image.
      */
-    montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    montage<TReturnType>(settings: MontageSettings, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Start with the virtual canvas of the first image, enlarging left and right edges to contain
      * all images. Images with negative offsets will be clipped.
      * @param func - The function to execute with the image.
      */
-    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    mosaic<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Start with the virtual canvas of the first image, enlarging left and right edges to contain
      * all images. Images with negative offsets will be clipped.
      * @param func - The async function to execute with the image.
      */
-    mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    mosaic<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Read all image frames.
@@ -259,17 +260,17 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
     }
 
-    appendHorizontally<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
-    appendHorizontally<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    appendHorizontally<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    appendHorizontally<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
+    appendHorizontally<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    appendHorizontally<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.createImage((instance, exception) => {
             return ImageMagick._api._MagickImageCollection_Append(instance, 0, exception.ptr);
         }, func);
     }
 
-    appendVertically<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
-    appendVertically<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    appendVertically<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    appendVertically<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
+    appendVertically<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    appendVertically<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.createImage((instance, exception) => {
             return ImageMagick._api._MagickImageCollection_Append(instance, 1, exception.ptr);
         }, func);
@@ -300,11 +301,11 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         this.addImages(result, settings);
     }
 
-    combine<TReturnType>(func: (func: IMagickImage) => TReturnType): TReturnType;
-    combine<TReturnType>(func: (func: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    combine<TReturnType>(colorSpace: ColorSpace, func: (image: IMagickImage) => TReturnType): TReturnType;
-    combine<TReturnType>(colorSpace: ColorSpace, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>
-    combine<TReturnType>(colorSpaceOrfunc: ColorSpace | ((image: IMagickImage) => TReturnType | Promise<TReturnType>), func?: (images: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    combine<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
+    combine<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    combine<TReturnType>(colorSpace: ColorSpace, func: SyncImageCallback<TReturnType>): TReturnType;
+    combine<TReturnType>(colorSpace: ColorSpace, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>
+    combine<TReturnType>(colorSpaceOrfunc: ColorSpace | (ImageCallback<TReturnType>), func?: (images: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         let callback = func;
         let colorSpace = ColorSpace.sRGB;
         if (typeof colorSpaceOrfunc === 'number')
@@ -317,9 +318,9 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }, callback!);
     }
 
-    complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
-    complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>
-    complex<TReturnType>(settings: ComplexSettings, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    complex<TReturnType>(settings: ComplexSettings, func: SyncImageCallback<TReturnType>): TReturnType;
+    complex<TReturnType>(settings: ComplexSettings, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>
+    complex<TReturnType>(settings: ComplexSettings, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return TemporaryDefines.use(this[0], temporaryDefines => {
             settings._setArtifacts(temporaryDefines);
             return this.createImage((instance, exception) => {
@@ -343,29 +344,29 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         this.addImages(result, settings);
     }
 
-    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType): TReturnType;
-    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: SyncImageCallback<TReturnType>): TReturnType;
+    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.createImage((instance, exception) => {
             return ImageMagick._api._MagickImageCollection_Evaluate(instance, evaluateOperator, exception.ptr);
         }, func);
     }
 
-    flatten<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
-    flatten<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    flatten<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    flatten<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
+    flatten<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    flatten<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.mergeImages(LayerMethod.Flatten, func);
     }
 
-    merge<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
-    merge<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    merge<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    merge<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
+    merge<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    merge<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.mergeImages(LayerMethod.Merge, func);
     }
 
-    montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => TReturnType): TReturnType;
-    montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    montage<TReturnType>(settings: MontageSettings, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    montage<TReturnType>(settings: MontageSettings, func: SyncImageCallback<TReturnType>): TReturnType;
+    montage<TReturnType>(settings: MontageSettings, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    montage<TReturnType>(settings: MontageSettings, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         this.throwIfEmpty();
 
         return this.attachImages((instance) => {
@@ -388,9 +389,9 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         });
     }
 
-    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
-    mosaic<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    mosaic<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    mosaic<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
+    mosaic<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    mosaic<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.mergeImages(LayerMethod.Mosaic, func);
     }
 
@@ -471,10 +472,10 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     /** @internal */
-    _use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
+    _use<TReturnType>(func: SyncImageCollectionCallback<TReturnType>): TReturnType;
     /** @internal */
-    _use<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    _use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    _use<TReturnType>(func: AsyncImageCollectionCallback<TReturnType>): Promise<TReturnType>;
+    _use<TReturnType>(func: ImageCollectionCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return Disposable._disposeAfterExecution(this, func);
     }
 
@@ -509,7 +510,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return Object.create(MagickImageCollection.prototype);
     }
 
-    private createImage<TReturnType>(createImages: (instance: number, exception: Exception) => number, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    private createImage<TReturnType>(createImages: (instance: number, exception: Exception) => number, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         this.throwIfEmpty();
 
         const result = this.attachImages((instance) => {
@@ -534,7 +535,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return this[0]._getSettings()._clone();
     }
 
-    private mergeImages<TReturnType>(layerMethod: LayerMethod, func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    private mergeImages<TReturnType>(layerMethod: LayerMethod, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.createImage((instance, exception) => {
             return ImageMagick._api._MagickImageCollection_Merge(instance, layerMethod, exception.ptr);
         }, func);

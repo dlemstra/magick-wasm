@@ -97,6 +97,7 @@ export * from './settings/morphology-settings';
 export * from './settings/quantize-settings';
 export * from './statistics/channel-statistics';
 export * from './statistics/statistics';
+export * from './types/callbacks';
 export * from './types/chromaticity-info';
 export * from './types/compare-result';
 export * from './types/connected-component';
