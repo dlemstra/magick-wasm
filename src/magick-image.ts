@@ -4,6 +4,7 @@
 */
 
 import { AlphaOption } from './enums/alpha-option';
+import { AsyncImageCallback, AsyncImageCollectionCallback, ImageCallback, ImageCollectionCallback, SyncImageCallback, SyncImageCollectionCallback } from './types/callbacks';
 import { AutoThresholdMethod } from './enums/auto-threshold-method';
 import { ByteArray, _isByteArray } from './byte-array';
 import { Channels } from './enums/channels';
@@ -75,11 +76,11 @@ export interface IMagickImage extends IDisposable {
     /** @internal */
     _channelOffset(pixelChannel: PixelChannel): number;
     /** @internal */
-    _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    _use<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
     /** @internal */
-    _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    _use<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
     /** @internal */
-    _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType>;
+    _use<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType>;
 
     /**
      * Gets or sets the time in 1/100ths of a second which must expire before splaying the next image in an
@@ -487,13 +488,13 @@ export interface IMagickImage extends IDisposable {
      * Creates a clone of the current image.
      * @param func - The function to execute with the image.
      */
-    clone<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    clone<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Creates a clone of the current image.
      * @param func - The async function to execute with the image.
      */
-    clone<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+    clone<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Sets the alpha channel to the specified color.
@@ -2151,9 +2152,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    clone<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
-    clone<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    clone<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    clone<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
+    clone<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    clone<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         const image = MagickImage._clone(this);
         return image._use(func);
     }
@@ -2176,9 +2177,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     compare<TReturnType>(image: IMagickImage, settings: CompareSettings, channels: Channels, func: (compareResult: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
     compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, func: (image: CompareResult) => TReturnType): TReturnType;
     compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, func: (image: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
-    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channels: Channels, func: (image: CompareResult) => TReturnType): TReturnType;
-    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channels: Channels, func: (image: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
-    compare<TReturnType>(image: IMagickImage, metricOrSettings: CompareSettings | ErrorMetric, channelsFuncOrUndefined?: Channels | ((image: CompareResult) => TReturnType | Promise<TReturnType>), funcOrUndefined?: (image: CompareResult) => TReturnType | Promise<TReturnType>): number | TReturnType | Promise<TReturnType> {
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channels: Channels, func: (result: CompareResult) => TReturnType): TReturnType;
+    compare<TReturnType>(image: IMagickImage, metric: ErrorMetric, channels: Channels, func: (result: CompareResult) => Promise<TReturnType>): Promise<TReturnType>;
+    compare<TReturnType>(image: IMagickImage, metricOrSettings: CompareSettings | ErrorMetric, channelsFuncOrUndefined?: Channels | ((result: CompareResult) => TReturnType | Promise<TReturnType>), funcOrUndefined?: (result: CompareResult) => TReturnType | Promise<TReturnType>): number | TReturnType | Promise<TReturnType> {
         const hasCompareSettings = metricOrSettings instanceof CompareSettings;
         const errorMetric = hasCompareSettings ? metricOrSettings.metric : metricOrSettings;
 
@@ -2430,13 +2431,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    cropToTiles<TReturnType>(geometry: IMagickGeometry, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
-    cropToTiles<TReturnType>(geometry: IMagickGeometry, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    cropToTiles<TReturnType>(width: number, height: number, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
-    cropToTiles<TReturnType>(width: number, height: number, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    cropToTiles<TReturnType>(widthOrGeometry: number | IMagickGeometry, funcOrHeight: ((images: IMagickImageCollection) => TReturnType | Promise<TReturnType>) | number, funcOrUndefined?: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    cropToTiles<TReturnType>(geometry: IMagickGeometry, func: SyncImageCollectionCallback<TReturnType>): TReturnType;
+    cropToTiles<TReturnType>(geometry: IMagickGeometry, func: AsyncImageCollectionCallback<TReturnType>): Promise<TReturnType>;
+    cropToTiles<TReturnType>(width: number, height: number, func: SyncImageCollectionCallback<TReturnType>): TReturnType;
+    cropToTiles<TReturnType>(width: number, height: number, func: AsyncImageCollectionCallback<TReturnType>): Promise<TReturnType>;
+    cropToTiles<TReturnType>(widthOrGeometry: number | IMagickGeometry, funcOrHeight: ImageCollectionCallback<TReturnType> | number, funcOrUndefined?: ImageCollectionCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         let geometry: IMagickGeometry;
-        let func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>;
+        let func: ImageCollectionCallback<TReturnType>;
         if (typeof widthOrGeometry === 'number' && typeof funcOrHeight === 'number' && funcOrUndefined !== undefined) {
             geometry = new MagickGeometry(0, 0, widthOrGeometry, funcOrHeight);
             func = funcOrUndefined;
@@ -2898,9 +2899,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     separate<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     separate<TReturnType>(channels: Channels, func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     separate<TReturnType>(channels: Channels, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-    separate<TReturnType>(funcOrChannels: ((images: IMagickImageCollection) => TReturnType | Promise<TReturnType>) | Channels, funcOrUndefined?: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    separate<TReturnType>(funcOrChannels: ImageCollectionCallback<TReturnType> | Channels, funcOrUndefined?: ImageCollectionCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.useException(exception => {
-            let func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>;
+            let func: ImageCollectionCallback<TReturnType>;
             let channels: Channels = Channels.Undefined;
             if (typeof funcOrChannels === 'number' && funcOrUndefined !== undefined) {
                 channels = funcOrChannels;
@@ -3210,18 +3211,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     /** @internal */
-    _use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    _use<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
     /** @internal */
-    _use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    _use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    _use<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    _use<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return Disposable._disposeAfterExecution(this, func);
     }
 
     /** @internal */
-    static _create<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+    static _create<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
     /** @internal */
-    static _create<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
-    static _create<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+    static _create<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    static _create<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         const image = MagickImage.create();
         return image._use<TReturnType>(func);
     }
