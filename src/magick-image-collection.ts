@@ -5,6 +5,7 @@
 
 import { AsyncImageCallback, AsyncImageCollectionCallback, ImageCallback, ImageCollectionCallback, SyncImageCallback, SyncImageCollectionCallback } from './types/callbacks';
 import { ByteArray } from './byte-array';
+import { Channels } from './enums/channels';
 import { ColorSpace } from './enums/color-space';
 import { ComplexSettings } from './settings/complex-settings';
 import { Disposable } from './internal/disposable';
@@ -23,6 +24,7 @@ import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
 import { MontageSettings } from './settings/montage-settings';
 import { TemporaryDefines } from './helpers/temporary-defines';
+import { _withString } from './internal/native/string';
 
 export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable {
     /** @internal */
@@ -147,6 +149,36 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * @param func - The async function to execute with the image.
      */
     flatten<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+
+    /**
+    * Apply a mathematical expression to the image or image channels.
+    * @param expression - The expression to apply.
+    * @param func - The function to execute with the image.
+    */
+    fx<TReturnType>(expression: string, func: SyncImageCallback<TReturnType>): TReturnType;
+
+    /**
+     * Apply a mathematical expression to the image or image channels.
+     * @param expression - The expression to apply.
+     * @param func - The function to execute with the image.
+     */
+    fx<TReturnType>(expression: string, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Apply a mathematical expression to the image or image channels.
+     * @param expression - The expression to apply.
+     * @param channels - The channels to apply the expression to.
+     * @param func - The function to execute with the image.
+     */
+    fx<TReturnType>(expression: string, channels: Channels, func: SyncImageCallback<TReturnType>): TReturnType;
+
+    /**
+     * Apply a mathematical expression to the image or image channels.
+     * @param expression - The expression to apply.
+     * @param channels - The channels to apply the expression to.
+     * @param func - The function to execute with the image.
+     */
+    fx<TReturnType>(expression: string, channels: Channels, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
@@ -364,6 +396,27 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return this.mergeImages(LayerMethod.Merge, func);
     }
 
+    fx<TReturnType>(expression: string, func: SyncImageCallback<TReturnType>): TReturnType;
+    fx<TReturnType>(expression: string, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    fx<TReturnType>(expression: string, channels: Channels, func: SyncImageCallback<TReturnType>): TReturnType;
+    fx<TReturnType>(expression: string, channels: Channels, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    fx<TReturnType>(expression: string, channelsOrFunc: Channels | ImageCallback<TReturnType>, func?: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
+        this.throwIfEmpty();
+
+        let channels = Channels.All;
+        let callback = func;
+        if (typeof channelsOrFunc === 'number')
+            channels = channelsOrFunc;
+        else
+            callback = channelsOrFunc;
+
+        return _withString(expression, expressionPtr => {
+            return this.createImage((instance, exception) => {
+                return ImageMagick._api._MagickImageCollection_Fx(instance, expressionPtr, channels, exception.ptr);
+            }, callback!);
+        });
+    }
+
     montage<TReturnType>(settings: MontageSettings, func: SyncImageCallback<TReturnType>): TReturnType;
     montage<TReturnType>(settings: MontageSettings, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
     montage<TReturnType>(settings: MontageSettings, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
@@ -510,13 +563,13 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return Object.create(MagickImageCollection.prototype);
     }
 
-    private createImage<TReturnType>(createImages: (instance: number, exception: Exception) => number, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
+    private createImage<TReturnType>(createImage: (instance: number, exception: Exception) => number, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         this.throwIfEmpty();
 
         const result = this.attachImages((instance) => {
             return Exception.use(exception => {
-                const images = createImages(instance, exception);
-                return this.checkResult(images, exception);
+                const image = createImage(instance, exception);
+                return this.checkResult(image, exception);
             });
         });
 
