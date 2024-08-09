@@ -23,6 +23,7 @@ import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
 import { MontageSettings } from './settings/montage-settings';
+import { QuantizeSettings } from './settings/quantize-settings';
 import { TemporaryDefines } from './helpers/temporary-defines';
 import { _withString } from './internal/native/string';
 
@@ -237,6 +238,18 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     read(array: ByteArray, settings?: MagickReadSettings): void;
 
     /**
+     * Remap image colors with closest color from reference image.
+     * @param image - The image to use.
+     */
+    remap(image: IMagickImage): void;
+
+    /**
+     * Remap image colors with closest color from reference image.
+     * @param image - The image to use.
+     */
+    remap(image: IMagickImage, settings: QuantizeSettings): void;
+
+    /**
      * Write all image frames to a byte array.
      * @param func - The function to execute with the byte array.
      */
@@ -390,12 +403,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return this.mergeImages(LayerMethod.Flatten, func);
     }
 
-    merge<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
-    merge<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
-    merge<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
-        return this.mergeImages(LayerMethod.Merge, func);
-    }
-
     fx<TReturnType>(expression: string, func: SyncImageCallback<TReturnType>): TReturnType;
     fx<TReturnType>(expression: string, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
     fx<TReturnType>(expression: string, channels: Channels, func: SyncImageCallback<TReturnType>): TReturnType;
@@ -415,6 +422,12 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                 return ImageMagick._api._MagickImageCollection_Fx(instance, expressionPtr, channels, exception.ptr);
             }, callback!);
         });
+    }
+
+    merge<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
+    merge<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    merge<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
+        return this.mergeImages(LayerMethod.Merge, func);
     }
 
     montage<TReturnType>(settings: MontageSettings, func: SyncImageCallback<TReturnType>): TReturnType;
@@ -477,6 +490,22 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                     }
                 });
             }
+        });
+    }
+
+    remap(image: IMagickImage): void;
+    remap(image: IMagickImage, settings: QuantizeSettings): void;
+    remap(image: IMagickImage, settingsOrUndefined?: QuantizeSettings): void {
+        this.throwIfEmpty();
+
+        const settings = settingsOrUndefined === undefined ? new QuantizeSettings() : settingsOrUndefined;
+
+        this.attachImages((instance) => {
+            settings._use(nativeSettings => {
+                Exception.use(exception => {
+                    ImageMagick._api._MagickImageCollection_Map(instance, nativeSettings._instance, image._instance, exception.ptr);
+                });
+            });
         });
     }
 
