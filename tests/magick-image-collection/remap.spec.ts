@@ -6,7 +6,6 @@
 import { MagickColors } from '@src/magick-colors';
 import { MagickImage } from '@src/magick-image';
 import { TestImages } from '@test/test-images';
-import { saveImage } from '@test/save-image';
 
 describe('MagickImageCollection#remap', () => {
     it('should throw exception when collection is empty', () => {
