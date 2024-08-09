@@ -425,15 +425,15 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                 });
             });
 
-            const collection = MagickImageCollection._createFromImages(result, this.getSettings());
-            const transparentColor = settings.transparentColor;
-            if (transparentColor !== undefined) {
-                collection.forEach(image => {
-                    image.transparent(transparentColor);
-                });
-            }
-
-            return collection.merge(func);
+            return MagickImageCollection._createFromImages(result, this.getSettings())._use((collection) => {
+                const transparentColor = settings.transparentColor;
+                if (transparentColor !== undefined) {
+                    collection.forEach(image => {
+                        image.transparent(transparentColor);
+                    });
+                }
+                return collection.merge(func);
+            });
         });
     }
 
