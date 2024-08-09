@@ -332,18 +332,9 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     coalesce(): void {
-        this.throwIfEmpty();
-
-        const result = this.attachImages((instance) => {
-            return Exception.use(exception => {
-                const result = ImageMagick._api._MagickImageCollection_Coalesce(instance, exception.ptr);
-                return this.checkResult(result, exception);
-            });
+        this.replaceImages((instance, exception) => {
+            return ImageMagick._api._MagickImageCollection_Coalesce(instance, exception.ptr);
         });
-
-        const settings = this.getSettings()._clone();
-        this.dispose();
-        this.addImages(result, settings);
     }
 
     combine<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
@@ -375,18 +366,9 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     deconstruct(): void {
-        this.throwIfEmpty();
-
-        const result = this.attachImages((instance) => {
-            return Exception.use(exception => {
-                const result = ImageMagick._api._MagickImageCollection_Deconstruct(instance, exception.ptr);
-                return this.checkResult(result, exception);
-            });
+        this.replaceImages((instance, exception) => {
+            return ImageMagick._api._MagickImageCollection_Deconstruct(instance, exception.ptr);
         });
-
-        const settings = this.getSettings()._clone();
-        this.dispose();
-        this.addImages(result, settings);
     }
 
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: SyncImageCallback<TReturnType>): TReturnType;
@@ -621,6 +603,21 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return this.createImage((instance, exception) => {
             return ImageMagick._api._MagickImageCollection_Merge(instance, layerMethod, exception.ptr);
         }, func);
+    }
+
+    private replaceImages(createImages: (instance: number, exception: Exception) => number) {
+        this.throwIfEmpty();
+
+        const result = this.attachImages((instance) => {
+            return Exception.use(exception => {
+                const result = createImages(instance, exception);
+                return this.checkResult(result, exception);
+            });
+        });
+
+        const settings = this.getSettings()._clone();
+        this.dispose();
+        this.addImages(result, settings);
     }
 
     private throwIfEmpty() {
