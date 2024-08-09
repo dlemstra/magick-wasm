@@ -210,6 +210,14 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     montage<TReturnType>(settings: MontageSettings, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
+     * The morph method requires a minimum of two images.  The first image is transformed into
+     * the second by a number of intervening images as specified by frames.
+     * second image.
+     * @param frames The number of in-between images to generate.
+     */
+    morph(frames: number): void;
+
+    /**
      * Start with the virtual canvas of the first image, enlarging left and right edges to contain
      * all images. Images with negative offsets will be clipped.
      * @param func - The function to execute with the image.
@@ -434,6 +442,15 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                 }
                 return collection.merge(func);
             });
+        });
+    }
+
+    morph(frames: number): void {
+        if (this.length < 2)
+            throw new MagickError('operation requires at least two images');
+
+        this.replaceImages((instance, exception) => {
+            return ImageMagick._api._MagickImageCollection_Morph(instance, frames, exception.ptr);
         });
     }
 
