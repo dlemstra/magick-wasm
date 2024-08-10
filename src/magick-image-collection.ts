@@ -251,6 +251,20 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     optimizeTransparency(): void;
 
     /**
+     * Read only metadata and not the pixel data from all image frames.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The read settings.
+     */
+    ping(fileName: string, settings?: MagickReadSettings): void;
+
+    /**
+     * Read only metadata and not the pixel data from all image frames.
+     * @param fileName - The fully qualified name of the image file, or the relative image file name.
+     * @param settings - The read settings.
+     */
+    ping(array: ByteArray, settings?: MagickReadSettings): void;
+
+    /**
      * Read all image frames.
      * @param fileName - The fully qualified name of the image file, or the relative image file name.
      * @param settings - The read settings.
@@ -501,36 +515,16 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         });
     }
 
+    ping(fileName: string, settings?: MagickReadSettings): void;
+    ping(array: ByteArray, settings?: MagickReadSettings): void;
+    ping(fileNameOrArray: string | ByteArray, settings?: MagickReadSettings): void {
+        this.readOrPing(true, fileNameOrArray, settings);
+    }
+
     read(fileName: string, settings?: MagickReadSettings): void;
     read(array: ByteArray, settings?: MagickReadSettings): void;
     read(fileNameOrArray: string | ByteArray, settings?: MagickReadSettings): void {
-        this.dispose();
-
-        Exception.use(exception => {
-            const readSettings = MagickImageCollection.createSettings(settings);
-            if (typeof fileNameOrArray === 'string') {
-                readSettings._fileName = fileNameOrArray;
-
-                readSettings._use(settings => {
-                    const instances = ImageMagick._api._MagickImageCollection_ReadFile(settings._instance, exception.ptr);
-                    this.addImages(instances, readSettings);
-                });
-            } else {
-                readSettings._use(settings => {
-                    const length = fileNameOrArray.byteLength;
-                    let data = 0;
-                    try {
-                        data = ImageMagick._api._malloc(length);
-                        ImageMagick._api.HEAPU8.set(fileNameOrArray, data);
-                        const instances = ImageMagick._api._MagickImageCollection_ReadBlob(settings._instance, data, 0, length, exception.ptr);
-                        this.addImages(instances, readSettings);
-                    } finally {
-                        if (data !== 0)
-                            ImageMagick._api._free(data);
-                    }
-                });
-            }
-        });
+        this.readOrPing(false, fileNameOrArray, settings);
     }
 
     remap(image: IMagickImage): void;
@@ -646,13 +640,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return image._use(func);
     }
 
-    private static createSettings(settings?: MagickReadSettings): MagickSettings {
-        if (settings == null)
-            return new MagickSettings();
-
-        return new MagickReadSettings(settings);
-    }
-
     private getSettings(): MagickSettings {
         return this[0]._getSettings()._clone();
     }
@@ -661,6 +648,38 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return this.createImage((instance, exception) => {
             return ImageMagick._api._MagickImageCollection_Merge(instance, layerMethod, exception.ptr);
         }, func);
+    }
+
+    private readOrPing(ping: boolean, fileNameOrArray: string | ByteArray, settings?: MagickReadSettings): void {
+        this.dispose();
+
+        Exception.use(exception => {
+            const readSettings = settings === undefined ? new MagickReadSettings() : new MagickReadSettings(settings);
+            readSettings._ping = ping;
+
+            if (typeof fileNameOrArray === 'string') {
+                readSettings._fileName = fileNameOrArray;
+
+                readSettings._use(settings => {
+                    const instances = ImageMagick._api._MagickImageCollection_ReadFile(settings._instance, exception.ptr);
+                    this.addImages(instances, readSettings);
+                });
+            } else {
+                readSettings._use(settings => {
+                    const length = fileNameOrArray.byteLength;
+                    let data = 0;
+                    try {
+                        data = ImageMagick._api._malloc(length);
+                        ImageMagick._api.HEAPU8.set(fileNameOrArray, data);
+                        const instances = ImageMagick._api._MagickImageCollection_ReadBlob(settings._instance, data, 0, length, exception.ptr);
+                        this.addImages(instances, readSettings);
+                    } finally {
+                        if (data !== 0)
+                            ImageMagick._api._free(data);
+                    }
+                });
+            }
+        });
     }
 
     private replaceImages(createImages: (instance: number, exception: Exception) => number) {
