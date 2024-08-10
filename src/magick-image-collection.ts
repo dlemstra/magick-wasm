@@ -232,6 +232,13 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     mosaic<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
+     * Compares each image the GIF disposed forms of the previous image in the sequence. From
+     * this it attempts to select the smallest cropped image to replace each frame, while
+     * preserving the results of the GIF animation.
+     */
+    optimize(): void;
+
+    /**
      * Read all image frames.
      * @param fileName - The fully qualified name of the image file, or the relative image file name.
      * @param settings - The read settings.
@@ -458,6 +465,12 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     mosaic<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
     mosaic<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.mergeImages(LayerMethod.Mosaic, func);
+    }
+
+    optimize(): void {
+        this.replaceImages((instance, exception) => {
+            return ImageMagick._api._MagickImageCollection_Optimize(instance, exception.ptr);
+        });
     }
 
     read(fileName: string, settings?: MagickReadSettings): void;
