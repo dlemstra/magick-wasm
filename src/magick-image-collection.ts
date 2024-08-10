@@ -242,6 +242,13 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * optimizePlus is exactly as optimize, but may also add or even remove extra frames in the
      * animation, if it improves the total number of pixels in the resulting GIF animation.
      */
+    optimizePlus(): void;
+
+    /**
+     * Compares each image the GIF disposed forms of the previous image in the sequence. Any
+     * pixel that does not change the displayed result is replaced with transparency.
+     */
+    optimizeTransparency(): void;
 
     /**
      * Read all image frames.
@@ -481,6 +488,16 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     optimizePlus(): void {
         this.replaceImages((instance, exception) => {
             return ImageMagick._api._MagickImageCollection_OptimizePlus(instance, exception.ptr);
+        });
+    }
+
+    optimizeTransparency(): void {
+        this.throwIfEmpty();
+
+        this.attachImages(instance => {
+            Exception.usePointer(exception => {
+                ImageMagick._api._MagickImageCollection_OptimizeTransparency(instance, exception);
+            });
         });
     }
 
