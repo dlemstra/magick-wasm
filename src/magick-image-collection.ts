@@ -622,6 +622,15 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
     }
 
+    private checkResult(images: number, exception: Exception): number {
+        return exception.check(() => {
+            return images;
+        }, () => {
+            ImageMagick._api._MagickImageCollection_Dispose(images);
+            return 0;
+        });
+    }
+
     private static createObject(): MagickImageCollection {
         return Object.create(MagickImageCollection.prototype);
     }
@@ -700,14 +709,5 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     private throwIfEmpty() {
         if (this.length === 0)
             throw new MagickError('operation requires at least one image');
-    }
-
-    private checkResult(images: number, exception: Exception): number {
-        return exception.check(() => {
-            return images;
-        }, () => {
-            ImageMagick._api._MagickImageCollection_Dispose(images);
-            return 0;
-        });
     }
 }
