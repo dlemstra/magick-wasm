@@ -119,6 +119,7 @@ export class TestImages {
     static readonly connectedComponentsPng = new TestImage('tests/images/connected-components.png');
     static readonly fujiFilmFinePixS1ProJpg = new TestImage('tests/images/fuji-film-fine-pix-s1-pro.jpg');
     static readonly imageMagickJpg = new TestImage('tests/images/image-magick.jpg');
+    static readonly movingHoleGif = new TestImageCollection('tests/images/moving-hole.gif');
     static readonly redPng = new TestImage('tests/images/red.png');
     static readonly roseSparkleGif = new TestImageCollection('tests/images/röse-sparkle.gif');
     static readonly warningJpg = new TestImage('tests/images/warning.jpg');

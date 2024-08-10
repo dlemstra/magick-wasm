@@ -28,30 +28,21 @@ describe('MagickImageCollection#evaluate', () => {
     });
 
     it('should optimize the images', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestImages.movingHoleGif.use((images) => {
 
-            images.push(MagickImage.create(MagickColors.Red, 1, 2));
-            images.push(MagickImage.create(MagickColors.Red, 1, 2));
+            expect(images.length).toBe(4);
 
-            const second = MagickImage.create(MagickColors.Red, 1, 1);
-            second.extent(1, 2, MagickColors.Green);
-            images.push(second);
+            images.optimizePlus();
 
-            images.optimize();
+            expect(images.length).toBe(7);
 
-            expect(images.length).toBe(3);
-            expect(images[0].width).toBe(1);
-            expect(images[0].height).toBe(2);
-
-            expect(images[1].width).toBe(1);
-            expect(images[1].height).toBe(1);
-            expect(images[1].page.x).toBe(-1);
-            expect(images[1].page.y).toBe(-1);
-
-            expect(images[2].width).toBe(1);
-            expect(images[2].height).toBe(1);
-            expect(images[2].page.x).toBe(0);
-            expect(images[2].page.y).toBe(1);
+            expect(images[0].page.toString()).toBe('100x100+0+0');
+            expect(images[1].page.toString()).toBe('100x100+61+27');
+            expect(images[2].page.toString()).toBe('100x100+27+12');
+            expect(images[3].page.toString()).toBe('100x100+46+61');
+            expect(images[4].page.toString()).toBe('100x100+46+27');
+            expect(images[5].page.toString()).toBe('100x100+12+46');
+            expect(images[6].page.toString()).toBe('100x100+12+46');
         });
     });
 });
