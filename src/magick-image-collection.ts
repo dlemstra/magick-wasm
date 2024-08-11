@@ -25,6 +25,7 @@ import { MagickSettings } from './settings/magick-settings';
 import { MontageSettings } from './settings/montage-settings';
 import { QuantizeSettings } from './settings/quantize-settings';
 import { TemporaryDefines } from './helpers/temporary-defines';
+import { _withDoubleArray } from './internal/native/array';
 import { _withString } from './internal/native/string';
 
 export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable {
@@ -263,6 +264,22 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * @param settings - The read settings.
      */
     ping(array: ByteArray, settings?: MagickReadSettings): void;
+
+    /**
+     * Creates a new image where each pixel is the sum of the pixels in the image sequence after applying its
+     * corresponding terms (coefficient and degree pairs).
+     * @param terms - The list of polynomial coefficients and degree pairs and a constant.
+     * @param func - The function to execute with the image.
+     */
+    polynomial<TReturnType>(terms: number[], func: SyncImageCallback<TReturnType>): TReturnType;
+
+    /**
+     * Creates a new image where each pixel is the sum of the pixels in the image sequence after applying its
+     * corresponding terms (coefficient and degree pairs).
+     * @param terms - The list of polynomial coefficients and degree pairs and a constant.
+     * @param func - The function to execute with the image.
+     */
+    polynomial<TReturnType>(terms: number[], func: AsyncImageCallback<TReturnType>): TReturnType | Promise<TReturnType>;
 
     /**
      * Read all image frames.
@@ -519,6 +536,16 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     ping(array: ByteArray, settings?: MagickReadSettings): void;
     ping(fileNameOrArray: string | ByteArray, settings?: MagickReadSettings): void {
         this.readOrPing(true, fileNameOrArray, settings);
+    }
+
+    polynomial<TReturnType>(terms: number[], func: SyncImageCallback<TReturnType>): TReturnType;
+    polynomial<TReturnType>(terms: number[], func: AsyncImageCallback<TReturnType>): TReturnType;
+    polynomial<TReturnType>(terms: number[], func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
+        return this.createImage((instance, exception) => {
+            return _withDoubleArray(terms, termsPtr => {
+                return ImageMagick._api._MagickImageCollection_Polynomial(instance, termsPtr, terms.length, exception.ptr);
+            });
+        }, func);
     }
 
     read(fileName: string, settings?: MagickReadSettings): void;
