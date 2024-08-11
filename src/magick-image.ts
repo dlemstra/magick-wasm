@@ -1335,7 +1335,7 @@ export interface IMagickImage extends IDisposable {
      * Quantize image (reduce number of colors).
      * @param settings - The settings to use when quantizing the image.
      */
-    quantize(settings: QuantizeSettings): MagickErrorInfo | null;
+    quantize(settings?: QuantizeSettings): MagickErrorInfo | null;
 
     /**
      * Read single image frame.
@@ -2813,7 +2813,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.readOrPing(true, fileNameOrArray, settingsOrUndefined);
     }
 
-    quantize(settings: QuantizeSettings): MagickErrorInfo | null {
+    quantize(settingsOrUndefined?: QuantizeSettings): MagickErrorInfo | null {
+        const settings = this.valueOrDefault(settingsOrUndefined, new QuantizeSettings());
         this.useException(exception => {
             settings._use((settings) => {
                 ImageMagick._api._MagickImage_Quantize(this._instance, settings._instance, exception.ptr);
