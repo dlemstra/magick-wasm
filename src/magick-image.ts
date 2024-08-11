@@ -41,6 +41,7 @@ import { ImageProfile, IImageProfile } from './profiles/image-profile';
 import { Interlace } from './enums/interlace';
 import { MagickColor, IMagickColor } from './magick-color';
 import { MagickError } from './magick-error';
+import { MagickErrorInfo } from './types/magick-error-info';
 import { MagickFormat } from './enums/magick-format';
 import { MagickGeometry as MagickGeometry, IMagickGeometry } from './types/magick-geometry';
 import { MagickImageCollection, IMagickImageCollection } from './magick-image-collection';
@@ -1334,7 +1335,7 @@ export interface IMagickImage extends IDisposable {
      * Quantize image (reduce number of colors).
      * @param settings - The settings to use when quantizing the image.
      */
-    quantize(settings: QuantizeSettings): void;
+    quantize(settings: QuantizeSettings): MagickErrorInfo | null;
 
     /**
      * Read single image frame.
@@ -2812,12 +2813,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.readOrPing(true, fileNameOrArray, settingsOrUndefined);
     }
 
-    quantize(settings: QuantizeSettings): void {
+    quantize(settings: QuantizeSettings): MagickErrorInfo | null {
         this.useException(exception => {
             settings._use((settings) => {
                 ImageMagick._api._MagickImage_Quantize(this._instance, settings._instance, exception.ptr);
             });
         });
+
+        if (settings.measureErrors)
+            return MagickErrorInfo._create(this);
+
+        return null;
     }
 
     read(color: IMagickColor, width: number, height: number): void;

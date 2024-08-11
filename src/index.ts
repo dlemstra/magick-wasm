@@ -102,6 +102,7 @@ export * from './types/chromaticity-info';
 export * from './types/compare-result';
 export * from './types/connected-component';
 export * from './types/density';
+export * from './types/magick-error-info';
 export * from './types/magick-geometry';
 export * from './types/percentage';
 export * from './types/point';
