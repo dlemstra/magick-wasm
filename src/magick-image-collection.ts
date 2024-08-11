@@ -18,6 +18,7 @@ import { IMagickImage } from './magick-image';
 import { IntPointer } from './internal/pointer/int-pointer';
 import { LayerMethod } from './enums/layer-method';
 import { MagickError } from './magick-error';
+import { MagickErrorInfo } from './types/magick-error-info';
 import { MagickFormat } from './enums/magick-format';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
@@ -280,6 +281,11 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * @param func - The function to execute with the image.
      */
     polynomial<TReturnType>(terms: number[], func: AsyncImageCallback<TReturnType>): TReturnType | Promise<TReturnType>;
+
+    /**
+     *  Quantize images (reduce number of colors).
+     */
+    quantize(settings?: QuantizeSettings): MagickErrorInfo | null;
 
     /**
      * Read all image frames.
@@ -546,6 +552,24 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                 return ImageMagick._api._MagickImageCollection_Polynomial(instance, termsPtr, terms.length, exception.ptr);
             });
         }, func);
+    }
+
+    quantize(settingsOrUndefined?: QuantizeSettings): MagickErrorInfo | null {
+        this.throwIfEmpty();
+        const settings = settingsOrUndefined === undefined ? new QuantizeSettings() : settingsOrUndefined;
+
+        this.attachImages(instance => {
+            settings._use(nativeSettings => {
+                Exception.usePointer(exception => {
+                    ImageMagick._api._MagickImageCollection_Quantize(instance, nativeSettings._instance, exception);
+                });
+            });
+        });
+
+        if (settings.measureErrors)
+            return MagickErrorInfo._create(this[0]);
+
+        return null;
     }
 
     read(fileName: string, settings?: MagickReadSettings): void;
