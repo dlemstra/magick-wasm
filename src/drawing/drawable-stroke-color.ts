@@ -15,7 +15,7 @@ export class DrawableStrokeColor implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableStrokeColor} class.
-     * @param color - The color to use.
+     * @param color The color to use.
      */
     constructor(color: IMagickColor) {
         this._color = color;

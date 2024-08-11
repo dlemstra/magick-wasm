@@ -63,7 +63,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableFillOpacity} to the drawables.
-     * @param opacity - The opacity.
+     * @param opacity The opacity.
      */
     fillOpacity(opacity: Percentage): Drawables {
         this._drawables.push(new DrawableFillOpacity(opacity));
@@ -72,7 +72,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableFont} to the drawables.
-     * @param font - The name of the font that was registered.
+     * @param font The name of the font that was registered.
      */
     font(font: string): Drawables {
         this._drawables.push(new DrawableFont(font));
@@ -81,7 +81,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableFontPointSize} to the drawables.
-     * @param pointSize - The point size.
+     * @param pointSize The point size.
      */
     fontPointSize(pointSize: number): Drawables {
         this._drawables.push(new DrawableFontPointSize(pointSize));
@@ -90,8 +90,8 @@ export class Drawables {
 
     /**
      * Obtain font metrics for text string given current font, pointsize, and density settings.
-     * @param text - The text to get the metrics for.
-     * @param ignoreNewlines - A value indicating whether newlines should be ignored.
+     * @param text The text to get the metrics for.
+     * @param ignoreNewlines A value indicating whether newlines should be ignored.
      */
     fontTypeMetrics(text: string, ignoreNewlines = false): TypeMetric | null {
         return MagickImage._create((image) => {
@@ -105,7 +105,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableGravity} to the drawables.
-     * @param value - The gravity to use.
+     * @param value The gravity to use.
      */
     gravity(value: Gravity): Drawables {
         this._drawables.push(new DrawableGravity(value));
@@ -114,10 +114,10 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableLine} to the drawables.
-     * @param startX - The starting X coordinate.
-     * @param startY - The starting Y coordinate.
-     * @param endX - The ending X coordinate.
-     * @param endY - The ending Y coordinate.
+     * @param startX The starting X coordinate.
+     * @param startY The starting Y coordinate.
+     * @param endX The ending X coordinate.
+     * @param endY The ending Y coordinate.
      */
     line(startX: number, startY: number, endX: number, endY: number): Drawables {
         this._drawables.push(new DrawableLine(startX, startY, endX, endY));
@@ -126,8 +126,8 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawablePoint} to the drawables.
-     * @param x - The X coordinate.
-     * @param y - The Y coordinate.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
      */
     point(x: number, y: number): Drawables {
         this._drawables.push(new DrawablePoint(x, y));
@@ -136,10 +136,10 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableRectangle} to the drawables.
-     * @param upperLeftX - The upper left X coordinate.
-     * @param upperLeftY - The upper left Y coordinate.
-     * @param lowerRightX - The lower right X coordinate.
-     * @param lowerRightY - The lower right Y coordinate.
+     * @param upperLeftX The upper left X coordinate.
+     * @param upperLeftY The upper left Y coordinate.
+     * @param lowerRightX The lower right X coordinate.
+     * @param lowerRightY The lower right Y coordinate.
      */
     rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): Drawables {
         this._drawables.push(new DrawableRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY));
@@ -148,12 +148,12 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableRoundRectangle} to the drawables.
-     * @param upperLeftX - The upper left X coordinate.
-     * @param upperLeftY- The upper left Y coordinate.
-     * @param lowerRightX - The lower right X coordinate.
-     * @param lowerRightY - The lower right Y coordinate.
-     * @param cornerWidth - The corner width.
-     * @param cornerHeight - The corner height.
+     * @param upperLeftX The upper left X coordinate.
+     * @param upperLeftY The upper left Y coordinate.
+     * @param lowerRightX The lower right X coordinate.
+     * @param lowerRightY The lower right Y coordinate.
+     * @param cornerWidth The corner width.
+     * @param cornerHeight The corner height.
      */
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): Drawables {
         this._drawables.push(new DrawableRoundRectangle(upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight));
@@ -171,7 +171,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableStrokeWidth} to the drawables.
-     * @param width - The width.
+     * @param width The width.
      */
     strokeWidth(width: number): Drawables {
         this._drawables.push(new DrawableStrokeWidth(width));
@@ -180,9 +180,9 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableText} to the drawables.
-     * @param x - The X coordinate.
-     * @param y - The Y coordinate.
-     * @param value - The text to draw.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     * @param value The text to draw.
      */
     text(x: number, y: number, value: string): Drawables {
         this._drawables.push(new DrawableText(x, y, value));
@@ -191,7 +191,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableTextAlignment} to the drawables.
-     * @param alignment - The text alignment.
+     * @param alignment The text alignment.
      */
     textAlignment(alignment: TextAlignment): Drawables {
         this._drawables.push(new DrawableTextAlignment(alignment));
@@ -200,7 +200,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableTextDecoration} to the drawables.
-     * @param decoration - The text decoration.
+     * @param decoration The text decoration.
      */
     textDecoration(decoration: TextDecoration): Drawables {
         this._drawables.push(new DrawableTextDecoration(decoration));
@@ -209,7 +209,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableTextInterlineSpacing} to the drawables.
-     * @param spacing - The spacing to use.
+     * @param spacing The spacing to use.
      */
     textInterlineSpacing(spacing: number): Drawables {
         this._drawables.push(new DrawableTextInterlineSpacing(spacing));
@@ -218,7 +218,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableTextInterlineSpacing} to the drawables.
-     * @param spacing - The spacing to use.
+     * @param spacing The spacing to use.
      */
     textInterwordSpacing(spacing: number): Drawables {
         this._drawables.push(new DrawableTextInterwordSpacing(spacing));
@@ -227,7 +227,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableTextKerning} to the drawables.
-     * @param kerning - The kerning to use.
+     * @param kerning The kerning to use.
      */
     textKerning(kerning: number): Drawables {
         this._drawables.push(new DrawableTextKerning(kerning));
@@ -236,7 +236,7 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableTextUnderColor} to the drawables.
-     * @param color - The color to use.
+     * @param color The color to use.
      */
     textUnderColor(color: IMagickColor): Drawables {
         this._drawables.push(new DrawableTextUnderColor(color));

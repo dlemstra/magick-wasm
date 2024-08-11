@@ -14,7 +14,7 @@ export class DrawableStrokeWidth implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableStrokeWidth} class.
-     * @param width - The width.
+     * @param width The width.
      */
     constructor(width: number) {
         this._width = width;

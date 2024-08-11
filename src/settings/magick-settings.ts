@@ -118,13 +118,13 @@ export class MagickSettings {
 
     /**
      * Returns the value of a format-specific option.
-     * @param name - The name of the option.
+     * @param name The name of the option.
      */
     getDefine(name: string): string;
     /**
      * Returns the value of a format-specific option.
-     * @param format - The format to use.
-     * @param name - The name of the option.
+     * @param format The format to use.
+     * @param name The name of the option.
      */
     getDefine(format: MagickFormat, name: string): string;
     getDefine(nameOrFormat: MagickFormat | string, name?: string): string {
@@ -136,29 +136,29 @@ export class MagickSettings {
 
     /**
      * Sets a format-specific option.
-     * @param name - The name of the define.
-     * @param value - The value of the define.
+     * @param name The name of the define.
+     * @param value The value of the define.
      */
     setDefine(name: string, value: string): void;
     /**
      * Sets a format-specific option.
-     * @param format - The format to set the define for.
-     * @param name - The name of the define.
-     * @param value - The value of the define.
+     * @param format The format to set the define for.
+     * @param name The name of the define.
+     * @param value The value of the define.
      */
     setDefine(format: MagickFormat, name: string, value: string): void;
     /**
      * Sets a format-specific option.
-     * @param format - The format to set the define for.
-     * @param name - The name of the define.
-     * @param value - The value of the define.
+     * @param format The format to set the define for.
+     * @param name The name of the define.
+     * @param value The value of the define.
      */
     setDefine(format: MagickFormat, name: string, value: number): void;
     /**
      * Sets a format-specific option.
-     * @param format - The format to set the define for.
-     * @param name - The name of the define.
-     * @param value - The value of the define.
+     * @param format The format to set the define for.
+     * @param name The name of the define.
+     * @param value The value of the define.
      */
     setDefine(format: MagickFormat, name: string, value: boolean): void;
     setDefine(nameOrFormat: MagickFormat | string, nameOrValue: string, value?: string | number | boolean): void {

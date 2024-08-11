@@ -16,9 +16,9 @@ export class DrawableText implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableTextUnderColor} class.
-     * @param x - The X coordinate.
-     * @param y - The Y coordinate.
-     * @param value - The text to draw.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     * @param value The text to draw.
      */
     constructor(x: number, y: number, value: string) {
         this._x = x;

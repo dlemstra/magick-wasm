@@ -14,7 +14,7 @@ export class DrawableFontPointSize implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableFontPointSize} class.
-     * @param pointSize - The point size.
+     * @param pointSize The point size.
      */
     constructor(pointSize: number) {
         this._pointSize = pointSize;

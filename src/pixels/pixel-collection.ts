@@ -19,65 +19,65 @@ import { _withString } from '../internal/native/string';
 export interface IPixelCollection extends IDisposable {
     /**
      * Returns the pixels at the specified area.
-     * @param x - The X coordinate.
-     * @param y - The Y coordinate.
-     * @param width - The width of the area.
-     * @param height - The height of the area.
-     * @returns - The quantum array of the area.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     * @param width The width of the area.
+     * @param height The height of the area.
+     * @returns The quantum array of the area.
      */
     getArea(x: number, y: number, width: number, height: number): quantumArray;
 
     /**
      * Returns the pixel at the specified coordinate.
-     * @param x - The X coordinate of the pixel.
-     * @param y - The Y coordinate of the pixel.
-     * @returns - The quantum array of the pixel.
+     * @param x The X coordinate of the pixel.
+     * @param y The Y coordinate of the pixel.
+     * @returns The quantum array of the pixel.
      */
     getPixel(x: number, y: number): quantumArray;
 
     /**
      * Changes the values of the specified pixels.
-     * @param x - The X coordinate of the area.
-     * @param y - The Y coordinate of the area.
-     * @param width - The width of the area.
-     * @param height - The height of the area.
-     * @param quantumPixels - The values of the pixels.
+     * @param x The X coordinate of the area.
+     * @param y The Y coordinate of the area.
+     * @param width The width of the area.
+     * @param height The height of the area.
+     * @param quantumPixels The values of the pixels.
      */
     setArea(x: number, y: number, width: number, height: number, quantumPixels: quantumArray): void;
 
     /**
      * Changes the values of the specified pixels.
-     * @param x - The X coordinate of the area.
-     * @param y - The Y coordinate of the area.
-     * @param width - The width of the area.
-     * @param height - The height of the area.
-     * @param numberPixels - The values of the pixels.
+     * @param x The X coordinate of the area.
+     * @param y The Y coordinate of the area.
+     * @param width The width of the area.
+     * @param height The height of the area.
+     * @param numberPixels The values of the pixels.
      */
     setArea(x: number, y: number, width: number, height: number, numberPixels: number[]): void;
 
     /**
      *Changes the value of the specified pixel.
-     * @param x - The X coordinate of the pixel.
-     * @param y - The Y coordinate of the pixel.
-     * @param quantumPixels - The values of the pixel.
+     * @param x The X coordinate of the pixel.
+     * @param y The Y coordinate of the pixel.
+     * @param quantumPixels The values of the pixel.
      */
     setPixel(x: number, y: number, quantumPixels: quantumArray): void;
 
     /**
      *Changes the value of the specified pixel.
-     * @param x - The X coordinate of the pixel.
-     * @param y - The Y coordinate of the pixel.
-     * @param numberPixels - The values of the pixel.
+     * @param x The X coordinate of the pixel.
+     * @param y The Y coordinate of the pixel.
+     * @param numberPixels The values of the pixel.
      */
     setPixel(x: number, y: number, numberPixels: number[]): void;
 
     /**
      * Returns the values of the pixels as a byte array.
-     * @param x - The X coordinate of the area.
-     * @param y - The Y coordinate of the area.
-     * @param width - The width of the area.
-     * @param height - The height of the area.
-     * @param mapping - The mapping of the pixels.
+     * @param x The X coordinate of the area.
+     * @param y The Y coordinate of the area.
+     * @param width The width of the area.
+     * @param height The height of the area.
+     * @param mapping The mapping of the pixels.
      */
     toByteArray(x: number, y: number, width: number, height: number, mapping: string): Uint8Array | null;
 }

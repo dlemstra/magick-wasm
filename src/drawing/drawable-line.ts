@@ -17,10 +17,10 @@ export class DrawableLine implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableLine} class.
-     * @param startX - The starting X coordinate.
-     * @param startY - The starting Y coordinate.
-     * @param endX - The ending X coordinate.
-     * @param endY - The ending Y coordinate.
+     * @param startX The starting X coordinate.
+     * @param startY The starting Y coordinate.
+     * @param endX The ending X coordinate.
+     * @param endY The ending Y coordinate.
      */
     constructor(startX: number, startY: number, endX: number, endY: number) {
         this._startX = startX;

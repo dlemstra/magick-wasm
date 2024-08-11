@@ -15,7 +15,7 @@ export class DrawableFillColor implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableFillColor} class.
-     * @param color - The color to use.
+     * @param color The color to use.
      */
     constructor(color: IMagickColor) {
         this._color = color;

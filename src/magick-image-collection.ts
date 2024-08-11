@@ -37,37 +37,37 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
 
     /**
      * Creates a single image, by appending all the images in the collection horizontally (+append).
-     * @param func - The function to execute with the image.
+     * @param func The function to execute with the image.
      */
     appendHorizontally<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Creates a single image, by appending all the images in the collection horizontally (+append).
-     * @param func - The async function to execute with the image.
+     * @param func The async function to execute with the image.
      */
     appendHorizontally<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Creates a single image, by appending all the images in the collection vertically (-append).
-     * @param func - The function to execute with the image.
+     * @param func The function to execute with the image.
      */
     appendVertically<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Creates a single image, by appending all the images in the collection vertically (-append).
-     * @param func - The async function to execute with the image.
+     * @param func The async function to execute with the image.
      */
     appendVertically<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Creates a clone of the current image collection.
-     * @param func - The function to execute with the images.
+     * @param func The function to execute with the images.
      */
     clone<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
 
     /**
      * Creates a clone of the current image collection.
-     * @param func - The async function to execute with the images.
+     * @param func The async function to execute with the images.
      */
     clone<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
 
@@ -92,26 +92,26 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     /**
      * Combines the images into a single image. The typical ordering would be
      * image 1 => Red, 2 => Green, 3 => Blue, etc.
-     * @param colorSpace - The image colorspace.
+     * @param colorSpace The image colorspace.
      */
     combine<TReturnType>(colorSpace: ColorSpace, func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Combines the images into a single image. The typical ordering would be
      * image 1 => Red, 2 => Green, 3 => Blue, etc.
-     * @param colorSpace - The image colorspace.
+     * @param colorSpace The image colorspace.
      */
     combine<TReturnType>(colorSpace: ColorSpace, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Perform complex mathematics on an image sequence.
-     * @param func - The function to execute with the image.
+     * @param func The function to execute with the image.
      */
     complex<TReturnType>(settings: ComplexSettings, func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Perform complex mathematics on an image sequence.
-     * @param func - The function to execute with the image.
+     * @param func The function to execute with the image.
      */
     complex<TReturnType>(settings: ComplexSettings, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
@@ -124,16 +124,16 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     /**
      * Evaluate image pixels into a single image. All the images in the collection must be the
      * same size in pixels.
-     * @param evaluateOperator - The operator.
-     * @param func - The function to execute with the image.
+     * @param evaluateOperator The operator.
+     * @param func The function to execute with the image.
      */
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Evaluate image pixels into a single image. All the images in the collection must be the
      * same size in pixels.
-     * @param evaluateOperator - The operator.
-     * @param func - The async function to execute with the image.
+     * @param evaluateOperator The operator.
+     * @param func The async function to execute with the image.
      */
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
@@ -141,7 +141,7 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * Flatten this collection into a single image.
      * Use the virtual canvas size of first image. Images which fall outside this canvas is clipped.
      * This can be used to 'fill out' a given virtual canvas.
-     * @param func - The function to execute with the image.
+     * @param func The function to execute with the image.
      */
     flatten<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
@@ -149,65 +149,65 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
      * Flatten this collection into a single image.
      * Use the virtual canvas size of first image. Images which fall outside this canvas is clipped.
      * This can be used to 'fill out' a given virtual canvas.
-     * @param func - The async function to execute with the image.
+     * @param func The async function to execute with the image.
      */
     flatten<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
     * Apply a mathematical expression to the image or image channels.
-    * @param expression - The expression to apply.
-    * @param func - The function to execute with the image.
+    * @param expression The expression to apply.
+    * @param func The function to execute with the image.
     */
     fx<TReturnType>(expression: string, func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Apply a mathematical expression to the image or image channels.
-     * @param expression - The expression to apply.
-     * @param func - The function to execute with the image.
+     * @param expression The expression to apply.
+     * @param func The function to execute with the image.
      */
     fx<TReturnType>(expression: string, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Apply a mathematical expression to the image or image channels.
-     * @param expression - The expression to apply.
-     * @param channels - The channels to apply the expression to.
-     * @param func - The function to execute with the image.
+     * @param expression The expression to apply.
+     * @param channels The channels to apply the expression to.
+     * @param func The function to execute with the image.
      */
     fx<TReturnType>(expression: string, channels: Channels, func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Apply a mathematical expression to the image or image channels.
-     * @param expression - The expression to apply.
-     * @param channels - The channels to apply the expression to.
-     * @param func - The function to execute with the image.
+     * @param expression The expression to apply.
+     * @param channels The channels to apply the expression to.
+     * @param func The function to execute with the image.
      */
     fx<TReturnType>(expression: string, channels: Channels, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
      * canvas of the first image is preserved but otherwise ignored.
-     * @param func - The function to execute with the image.
+     * @param func The function to execute with the image.
      */
     merge<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
      * canvas of the first image is preserved but otherwise ignored.
-     * @param func - The async function to execute with the image.
+     * @param func The async function to execute with the image.
      */
     merge<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Create a composite image by combining the images with the specified settings.
-     * @param settings - The settings to use.
-     * @param func - The function to execute with the image.
+     * @param settings The settings to use.
+     * @param func The function to execute with the image.
      */
     montage<TReturnType>(settings: MontageSettings, func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Create a composite image by combining the images with the specified settings.
-     * @param settings - The settings to use.
-     * @param func - The async function to execute with the image.
+     * @param settings The settings to use.
+     * @param func The async function to execute with the image.
      */
     montage<TReturnType>(settings: MontageSettings, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
@@ -222,14 +222,14 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     /**
      * Start with the virtual canvas of the first image, enlarging left and right edges to contain
      * all images. Images with negative offsets will be clipped.
-     * @param func - The function to execute with the image.
+     * @param func The function to execute with the image.
      */
     mosaic<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Start with the virtual canvas of the first image, enlarging left and right edges to contain
      * all images. Images with negative offsets will be clipped.
-     * @param func - The async function to execute with the image.
+     * @param func The async function to execute with the image.
      */
     mosaic<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
@@ -254,31 +254,31 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
 
     /**
      * Read only metadata and not the pixel data from all image frames.
-     * @param fileName - The fully qualified name of the image file, or the relative image file name.
-     * @param settings - The read settings.
+     * @param fileName The fully qualified name of the image file, or the relative image file name.
+     * @param settings The read settings.
      */
     ping(fileName: string, settings?: MagickReadSettings): void;
 
     /**
      * Read only metadata and not the pixel data from all image frames.
-     * @param fileName - The fully qualified name of the image file, or the relative image file name.
-     * @param settings - The read settings.
+     * @param fileName The fully qualified name of the image file, or the relative image file name.
+     * @param settings The read settings.
      */
     ping(array: ByteArray, settings?: MagickReadSettings): void;
 
     /**
      * Creates a new image where each pixel is the sum of the pixels in the image sequence after applying its
      * corresponding terms (coefficient and degree pairs).
-     * @param terms - The list of polynomial coefficients and degree pairs and a constant.
-     * @param func - The function to execute with the image.
+     * @param terms The list of polynomial coefficients and degree pairs and a constant.
+     * @param func The function to execute with the image.
      */
     polynomial<TReturnType>(terms: number[], func: SyncImageCallback<TReturnType>): TReturnType;
 
     /**
      * Creates a new image where each pixel is the sum of the pixels in the image sequence after applying its
      * corresponding terms (coefficient and degree pairs).
-     * @param terms - The list of polynomial coefficients and degree pairs and a constant.
-     * @param func - The function to execute with the image.
+     * @param terms The list of polynomial coefficients and degree pairs and a constant.
+     * @param func The function to execute with the image.
      */
     polynomial<TReturnType>(terms: number[], func: AsyncImageCallback<TReturnType>): TReturnType | Promise<TReturnType>;
 
@@ -289,27 +289,27 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
 
     /**
      * Read all image frames.
-     * @param fileName - The fully qualified name of the image file, or the relative image file name.
-     * @param settings - The read settings.
+     * @param fileName The fully qualified name of the image file, or the relative image file name.
+     * @param settings The read settings.
      */
     read(fileName: string, settings?: MagickReadSettings): void;
 
     /**
      * Read all image frames.
-     * @param fileName - The fully qualified name of the image file, or the relative image file name.
-     * @param settings - The read settings.
+     * @param fileName The fully qualified name of the image file, or the relative image file name.
+     * @param settings The read settings.
      */
     read(array: ByteArray, settings?: MagickReadSettings): void;
 
     /**
      * Remap image colors with closest color from reference image.
-     * @param image - The image to use.
+     * @param image The image to use.
      */
     remap(image: IMagickImage): void;
 
     /**
      * Remap image colors with closest color from reference image.
-     * @param image - The image to use.
+     * @param image The image to use.
      */
     remap(image: IMagickImage, settings: QuantizeSettings): void;
 
@@ -320,27 +320,27 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
 
     /**
      * Write all image frames to a byte array.
-     * @param func - The function to execute with the byte array.
+     * @param func The function to execute with the byte array.
      */
     write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
 
     /**
      * Write all image frames to a byte array.
-     * @param func - The async function to execute with the byte array.
+     * @param func The async function to execute with the byte array.
      */
     write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
      * Write all image frames to a byte array.
-     * @param format - The format to use.
-     * @param func - The async function to execute with the byte array.
+     * @param format The format to use.
+     * @param func The async function to execute with the byte array.
      */
     write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
 
     /**
      * Write all image frames to a byte array.
-     * @param format - The format to use.
-     * @param func - The async async function to execute with the byte array.
+     * @param format The format to use.
+     * @param func The async async function to execute with the byte array.
      */
     write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
 }

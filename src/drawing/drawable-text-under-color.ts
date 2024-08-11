@@ -15,7 +15,7 @@ export class DrawableTextUnderColor implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableTextUnderColor} class.
-     * @param decoration - The color to use.
+     * @param decoration The color to use.
      */
     constructor(color: IMagickColor) {
         this._color = color;

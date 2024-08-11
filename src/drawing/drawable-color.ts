@@ -22,9 +22,9 @@ export class DrawableColor implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableColor} class.
-     * @param x - The X coordinate.
-     * @param  y - The Y coordinate.
-     * @param paintMethod - The paint method to use.
+     * @param x The X coordinate.
+     * @param  y The Y coordinate.
+     * @param paintMethod The paint method to use.
      */
     constructor(x: number, y: number, paintMethod: PaintMethod) {
         this._x = x;

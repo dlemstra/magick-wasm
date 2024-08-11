@@ -41,8 +41,8 @@ export class Magick {
 
     /**
      * Registers a font.
-     * @param name - The name of the font.
-     * @param data - The byte array containing the font.
+     * @param name The name of the font.
+     * @param data The byte array containing the font.
      */
     static addFont(name: string, data: Uint8Array): void {
         const fileSystem = ImageMagick._api.FS;
@@ -58,7 +58,7 @@ export class Magick {
 
     /**
      * Sets the pseudo-random number generator secret key.
-     * @param seed - The secret key.
+     * @param seed The secret key.
      */
     static setRandomSeed = (seed: number): void => ImageMagick._api._Magick_SetRandomSeed(seed);
 
@@ -66,7 +66,7 @@ export class Magick {
      * Set the events that will be written to the log. The log will be written to the Log event
      * and the debug window in VisualStudio. To change the log settings you must use a custom
      * log.xml file.
-     * @param eventTypes - The events that should be logged.
+     * @param eventTypes The events that should be logged.
      */
     static setLogEvents(eventTypes: LogEventTypes): void {
         const logDelegate = eventTypes == LogEventTypes.None ? undefined : Magick.logDelegate;

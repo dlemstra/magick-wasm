@@ -11,13 +11,13 @@ import { ImageMagick } from '../image-magick';
 export class Point {
     /**
      * Initializes a new instance of the {@link Point} class.
-     * @param xy - The x and y.
+     * @param xy The x and y.
      */
     constructor(xy: number);
     /**
      * Initializes a new instance of the {@link Point} class.
-     * @param x - The x.
-     * @param y - The y.
+     * @param x The x.
+     * @param y The y.
      */
     constructor(x: number, y: number);
     constructor(x: number, y?: number) {

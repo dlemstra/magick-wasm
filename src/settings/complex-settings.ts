@@ -12,7 +12,7 @@ import { TemporaryDefines } from '../helpers/temporary-defines';
 export class ComplexSettings {
     /**
      * Initializes a new instance of the {@link ComplexSettings} class.
-     * @param complexOperator - The complex operator.
+     * @param complexOperator The complex operator.
      */
     constructor(complexOperator: ComplexOperator) {
         this.complexOperator = complexOperator;

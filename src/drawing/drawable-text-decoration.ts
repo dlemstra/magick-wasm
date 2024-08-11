@@ -15,7 +15,7 @@ export class DrawableTextDecoration implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableTextDecoration} class.
-     * @param decoration - The text decoration.
+     * @param decoration The text decoration.
      */
     constructor(decoration: TextDecoration) {
         this._decoration = decoration;

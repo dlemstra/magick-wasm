@@ -61,8 +61,8 @@ export interface IMagickImageInfo {
 
     /**
      * Read single image frame.
-     * @param array - The byte array to read the image from.
-     * @param settings - The settings to use when reading the image.
+     * @param array The byte array to read the image from.
+     * @param settings The settings to use when reading the image.
      */
     read(array: ByteArray, settings?: MagickReadSettings): void
 }

@@ -14,7 +14,7 @@ export class DrawableTextKerning implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableTextKerning} class.
-     * @param kerning - The kerning to use.
+     * @param kerning The kerning to use.
      */
     constructor(kerning: number) {
         this._kerning = kerning;

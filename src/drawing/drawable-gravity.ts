@@ -15,7 +15,7 @@ export class DrawableGravity implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableGravity} class.
-     * @param gravity - The gravity to use.
+     * @param gravity The gravity to use.
      */
     constructor(gravity: Gravity) {
         this._gravity = gravity;

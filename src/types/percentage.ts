@@ -26,8 +26,8 @@ export class Percentage {
 
     /**
      * ultiplies the value by the specified percentage.
-     * @param value - The value to use.
-     * @returns - The new value.
+     * @param value The value to use.
+     * @returns The new value.
      */
     multiply(value: number): number {
         return (value * this._value) / 100.0;
@@ -35,7 +35,7 @@ export class Percentage {
 
     /**
      * Returns a double that represents the current percentage.
-     * @returns - A double that represents the current percentage.
+     * @returns A double that represents the current percentage.
      */
     toDouble(): number {
         return this._value;

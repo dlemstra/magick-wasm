@@ -15,7 +15,7 @@ export class DrawableTextAlignment implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableFillColor} class.
-     * @param alignment - The text alignment
+     * @param alignment The text alignment
      */
     constructor(alignment: TextAlignment) {
         this._alignment = alignment;

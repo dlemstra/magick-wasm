@@ -14,7 +14,7 @@ export class DrawableTextInterwordSpacing implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableTextInterwordSpacing} class.
-     * @param decoration - The spacing to use.
+     * @param decoration The spacing to use.
      */
     constructor(spacing: number) {
         this._spacing = spacing;

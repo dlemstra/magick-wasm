@@ -15,7 +15,7 @@ export class DrawableFillOpacity implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableFillOpacity} class.
-     * @param opacity - The opacity.
+     * @param opacity The opacity.
      */
     constructor(opacity: Percentage) {
         this._opacity = opacity;
