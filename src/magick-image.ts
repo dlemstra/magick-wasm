@@ -1397,7 +1397,7 @@ export interface IMagickImage extends IDisposable {
     /**
      * Resets the page property of this image.
      */
-    repage(): void;
+    resetPage(): void;
 
     /**
      * Resize image in terms of its pixel size.
@@ -2872,7 +2872,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    repage(): void {
+    resetPage(): void {
         this.page = new MagickGeometry(0, 0, 0, 0);
     }
 

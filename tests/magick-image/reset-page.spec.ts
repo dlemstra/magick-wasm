@@ -6,12 +6,12 @@
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { TestImages } from '@test/test-images';
 
-describe('MagickImage#repage', () => {
+describe('MagickImage#resetPage', () => {
     it('should reset the page', () => {
         TestImages.empty.use((image) => {
             image.page = new MagickGeometry(1, 2, 3, 4);
 
-            image.repage();
+            image.resetPage();
 
             const page = image.page;
             expect(page.x).toBe(0);
