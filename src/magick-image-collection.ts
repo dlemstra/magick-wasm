@@ -319,6 +319,34 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     resetPage(): void;
 
     /**
+     * Smush images from list into single image in horizontal direction.
+     * @param offset Minimum distance in pixels between images.
+     * @param func The function to execute with the image.
+     */
+    smushHorizontal<TReturnType>(offset: number, func: SyncImageCallback<TReturnType>): TReturnType;
+
+    /**
+     * Smush images from list into single image in horizontal direction.
+     * @param offset Minimum distance in pixels between images.
+     * @param func The function to execute with the image.
+     */
+    smushHorizontal<TReturnType>(offset: number, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Smush images from list into single image in horizontal direction.
+     * @param offset Minimum distance in pixels between images.
+     * @param func The function to execute with the image.
+     */
+    smushVertical<TReturnType>(offset: number, func: SyncImageCallback<TReturnType>): TReturnType;
+
+    /**
+     * Smush images from list into single image in horizontal direction.
+     * @param offset Minimum distance in pixels between images.
+     * @param func The function to execute with the image.
+     */
+    smushVertical<TReturnType>(offset: number, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+
+    /**
      * Write all image frames to a byte array.
      * @param func The function to execute with the byte array.
      */
@@ -605,6 +633,18 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         });
     }
 
+    smushHorizontal<TReturnType>(offset: number, func: SyncImageCallback<TReturnType>): TReturnType;
+    smushHorizontal<TReturnType>(offset: number, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    smushHorizontal<TReturnType>(offset: number, func: ImageCallback<TReturnType>): Promise<TReturnType> | TReturnType {
+        return this.smush(offset, false, func);
+    }
+
+    smushVertical<TReturnType>(offset: number, func: SyncImageCallback<TReturnType>): TReturnType;
+    smushVertical<TReturnType>(offset: number, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    smushVertical<TReturnType>(offset: number, func: ImageCallback<TReturnType>): Promise<TReturnType> | TReturnType{
+        return this.smush(offset, true, func);
+    }
+
     write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
     write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
     write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
@@ -765,6 +805,12 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         const settings = this.getSettings()._clone();
         this.dispose();
         this.addImages(result, settings);
+    }
+
+    private smush<TReturnType>(offset: number, stack: boolean, func: ImageCallback<TReturnType>): Promise<TReturnType> | TReturnType {
+        return this.createImage((instance, exception) => {
+            return ImageMagick._api._MagickImageCollection_Smush(instance, offset, stack ? 1 : 0, exception.ptr);
+        }, func);
     }
 
     private throwIfEmpty() {
