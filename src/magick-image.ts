@@ -2474,7 +2474,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     distort(method: DistortMethod, params: number[]): void;
     distort(settings: DistortSettings, params: number[]): void;
-    distort(methodOrSettings: DistortMethod | DistortSettings, params?: number[]): void {
+    distort(methodOrSettings: DistortMethod | DistortSettings, params: number[]): void {
         TemporaryDefines.use(this, temporaryDefines => {
             let method: DistortMethod;
             let bestFit = 0;
@@ -2486,10 +2486,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 methodOrSettings._setArtifacts(temporaryDefines);
             }
 
-            const distortArgs = params ?? [];
             this.useException(exception => {
-                _withDoubleArray(distortArgs, (distortArgsPtr: number) => {
-                    const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, distortArgsPtr, distortArgs.length, exception.ptr);
+                _withDoubleArray(params, (paramsPtr: number) => {
+                    const instance = ImageMagick._api._MagickImage_Distort(this._instance, method, bestFit, paramsPtr, params.length, exception.ptr);
                     this._setInstance(instance, exception)
                 });
             });

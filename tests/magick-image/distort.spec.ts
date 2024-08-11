@@ -10,6 +10,14 @@ import { DistortSettings } from '@src/settings/distort-settings';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#distort', () => {
+    it('should throw error when params is empty', () => {
+        expect(() => {
+            TestImages.empty.use(image => {
+                image.distort(DistortMethod.PerspectiveProjection, []);
+            });
+        }).toThrowError('The specified array cannot be empty');
+    });
+
     it('should distort the image', () => {
         TestImages.Builtin.rose.use(image => {
             image.alpha(AlphaOption.Set);
