@@ -314,6 +314,11 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     remap(image: IMagickImage, settings: QuantizeSettings): void;
 
     /**
+     * Resets the page property of every image in the collection.
+     */
+    resetPage(): void;
+
+    /**
      * Write all image frames to a byte array.
      * @param func - The function to execute with the byte array.
      */
@@ -594,6 +599,11 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         });
     }
 
+    resetPage(): void {
+        this.forEach(image => {
+            image.resetPage();
+        });
+    }
 
     write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
     write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
