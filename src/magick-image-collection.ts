@@ -347,6 +347,13 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     smushVertical<TReturnType>(offset: number, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
+     * Determine the overall bounds of all the image layers just as in {@link MagickImageCollection#merge},
+     * then adjust the the canvas and offsets to be relative to those bounds,
+     * without overlaying the images.
+     */
+    trimBounds(): void;
+
+    /**
      * Write all image frames to a byte array.
      * @param func The function to execute with the byte array.
      */
@@ -643,6 +650,10 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     smushVertical<TReturnType>(offset: number, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
     smushVertical<TReturnType>(offset: number, func: ImageCallback<TReturnType>): Promise<TReturnType> | TReturnType{
         return this.smush(offset, true, func);
+    }
+
+    trimBounds(): void {
+        this.mergeImages(LayerMethod.Trimbounds, () => { /* special case where the returned image is null */ });
     }
 
     write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
