@@ -276,6 +276,11 @@ export interface IMagickImage extends IDisposable {
     matteColor: IMagickColor;
 
     /**
+     * Gets or sets the number of meta channels that the image contains.
+     */
+    metaChannelCount: number;
+
+    /**
      * Gets or sets the photo orientation of the image.
      */
     orientation: OrientationType;
@@ -1957,6 +1962,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    get metaChannelCount(): number {
+        return ImageMagick._api._MagickImage_MetaChannelCount_Get(this._instance);
+    }
+    set metaChannelCount(value: number) {
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_MetaChannelCount_Set(this._instance, value, exception);
+        });
+    }
+
     get orientation(): OrientationType { return ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
     set orientation(value: OrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
 
@@ -2336,7 +2350,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const connectedComponents = TemporaryDefines.use(this, temporaryDefines => {
             settings._setArtifacts(temporaryDefines);
 
-             return this.useException((exception) => {
+            return this.useException((exception) => {
                 return IntPointer.use((objects) => {
                     try {
                         const instance = ImageMagick._api._MagickImage_ConnectedComponents(this._instance, settings.connectivity, objects.ptr, exception.ptr);
