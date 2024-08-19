@@ -359,6 +359,23 @@ export interface IMagickImage extends IDisposable {
     adaptiveBlur(radius: number, sigma: number): void;
 
     /**
+     * Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
+     * of the original image size. For larger resizing on images a full filtered and slower resize
+     * function should be used instead.
+     * @param geometry The geometry to use.
+     */
+    adaptiveResize(geometry: IMagickGeometry): void;
+
+    /**
+     * Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
+     * of the original image size. For larger resizing on images a full filtered and slower resize
+     * function should be used instead.
+     * @param width The new width.
+     * @param height The new height.
+     */
+    adaptiveResize(width: number, height: number): void;
+
+    /**
      * Applies the specified alpha option.
      * @param value The option to use.
      */
@@ -2061,6 +2078,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_AdaptiveBlur(this._instance, radius, sigma, exception.ptr);
             this._setInstance(instance, exception);
+        });
+    }
+
+    adaptiveResize(geometry: IMagickGeometry): void;
+    adaptiveResize(width: number, height: number): void;
+    adaptiveResize(geometryOrWidth: number | IMagickGeometry, height?: number): void {
+        const geometry = typeof geometryOrWidth === 'number' ? new MagickGeometry(0, 0, geometryOrWidth, height!) : geometryOrWidth;
+        this.useException(exception => {
+            _withString(geometry.toString(), geometryPtr => {
+                const instance = ImageMagick._api._MagickImage_AdaptiveResize(this._instance, geometryPtr, exception.ptr);
+                this._setInstance(instance, exception);
+            });
         });
     }
 
