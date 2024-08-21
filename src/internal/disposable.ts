@@ -33,7 +33,7 @@ export class Disposable {
     }
 
     private static checkResult<TInstanceType extends IDisposable, TReturnType>(instance: TInstanceType, result: TReturnType) {
-        if (result === <unknown>instance) {
+        if (result === instance as unknown) {
             throw new MagickError('The result of the function cannot be the instance that has been disposed.');
         }
 
