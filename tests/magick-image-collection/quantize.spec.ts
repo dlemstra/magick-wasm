@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { QuantizeSettings } from '@src/settings/quantize-settings';
 import { TestImages } from '@test/test-images';
 
@@ -37,9 +36,9 @@ describe('MagickImageCollection#flatten', () => {
             expect(result).not.toBeNull();
 
             TestImages.roseSparkleGif.use(original => {
-                expect(images[0].compare(original[0], ErrorMetric.RootMeanSquared)).toBeCloseTo(0.18152);
-                expect(images[1].compare(original[1], ErrorMetric.RootMeanSquared)).toBeCloseTo(0.14315);
-                expect(images[2].compare(original[2], ErrorMetric.RootMeanSquared)).toBeCloseTo(0.14822);
+                expect(images[0]).toEqualImage(original[0], 0.18152);
+                expect(images[1]).toEqualImage(original[1], 0.14315);
+                expect(images[2]).toEqualImage(original[2], 0.14823);
             });
         });
     });

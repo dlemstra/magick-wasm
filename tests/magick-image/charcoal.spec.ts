@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#charcoal', () => {
@@ -13,8 +12,7 @@ describe('MagickImage#charcoal', () => {
                 image.charcoal();
                 other.charcoal(0.0, 1.0);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(other).toEqualImage(image);
             });
         });
     });
@@ -24,8 +22,7 @@ describe('MagickImage#charcoal', () => {
             image.clone(other => {
                 other.charcoal(4, 2);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.31);
+                expect(other).toEqualImage(image, 0.31179);
             });
         });
     });

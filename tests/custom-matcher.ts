@@ -3,6 +3,7 @@
   Licensed under the Apache License, Version 2.0.
 */
 
+import { ErrorMetric } from '@src/enums/error-metric';
 import { IMagickImage } from '@src/magick-image';
 import { IMagickColor } from '@src/magick-color';
 import { MagickFormat } from '@src/enums/magick-format';
@@ -15,11 +16,35 @@ interface MatcherResult {
 }
 
 export interface ICustomMatchers {
+    toEqualImage: (other: IMagickImage, expectedDistortion?: number) => void;
     toHavePixelWithColor: (x: number, y: number, colorOrString: IMagickColor | string) => void;
     toNotBeUnknown: (message: string) => void;
 }
 
 export const CustomMatchers = {
+    toEqualImage: ((image: IMagickImage, other: IMagickImage, expectedDistortion: number = 0) => {
+        const distortion = image.compare(other, ErrorMetric.RootMeanSquared);
+        if (expectedDistortion === 0) {
+            if (distortion !== 0) {
+                return {
+                    pass: false,
+                    message: () => 'Excepted images to be equal.'
+                };
+            }
+        } else {
+            const expectedDistortionString = expectedDistortion.toFixed(5).toString();
+            const distortionString = distortion.toFixed(5);
+            if (distortionString !== expectedDistortionString) {
+                return {
+                    pass: false,
+                    message: () => `Excepted ${distortionString} to be ${expectedDistortionString}.`
+                };
+            }
+        }
+
+        return { pass: true, message: () => '' }
+    }) as () => MatcherResult,
+
     toHavePixelWithColor: ((image: IMagickImage, x: number, y: number, colorOrString: IMagickColor | string) => {
         const actualColor = pixelColor(image, x, y);
         const expectedColor = colorOrString.toString();

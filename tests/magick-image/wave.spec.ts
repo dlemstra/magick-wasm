@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { PixelInterpolateMethod } from '@src/enums/pixel-interpolate-method';
 import { TestImages } from '@test/test-images';
 
@@ -16,8 +15,7 @@ describe('MagickImage#wave', () => {
 
                 other.wave(PixelInterpolateMethod.Blend, 25.0, 150.0);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             });
         });
     });
@@ -27,8 +25,7 @@ describe('MagickImage#wave', () => {
             image.clone(other => {
                 other.wave(PixelInterpolateMethod.Mesh, 140, 40);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.627);
+                expect(image).toEqualImage(other, 0.62728);
             });
         });
     });

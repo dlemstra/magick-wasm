@@ -41,9 +41,9 @@ describe('MagickImage#quantize', () => {
             const result = image.quantize(settings);
 
             expect(result).not.toBeNull();
-            expect(result!.meanErrorPerPixel).toBeCloseTo(7.79208);
-            expect(result!.normalizedMaximumError).toBeCloseTo(0.67450);
-            expect(result!.normalizedMeanError).toBeCloseTo(0.00852);
+            expect(result!.meanErrorPerPixel).toBeCloseTo(7.79208, 4);
+            expect(result!.normalizedMaximumError).toBeCloseTo(0.67450, 4);
+            expect(result!.normalizedMeanError).toBeCloseTo(0.00852, 4);
         });
     });
 });

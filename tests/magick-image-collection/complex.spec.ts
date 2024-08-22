@@ -4,7 +4,6 @@
 */
 
 import { ComplexOperator } from '@src/enums/complex-operator';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { ComplexSettings } from '@src/settings/complex-settings';
 import { TestImages } from '@test/test-images';
 
@@ -25,7 +24,7 @@ describe('MagickImageCollection#complex', () => {
 
         TestImages.roseSparkleGif.use(images => {
             images.complex(settings, (image) => {
-                expect(image.compare(images[0], ErrorMetric.RootMeanSquared)).toBeCloseTo(0.56843);
+                expect(image).toEqualImage(images[0], 0.56843);
             });
         });
     });

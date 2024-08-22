@@ -38,13 +38,13 @@ describe('MagickImage#statistics', () => {
             channelStatistics = expectToNotBeNull(channelStatistics);
             expect(channelStatistics.channel).toBe(PixelChannel.Blue);
             expect(channelStatistics.depth).toBe(8);
-            expect(channelStatistics.entropy).toBeCloseTo(0.80694);
-            expect(channelStatistics.kurtosis).toBeCloseTo(-0.27825);
+            expect(channelStatistics.entropy).toBeCloseTo(0.80694, 4);
+            expect(channelStatistics.kurtosis).toBeCloseTo(-0.27825, 4);
             expect(channelStatistics.maximum).toBe(255);
-            expect(channelStatistics.mean).toBeCloseTo(130.64240);
+            expect(channelStatistics.mean).toBeCloseTo(130.64240, 4);
             expect(channelStatistics.minimum).toBe(2);
-            expect(channelStatistics.skewness).toBeCloseTo(-1.00552);
-            expect(channelStatistics.standardDeviation).toBeCloseTo(42.70252);
+            expect(channelStatistics.skewness).toBeCloseTo(-1.00552, 4);
+            expect(channelStatistics.standardDeviation).toBeCloseTo(42.70252, 4);
         });
     });
 
@@ -55,13 +55,13 @@ describe('MagickImage#statistics', () => {
             const channelStatistics = statistics.composite();
             expect(channelStatistics.channel).toBe(PixelChannel.Composite);
             expect(channelStatistics.depth).toBe(8);
-            expect(channelStatistics.entropy).toBeCloseTo(0.76887);
-            expect(channelStatistics.kurtosis).toBeCloseTo(0.65771);
+            expect(channelStatistics.entropy).toBeCloseTo(0.76887, 4);
+            expect(channelStatistics.kurtosis).toBeCloseTo(0.65771, 4);
             expect(channelStatistics.maximum).toBe(255);
-            expect(channelStatistics.mean).toBeCloseTo(100.22261);
+            expect(channelStatistics.mean).toBeCloseTo(100.22261, 4);
             expect(channelStatistics.minimum).toBe(1);
-            expect(channelStatistics.skewness).toBeCloseTo(-0.65869);
-            expect(channelStatistics.standardDeviation).toBeCloseTo(32.03352);
+            expect(channelStatistics.skewness).toBeCloseTo(-0.65869, 4);
+            expect(channelStatistics.standardDeviation).toBeCloseTo(32.03352, 4);
         });
     });
 

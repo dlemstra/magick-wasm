@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { TestImages } from '@test/test-images';
 
@@ -43,7 +42,7 @@ describe('MagickImage#adaptiveResize', () => {
             expect(image.height).toBe(300);
 
             TestImages.Builtin.logo.use((original) => {
-                expect(image.compare(original, ErrorMetric.RootMeanSquared)).toBeCloseTo(0.31492);
+                expect(image).toEqualImage(original, 0.31492);
             });
         });
     });

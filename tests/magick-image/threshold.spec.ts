@@ -4,7 +4,6 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { Percentage } from '@src/types/percentage';
 import { TestImages } from '@test/test-images';
 
@@ -15,8 +14,7 @@ describe('MagickImage#threshold', () => {
                 image.threshold(new Percentage(80));
                 other.threshold(new Percentage(80), Channels.Undefined);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             });
         });
     });
@@ -26,8 +24,7 @@ describe('MagickImage#threshold', () => {
             image.clone((other) => {
                 image.threshold(new Percentage(80));
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.165);
+                expect(image).toEqualImage(other, 0.16559);
             });
         });
     });

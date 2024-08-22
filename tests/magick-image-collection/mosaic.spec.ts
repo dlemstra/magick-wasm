@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { TestImages } from '@test/test-images';
@@ -26,8 +25,7 @@ describe('MagickImageCollection#mosaic', () => {
                 expect(image.width).toBe(170);
                 expect(image.height).toBe(146);
 
-                const difference = images[0].compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.28644);
+                expect(image).toEqualImage(images[0], 0.28644);
             });
         });
     });

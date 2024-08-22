@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#oilPaint', () => {
@@ -13,8 +12,7 @@ describe('MagickImage#oilPaint', () => {
                 image.oilPaint();
                 other.oilPaint(3.0);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             });
         });
     });
@@ -24,8 +22,7 @@ describe('MagickImage#oilPaint', () => {
             image.clone(other => {
                 other.oilPaint(4.2);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.14);
+                expect(image).toEqualImage(other, 0.14002);
             });
         });
     });

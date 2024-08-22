@@ -4,7 +4,6 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#sharpen', () => {
@@ -14,8 +13,7 @@ describe('MagickImage#sharpen', () => {
                 image.sharpen();
                 other.sharpen(0, 1.0);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             });
         });
     });
@@ -26,19 +24,17 @@ describe('MagickImage#sharpen', () => {
                 image.sharpen(1.0, 1.0);
                 other.sharpen(1.0, 1.0, Channels.Composite);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             });
         });
     });
 
     it('should sharpen the image', () => {
         TestImages.Builtin.logo.use(image => {
-            image.clone(original => {
-                image.sharpen(10, 20);
+            image.clone(other => {
+                other.sharpen(10, 20);
 
-                const difference = original.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.0395);
+                expect(image).toEqualImage(other, 0.03956);
             });
         });
     });

@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { Percentage } from '@src/types/percentage';
 import { TestImages } from '@test/test-images';
 
@@ -12,8 +11,8 @@ describe('MagickImage#clache', () => {
         TestImages.Builtin.logo.use(image => {
             image.clone(clone => {
                 clone.clahe(50, 100, 128, 3);
-                const difference = clone.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.017);
+
+                expect(image).toEqualImage(clone, 0.01756);
             });
         });
     });
@@ -22,8 +21,8 @@ describe('MagickImage#clache', () => {
         TestImages.Builtin.logo.use(image => {
             image.clone(clone => {
                 clone.clahe(new Percentage(50), new Percentage(10), 128, 3);
-                const difference = clone.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.012);
+
+                expect(image).toEqualImage(clone, 0.01242);
             });
         });
     });

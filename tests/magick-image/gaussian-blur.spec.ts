@@ -4,7 +4,6 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#gaussianBlur', () => {
@@ -14,8 +13,7 @@ describe('MagickImage#gaussianBlur', () => {
                 image.gaussianBlur(5.5, 10.2);
                 other.blur(5.5, 10.2);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.000665, 6);
+                expect(image).toEqualImage(other, 0.00067);
             })
         });
     });
@@ -26,8 +24,7 @@ describe('MagickImage#gaussianBlur', () => {
                 image.gaussianBlur(4.2);
                 other.gaussianBlur(4.2, 1.0);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toEqual(0);
+                expect(image).toEqualImage(other);
             });
         });
     });

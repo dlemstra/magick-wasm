@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { Percentage } from '@src/types/percentage';
 import { TestImages } from '@test/test-images';
 
@@ -13,8 +12,7 @@ describe('MagickImage#brightnessContrast', () => {
             image.clone(other => {
                 other.brightnessContrast(new Percentage(0), new Percentage(0));
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(other).toEqualImage(image);
             });
         });
     });
@@ -24,8 +22,7 @@ describe('MagickImage#brightnessContrast', () => {
             image.clone(other => {
                 other.brightnessContrast(new Percentage(50), new Percentage(0));
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.18056);
+                expect(other).toEqualImage(image, 0.18096);
             });
         });
     });
@@ -35,8 +32,7 @@ describe('MagickImage#brightnessContrast', () => {
             image.clone(other => {
                 other.brightnessContrast(new Percentage(50), new Percentage(100));
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.278);
+                expect(other).toEqualImage(image, 0.27885);
             });
         });
     });

@@ -3,7 +3,7 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ConnectedComponent } from '@src/connected-component';
+import { ConnectedComponent } from '@src/types/connected-component';
 import { MagickColors } from '@src/magick-colors';
 import { IMagickImage } from '@src/magick-image';
 import { Percentage } from '@src/types/percentage';

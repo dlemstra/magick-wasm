@@ -4,7 +4,6 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#gammaCorrect', () => {
@@ -13,8 +12,7 @@ describe('MagickImage#gammaCorrect', () => {
             image.clone(other => {
                 other.gammaCorrect(2);
 
-                const difference = image.compare(other, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.21576);
+                expect(image).toEqualImage(other, 0.21576);
             });
         });
     });
@@ -24,8 +22,7 @@ describe('MagickImage#gammaCorrect', () => {
             image.clone(other => {
                 other.gammaCorrect(2, Channels.Red);
 
-                const difference = image.compare(other, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.10594);
+                expect(image).toEqualImage(other, 0.10594);
             });
         });
     });

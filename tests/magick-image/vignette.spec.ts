@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImage#vignette', () => {
@@ -13,8 +12,7 @@ describe('MagickImage#vignette', () => {
                 image.vignette();
                 other.vignette(0.0, 1.0, 0, 0);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             });
         });
     });
@@ -24,8 +22,7 @@ describe('MagickImage#vignette', () => {
             image.clone(other => {
                 other.vignette(1.4, 2.5, 0, 0);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.379);
+                expect(image).toEqualImage(other, 0.43856);
             });
         });
     });

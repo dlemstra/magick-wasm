@@ -12,18 +12,18 @@ describe('MagickImage#chromaBluePrimary', () => {
         TestImages.redPng.use(image => {
             const chromaticity = image.chromaticity;
 
-            expect(chromaticity.red.x).toBeCloseTo(0.64);
-            expect(chromaticity.red.y).toBeCloseTo(0.33);
-            expect(chromaticity.red.z).toBeCloseTo(0.03);
-            expect(chromaticity.green.x).toBeCloseTo(0.30);
-            expect(chromaticity.green.y).toBeCloseTo(0.60);
-            expect(chromaticity.green.z).toBeCloseTo(0.1);
-            expect(chromaticity.blue.x).toBeCloseTo(0.15);
-            expect(chromaticity.blue.y).toBeCloseTo(0.06);
-            expect(chromaticity.blue.z).toBeCloseTo(0.79);
-            expect(chromaticity.white.x).toBeCloseTo(0.31);
-            expect(chromaticity.white.y).toBeCloseTo(0.33);
-            expect(chromaticity.white.z).toBeCloseTo(0.36);
+            expect(chromaticity.red.x).toBeCloseTo(0.64000, 4);
+            expect(chromaticity.red.y).toBeCloseTo(0.33000, 4);
+            expect(chromaticity.red.z).toBeCloseTo(0.030000, 4);
+            expect(chromaticity.green.x).toBeCloseTo(0.30000, 4);
+            expect(chromaticity.green.y).toBeCloseTo(0.60000, 4);
+            expect(chromaticity.green.z).toBeCloseTo(0.10000, 4);
+            expect(chromaticity.blue.x).toBeCloseTo(0.15000, 4);
+            expect(chromaticity.blue.y).toBeCloseTo(0.06000, 4);
+            expect(chromaticity.blue.z).toBeCloseTo(0.79000, 4);
+            expect(chromaticity.white.x).toBeCloseTo(0.31270, 4);
+            expect(chromaticity.white.y).toBeCloseTo(0.32900, 4);
+            expect(chromaticity.white.z).toBeCloseTo(0.35830, 4);
         });
     });
 

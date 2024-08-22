@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { MontageSettings } from '@src/settings/montage-settings';
 import { TestImages } from '@test/test-images';
@@ -31,8 +30,7 @@ describe('MagickImageCollection#montage', () => {
                 expect(image.width).toBe(504);
                 expect(image.height).toBe(166);
 
-                const difference = images[0].compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.56318);
+                expect(image).toEqualImage(images[0], 0.56319);
             });
         });
     });

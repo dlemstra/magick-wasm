@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestImages } from '@test/test-images';
 
 describe('MagickImageCollection#merge', () => {
@@ -25,8 +24,7 @@ describe('MagickImageCollection#merge', () => {
                     expect(image.width).toBe(imageMagickJpg.width);
                     expect(image.height).toBe(imageMagickJpg.height);
 
-                    const difference = roses[0].compare(image, ErrorMetric.RootMeanSquared);
-                    expect(difference).toBeCloseTo(0.27456);
+                    expect(image).toEqualImage(roses[0], 0.23778);
                 });
             });
         });

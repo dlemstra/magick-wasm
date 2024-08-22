@@ -4,7 +4,6 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { Percentage } from '@src/types/percentage';
 import { Quantum } from '@src/quantum';
 import { TestImages } from '@test/test-images';
@@ -16,8 +15,7 @@ describe('MagickImage#inverseSigmoidalContrast', () => {
                 image.inverseSigmoidalContrast(4.0);
                 other.inverseSigmoidalContrast(4.0, new Percentage(50));
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             });
         });
     });
@@ -27,8 +25,7 @@ describe('MagickImage#inverseSigmoidalContrast', () => {
             image.clone(other => {
                 other.inverseSigmoidalContrast(4.0, new Percentage(25));
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.04179);
+                expect(image).toEqualImage(other, 0.03913);
             });
         });
     });
@@ -38,8 +35,7 @@ describe('MagickImage#inverseSigmoidalContrast', () => {
             image.clone(other => {
                 other.inverseSigmoidalContrast(4.0, Quantum.max * 0.25, Channels.Blue);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBeCloseTo(0.03082);
+                expect(image).toEqualImage(other, 0.02709);
             });
         });
     });

@@ -24,7 +24,8 @@ describe('MagickImage#compare', () => {
             TestImages.empty.use(other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
-                expect(image.compare(other, ErrorMetric.RootMeanSquared)).toBeCloseTo(0.48);
+
+                expect(image.compare(other, ErrorMetric.RootMeanSquared)).toBeCloseTo(0.48235, 4);
             });
         });
     });
@@ -36,15 +37,15 @@ describe('MagickImage#compare', () => {
                 other.read(MagickColors.RosyBrown, 1, 1);
                 const result = image.compare(other, ErrorMetric.RootMeanSquared, compareResult => {
                     expect(compareResult.difference).not.toBeNull();
-                    expect(compareResult.difference.width).toBeCloseTo(1);
-                    expect(compareResult.difference.height).toBeCloseTo(1);
+                    expect(compareResult.difference.width).toBe(1);
+                    expect(compareResult.difference.height).toBe(1);
                     expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#f40018'));
 
                     return compareResult;
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.48);
+                expect(result.distortion).toBeCloseTo(0.48235, 4);
             });
         });
     });
@@ -60,15 +61,15 @@ describe('MagickImage#compare', () => {
 
                 const result = image.compare(other, settings, compareResult => {
                     expect(compareResult.difference).not.toBeNull();
-                    expect(compareResult.difference.width).toBeCloseTo(1);
-                    expect(compareResult.difference.height).toBeCloseTo(1);
+                    expect(compareResult.difference.width).toBe(1);
+                    expect(compareResult.difference.height).toBe(1);
                     expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#ffa500ff'));
 
                     return compareResult;
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.48);
+                expect(result.distortion).toBeCloseTo(0.48235, 4);
             });
         });
     });
@@ -100,8 +101,8 @@ describe('MagickImage#compare', () => {
                 other.read(MagickColors.RosyBrown, 1, 1);
                 const result = await image.compare(other, ErrorMetric.RootMeanSquared, async compareResult => {
                     expect(compareResult.difference).not.toBeNull();
-                    expect(compareResult.difference.width).toBeCloseTo(1);
-                    expect(compareResult.difference.height).toBeCloseTo(1);
+                    expect(compareResult.difference.width).toBe(1);
+                    expect(compareResult.difference.height).toBe(1);
 
                     await bogusAsyncMethod();
 
@@ -111,7 +112,7 @@ describe('MagickImage#compare', () => {
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.48);
+                expect(result.distortion).toBeCloseTo(0.48235, 4);
             });
         });
     });
@@ -127,8 +128,8 @@ describe('MagickImage#compare', () => {
 
                 const result = await image.compare(other, settings, async compareResult => {
                     expect(compareResult.difference).not.toBeNull();
-                    expect(compareResult.difference.width).toBeCloseTo(1);
-                    expect(compareResult.difference.height).toBeCloseTo(1);
+                    expect(compareResult.difference.width).toBe(1);
+                    expect(compareResult.difference.height).toBe(1);
 
                     await bogusAsyncMethod();
 
@@ -138,7 +139,7 @@ describe('MagickImage#compare', () => {
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.48);
+                expect(result.distortion).toBeCloseTo(0.48235, 4);
             });
         });
     });
@@ -148,7 +149,7 @@ describe('MagickImage#compare', () => {
             TestImages.empty.use(other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
-                expect(image.compare(other, ErrorMetric.RootMeanSquared, Channels.Red)).toBeCloseTo(0.15);
+                expect(image.compare(other, ErrorMetric.RootMeanSquared, Channels.Red)).toBeCloseTo(0.15169, 4);
             });
         });
     });
@@ -161,15 +162,15 @@ describe('MagickImage#compare', () => {
 
                 const result = image.compare(other, ErrorMetric.RootMeanSquared, Channels.Red, compareResult => {
                     expect(compareResult.difference).not.toBeNull();
-                    expect(compareResult.difference.width).toBeCloseTo(1);
-                    expect(compareResult.difference.height).toBeCloseTo(1);
+                    expect(compareResult.difference.width).toBe(1);
+                    expect(compareResult.difference.height).toBe(1);
                     expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#f40018'));
 
                     return compareResult;
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.15);
+                expect(result.distortion).toBeCloseTo(0.15169, 4);
             });
         });
     });
@@ -185,15 +186,15 @@ describe('MagickImage#compare', () => {
 
                 const result = image.compare(other, settings, Channels.Red, compareResult => {
                     expect(compareResult.difference).not.toBeNull();
-                    expect(compareResult.difference.width).toBeCloseTo(1);
-                    expect(compareResult.difference.height).toBeCloseTo(1);
+                    expect(compareResult.difference.width).toBe(1);
+                    expect(compareResult.difference.height).toBe(1);
                     expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#ffc0cb'));
 
                     return compareResult;
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.15);
+                expect(result.distortion).toBeCloseTo(0.15169, 4);
             });
         });
     });
@@ -207,8 +208,8 @@ describe('MagickImage#compare', () => {
 
                 const result = await image.compare(other, ErrorMetric.RootMeanSquared, Channels.Red, async compareResult => {
                     expect(compareResult.difference).not.toBeNull();
-                    expect(compareResult.difference.width).toBeCloseTo(1);
-                    expect(compareResult.difference.height).toBeCloseTo(1);
+                    expect(compareResult.difference.width).toBe(1);
+                    expect(compareResult.difference.height).toBe(1);
 
                     await bogusAsyncMethod();
 
@@ -218,7 +219,7 @@ describe('MagickImage#compare', () => {
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.15);
+                expect(result.distortion).toBeCloseTo(0.15169, 4);
             });
         });
     });
@@ -235,8 +236,8 @@ describe('MagickImage#compare', () => {
 
                 const result = await image.compare(other, settings, Channels.Red, async compareResult => {
                     expect(compareResult.difference).not.toBeNull();
-                    expect(compareResult.difference.width).toBeCloseTo(1);
-                    expect(compareResult.difference.height).toBeCloseTo(1);
+                    expect(compareResult.difference.width).toBe(1);
+                    expect(compareResult.difference.height).toBe(1);
 
                     await bogusAsyncMethod();
 
@@ -246,7 +247,7 @@ describe('MagickImage#compare', () => {
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.15);
+                expect(result.distortion).toBeCloseTo(0.15169, 4);
             });
         });
     });

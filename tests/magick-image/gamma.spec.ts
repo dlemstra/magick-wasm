@@ -8,7 +8,7 @@ import { TestImages } from '@test/test-images';
 describe('MagickImage#gamma', () => {
     it('should return the gamma of the image', () => {
         TestImages.Builtin.logo.use(image => {
-            expect(image.gamma).toBeCloseTo(0.4545);
+            expect(image.gamma).toBeCloseTo(0.45454, 4);
         });
     });
 });
