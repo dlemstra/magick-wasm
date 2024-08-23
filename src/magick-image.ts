@@ -376,6 +376,36 @@ export interface IMagickImage extends IDisposable {
     adaptiveResize(width: number, height: number): void;
 
     /**
+     * Adaptively sharpens the image by sharpening more intensely near image edges and less
+     * intensely far from edges.
+     */
+    adaptiveSharpen(): void;
+
+    /**
+     * Adaptively sharpens the image by sharpening more intensely near image edges and less
+     * intensely far from edges.
+     * @param channels The channel(s) that should be sharpened.
+     */
+    adaptiveSharpen(channels: Channels): void;
+
+    /**
+     * Adaptively sharpens the image by sharpening more intensely near image edges and less
+     * intensely far from edges.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Laplacian, in pixels.
+     */
+    adaptiveSharpen(radius: number, sigma: number): void;
+
+    /**
+     * Adaptively sharpens the image by sharpening more intensely near image edges and less
+     * intensely far from edges.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Laplacian, in pixels.
+     * @param channels The channel(s) that should be sharpened.
+     */
+    adaptiveSharpen(radius: number, sigma: number, channels: Channels): void;
+
+    /**
      * Applies the specified alpha option.
      * @param value The option to use.
      */
@@ -2090,6 +2120,27 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 const instance = ImageMagick._api._MagickImage_AdaptiveResize(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(instance, exception);
             });
+        });
+    }
+
+    adaptiveSharpen(): void;
+    adaptiveSharpen(channels: Channels): void;
+    adaptiveSharpen(radius: number, sigma: number): void;
+    adaptiveSharpen(radius: number, sigma: number, channels: Channels): void
+    adaptiveSharpen(channelsOrRadiusOrUndefined?: Channels | number, sigmaOrUndefined?: number, channelsOrUndefined?: Channels): void {
+        let radius = 0;
+        const sigma = sigmaOrUndefined ?? 1;
+        let channels = channelsOrUndefined ?? Channels.Undefined;
+        if (channelsOrRadiusOrUndefined !== undefined) {
+            if (sigmaOrUndefined === undefined)
+                channels = channelsOrRadiusOrUndefined as Channels;
+            else
+                radius = channelsOrRadiusOrUndefined as number;
+        }
+
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_AdaptiveSharpen(this._instance, radius, sigma, channels, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
