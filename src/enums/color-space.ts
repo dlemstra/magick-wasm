@@ -175,5 +175,35 @@ export enum ColorSpace {
     /**
      * LinearGray.
      */
-    LinearGray
+    LinearGray,
+
+    /**
+     * Jzazbz.
+     */
+    Jzazbz,
+
+    /**
+     * DisplayP3.
+     */
+    DisplayP3,
+
+    /**
+     * Adobe98.
+     */
+    Adobe98,
+
+    /**
+     * ProPhoto.
+     */
+    ProPhoto,
+
+    /**
+     * Oklab.
+     */
+    Oklab,
+
+    /**
+     * Oklch.
+     */
+    Oklch
 }
