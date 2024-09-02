@@ -62,7 +62,7 @@ jobs:
   deno:
     name: Test on deno
     container:
-      image: denoland/deno:latest
+      image: denoland/deno:debian
     runs-on: ubuntu-latest
 
     steps:
