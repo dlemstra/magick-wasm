@@ -628,7 +628,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         this.attachImages((instance) => {
             settings._use(nativeSettings => {
                 Exception.use(exception => {
-                    ImageMagick._api._MagickImageCollection_Map(instance, nativeSettings._instance, image._instance, exception.ptr);
+                    ImageMagick._api._MagickImageCollection_Remap(instance, nativeSettings._instance, image._instance, exception.ptr);
                 });
             });
         });

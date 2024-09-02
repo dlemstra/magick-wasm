@@ -19,7 +19,7 @@ describe('DrawableTextAntialias', () => {
                 new DrawableText(0, 100, 'Test'),
             ]);
 
-            expect(image).toHavePixelWithColor(95, 67, '#b1b1b1ff');
+            expect(image).toHavePixelWithColor(95, 68, '#4c4c4cff');
         });
     });
 
@@ -32,7 +32,7 @@ describe('DrawableTextAntialias', () => {
                 new DrawableText(0, 100, 'Test'),
             ]);
 
-            expect(image).toHavePixelWithColor(95, 67, '#000000ff');
+            expect(image).toHavePixelWithColor(95, 68, '#000000ff');
         });
     });
 });
