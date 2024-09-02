@@ -60,6 +60,12 @@ export class Magick {
      * Sets the pseudo-random number generator secret key.
      * @param seed The secret key.
      */
+    static resetRandomSeed = (): void => ImageMagick._api._Magick_ResetRandomSeed();
+
+    /**
+     * Sets the pseudo-random number generator secret key.
+     * @param seed The secret key.
+     */
     static setRandomSeed = (seed: number): void => ImageMagick._api._Magick_SetRandomSeed(seed);
 
     /**
