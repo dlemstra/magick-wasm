@@ -50,6 +50,7 @@ import { MagickRectangle } from './internal/magick-rectangle';
 import { MagickSettings } from './settings/magick-settings';
 import { MorphologySettings } from './settings/morphology-settings';
 import { NativeInstance } from './native-instance';
+import { NoiseType } from './enums/noise-type';
 import { OrientationType } from './enums/orientation-type';
 import { Percentage } from './types/percentage';
 import { PixelChannel } from './enums/pixel-channel';
@@ -404,6 +405,34 @@ export interface IMagickImage extends IDisposable {
      * @param channels The channel(s) that should be sharpened.
      */
     adaptiveSharpen(radius: number, sigma: number, channels: Channels): void;
+
+    /**
+     * Add noise to image with the specified noise type.
+     * @param noiseType The type of noise that should be added to the image.
+     */
+    addNoise(noiseType: NoiseType): void;
+
+    /**
+     * Add noise to image with the specified noise type.
+     * @param noiseType The type of noise that should be added to the image.
+     * @param channels The channel(s) where the noise should be added.
+     */
+    addNoise(noiseType: NoiseType, channels: Channels): void;
+
+    /**
+     * Add noise to image with the specified noise type.
+     * @param noiseType The type of noise that should be added to the image.
+     * @param attenuate Attenuate the random distribution.
+     */
+    addNoise(noiseType: NoiseType, attenuate: number): void;
+
+    /**
+     * Add noise to image with the specified noise type.
+     * @param noiseType The type of noise that should be added to the image.
+     * @param attenuate Attenuate the random distribution.
+     * @param channels The channel(s) where the noise should be added.
+     */
+    addNoise(noiseType: NoiseType, attenuate: number, channels: Channels): void;
 
     /**
      * Applies the specified alpha option.
@@ -2140,6 +2169,27 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_AdaptiveSharpen(this._instance, radius, sigma, channels, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    addNoise(noiseType: NoiseType): void;
+    addNoise(noiseType: NoiseType, channels: Channels): void;
+    addNoise(noiseType: NoiseType, attenuate: number): void;
+    addNoise(noiseType: NoiseType, attenuate: number, channels: Channels): void;
+    addNoise(noiseType: NoiseType, attenuateOrChannelsOrUndefined?: number | Channels, channelsOrUndefined?: Channels): void {
+        let attenuate = 1;
+        let channels = channelsOrUndefined ?? Channels.Undefined;
+
+        if (attenuateOrChannelsOrUndefined !== undefined) {
+            if (channelsOrUndefined === undefined)
+                channels = attenuateOrChannelsOrUndefined as Channels;
+            else
+                attenuate = attenuateOrChannelsOrUndefined as number;
+        }
+
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_AddNoise(this._instance, noiseType, attenuate, channels, exception.ptr);
             this._setInstance(instance, exception);
         });
     }

@@ -58,6 +58,7 @@ export * from './enums/log-event-types';
 export * from './enums/magick-error-severity';
 export * from './enums/magick-format';
 export * from './enums/morphology-method';
+export * from './enums/noise-type';
 export * from './enums/orientation-type';
 export * from './enums/paint-method';
 export * from './enums/pixel-channel';
