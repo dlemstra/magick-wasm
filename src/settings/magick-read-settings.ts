@@ -5,6 +5,7 @@
 
 import { Disposable } from '../internal/disposable';
 import { ImageMagick } from '../image-magick';
+import { MagickGeometry } from '../types/magick-geometry';
 import { MagickSettings } from './magick-settings';
 import { NativeMagickSettings } from './native-magick-settings';
 import { _withString } from '../internal/native/string';
@@ -19,6 +20,11 @@ export class MagickReadSettings extends MagickSettings {
 
         Object.assign(this, partialSettings);
     }
+
+    /**
+     * Gets or sets the specified area to extract from the image.
+     */
+    extractArea?: MagickGeometry;
 
     /**
      * Gets or sets the height.
@@ -38,6 +44,12 @@ export class MagickReadSettings extends MagickSettings {
         if (size !== '') {
             _withString(size, sizePtr => {
                 ImageMagick._api._MagickSettings_SetSize(settings._instance, sizePtr);
+            });
+        }
+
+        if (this.extractArea !== undefined) {
+            _withString(this.extractArea.toString(), extractAreaPtr => {
+                ImageMagick._api._MagickSettings_Extract_Set(settings._instance, extractAreaPtr);
             });
         }
 
