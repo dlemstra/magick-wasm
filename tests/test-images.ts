@@ -46,12 +46,12 @@ class BuiltinTestImage extends TestImageBase<IMagickImage> {
 }
 
 class TestImage extends TestImageBase<IMagickImage> {
-    readonly data: Buffer;
+    readonly data: Uint8Array;
 
     constructor(fileName: string) {
         super();
 
-        this.data = readFileSync(fileName);
+        this.data = new Uint8Array(readFileSync(fileName));
     }
 
     load() {
@@ -60,12 +60,12 @@ class TestImage extends TestImageBase<IMagickImage> {
 }
 
 class TestImageCollection extends TestImageBase<IMagickImageCollection> {
-    readonly data: Buffer;
+    readonly data: Uint8Array;
 
     constructor(fileName: string) {
         super();
 
-        this.data = readFileSync(fileName);
+        this.data = new Uint8Array(readFileSync(fileName));
     }
 
     load() {
