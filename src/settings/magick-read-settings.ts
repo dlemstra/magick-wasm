@@ -27,6 +27,11 @@ export class MagickReadSettings extends MagickSettings {
     extractArea?: MagickGeometry;
 
     /**
+     * Gets or sets the index of the image to read from a multi layer/frame image.
+     */
+    frameIndex?: number;
+
+    /**
      * Gets or sets the height.
      */
     height?: number;
@@ -44,6 +49,15 @@ export class MagickReadSettings extends MagickSettings {
         if (size !== '') {
             _withString(size, sizePtr => {
                 ImageMagick._api._MagickSettings_SetSize(settings._instance, sizePtr);
+            });
+        }
+
+        if (this.frameIndex !== undefined) {
+            const scenes = this.frameIndex.toString();
+
+            ImageMagick._api._MagickSettings_SetScene(settings._instance, this.frameIndex);
+            _withString(scenes.toString(), scenesPtr => {
+                ImageMagick._api._MagickSettings_SetScenes(settings._instance, scenesPtr);
             });
         }
 
