@@ -26,9 +26,10 @@ export const CustomMatchers = {
         const distortion = image.compare(other, ErrorMetric.RootMeanSquared);
         if (expectedDistortion === 0) {
             if (distortion !== 0) {
+                const distortionString = distortion.toFixed(5);
                 return {
                     pass: false,
-                    message: () => 'Excepted images to be equal.'
+                    message: () => `Excepted images to be equal but the distortion is ${distortionString}.`
                 };
             }
         } else {
