@@ -12,7 +12,7 @@ describe('MagickReadSettings#frameIndex', () => {
         const settings = new MagickReadSettings();
         settings.frameIndex = 1;
 
-        ImageMagick.read(TestImages.roseSparkleGif.data, settings, (image) => {
+        ImageMagick.read(TestImages.roseSparkleGif.data, settings, image => {
             TestImages.roseSparkleGif.use(collection => {
                 expect(image).toEqualImage(collection[1]);
             });

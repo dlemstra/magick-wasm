@@ -32,6 +32,11 @@ export class MagickReadSettings extends MagickSettings {
     frameIndex?: number;
 
     /**
+     * Gets or sets the number of images to read from a multi layer/frame image.
+     */
+    frameCount?: number;
+
+    /**
      * Gets or sets the height.
      */
     height?: number;
@@ -52,10 +57,14 @@ export class MagickReadSettings extends MagickSettings {
             });
         }
 
-        if (this.frameIndex !== undefined) {
-            const scenes = this.frameIndex.toString();
+        if (this.frameIndex !== undefined || this.frameCount !== undefined) {
+            const frame = this.frameIndex ?? 0;
+            const count = this.frameCount ?? 1;
 
-            ImageMagick._api._MagickSettings_SetScene(settings._instance, this.frameIndex);
+            ImageMagick._api._MagickSettings_SetScene(settings._instance, frame);
+            ImageMagick._api._MagickSettings_SetNumberScenes(settings._instance, count);
+
+            const scenes = this.frameCount !== undefined ? `${frame}-${frame + count}` : frame.toString();
             _withString(scenes.toString(), scenesPtr => {
                 ImageMagick._api._MagickSettings_SetScenes(settings._instance, scenesPtr);
             });

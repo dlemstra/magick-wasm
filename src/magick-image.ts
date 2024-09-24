@@ -3442,6 +3442,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             readSettings._ping = ping;
             this._settings._ping = ping;
 
+            if (readSettings.frameCount !== undefined && readSettings.frameCount > 1)
+                throw new MagickError('The frame count can only be set to 1 when a single image is being read.');
+
             if (typeof fileNameOrArrayOrColor === 'string') {
                 readSettings._fileName = fileNameOrArrayOrColor;
             } else if (_isByteArray(fileNameOrArrayOrColor)) {
