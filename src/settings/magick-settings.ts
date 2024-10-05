@@ -120,14 +120,14 @@ export class MagickSettings {
      * Returns the value of a format-specific option.
      * @param name The name of the option.
      */
-    getDefine(name: string): string;
+    getDefine(name: string): string | null;
     /**
      * Returns the value of a format-specific option.
      * @param format The format to use.
      * @param name The name of the option.
      */
-    getDefine(format: MagickFormat, name: string): string;
-    getDefine(nameOrFormat: MagickFormat | string, name?: string): string {
+    getDefine(format: MagickFormat, name: string): string | null;
+    getDefine(nameOrFormat: MagickFormat | string, name?: string): string | null {
         if (name !== undefined)
             return this._options[`${nameOrFormat}:${name}`] ?? null;
 
