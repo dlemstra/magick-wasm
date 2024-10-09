@@ -7,7 +7,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-38 (2024-09-01) ] copyright:
+[ ImageMagick 7.1.1-39 (2024-10-05) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -1091,7 +1091,7 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[ imath 3.1.11 (2024-02-29) ] copyright:
+[ imath 3.1.12 (2024-09-11) ] copyright:
 
 Copyright Contributors to the OpenEXR Project. All rights reserved.
 
@@ -3039,7 +3039,7 @@ that were granted to the IJG for code derived from their software.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-xl 0.10.3 (2024-06-27) ] copyright:
+[ jpeg-xl 0.11.0 (2024-09-13) ] copyright:
 
 Copyright (c) the JPEG XL Project Authors.
 All rights reserved.
@@ -3312,7 +3312,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ png 1.6.43 (2024-02-23) ] copyright:
+[ png 1.6.44 (2024-09-12) ] copyright:
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
@@ -3451,11 +3451,11 @@ be appreciated.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ raw 0.21.2 (2024-03-29 ] copyright:
+[ raw 0.21.3 (2024-09-24) ] copyright:
 
  ** LibRaw: Raw images processing library **
 
-Copyright (C) 2008-2024 LibRaw LLC (http://www.libraw.org, info@libraw.org)
+Copyright (C) 2008-2021 LibRaw LLC (http://www.libraw.org, info@libraw.org)
  
 LibRaw is free software; you can redistribute it and/or modify
 it under the terms of the one of two licenses as you choose:
@@ -3483,7 +3483,7 @@ Copyright (c) 2005 Adobe Systems Incorporated, licensed under MIT license
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ tiff 4.6.0 (2023-09-08) ] copyright:
+[ tiff 4.7.0 (2024-09-11) ] copyright:
 
 # LibTIFF license
 
@@ -3546,7 +3546,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.13.3 (2024-07-34) ] copyright:
+[ xml 2.13.4 (2024-09-18) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files dict.c and
 list.c, which are covered by a similar licence but with different Copyright
