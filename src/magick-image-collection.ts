@@ -354,26 +354,34 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     trimBounds(): void;
 
     /**
-     * Write all image frames to a byte array.
+     * Write all image frames to a byte array.This array points to native memory and will be give back to the
+     * native memory manager after the excution of the function. A copy of the data should be made if it needs
+     * to be used after the function has completed.
      * @param func The function to execute with the byte array.
      */
     write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
 
     /**
-     * Write all image frames to a byte array.
+     * Write all image frames to a byte array. This array points to native memory and will be give back to the
+     * native memory manager after the excution of the function. A copy of the data should be made if it needs
+     * to be used after the function has completed.
      * @param func The async function to execute with the byte array.
      */
     write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
-     * Write all image frames to a byte array.
+     * Write all image frames to a byte array. This array points to native memory and will be give back to the
+     * native memory manager after the excution of the function. A copy of the data should be made if it needs
+     * to be used after the function has completed.
      * @param format The format to use.
      * @param func The async function to execute with the byte array.
      */
     write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
 
     /**
-     * Write all image frames to a byte array.
+     * Write all image frames to a byte array. This array points to native memory and will be give back to the
+     * native memory manager after the excution of the function. A copy of the data should be made if it needs
+     * to be used after the function has completed.
      * @param format The format to use.
      * @param func The async async function to execute with the byte array.
      */
