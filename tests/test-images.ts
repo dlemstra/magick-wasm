@@ -23,9 +23,7 @@ abstract class TestImageBase<TImageType extends Cloneable<TImageType>> {
         if (this._image === undefined)
             this._image = this.load();
 
-        return this._image.clone(image => {
-            return func(image);
-        });
+        return this._image.clone(func);
     }
 
     abstract load(): TImageType;
@@ -95,9 +93,7 @@ class EmptyTestImage {
     use<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
     use<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
     use<TReturnType>(func: (image: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        return MagickImage.create()._use(image => {
-            return func(image);
-        });
+        return MagickImage.create()._use(func);
     }
 }
 
@@ -105,9 +101,7 @@ class EmptyTestImageCollection {
     use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     use<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        return MagickImageCollection.create()._use(images => {
-            return func(images);
-        });
+        return MagickImageCollection.create()._use(func);
     }
 }
 

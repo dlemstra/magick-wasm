@@ -3491,14 +3491,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     private useException<TReturnType>(func: (exception: Exception) => TReturnType): TReturnType {
-        return Exception.use<TReturnType>(func, error => {
+        return Exception.use(func, error => {
             if (this.onWarning !== undefined)
                 this.onWarning(new WarningEvent(error));
         });
     }
 
     private useExceptionPointer<TReturnType>(func: (exception: number) => TReturnType): TReturnType {
-        return Exception.usePointer<TReturnType>(func, error => {
+        return Exception.usePointer(func, error => {
             if (this.onWarning !== undefined)
                 this.onWarning(new WarningEvent(error));
         });
