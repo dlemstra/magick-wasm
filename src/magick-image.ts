@@ -1693,6 +1693,19 @@ export interface IMagickImage extends IDisposable {
     threshold(percentage: Percentage, channels: Channels): void;
 
     /**
+     * Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
+     * @param width The new width.
+     * @param height The new height.
+     */
+    thumbnail(width: number, height: number): void;
+
+    /**
+     * Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
+     * @param geometry The geometry to use.
+     */
+    thumbnail(geometry: IMagickGeometry): void;
+
+    /**
      * Returns a string that represents the current image.
      */
     toString(): string;
@@ -3206,6 +3219,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Threshold(this._instance, percentage._toQuantum(), channels, exception);
+        });
+    }
+
+    thumbnail(width: number, height: number): void;
+    thumbnail(geometry: IMagickGeometry): void;
+    thumbnail(widthOrGeometry: number | IMagickGeometry, heightOrUndefined?: number): void {
+        const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, heightOrUndefined as number) : widthOrGeometry;
+        this.useException(exception => {
+            _withString(geometry.toString(), geometryPtr => {
+                const instance = ImageMagick._api._MagickImage_Thumbnail(this._instance, geometryPtr, exception.ptr);
+                this._setInstance(instance, exception);
+            });
         });
     }
 
