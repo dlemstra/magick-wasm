@@ -58,6 +58,22 @@ export class MagickReadSettings extends MagickSettings {
     }
 
     /**
+     * Gets or sets a value indicating whether the tiff profile should be used to update
+     * some of the properties of the image (e.g. {@link MagickImage#density},
+     * {@link MagickImage#orientation}).
+     */
+    get syncImageWithTiffProperties(): boolean {
+        const value = this.getDefine('tiff:sync-image');
+        if (value === null)
+            return true;
+
+        return value.toLowerCase() === 'true';
+    }
+    set syncImageWithTiffProperties(value: boolean) {
+        this.setDefine('tiff:sync-image', value.toString());
+    }
+
+    /**
      * Gets or sets the width.
      */
     width?: number;
