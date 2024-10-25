@@ -57,4 +57,30 @@ export class Density {
      * Gets the units.
      */
     readonly units: DensityUnit;
+
+    /**
+     * Returns a string that represents the current {@link Density} object.
+     */
+    toString(units?: DensityUnit): string {
+        if (units == this.units || units === DensityUnit.Undefined || units === undefined)
+            return Density.toString(this.x, this.y, units ?? DensityUnit.Undefined);
+        else if (this.units == DensityUnit.PixelsPerCentimeter && units == DensityUnit.PixelsPerInch)
+            return Density.toString(this.x * 2.54, this.y * 2.54, units);
+        else
+            return Density.toString(this.x / 2.54, this.y / 2.54, units);
+    }
+
+    private static toString(x: number, y: number, units: DensityUnit): string {
+        let result = `${x}x${y}`;
+        switch (units) {
+            case DensityUnit.PixelsPerCentimeter:
+                result += 'cm';
+                break;
+            case DensityUnit.PixelsPerInch:
+                result += 'inch';
+                break;
+        }
+
+        return result;
+    }
 }
