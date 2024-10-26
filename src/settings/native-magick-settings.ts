@@ -49,6 +49,13 @@ export class NativeMagickSettings extends NativeInstance {
         if (settings.debug !== undefined)
             ImageMagick._api._MagickSettings_Debug_Set(this._instance, settings.debug ? 1 : 0);
 
+        if (settings.density !== undefined) {
+            const density = settings.density.toString();
+            density._use((ptr) => {
+                ImageMagick._api._MagickSettings_Density_Set(this._instance, ptr);
+            });
+        }
+
         if (settings.depth !== undefined)
             ImageMagick._api._MagickSettings_Depth_Set(this._instance, settings.depth);
 

@@ -6,6 +6,7 @@
 import { ColorSpace } from '../enums/color-space';
 import { ColorType } from '../enums/color-type';
 import { CompressionMethod } from '../enums/compression-method';
+import { Density } from '../types/density';
 import { Disposable } from '../internal/disposable';
 import { Endian } from '../enums/endian';
 import { IDefines } from '../defines/defines';
@@ -59,6 +60,11 @@ export class MagickSettings {
      * Gets or sets a value indicating whether printing of debug messages from ImageMagick is enabled when a debugger is attached.
      */
     debug?: boolean;
+
+    /**
+     * Gets or sets the vertical and horizontal resolution in pixels.
+     */
+    density?: Density;
 
     /**
      * Gets or sets the depth (bits allocated to red/green/blue components).
