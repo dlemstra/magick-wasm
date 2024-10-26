@@ -51,7 +51,7 @@ export class NativeMagickSettings extends NativeInstance {
 
         if (settings.density !== undefined) {
             const density = settings.density.toString();
-            density._use((ptr) => {
+            _withString(density, ptr => {
                 ImageMagick._api._MagickSettings_Density_Set(this._instance, ptr);
             });
         }
