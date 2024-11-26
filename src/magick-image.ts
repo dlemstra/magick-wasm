@@ -1193,6 +1193,12 @@ export interface IMagickImage extends IDisposable {
     grayscale(method: PixelIntensityMethod): void;
 
     /**
+     * Gets a value indicating whether a profile with the specified name already exists on the image.
+     * @param name The name of the profile.
+     */
+    hasProfile(name: string): boolean;
+
+    /**
      * Creates a color histogram.
      */
     histogram(): Map<string, number>;
@@ -2827,6 +2833,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     grayscale(method: PixelIntensityMethod = PixelIntensityMethod.Undefined): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Grayscale(this._instance, method, exception);
+        });
+    }
+
+    hasProfile(name: string): boolean {
+        return _withString(name, namePtr => {
+            return this.toBool(ImageMagick._api._MagickImage_HasProfile(this._instance, namePtr));
         });
     }
 
