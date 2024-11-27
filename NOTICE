@@ -7,7 +7,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-39 (2024-10-05) ] copyright:
+[ ImageMagick 7.1.1-41 (2024-11-16) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -1050,7 +1050,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ deflate 1.21.0 (2024-08-04) ] copyright:
+[ deflate 1.22.0 (2024-10-05) ] copyright:
 
 Copyright 2016 Eric Biggers
 Copyright 2024 Google LLC
@@ -1077,7 +1077,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openexr 3.2.4 (2024-03-26) ] copyright:
+[ openexr 3.3.2 (2024-11-11) ] copyright:
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -1814,7 +1814,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.18.2 (2024-08-07) ] copyright:
+[ heif 1.19.3 (2024-11-11) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
