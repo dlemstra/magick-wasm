@@ -115,12 +115,15 @@ export class TestFile {
 }
 
 export class TestColorProfile extends TestFile {
+    private readonly name: string;
+
     constructor(fileName: string) {
         super(fileName);
+        this.name = fileName.split('.').pop()!;
     }
 
     public load(): ColorProfile {
-        return new ColorProfile(this.data);
+        return new ColorProfile(this.name, this.data);
     }
 }
 

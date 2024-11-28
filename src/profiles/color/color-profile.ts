@@ -7,6 +7,7 @@ import { ColorProfileData } from "./color-profile-data";
 import { ColorProfileReader } from "./color-profile-reader";
 import { ColorSpace } from "../../enums/color-space";
 import { IImageProfile, ImageProfile } from "../image-profile";
+import { MagickError } from "../../magick-error";
 
 /**
  * Interface that describes an ICM/ICC color profile.
@@ -18,8 +19,17 @@ export interface IColorProfile extends IImageProfile {
 export class ColorProfile extends ImageProfile implements IColorProfile {
     private _data?: ColorProfileData;
 
-    constructor(data: Uint8Array) {
-        super('icc', data);
+    constructor(data: Uint8Array);
+    constructor(name: string, data: Uint8Array);
+    constructor(nameOrData: string | Uint8Array, dataOrUndefined?: Uint8Array) {
+        const name = typeof nameOrData === 'string' ? nameOrData : 'icc';
+        const data = typeof nameOrData !== 'string' ? nameOrData : dataOrUndefined!;
+
+        super(name, data);
+
+        if (name !== 'icm' && name !== 'icc') {
+            throw new MagickError(`Invalid profile name: ${name}.`);
+        }
     }
 
     /**
