@@ -1692,6 +1692,24 @@ export interface IMagickImage extends IDisposable {
     strip(): void;
 
     /**
+     * Transforms the image from the colorspace of the source profile to the target profile. This
+     * requires the image to have a color profile. Nothing will happen if the image has no color profile.
+     * @param target The target color profile.
+     * @returns A value indicating whether the transformation was successful.
+     */
+    transformColorSpace(target: IColorProfile): boolean;
+
+    /**
+     * Transforms the image from the colorspace of the source profile to the target profile. The
+     * source profile will only be used if the image does not contain a color profile. Nothing
+     * will happen if the source profile has a different colorspace then that of the image.
+     * @param source The source color profile.
+     * @param target The target color profile.
+     * @returns A value indicating whether the transformation was successful.
+     */
+    transformColorSpace(source: IColorProfile, target: IColorProfile): boolean;
+
+    /**
      * Threshold image.
      * @param percentage The threshold percentage.
      */
@@ -3239,6 +3257,34 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Strip(this._instance, exception);
         });
+    }
+
+    transformColorSpace(target: IColorProfile): boolean;
+    transformColorSpace(source: IColorProfile, target: IColorProfile): boolean;
+    transformColorSpace(sourceOrTarget: IColorProfile, targetOrUndefined?: IColorProfile): boolean {
+        const source = sourceOrTarget;
+        let target: IColorProfile | undefined = undefined;
+        if (targetOrUndefined !== undefined)
+            target = targetOrUndefined;
+
+        const hasColorProfile = this.hasProfile('icc') || this.hasProfile('icm');
+        if (target === undefined) {
+            if (!hasColorProfile)
+                return false;
+
+            target = source;
+        }
+        else {
+            if (source.colorSpace !== this.colorSpace)
+                return false;
+
+            if (!hasColorProfile)
+                this.setProfile(source);
+        }
+
+        this.setProfile(target);
+
+        return true;
     }
 
     threshold(percentage: Percentage): void
