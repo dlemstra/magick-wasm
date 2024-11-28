@@ -8,7 +8,7 @@ import { TestFiles } from '@test/test-files';
 
 describe('ColorProfile#properties', () => {
     it('should return the correct values for an sRGB profile', () => {
-        const colorProfile = TestFiles.Profiles.Color.sRGB.load();
+        const colorProfile = TestFiles.Profiles.Color.SRGB.load();
 
         expect(colorProfile.name).toBe('icm');
         expect(colorProfile.data.length).toBe(3144);

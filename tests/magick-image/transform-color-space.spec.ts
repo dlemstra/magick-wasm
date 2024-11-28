@@ -8,7 +8,7 @@ import { TestFiles } from '@test/test-files';
 describe('MagickImage#transformColorSpace', () => {
     it('should return false when the image has no color profile', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
-            const target = TestFiles.Profiles.Color.sRGB.load();
+            const target = TestFiles.Profiles.Color.SRGB.load();
             const result = image.transformColorSpace(target);
             expect(result).toBe(false);
         });
@@ -25,7 +25,7 @@ describe('MagickImage#transformColorSpace', () => {
     it('should return false when the source profile color space is different', () => {
         TestFiles.Images.fujiFilmFinePixS1ProJpg.use((image) => {
             const source = TestFiles.Profiles.Color.USWebCoatedSWOP.load();
-            const target = TestFiles.Profiles.Color.sRGB.load();
+            const target = TestFiles.Profiles.Color.SRGB.load();
             const result = image.transformColorSpace(source, target);
             expect(result).toBe(false);
         });
@@ -33,7 +33,7 @@ describe('MagickImage#transformColorSpace', () => {
 
     it('should return true when the the colorspace could be transformed', () => {
         TestFiles.Images.fujiFilmFinePixS1ProJpg.use((image) => {
-            const source = TestFiles.Profiles.Color.sRGB.load();
+            const source = TestFiles.Profiles.Color.SRGB.load();
             const target = TestFiles.Profiles.Color.USWebCoatedSWOP.load();
             const result = image.transformColorSpace(source, target);
             expect(result).toBe(true);
