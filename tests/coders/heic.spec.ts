@@ -5,11 +5,11 @@
 
 import { ImageMagick } from '@src/image-magick';
 import { MagickFormat } from '@src/enums/magick-format';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('Coders#heic', () => {
     it('should be able to write avif image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.write(MagickFormat.Avif, data => {
                 expect(data.length).toBe(11333);
                 ImageMagick.read(data, image => {

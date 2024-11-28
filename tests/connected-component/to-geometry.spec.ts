@@ -4,11 +4,11 @@
 */
 
 import { Percentage } from '@src/types/percentage';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('ConnectedComponent#toGeometry', () => {
     it('converts the component to a geometry', () => {
-        TestImages.connectedComponentsPng.use((image) => {
+        TestFiles.Images.connectedComponentsPng.use((image) => {
             image.clone(other => {
                 other.blur(0, 10);
                 other.threshold(new Percentage(50));

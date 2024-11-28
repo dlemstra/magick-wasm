@@ -5,11 +5,11 @@
 
 import { ErrorMetric } from '@src/enums/error-metric';
 import { Percentage } from '@src/types/percentage';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#modulate', () => {
     it('should default to 100 percent for saturation and hue', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.clone(other => {
                 image.modulate(new Percentage(50));
                 other.modulate(new Percentage(50), new Percentage(100), new Percentage(100));
@@ -21,7 +21,7 @@ describe('MagickImage#modulate', () => {
     });
 
     it('should default to 100 percent for hue', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.clone(other => {
                 image.modulate(new Percentage(50), new Percentage(25));
                 other.modulate(new Percentage(50), new Percentage(25), new Percentage(100));
@@ -33,7 +33,7 @@ describe('MagickImage#modulate', () => {
     });
 
     it('should modulate the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.modulate(new Percentage(75), new Percentage(50), new Percentage(25));
 
             expect(image).toHavePixelWithColor(340, 270, '#43582eff');

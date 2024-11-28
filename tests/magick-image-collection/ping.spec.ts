@@ -4,11 +4,11 @@
 */
 
 import { MagickFormat } from '@src/enums/magick-format';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#ping', () => {
     it('should read image metadata of built-in image', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             images.ping('logo:');
 
             expect(images.length).toBe(1);
@@ -22,8 +22,8 @@ describe('MagickImageCollection#ping', () => {
     });
 
     it('should read image metadata from array', () => {
-        TestImages.emptyCollection.use((images) => {
-            images.ping(TestImages.roseSparkleGif.data);
+        TestFiles.Images.emptyCollection.use((images) => {
+            images.ping(TestFiles.Images.roseSparkleGif.data);
 
             expect(images.length).toBe(3);
             images.forEach(image => {

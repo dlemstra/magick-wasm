@@ -5,11 +5,11 @@
 
 import { Channels } from '@src/enums/channels';
 import { PixelChannel } from '@src/enums/pixel-channel';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#statistics', () => {
     it('should return the statistics for the all channels', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics();
 
             expect(statistics.channels.length).toBe(4);
@@ -21,7 +21,7 @@ describe('MagickImage#statistics', () => {
     });
 
     it('should return the statistics for the specified channels', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics(Channels.Blue);
 
             expect(statistics.channels.length).toBe(2);
@@ -31,7 +31,7 @@ describe('MagickImage#statistics', () => {
     });
 
     it('should return the statistics for a channel', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics(Channels.Blue);
 
             let channelStatistics = statistics.getChannel(PixelChannel.Blue);
@@ -49,7 +49,7 @@ describe('MagickImage#statistics', () => {
     });
 
     it('should return the statistics for the composite channel', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics(Channels.Green);
 
             const channelStatistics = statistics.composite();
@@ -66,7 +66,7 @@ describe('MagickImage#statistics', () => {
     });
 
     it('should return null as the statistics for a unknown channel', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             const statistics = image.statistics(Channels.Red);
 
             expect(statistics.getChannel(PixelChannel.Green)).toBeNull();

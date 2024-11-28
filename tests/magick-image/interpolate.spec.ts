@@ -4,17 +4,17 @@
 */
 
 import { PixelInterpolateMethod } from '@src/enums/pixel-interpolate-method';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#interpolate', () => {
     it('should return the correct default value', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             expect(image.interpolate).toBe(PixelInterpolateMethod.Undefined);
         });
     });
 
     it('should return the correct value after it has been changed', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.interpolate = PixelInterpolateMethod.Blend;
             expect(image.interpolate).toBe(PixelInterpolateMethod.Blend);
         });

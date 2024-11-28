@@ -4,11 +4,11 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#smushVertical', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.smushVertical(3, () => { /* never reached */ });
             }).toThrowError('operation requires at least one image');
@@ -16,7 +16,7 @@ describe('MagickImageCollection#smushVertical', () => {
     });
 
     it('should smush the images vertically', () => {
-        TestImages.roseSparkleGif.use((images) => {
+        TestFiles.Images.roseSparkleGif.use((images) => {
             images[0].backgroundColor = MagickColors.Purple;
             images.smushVertical(10, (image) => {
                 expect(image.width).toBe(70);

@@ -4,11 +4,11 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#shave', () => {
     it('should shave the image', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             image.read(MagickColors.White, 5, 5);
             image.shave(2, 1);
 

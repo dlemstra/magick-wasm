@@ -4,11 +4,11 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#histogram', () => {
     it('should return a histogram of the image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             const histogram = image.histogram();
 
             expect(histogram).not.toBeNull();

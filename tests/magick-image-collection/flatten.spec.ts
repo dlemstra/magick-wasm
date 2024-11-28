@@ -4,11 +4,11 @@
 */
 
 import { MagickFormat } from '@src/enums/magick-format';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#flatten', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.flatten(() => { /* never reached */ });
             }).toThrowError('operation requires at least one image');
@@ -16,7 +16,7 @@ describe('MagickImageCollection#flatten', () => {
     });
 
     it('should flatten the images', () => {
-        TestImages.roseSparkleGif.use(images => {
+        TestFiles.Images.roseSparkleGif.use(images => {
             images.flatten(image => {
                 expect(image.format).toBe(MagickFormat.Gif);
                 expect(image.width).toBe(70);

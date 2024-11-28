@@ -5,11 +5,11 @@
 
 import { MagickColors } from '@src/magick-colors';
 import { MagickImage } from '@src/magick-image';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#optimizePlus', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.optimizeTransparency();
             }).toThrowError('operation requires at least one image');
@@ -17,7 +17,7 @@ describe('MagickImageCollection#optimizePlus', () => {
     });
 
     it('should make part of the images transparent', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
 
             images.push(MagickImage.create(MagickColors.Red, 1, 2));
             images.push(MagickImage.create(MagickColors.Red, 1, 2));

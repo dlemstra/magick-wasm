@@ -4,11 +4,11 @@
 */
 
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#page', () => {
     it('should return the default value', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             const page = image.page;
             expect(page.x).toBe(0);
             expect(page.y).toBe(0);
@@ -18,7 +18,7 @@ describe('MagickImage#page', () => {
     });
 
     it('should set the correct properties', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             image.page = new MagickGeometry(1, 2, 3, 4);
 
             const page = image.page;

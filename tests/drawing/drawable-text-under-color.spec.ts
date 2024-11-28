@@ -9,11 +9,10 @@ import { DrawableText } from '@src/drawing/drawable-text';
 import { DrawableTextUnderColor } from '@src/drawing/drawable-text-under-color';
 import { MagickColors } from '@src/magick-colors';
 import { TestFiles } from '@test/test-files';
-import { TestImages } from '@test/test-images';
 
 describe('DrawableTextUnderColor', () => {
     it('should write text without text under color to the image', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
@@ -27,7 +26,7 @@ describe('DrawableTextUnderColor', () => {
     });
 
     it('should write text with text under color to the image', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),

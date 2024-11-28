@@ -5,11 +5,11 @@
 
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#splice', () => {
     it('should splice the background color into the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.backgroundColor = MagickColors.MediumPurple;
             image.splice(new MagickGeometry(20, 30, 40, 50));
             expect(image).toHavePixelWithColor(19, 29, '#ffffffff');

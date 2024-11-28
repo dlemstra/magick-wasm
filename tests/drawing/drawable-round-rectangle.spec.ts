@@ -6,11 +6,11 @@
 import { DrawableRoundRectangle } from '@src/drawing/drawable-round-rectangle';
 import { DrawableFillColor } from '@src/drawing/drawable-fill-color';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('DrawableRoundRectangle', () => {
     it('should draw a rounded rectangle', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFillColor(MagickColors.Green),
                 new DrawableRoundRectangle(0, 0, 11, 11, 5, 5),

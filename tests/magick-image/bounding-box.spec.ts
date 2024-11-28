@@ -4,11 +4,11 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#boundingBox', () => {
     it('should return the correct rectangle', () => {
-        TestImages.Builtin.wizard.use(image => {
+        TestFiles.Images.Builtin.wizard.use(image => {
             let rectangle = image.boundingBox;
 
             rectangle = expectToNotBeNull(rectangle);
@@ -20,7 +20,7 @@ describe('MagickImage#boundingBox', () => {
     });
 
     it('should return null when there is no bounding box', async () => {
-        TestImages.Builtin.wizard.use(image => {
+        TestFiles.Images.Builtin.wizard.use(image => {
             image.inverseOpaque(MagickColors.Purple, MagickColors.Black);
 
             const rectangle = image.boundingBox;

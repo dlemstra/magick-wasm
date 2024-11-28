@@ -3,17 +3,17 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#animationIterations', () => {
     it('should return the animation iterations', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             expect(image.animationIterations).toBe(0);
         });
     });
 
     it('should change the animation iterations', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.animationIterations = 10;
             expect(image.animationIterations).toBe(10);
         });

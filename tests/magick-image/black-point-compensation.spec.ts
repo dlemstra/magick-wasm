@@ -3,17 +3,17 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#blackPointCompensation', () => {
     it('should have the correct default value', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             expect(image.blackPointCompensation).toBe(false);
         });
     });
 
     it('should be preserved when cloning an image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.blackPointCompensation = true;
             image.clone(clone => {
                 expect(clone.blackPointCompensation).toBe(true);

@@ -4,12 +4,12 @@
 */
 
 import { MagickFormat } from '@src/enums/magick-format';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 import { bogusAsyncMethod } from '@test/bogus-async';
 
 describe('MagickImage#write', () => {
     it('should save the image to an array async', async () => {
-        await TestImages.imageMagickJpg.use(async (image) => {
+        await TestFiles.Images.imageMagickJpg.use(async (image) => {
             await image.write(async (data) => {
                 expect(data.length).toBe(18830);
                 await bogusAsyncMethod();
@@ -18,7 +18,7 @@ describe('MagickImage#write', () => {
     });
 
     it('should save the image to an array', () => {
-        TestImages.Builtin.wizard.use((image) => {
+        TestFiles.Images.Builtin.wizard.use((image) => {
             image.write(MagickFormat.Png, (data) => {
                 expect(data.length).toBe(87352);
             });

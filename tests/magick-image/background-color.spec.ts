@@ -4,11 +4,11 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#backgroundColor', () => {
     it('should return the background color of the image', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             const backgroundColor = image.backgroundColor;
             expect(backgroundColor.r).toBe(255);
             expect(backgroundColor.g).toBe(255);
@@ -18,7 +18,7 @@ describe('MagickImage#backgroundColor', () => {
     });
 
     it('should change background color', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.backgroundColor = MagickColors.Black;
             const backgroundColor = image.backgroundColor;
             expect(backgroundColor.r).toBe(0);

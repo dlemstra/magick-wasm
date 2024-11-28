@@ -4,11 +4,11 @@
 */
 
 import { PixelCollection } from '@src/pixels/pixel-collection';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#getPixels', () => {
     it('should dispose pixel instance', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             let pixels = PixelCollection._create(image);
             image.getPixels((p) => {
                 pixels = p as PixelCollection;

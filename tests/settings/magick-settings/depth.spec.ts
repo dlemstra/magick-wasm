@@ -5,11 +5,11 @@
 
 import { ImageMagick } from '@src/image-magick';
 import { MagickFormat } from '@src/enums/magick-format';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickSettings#depth', () => {
     it('should be used when writing the image', () => {
-        TestImages.Builtin.logo.use(input => {
+        TestFiles.Images.Builtin.logo.use(input => {
             input.settings.depth = 5;
 
             input.write(MagickFormat.Tga, (data) => {

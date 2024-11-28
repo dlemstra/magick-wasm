@@ -4,17 +4,17 @@
 */
 
 import { ColorType } from '@src/enums/color-type';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#colorType', () => {
     it('should return the color type', async () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             expect(image.colorType).toBe(ColorType.Palette);
         });
     });
 
     it('should return the color type of the settings when that is not undefined', async () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.settings.colorType = ColorType.Grayscale;
 
             expect(image.colorType).toBe(ColorType.Grayscale);
@@ -22,7 +22,7 @@ describe('MagickImage#colorType', () => {
     });
 
     it('should change color type', async () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.colorType = ColorType.TrueColor;
             expect(image.colorType).toBe(ColorType.TrueColor);
         });

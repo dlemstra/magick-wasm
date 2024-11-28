@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#smushHorizontal', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.smushHorizontal(3, () => { /* never reached */ });
             }).toThrowError('operation requires at least one image');
@@ -15,7 +15,7 @@ describe('MagickImageCollection#smushHorizontal', () => {
     });
 
     it('should smush the images horizontally', () => {
-        TestImages.roseSparkleGif.use((images) => {
+        TestFiles.Images.roseSparkleGif.use((images) => {
             images.smushHorizontal(10, (image) => {
                 expect(image.width).toBe(230);
                 expect(image.height).toBe(46);

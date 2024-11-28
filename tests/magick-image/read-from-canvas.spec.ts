@@ -5,11 +5,11 @@
 
 import { JSDOM } from 'jsdom';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#readFromCanvas', () => {
     it('should read the image data from the canvas', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             const window = new JSDOM().window;
 
             const canvas = window.document.createElement('canvas');

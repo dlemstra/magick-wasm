@@ -4,12 +4,12 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#setWriteMask', () => {
     it('should set mask for whole image', () => {
-        TestImages.Builtin.logo.use((image) => {
-            TestImages.empty.use((writeMask) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
+            TestFiles.Images.empty.use((writeMask) => {
                 writeMask.read(MagickColors.White, 10, 15);
                 image.setWriteMask(writeMask);
 

@@ -4,17 +4,17 @@
 */
 
 import { RenderingIntent } from '@src/enums/rendering-intent';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#renderingIntent', () => {
     it('should have the correct default value', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             expect(image.renderingIntent).toBe(RenderingIntent.Perceptual);
         });
     });
 
     it('should change the rendering intent', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.renderingIntent = RenderingIntent.Saturation;
             expect(image.renderingIntent).toBe(RenderingIntent.Saturation);
         });

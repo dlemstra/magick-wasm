@@ -4,11 +4,11 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#sharpen', () => {
     it('should use correct defaults for radius and sigma.', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 image.sharpen();
                 other.sharpen(0, 1.0);
@@ -19,7 +19,7 @@ describe('MagickImage#sharpen', () => {
     });
 
     it('should use composite as default channels', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 image.sharpen(1.0, 1.0);
                 other.sharpen(1.0, 1.0, Channels.Composite);
@@ -30,7 +30,7 @@ describe('MagickImage#sharpen', () => {
     });
 
     it('should sharpen the image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 other.sharpen(10, 20);
 

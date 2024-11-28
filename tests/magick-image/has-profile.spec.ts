@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#hasProfile', () => {
     it('should return true when image contains a profile with the specified name', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             image.profileNames.forEach(name => {
                 expect(image.hasProfile(name)).toBeTruthy();
             });
@@ -15,7 +15,7 @@ describe('MagickImage#hasProfile', () => {
     });
 
     it('should return false when image does not contain a profile with the specified name', () => {
-        TestImages.imageMagickJpg.use(image => {
+        TestFiles.Images.imageMagickJpg.use(image => {
             expect(image.hasProfile('foobar')).toBeFalsy();
 
             expect(image.hasProfile('8bim')).toBeFalsy();

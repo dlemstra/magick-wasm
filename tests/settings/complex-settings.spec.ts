@@ -6,7 +6,7 @@
 import { ComplexOperator } from '@src/enums/complex-operator';
 import { TemporaryDefines } from '@src/helpers/temporary-defines';
 import { ComplexSettings } from '@src/settings/complex-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('ComplexSettings', () => {
     const settings = new ComplexSettings(ComplexOperator.Multiply);
@@ -14,7 +14,7 @@ describe('ComplexSettings', () => {
 
     describe('#_setArtifacts', () => {
         it('should add all defined artifacts to the provided image', () => {
-            TestImages.Builtin.logo.use((image) => {
+            TestFiles.Images.Builtin.logo.use((image) => {
                 TemporaryDefines.use(image, (temporaryDefines) => {
                     settings._setArtifacts(temporaryDefines);
 

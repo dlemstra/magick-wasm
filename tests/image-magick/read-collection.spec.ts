@@ -6,7 +6,7 @@
 import { ImageMagick } from '@src/image-magick';
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 import { bogusAsyncMethod } from '@test/bogus-async';
 
 describe('ImageMagick#readCollection', () => {
@@ -28,7 +28,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array async', async () => {
-        await ImageMagick.readCollection(TestImages.roseSparkleGif.data, async (images) => {
+        await ImageMagick.readCollection(TestFiles.Images.roseSparkleGif.data, async (images) => {
             expect(images.length).toBe(3);
             images.forEach(image => {
                 expect(image.width).toBe(70);
@@ -39,7 +39,7 @@ describe('ImageMagick#readCollection', () => {
     });
 
     it('should read image from array', () => {
-        ImageMagick.readCollection(TestImages.roseSparkleGif.data, (images) => {
+        ImageMagick.readCollection(TestFiles.Images.roseSparkleGif.data, (images) => {
             expect(images.length).toBe(3);
             images.forEach(image => {
                 expect(image.width).toBe(70);
@@ -50,7 +50,7 @@ describe('ImageMagick#readCollection', () => {
 
     it('should read image from array with specified format async', async () => {
         await expect(async () => {
-            await ImageMagick.readCollection(TestImages.roseSparkleGif.data, MagickFormat.Png, async () => {
+            await ImageMagick.readCollection(TestFiles.Images.roseSparkleGif.data, MagickFormat.Png, async () => {
                 await bogusAsyncMethod();
             });
         })
@@ -60,7 +60,7 @@ describe('ImageMagick#readCollection', () => {
 
     it('should read image from array with specified format', () => {
         expect(() => {
-            ImageMagick.readCollection(TestImages.roseSparkleGif.data, MagickFormat.Png, (image) => {
+            ImageMagick.readCollection(TestFiles.Images.roseSparkleGif.data, MagickFormat.Png, (image) => {
                 console.log(image);
             });
         })
@@ -73,7 +73,7 @@ describe('ImageMagick#readCollection', () => {
         });
 
         await expect(async () => {
-            await ImageMagick.readCollection(TestImages.roseSparkleGif.data, settings, async () => {
+            await ImageMagick.readCollection(TestFiles.Images.roseSparkleGif.data, settings, async () => {
                 await bogusAsyncMethod();
             });
         })
@@ -87,7 +87,7 @@ describe('ImageMagick#readCollection', () => {
         });
 
         expect(() => {
-            ImageMagick.readCollection(TestImages.roseSparkleGif.data, settings, () => {
+            ImageMagick.readCollection(TestFiles.Images.roseSparkleGif.data, settings, () => {
                 // will never be reached
             });
         }).toThrowError('ImproperImageHeader');

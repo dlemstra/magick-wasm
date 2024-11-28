@@ -4,11 +4,11 @@
 */
 
 import { MagickColor } from '@src/magick-color';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#inverseContrast', () => {
     it('should decrease the image contrast', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.read(new MagickColor(25, 25, 25), 2, 1);
             image.getPixels(pixels => {
                 pixels.setPixel(1, 0, [230, 230, 230]);

@@ -4,11 +4,11 @@
 */
 
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#resetPage', () => {
     it('should reset the page', () => {
-        TestImages.roseSparkleGif.use((images) => {
+        TestFiles.Images.roseSparkleGif.use((images) => {
             images.forEach((image) => {
                 image.page = new MagickGeometry(3, 4, 1, 2);
                 expect(image.page.toString()).toBe('1x2+3+4');

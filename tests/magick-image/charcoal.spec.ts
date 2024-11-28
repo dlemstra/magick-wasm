@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#charcoal', () => {
     it('should default to a radius of 0 and sigma of 1', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 image.charcoal();
                 other.charcoal(0.0, 1.0);
@@ -18,7 +18,7 @@ describe('MagickImage#charcoal', () => {
     });
 
     it('should create an charcoal the image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 other.charcoal(4, 2);
 

@@ -4,11 +4,11 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#rotate', () => {
     it('should rotate the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.rotate(90);
 
             expect(image.width).toBe(480);
@@ -17,7 +17,7 @@ describe('MagickImage#rotate', () => {
     });
 
     it('should change the dimensions of the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.backgroundColor = MagickColors.Pink;
             image.rotate(45);
 

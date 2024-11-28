@@ -7,11 +7,11 @@ import { Channels } from '@src/enums/channels';
 import { MagickColor } from '@src/magick-color';
 import { MagickImage } from '@src/magick-image';
 import { bogusAsyncMethod } from '@test/bogus-async';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#fx', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.fx('test', () => { /* never reached */ });
             }).toThrowError('operation requires at least one image');
@@ -19,7 +19,7 @@ describe('MagickImageCollection#fx', () => {
     });
 
     it('apply a mathematical expression', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             images.push(MagickImage.create(new MagickColor('#ff0040'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
             images.fx('(u+v)/2', (image) => {
@@ -29,7 +29,7 @@ describe('MagickImageCollection#fx', () => {
     });
 
     it('apply a mathematical expression async', async () => {
-        await TestImages.emptyCollection.use(async (images) => {
+        await TestFiles.Images.emptyCollection.use(async (images) => {
             images.push(MagickImage.create(new MagickColor('#ff0040'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
             await images.fx('(u+v)/2', async (image) => {
@@ -41,7 +41,7 @@ describe('MagickImageCollection#fx', () => {
     });
 
     it('apply a mathematical expression to the specified channels', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             images.push(MagickImage.create(new MagickColor('#ff0040'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
             images.fx('(u+v)/2', Channels.Red | Channels.Blue, (image) => {
@@ -51,7 +51,7 @@ describe('MagickImageCollection#fx', () => {
     });
 
     it('apply a mathematical expression to the specified channels async', async () => {
-        await TestImages.emptyCollection.use(async (images) => {
+        await TestFiles.Images.emptyCollection.use(async (images) => {
             images.push(MagickImage.create(new MagickColor('#aa00bb'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
             await images.fx('(u+v)/2', Channels.Green, async (image) => {

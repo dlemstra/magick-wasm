@@ -5,11 +5,11 @@
 
 import { Channels } from '@src/enums/channels';
 import { ErrorMetric } from '@src/enums/error-metric';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#autoLevel', () => {
     it('should auto level to the image', () => {
-        TestImages.Builtin.rose.use(image => {
+        TestFiles.Images.Builtin.rose.use(image => {
             image.autoLevel();
 
             expect(image).toHavePixelWithColor(5, 40, '#5b5646ff');
@@ -17,7 +17,7 @@ describe('MagickImage#autoLevel', () => {
     });
 
     it('should only auto level the specified channels', () => {
-        TestImages.Builtin.rose.use(image => {
+        TestFiles.Images.Builtin.rose.use(image => {
             image.autoLevel(Channels.Red);
 
             expect(image).toHavePixelWithColor(5, 40, '#516556ff');
@@ -25,7 +25,7 @@ describe('MagickImage#autoLevel', () => {
     });
 
     it('should use the correct default channels', () => {
-        TestImages.Builtin.rose.use(image => {
+        TestFiles.Images.Builtin.rose.use(image => {
             image.clone(other => {
                 image.autoLevel();
                 other.autoLevel(Channels.Undefined);

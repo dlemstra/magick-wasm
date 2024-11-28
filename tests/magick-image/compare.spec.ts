@@ -8,20 +8,20 @@ import { CompareSettings } from '@src/settings/compare-settings';
 import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 import { bogusAsyncMethod } from '@test/bogus-async';
 
 describe('MagickImage#compare', () => {
     it('should return 0 for same image', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.read(MagickColors.Red, 1, 1);
             expect(image.compare(image, ErrorMetric.RootMeanSquared)).toBe(0);
         });
     });
 
     it('should return difference', () => {
-        TestImages.empty.use(image => {
-            TestImages.empty.use(other => {
+        TestFiles.Images.empty.use(image => {
+            TestFiles.Images.empty.use(other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
 
@@ -31,8 +31,8 @@ describe('MagickImage#compare', () => {
     });
 
     it('should call function with compare result', () => {
-        TestImages.empty.use(image => {
-            TestImages.empty.use(other => {
+        TestFiles.Images.empty.use(image => {
+            TestFiles.Images.empty.use(other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
                 const result = image.compare(other, ErrorMetric.RootMeanSquared, compareResult => {
@@ -51,8 +51,8 @@ describe('MagickImage#compare', () => {
     });
 
     it('should call function with compare result and use the settings', () => {
-        TestImages.empty.use(image => {
-            TestImages.empty.use(other => {
+        TestFiles.Images.empty.use(image => {
+            TestFiles.Images.empty.use(other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
 
@@ -75,8 +75,8 @@ describe('MagickImage#compare', () => {
     });
 
     it('should set the correct artifacts from the settings', () => {
-        TestImages.empty.use(image => {
-            TestImages.empty.use(other => {
+        TestFiles.Images.empty.use(image => {
+            TestFiles.Images.empty.use(other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
 
@@ -95,8 +95,8 @@ describe('MagickImage#compare', () => {
     });
 
     it('should call function with compare result async', async () => {
-        await TestImages.empty.use(async image => {
-            await TestImages.empty.use(async other => {
+        await TestFiles.Images.empty.use(async image => {
+            await TestFiles.Images.empty.use(async other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
                 const result = await image.compare(other, ErrorMetric.RootMeanSquared, async compareResult => {
@@ -118,8 +118,8 @@ describe('MagickImage#compare', () => {
     });
 
     it('should call function with compare result async and use the settings', async () => {
-        await TestImages.empty.use(async image => {
-            await TestImages.empty.use(async other => {
+        await TestFiles.Images.empty.use(async image => {
+            await TestFiles.Images.empty.use(async other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
 
@@ -145,8 +145,8 @@ describe('MagickImage#compare', () => {
     });
 
     it('should compare the specified channels', () => {
-        TestImages.empty.use(image => {
-            TestImages.empty.use(other => {
+        TestFiles.Images.empty.use(image => {
+            TestFiles.Images.empty.use(other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
                 expect(image.compare(other, ErrorMetric.RootMeanSquared, Channels.Red)).toBeCloseTo(0.15169, 4);
@@ -155,8 +155,8 @@ describe('MagickImage#compare', () => {
     });
 
     it('should compare the specified channels and call function with compare result', () => {
-        TestImages.empty.use(image => {
-            TestImages.empty.use(other => {
+        TestFiles.Images.empty.use(image => {
+            TestFiles.Images.empty.use(other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
 
@@ -176,8 +176,8 @@ describe('MagickImage#compare', () => {
     });
 
     it('should compare the specified channels, use the settings and call function with compare result', () => {
-        TestImages.empty.use(image => {
-            TestImages.empty.use(other => {
+        TestFiles.Images.empty.use(image => {
+            TestFiles.Images.empty.use(other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
 
@@ -201,8 +201,8 @@ describe('MagickImage#compare', () => {
 
 
     it('should compare the specified channels and call function with compare result async', async () => {
-        await TestImages.empty.use(async image => {
-            await TestImages.empty.use(async other => {
+        await TestFiles.Images.empty.use(async image => {
+            await TestFiles.Images.empty.use(async other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
 
@@ -226,8 +226,8 @@ describe('MagickImage#compare', () => {
 
 
     it('should compare the specified channels, use the settings and call function with compare result async', async () => {
-        await TestImages.empty.use(async image => {
-            await TestImages.empty.use(async other => {
+        await TestFiles.Images.empty.use(async image => {
+            await TestFiles.Images.empty.use(async other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
 

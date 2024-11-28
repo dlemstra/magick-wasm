@@ -5,11 +5,11 @@
 
 import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#normalize', () => {
     it('should normalize the image', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             image.read(new MagickColor(179, 179, 179), 4, 1);
             image.getPixels(pixels => {
                 pixels.setPixel(1, 0, [77, 77, 77]);

@@ -4,11 +4,11 @@
 */
 
 import { Interlace } from '@src/enums/interlace';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#interlace', () => {
     it('should return interlace of the image', () => {
-        TestImages.roseSparkleGif.use(images => {
+        TestFiles.Images.roseSparkleGif.use(images => {
             expect(images[0].interlace).toBe(Interlace.NoInterlace);
         });
     });

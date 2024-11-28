@@ -7,7 +7,7 @@ import { ErrorMetric } from '@src/enums/error-metric';
 import { TemporaryDefines } from '@src/helpers/temporary-defines';
 import { MagickColors } from '@src/magick-colors';
 import { CompareSettings } from '@src/settings/compare-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('CompareSettings', () => {
     const settings = new CompareSettings(ErrorMetric.NormalizedCrossCorrelation);
@@ -17,7 +17,7 @@ describe('CompareSettings', () => {
 
     describe('#_setArtifacts', () => {
         it('should add all defined artifacts to the provided image', () => {
-            TestImages.Builtin.logo.use((image) => {
+            TestFiles.Images.Builtin.logo.use((image) => {
                 TemporaryDefines.use(image, (temporaryDefines) => {
                     settings._setArtifacts(temporaryDefines);
 

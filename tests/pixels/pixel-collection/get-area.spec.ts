@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('PixelCollection#getArea', () => {
     it('should return array with the correct size', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.getPixels(pixels => {
                 const data = pixels.getArea(0, 0, 4, 5);
                 expect(data).not.toBeNull();

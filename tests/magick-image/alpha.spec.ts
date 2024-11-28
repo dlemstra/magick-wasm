@@ -4,11 +4,11 @@
 */
 
 import { AlphaOption } from '@src/enums/alpha-option';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#alpha', () => {
     it('should enable alpha channel', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.alpha(AlphaOption.On);
             expect(image.channelCount).toBe(5);
             expect(image.hasAlpha).toBe(true);

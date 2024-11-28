@@ -7,7 +7,7 @@ import { DistortMethod } from '@src/enums/distort-method';
 import { TemporaryDefines } from '@src/helpers/temporary-defines';
 import { DistortSettings } from '@src/settings/distort-settings';
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('DistortSettings', () => {
     const settings = new DistortSettings(DistortMethod.Perspective);
@@ -16,7 +16,7 @@ describe('DistortSettings', () => {
 
     describe('#_setArtifacts', () => {
         it('should add all defined artifacts to the provided image', () => {
-            TestImages.Builtin.logo.use((image) => {
+            TestFiles.Images.Builtin.logo.use((image) => {
                 TemporaryDefines.use(image, (temporaryDefines) => {
                     settings._setArtifacts(temporaryDefines);
 

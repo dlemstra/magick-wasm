@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('PixelCollection#toByteArray', () => {
     it('should return array with the correct size', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.getPixels(pixels => {
                 const data = pixels.toByteArray(0, 0, 2, 3, 'rgb');
                 expect(data).not.toBeNull();

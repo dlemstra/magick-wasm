@@ -4,11 +4,11 @@
 */
 
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#resetPage', () => {
     it('should reset the page', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             image.page = new MagickGeometry(1, 2, 3, 4);
 
             image.resetPage();

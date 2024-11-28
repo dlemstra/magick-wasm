@@ -10,11 +10,10 @@ import { DrawableText } from '@src/drawing/drawable-text';
 import { DrawableTextKerning } from '@src/drawing/drawable-text-kerning';
 import { MagickColor } from '@src/magick-color';
 import { TestFiles } from '@test/test-files';
-import { TestImages } from '@test/test-images';
 
 describe('DrawableTextKerning', () => {
     it('should write text with kerning to the image', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(100),
@@ -28,7 +27,7 @@ describe('DrawableTextKerning', () => {
     });
 
     it('should write text without kerning to the image', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(100),

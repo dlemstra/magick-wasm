@@ -6,11 +6,11 @@
 import { DrawableRectangle } from '@src/drawing/drawable-rectangle';
 import { DrawableFillColor } from '@src/drawing/drawable-fill-color';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('DrawableRectangle', () => {
     it('should draw a rectangle', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFillColor(MagickColors.Green),
                 new DrawableRectangle(1, 1, 3, 2),

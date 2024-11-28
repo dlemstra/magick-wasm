@@ -6,11 +6,11 @@
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { MagickImage } from '@src/magick-image';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#deconstruct', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.deconstruct();
             }).toThrowError('operation requires at least one image');
@@ -18,10 +18,10 @@ describe('MagickImageCollection#deconstruct', () => {
     });
 
     it('should break the images down into constituent parts.', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             images.push(MagickImage.create(MagickColors.Green, 10, 10));
 
-            TestImages.emptyCollection.use((frames) => {
+            TestFiles.Images.emptyCollection.use((frames) => {
                 frames.push(MagickImage.create(MagickColors.Yellow, 10, 5));
                 frames.push(MagickImage.create(MagickColors.Green, 10, 5));
 

@@ -5,11 +5,11 @@
 
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#mosaic', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.mosaic(() => { /* never reached */ });
             }).toThrowError('operation requires at least one image');
@@ -17,7 +17,7 @@ describe('MagickImageCollection#mosaic', () => {
     });
 
     it('should create a mosaic of the images', () => {
-        TestImages.roseSparkleGif.use(images => {
+        TestFiles.Images.roseSparkleGif.use(images => {
             images[1].page = new MagickGeometry(100, 100, images[1].width, images[1].height);
 
             images.mosaic(image => {

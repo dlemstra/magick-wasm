@@ -4,11 +4,11 @@
 */
 
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#adaptiveResize', () => {
     it('should change the width of the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.adaptiveResize(400, 0);
 
             expect(image.width).toBe(400);
@@ -17,7 +17,7 @@ describe('MagickImage#adaptiveResize', () => {
     });
 
     it('should change the height of the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.adaptiveResize(0, 400);
 
             expect(image.width).toBe(533);
@@ -26,7 +26,7 @@ describe('MagickImage#adaptiveResize', () => {
     });
 
     it('with geometry should change the width of the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.adaptiveResize(new MagickGeometry(300, 0));
 
             expect(image.width).toBe(300);
@@ -35,13 +35,13 @@ describe('MagickImage#adaptiveResize', () => {
     });
 
     it('with geometry should change the height of the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.adaptiveResize(new MagickGeometry(0, 300));
 
             expect(image.width).toBe(400);
             expect(image.height).toBe(300);
 
-            TestImages.Builtin.logo.use((original) => {
+            TestFiles.Images.Builtin.logo.use((original) => {
                 expect(image).toEqualImage(original, 0.31492);
             });
         });

@@ -6,11 +6,11 @@
 import { Gravity } from '@src/enums/gravity';
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#extent', () => {
     it('should extent the image', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.extent(2, 3);
 
             expect(image.width).toBe(2);
@@ -19,7 +19,7 @@ describe('MagickImage#extent', () => {
     });
 
     it('should extent the image with the specified color', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.extent(2, 3, MagickColors.Magenta);
 
             expect(image.width).toBe(2);
@@ -29,7 +29,7 @@ describe('MagickImage#extent', () => {
     });
 
     it('should extent the image with the specified gravity', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.backgroundColor = MagickColors.Magenta;
             image.extent(2, 3, Gravity.Southeast);
 
@@ -40,7 +40,7 @@ describe('MagickImage#extent', () => {
     });
 
     it('should extent the image with the specified geometry', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.extent(new MagickGeometry(2, 3));
 
             expect(image.width).toBe(2);
@@ -49,7 +49,7 @@ describe('MagickImage#extent', () => {
     });
 
     it('should extent the image with the specified geometry and offset', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.backgroundColor = MagickColors.Magenta;
             image.extent(new MagickGeometry(-1, -1, 2, 3));
 
@@ -60,7 +60,7 @@ describe('MagickImage#extent', () => {
     });
 
     it('should extent the image with the specified geometry and color', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.extent(new MagickGeometry(2, 3), MagickColors.Magenta);
 
             expect(image.width).toBe(2);
@@ -70,7 +70,7 @@ describe('MagickImage#extent', () => {
     });
 
     it('should extent the image with the specified geometry and gravity', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.backgroundColor = MagickColors.Magenta;
             image.extent(new MagickGeometry(2, 3), Gravity.Southwest);
 
@@ -81,7 +81,7 @@ describe('MagickImage#extent', () => {
     });
 
     it('should extent the image with the specified geometry, gravity and color', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.extent(new MagickGeometry(2, 3), Gravity.Southwest, MagickColors.Magenta);
 
             expect(image.width).toBe(2);

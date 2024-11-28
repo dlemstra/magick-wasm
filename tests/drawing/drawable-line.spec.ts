@@ -6,11 +6,11 @@
 import { DrawableLine } from '@src/drawing/drawable-line';
 import { DrawableFillColor } from '@src/drawing/drawable-fill-color';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('DrawableLine', () => {
     it('should draw a line on the image', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             const fillColor = MagickColors.Red;
 
             image.draw([

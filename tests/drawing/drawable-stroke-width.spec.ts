@@ -7,11 +7,11 @@ import { DrawableLine } from '@src/drawing/drawable-line';
 import { DrawableStrokeColor } from '@src/drawing/drawable-stroke-color';
 import { DrawableStrokeWidth } from '@src/drawing/drawable-stroke-width';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('DrawableStrokeWidth', () => {
     it('should change the width of a line', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             const strokeColor = MagickColors.Green;
 
             image.draw([

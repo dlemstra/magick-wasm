@@ -5,18 +5,18 @@
 
 import { Channels } from '@src/enums/channels';
 import { ErrorMetric } from '@src/enums/error-metric';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#blur', () => {
     it('should change pixels of the image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.blur(5, 5);
             expect(image).toHavePixelWithColor(222, 60, '#ff6a6aff');
         });
     });
 
     it('should not confuse channels for radius', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 image.blur(Channels.Blue);
                 other.blur(4, 1);
@@ -28,7 +28,7 @@ describe('MagickImage#blur', () => {
     });
 
     it('should only blur the specified channel', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.blur(5, 5, Channels.Green);
             expect(image).toHavePixelWithColor(222, 60, '#ff6a00ff');
         });

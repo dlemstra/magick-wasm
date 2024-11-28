@@ -6,11 +6,11 @@
 import { ColorSpace } from '@src/enums/color-space';
 import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickFormat } from '@src/enums/magick-format';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#combine', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.combine(() => { /* never reached */ });
             }).toThrowError('operation requires at least one image');
@@ -18,7 +18,7 @@ describe('MagickImageCollection#combine', () => {
     });
 
     it('should combine the channels into an image', () => {
-        TestImages.redPng.use(image => {
+        TestFiles.Images.redPng.use(image => {
             image.separate(images => {
                 images.combine(combinedImage => {
                     expect(combinedImage.format).toBe(MagickFormat.Png);
@@ -32,7 +32,7 @@ describe('MagickImageCollection#combine', () => {
     });
 
     it('should combine the channels using the specified colorspace into an image', () => {
-        TestImages.cmykJpg.use(image => {
+        TestFiles.Images.cmykJpg.use(image => {
             image.separate(images => {
                 images.combine(ColorSpace.CMYK, combinedImage => {
                     expect(combinedImage.format).toBe(MagickFormat.Jpeg);

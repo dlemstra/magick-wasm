@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#removeAttribute', () => {
     it('should remove the attribute from the image', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             image.setAttribute('foo', 'bar');
 
             image.removeAttribute('foo');

@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#profileNames', () => {
     it('should return empty array when image has not profiles', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             const names = image.profileNames;
 
             expect(names).not.toBeNull();
@@ -16,7 +16,7 @@ describe('MagickImage#profileNames', () => {
     });
 
     it('should return the profiles names of the image', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             const names = image.profileNames;
 
             expect(names).not.toBeNull();

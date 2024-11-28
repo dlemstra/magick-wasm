@@ -4,17 +4,17 @@
 */
 
 import { ColorSpace } from '@src/enums/color-space';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#colorSpace', () => {
     it('should return the color space', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             expect(image.colorSpace).toBe(ColorSpace.sRGB);
         });
     });
 
     it('should change the color space', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.colorSpace = ColorSpace.CMYK;
             expect(image.colorSpace).toBe(ColorSpace.CMYK);
         });

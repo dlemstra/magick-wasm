@@ -4,11 +4,11 @@
 */
 
 import { Percentage } from '@src/types/percentage';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#brightnessContrast', () => {
     it('should not change at all', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 other.brightnessContrast(new Percentage(0), new Percentage(0));
 
@@ -18,7 +18,7 @@ describe('MagickImage#brightnessContrast', () => {
     });
 
     it('should change the brightness only', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 other.brightnessContrast(new Percentage(50), new Percentage(0));
 
@@ -28,7 +28,7 @@ describe('MagickImage#brightnessContrast', () => {
     });
 
     it('should change both brightness and contrast', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 other.brightnessContrast(new Percentage(50), new Percentage(100));
 

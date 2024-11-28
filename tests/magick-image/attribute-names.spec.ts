@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#attributeNames', () => {
     it('should return empty array when image has not attributes', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             const names = image.attributeNames;
 
             expect(names).not.toBeNull();
@@ -16,7 +16,7 @@ describe('MagickImage#attributeNames', () => {
     });
 
     it('should return the attributes names of the image', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.setAttribute('foo', 'bar');
 
             const names = image.attributeNames;

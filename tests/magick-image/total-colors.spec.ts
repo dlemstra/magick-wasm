@@ -3,17 +3,17 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#threshold', () => {
     it('should tbe zero for an empty image', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             expect(image.totalColors).toBe(0);
         });
     });
 
     it('should return the total number of colors in an image', () => {
-        TestImages.cmykJpg.use((image) => {
+        TestFiles.Images.cmykJpg.use((image) => {
             expect(image.totalColors).toBe(9355);
         });
     });

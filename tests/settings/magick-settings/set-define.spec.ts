@@ -7,7 +7,7 @@ import { ImageMagick } from '@src/image-magick';
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
 import { MagickSettings } from '@src/settings/magick-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickSettings#setDefine', () => {
     it('should change boolean value into a string', () => {
@@ -41,7 +41,7 @@ describe('MagickSettings#setDefine', () => {
         const settings = new MagickReadSettings();
         settings.setDefine('profile:skip', 'icc');
 
-        ImageMagick.read(TestImages.fujiFilmFinePixS1ProJpg.data, settings, image => {
+        ImageMagick.read(TestFiles.Images.fujiFilmFinePixS1ProJpg.data, settings, image => {
             const profile = image.getProfile('icc');
 
             expect(profile).toBeNull();

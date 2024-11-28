@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#merge', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.merge(() => { /* never reached */ });
             }).toThrowError('operation requires at least one image');
@@ -15,8 +15,8 @@ describe('MagickImageCollection#merge', () => {
     });
 
     it('should merge the images', () => {
-        TestImages.roseSparkleGif.use(roses => {
-            TestImages.imageMagickJpg.use(imageMagickJpg => {
+        TestFiles.Images.roseSparkleGif.use(roses => {
+            TestFiles.Images.imageMagickJpg.use(imageMagickJpg => {
 
                 roses.unshift(imageMagickJpg);
 

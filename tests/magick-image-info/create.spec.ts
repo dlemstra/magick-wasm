@@ -10,11 +10,11 @@ import { Interlace } from '@src/enums/interlace';
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickImageInfo } from '@src/magick-image-info';
 import { OrientationType } from '@src/enums/orientation-type';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageInfo#constructor', () => {
     it('should read the information of the image', () => {
-        const magickImageInfo = MagickImageInfo.create(TestImages.cmykJpg.data);
+        const magickImageInfo = MagickImageInfo.create(TestFiles.Images.cmykJpg.data);
         expect(magickImageInfo.colorSpace).toBe(ColorSpace.CMYK);
         expect(magickImageInfo.compression).toBe(CompressionMethod.JPEG);
         expect(magickImageInfo.density.x).toBe(0);

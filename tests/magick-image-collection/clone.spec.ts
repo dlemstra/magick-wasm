@@ -4,11 +4,11 @@
 */
 
 import { ErrorMetric } from '@src/enums/error-metric';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#clone', () => {
     it('should clone the images in the collection', () => {
-        TestImages.roseSparkleGif.use(images => {
+        TestFiles.Images.roseSparkleGif.use(images => {
             images.clone(clones => {
                 expect(clones.length).toBe(3);
                 for (let i = 0; i < clones.length; i++)

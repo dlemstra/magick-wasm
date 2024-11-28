@@ -11,7 +11,6 @@ import { DrawableText } from '@src/drawing/drawable-text';
 import { Gravity } from '@src/enums/gravity';
 import { MagickColors } from '@src/magick-colors';
 import { TestFiles } from '@test/test-files';
-import { TestImages } from '@test/test-images';
 
 describe('DrawableGravity', () => {
     it.each([
@@ -25,7 +24,7 @@ describe('DrawableGravity', () => {
         [Gravity.South, 31, 39],
         [Gravity.Southeast, 40, 39],
     ])('should draw text at the expected gravity %s', (gravity: Gravity, x: number, y: number) => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.read(MagickColors.White, 50, 50);
             image.draw([
                 new DrawableFillColor(MagickColors.Green),

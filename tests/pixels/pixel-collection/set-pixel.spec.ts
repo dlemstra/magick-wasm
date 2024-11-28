@@ -4,11 +4,11 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('PixelCollection#setPixel', () => {
     it('should set the pixels at the specified location', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.getPixels(pixels => {
                 const data = [0, 0, 0, 0];
                 pixels.setPixel(1, 0, data);

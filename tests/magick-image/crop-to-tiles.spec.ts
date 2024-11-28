@@ -7,12 +7,12 @@ import { Channels } from '@src/enums/channels';
 import { ImageMagick } from '@src/image-magick';
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 import { bogusAsyncMethod } from '@test/bogus-async';
 
 describe('MagickImage#cropToTiles', () => {
     it('should crop the image to tiles', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.read(MagickColors.Black, 3, 3);
 
             const result = image.cropToTiles(new MagickGeometry(2, 2), (images) => {

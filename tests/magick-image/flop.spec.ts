@@ -5,11 +5,11 @@
 
 import { MagickColors } from '@src/magick-colors';
 import { MagickImage } from '@src/magick-image';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#flop', () => {
     it('should flop the image', () => {
-        TestImages.emptyCollection.use(images => {
+        TestFiles.Images.emptyCollection.use(images => {
             images.push(MagickImage.create(MagickColors.Red, 2, 1));
             images.push(MagickImage.create(MagickColors.Blue, 1, 1));
 

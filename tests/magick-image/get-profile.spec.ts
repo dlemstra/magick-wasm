@@ -5,7 +5,7 @@
 
 import { ImageMagick } from '@src/image-magick';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#getProfile', () => {
     it('should return null when image does not contain profile', () => {
@@ -16,7 +16,7 @@ describe('MagickImage#getProfile', () => {
     });
 
     it('should return the specified profile', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             let profile = image.getProfile('icc');
             profile = expectToNotBeNull(profile);
             expect(profile.name).toEqual('icc');

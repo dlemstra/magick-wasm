@@ -4,11 +4,11 @@
 */
 
 import { Percentage } from '@src/types/percentage';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#clache', () => {
     it('should change pixels of the image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(clone => {
                 clone.clahe(50, 100, 128, 3);
 
@@ -18,7 +18,7 @@ describe('MagickImage#clache', () => {
     });
 
     it('should change pixels of the image with a percentage', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(clone => {
                 clone.clahe(new Percentage(50), new Percentage(10), 128, 3);
 

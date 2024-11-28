@@ -5,15 +5,15 @@
 
 import { ImageMagick } from '@src/image-magick';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickReadSettings#frameIndex', () => {
     it('should only read the specified index of the collection', () => {
         const settings = new MagickReadSettings();
         settings.frameIndex = 1;
 
-        ImageMagick.read(TestImages.roseSparkleGif.data, settings, image => {
-            TestImages.roseSparkleGif.use(collection => {
+        ImageMagick.read(TestFiles.Images.roseSparkleGif.data, settings, image => {
+            TestFiles.Images.roseSparkleGif.use(collection => {
                 expect(image).toEqualImage(collection[1]);
             });
         });
@@ -24,7 +24,7 @@ describe('MagickReadSettings#frameIndex', () => {
         settings.frameIndex = 42;
 
         expect(() => {
-            ImageMagick.read(TestImages.roseSparkleGif.data, settings, () => {});
+            ImageMagick.read(TestFiles.Images.roseSparkleGif.data, settings, () => {});
         })
         .toThrowError('InvalidImageIndex');
     });

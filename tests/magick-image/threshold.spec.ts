@@ -5,11 +5,11 @@
 
 import { Channels } from '@src/enums/channels';
 import { Percentage } from '@src/types/percentage';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#threshold', () => {
     it('should threshold the image with the correct default values', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.clone((other) => {
                 image.threshold(new Percentage(80));
                 other.threshold(new Percentage(80), Channels.Undefined);
@@ -20,7 +20,7 @@ describe('MagickImage#threshold', () => {
     });
 
     it('should threshold the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.clone((other) => {
                 image.threshold(new Percentage(80));
 

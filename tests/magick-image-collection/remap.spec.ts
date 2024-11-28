@@ -5,12 +5,12 @@
 
 import { MagickColors } from '@src/magick-colors';
 import { MagickImage } from '@src/magick-image';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#remap', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
-            TestImages.empty.use((image) => {
+        TestFiles.Images.emptyCollection.use((images) => {
+            TestFiles.Images.empty.use((image) => {
                 expect(() => {
                     images.remap(image);
                 }).toThrowError('operation requires at least one image');
@@ -19,12 +19,12 @@ describe('MagickImageCollection#remap', () => {
     });
 
     it('should replaces the colors of the images.', () => {
-        TestImages.emptyCollection.use((frames) => {
+        TestFiles.Images.emptyCollection.use((frames) => {
             frames.push(MagickImage.create(MagickColors.Red, 1, 1));
             frames.push(MagickImage.create(MagickColors.Green, 1, 1));
 
             frames.appendHorizontally(image => {
-                TestImages.roseSparkleGif.use((images) => {
+                TestFiles.Images.roseSparkleGif.use((images) => {
                     images.remap(image);
 
                     expect(images.length).toBe(3);

@@ -6,11 +6,11 @@
 import { CompressionMethod } from '@src/enums/compression-method';
 import { ImageMagick } from '@src/image-magick';
 import { MagickFormat } from '@src/enums/magick-format';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickSettings#compression', () => {
     it('should be used when saving image', () => {
-        TestImages.imageMagickJpg.use(input => {
+        TestFiles.Images.imageMagickJpg.use(input => {
             input.settings.compression = CompressionMethod.Zip;
             input.write(MagickFormat.Tiff, (data) => {
                 ImageMagick.read(data, (output) => {

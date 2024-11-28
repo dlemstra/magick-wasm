@@ -4,11 +4,11 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#border', () => {
     it('should surround the image on all sides equally', () => {
-        TestImages.Color.red.use(image => {
+        TestFiles.Images.Color.red.use(image => {
             image.border(2);
 
             expect(image.width).toBe(5);
@@ -17,7 +17,7 @@ describe('MagickImage#border', () => {
     });
 
     it('should surround the image with different widths for each axis', () => {
-        TestImages.Color.red.use(image => {
+        TestFiles.Images.Color.red.use(image => {
             image.border(2, 3);
 
             expect(image.width).toBe(5);
@@ -26,7 +26,7 @@ describe('MagickImage#border', () => {
     });
 
     it('should use the border color of the image', () => {
-        TestImages.Color.red.use(image => {
+        TestFiles.Images.Color.red.use(image => {
             image.borderColor = MagickColors.Purple;
             image.border(1, 1);
 

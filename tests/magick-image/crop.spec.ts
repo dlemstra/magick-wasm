@@ -6,11 +6,11 @@
 import { Gravity } from '@src/enums/gravity';
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#crop', () => {
     it('should crop the image', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.extent(new MagickGeometry('3x3'), Gravity.Center, MagickColors.White);
 
             image.crop(1, 1);
@@ -22,7 +22,7 @@ describe('MagickImage#crop', () => {
     });
 
     it('should crop the image with the specified gravity', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.extent(new MagickGeometry('3x3'), Gravity.Center, MagickColors.White);
 
             image.crop(1, 1, Gravity.Center);
@@ -34,7 +34,7 @@ describe('MagickImage#crop', () => {
     });
 
     it('should crop the image with the specified geometry', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.extent(new MagickGeometry('3x3'), Gravity.Center, MagickColors.White);
 
             image.crop(new MagickGeometry('2x2'));
@@ -47,7 +47,7 @@ describe('MagickImage#crop', () => {
     });
 
     it('should crop the image with the specified geometry and gravity', () => {
-        TestImages.Color.black.use(image => {
+        TestFiles.Images.Color.black.use(image => {
             image.extent(new MagickGeometry('3x3'), Gravity.Center, MagickColors.White);
 
             image.crop(new MagickGeometry('2x2'), Gravity.Southeast);

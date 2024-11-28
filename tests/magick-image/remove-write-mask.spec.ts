@@ -4,13 +4,13 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#removeWriteMask', () => {
     it('should remove the write mask from the image', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             image.read('logo:');
-            TestImages.empty.use((writeMask) => {
+            TestFiles.Images.empty.use((writeMask) => {
                 writeMask.read(MagickColors.Black, image.width, image.height);
 
                 image.setWriteMask(writeMask);

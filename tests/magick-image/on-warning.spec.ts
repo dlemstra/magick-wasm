@@ -3,12 +3,12 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 import { MagickErrorSeverity } from '@src/enums/magick-error-severity';
 
 describe('MagickImage#onWarning', () => {
     it('should be called when ImageMagick raises a warning.', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             let warningRaised = false;
             image.onWarning = (event) => {
                 expect(event.error.message).not.toBeUndefined();
@@ -17,7 +17,7 @@ describe('MagickImage#onWarning', () => {
                 warningRaised = true;
             };
 
-            image.ping(TestImages.warningJpg.data);
+            image.ping(TestFiles.Images.warningJpg.data);
 
             expect(warningRaised).toBe(true);
         });

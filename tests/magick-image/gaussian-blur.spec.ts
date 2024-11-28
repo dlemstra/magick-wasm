@@ -4,11 +4,11 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#gaussianBlur', () => {
     it('should gaussian blur the image', () => {
-        TestImages.Builtin.wizard.use(image => {
+        TestFiles.Images.Builtin.wizard.use(image => {
             image.clone(other => {
                 image.gaussianBlur(5.5, 10.2);
                 other.blur(5.5, 10.2);
@@ -19,7 +19,7 @@ describe('MagickImage#gaussianBlur', () => {
     });
 
     it('should use the correct default sigma', () => {
-        TestImages.Builtin.wizard.use(image => {
+        TestFiles.Images.Builtin.wizard.use(image => {
             image.clone(other => {
                 image.gaussianBlur(4.2);
                 other.gaussianBlur(4.2, 1.0);
@@ -30,7 +30,7 @@ describe('MagickImage#gaussianBlur', () => {
     });
 
     it('should only blur the specified channels', () => {
-        TestImages.Builtin.wizard.use(image => {
+        TestFiles.Images.Builtin.wizard.use(image => {
             image.gaussianBlur(4.2, 1, Channels.Green);
 
             expect(image).toHavePixelWithColor(120, 200, '#185338ff');

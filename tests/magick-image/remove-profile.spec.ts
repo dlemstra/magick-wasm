@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#removeProfile', () => {
     it('should remove the profile by name from the image', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             let profile = image.getProfile('icc');
             profile = expectToNotBeNull(profile);
             expect(profile.name).toEqual('icc');
@@ -21,7 +21,7 @@ describe('MagickImage#removeProfile', () => {
     });
 
     it('should remove the profile from the image', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             let profile = image.getProfile('icc');
             profile = expectToNotBeNull(profile);
 

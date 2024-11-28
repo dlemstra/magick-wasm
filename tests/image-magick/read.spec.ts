@@ -7,7 +7,7 @@ import { ImageMagick } from '@src/image-magick';
 import { MagickColors } from '@src/magick-colors';
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 import { bogusAsyncMethod } from '@test/bogus-async';
 
 const emptyFile = '/empty';
@@ -34,7 +34,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array async', async () => {
-        await ImageMagick.read(TestImages.imageMagickJpg.data, async (image) => {
+        await ImageMagick.read(TestFiles.Images.imageMagickJpg.data, async (image) => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
             await bogusAsyncMethod();
@@ -42,7 +42,7 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from array', () => {
-        ImageMagick.read(TestImages.imageMagickJpg.data, (image) => {
+        ImageMagick.read(TestFiles.Images.imageMagickJpg.data, (image) => {
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
         });
@@ -50,7 +50,7 @@ describe('ImageMagick#read', () => {
 
     it('should read image from array with specified format async', async () => {
         await expect(async () => {
-            await ImageMagick.read(TestImages.imageMagickJpg.data, MagickFormat.Png, async () => {
+            await ImageMagick.read(TestFiles.Images.imageMagickJpg.data, MagickFormat.Png, async () => {
                 await bogusAsyncMethod();
             });
         })
@@ -60,7 +60,7 @@ describe('ImageMagick#read', () => {
 
     it('should read image from array with specified format', () => {
         expect(() => {
-            ImageMagick.read(TestImages.imageMagickJpg.data, MagickFormat.Png, (image) => {
+            ImageMagick.read(TestFiles.Images.imageMagickJpg.data, MagickFormat.Png, (image) => {
                 console.log(image);
             });
         })

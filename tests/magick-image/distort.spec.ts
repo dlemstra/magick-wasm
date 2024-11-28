@@ -7,19 +7,19 @@ import { AlphaOption } from '@src/enums/alpha-option';
 import { DistortMethod } from '@src/enums/distort-method';
 import { VirtualPixelMethod } from '@src/enums/virtual-pixel-method';
 import { DistortSettings } from '@src/settings/distort-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#distort', () => {
     it('should throw error when params is empty', () => {
         expect(() => {
-            TestImages.empty.use(image => {
+            TestFiles.Images.empty.use(image => {
                 image.distort(DistortMethod.PerspectiveProjection, []);
             });
         }).toThrowError('The specified array cannot be empty');
     });
 
     it('should distort the image', () => {
-        TestImages.Builtin.rose.use(image => {
+        TestFiles.Images.Builtin.rose.use(image => {
             image.alpha(AlphaOption.Set);
             image.virtualPixelMethod = VirtualPixelMethod.Transparent;
             image.distort(DistortMethod.PerspectiveProjection, [1.40, 0.25, 3.0, 0.15, 1.30, 0.0, 0.007, 0.009]);
@@ -33,7 +33,7 @@ describe('MagickImage#distort', () => {
     });
 
     it('should distort the image with the settings', () => {
-        TestImages.Builtin.rose.use(image => {
+        TestFiles.Images.Builtin.rose.use(image => {
             image.alpha(AlphaOption.Set);
             image.virtualPixelMethod = VirtualPixelMethod.Transparent;
 

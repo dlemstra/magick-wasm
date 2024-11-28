@@ -7,11 +7,11 @@ import { DrawableColor } from '@src/drawing/drawable-color';
 import { DrawableFillColor } from '@src/drawing/drawable-fill-color';
 import { MagickColors } from '@src/magick-colors';
 import { PaintMethod } from '@src/enums/paint-method';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('DrawableFillColor', () => {
     it('should set the fill color for following drawing actions', () => {
-        TestImages.Color.black.use((image) => {
+        TestFiles.Images.Color.black.use((image) => {
             const fillColor = MagickColors.Red;
 
             image.draw([

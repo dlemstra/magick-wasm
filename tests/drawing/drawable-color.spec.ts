@@ -6,11 +6,11 @@
 import { DrawableColor } from '@src/drawing/drawable-color';
 import { MagickColors } from '@src/magick-colors';
 import { PaintMethod } from '@src/enums/paint-method';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('DrawableColor', () => {
     it('should color the image with the default fill color', () => {
-        TestImages.Color.white.use((image) => {
+        TestFiles.Images.Color.white.use((image) => {
             image.draw([new DrawableColor(0, 0, PaintMethod.Floodfill)]);
 
             const fillColor = MagickColors.Black;

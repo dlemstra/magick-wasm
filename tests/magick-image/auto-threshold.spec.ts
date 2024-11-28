@@ -5,11 +5,11 @@
 
 import { AutoThresholdMethod } from '@src/enums/auto-threshold-method';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#autoThreshold', () => {
     it('should threshold the image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.autoThreshold(AutoThresholdMethod.OTSU);
 
             const histogram = image.histogram();

@@ -4,11 +4,11 @@
 */
 
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#thumbnail', () => {
     it('should resize the image to within the given dimensions', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.thumbnail(100, 100);
 
             expect(image.width).toBe(100);
@@ -17,7 +17,7 @@ describe('MagickImage#thumbnail', () => {
     });
 
     it('should resize the image based on the given width', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.thumbnail(150, 0);
 
             expect(image.width).toBe(150);
@@ -26,7 +26,7 @@ describe('MagickImage#thumbnail', () => {
     });
 
     it('should resize the image based on the given height', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.thumbnail(0, 100);
 
             expect(image.width).toBe(133);
@@ -35,7 +35,7 @@ describe('MagickImage#thumbnail', () => {
     });
 
     it('should resize based on the given geometry', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.thumbnail(new MagickGeometry(200, 200));
 
             expect(image.width).toBe(200);
@@ -44,7 +44,7 @@ describe('MagickImage#thumbnail', () => {
     });
 
     it('should remove all image profiles except the icc/icm profile', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             expect(image.profileNames.length).toBe(5);
 
             image.thumbnail(100, 100);

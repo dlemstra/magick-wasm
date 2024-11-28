@@ -4,11 +4,11 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#gammaCorrect', () => {
     it('should gamma correct the image', () => {
-        TestImages.Builtin.rose.use(image => {
+        TestFiles.Images.Builtin.rose.use(image => {
             image.clone(other => {
                 other.gammaCorrect(2);
 
@@ -18,7 +18,7 @@ describe('MagickImage#gammaCorrect', () => {
     });
 
     it('should gamma correct the specified channels', () => {
-        TestImages.Builtin.rose.use(image => {
+        TestFiles.Images.Builtin.rose.use(image => {
             image.clone(other => {
                 other.gammaCorrect(2, Channels.Red);
 

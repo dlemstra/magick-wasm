@@ -8,13 +8,13 @@ import { MagickColors } from '@src/magick-colors';
 import { IMagickImage } from '@src/magick-image';
 import { Percentage } from '@src/types/percentage';
 import { Point } from '@src/types/point';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 type ComponentTestData = Required<Omit<ConnectedComponent, 'toGeometry'>>;
 
 describe('MagickImage#connectedComponents', () => {
     test('should return the connected components', () => {
-        TestImages.connectedComponentsPng.use((image) => {
+        TestFiles.Images.connectedComponentsPng.use((image) => {
             image.clone((clone) => {
                 clone.blur(0, 10);
                 clone.threshold(new Percentage(50));

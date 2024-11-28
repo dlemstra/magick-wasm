@@ -6,11 +6,11 @@
 import { Kernel } from '@src/enums/kernel';
 import { MorphologyMethod } from '@src/enums/morphology-method';
 import { MorphologySettings } from '@src/settings/morphology-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#morphology', () => {
     it('should apply the kernel with the specified method', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             const settings = new MorphologySettings(MorphologyMethod.Dilate, Kernel.Octagon);
             settings.iterations = 3;
             image.morphology(settings);
@@ -22,7 +22,7 @@ describe('MagickImage#morphology', () => {
     });
 
     it('should use the kernel arguments', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             const settings = new MorphologySettings(MorphologyMethod.Dilate, Kernel.Disk, '5.3');
             image.morphology(settings);
 
@@ -33,7 +33,7 @@ describe('MagickImage#morphology', () => {
     });
 
     it('should support kernel as a string', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             const settings = new MorphologySettings(MorphologyMethod.Dilate, 'Disk');
             image.morphology(settings);
 

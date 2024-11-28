@@ -4,11 +4,11 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#borderColor', () => {
     it('should return the border color of the image', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             const borderColor = image.borderColor;
 
             expect(borderColor.r).toBe(223);
@@ -19,7 +19,7 @@ describe('MagickImage#borderColor', () => {
     });
 
     it('should change border color', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.borderColor = MagickColors.Black;
             const borderColor = image.borderColor;
 

@@ -6,11 +6,11 @@
 import { Channels } from '@src/enums/channels';
 import { Percentage } from '@src/types/percentage';
 import { Quantum } from '@src/quantum';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#inverseSigmoidalContrast', () => {
     it('should use half of quantum for midpoint by default', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 image.inverseSigmoidalContrast(4.0);
                 other.inverseSigmoidalContrast(4.0, new Percentage(50));
@@ -21,7 +21,7 @@ describe('MagickImage#inverseSigmoidalContrast', () => {
     });
 
     it('should adjust the image contrast', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 other.inverseSigmoidalContrast(4.0, new Percentage(25));
 
@@ -31,7 +31,7 @@ describe('MagickImage#inverseSigmoidalContrast', () => {
     });
 
     it('should adjust the specified channel', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 other.inverseSigmoidalContrast(4.0, Quantum.max * 0.25, Channels.Blue);
 

@@ -4,11 +4,11 @@
 */
 
 import { PixelInterpolateMethod } from '@src/enums/pixel-interpolate-method';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#wave', () => {
     it('should use the correct default values', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.clone(other => {
                 image.interpolate = PixelInterpolateMethod.Blend;
                 image.wave();
@@ -21,7 +21,7 @@ describe('MagickImage#wave', () => {
     });
 
     it('should wave the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.clone(other => {
                 other.wave(PixelInterpolateMethod.Mesh, 140, 40);
 

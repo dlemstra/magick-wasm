@@ -4,11 +4,11 @@
 */
 
 import { Percentage } from '@src/types/percentage';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#onProgress', () => {
     it('should stop executing when cancel is set to true', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             let progress: Percentage | null = null;
 
             image.onProgress = (event) => {
@@ -30,7 +30,7 @@ describe('MagickImage#onProgress', () => {
     });
 
     it('should be set to undefined when the image is disposed.', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.onProgress = (event) => {
                 event.cancel = false;
             };

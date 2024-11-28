@@ -5,11 +5,11 @@
 
 import { DitherMethod } from '@src/enums/dither-method';
 import { QuantizeSettings } from '@src/settings/quantize-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#quantize', () => {
     it('should reduce the colors of the image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             const settings = new QuantizeSettings;
             settings.colors = 10;
 
@@ -20,7 +20,7 @@ describe('MagickImage#quantize', () => {
     });
 
     it('should use the dither method', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             const settings = new QuantizeSettings;
             settings.colors = 10;
             settings.ditherMethod = DitherMethod.FloydSteinberg;
@@ -33,7 +33,7 @@ describe('MagickImage#quantize', () => {
     });
 
     it('should return the error info when measureErrors is true', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             const settings = new QuantizeSettings;
             settings.colors = 3;
             settings.measureErrors = true;

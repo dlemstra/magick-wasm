@@ -9,11 +9,10 @@ import { DrawableFont } from '@src/drawing/drawable-font';
 import { DrawableFontPointSize } from '@src/drawing/drawable-font-point-size';
 import { MagickColor } from '@src/magick-color';
 import { TestFiles } from '@test/test-files';
-import { TestImages } from '@test/test-images';
 
 describe('DrawableText', () => {
     it('should write text to the image', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(100),

@@ -6,7 +6,7 @@
 import { TemporaryDefines } from '@src/helpers/temporary-defines';
 import { ConnectedComponentsSettings } from '@src/settings/connected-components-settings';
 import { Threshold } from '@src/types/threshold';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('ConnectedComponentsSettings', () => {
     const settings = new ConnectedComponentsSettings(4);
@@ -23,7 +23,7 @@ describe('ConnectedComponentsSettings', () => {
 
     describe('#_setArtifacts', () => {
         it('should add all defined artifacts to the provided image', () => {
-            TestImages.Builtin.logo.use((image) => {
+            TestFiles.Images.Builtin.logo.use((image) => {
                 TemporaryDefines.use(image, (temporaryDefines) => {
                     settings._setArtifacts(temporaryDefines);
 

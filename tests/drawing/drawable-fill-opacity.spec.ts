@@ -9,11 +9,11 @@ import { DrawableFillOpacity } from '@src/drawing/drawable-fill-opacity';
 import { MagickColor } from '@src/magick-color';
 import { PaintMethod } from '@src/enums/paint-method';
 import { Percentage } from '@src/types/percentage';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('DrawableFillOpacity', () => {
     it('should set the fill color opacity for following drawing actions', () => {
-        TestImages.Color.black.use((image) => {
+        TestFiles.Images.Color.black.use((image) => {
             image.draw([
                 new DrawableFillColor(new MagickColor(255, 0, 0)),
                 new DrawableFillOpacity(new Percentage(10)),
@@ -26,7 +26,7 @@ describe('DrawableFillOpacity', () => {
     });
 
     it('should set the fill color opacity for a fully transparent fill color', () => {
-        TestImages.Color.black.use((image) => {
+        TestFiles.Images.Color.black.use((image) => {
             image.draw([
                 new DrawableFillColor(new MagickColor(255, 0, 0, 0)),
                 new DrawableFillOpacity(new Percentage(10)),

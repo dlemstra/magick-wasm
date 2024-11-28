@@ -4,11 +4,11 @@
 */
 
 import { MagickFormat } from '@src/enums/magick-format';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#write', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.write(() => { /* never reached */ });
             }).toThrowError('operation requires at least one image');
@@ -16,8 +16,8 @@ describe('MagickImageCollection#write', () => {
     });
 
     it('should write images to array', () => {
-        TestImages.emptyCollection.use((images) => {
-            images.read(TestImages.roseSparkleGif.data);
+        TestFiles.Images.emptyCollection.use((images) => {
+            images.read(TestFiles.Images.roseSparkleGif.data);
 
             images.write(newData => {
                 images.dispose();
@@ -29,8 +29,8 @@ describe('MagickImageCollection#write', () => {
     });
 
     it('should write images to array in the specified format', () => {
-        TestImages.emptyCollection.use((images) => {
-            images.read(TestImages.roseSparkleGif.data);
+        TestFiles.Images.emptyCollection.use((images) => {
+            images.read(TestFiles.Images.roseSparkleGif.data);
 
             images.write(MagickFormat.Tiff, newData => {
                 images.dispose();

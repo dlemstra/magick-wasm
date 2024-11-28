@@ -5,11 +5,11 @@
 
 import { Channels } from '@src/enums/channels';
 import { ErrorMetric } from '@src/enums/error-metric';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#autoGamma', () => {
     it('should apply gamma correction to the image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.autoGamma();
 
             expect(image).toHavePixelWithColor(496, 429, '#000001ff');
@@ -17,7 +17,7 @@ describe('MagickImage#autoGamma', () => {
     });
 
     it('should only apply gamma correction to the specified channels', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.autoGamma(Channels.Red);
 
             expect(image).toHavePixelWithColor(496, 429, '#002d73ff');
@@ -25,7 +25,7 @@ describe('MagickImage#autoGamma', () => {
     });
 
     it('should use the correct default channels', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 image.autoGamma();
                 other.autoGamma(Channels.Composite);

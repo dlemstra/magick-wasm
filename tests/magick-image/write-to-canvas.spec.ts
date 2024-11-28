@@ -5,11 +5,11 @@
 
 import { JSDOM } from 'jsdom';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#writeToCanvas', () => {
     it('should write the image on the canvas', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             let canvasData: Uint8ClampedArray | null = null;
 
             const window = new JSDOM().window;

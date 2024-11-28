@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#vignette', () => {
     it('should use the correct default values', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.clone(other => {
                 image.vignette();
                 other.vignette(0.0, 1.0, 0, 0);
@@ -18,7 +18,7 @@ describe('MagickImage#vignette', () => {
     });
 
     it('should soften the edges of the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.clone(other => {
                 other.vignette(1.4, 2.5, 0, 0);
 

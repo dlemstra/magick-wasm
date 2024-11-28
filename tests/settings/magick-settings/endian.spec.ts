@@ -6,11 +6,11 @@
 import { Endian } from '@src/enums/endian';
 import { ImageMagick } from '@src/image-magick';
 import { MagickFormat } from '@src/enums/magick-format';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickSettings#endian', () => {
     it('should be used when writing the image', () => {
-        TestImages.redPng.use(input => {
+        TestFiles.Images.redPng.use(input => {
             expect(input.endian).toBe(Endian.Undefined);
 
             input.settings.endian = Endian.LSB;

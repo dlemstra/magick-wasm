@@ -5,11 +5,11 @@
 
 import { AlphaOption } from '@src/enums/alpha-option';
 import { PixelChannel } from '@src/enums/pixel-channel';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#channels', () => {
     it('should return the correct channels', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             const channels = image.channels;
 
             expect(channels.length).toBe(3);
@@ -20,7 +20,7 @@ describe('MagickImage#channels', () => {
     });
 
     it('should return the correct channels for a cmyk image', () => {
-        TestImages.cmykJpg.use(image => {
+        TestFiles.Images.cmykJpg.use(image => {
             image.alpha(AlphaOption.Activate);
 
             const channels = image.channels;

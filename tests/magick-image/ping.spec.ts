@@ -5,7 +5,7 @@
 
 import { IMagickImage } from '@src/magick-image';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#ping', () => {
     const exceptImageToNotHavePixelData = (image: IMagickImage) => {
@@ -13,7 +13,7 @@ describe('MagickImage#ping', () => {
     }
 
     it('should ping built-in image', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             image.ping('logo:');
             expect(image.width).toBe(640);
             expect(image.height).toBe(480);
@@ -22,8 +22,8 @@ describe('MagickImage#ping', () => {
     });
 
     it('should ping image from array', () => {
-        TestImages.empty.use((image) => {
-            image.ping(TestImages.imageMagickJpg.data);
+        TestFiles.Images.empty.use((image) => {
+            image.ping(TestFiles.Images.imageMagickJpg.data);
             expect(image.width).toBe(123);
             expect(image.height).toBe(118);
             exceptImageToNotHavePixelData(image);
@@ -31,7 +31,7 @@ describe('MagickImage#ping', () => {
     });
 
     it('should use settings when pinging image', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             const settings = new MagickReadSettings({
                 width: 2,
                 height: 2

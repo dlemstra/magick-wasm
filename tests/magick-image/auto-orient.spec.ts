@@ -4,11 +4,11 @@
 */
 
 import { OrientationType } from '@src/enums/orientation-type';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#autoOrient', () => {
     it('should rotate the image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.orientation = OrientationType.LeftTop;
             image.autoOrient();
 

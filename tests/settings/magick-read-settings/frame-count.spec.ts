@@ -5,16 +5,16 @@
 
 import { ImageMagick } from '@src/image-magick';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickReadSettings#frameCount', () => {
     it('should only read the specified number of images of the collection', () => {
         const settings = new MagickReadSettings();
         settings.frameCount = 2;
 
-        ImageMagick.readCollection(TestImages.roseSparkleGif.data, settings, images => {
+        ImageMagick.readCollection(TestFiles.Images.roseSparkleGif.data, settings, images => {
             expect(images.length).toBe(2);
-            TestImages.roseSparkleGif.use(collection => {
+            TestFiles.Images.roseSparkleGif.use(collection => {
                 expect(images[0]).toEqualImage(collection[0]);
                 expect(images[1]).toEqualImage(collection[1]);
             });
@@ -25,7 +25,7 @@ describe('MagickReadSettings#frameCount', () => {
         const settings = new MagickReadSettings();
         settings.frameCount = 42;
 
-            ImageMagick.readCollection(TestImages.roseSparkleGif.data, settings, collection => {
+            ImageMagick.readCollection(TestFiles.Images.roseSparkleGif.data, settings, collection => {
                 expect(collection.length).toBe(3);
             });
     });
@@ -35,9 +35,9 @@ describe('MagickReadSettings#frameCount', () => {
         settings.frameIndex = 1;
         settings.frameCount = 2;
 
-        ImageMagick.readCollection(TestImages.roseSparkleGif.data, settings, images => {
+        ImageMagick.readCollection(TestFiles.Images.roseSparkleGif.data, settings, images => {
             expect(images.length).toBe(2);
-            TestImages.roseSparkleGif.use(collection => {
+            TestFiles.Images.roseSparkleGif.use(collection => {
                 expect(images[0]).toEqualImage(collection[1]);
                 expect(images[1]).toEqualImage(collection[2]);
             });
@@ -49,7 +49,7 @@ describe('MagickReadSettings#frameCount', () => {
         settings.frameCount = 2;
 
         expect(() => {
-            ImageMagick.read(TestImages.roseSparkleGif.data, settings, () => {});
+            ImageMagick.read(TestFiles.Images.roseSparkleGif.data, settings, () => {});
         })
         .toThrowError('The frame count can only be set to 1 when a single image is being read.');
     });

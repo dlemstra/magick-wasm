@@ -8,12 +8,11 @@ import { DrawableFontPointSize } from '@src/drawing/drawable-font-point-size';
 import { DrawableText } from '@src/drawing/drawable-text';
 import { DrawableTextAlignment } from '@src/drawing/drawable-text-alignment';
 import { TestFiles } from '@test/test-files';
-import { TestImages } from '@test/test-images';
 import { TextAlignment } from '@src/enums/text-alignment';
 
 describe('DrawableTextAlignment', () => {
     it('should write text without alignment to the image', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
@@ -26,7 +25,7 @@ describe('DrawableTextAlignment', () => {
     });
 
     it('should write text with alignment to the image', () => {
-        TestImages.empty150x150Canvas.use((image) => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
                 new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),

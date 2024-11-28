@@ -4,11 +4,11 @@
 */
 
 import { MagickImage } from '@src/magick-image';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#morph', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.morph(1);
             }).toThrowError('operation requires at least two images');
@@ -16,8 +16,8 @@ describe('MagickImageCollection#morph', () => {
     });
 
     it('should throw exception when collection contains single image', () => {
-        TestImages.emptyCollection.use((images) => {
-            images.push(TestImages.imageMagickJpg.load());
+        TestFiles.Images.emptyCollection.use((images) => {
+            images.push(TestFiles.Images.imageMagickJpg.load());
             expect(() => {
                 images.morph(1);
             }).toThrowError('operation requires at least two images');
@@ -25,7 +25,7 @@ describe('MagickImageCollection#morph', () => {
     });
 
     it('should add images that transform one image into another', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             images.push(MagickImage.create('logo:'));
             images.push(MagickImage.create('wizard:'));
 

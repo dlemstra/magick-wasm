@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#strip', () => {
     it('should remove the properties', () => {
-        TestImages.Builtin.wizard.use(image => {
+        TestFiles.Images.Builtin.wizard.use(image => {
             image.comment = 'foo';
 
             expect(image.comment).toBe('foo');
@@ -25,7 +25,7 @@ describe('MagickImage#strip', () => {
     });
 
     it('should remove the profiles', () => {
-        TestImages.fujiFilmFinePixS1ProJpg.use(image => {
+        TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             expect(image.getProfile('icc')).not.toBeNull();
 
             image.strip();

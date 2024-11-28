@@ -6,7 +6,7 @@
 import { ImageMagick } from '@src/image-magick';
 import { LogEventTypes } from '@src/enums/log-event-types';
 import { Magick } from '@src/magick';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('Magick#onLog', () => {
     it('should raise log events from ImageMagick', () => {
@@ -22,7 +22,7 @@ describe('Magick#onLog', () => {
 
         Magick.setLogEvents(LogEventTypes.All);
 
-        ImageMagick.read(TestImages.fujiFilmFinePixS1ProJpg.data, (image) => {
+        ImageMagick.read(TestFiles.Images.fujiFilmFinePixS1ProJpg.data, (image) => {
             expect(image.width).toBe(600);
         });
 

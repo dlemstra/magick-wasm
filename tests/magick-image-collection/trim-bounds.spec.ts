@@ -5,11 +5,11 @@
 
 import { MagickColors } from '@src/magick-colors';
 import { MagickImage } from '@src/magick-image';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#trimBounds', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.trimBounds();
             }).toThrowError('operation requires at least one image');
@@ -17,7 +17,7 @@ describe('MagickImageCollection#trimBounds', () => {
     });
 
     it('should adjust the canvas', () => {
-        TestImages.emptyCollection.use(images => {
+        TestFiles.Images.emptyCollection.use(images => {
 
             images.push(MagickImage.create(MagickColors.Red, 6, 7));
             images.push(MagickImage.create(MagickColors.Red, 8, 5));

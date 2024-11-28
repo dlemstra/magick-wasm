@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#oilPaint', () => {
     it('should default to a radius of 3', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.clone(other => {
                 image.oilPaint();
                 other.oilPaint(3.0);
@@ -18,7 +18,7 @@ describe('MagickImage#oilPaint', () => {
     });
 
     it('should create an oil paint like image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.clone(other => {
                 other.oilPaint(4.2);
 

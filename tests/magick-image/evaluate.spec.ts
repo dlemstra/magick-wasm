@@ -10,11 +10,11 @@ import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { Quantum } from '@src/quantum';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#evaluate', () => {
     it('should throw error when geometry is percentage', () => {
-        TestImages.Color.red.use(image => {
+        TestFiles.Images.Color.red.use(image => {
             expect(() => {
                 image.evaluate(Channels.Composite, new MagickGeometry('10%'), EvaluateOperator.Set, 1);
             }).toThrowError('percentage is not supported');
@@ -22,7 +22,7 @@ describe('MagickImage#evaluate', () => {
     });
 
     it('should change the specified channels', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.evaluate(Channels.Red, new MagickGeometry(0, 0, 100, 295), EvaluateOperator.Set, 0);
             expect(image).toHavePixelWithColor(99, 195, new MagickColor('#00ffffff'));
 
@@ -32,7 +32,7 @@ describe('MagickImage#evaluate', () => {
     });
 
     it('should use the write mask', () => {
-        TestImages.empty.use(image => {
+        TestFiles.Images.empty.use(image => {
             image.read(MagickColors.Black, 2, 1);
 
             ImageMagick.read(MagickColors.White, 2, 1, mask => {

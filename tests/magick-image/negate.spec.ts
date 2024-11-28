@@ -5,11 +5,11 @@
 
 import { Channels } from '@src/enums/channels';
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#negate', () => {
     it('should negate the image', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             image.read(MagickColors.Red, 1, 1);
 
             image.negate();
@@ -19,7 +19,7 @@ describe('MagickImage#negate', () => {
     });
 
     it('should only negate specified channels', () => {
-        TestImages.empty.use((image) => {
+        TestFiles.Images.empty.use((image) => {
             image.read(MagickColors.Magenta, 1, 1);
 
             image.negate(Channels.Red);

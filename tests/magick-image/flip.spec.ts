@@ -5,11 +5,11 @@
 
 import { MagickColors } from '@src/magick-colors';
 import { MagickImage } from '@src/magick-image';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#flip', () => {
     it('should flip the image', () => {
-        TestImages.emptyCollection.use(images => {
+        TestFiles.Images.emptyCollection.use(images => {
             images.push(MagickImage.create(MagickColors.Red, 1, 2));
             images.push(MagickImage.create(MagickColors.Blue, 1, 1));
 

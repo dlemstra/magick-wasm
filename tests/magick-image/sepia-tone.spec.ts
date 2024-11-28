@@ -5,11 +5,11 @@
 
 import { MagickColor } from '@src/magick-color';
 import { Percentage } from '@src/types/percentage';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#sepiaTone', () => {
     it('should apply special effect', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.sepiaTone();
             expect(image).toHavePixelWithColor(243, 45, new MagickColor('#472400'));
             expect(image).toHavePixelWithColor(394, 394, new MagickColor('#522e00'));
@@ -17,7 +17,7 @@ describe('MagickImage#sepiaTone', () => {
         });
     });
     it('should apply special effect with the specified percentage', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.sepiaTone(new Percentage(60));
             expect(image).toHavePixelWithColor(243, 45, new MagickColor('#684400'));
             expect(image).toHavePixelWithColor(394, 394, new MagickColor('#775200'));
@@ -25,7 +25,7 @@ describe('MagickImage#sepiaTone', () => {
         });
     });
     it('should apply special effect with the specified percentage value', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.sepiaTone(40);
             expect(image).toHavePixelWithColor(243, 45, new MagickColor('#a07a00'));
             expect(image).toHavePixelWithColor(394, 394, new MagickColor('#b68e00'));

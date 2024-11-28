@@ -7,15 +7,15 @@ import { ColorSpace } from '@src/enums/color-space';
 import { ErrorMetric } from '@src/enums/error-metric';
 import { ImageMagick } from '@src/image-magick';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickSettings#colorSpace', () => {
     it('should use the correct color space', () => {
         const settings = new MagickReadSettings();
 
-        ImageMagick.read(TestImages.imageMagickJpg.data, settings, (imageA) => {
+        ImageMagick.read(TestFiles.Images.imageMagickJpg.data, settings, (imageA) => {
             settings.colorSpace = ColorSpace.Rec601YCbCr;
-            ImageMagick.read(TestImages.imageMagickJpg.data, settings, (imageB) => {
+            ImageMagick.read(TestFiles.Images.imageMagickJpg.data, settings, (imageB) => {
                 const distortion = imageA.compare(imageB, ErrorMetric.RootMeanSquared);
                 expect(distortion).not.toBe(0);
             });

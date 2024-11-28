@@ -6,12 +6,12 @@
 import { ErrorMetric } from '@src/enums/error-metric';
 import { PixelChannel } from '@src/enums/pixel-channel';
 import { PixelIntensityMethod } from '@src/enums/pixel-intensity-method';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#grayscale', () => {
     it('should use the default pixel intensity method', () => {
-        TestImages.Color.purple.use(imageA => {
-            TestImages.Color.purple.use(imageB => {
+        TestFiles.Images.Color.purple.use(imageA => {
+            TestFiles.Images.Color.purple.use(imageB => {
                 imageA.grayscale();
                 assert.equal(imageA.channelCount, 1);
                 assert.equal(PixelChannel.Red, imageA.channels.at(0));

@@ -4,11 +4,11 @@
 */
 
 import { MagickColors } from '@src/magick-colors';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#colorAlpha', () => {
     it('should color the alpha channel', async () => {
-        TestImages.redPng.use(image => {
+        TestFiles.Images.redPng.use(image => {
             image.colorAlpha(MagickColors.Magenta);
             expect(image).toHavePixelWithColor(350, 80, MagickColors.Magenta);
         });

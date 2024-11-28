@@ -4,11 +4,11 @@
 */
 
 import { MagickGeometry } from '@src/types/magick-geometry';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#liquidRescale', () => {
     it('should change the width of the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.liquidRescale(400, 0);
             expect(image.width).toBe(400);
             expect(image.height).toBe(300);
@@ -16,7 +16,7 @@ describe('MagickImage#liquidRescale', () => {
     });
 
     it('should change the height of the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.liquidRescale(0, 400);
             expect(image.width).toBe(533);
             expect(image.height).toBe(400);
@@ -24,7 +24,7 @@ describe('MagickImage#liquidRescale', () => {
     });
 
     it('with geometry should change the width of the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.liquidRescale(new MagickGeometry(300, 0));
             expect(image.width).toBe(300);
             expect(image.height).toBe(225);
@@ -32,7 +32,7 @@ describe('MagickImage#liquidRescale', () => {
     });
 
     it('with geometry should change the height of the image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.liquidRescale(new MagickGeometry(0, 300));
             expect(image.width).toBe(400);
             expect(image.height).toBe(300);

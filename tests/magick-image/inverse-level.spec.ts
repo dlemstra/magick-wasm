@@ -5,11 +5,11 @@
 
 import { Channels } from '@src/enums/channels';
 import { Percentage } from '@src/types/percentage';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#inverseLevel', () => {
     it('should use composite as default channels and 1 as default gamma', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 image.inverseLevel(new Percentage(50), new Percentage(10));
                 other.inverseLevel(new Percentage(50), new Percentage(10), 1.0, Channels.Composite);
@@ -20,7 +20,7 @@ describe('MagickImage#inverseLevel', () => {
     });
 
     it('should scale the colors', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.inverseLevel(new Percentage(50), new Percentage(10));
 
             expect(image).toHavePixelWithColor(244, 50, '#1a3232ff');

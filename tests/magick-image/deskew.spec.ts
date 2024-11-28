@@ -5,11 +5,11 @@
 
 import { MagickColors } from '@src/magick-colors';
 import { Percentage } from '@src/types/percentage';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#deskew', () => {
     it('should rotate the image', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.deskew(new Percentage(4.2));
 
             expect(image).toHavePixelWithColor(158, 16, MagickColors.Black);
@@ -17,7 +17,7 @@ describe('MagickImage#deskew', () => {
     });
 
     it('should return the angle', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             const angle = image.deskew(new Percentage(42));
             expect(angle).toEqual(0.8951737102110744);
             expect(image.width).toEqual(649);
@@ -26,7 +26,7 @@ describe('MagickImage#deskew', () => {
     });
 
     it('should use the autocrop parameter', () => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             const angle = image.deskew(new Percentage(42), true);
             expect(angle).toEqual(0.8951737102110744);
             expect(image.width).toEqual(453);

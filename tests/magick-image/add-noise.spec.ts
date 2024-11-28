@@ -6,7 +6,7 @@
 import { Channels } from '@src/enums/channels';
 import { Magick } from '@src/magick';
 import { NoiseType } from '@src/enums/noise-type';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#addNoise', () => {
     Magick.setRandomSeed(12345);
@@ -30,10 +30,10 @@ describe('MagickImage#addNoise', () => {
     };
 
     test.each(noiseTypes)('should add %s noise to the image', (noiseType) => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.addNoise(NoiseType[noiseType as keyof typeof NoiseType]);
 
-            TestImages.Builtin.logo.use(original => {
+            TestFiles.Images.Builtin.logo.use(original => {
                 expect(image).toEqualImage(original, expectedDistortions[noiseType]);
             });
         });
@@ -51,10 +51,10 @@ describe('MagickImage#addNoise', () => {
     };
 
     test.each(noiseTypes)('should add %s noise to the image with the specified channel', (noiseType) => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.addNoise(NoiseType[noiseType as keyof typeof NoiseType], 42, Channels.Blue);
 
-            TestImages.Builtin.logo.use(original => {
+            TestFiles.Images.Builtin.logo.use(original => {
                 expect(image).toEqualImage(original, expectedChannelDistortions[noiseType]);
             });
         });
@@ -72,10 +72,10 @@ describe('MagickImage#addNoise', () => {
     };
 
     test.each(noiseTypes)('should add %s noise to the image with the specified attenuate', (noiseType) => {
-        TestImages.Builtin.logo.use(image => {
+        TestFiles.Images.Builtin.logo.use(image => {
             image.addNoise(NoiseType[noiseType as keyof typeof NoiseType], 42);
 
-            TestImages.Builtin.logo.use(original => {
+            TestFiles.Images.Builtin.logo.use(original => {
                 expect(image).toEqualImage(original, expectedAttenuateDistortions[noiseType]);
             });
         });

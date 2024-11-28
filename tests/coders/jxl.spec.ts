@@ -4,11 +4,11 @@
 */
 
 import { MagickFormat } from '@src/enums/magick-format';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('Coders#jxl', () => {
     it('should be able to write jxl image', () => {
-        TestImages.Builtin.logo.use((image) => {
+        TestFiles.Images.Builtin.logo.use((image) => {
             image.write(MagickFormat.Jxl, data => {
                 expect(data.length).toBe(37904);
             });

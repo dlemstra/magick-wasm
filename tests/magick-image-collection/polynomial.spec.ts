@@ -3,11 +3,11 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#polynomial', () => {
     it('should throw exception when collection is empty', () => {
-        TestImages.emptyCollection.use((images) => {
+        TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.polynomial([1], () => { /* never reached */ });
             }).toThrowError('operation requires at least one image');
@@ -15,7 +15,7 @@ describe('MagickImageCollection#polynomial', () => {
     });
 
     it('should throw exception when terms are empty', () => {
-        TestImages.roseSparkleGif.use((images) => {
+        TestFiles.Images.roseSparkleGif.use((images) => {
             expect(() => {
                 images.polynomial([], () => { /* never reached */ });
             }).toThrowError('The specified array cannot be empty');
@@ -23,7 +23,7 @@ describe('MagickImageCollection#polynomial', () => {
     });
 
     it('should change the pixels of the image', () => {
-        TestImages.roseSparkleGif.use((images) => {
+        TestFiles.Images.roseSparkleGif.use((images) => {
             images.polynomial([0.5, 0.4, 0.3, 0.2, 0.1], (image) => {
                 expect(image.width).toBe(70);
                 expect(image.height).toBe(46);

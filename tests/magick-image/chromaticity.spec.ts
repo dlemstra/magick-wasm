@@ -5,11 +5,11 @@
 
 import { ChromaticityInfo } from '@src/types/chromaticity-info';
 import { PrimaryInfo } from '@src/types/primary-info';
-import { TestImages } from '@test/test-images';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#chromaBluePrimary', () => {
     it('should return the chromaticity', async () => {
-        TestImages.redPng.use(image => {
+        TestFiles.Images.redPng.use(image => {
             const chromaticity = image.chromaticity;
 
             expect(chromaticity.red.x).toBeCloseTo(0.64000, 4);
@@ -28,7 +28,7 @@ describe('MagickImage#chromaBluePrimary', () => {
     });
 
     it('should return the changed value', () => {
-        TestImages.Builtin.wizard.use(image => {
+        TestFiles.Images.Builtin.wizard.use(image => {
             image.chromaticity = new ChromaticityInfo(
                 new PrimaryInfo(1.2, 2.3, 3.4),
                 new PrimaryInfo(4.5, 5.6, 6.7),
