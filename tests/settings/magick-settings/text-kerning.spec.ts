@@ -5,7 +5,7 @@
 
 import { ImageMagick } from '@src/image-magick';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
-import { TestFonts } from '@test/test-fonts';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickSettings#textKerning', () => {
     it.each([
@@ -13,7 +13,7 @@ describe('MagickSettings#textKerning', () => {
         [130, 1373, 20],
     ])('should draw text with the expected kerning %s', (textKerning: number, width: number, height: number) => {
         const settings = new MagickReadSettings();
-        settings.font = TestFonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
         settings.textKerning = textKerning;
 
         ImageMagick.read('label:magick-wasm', settings, (image) => {

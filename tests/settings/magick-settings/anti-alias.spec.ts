@@ -6,12 +6,12 @@
 import { ErrorMetric } from '@src/enums/error-metric';
 import { ImageMagick } from '@src/image-magick';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
-import { TestFonts } from '@test/test-fonts';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickSettings#antiAlias', () => {
     it('should use the correct anti alias setting', () => {
         const settings = new MagickReadSettings();
-        settings.font = TestFonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
 
         settings.antiAlias = true;
         ImageMagick.read('label:Test', settings, (imageA) => {

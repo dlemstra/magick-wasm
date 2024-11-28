@@ -9,14 +9,14 @@ import { DrawableFontPointSize } from '@src/drawing/drawable-font-point-size';
 import { DrawableText } from '@src/drawing/drawable-text';
 import { DrawableTextInterlineSpacing } from '@src/drawing/drawable-text-interline-spacing';
 import { MagickColor } from '@src/magick-color';
-import { TestFonts } from '@test/test-fonts';
+import { TestFiles } from '@test/test-files';
 import { TestImages } from '@test/test-images';
 
 describe('DrawableTextInterlineSpacing', () => {
     it('should write text with default interline spacing', () => {
         TestImages.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
                 new DrawableFillColor(new MagickColor('pink')),
                 new DrawableText(50, 50, 'I\nI'),
@@ -29,7 +29,7 @@ describe('DrawableTextInterlineSpacing', () => {
     it('should write text with increased interline spacing', () => {
         TestImages.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
                 new DrawableFillColor(new MagickColor('pink')),
                 new DrawableTextInterlineSpacing(10),
@@ -43,7 +43,7 @@ describe('DrawableTextInterlineSpacing', () => {
     it('should write text with negative interline spacing', () => {
         TestImages.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
                 new DrawableFillColor(new MagickColor('pink')),
                 new DrawableTextInterlineSpacing(-30),

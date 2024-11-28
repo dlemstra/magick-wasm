@@ -24,7 +24,21 @@ export class TestColorProfile extends TestFile {
     }
 }
 
+export class TestFont extends TestFile {
+    readonly name: string;
+
+    constructor(name: string, fileName: string) {
+        super(fileName);
+
+        this.name = name;
+    }
+}
+
 export class TestFiles {
+    static fonts = {
+        kaushanScriptRegularTtf: new TestFont('KaushanScript', 'tests/files/fonts/KaushanScript-Regular.ttf')
+    }
+
     static profiles = {
         color: {
             sRGB: new TestColorProfile('tests/files/color-profiles/sRGB.icm'),

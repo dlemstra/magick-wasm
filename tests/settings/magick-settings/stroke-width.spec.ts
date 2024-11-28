@@ -6,12 +6,12 @@
 import { ImageMagick } from '@src/image-magick';
 import { MagickColor } from '@src/magick-color';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
-import { TestFonts } from '@test/test-fonts';
+import { TestFiles } from '@test/test-files';
 
 describe('MagickSettings#strokeWidth', () => {
     it('should use the correct stroke width', () => {
         const settings = new MagickReadSettings();
-        settings.font = TestFonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
         settings.fontPointsize = 100;
         settings.strokeColor = new MagickColor('pink');
         settings.strokeWidth = 5;

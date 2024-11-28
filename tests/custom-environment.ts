@@ -8,7 +8,7 @@ import { CustomMatchers, ICustomMatchers } from './custom-matcher';
 import { ImageMagick, initializeImageMagick } from '@src/image-magick';
 import { ImageMagickApi } from '@dlemstra/magick-native';
 import { Magick } from '@src/magick';
-import { TestFonts } from './test-fonts';
+import { TestFiles } from './test-files';
 
 declare global {
     var native: ImageMagickApi; /* eslint-disable-line no-var */
@@ -41,7 +41,7 @@ if (!global.native) {
         await initializeImageMagick(bytes);
     }
 
-    const font = TestFonts.kaushanScriptRegularTtf;
+    const font = TestFiles.fonts.kaushanScriptRegularTtf;
     Magick.addFont(font.name, font.data);
 
     global.native = ImageMagick._api;

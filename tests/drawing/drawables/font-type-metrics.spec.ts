@@ -4,12 +4,12 @@
 */
 
 import { Drawables } from '@src/drawing/drawables';
-import { TestFonts } from '@test/test-fonts';
+import { TestFiles } from '@test/test-files';
 
 describe('Drawables#fontTypeMetrics', () => {
     it('should return the font type metrics', () => {
         const drawables = new Drawables()
-            .font(TestFonts.kaushanScriptRegularTtf.name)
+            .font(TestFiles.fonts.kaushanScriptRegularTtf.name)
             .fontPointSize(15);
 
         const typeMetric = drawables.fontTypeMetrics("magick-wasm")!;
@@ -26,7 +26,7 @@ describe('Drawables#fontTypeMetrics', () => {
 
     it('should not ignore the newlines', () => {
         const drawables = new Drawables()
-            .font(TestFonts.kaushanScriptRegularTtf.name)
+            .font(TestFiles.fonts.kaushanScriptRegularTtf.name)
             .fontPointSize(15);
 
         const typeMetric = drawables.fontTypeMetrics("magick-wasm\ntest")!;
@@ -37,7 +37,7 @@ describe('Drawables#fontTypeMetrics', () => {
 
     it('should ignore the newlines when specified', () => {
         const drawables = new Drawables()
-            .font(TestFonts.kaushanScriptRegularTtf.name)
+            .font(TestFiles.fonts.kaushanScriptRegularTtf.name)
             .fontPointSize(15);
 
         const typeMetric = drawables.fontTypeMetrics("magick-wasm\ntest", true)!;
