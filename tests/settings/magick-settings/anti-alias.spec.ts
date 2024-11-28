@@ -11,7 +11,7 @@ import { TestFiles } from '@test/test-files';
 describe('MagickSettings#antiAlias', () => {
     it('should use the correct anti alias setting', () => {
         const settings = new MagickReadSettings();
-        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
 
         settings.antiAlias = true;
         ImageMagick.read('label:Test', settings, (imageA) => {

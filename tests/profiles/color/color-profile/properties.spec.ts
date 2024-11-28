@@ -8,7 +8,7 @@ import { TestFiles } from '@test/test-files';
 
 describe('ColorProfile#properties', () => {
     it('should return the correct values for an sRGB profile', () => {
-        const colorProfile = TestFiles.profiles.color.sRGB.load();
+        const colorProfile = TestFiles.Profiles.Color.sRGB.load();
 
         expect(colorProfile.name).toBe('icc');
         expect(colorProfile.data.length).toBe(3144);
@@ -20,7 +20,7 @@ describe('ColorProfile#properties', () => {
     });
 
     it('should return the correct values for an CMYK profile', () => {
-        const colorProfile = TestFiles.profiles.color.USWebCoatedSWOP.load();
+        const colorProfile = TestFiles.Profiles.Color.USWebCoatedSWOP.load();
 
         expect(colorProfile.name).toBe('icc');
         expect(colorProfile.data.length).toBe(557168);

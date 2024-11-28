@@ -13,7 +13,7 @@ describe('DrawableTextAntialias', () => {
     it('should write text with antialias to the image', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
                 new DrawableText(0, 100, 'Test'),
             ]);
@@ -25,7 +25,7 @@ describe('DrawableTextAntialias', () => {
     it('should write text without antialias to the image', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
                 DrawableTextAntialias.disabled,
                 new DrawableText(0, 100, 'Test'),

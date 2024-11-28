@@ -135,8 +135,8 @@ export class TestFont extends TestFile {
 }
 
 export class TestFiles {
-    static readonly fonts = {
-        kaushanScriptRegularTtf: new TestFont('KaushanScript', 'tests/files/fonts/KaushanScript-Regular.ttf')
+    static readonly Fonts = {
+        kaushanScriptRegularTtf: new TestFont('KaushanScript', 'tests/files/fonts/KaushanScript-Regular.ttf'),
     }
 
     static readonly Images = {
@@ -166,10 +166,10 @@ export class TestFiles {
         }
     }
 
-    static readonly profiles = {
-        color: {
+    static readonly Profiles = {
+        Color: {
             sRGB: new TestColorProfile('tests/files/color-profiles/sRGB.icm'),
-            USWebCoatedSWOP: new TestColorProfile('tests/files/color-profiles/USWebCoatedSWOP.icc')
+            USWebCoatedSWOP: new TestColorProfile('tests/files/color-profiles/USWebCoatedSWOP.icc'),
         }
     }
 }

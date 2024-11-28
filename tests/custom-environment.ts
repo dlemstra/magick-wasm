@@ -41,7 +41,7 @@ if (!global.native) {
         await initializeImageMagick(bytes);
     }
 
-    const font = TestFiles.fonts.kaushanScriptRegularTtf;
+    const font = TestFiles.Fonts.kaushanScriptRegularTtf;
     Magick.addFont(font.name, font.data);
 
     global.native = ImageMagick._api;

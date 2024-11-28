@@ -15,7 +15,7 @@ describe('DrawableTextInterlineSpacing', () => {
     it('should write text with default interline spacing', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
                 new DrawableFillColor(new MagickColor('pink')),
                 new DrawableText(50, 50, 'I\nI'),
@@ -28,7 +28,7 @@ describe('DrawableTextInterlineSpacing', () => {
     it('should write text with increased interline spacing', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
                 new DrawableFillColor(new MagickColor('pink')),
                 new DrawableTextInterlineSpacing(10),
@@ -42,7 +42,7 @@ describe('DrawableTextInterlineSpacing', () => {
     it('should write text with negative interline spacing', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(50),
                 new DrawableFillColor(new MagickColor('pink')),
                 new DrawableTextInterlineSpacing(-30),

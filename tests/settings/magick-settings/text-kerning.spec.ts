@@ -13,7 +13,7 @@ describe('MagickSettings#textKerning', () => {
         [130, 1373, 20],
     ])('should draw text with the expected kerning %s', (textKerning: number, width: number, height: number) => {
         const settings = new MagickReadSettings();
-        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
         settings.textKerning = textKerning;
 
         ImageMagick.read('label:magick-wasm', settings, (image) => {

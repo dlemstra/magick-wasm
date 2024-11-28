@@ -14,7 +14,7 @@ describe('DrawableTextDecoration', () => {
     it('should write text without decoration to the image', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
                 new DrawableText(0, 100, 'Test'),
             ]);
@@ -26,7 +26,7 @@ describe('DrawableTextDecoration', () => {
     it('should write text with decoration to the image', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
                 new DrawableTextDecoration(TextDecoration.Underline),
                 new DrawableText(0, 100, 'Test'),

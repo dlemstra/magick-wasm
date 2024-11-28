@@ -13,7 +13,7 @@ describe('MagickSettings#textInterlineSpacing', () => {
         [130, 74, 169],
     ])('should draw text with the expected interline spacing %s', (textInterlineSpacing: number, width: number, height: number) => {
         const settings = new MagickReadSettings();
-        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
         settings.textInterlineSpacing = textInterlineSpacing;
 
         ImageMagick.read('label:magick-wasm\nimage-magick', settings, (image) => {

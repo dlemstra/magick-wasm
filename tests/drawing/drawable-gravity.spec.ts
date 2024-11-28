@@ -29,7 +29,7 @@ describe('DrawableGravity', () => {
             image.draw([
                 new DrawableFillColor(MagickColors.Green),
                 new DrawableGravity(gravity),
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(10),
                 new DrawableText(0, 0, 'Magick'),
             ])

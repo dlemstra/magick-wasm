@@ -15,7 +15,7 @@ describe('DrawableTextKerning', () => {
     it('should write text with kerning to the image', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(100),
                 new DrawableFillColor(new MagickColor('pink')),
                 new DrawableTextKerning(10),
@@ -29,7 +29,7 @@ describe('DrawableTextKerning', () => {
     it('should write text without kerning to the image', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(100),
                 new DrawableFillColor(new MagickColor('pink')),
                 new DrawableText(0, 109, 'I I'),

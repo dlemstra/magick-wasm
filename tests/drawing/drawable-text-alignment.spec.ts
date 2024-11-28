@@ -14,7 +14,7 @@ describe('DrawableTextAlignment', () => {
     it('should write text without alignment to the image', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
                 new DrawableText(0, 100, 'Test'),
             ]);
@@ -27,7 +27,7 @@ describe('DrawableTextAlignment', () => {
     it('should write text with alignment to the image', () => {
         TestFiles.Images.empty150x150Canvas.use((image) => {
             image.draw([
-                new DrawableFont(TestFiles.fonts.kaushanScriptRegularTtf.name),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
                 new DrawableFontPointSize(80),
                 new DrawableTextAlignment(TextAlignment.Center),
                 new DrawableText(0, 100, 'Test'),

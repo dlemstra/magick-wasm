@@ -10,7 +10,7 @@ import { TestFiles } from '@test/test-files';
 describe('MagickSettings#fontPointSize', () => {
     it('should change the size of the rendered text', () => {
         const settings = new MagickReadSettings();
-        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
         settings.fontPointsize = 90;
 
         ImageMagick.read('label:magick-wasm', settings, (image) => {

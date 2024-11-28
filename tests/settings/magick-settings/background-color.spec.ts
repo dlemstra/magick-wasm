@@ -11,7 +11,7 @@ import { TestFiles } from '@test/test-files';
 describe('MagickSettings#backgroundColor', () => {
     it('should use the correct background color', () => {
         const settings = new MagickReadSettings();
-        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
         settings.backgroundColor = new MagickColor('pink');
 
         ImageMagick.read('label:magick-wasm', settings, (image) => {

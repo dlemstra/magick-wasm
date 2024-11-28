@@ -11,7 +11,7 @@ import { TestFiles } from '@test/test-files';
 describe('MagickSettings#strokeColor', () => {
     it('should use the correct stroke color', () => {
         const settings = new MagickReadSettings();
-        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
         settings.fontPointsize = 100;
         settings.strokeColor = new MagickColor('pink');
 

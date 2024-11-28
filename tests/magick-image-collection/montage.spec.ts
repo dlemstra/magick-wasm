@@ -23,7 +23,7 @@ describe('MagickImageCollection#montage', () => {
             images[1].page = new MagickGeometry(100, 100, images[1].width, images[1].height);
 
             const settings = new MontageSettings();
-            settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
+            settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
             settings.borderWidth = 20;
 
             images.montage(settings, image => {

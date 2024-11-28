@@ -11,7 +11,7 @@ import { TestFiles } from '@test/test-files';
 describe('MagickSettings#fillColor', () => {
     it('should use the correct fill color', () => {
         const settings = new MagickReadSettings();
-        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
         settings.fontPointsize = 100;
         settings.fillColor = new MagickColor('pink');
 

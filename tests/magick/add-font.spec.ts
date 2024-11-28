@@ -10,7 +10,7 @@ import { TestFiles } from '@test/test-files';
 describe('Magick#addFont', () => {
     it('should make the font available', () => {
         const settings = new MagickReadSettings();
-        settings.font = TestFiles.fonts.kaushanScriptRegularTtf.name;
+        settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
 
         ImageMagick.read('label:magick-wasm', settings, (image) => {
             expect(image.width).toBe(73);
