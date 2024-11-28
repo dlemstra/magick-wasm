@@ -171,7 +171,7 @@ export class TestFiles {
 
     static readonly Profiles = {
         Color: {
-            sRGB: new TestColorProfile('tests/files/color-profiles/sRGB.icm'),
+            SRGB: new TestColorProfile('tests/files/color-profiles/SRGB.icm'),
             USWebCoatedSWOP: new TestColorProfile('tests/files/color-profiles/USWebCoatedSWOP.icc'),
         }
     }
