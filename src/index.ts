@@ -85,6 +85,7 @@ export * from './magick-image';
 export * from './magick';
 export * from './native-instance';
 export * from './pixels/pixel-collection';
+export * from './profiles/color/color-profile';
 export * from './profiles/image-profile';
 export * from './quantum';
 export * from './settings/compare-settings';
