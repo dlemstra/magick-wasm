@@ -14,6 +14,10 @@ import { MagickError } from "../../magick-error";
  */
 export interface IColorProfile extends IImageProfile {
     readonly colorSpace: ColorSpace;
+    readonly copyright: string | null;
+    readonly description: string | null;
+    readonly manufacturer: string | null;
+    readonly model: string | null;
 }
 
 export class ColorProfile extends ImageProfile implements IColorProfile {

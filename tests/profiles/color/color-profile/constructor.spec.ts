@@ -9,6 +9,7 @@ describe('ColorProfile#constructor', () => {
     it('should allow icm and icc as the name', () => {
         let colorProfile = new ColorProfile('icm', new Uint8Array(0));
         colorProfile = new ColorProfile('icc', new Uint8Array(0));
+        expect(colorProfile.name).toBe('icc');
     });
 
     it('should not allow invalid color profile names', () => {

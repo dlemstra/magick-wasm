@@ -10,6 +10,7 @@ import { ByteArray, _isByteArray } from './byte-array';
 import { Channels } from './enums/channels';
 import { ChromaticityInfo } from './types/chromaticity-info';
 import { ClassType } from './enums/class-type';
+import { ColorProfile, IColorProfile } from './profiles/color/color-profile';
 import { ColorSpace } from './enums/color-space';
 import { ColorType } from './enums/color-type';
 import { CompareResult } from './types/compare-result';
@@ -1150,6 +1151,11 @@ export interface IMagickImage extends IDisposable {
      * @param name The name of the attribute.
      */
     getAttribute(name: string): string | null;
+
+    /**
+     *  Retrieve the color profile from the image.
+     */
+    getColorProfile(): IColorProfile | null;
 
     /**
      * Get a pixel collection that can be used to read or modify the pixels of this image.
@@ -2797,6 +2803,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    getColorProfile(): IColorProfile | null {
+        const names = ['icc', 'icm'];
+
+        for (const name of names) {
+            const data = this._getProfile(name);
+            if (data !== null) {
+                return new ColorProfile(name, data);
+            }
+        }
+
+        return null;
+    }
+
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType): TReturnType;
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => Promise<TReturnType>): Promise<TReturnType>;
     getPixels<TReturnType>(func: (pixels: IPixelCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
@@ -2807,14 +2826,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     getProfile(name: string): IImageProfile | null {
-        return _withString(name, namePtr => {
-            const value = ImageMagick._api._MagickImage_GetProfile(this._instance, namePtr);
-            const data = StringInfo.toArray(value);
-            if (data === null)
-                return null;
+        const data = this._getProfile(name);
+        if (data === null)
+            return null;
 
-            return new ImageProfile(name, data);
-        });
+        return new ImageProfile(name, data);
     }
 
     getWriteMask<TReturnType>(func: (mask: IMagickImage | null) => TReturnType): TReturnType;
@@ -3429,6 +3445,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     private _contrast(enhance: boolean) {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Contrast(this._instance, this.fromBool(enhance), exception);
+        });
+    }
+
+    private _getProfile(name: string): Uint8Array | null {
+        return _withString(name, namePtr => {
+            const value = ImageMagick._api._MagickImage_GetProfile(this._instance, namePtr);
+            const data = StringInfo.toArray(value);
+            if (data === null)
+                return null;
+
+            return data;
         });
     }
 
