@@ -8,7 +8,7 @@ import {
 const wasm = await Deno.readFile('../dist/magick.wasm');
 await initializeImageMagick(wasm);
 
-const inFile = '../tests/images/image-magick.jpg';
+const inFile = '../tests/files/images/image-magick.jpg';
 let data = await Deno.readFile(inFile);
 
 const outFile = './example.png';
