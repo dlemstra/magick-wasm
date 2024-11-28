@@ -9,20 +9,20 @@ describe('MagickImage#hasProfile', () => {
     it('should return true when image contains a profile with the specified name', () => {
         TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             image.profileNames.forEach(name => {
-                expect(image.hasProfile(name)).toBeTruthy();
+                expect(image.hasProfile(name)).toBe(true);
             });
         });
     });
 
     it('should return false when image does not contain a profile with the specified name', () => {
         TestFiles.Images.imageMagickJpg.use(image => {
-            expect(image.hasProfile('foobar')).toBeFalsy();
+            expect(image.hasProfile('foobar')).toBe(false);
 
-            expect(image.hasProfile('8bim')).toBeFalsy();
-            expect(image.hasProfile('exif')).toBeFalsy();
-            expect(image.hasProfile('icc')).toBeFalsy();
-            expect(image.hasProfile('iptc')).toBeFalsy();
-            expect(image.hasProfile('xmp')).toBeFalsy();
+            expect(image.hasProfile('8bim')).toBe(false);
+            expect(image.hasProfile('exif')).toBe(false);
+            expect(image.hasProfile('icc')).toBe(false);
+            expect(image.hasProfile('iptc')).toBe(false);
+            expect(image.hasProfile('xmp')).toBe(false);
         });
     });
 });
