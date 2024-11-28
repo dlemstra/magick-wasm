@@ -91,12 +91,12 @@ export class MagickColor implements IMagickColor {
         }
     }
 
-    public r = 0;
-    public g = 0;
-    public b = 0;
-    public a = 0;
-    public k = 0;
-    public isCmyk = false;
+    r = 0;
+    g = 0;
+    b = 0;
+    a = 0;
+    k = 0;
+    isCmyk = false;
 
     /** @internal */
     static _create(colorPtr: number): IMagickColor {

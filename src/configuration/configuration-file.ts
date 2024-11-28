@@ -20,10 +20,10 @@ export interface IConfigurationFile {
 
 /** @internal */
 export class ConfigurationFile implements IConfigurationFile {
-    public readonly fileName: string;
-    public data: string;
+    readonly fileName: string;
+    data: string;
 
-    public constructor(fileName: string, data: string) {
+    constructor(fileName: string, data: string) {
         this.fileName = fileName;
         this.data = data;
     }

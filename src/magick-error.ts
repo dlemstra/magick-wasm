@@ -29,7 +29,7 @@ export class MagickError extends Error {
     get relatedErrors(): ReadonlyArray<MagickError> { return this._relatedErrors; }
 
     /** @internal */
-    public _setRelatedErrors(relatedErrors: MagickError[]) {
+    _setRelatedErrors(relatedErrors: MagickError[]) {
         this._relatedErrors = relatedErrors;
     }
 }

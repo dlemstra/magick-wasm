@@ -14,18 +14,18 @@ export class EndianReader {
         this.isLittleEndian = false;
     }
 
-    public get index(): number { return this._index; }
+    get index(): number { return this._index; }
 
-    public isLittleEndian: boolean;
+    isLittleEndian: boolean;
 
-    public readLong(): number | null {
+    readLong(): number | null {
         if (!this.canRead(4))
             return null;
 
         return this.isLittleEndian ? this.readLongLSB() : this.readLongMSB();
     }
 
-    public readString(length: number): string | null {
+    readString(length: number): string | null {
         if (length == 0)
             return '';
 
@@ -44,7 +44,7 @@ export class EndianReader {
         return result;
     }
 
-    public seek(index: number): boolean {
+    seek(index: number): boolean {
         if (index >= this._data.length)
             return false;
 
@@ -53,7 +53,7 @@ export class EndianReader {
         return true;
     }
 
-    public skip(value: number): boolean {
+    skip(value: number): boolean {
         if (this._index + value >= this._data.length)
             return false;
 

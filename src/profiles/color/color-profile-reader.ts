@@ -16,7 +16,7 @@ export class ColorProfileReader {
         this._reader = new EndianReader(data);
     }
 
-    public static read(data: Uint8Array): ColorProfileData {
+    static read(data: Uint8Array): ColorProfileData {
         const reader = new ColorProfileReader(data);
         reader.readColorSpace();
         reader.readTagTable();

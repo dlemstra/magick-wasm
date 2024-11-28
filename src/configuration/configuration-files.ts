@@ -38,12 +38,12 @@ export class ConfigurationFiles implements IConfigurationFiles {
     /**
      * Gets the default configuration.
      */
-    public static default: IConfigurationFiles = new ConfigurationFiles();
+    static default: IConfigurationFiles = new ConfigurationFiles();
 
     /**
      * Gets all the configuration files.
      */
-    public *all(): Generator<IConfigurationFile> {
+    *all(): Generator<IConfigurationFile> {
         yield this.log;
         yield this.policy;
     }
@@ -51,10 +51,10 @@ export class ConfigurationFiles implements IConfigurationFiles {
     /// <summary>
     /// Gets the log configuration.
     /// </summary>
-    public readonly log: IConfigurationFile;
+    readonly log: IConfigurationFile;
 
     /// <summary>
     /// Gets the policy configuration.
     /// </summary>
-    public readonly policy: IConfigurationFile;
+    readonly policy: IConfigurationFile;
 }

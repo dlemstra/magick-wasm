@@ -122,7 +122,7 @@ export class TestColorProfile extends TestFile {
         this.name = fileName.split('.').pop()!;
     }
 
-    public load(): ColorProfile {
+    load(): ColorProfile {
         return new ColorProfile(this.name, this.data);
     }
 }

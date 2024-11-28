@@ -19,7 +19,7 @@ export class DrawableTextAntialias implements IDrawable {
     /**
      * Initializes a new instance of the {@link DrawableTextAntialias} class with antialias disabled.
      */
-    public static get disabled(): DrawableTextAntialias
+    static get disabled(): DrawableTextAntialias
     {
         return new DrawableTextAntialias(false);
     }
@@ -27,7 +27,7 @@ export class DrawableTextAntialias implements IDrawable {
     /**
      * Initializes a new instance of the {@link DrawableTextAntialias} class with antialias enabled.
      */
-    public static get enabled(): DrawableTextAntialias
+    static get enabled(): DrawableTextAntialias
     {
         return new DrawableTextAntialias(true);
     }

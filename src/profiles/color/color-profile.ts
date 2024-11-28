@@ -39,7 +39,7 @@ export class ColorProfile extends ImageProfile implements IColorProfile {
     /**
      * Gets the color space of the profile.
      */
-    public get colorSpace(): ColorSpace {
+    get colorSpace(): ColorSpace {
         this.initialize();
 
         return this._data!.colorSpace;
@@ -48,7 +48,7 @@ export class ColorProfile extends ImageProfile implements IColorProfile {
     /**
      * Gets the copyright of the profile.
      */
-    public get copyright(): string | null {
+    get copyright(): string | null {
         this.initialize();
 
         return this._data!.copyright;
@@ -57,7 +57,7 @@ export class ColorProfile extends ImageProfile implements IColorProfile {
     /**
      * Gets the description of the profile.
      */
-    public get description(): string | null {
+    get description(): string | null {
         this.initialize();
 
         return this._data!.description;
@@ -66,7 +66,7 @@ export class ColorProfile extends ImageProfile implements IColorProfile {
     /**
      * Gets the manufacturer of the profile.
      */
-    public get manufacturer(): string | null {
+    get manufacturer(): string | null {
         this.initialize();
 
         return this._data!.manufacturer;
@@ -75,7 +75,7 @@ export class ColorProfile extends ImageProfile implements IColorProfile {
     /**
      * Gets the model of the profile.
      */
-    public get model(): string | null {
+    get model(): string | null {
         this.initialize();
 
         return this._data!.model;
