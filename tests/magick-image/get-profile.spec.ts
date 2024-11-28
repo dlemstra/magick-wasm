@@ -20,11 +20,7 @@ describe('MagickImage#getProfile', () => {
             let profile = image.getProfile('icc');
             profile = expectToNotBeNull(profile);
             expect(profile.name).toEqual('icc');
-
-            let data = profile.data;
-            data = expectToNotBeNull(data);
-            expect(data).not.toBeNull();
-            expect(data.length).toBe(3144);
+            expect(profile.data.length).toBe(3144);
         });
     });
 });
