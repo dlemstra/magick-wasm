@@ -9,9 +9,9 @@ import { ImageMagickApi } from '@dlemstra/magick-native';
 /** @internal */
 export function _createString(instance: number): string | null;
 export function _createString(instance: number, defaultValue: string): string;
-export function _createString(instance: number): string | null {
+export function _createString(instance: number, defaultValueOrUndefined?: string): string | null {
     if (instance === 0)
-        return null;
+        return defaultValueOrUndefined ?? null;
 
     return ImageMagick._api.UTF8ToString(instance);
 }
