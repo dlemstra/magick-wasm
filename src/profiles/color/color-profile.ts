@@ -24,7 +24,7 @@ export class ColorProfile extends ImageProfile implements IColorProfile {
     private _data?: ColorProfileData;
 
     constructor(data: Uint8Array);
-    constructor(name: string, data: Uint8Array);
+    constructor(name: 'icm' | 'icc', data: Uint8Array);
     constructor(nameOrData: string | Uint8Array, dataOrUndefined?: Uint8Array) {
         const name = typeof nameOrData === 'string' ? nameOrData : 'icc';
         const data = typeof nameOrData !== 'string' ? nameOrData : dataOrUndefined!;
