@@ -2827,7 +2827,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         for (const name of names) {
             const data = this._getProfile(name);
             if (data !== null) {
-                return new ColorProfile(name, data);
+                return new ColorProfile(<'icc' | 'icm'>name, data);
             }
         }
 

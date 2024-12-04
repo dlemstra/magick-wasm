@@ -123,7 +123,7 @@ export class TestColorProfile extends TestFile {
     }
 
     load(): ColorProfile {
-        return new ColorProfile(this.name, this.data);
+        return new ColorProfile(<'icc' | 'icm'>this.name, this.data);
     }
 }
 
