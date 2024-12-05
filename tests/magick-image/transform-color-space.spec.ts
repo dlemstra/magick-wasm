@@ -3,6 +3,7 @@
   Licensed under the Apache License, Version 2.0.
 */
 
+import { ColorSpace } from '@src/enums/color-space';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#transformColorSpace', () => {
@@ -37,6 +38,18 @@ describe('MagickImage#transformColorSpace', () => {
             const target = TestFiles.Profiles.Color.USWebCoatedSWOP.load();
             const result = image.transformColorSpace(source, target);
             expect(result).toBe(true);
+        });
+    });
+
+    it('should change the colorspace of the image', () => {
+        TestFiles.Images.imageMagickJpg.use((image) => {
+            expect(image.colorSpace).toBe(ColorSpace.sRGB);
+
+            const source = TestFiles.Profiles.Color.SRGB.load();
+            const target = TestFiles.Profiles.Color.USWebCoatedSWOP.load();
+            const result = image.transformColorSpace(source, target);
+            expect(result).toBe(true);
+            expect(image.colorSpace).toBe(ColorSpace.CMYK);
         });
     });
 });
