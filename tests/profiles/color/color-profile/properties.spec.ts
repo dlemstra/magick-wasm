@@ -10,7 +10,7 @@ describe('ColorProfile#properties', () => {
     it('should return the correct values for an sRGB profile', () => {
         const colorProfile = TestFiles.Profiles.Color.SRGB.load();
 
-        expect(colorProfile.name).toBe('icm');
+        expect(colorProfile.name).toBe('icc');
         expect(colorProfile.data.length).toBe(3144);
         expect(colorProfile.colorSpace).toBe(ColorSpace.sRGB);
         expect(colorProfile.copyright).toBe('Copyright (c) 1998 Hewlett-Packard Company');

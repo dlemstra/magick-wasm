@@ -2827,7 +2827,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         for (const name of names) {
             const data = this._getProfile(name);
             if (data !== null) {
-                return new ColorProfile(<'icc' | 'icm'>name, data);
+                return new ColorProfile(data);
             }
         }
 
@@ -3263,7 +3263,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     transformColorSpace(source: IColorProfile, target: IColorProfile): boolean;
     transformColorSpace(sourceOrTarget: IColorProfile, targetOrUndefined?: IColorProfile): boolean {
         const source = sourceOrTarget;
-        let target: IColorProfile | undefined = undefined;
+        let target: IColorProfile | undefined;
         if (targetOrUndefined !== undefined)
             target = targetOrUndefined;
 
