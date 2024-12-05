@@ -69,7 +69,7 @@ import { StringInfo } from './internal/string-info';
 import { TemporaryDefines } from './helpers/temporary-defines';
 import { VirtualPixelMethod } from './enums/virtual-pixel-method';
 import { WarningEvent } from './events/warning-event';
-import { _createString, _withString } from './internal/native/string';
+import { _createString, _createStringAndRelinquish, _withString } from './internal/native/string';
 import { _getEdges } from './enums/gravity';
 import { _withByteArray, _withDoubleArray } from './internal/native/array';
 
@@ -1105,6 +1105,12 @@ export interface IMagickImage extends IDisposable {
      * Flop image (reflect each scanline in the horizontal direction).
      */
     flop(): void;
+
+    /**
+     * Formats the specified expression (more info can be found here: https://imagemagick.org/script/escape.php).
+     * @param expression The expression.
+     */
+    formatExpression(expression: string): string | null;
 
     /**
      * Gamma correct image.
@@ -2779,6 +2785,21 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Flop(this._instance, exception.ptr);
             this._setInstance(instance, exception);
+        });
+    }
+
+    /**
+     * Formats the specified expression (more info can be found here: https://imagemagick.org/script/escape.php).
+     * @param expression The expression.
+     */
+    formatExpression(expression: string): string | null {
+        return this.useExceptionPointer(exception => {
+            return this._settings._use(settings => {
+                return _withString(expression, expressionPtr => {
+                    const instance = ImageMagick._api._MagickImage_FormatExpression(this._instance, settings._instance, expressionPtr, exception);
+                    return _createStringAndRelinquish(ImageMagick._api, instance);
+                });
+            });
         });
     }
 

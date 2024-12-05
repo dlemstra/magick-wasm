@@ -17,6 +17,15 @@ export function _createString(instance: number, defaultValueOrUndefined?: string
 }
 
 /** @internal */
+export function _createStringAndRelinquish(api: ImageMagickApi, instance: number): string | null {
+    const result = _createString(instance);
+
+    api._MagickMemory_Relinquish(instance);
+
+    return result;
+}
+
+/** @internal */
 export function _withNativeString<TReturnType>(api: ImageMagickApi, str: string, func: (instance: number) => TReturnType): TReturnType {
     const length = api.lengthBytesUTF8(str) + 1;
     const instance = api._malloc(length);
