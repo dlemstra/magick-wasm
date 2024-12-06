@@ -12,6 +12,7 @@ import { ChromaticityInfo } from './types/chromaticity-info';
 import { ClassType } from './enums/class-type';
 import { ColorProfile, IColorProfile } from './profiles/color/color-profile';
 import { ColorSpace } from './enums/color-space';
+import { ColorTransformMode } from './enums/color-transform-mode';
 import { ColorType } from './enums/color-type';
 import { CompareResult } from './types/compare-result';
 import { CompareSettings } from './settings/compare-settings';
@@ -1706,6 +1707,15 @@ export interface IMagickImage extends IDisposable {
     transformColorSpace(target: IColorProfile): boolean;
 
     /**
+     * Transforms the image from the colorspace of the source profile to the target profile. This
+     * requires the image to have a color profile. Nothing will happen if the image has no color profile.
+     * @param target The target color profile.
+     * @param mode The color transform node.
+     * @returns A value indicating whether the transformation was successful.
+     */
+    transformColorSpace(target: IColorProfile, mode: ColorTransformMode): boolean;
+
+    /**
      * Transforms the image from the colorspace of the source profile to the target profile. The
      * source profile will only be used if the image does not contain a color profile. Nothing
      * will happen if the source profile has a different colorspace then that of the image.
@@ -1714,6 +1724,17 @@ export interface IMagickImage extends IDisposable {
      * @returns A value indicating whether the transformation was successful.
      */
     transformColorSpace(source: IColorProfile, target: IColorProfile): boolean;
+
+    /**
+     * Transforms the image from the colorspace of the source profile to the target profile. The
+     * source profile will only be used if the image does not contain a color profile. Nothing
+     * will happen if the source profile has a different colorspace then that of the image.
+     * @param source The source color profile.
+     * @param target The target color profile.
+     * @param mode The color transform node.
+     * @returns A value indicating whether the transformation was successful.
+     */
+    transformColorSpace(source: IColorProfile, target: IColorProfile, mode: ColorTransformMode): boolean;
 
     /**
      * Threshold image.
@@ -3281,12 +3302,21 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     transformColorSpace(target: IColorProfile): boolean;
+    transformColorSpace(target: IColorProfile, mode: ColorTransformMode): boolean;
     transformColorSpace(source: IColorProfile, target: IColorProfile): boolean;
-    transformColorSpace(sourceOrTarget: IColorProfile, targetOrUndefined?: IColorProfile): boolean {
+    transformColorSpace(source: IColorProfile, target: IColorProfile, mode: ColorTransformMode): boolean;
+    transformColorSpace(sourceOrTarget: IColorProfile, targetModeOrUndefined?: IColorProfile | ColorTransformMode, modeOrUndefined?: ColorTransformMode): boolean {
         const source = sourceOrTarget;
         let target: IColorProfile | undefined;
-        if (targetOrUndefined !== undefined)
-            target = targetOrUndefined;
+        let mode = ColorTransformMode.Quantum;
+        if (targetModeOrUndefined !== undefined) {
+            if (typeof targetModeOrUndefined === 'number')
+                mode = targetModeOrUndefined;
+            else
+                target = targetModeOrUndefined;
+        }
+        if (modeOrUndefined !== undefined)
+            mode = modeOrUndefined;
 
         const hasColorProfile = this.hasProfile('icc') || this.hasProfile('icm');
         if (target === undefined) {
@@ -3303,7 +3333,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 this.setProfile(source);
         }
 
-        this.setProfile(target);
+        if (mode === ColorTransformMode.Quantum) {
+            TemporaryDefines.use(this, temporaryDefines => {
+                temporaryDefines.setArtifact('profile:highres-transform', false);
+                this.setProfile(target);
+            });
+        }
+        else {
+            this.setProfile(target);
+        }
 
         return true;
     }

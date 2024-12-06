@@ -162,7 +162,7 @@ export class TestFiles {
             red: new TestImageFromColor(MagickColors.Red, 1, 1),
             black: new TestImageFromColor(MagickColors.Black, 1, 1),
             purple: new TestImageFromColor(MagickColors.Purple, 1, 1),
-            white: new TestImageFromColor(MagickColors.Black, 2, 2),
+            white: new TestImageFromColor(MagickColors.White, 2, 2),
         }
     }
 
@@ -170,6 +170,7 @@ export class TestFiles {
         Color: {
             SRGB: new TestColorProfile('tests/files/color-profiles/SRGB.icm'),
             USWebCoatedSWOP: new TestColorProfile('tests/files/color-profiles/USWebCoatedSWOP.icc'),
+            CoatedFOGRA39: new TestColorProfile('tests/files/color-profiles/CoatedFOGRA39.icc'),
         }
     }
 }

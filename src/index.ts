@@ -39,6 +39,7 @@ export * from './enums/auto-threshold-method';
 export * from './enums/channels';
 export * from './enums/class-type';
 export * from './enums/color-space';
+export * from './enums/color-transform-mode';
 export * from './enums/color-type';
 export * from './enums/complex-operator';
 export * from './enums/composite-operator';
