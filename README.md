@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/dlemstra/magick-wasm/workflows/main/badge.svg)](https://github.com/dlemstra/magick-wasm/actions)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-green.svg)](https://raw.githubusercontent.com/dlemstra/magick-wasm/main/license.txt)
-[![Twitter URL](https://img.shields.io/badge/twitter-follow-1da1f2.svg)](https://twitter.com/MagickNET)
+[![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?logo=bluesky&logoColor=fff)](https://bsky.app/profile/dirk.lemstra.org)
 [![Donate](https://img.shields.io/badge/%24-donate-ff00ff.svg)](https://github.com/sponsors/dlemstra)
 
 ImageMagick is a powerful image manipulation library that supports over [100 major file formats](https://www.imagemagick.org/script/formats.php) (not including sub-formats).
@@ -17,7 +17,7 @@ For more information about ImageMagick go to: [http://www.imagemagick.org/](http
 
 You can download the npm package from here: https://www.npmjs.com/package/@imagemagick/magick-wasm.
 
-Follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive information about new downloads and changes to magick-wasm and ImageMagick.
+Follow me on bluesky ([@dirk.lemstra.org](https://bsky.app/profile/dirk.lemstra.org)) to receive information about new downloads and changes to magick-wasm and ImageMagick.
 
 ## Release notes
 
