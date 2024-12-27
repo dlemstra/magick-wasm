@@ -63,6 +63,11 @@ export enum MagickFormat {
     Ashlar = 'ASHLAR',
 
     /**
+     * AVC Image File Format.
+     */
+    Avci = 'AVCI',
+
+    /**
      * Microsoft Audio/Visual Interleaved.
      */
     Avi = 'AVI',
