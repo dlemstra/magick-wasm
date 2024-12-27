@@ -7,7 +7,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-41 (2024-11-16) ] copyright:
+[ ImageMagick 7.1.1-43 (2024-12-22) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -118,7 +118,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ aom 3.10.0 (2024-08-27) ] copyright:
+[ aom 3.11.0 (2024-11-14) ] copyright:
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -1814,7 +1814,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.19.3 (2024-11-11) ] copyright:
+[ heif 1.19.5 (2024-11-19) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
@@ -3039,7 +3039,7 @@ that were granted to the IJG for code derived from their software.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-xl 0.11.0 (2024-09-13) ] copyright:
+[ jpeg-xl 0.11.1 (2024-11-26) ] copyright:
 
 Copyright (c) the JPEG XL Project Authors.
 All rights reserved.
@@ -3546,7 +3546,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.13.4 (2024-09-18) ] copyright:
+[ xml 2.13.5 (2024-11-12) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files dict.c and
 list.c, which are covered by a similar licence but with different Copyright
