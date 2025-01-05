@@ -39,6 +39,9 @@ export function _withNativeString<TReturnType>(api: ImageMagickApi, str: string,
 }
 
 /** @internal */
-export function _withString<TReturnType>(str: string, func: (instance: number) => TReturnType): TReturnType {
+export function _withString<TReturnType>(str: string | null, func: (instance: number) => TReturnType): TReturnType {
+    if (str === null)
+        return func(0);
+
     return _withNativeString(ImageMagick._api, str, func);
 }

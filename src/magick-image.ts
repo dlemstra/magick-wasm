@@ -26,6 +26,7 @@ import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './enums/distort-method';
 import { DistortSettings } from './settings/distort-settings';
+import { DrawingSettings } from './internal/settings/drawing-settings';
 import { DrawingWand } from './drawing/drawing-wand';
 import { DoublePointer } from './internal/pointer/double-pointer';
 import { Endian } from './enums/endian';
@@ -441,6 +442,45 @@ export interface IMagickImage extends IDisposable {
      * @param value The option to use.
      */
     alpha(value: AlphaOption): void;
+
+    /**
+     * Annotate using specified text, and bounding area.
+     * @param text The text to use.
+     * @param boundingArea The bounding area.
+     */
+    annotate(text: string, boundingArea: MagickGeometry): void;
+
+    /**
+     * Annotate using specified text, bounding area, and placement gravity.
+     * @param text The text to use.
+     * @param boundingArea The bounding area.
+     * @param gravity The gravity to use.
+     */
+    annotate(text: string, boundingArea: MagickGeometry, gravity: Gravity): void;
+
+    /**
+     * Annotate using specified text, bounding area, and placement gravity.
+     * @param text The text to use.
+     * @param boundingArea The bounding area.
+     * @param gravity The gravity to use.
+     * @param angle The rotation.
+     */
+    annotate(text: string, boundingArea: MagickGeometry, gravity: Gravity, angle: number): void;
+
+    /**
+     * Annotate with text (bounding area is entire image) and placement gravity.
+     * @param text The text to use.
+     * @param gravity The gravity to use.
+     */
+    annotate(text: string, gravity: Gravity): void;
+
+    /**
+     * Annotate with text (bounding area is entire image) and placement gravity.
+     * @param text The text to use.
+     * @param gravity The gravity to use.
+     * @param angle The rotation.
+     */
+    annotate(text: string, gravity: Gravity, angle: number): void;
 
     /**
      * Extracts the 'mean' from the image and adjust the image to try make set its gamma appropriately.
@@ -2275,6 +2315,39 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     alpha(value: AlphaOption): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_SetAlpha(this._instance, value, exception);
+        });
+    }
+
+    annotate(text: string, boundingArea: MagickGeometry): void;
+    annotate(text: string, boundingArea: MagickGeometry, gravity: Gravity): void;
+    annotate(text: string, boundingArea: MagickGeometry, gravity: Gravity, angle: number): void;
+    annotate(text: string, gravity: Gravity): void;
+    annotate(text: string, gravity: Gravity, angle: number): void;
+    annotate(text: string, boundingAreaOrGravity: MagickGeometry | Gravity, gravityOrAngleOrUndefined?: Gravity | number, angleOrUndefined?: number): void {
+        const drawingSettings = DrawingSettings._create(this._settings);
+        return this.useExceptionPointer(exception => {
+            return drawingSettings._use(settings => {
+                _withString(text, textPtr => {
+                    let boundingArea: string | null = null;
+                    let gravity = Gravity.Undefined;
+                    let angle = 0.0;
+                    if (typeof boundingAreaOrGravity === 'object') {
+                        boundingArea = boundingAreaOrGravity.toString();
+                        if (gravityOrAngleOrUndefined !== undefined)
+                            gravity = <Gravity>gravityOrAngleOrUndefined;
+                        if (angleOrUndefined !== undefined)
+                            angle = angleOrUndefined;
+                    } else {
+                        gravity = boundingAreaOrGravity;
+                        if (gravityOrAngleOrUndefined !== undefined)
+                            angle = <number>gravityOrAngleOrUndefined;
+                    }
+
+                    _withString(boundingArea, boundingAreaPtr => {
+                        ImageMagick._api._MagickImage_Annotate(this._instance, settings._instance, textPtr, boundingAreaPtr, gravity, angle, exception);
+                    });
+                });
+            });
         });
     }
 
