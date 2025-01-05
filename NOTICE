@@ -1050,7 +1050,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ deflate 1.22.0 (2024-10-05) ] copyright:
+[ deflate 1.23.0 (2024-12-15) ] copyright:
 
 Copyright 2016 Eric Biggers
 Copyright 2024 Google LLC
@@ -2895,7 +2895,7 @@ SOFTWARE.
    limitations under the License.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-turbo 3.0.3 (2024-05-08) ] copyright:
+[ jpeg-turbo 3.1.0 (2024-12-12) ] copyright:
 
 libjpeg-turbo Licenses
 ======================
@@ -2993,7 +2993,7 @@ intended solely for clarification.
 The Modified (3-clause) BSD License
 ===================================
 
-Copyright (C)2009-2023 D. R. Commander.  All Rights Reserved.<br>
+Copyright (C)2009-2024 D. R. Commander.  All Rights Reserved.<br>
 Copyright (C)2015 Viktor Szathmáry.  All Rights Reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -3268,7 +3268,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openjpeg 2.5.2 (2024-02-28) ] copyright:
+[ openjpeg 2.5.3 (2024-12-09) ] copyright:
 
 /*
  * The copyright in this software is being made available under the 2-clauses 
@@ -3511,7 +3511,7 @@ OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ webp 1.4.0 (2023-04-13) ] copyright:
+[ webp 1.5.0 (2024-12-20) ] copyright:
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
