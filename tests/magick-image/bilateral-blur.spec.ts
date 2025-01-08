@@ -8,15 +8,15 @@ import { TestFiles } from '@test/test-files';
 describe('MagickImage#bilateralBlur', () => {
     it('should change pixels of the image', () => {
         TestFiles.Images.Builtin.logo.use(image => {
-            image.bilateralBlur(5, 5);
-            expect(image).toHavePixelWithColor(387, 435, '#b2191dff');
+            image.bilateralBlur(5, 6);
+            expect(image).toHavePixelWithColor(387, 435, '#b5191eff');
         });
     });
 
     it('should use the specified sigma values', () => {
         TestFiles.Images.Builtin.logo.use(image => {
-            image.bilateralBlur(5, 5, 10, 10);
-            expect(image).toHavePixelWithColor(387, 435, '#c11b1fff');
+            image.bilateralBlur(5, 6, 7, 8);
+            expect(image).toHavePixelWithColor(387, 435, '#b4191dff');
         });
     });
 });
