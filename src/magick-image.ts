@@ -519,6 +519,22 @@ export interface IMagickImage extends IDisposable {
     autoThreshold(method: AutoThresholdMethod): void;
 
     /**
+     * Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+     * @param width The width of the neighborhood in pixels.
+     * @param height The height of the neighborhood in pixels.
+     */
+    bilateralBlur(width: number, height: number): void;
+
+    /**
+     * Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+     * @param width The width of the neighborhood in pixels.
+     * @param height The height of the neighborhood in pixels.
+     * @param intensitySigma The sigma in the intensity space.
+     * @param spatialSigma The sigma in the coordinate space.
+     */
+    bilateralBlur(width: number, height: number, intensitySigma: number, spatialSigma: number): void;
+
+    /**
      * Blur image with the default blur factor (0x1).
      */
     blur(): void;
@@ -2380,6 +2396,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    bilateralBlur(width: number, height: number): void;
+    bilateralBlur(width: number, height: number, intensitySigma: number, spatialSigma: number): void;
+    bilateralBlur(width: number, height: number, intensitySigmaOrUndefined?: number, spatialSigmaOrUndefined?: number): void
+    {
+        const intensitySigma = this.valueOrComputedDefault(intensitySigmaOrUndefined, () => Math.sqrt((width * width) + (height * height)));
+        const spatialSigma = this.valueOrDefault(spatialSigmaOrUndefined, intensitySigma * 0.25);
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_BilateralBlur(this._instance, width, height, intensitySigma, spatialSigma, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
     blur(): void;
     blur(channels: Channels): void;
     blur(radius: number, sigma: number): void;
@@ -3728,6 +3756,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     private valueOrDefault<TType>(value: TType | undefined, defaultValue: TType): TType {
         if (value === undefined)
             return defaultValue;
+
+        return value;
+    }
+
+    private valueOrComputedDefault<TType>(value: TType | undefined, defaultValue: () => TType): TType {
+        if (value === undefined)
+            return defaultValue();
 
         return value;
     }
