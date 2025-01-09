@@ -43,6 +43,8 @@ jobs:
 
       - run: npm run build
 
+      - run: npm run postinstall
+
       - run: npm run test-dist
 
       - run: npm run demo
