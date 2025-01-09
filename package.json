@@ -41,7 +41,7 @@
         "demo": "cd demo && tsc && node demo.js",
         "lint": "eslint --max-warnings=0 .",
         "issue": "cd issue && tsc && node issue.js",
-        "prepare": "node npm-prepare.mjs",
+        "postinstall": "node npm-postinstall.mjs",
         "test": "vitest run",
         "test-dist": "node tests/dist/test-dist",
         "update-index": "cd tools && tsc && node update-index.js ../src"
