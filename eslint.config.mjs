@@ -23,7 +23,7 @@ export default [{
         "tools/*.js",
         "**/dist",
         "**/vite.config.ts",
-        "eslint.config.mjs",
+        "*.mjs",
     ],
 }, ...compat.extends(
     "eslint:recommended",
