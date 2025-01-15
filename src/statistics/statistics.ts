@@ -32,23 +32,18 @@ export interface IStatistics {
 
 /** @internal */
 export class Statistics implements IStatistics {
-    private _channels: Record<number, ChannelStatistics> = {};
+    private readonly _channels: Map<PixelChannel, ChannelStatistics> = new Map();
 
     get channels(): ReadonlyArray<PixelChannel> {
-        const channels: PixelChannel[] = [];
-        for (const channel in this._channels) {
-            channels.push(parseInt(channel));
-        }
-
-        return channels;
+        return Array.from(this._channels.keys());
     }
 
     composite(): IChannelStatistics {
-        return this._channels[PixelChannel.Composite];
+        return this._channels.get(PixelChannel.Composite)!;
     }
 
     getChannel(channel: PixelChannel): IChannelStatistics | null {
-        const channelStatistics = this._channels[channel];
+        const channelStatistics = this._channels.get(channel);
         return channelStatistics !== undefined ? channelStatistics : null;
     }
 
@@ -68,7 +63,7 @@ export class Statistics implements IStatistics {
     private addChannel(list: number, channel: PixelChannel) {
         const instance = ImageMagick._api._Statistics_GetInstance(list, channel);
         if (instance !== 0) {
-            this._channels[channel] = new ChannelStatistics(channel, instance);
+            this._channels.set(channel, new ChannelStatistics(channel, instance));
         }
     }
 }
