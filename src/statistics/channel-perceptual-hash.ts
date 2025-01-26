@@ -57,9 +57,24 @@ export class ChannelPerceptualHash implements IChannelPerceptualHash {
 
     channel: PixelChannel;
 
-    constructor(channel: PixelChannel, colorSpaces: ReadonlyArray<ColorSpace>, hash: string) {
+    /** @internal */
+    constructor(channel: PixelChannel, colorSpaces: ReadonlyArray<ColorSpace>, hash: string);
+    constructor(channel: PixelChannel, colorSpaces: ReadonlyArray<ColorSpace>, instance: number);
+    constructor(channel: PixelChannel, colorSpaces: ReadonlyArray<ColorSpace>, hashOrInstance: string | number) {
         this.channel = channel;
-        this.parseHash(colorSpaces, hash);
+        if (typeof hashOrInstance == 'number') {
+            for (let colorSpaceIndex = 0; colorSpaceIndex < colorSpaces.length; colorSpaceIndex++) {
+                const huPhashList = new HuPhashList();
+                for (let i = 0; i < 7; i++) {
+                    const huPhash = ImageMagick._api._ChannelPerceptualHash_GetHuPhash(hashOrInstance, colorSpaceIndex, i);
+                    huPhashList.set(i, huPhash);
+                }
+
+                this._huPhashes.set(colorSpaces[colorSpaceIndex], huPhashList);
+            }
+        } else {
+            this.parseHash(colorSpaces, hashOrInstance);
+        }
     }
 
     huPhash(colorSpace: ColorSpace, index: number): number {
