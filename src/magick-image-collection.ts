@@ -455,7 +455,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     combine<TReturnType>(colorSpace: ColorSpace, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>
     combine<TReturnType>(colorSpaceOrfunc: ColorSpace | (ImageCallback<TReturnType>), func?: (images: IMagickImage) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         let callback = func;
-        let colorSpace = ColorSpace.sRGB;
+        let colorSpace: ColorSpace = ColorSpace.sRGB;
         if (typeof colorSpaceOrfunc === 'number')
             colorSpace = colorSpaceOrfunc;
         else
@@ -656,7 +656,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
     smushVertical<TReturnType>(offset: number, func: SyncImageCallback<TReturnType>): TReturnType;
     smushVertical<TReturnType>(offset: number, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
-    smushVertical<TReturnType>(offset: number, func: ImageCallback<TReturnType>): Promise<TReturnType> | TReturnType{
+    smushVertical<TReturnType>(offset: number, func: ImageCallback<TReturnType>): Promise<TReturnType> | TReturnType {
         return this.smush(offset, true, func);
     }
 
