@@ -56,6 +56,7 @@ import { NativeInstance } from './native-instance';
 import { NoiseType } from './enums/noise-type';
 import { OrientationType } from './enums/orientation-type';
 import { Percentage } from './types/percentage';
+import { PerceptualHash, IPerceptualHash } from './statistics/perceptual-hash';
 import { PixelChannel } from './enums/pixel-channel';
 import { PixelCollection, IPixelCollection } from './pixels/pixel-collection';
 import { PixelIntensityMethod } from './enums/pixel-intensity-method';
@@ -1472,6 +1473,18 @@ export interface IMagickImage extends IDisposable {
      * @param fill The color to replace opaque color with.
      */
     opaque(target: IMagickColor, fill: IMagickColor): void;
+
+    /**
+     * Returns the perceptual hash of this image with the colorspaces @see ColorSpace.XyY
+     * and @see ColorSpace.HSB .
+     */
+    perceptualHash(): IPerceptualHash;
+
+    /**
+     * Returns the perceptual hash of this image.
+     * @param colorSpaces The colorspaces to get the perceptual hash for.
+     */
+    perceptualHash(colorSpaces: ReadonlyArray<ColorSpace>): IPerceptualHash;
 
     /**
      * Reads only metadata and not the pixel data.
@@ -3164,6 +3177,23 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     ping(array: ByteArray, settings?: MagickReadSettings): void;
     ping(fileNameOrArray: string | ByteArray, settingsOrUndefined?: MagickReadSettings): void {
         this.readOrPing(true, fileNameOrArray, settingsOrUndefined);
+    }
+
+    perceptualHash(): IPerceptualHash;
+    perceptualHash(colorSpaces: ReadonlyArray<ColorSpace>): IPerceptualHash;
+    perceptualHash(colorSpacesOrUndefined?: ReadonlyArray<ColorSpace>): IPerceptualHash {
+        const colorSpaces = this.valueOrDefault(colorSpacesOrUndefined, PerceptualHash._defaultColorspaces());
+        PerceptualHash._validateColorSpaces(colorSpaces);
+
+        return TemporaryDefines.use(this, temporaryDefines => {
+            const colorSpaceName = colorSpaces.map(colorSpace => ColorSpaceNames[colorSpace]).join(',');
+            temporaryDefines.setArtifact('phash:colorspaces', colorSpaceName);
+
+            return this.useExceptionPointer(exception => {
+                const listInstance = ImageMagick._api._MagickImage_PerceptualHash(this._instance, exception);
+                return PerceptualHash._create(this, colorSpaces, listInstance);
+            });
+        });
     }
 
     quantize(settingsOrUndefined?: QuantizeSettings): MagickErrorInfo | null {
