@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         node: [18, 20, 22]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-24.04, macOS-14, windows-2022]
 
     steps:
       - uses: actions/checkout@v4
@@ -63,7 +63,7 @@ jobs:
     name: Test on deno
     container:
       image: denoland/deno:debian
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - run: apt update && apt install -y curl
