@@ -19,7 +19,7 @@ class WasmLocator implements IWasmLocator {
     constructor(wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module) {
         if (wasmLocationDataOrAssembly instanceof URL) {
             if (wasmLocationDataOrAssembly.protocol !== 'http:' && wasmLocationDataOrAssembly.protocol !== 'https:')
-                throw new Error('Only http/https protocol is supported');
+                throw new MagickError('Only http/https protocol is supported');
 
             this.locateFile = (): string => {
                 return wasmLocationDataOrAssembly.href;
