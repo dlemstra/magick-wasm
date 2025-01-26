@@ -6,204 +6,250 @@
 /**
  * Specifies a kind of color space.
  */
-export enum ColorSpace {
+export const ColorSpace = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * CMY.
      */
-    CMY,
+    CMY: 1,
 
     /**
      * CMYK.
      */
-    CMYK,
+    CMYK: 2,
 
     /**
      * Gray.
      */
-    Gray,
+    Gray: 3,
 
     /**
      * HCL.
      */
-    HCL,
+    HCL: 4,
 
     /**
      * HCLp.
      */
-    HCLp,
+    HCLp: 5,
 
     /**
      * HSB.
      */
-    HSB,
+    HSB: 6,
 
     /**
      * HSI.
      */
-    HSI,
+    HSI: 7,
 
     /**
      * HSL.
      */
-    HSL,
+    HSL: 8,
 
     /**
      * HSV.
      */
-    HSV,
+    HSV: 9,
 
     /**
      * HWB.
      */
-    HWB,
+    HWB: 10,
 
     /**
      * Lab
      */
-    Lab,
+    Lab: 11,
 
     /**
      * LCH.
      */
-    LCH,
+    LCH: 12,
 
     /**
      * LCHab.
      */
-    LCHab,
+    LCHab: 13,
 
     /**
      * LCHuv.
      */
-    LCHuv,
+    LCHuv: 14,
 
     /**
      * Log.
      */
-    Log,
+    Log: 15,
 
     /**
      * LMS.
      */
-    LMS,
+    LMS: 16,
 
     /**
      * Luv.
      */
-    Luv,
+    Luv: 17,
 
     /**
      * OHTA.
      */
-    OHTA,
+    OHTA: 18,
 
     /**
      * Rec601YCbCr.
      */
-    Rec601YCbCr,
+    Rec601YCbCr: 19,
 
     /**
      * Rec709YCbCr.
      */
-    Rec709YCbCr,
+    Rec709YCbCr: 20,
 
     /**
      * RGB.
      */
-    RGB,
+    RGB: 21,
 
     /**
      * scRGB.
      */
-    scRGB,
+    scRGB: 22,
 
     /**
      * sRGB.
      */
-    sRGB,
+    sRGB: 23,
 
     /**
      * Transparent.
      */
-    Transparent,
+    Transparent: 24,
 
     /**
      * XyY.
      */
-    XyY,
+    XyY: 25,
 
     /**
      * XYZ.
      */
-    XYZ,
+    XYZ: 26,
 
     /**
      * YCbCr.
      */
-    YCbCr,
+    YCbCr: 27,
 
     /**
      * YCC.
      */
-    YCC,
+    YCC: 28,
 
     /**
      * YDbDr.
      */
-    YDbDr,
+    YDbDr: 29,
 
     /**
      * YIQ.
      */
-    YIQ,
+    YIQ: 30,
 
     /**
      * YPbPr.
      */
-    YPbPr,
+    YPbPr: 31,
 
     /**
      * YUV.
      */
-    YUV,
+    YUV: 32,
 
     /**
      * LinearGray.
      */
-    LinearGray,
+    LinearGray: 33,
 
     /**
      * Jzazbz.
      */
-    Jzazbz,
+    Jzazbz: 34,
 
     /**
      * DisplayP3.
      */
-    DisplayP3,
+    DisplayP3: 35,
 
     /**
      * Adobe98.
      */
-    Adobe98,
+    Adobe98: 36,
 
     /**
      * ProPhoto.
      */
-    ProPhoto,
+    ProPhoto: 37,
 
     /**
      * Oklab.
      */
-    Oklab,
+    Oklab: 38,
 
     /**
      * Oklch.
      */
-    Oklch
-}
+    Oklch: 39
+} as const;
+
+export type ColorSpace = typeof ColorSpace[keyof typeof ColorSpace];
+
+/* @internal */
+export const ColorSpaceNames: { [key in ColorSpace]: string } = {
+    [ColorSpace.Undefined]: 'Undefined',
+    [ColorSpace.CMY]: 'CMY',
+    [ColorSpace.CMYK]: 'CMYK',
+    [ColorSpace.Gray]: 'Gray',
+    [ColorSpace.HCL]: 'HCL',
+    [ColorSpace.HCLp]: 'HCLp',
+    [ColorSpace.HSB]: 'HSB',
+    [ColorSpace.HSI]: 'HSI',
+    [ColorSpace.HSL]: 'HSL',
+    [ColorSpace.HSV]: 'HSV',
+    [ColorSpace.HWB]: 'HWB',
+    [ColorSpace.Lab]: 'Lab',
+    [ColorSpace.LCH]: 'LCH',
+    [ColorSpace.LCHab]: 'LCHab',
+    [ColorSpace.LCHuv]: 'LCHuv',
+    [ColorSpace.Log]: 'Log',
+    [ColorSpace.LMS]: 'LMS',
+    [ColorSpace.Luv]: 'Luv',
+    [ColorSpace.OHTA]: 'OHTA',
+    [ColorSpace.Rec601YCbCr]: 'Rec601YCbCr',
+    [ColorSpace.Rec709YCbCr]: 'Rec709YCbCr',
+    [ColorSpace.RGB]: 'RGB',
+    [ColorSpace.scRGB]: 'scRGB',
+    [ColorSpace.sRGB]: 'sRGB',
+    [ColorSpace.Transparent]: 'Transparent',
+    [ColorSpace.XyY]: 'XyY',
+    [ColorSpace.XYZ]: 'XYZ',
+    [ColorSpace.YCbCr]: 'YCbCr',
+    [ColorSpace.YCC]: 'YCC',
+    [ColorSpace.YDbDr]: 'YDbDr',
+    [ColorSpace.YIQ]: 'YIQ',
+    [ColorSpace.YPbPr]: 'YPbPr',
+    [ColorSpace.YUV]: 'YUV',
+    [ColorSpace.LinearGray]: 'LinearGray',
+    [ColorSpace.Jzazbz]: 'Jzazbz',
+    [ColorSpace.DisplayP3]: 'DisplayP3',
+    [ColorSpace.Adobe98]: 'Adobe98',
+    [ColorSpace.ProPhoto]: 'ProPhoto',
+    [ColorSpace.Oklab]: 'Oklab',
+    [ColorSpace.Oklch]: 'Oklch'
+};

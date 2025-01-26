@@ -11,7 +11,7 @@ import { Channels } from './enums/channels';
 import { ChromaticityInfo } from './types/chromaticity-info';
 import { ClassType } from './enums/class-type';
 import { ColorProfile, IColorProfile } from './profiles/color/color-profile';
-import { ColorSpace } from './enums/color-space';
+import { ColorSpace, ColorSpaceNames } from './enums/color-space';
 import { ColorTransformMode } from './enums/color-transform-mode';
 import { ColorType } from './enums/color-type';
 import { CompareResult } from './types/compare-result';
@@ -2055,7 +2055,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get colorSpace(): ColorSpace {
-        return ImageMagick._api._MagickImage_ColorSpace_Get(this._instance);
+        return <ColorSpace>ImageMagick._api._MagickImage_ColorSpace_Get(this._instance);
     }
     set colorSpace(value: ColorSpace) {
         this.useExceptionPointer(exception => {
@@ -2398,8 +2398,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     bilateralBlur(width: number, height: number): void;
     bilateralBlur(width: number, height: number, intensitySigma: number, spatialSigma: number): void;
-    bilateralBlur(width: number, height: number, intensitySigmaOrUndefined?: number, spatialSigmaOrUndefined?: number): void
-    {
+    bilateralBlur(width: number, height: number, intensitySigmaOrUndefined?: number, spatialSigmaOrUndefined?: number): void {
         const intensitySigma = this.valueOrComputedDefault(intensitySigmaOrUndefined, () => Math.sqrt((width * width) + (height * height)));
         const spatialSigma = this.valueOrDefault(spatialSigmaOrUndefined, intensitySigma * 0.25);
         this.useException(exception => {
@@ -3468,7 +3467,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpace[this.colorSpace]}`
+    toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpaceNames[this.colorSpace]}`
 
     transparent(color: IMagickColor): void {
         color._use(valuePtr => {
