@@ -41,6 +41,14 @@ export class Percentage {
         return this._value;
     }
 
+    /**
+     * Returns a string that represents the current percentage.
+     * @returns A string that represents the current percentage.
+     */
+    toString(): string {
+        return `${parseFloat(this._value.toFixed(2))}%`;
+    }
+
     /** @internal */
     _toQuantum(): number {
         return Quantum.max * (this._value / 100);
