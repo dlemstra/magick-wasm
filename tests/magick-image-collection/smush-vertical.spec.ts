@@ -22,8 +22,8 @@ describe('MagickImageCollection#smushVertical', () => {
                 expect(image.width).toBe(70);
                 expect(image.height).toBe(158);
 
-                expect(image).toHavePixelWithColor(34, 50, '#800080ff');
-                expect(image).toHavePixelWithColor(55, 140, '#800080ff');
+                expect(image).toHavePixelWithColor(34, 50, '#800080');
+                expect(image).toHavePixelWithColor(55, 140, '#800080');
             });
         });
     });

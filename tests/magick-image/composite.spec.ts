@@ -8,7 +8,6 @@ import { ColorSpace } from '@src/enums/color-space';
 import { CompositeOperator } from '@src/enums/composite-operator';
 import { Gravity } from '@src/enums/gravity';
 import { ImageMagick } from '@src/image-magick';
-import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
 import { Point } from '@src/types/point';
 
@@ -33,7 +32,7 @@ describe('MagickImage#composite', () => {
                 image.composite(alpha, CompositeOperator.CopyAlpha);
                 expect(image.hasAlpha).toBe(true);
                 expect(image).toHavePixelWithColor(0, 0, MagickColors.Red);
-                expect(image).toHavePixelWithColor(1, 0, new MagickColor('#ff000000'));
+                expect(image).toHavePixelWithColor(1, 0, '#ff000000');
             });
         });
     });

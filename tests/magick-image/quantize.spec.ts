@@ -15,7 +15,7 @@ describe('MagickImage#quantize', () => {
 
             image.quantize(settings);
 
-            expect(image).toHavePixelWithColor(400, 200, '#ecbd4aff');
+            expect(image).toHavePixelWithColor(400, 200, '#ecbd4a');
         });
     });
 
@@ -28,7 +28,7 @@ describe('MagickImage#quantize', () => {
             const result = image.quantize(settings);
 
             expect(result).toBeNull();
-            expect(image).toHavePixelWithColor(400, 200, '#aaa4a5ff');
+            expect(image).toHavePixelWithColor(400, 200, '#aaa4a5');
         });
     });
 

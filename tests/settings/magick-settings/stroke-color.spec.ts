@@ -18,7 +18,7 @@ describe('MagickSettings#strokeColor', () => {
         ImageMagick.read('label:X', settings, (image) => {
             expect(image.width).toBe(76);
             expect(image.height).toBe(147);
-            expect(image).toHavePixelWithColor(39, 75, '#ffc0cbff');
+            expect(image).toHavePixelWithColor(39, 75, '#ffc0cb');
         });
     });
 });

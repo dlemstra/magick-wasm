@@ -19,9 +19,9 @@ describe('DrawableTextUnderColor', () => {
                 new DrawableText(0, 100, 'I'),
             ]);
 
-            expect(image).toHavePixelWithColor(37, 50, '#ffffffff');
-            expect(image).toHavePixelWithColor(38, 50, '#ffffffff');
-            expect(image).toHavePixelWithColor(39, 50, '#ffffffff');
+            expect(image).toHavePixelWithColor(37, 50, '#ffffff');
+            expect(image).toHavePixelWithColor(38, 50, '#ffffff');
+            expect(image).toHavePixelWithColor(39, 50, '#ffffff');
         });
     });
 
@@ -34,9 +34,9 @@ describe('DrawableTextUnderColor', () => {
                 new DrawableText(0, 100, 'I'),
             ]);
 
-            expect(image).toHavePixelWithColor(37, 50, '#ffc0cbff');
-            expect(image).toHavePixelWithColor(38, 50, '#fffcfdff');
-            expect(image).toHavePixelWithColor(39, 50, '#ffffffff');
+            expect(image).toHavePixelWithColor(37, 50, '#ffc0cb');
+            expect(image).toHavePixelWithColor(38, 50, '#fffcfd');
+            expect(image).toHavePixelWithColor(39, 50, '#ffffff');
         });
     });
 });

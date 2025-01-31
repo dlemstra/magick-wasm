@@ -36,10 +36,10 @@ describe('MagickImage#modulate', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
             image.modulate(new Percentage(75), new Percentage(50), new Percentage(25));
 
-            expect(image).toHavePixelWithColor(340, 270, '#43582eff');
-            expect(image).toHavePixelWithColor(410, 155, '#863da3ff');
-            expect(image).toHavePixelWithColor(430, 230, '#4f47a9ff');
-            expect(image).toHavePixelWithColor(500, 313, '#bfbfbfff');
+            expect(image).toHavePixelWithColor(340, 270, '#43582e');
+            expect(image).toHavePixelWithColor(410, 155, '#863da3');
+            expect(image).toHavePixelWithColor(430, 230, '#4f47a9');
+            expect(image).toHavePixelWithColor(500, 313, '#bfbfbf');
         });
     });
 });

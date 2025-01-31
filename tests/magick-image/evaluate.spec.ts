@@ -24,10 +24,10 @@ describe('MagickImage#evaluate', () => {
     it('should change the specified channels', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.evaluate(Channels.Red, new MagickGeometry(0, 0, 100, 295), EvaluateOperator.Set, 0);
-            expect(image).toHavePixelWithColor(99, 195, new MagickColor('#00ffffff'));
+            expect(image).toHavePixelWithColor(99, 195, new MagickColor('#00ffff'));
 
             image.evaluate(Channels.Green, EvaluateOperator.Set, 0);
-            expect(image).toHavePixelWithColor(99, 195, new MagickColor('#0000ffff'));
+            expect(image).toHavePixelWithColor(99, 195, new MagickColor('#0000ff'));
         });
     });
 

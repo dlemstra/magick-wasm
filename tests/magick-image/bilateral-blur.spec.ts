@@ -9,14 +9,14 @@ describe('MagickImage#bilateralBlur', () => {
     it('should change pixels of the image', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.bilateralBlur(5, 6);
-            expect(image).toHavePixelWithColor(387, 435, '#b5191eff');
+            expect(image).toHavePixelWithColor(387, 435, '#b5191e');
         });
     });
 
     it('should use the specified sigma values', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.bilateralBlur(5, 6, 7, 8);
-            expect(image).toHavePixelWithColor(387, 435, '#b4191dff');
+            expect(image).toHavePixelWithColor(387, 435, '#b4191d');
         });
     });
 });

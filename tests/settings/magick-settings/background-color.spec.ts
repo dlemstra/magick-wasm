@@ -17,7 +17,7 @@ describe('MagickSettings#backgroundColor', () => {
         ImageMagick.read('label:magick-wasm', settings, (image) => {
             expect(image.width).toBe(73);
             expect(image.height).toBe(20);
-            expect(image).toHavePixelWithColor(0, 0, '#ffc0cbff');
+            expect(image).toHavePixelWithColor(0, 0, '#ffc0cb');
         });
     });
 });

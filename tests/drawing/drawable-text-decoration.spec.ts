@@ -19,7 +19,7 @@ describe('DrawableTextDecoration', () => {
                 new DrawableText(0, 100, 'Test'),
             ]);
 
-            expect(image).toHavePixelWithColor(88, 109, '#ffffffff');
+            expect(image).toHavePixelWithColor(88, 109, '#ffffff');
         });
     });
 
@@ -32,7 +32,7 @@ describe('DrawableTextDecoration', () => {
                 new DrawableText(0, 100, 'Test'),
             ]);
 
-            expect(image).toHavePixelWithColor(88, 109, '#000000ff');
+            expect(image).toHavePixelWithColor(88, 109, '#000000');
         });
     });
 });

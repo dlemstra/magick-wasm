@@ -23,7 +23,7 @@ describe('MagickImageCollection#fx', () => {
             images.push(MagickImage.create(new MagickColor('#ff0040'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
             images.fx('(u+v)/2', (image) => {
-                expect(image).toHavePixelWithColor(0, 0, new MagickColor('#808040ff'));
+                expect(image).toHavePixelWithColor(0, 0, '#808040');
             });
         });
     });
@@ -33,7 +33,7 @@ describe('MagickImageCollection#fx', () => {
             images.push(MagickImage.create(new MagickColor('#ff0040'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
             await images.fx('(u+v)/2', async (image) => {
-                expect(image).toHavePixelWithColor(0, 0, new MagickColor('#808040ff'));
+                expect(image).toHavePixelWithColor(0, 0, '#808040');
 
                 await bogusAsyncMethod();
             });
@@ -45,7 +45,7 @@ describe('MagickImageCollection#fx', () => {
             images.push(MagickImage.create(new MagickColor('#ff0040'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
             images.fx('(u+v)/2', Channels.Red | Channels.Blue, (image) => {
-                expect(image).toHavePixelWithColor(0, 0, new MagickColor('#800040ff'));
+                expect(image).toHavePixelWithColor(0, 0, '#800040');
             });
         });
     });
@@ -55,7 +55,7 @@ describe('MagickImageCollection#fx', () => {
             images.push(MagickImage.create(new MagickColor('#aa00bb'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
             await images.fx('(u+v)/2', Channels.Green, async (image) => {
-                expect(image).toHavePixelWithColor(0, 0, new MagickColor('#aa80bbff'));
+                expect(image).toHavePixelWithColor(0, 0, '#aa80bb');
 
                 await bogusAsyncMethod();
             });

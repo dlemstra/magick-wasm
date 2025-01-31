@@ -48,7 +48,9 @@ export const CustomMatchers = {
 
     toHavePixelWithColor: ((image: IMagickImage, x: number, y: number, colorOrString: IMagickColor | string) => {
         const actualColor = pixelColor(image, x, y);
-        const expectedColor = colorOrString.toString();
+        let expectedColor = colorOrString.toString();
+        if (expectedColor.length === 7)
+            expectedColor += 'ff';
 
         if (expectedColor === actualColor) {
             return { pass: true, message: () => '' }

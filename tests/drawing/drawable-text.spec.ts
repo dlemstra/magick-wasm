@@ -20,7 +20,7 @@ describe('DrawableText', () => {
                 new DrawableText(0, 109, 'X'),
             ])
 
-            expect(image).toHavePixelWithColor(44, 74, '#ffc0cbff');
+            expect(image).toHavePixelWithColor(44, 74, '#ffc0cb');
         });
     });
 });

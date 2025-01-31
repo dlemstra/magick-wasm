@@ -22,7 +22,7 @@ describe('DrawableTextKerning', () => {
                 new DrawableText(0, 109, 'I I'),
             ]);
 
-            expect(image).toHavePixelWithColor(100, 80, '#ffc0cbff');
+            expect(image).toHavePixelWithColor(100, 80, '#ffc0cb');
         });
     });
 
@@ -35,7 +35,7 @@ describe('DrawableTextKerning', () => {
                 new DrawableText(0, 109, 'I I'),
             ]);
 
-            expect(image).toHavePixelWithColor(100, 80, '#ffffffff');
+            expect(image).toHavePixelWithColor(100, 80, '#ffffff');
         });
     });
 });

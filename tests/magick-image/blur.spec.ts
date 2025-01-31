@@ -11,7 +11,7 @@ describe('MagickImage#blur', () => {
     it('should change pixels of the image', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.blur(5, 5);
-            expect(image).toHavePixelWithColor(222, 60, '#ff6a6aff');
+            expect(image).toHavePixelWithColor(222, 60, '#ff6a6a');
         });
     });
 
@@ -30,7 +30,7 @@ describe('MagickImage#blur', () => {
     it('should only blur the specified channel', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.blur(5, 5, Channels.Green);
-            expect(image).toHavePixelWithColor(222, 60, '#ff6a00ff');
+            expect(image).toHavePixelWithColor(222, 60, '#ff6a00');
         });
     });
 });

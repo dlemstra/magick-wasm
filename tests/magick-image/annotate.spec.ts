@@ -14,10 +14,10 @@ describe('MagickImage#annotate', () => {
             image.settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
             image.annotate('tESt', Gravity.East);
 
-            expect(image).toHavePixelWithColor(10, 70, '#000000ff');
-            expect(image).toHavePixelWithColor(45, 70, '#000000ff');
-            expect(image).toHavePixelWithColor(90, 70, '#000000ff');
-            expect(image).toHavePixelWithColor(145, 70, '#000000ff');
+            expect(image).toHavePixelWithColor(10, 70, '#000000');
+            expect(image).toHavePixelWithColor(45, 70, '#000000');
+            expect(image).toHavePixelWithColor(90, 70, '#000000');
+            expect(image).toHavePixelWithColor(145, 70, '#000000');
         });
     });
 
@@ -27,10 +27,10 @@ describe('MagickImage#annotate', () => {
             image.settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
             image.annotate('tESt', new MagickGeometry(0, 0, 100, 100), Gravity.East);
 
-            expect(image).toHavePixelWithColor(0, 47, '#000000ff');
-            expect(image).toHavePixelWithColor(24, 47, '#000000ff');
-            expect(image).toHavePixelWithColor(55, 47, '#000000ff');
-            expect(image).toHavePixelWithColor(96, 47, '#000000ff');
+            expect(image).toHavePixelWithColor(0, 47, '#000000');
+            expect(image).toHavePixelWithColor(24, 47, '#000000');
+            expect(image).toHavePixelWithColor(55, 47, '#000000');
+            expect(image).toHavePixelWithColor(96, 47, '#000000');
         });
     });
 
@@ -53,9 +53,9 @@ describe('MagickImage#annotate', () => {
             image.settings.font = TestFiles.Fonts.kaushanScriptRegularTtf.name;
             image.annotate('tESt', new MagickGeometry(0, 0, 50, 50), Gravity.Center, 100);
 
-            expect(image).toHavePixelWithColor(39, 0, '#000000ff');
-            expect(image).toHavePixelWithColor(27, 32, '#000000ff');
-            expect(image).toHavePixelWithColor(44, 65, '#000000ff');
+            expect(image).toHavePixelWithColor(39, 0, '#000000');
+            expect(image).toHavePixelWithColor(27, 32, '#000000');
+            expect(image).toHavePixelWithColor(44, 65, '#000000');
         });
     });
 });

@@ -21,7 +21,7 @@ describe('DrawableTextInterlineSpacing', () => {
                 new DrawableText(50, 50, 'I\nI'),
             ]);
 
-            expect(image).toHavePixelWithColor(60, 131, '#ffffffff');
+            expect(image).toHavePixelWithColor(60, 131, '#ffffff');
         });
     });
 
@@ -35,7 +35,7 @@ describe('DrawableTextInterlineSpacing', () => {
                 new DrawableText(50, 50, 'I\nI'),
             ]);
 
-            expect(image).toHavePixelWithColor(60, 131, '#ffc0cbff');
+            expect(image).toHavePixelWithColor(60, 131, '#ffc0cb');
         });
     });
 
@@ -49,7 +49,7 @@ describe('DrawableTextInterlineSpacing', () => {
                 new DrawableText(50, 50, 'I\nI'),
             ]);
 
-            expect(image).toHavePixelWithColor(68, 59, '#ffc0cbff');
+            expect(image).toHavePixelWithColor(68, 59, '#ffc0cb');
         });
     });
 });

@@ -16,7 +16,7 @@ describe('DrawablePoint', () => {
                 new DrawablePoint(100, 100),
             ])
 
-            expect(image).toHavePixelWithColor(100, 100, '#ffc0cbff');
+            expect(image).toHavePixelWithColor(100, 100, '#ffc0cb');
         });
     });
 });

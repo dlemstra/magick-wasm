@@ -36,8 +36,8 @@ describe('MagickImage#liquidRescale', () => {
             image.liquidRescale(new MagickGeometry(0, 300));
             expect(image.width).toBe(400);
             expect(image.height).toBe(300);
-            expect(image).toHavePixelWithColor(250, 280, '#ed1f24ff');
-            expect(image).toHavePixelWithColor(174, 224, '#223e92ff');
+            expect(image).toHavePixelWithColor(250, 280, '#ed1f24');
+            expect(image).toHavePixelWithColor(174, 224, '#223e92');
         });
     });
 });

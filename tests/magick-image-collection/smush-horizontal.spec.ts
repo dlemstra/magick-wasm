@@ -19,7 +19,7 @@ describe('MagickImageCollection#smushHorizontal', () => {
             images.smushHorizontal(10, (image) => {
                 expect(image.width).toBe(230);
                 expect(image.height).toBe(46);
-                expect(image).toHavePixelWithColor(75, 20, '#2c2b2bff');
+                expect(image).toHavePixelWithColor(75, 20, '#2c2b2b');
             });
         });
     });

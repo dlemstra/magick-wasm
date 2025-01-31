@@ -17,7 +17,7 @@ describe('MagickImage#crop', () => {
 
             expect(image.width).toBe(1);
             expect(image.height).toBe(1);
-            expect(image).toHavePixelWithColor(0, 0, '#ffffffff');
+            expect(image).toHavePixelWithColor(0, 0, '#ffffff');
         });
     });
 
@@ -29,7 +29,7 @@ describe('MagickImage#crop', () => {
 
             expect(image.width).toBe(1);
             expect(image.height).toBe(1);
-            expect(image).toHavePixelWithColor(0, 0, '#000000ff');
+            expect(image).toHavePixelWithColor(0, 0, '#000000');
         });
     });
 
@@ -41,8 +41,8 @@ describe('MagickImage#crop', () => {
 
             expect(image.width).toBe(2);
             expect(image.height).toBe(2);
-            expect(image).toHavePixelWithColor(0, 0, '#ffffffff');
-            expect(image).toHavePixelWithColor(1, 1, '#000000ff');
+            expect(image).toHavePixelWithColor(0, 0, '#ffffff');
+            expect(image).toHavePixelWithColor(1, 1, '#000000');
         });
     });
 
@@ -54,8 +54,8 @@ describe('MagickImage#crop', () => {
 
             expect(image.width).toBe(2);
             expect(image.height).toBe(2);
-            expect(image).toHavePixelWithColor(0, 0, '#000000ff');
-            expect(image).toHavePixelWithColor(1, 1, '#ffffffff');
+            expect(image).toHavePixelWithColor(0, 0, '#000000');
+            expect(image).toHavePixelWithColor(1, 1, '#ffffff');
         });
     });
 });

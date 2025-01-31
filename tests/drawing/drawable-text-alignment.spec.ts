@@ -19,8 +19,8 @@ describe('DrawableTextAlignment', () => {
                 new DrawableText(0, 100, 'Test'),
             ]);
 
-            expect(image).toHavePixelWithColor(126, 75, '#000000ff');
-            expect(image).toHavePixelWithColor(49, 79, '#ffffffff');
+            expect(image).toHavePixelWithColor(126, 75, '#000000');
+            expect(image).toHavePixelWithColor(49, 79, '#ffffff');
         });
     });
 
@@ -33,8 +33,8 @@ describe('DrawableTextAlignment', () => {
                 new DrawableText(0, 100, 'Test'),
             ]);
 
-            expect(image).toHavePixelWithColor(126, 75, '#ffffffff');
-            expect(image).toHavePixelWithColor(49, 79, '#000000ff');
+            expect(image).toHavePixelWithColor(126, 75, '#ffffff');
+            expect(image).toHavePixelWithColor(49, 79, '#000000');
         });
     });
 });

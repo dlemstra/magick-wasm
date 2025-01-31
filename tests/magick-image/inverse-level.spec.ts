@@ -23,11 +23,11 @@ describe('MagickImage#inverseLevel', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
             image.inverseLevel(new Percentage(50), new Percentage(10));
 
-            expect(image).toHavePixelWithColor(244, 50, '#1a3232ff');
-            expect(image).toHavePixelWithColor(230, 150, '#1a1a1aff');
-            expect(image).toHavePixelWithColor(430, 150, '#2f2c24ff');
-            expect(image).toHavePixelWithColor(300, 250, '#2f2f29ff');
-            expect(image).toHavePixelWithColor(395, 440, '#1b2f2fff');
+            expect(image).toHavePixelWithColor(244, 50, '#1a3232');
+            expect(image).toHavePixelWithColor(230, 150, '#1a1a1a');
+            expect(image).toHavePixelWithColor(430, 150, '#2f2c24');
+            expect(image).toHavePixelWithColor(300, 250, '#2f2f29');
+            expect(image).toHavePixelWithColor(395, 440, '#1b2f2f');
         });
     });
 });

@@ -17,13 +17,13 @@ describe('DrawableRoundRectangle', () => {
             ]);
 
             // Check a corner
-            expect(image).toHavePixelWithColor(0, 0, '#ffffffff');
-            expect(image).toHavePixelWithColor(0, 1, '#ffffffff');
-            expect(image).toHavePixelWithColor(1, 0, '#ffffffff');
+            expect(image).toHavePixelWithColor(0, 0, '#ffffff');
+            expect(image).toHavePixelWithColor(0, 1, '#ffffff');
+            expect(image).toHavePixelWithColor(1, 0, '#ffffff');
 
             // Check an edge and inside
-            expect(image).toHavePixelWithColor(6, 0, '#008000ff');
-            expect(image).toHavePixelWithColor(6, 6, '#008000ff');
+            expect(image).toHavePixelWithColor(6, 0, '#008000');
+            expect(image).toHavePixelWithColor(6, 6, '#008000');
         });
     });
 });

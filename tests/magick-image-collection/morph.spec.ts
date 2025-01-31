@@ -39,9 +39,9 @@ describe('MagickImageCollection#morph', () => {
             expect(images[3].width).toBe(520);
             expect(images[3].height).toBe(600);
 
-            expect(images[2]).toHavePixelWithColor(180, 150, '#fae972ff');
-            expect(images[2]).toHavePixelWithColor(280, 280, '#8695c2ff');
-            expect(images[2]).toHavePixelWithColor(150, 180, '#9d9fcfff');
+            expect(images[2]).toHavePixelWithColor(180, 150, '#fae972');
+            expect(images[2]).toHavePixelWithColor(280, 280, '#8695c2');
+            expect(images[2]).toHavePixelWithColor(150, 180, '#9d9fcf');
         });
     });
 });

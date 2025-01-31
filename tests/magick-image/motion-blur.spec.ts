@@ -10,7 +10,7 @@ describe('MagickImage#motionBlur', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
             image.motionBlur(10, 10, -90);
 
-            expect(image).toHavePixelWithColor(222, 60, '#ff0404ff');
+            expect(image).toHavePixelWithColor(222, 60, '#ff0404');
         });
     });
 });

@@ -33,7 +33,7 @@ describe('MagickImage#gaussianBlur', () => {
         TestFiles.Images.Builtin.wizard.use(image => {
             image.gaussianBlur(4.2, 1, Channels.Green);
 
-            expect(image).toHavePixelWithColor(120, 200, '#185338ff');
+            expect(image).toHavePixelWithColor(120, 200, '#185338');
         });
     });
 });

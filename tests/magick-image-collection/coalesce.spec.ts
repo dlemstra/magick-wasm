@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { MagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
 import { TestFiles } from '@test/test-files';
 
@@ -22,7 +21,7 @@ describe('MagickImageCollection#coalesce', () => {
 
             images.coalesce();
 
-            expect(images[1]).toHavePixelWithColor(0, 0, new MagickColor('#332d2cff'));
+            expect(images[1]).toHavePixelWithColor(0, 0, '#332d2c');
         });
     });
 });

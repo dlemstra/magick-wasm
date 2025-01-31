@@ -23,11 +23,11 @@ describe('MagickImage#level', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
             image.level(new Percentage(50), new Percentage(10));
 
-            expect(image).toHavePixelWithColor(244, 50, '#00ffffff');
-            expect(image).toHavePixelWithColor(230, 150, '#000000ff');
-            expect(image).toHavePixelWithColor(430, 150, '#a70000ff');
-            expect(image).toHavePixelWithColor(300, 250, '#b1bb00ff');
-            expect(image).toHavePixelWithColor(395, 440, '#00c692ff');
+            expect(image).toHavePixelWithColor(244, 50, '#00ffff');
+            expect(image).toHavePixelWithColor(230, 150, '#000000');
+            expect(image).toHavePixelWithColor(430, 150, '#a70000');
+            expect(image).toHavePixelWithColor(300, 250, '#b1bb00');
+            expect(image).toHavePixelWithColor(395, 440, '#00c692');
         });
     });
 });

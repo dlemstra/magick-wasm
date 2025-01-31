@@ -35,7 +35,7 @@ describe('DrawableGravity', () => {
             ])
 
             // Check for the dot on the `i` at the expected position
-            expect(image).toHavePixelWithColor(x, y, '#108810ff');
+            expect(image).toHavePixelWithColor(x, y, '#108810');
         });
     });
 });

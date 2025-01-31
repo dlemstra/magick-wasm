@@ -31,8 +31,8 @@ describe('MagickImageCollection#optimizePlus', () => {
             expect(images.length).toBe(3);
             expect(images[0].width).toBe(1);
             expect(images[0].height).toBe(2);
-            expect(images[0]).toHavePixelWithColor(0, 0, '#ff0000ff');
-            expect(images[0]).toHavePixelWithColor(0, 1, '#ff0000ff');
+            expect(images[0]).toHavePixelWithColor(0, 0, '#ff0000');
+            expect(images[0]).toHavePixelWithColor(0, 1, '#ff0000');
 
             expect(images[1].width).toBe(1);
             expect(images[1].height).toBe(2);
@@ -42,7 +42,7 @@ describe('MagickImageCollection#optimizePlus', () => {
             expect(images[2].width).toBe(1);
             expect(images[2].height).toBe(2);
             expect(images[2]).toHavePixelWithColor(0, 0, '#ff000000');
-            expect(images[2]).toHavePixelWithColor(0, 1, '#008000ff');
+            expect(images[2]).toHavePixelWithColor(0, 1, '#008000');
         });
     });
 });

@@ -12,8 +12,8 @@ describe('MagickImage#blackThreshold', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.blackThreshold(new Percentage(50));
 
-            expect(image).toHavePixelWithColor(302, 246, '#000000ff');
-            expect(image).toHavePixelWithColor(528, 444, '#000000ff');
+            expect(image).toHavePixelWithColor(302, 246, '#000000');
+            expect(image).toHavePixelWithColor(528, 444, '#000000');
         });
     });
 
@@ -21,8 +21,8 @@ describe('MagickImage#blackThreshold', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.blackThreshold(new Percentage(50), Channels.Blue);
 
-            expect(image).toHavePixelWithColor(302, 246, '#212000ff');
-            expect(image).toHavePixelWithColor(528, 444, '#040700ff');
+            expect(image).toHavePixelWithColor(302, 246, '#212000');
+            expect(image).toHavePixelWithColor(528, 444, '#040700');
         });
     });
 });

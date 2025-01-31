@@ -39,7 +39,7 @@ describe('MagickImage#compare', () => {
                     expect(compareResult.difference).not.toBeNull();
                     expect(compareResult.difference.width).toBe(1);
                     expect(compareResult.difference.height).toBe(1);
-                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#f40018'));
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, '#f40018');
 
                     return compareResult;
                 });
@@ -63,7 +63,7 @@ describe('MagickImage#compare', () => {
                     expect(compareResult.difference).not.toBeNull();
                     expect(compareResult.difference.width).toBe(1);
                     expect(compareResult.difference.height).toBe(1);
-                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#ffa500ff'));
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, '#ffa500');
 
                     return compareResult;
                 });
@@ -106,7 +106,7 @@ describe('MagickImage#compare', () => {
 
                     await bogusAsyncMethod();
 
-                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#f40018'));
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, '#f40018');
 
                     return compareResult;
                 });
@@ -133,7 +133,7 @@ describe('MagickImage#compare', () => {
 
                     await bogusAsyncMethod();
 
-                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#800080'));
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, '#800080');
 
                     return compareResult;
                 });
@@ -164,7 +164,7 @@ describe('MagickImage#compare', () => {
                     expect(compareResult.difference).not.toBeNull();
                     expect(compareResult.difference.width).toBe(1);
                     expect(compareResult.difference.height).toBe(1);
-                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#f40018'));
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, '#f40018');
 
                     return compareResult;
                 });
@@ -188,7 +188,7 @@ describe('MagickImage#compare', () => {
                     expect(compareResult.difference).not.toBeNull();
                     expect(compareResult.difference.width).toBe(1);
                     expect(compareResult.difference.height).toBe(1);
-                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#ffc0cb'));
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, '#ffc0cb');
 
                     return compareResult;
                 });
@@ -241,7 +241,7 @@ describe('MagickImage#compare', () => {
 
                     await bogusAsyncMethod();
 
-                    expect(compareResult.difference).toHavePixelWithColor(0, 0, new MagickColor('#ffd700ff'));
+                    expect(compareResult.difference).toHavePixelWithColor(0, 0, '#ffd700');
 
                     return compareResult;
                 });

@@ -6,7 +6,6 @@
 import { ImageMagick } from '@src/image-magick';
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
-import { MagickColor } from '@src/magick-color';
 
 describe('MagickReadSettings#extractArea', () => {
     it('should only read the specified area of the image', () => {
@@ -17,7 +16,7 @@ describe('MagickReadSettings#extractArea', () => {
             expect(image.width).toBe(100);
             expect(image.height).toBe(100);
 
-            expect(image).toHavePixelWithColor(0, 0, new MagickColor('#223e92ff'));
+            expect(image).toHavePixelWithColor(0, 0, '#223e92');
         });
     });
 
@@ -29,7 +28,7 @@ describe('MagickReadSettings#extractArea', () => {
             expect(image.width).toBe(40);
             expect(image.height).toBe(80);
 
-            expect(image).toHavePixelWithColor(0, 0, new MagickColor('#fff'));
+            expect(image).toHavePixelWithColor(0, 0, '#ffffff');
         });
     });
 });

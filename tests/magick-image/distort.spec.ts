@@ -27,7 +27,7 @@ describe('MagickImage#distort', () => {
             expect(image.width).toBe(70);
             expect(image.height).toBe(46);
             expect(image).toHavePixelWithColor(4, 15, '#00000000');
-            expect(image).toHavePixelWithColor(55, 15, '#fd4b7bff');
+            expect(image).toHavePixelWithColor(55, 15, '#fd4b7b');
             expect(image).toHavePixelWithColor(66, 15, '#00000000');
         });
     });
@@ -44,8 +44,8 @@ describe('MagickImage#distort', () => {
 
             expect(image.width).toBe(67);
             expect(image.height).toBe(44);
-            expect(image).toHavePixelWithColor(4, 15, '#38352fff');
-            expect(image).toHavePixelWithColor(55, 15, '#ed5a75ff');
+            expect(image).toHavePixelWithColor(4, 15, '#38352f');
+            expect(image).toHavePixelWithColor(55, 15, '#ed5a75');
             expect(image).toHavePixelWithColor(66, 15, '#00000000');
         });
     });

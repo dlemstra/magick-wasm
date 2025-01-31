@@ -15,9 +15,9 @@ describe('MagickImage#morphology', () => {
             settings.iterations = 3;
             image.morphology(settings);
 
-            expect(image).toHavePixelWithColor(300, 215, '#f79868ff');
-            expect(image).toHavePixelWithColor(420, 180, '#f5ee92ff');
-            expect(image).toHavePixelWithColor(405, 435, '#ed3e92ff');
+            expect(image).toHavePixelWithColor(300, 215, '#f79868');
+            expect(image).toHavePixelWithColor(420, 180, '#f5ee92');
+            expect(image).toHavePixelWithColor(405, 435, '#ed3e92');
         });
     });
 
@@ -26,9 +26,9 @@ describe('MagickImage#morphology', () => {
             const settings = new MorphologySettings(MorphologyMethod.Dilate, Kernel.Disk, '5.3');
             image.morphology(settings);
 
-            expect(image).toHavePixelWithColor(300, 215, '#f79868ff');
-            expect(image).toHavePixelWithColor(420, 180, '#f5ee92ff');
-            expect(image).toHavePixelWithColor(405, 435, '#513e92ff');
+            expect(image).toHavePixelWithColor(300, 215, '#f79868');
+            expect(image).toHavePixelWithColor(420, 180, '#f5ee92');
+            expect(image).toHavePixelWithColor(405, 435, '#513e92');
         });
     });
 
@@ -37,9 +37,9 @@ describe('MagickImage#morphology', () => {
             const settings = new MorphologySettings(MorphologyMethod.Dilate, 'Disk');
             image.morphology(settings);
 
-            expect(image).toHavePixelWithColor(300, 215, '#f79868ff');
-            expect(image).toHavePixelWithColor(420, 180, '#f5ee92ff');
-            expect(image).toHavePixelWithColor(405, 435, '#223e92ff');
+            expect(image).toHavePixelWithColor(300, 215, '#f79868');
+            expect(image).toHavePixelWithColor(420, 180, '#f5ee92');
+            expect(image).toHavePixelWithColor(405, 435, '#223e92');
         });
     });
 });

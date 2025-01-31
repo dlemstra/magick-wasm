@@ -12,7 +12,7 @@ describe('MagickImage#autoLevel', () => {
         TestFiles.Images.Builtin.rose.use(image => {
             image.autoLevel();
 
-            expect(image).toHavePixelWithColor(5, 40, '#5b5646ff');
+            expect(image).toHavePixelWithColor(5, 40, '#5b5646');
         });
     });
 
@@ -20,7 +20,7 @@ describe('MagickImage#autoLevel', () => {
         TestFiles.Images.Builtin.rose.use(image => {
             image.autoLevel(Channels.Red);
 
-            expect(image).toHavePixelWithColor(5, 40, '#516556ff');
+            expect(image).toHavePixelWithColor(5, 40, '#516556');
         });
     });
 

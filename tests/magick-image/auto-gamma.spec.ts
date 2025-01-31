@@ -12,7 +12,7 @@ describe('MagickImage#autoGamma', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.autoGamma();
 
-            expect(image).toHavePixelWithColor(496, 429, '#000001ff');
+            expect(image).toHavePixelWithColor(496, 429, '#000001');
         });
     });
 
@@ -20,7 +20,7 @@ describe('MagickImage#autoGamma', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.autoGamma(Channels.Red);
 
-            expect(image).toHavePixelWithColor(496, 429, '#002d73ff');
+            expect(image).toHavePixelWithColor(496, 429, '#002d73');
         });
     });
 
