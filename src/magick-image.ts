@@ -536,6 +536,21 @@ export interface IMagickImage extends IDisposable {
     bilateralBlur(width: number, height: number, intensitySigma: number, spatialSigma: number): void;
 
     /**
+     * Forces all pixels below the threshold into black while leaving all pixels at or above
+     * the threshold unchanged.
+     * @param threshold The threshold to use.
+     */
+    blackThreshold(threshold: Percentage): void;
+
+    /**
+     * Forces all pixels below the threshold into black while leaving all pixels at or above
+     * the threshold unchanged.
+     * @param threshold The threshold to use.
+     * @param channels The channel(s) to make black
+     */
+    blackThreshold(threshold: Percentage, channels: Channels): void;
+
+    /**
      * Blur image with the default blur factor (0x1).
      */
     blur(): void;
@@ -2417,6 +2432,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_BilateralBlur(this._instance, width, height, intensitySigma, spatialSigma, exception.ptr);
             this._setInstance(instance, exception);
+        });
+    }
+
+    blackThreshold(threshold: Percentage): void;
+    blackThreshold(threshold: Percentage, channels: Channels): void;
+    blackThreshold(threshold: Percentage, channelsOrUndefined?: Channels): void {
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Composite);
+        this.useException(exception => {
+            _withString(threshold.toString(), thresholdPtr => {
+                ImageMagick._api._MagickImage_BlackThreshold(this._instance, thresholdPtr, channels, exception.ptr);
+            });
         });
     }
 
