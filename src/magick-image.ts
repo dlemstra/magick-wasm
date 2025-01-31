@@ -1904,6 +1904,21 @@ export interface IMagickImage extends IDisposable {
     wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
 
     /**
+     * Forces all pixels below the threshold into white while leaving all pixels at or above
+     * the threshold unchanged.
+     * @param threshold The threshold to use.
+     */
+    whiteThreshold(threshold: Percentage): void;
+
+    /**
+     * Forces all pixels below the threshold into white while leaving all pixels at or above
+     * the threshold unchanged.
+     * @param threshold The threshold to use.
+     * @param channels The channel(s) to make white
+     */
+    whiteThreshold(threshold: Percentage, channels: Channels): void;
+
+    /**
      * Writes the image to a byte array. This array points to native memory and will be give back to the native
      * memory manager after the excution of the function. A copy of the data should be made if it needs to be
      * used after the function has completed.
@@ -3581,6 +3596,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Vignette(this._instance, radius, sigma, x, y, exception.ptr);
             this._setInstance(instance, exception);
+        });
+    }
+
+    whiteThreshold(threshold: Percentage): void;
+    whiteThreshold(threshold: Percentage, channels: Channels): void;
+    whiteThreshold(threshold: Percentage, channelsOrUndefined?: Channels): void {
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Composite);
+        this.useException(exception => {
+            _withString(threshold.toString(), thresholdPtr => {
+                ImageMagick._api._MagickImage_WhiteThreshold(this._instance, thresholdPtr, channels, exception.ptr);
+            });
         });
     }
 
