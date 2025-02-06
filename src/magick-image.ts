@@ -2564,7 +2564,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         if (funcOrUndefined !== undefined)
             func = funcOrUndefined;
 
-        let channels = Channels.Undefined;
+        let channels: Channels = Channels.Undefined;
         if (typeof func !== 'function') {
             if (func !== undefined)
                 channels = func;
@@ -2613,7 +2613,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         let x = 0;
         let y = 0;
         let compose = CompositeOperator.In;
-        let channels = Channels.All;
+        let channels: Channels = Channels.All;
         let args: string | null = null;
 
         if (composeOrPoint instanceof Point) {
@@ -2666,7 +2666,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         let x = 0;
         let y = 0;
         let compose = CompositeOperator.In;
-        let channels = Channels.All;
+        let channels: Channels = Channels.All;
         let args: string | null = null;
 
         if (composeOrPoint instanceof Point) {

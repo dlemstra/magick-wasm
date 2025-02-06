@@ -504,7 +504,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     fx<TReturnType>(expression: string, channelsOrFunc: Channels | ImageCallback<TReturnType>, func?: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         this.throwIfEmpty();
 
-        let channels = Channels.All;
+        let channels: Channels = Channels.All;
         let callback = func;
         if (typeof channelsOrFunc === 'number')
             channels = channelsOrFunc;
