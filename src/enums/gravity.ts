@@ -6,62 +6,64 @@
 /**
  * Specifies the placement gravity.
  */
-export enum Gravity {
+export const Gravity = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Forget.
      */
-    Forget = 0,
+    Forget: 1,
 
     /**
      * Northwest
      */
-    Northwest = 1,
+    Northwest: 2,
 
     /**
      * North
      */
-    North = 2,
+    North: 3,
 
     /**
      * Northeast
      */
-    Northeast = 3,
+    Northeast: 4,
 
     /**
      * West
      */
-    West = 4,
+    West: 5,
 
     /**
      * Center
      */
-    Center = 5,
+    Center: 6,
 
     /**
      * East
      */
-    East = 6,
+    East: 7,
 
     /**
      * Southwest
      */
-    Southwest = 7,
+    Southwest: 8,
 
     /**
      * South
      */
-    South = 8,
+    South: 9,
 
     /**
      * Southeast
      */
-    Southeast = 9,
-}
+    Southeast: 10
+} as const;
+
+export type Gravity = typeof Gravity[keyof typeof Gravity];
 
 /** @internal */
 export function* _getEdges(gravities: Gravity[]): Generator<string> {

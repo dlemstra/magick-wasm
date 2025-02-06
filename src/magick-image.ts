@@ -2389,7 +2389,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return drawingSettings._use(settings => {
                 _withString(text, textPtr => {
                     let boundingArea: string | null = null;
-                    let gravity = Gravity.Undefined;
+                    let gravity: Gravity = Gravity.Undefined;
                     let angle = 0.0;
                     if (typeof boundingAreaOrGravity === 'object') {
                         boundingArea = boundingAreaOrGravity.toString();
@@ -2795,7 +2795,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         if (typeof geometryOrWidth !== 'number') {
             geometry = geometryOrWidth;
-            gravity = this.valueOrDefault(heightOrGravity, Gravity.Undefined);
+            gravity = this.valueOrDefault(<Gravity>heightOrGravity, Gravity.Undefined);
         } else if (heightOrGravity !== undefined) {
             geometry = new MagickGeometry(geometryOrWidth, heightOrGravity);
             gravity = this.valueOrDefault(gravityOrUndefined, Gravity.Undefined);
@@ -2924,7 +2924,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     extent(geometry: IMagickGeometry, gravity: Gravity, backgroundColor: IMagickColor): void;
     extent(geometry: IMagickGeometry, backgroundColor: IMagickColor): void;
     extent(geometryOrWidth: IMagickGeometry | number, widthOrGravityOrBackgroundColor?: Gravity | IMagickColor | number, backgroundColorOrGravity?: IMagickColor | Gravity): void {
-        let gravity = Gravity.Undefined;
+        let gravity: Gravity = Gravity.Undefined;
         let geometry: IMagickGeometry;
 
         if (typeof geometryOrWidth !== 'number')
@@ -2933,7 +2933,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             geometry = new MagickGeometry(geometryOrWidth, widthOrGravityOrBackgroundColor);
 
         if (typeof widthOrGravityOrBackgroundColor === 'number')
-            gravity = widthOrGravityOrBackgroundColor;
+            gravity = <Gravity>widthOrGravityOrBackgroundColor;
         else if (widthOrGravityOrBackgroundColor !== undefined)
             this.backgroundColor = widthOrGravityOrBackgroundColor;
 
