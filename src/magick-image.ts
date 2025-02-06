@@ -2160,8 +2160,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return ImageMagick._api.UTF8ToString(fileName);
     }
 
-    get filterType(): number { return ImageMagick._api._MagickImage_FilterType_Get(this._instance); }
-    set filterType(value: number) { ImageMagick._api._MagickImage_FilterType_Set(this._instance, value); }
+    get filterType(): FilterType { return <FilterType>ImageMagick._api._MagickImage_FilterType_Get(this._instance); }
+    set filterType(value: FilterType) { ImageMagick._api._MagickImage_FilterType_Set(this._instance, value); }
 
     get format(): MagickFormat { return _createString(ImageMagick._api._MagickImage_Format_Get(this._instance), '') as MagickFormat; }
     set format(value: MagickFormat) { _withString(value.toString(), instance => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }

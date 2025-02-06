@@ -6,164 +6,166 @@
 /**
  * Specifies the filter types.
  */
-export enum FilterType {
+export const FilterType = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Point.
      */
-    Point,
+    Point: 1,
 
     /**
      * Box.
      */
-    Box,
+    Box: 2,
 
     /**
      * Triangle.
      */
-    Triangle,
+    Triangle: 3,
 
     /**
      * Hermite.
      */
-    Hermite,
+    Hermite: 4,
 
     /**
      * Hann.
      */
-    Hann,
+    Hann: 5,
 
     /**
      * Hamming.
      */
-    Hamming,
+    Hamming: 6,
 
     /**
      * Blackman.
      */
-    Blackman,
+    Blackman: 7,
 
     /**
      * Gaussian.
      */
-    Gaussian,
+    Gaussian: 8,
 
     /**
      * Quadratic.
      */
-    Quadratic,
+    Quadratic: 9,
 
     /**
      * Cubic.
      */
-    Cubic,
+    Cubic: 10,
 
     /**
      * Catrom.
      */
-    Catrom,
+    Catrom: 11,
 
     /**
      * Mitchell.
      */
-    Mitchell,
+    Mitchell: 12,
 
     /**
      * Jinc.
      */
-    Jinc,
+    Jinc: 13,
 
     /**
      * Sinc.
      */
-    Sinc,
+    Sinc: 14,
 
     /**
      * Sinc fast.
      */
-    SincFast,
+    SincFast: 15,
 
     /**
      * Kaiser.
      */
-    Kaiser,
+    Kaiser: 16,
 
     /**
      * Welch.
      */
-    Welch,
+    Welch: 17,
 
     /**
      * Parzen.
      */
-    Parzen,
+    Parzen: 18,
 
     /**
      * Bohman.
      */
-    Bohman,
+    Bohman: 19,
 
     /**
      * Bartlett.
      */
-    Bartlett,
+    Bartlett: 20,
 
     /**
      * Lagrange.
      */
-    Lagrange,
+    Lagrange: 21,
 
     /**
      * Lanczos.
      */
-    Lanczos,
+    Lanczos: 22,
 
     /**
      * Lanczos sharp.
      */
-    LanczosSharp,
+    LanczosSharp: 23,
 
     /**
      * Lanczos 2.
      */
-    Lanczos2,
+    Lanczos2: 24,
 
     /**
      * Lanczos 2 sharp.
      */
-    Lanczos2Sharp,
+    Lanczos2Sharp: 25,
 
     /**
      * Robidoux.
      */
-    Robidoux,
+    Robidoux: 26,
 
     /**
      * Robidoux sharp.
      */
-    RobidouxSharp,
+    RobidouxSharp: 27,
 
     /**
      * Cosine.
      */
-    Cosine,
+    Cosine: 28,
 
     /**
      * Spline.
      */
-    Spline,
+    Spline: 29,
 
     /**
      * Lanczos radius.
      */
-    LanczosRadius,
+    LanczosRadius: 30,
 
     /**
      * Cubic spline.
      */
-    CubicSpline,
-}
+    CubicSpline: 31
+} as const;
+
+export type FilterType = typeof FilterType[keyof typeof FilterType];
