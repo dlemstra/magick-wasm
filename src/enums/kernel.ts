@@ -6,194 +6,196 @@
 /**
  * Specifies the built-in kernels.
  */
-export enum Kernel {
+export const Kernel = {
     /**
      * Undefined.
      */
-    Undefined = 'Undefined',
+    Undefined: 'Undefined',
 
     /**
      * Unity.
      */
-    Unity = 'Unity',
+    Unity: 'Unity',
 
     /**
      * Gaussian.
      */
-    Gaussian = 'Gaussian',
+    Gaussian: 'Gaussian',
 
     /**
      * DoG.
      */
-    DoG = 'DoG',
+    DoG: 'DoG',
 
     /**
      * LoG.
      */
-    LoG = 'LoG',
+    LoG: 'LoG',
 
     /**
      * Blur.
      */
-    Blur = 'Blur',
+    Blur: 'Blur',
 
     /**
      * Comet.
      */
-    Comet = 'Comet',
+    Comet: 'Comet',
 
     /**
      * Binomial.
      */
-    Binomial = 'Binomial',
+    Binomial: 'Binomial',
 
     /**
      * Laplacian.
      */
-    Laplacian = 'Laplacian',
+    Laplacian: 'Laplacian',
 
     /**
      * Sobel.
      */
-    Sobel = 'Sobel',
+    Sobel: 'Sobel',
 
     /**
      * Frei chen.
      */
-    FreiChen = 'FreiChen',
+    FreiChen: 'FreiChen',
 
     /**
      * Roberts.
      */
-    Roberts = 'Roberts',
+    Roberts: 'Roberts',
 
     /**
      * Prewitt.
      */
-    Prewitt = 'Prewitt',
+    Prewitt: 'Prewitt',
 
     /**
      * Compass.
      */
-    Compass = 'Compass',
+    Compass: 'Compass',
 
     /**
      * Kirsch.
      */
-    Kirsch = 'Kirsch',
+    Kirsch: 'Kirsch',
 
     /**
      * Diamond.
      */
-    Diamond = 'Diamond',
+    Diamond: 'Diamond',
 
     /**
      * Square.
      */
-    Square = 'Square',
+    Square: 'Square',
 
     /**
      * Rectangle.
      */
-    Rectangle = 'Rectangle',
+    Rectangle: 'Rectangle',
 
     /**
      * Octagon.
      */
-    Octagon = 'Octagon',
+    Octagon: 'Octagon',
 
     /**
      * Disk.
      */
-    Disk = 'Disk',
+    Disk: 'Disk',
 
     /**
      * Plus.
      */
-    Plus = 'Plus',
+    Plus: 'Plus',
 
     /**
      * Cross.
      */
-    Cross = 'Cross',
+    Cross: 'Cross',
 
     /**
      * Ring.
      */
-    Ring = 'Ring',
+    Ring: 'Ring',
 
     /**
      * Peaks.
      */
-    Peaks = 'Peaks',
+    Peaks: 'Peaks',
 
     /**
      * Edges.
      */
-    Edges = 'Edges',
+    Edges: 'Edges',
 
     /**
      * Corners.
      */
-    Corners = 'Corners',
+    Corners: 'Corners',
 
     /**
      * Diagonals.
      */
-    Diagonals = 'Diagonals',
+    Diagonals: 'Diagonals',
 
     /**
      * Line ends.
      */
-    LineEnds = 'LineEnds',
+    LineEnds: 'LineEnds',
 
     /**
      * Line junctions.
      */
-    LineJunctions = 'LineJunctions',
+    LineJunctions: 'LineJunctions',
 
     /**
      * Ridges.
      */
-    Ridges = 'Ridges',
+    Ridges: 'Ridges',
 
     /**
      * Convex hull.
      */
-    ConvexHull = 'ConvexHull',
+    ConvexHull: 'ConvexHull',
 
     /**
      * Thin SE.
      */
-    ThinSE = 'ThinSE',
+    ThinSE: 'ThinSE',
 
     /**
      * Skeleton.
      */
-    Skeleton = 'Skeleton',
+    Skeleton: 'Skeleton',
 
     /**
      * Chebyshev.
      */
-    Chebyshev = 'Chebyshev',
+    Chebyshev: 'Chebyshev',
 
     /**
      * Manhattan.
      */
-    Manhattan = 'Manhattan',
+    Manhattan: 'Manhattan',
 
     /**
      * Octagonal.
      */
-    Octagonal = 'Octagonal',
+    Octagonal: 'Octagonal',
 
     /**
      * Euclidean.
      */
-    Euclidean = 'Euclidean',
+    Euclidean: 'Euclidean',
 
     /**
      * User defined.
      */
-    UserDefined = 'UserDefined',
-}
+    UserDefined: 'UserDefined'
+} as const;
+
+export type Kernel = typeof Kernel[keyof typeof Kernel];
