@@ -6,104 +6,106 @@
 /**
  * Specifies distortion methods.
  */
-export enum DistortMethod {
+export const DistortMethod = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Affine.
      */
-    Affine,
+    Affine: 1,
 
     /**
      * Affine projection.
      */
-    AffineProjection,
+    AffineProjection: 2,
 
     /**
      * Scale rotate translate.
      */
-    ScaleRotateTranslate,
+    ScaleRotateTranslate: 3,
 
     /**
      * Perspective.
      */
-    Perspective,
+    Perspective: 4,
 
     /**
      * Perspective projection.
      */
-    PerspectiveProjection,
+    PerspectiveProjection: 5,
 
     /**
      * Bilinear forward.
      */
-    BilinearForward,
+    BilinearForward: 6,
 
     /**
      * Bilinear reverse.
      */
-    BilinearReverse,
+    BilinearReverse: 7,
 
     /**
      * Polynomial.
      */
-    Polynomial,
+    Polynomial: 8,
 
     /**
      * Arc.
      */
-    Arc,
+    Arc: 9,
 
     /**
      * Polar.
      */
-    Polar,
+    Polar: 10,
 
     /**
      * De-polar.
      */
-    DePolar,
+    DePolar: 11,
 
     /**
      * Cylinder 2 plane.
      */
-    Cylinder2Plane,
+    Cylinder2Plane: 12,
 
     /**
      * Plane 2 cylinder.
      */
-    Plane2Cylinder,
+    Plane2Cylinder: 13,
 
     /**
      * Barrel.
      */
-    Barrel,
+    Barrel: 14,
 
     /**
      * Barrel inverse.
      */
-    BarrelInverse,
+    BarrelInverse: 15,
 
     /**
      * Shepards.
      */
-    Shepards,
+    Shepards: 16,
 
     /**
      * Resize.
      */
-    Resize,
+    Resize: 17,
 
     /**
      * Sentinel.
      */
-    Sentinel,
+    Sentinel: 18,
 
     /**
      * Rigid affine.
      */
-    RigidAffine,
-}
+    RigidAffine: 19
+} as const;
+
+export type DistortMethod = typeof DistortMethod[keyof typeof DistortMethod];
