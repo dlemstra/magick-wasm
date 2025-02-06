@@ -6,1369 +6,1371 @@
 /**
  * Specifies the different image formats that are supported by ImageMagick.
  */
-export enum MagickFormat {
+export const MagickFormat = {
     /**
      * Unknown.
      */
-    Unknown = 'UNKNOWN',
+    Unknown: 'UNKNOWN',
 
     /**
      * Hasselblad CFV/H3D39II Raw Format.
      */
-    ThreeFr = '3FR',
+    ThreeFr: '3FR',
 
     /**
      * Media Container.
      */
-    ThreeG2 = '3G2',
+    ThreeG2: '3G2',
 
     /**
      * Media Container.
      */
-    ThreeGp = '3GP',
+    ThreeGp: '3GP',
 
     /**
      * Raw alpha samples.
      */
-    A = 'A',
+    A: 'A',
 
     /**
      * AAI Dune image.
      */
-    Aai = 'AAI',
+    Aai: 'AAI',
 
     /**
      * Adobe Illustrator CS2.
      */
-    Ai = 'AI',
+    Ai: 'AI',
 
     /**
      * Animated Portable Network Graphics.
      */
-    APng = 'APNG',
+    APng: 'APNG',
 
     /**
      * PFS: 1st Publisher Clip Art.
      */
-    Art = 'ART',
+    Art: 'ART',
 
     /**
      * Sony Alpha Raw Format.
      */
-    Arw = 'ARW',
+    Arw: 'ARW',
 
     /**
      * Image sequence laid out in continuous irregular courses (Unknown).
      */
-    Ashlar = 'ASHLAR',
+    Ashlar: 'ASHLAR',
 
     /**
      * AVC Image File Format.
      */
-    Avci = 'AVCI',
+    Avci: 'AVCI',
 
     /**
      * Microsoft Audio/Visual Interleaved.
      */
-    Avi = 'AVI',
+    Avi: 'AVI',
 
     /**
      * AV1 Image File Format (Heic).
      */
-    Avif = 'AVIF',
+    Avif: 'AVIF',
 
     /**
      * AVS X image.
      */
-    Avs = 'AVS',
+    Avs: 'AVS',
 
     /**
      * Raw blue samples.
      */
-    B = 'B',
+    B: 'B',
 
     /**
      * Raw mosaiced samples.
      */
-    Bayer = 'BAYER',
+    Bayer: 'BAYER',
 
     /**
      * Raw mosaiced and alpha samples.
      */
-    Bayera = 'BAYERA',
+    Bayera: 'BAYERA',
 
     /**
      * Raw blue, green, and red samples.
      */
-    Bgr = 'BGR',
+    Bgr: 'BGR',
 
     /**
      * Raw blue, green, red, and alpha samples.
      */
-    Bgra = 'BGRA',
+    Bgra: 'BGRA',
 
     /**
      * Raw blue, green, red, and opacity samples.
      */
-    Bgro = 'BGRO',
+    Bgro: 'BGRO',
 
     /**
      * Microsoft Windows bitmap image.
      */
-    Bmp = 'BMP',
+    Bmp: 'BMP',
 
     /**
      * Microsoft Windows bitmap image (V2).
      */
-    Bmp2 = 'BMP2',
+    Bmp2: 'BMP2',
 
     /**
      * Microsoft Windows bitmap image (V3).
      */
-    Bmp3 = 'BMP3',
+    Bmp3: 'BMP3',
 
     /**
      * BRF ASCII Braille format.
      */
-    Brf = 'BRF',
+    Brf: 'BRF',
 
     /**
      * Raw cyan samples.
      */
-    C = 'C',
+    C: 'C',
 
     /**
      * Continuous Acquisition and Life-cycle Support Type 1.
      */
-    Cal = 'CAL',
+    Cal: 'CAL',
 
     /**
      * Continuous Acquisition and Life-cycle Support Type 1.
      */
-    Cals = 'CALS',
+    Cals: 'CALS',
 
     /**
      * Constant image uniform color.
      */
-    Canvas = 'CANVAS',
+    Canvas: 'CANVAS',
 
     /**
      * Caption.
      */
-    Caption = 'CAPTION',
+    Caption: 'CAPTION',
 
     /**
      * Cineon Image File.
      */
-    Cin = 'CIN',
+    Cin: 'CIN',
 
     /**
      * Cisco IP phone image format.
      */
-    Cip = 'CIP',
+    Cip: 'CIP',
 
     /**
      * Image Clip Mask.
      */
-    Clip = 'CLIP',
+    Clip: 'CLIP',
 
     /**
      * Raw cyan, magenta, yellow, and black samples.
      */
-    Cmyk = 'CMYK',
+    Cmyk: 'CMYK',
 
     /**
      * Raw cyan, magenta, yellow, black, and alpha samples.
      */
-    Cmyka = 'CMYKA',
+    Cmyka: 'CMYKA',
 
     /**
      * Canon Digital Camera Raw Format.
      */
-    Cr2 = 'CR2',
+    Cr2: 'CR2',
 
     /**
      * Canon Digital Camera Raw Format.
      */
-    Cr3 = 'CR3',
+    Cr3: 'CR3',
 
     /**
      * Canon Digital Camera Raw Format.
      */
-    Crw = 'CRW',
+    Crw: 'CRW',
 
     /**
      * Cube color lookup table image.
      */
-    Cube = 'CUBE',
+    Cube: 'CUBE',
 
     /**
      * Microsoft icon.
      */
-    Cur = 'CUR',
+    Cur: 'CUR',
 
     /**
      * DR Halo.
      */
-    Cut = 'CUT',
+    Cut: 'CUT',
 
     /**
      * Base64-encoded inline images.
      */
-    Data = 'DATA',
+    Data: 'DATA',
 
     /**
      * Digital Imaging and Communications in Medicine image.
      */
-    Dcm = 'DCM',
+    Dcm: 'DCM',
 
     /**
      * Kodak Digital Camera Raw Format.
      */
-    Dcr = 'DCR',
+    Dcr: 'DCR',
 
     /**
      * Raw Photo Decoder (dcraw).
      */
-    Dcraw = 'DCRAW',
+    Dcraw: 'DCRAW',
 
     /**
      * ZSoft IBM PC multi-page Paintbrush.
      */
-    Dcx = 'DCX',
+    Dcx: 'DCX',
 
     /**
      * Microsoft DirectDraw Surface.
      */
-    Dds = 'DDS',
+    Dds: 'DDS',
 
     /**
      * Multi-face font package.
      */
-    Dfont = 'DFONT',
+    Dfont: 'DFONT',
 
     /**
      * Digital Negative Raw Format.
      */
-    Dng = 'DNG',
+    Dng: 'DNG',
 
     /**
      * SMPTE 268M-2003 (DPX 2.0).
      */
-    Dpx = 'DPX',
+    Dpx: 'DPX',
 
     /**
      * Microsoft DirectDraw Surface.
      */
-    Dxt1 = 'DXT1',
+    Dxt1: 'DXT1',
 
     /**
      * Microsoft DirectDraw Surface.
      */
-    Dxt5 = 'DXT5',
+    Dxt5: 'DXT5',
 
     /**
      * Encapsulated Portable Document Format.
      */
-    Epdf = 'EPDF',
+    Epdf: 'EPDF',
 
     /**
      * Encapsulated PostScript Interchange format.
      */
-    Epi = 'EPI',
+    Epi: 'EPI',
 
     /**
      * Encapsulated PostScript.
      */
-    Eps = 'EPS',
+    Eps: 'EPS',
 
     /**
      * Level II Encapsulated PostScript.
      */
-    Eps2 = 'EPS2',
+    Eps2: 'EPS2',
 
     /**
      * Level III Encapsulated PostScript.
      */
-    Eps3 = 'EPS3',
+    Eps3: 'EPS3',
 
     /**
      * Encapsulated PostScript.
      */
-    Epsf = 'EPSF',
+    Epsf: 'EPSF',
 
     /**
      * Encapsulated PostScript Interchange format.
      */
-    Epsi = 'EPSI',
+    Epsi: 'EPSI',
 
     /**
      * Encapsulated PostScript with TIFF preview.
      */
-    Ept = 'EPT',
+    Ept: 'EPT',
 
     /**
      * Encapsulated PostScript Level II with TIFF preview.
      */
-    Ept2 = 'EPT2',
+    Ept2: 'EPT2',
 
     /**
      * Encapsulated PostScript Level III with TIFF preview.
      */
-    Ept3 = 'EPT3',
+    Ept3: 'EPT3',
 
     /**
      * Epson Raw Format.
      */
-    Erf = 'ERF',
+    Erf: 'ERF',
 
     /**
      * High Dynamic-range (HDR).
      */
-    Exr = 'EXR',
+    Exr: 'EXR',
 
     /**
      * Farbfeld.
      */
-    Farbfeld = 'FARBFELD',
+    Farbfeld: 'FARBFELD',
 
     /**
      * Group 3 FAX.
      */
-    Fax = 'FAX',
+    Fax: 'FAX',
 
     /**
      * Farbfeld.
      */
-    Ff = 'FF',
+    Ff: 'FF',
 
     /**
      * Hasselblad CFV/H3D39II Raw Format.
      */
-    Fff = 'FFF',
+    Fff: 'FFF',
 
     /**
      * Uniform Resource Locator (file://).
      */
-    File = 'FILE',
+    File: 'FILE',
 
     /**
      * Flexible Image Transport System.
      */
-    Fits = 'FITS',
+    Fits: 'FITS',
 
     /**
      * FilmLight.
      */
-    Fl32 = 'FL32',
+    Fl32: 'FL32',
 
     /**
      * Flash Video Stream.
      */
-    Flv = 'FLV',
+    Flv: 'FLV',
 
     /**
      * Plasma fractal image.
      */
-    Fractal = 'FRACTAL',
+    Fractal: 'FRACTAL',
 
     /**
      * Uniform Resource Locator (ftp://).
      */
-    Ftp = 'FTP',
+    Ftp: 'FTP',
 
     /**
      * Flexible Image Transport System.
      */
-    Fts = 'FTS',
+    Fts: 'FTS',
 
     /**
      * Formatted text image.
      */
-    Ftxt = 'FTXT',
+    Ftxt: 'FTXT',
 
     /**
      * Raw green samples.
      */
-    G = 'G',
+    G: 'G',
 
     /**
      * Group 3 FAX.
      */
-    G3 = 'G3',
+    G3: 'G3',
 
     /**
      * Group 4 FAX.
      */
-    G4 = 'G4',
+    G4: 'G4',
 
     /**
      * CompuServe graphics interchange format.
      */
-    Gif = 'GIF',
+    Gif: 'GIF',
 
     /**
      * CompuServe graphics interchange format.
      */
-    Gif87 = 'GIF87',
+    Gif87: 'GIF87',
 
     /**
      * Gradual linear passing from one shade to another.
      */
-    Gradient = 'GRADIENT',
+    Gradient: 'GRADIENT',
 
     /**
      * Raw gray samples.
      */
-    Gray = 'GRAY',
+    Gray: 'GRAY',
 
     /**
      * Raw gray and alpha samples.
      */
-    Graya = 'GRAYA',
+    Graya: 'GRAYA',
 
     /**
      * Raw CCITT Group4.
      */
-    Group4 = 'GROUP4',
+    Group4: 'GROUP4',
 
     /**
      * Identity Hald color lookup table image.
      */
-    Hald = 'HALD',
+    Hald: 'HALD',
 
     /**
      * Radiance RGBE image format.
      */
-    Hdr = 'HDR',
+    Hdr: 'HDR',
 
     /**
      * High Efficiency Image Format.
      */
-    Heic = 'HEIC',
+    Heic: 'HEIC',
 
     /**
      * High Efficiency Image Format.
      */
-    Heif = 'HEIF',
+    Heif: 'HEIF',
 
     /**
      * Histogram of the image.
      */
-    Histogram = 'HISTOGRAM',
+    Histogram: 'HISTOGRAM',
 
     /**
      * Slow Scan TeleVision.
      */
-    Hrz = 'HRZ',
+    Hrz: 'HRZ',
 
     /**
      * Hypertext Markup Language and a client-side image map.
      */
-    Htm = 'HTM',
+    Htm: 'HTM',
 
     /**
      * Hypertext Markup Language and a client-side image map.
      */
-    Html = 'HTML',
+    Html: 'HTML',
 
     /**
      * Uniform Resource Locator (http://).
      */
-    Http = 'HTTP',
+    Http: 'HTTP',
 
     /**
      * Uniform Resource Locator (https://).
      */
-    Https = 'HTTPS',
+    Https: 'HTTPS',
 
     /**
      * Truevision Targa image.
      */
-    Icb = 'ICB',
+    Icb: 'ICB',
 
     /**
      * Microsoft icon.
      */
-    Ico = 'ICO',
+    Ico: 'ICO',
 
     /**
      * Microsoft icon.
      */
-    Icon = 'ICON',
+    Icon: 'ICON',
 
     /**
      * Phase One Raw Format.
      */
-    Iiq = 'IIQ',
+    Iiq: 'IIQ',
 
     /**
      * The image format and characteristics.
      */
-    Info = 'INFO',
+    Info: 'INFO',
 
     /**
      * Base64-encoded inline images.
      */
-    Inline = 'INLINE',
+    Inline: 'INLINE',
 
     /**
      * IPL Image Sequence.
      */
-    Ipl = 'IPL',
+    Ipl: 'IPL',
 
     /**
      * ISO/TR 11548-1 format.
      */
-    Isobrl = 'ISOBRL',
+    Isobrl: 'ISOBRL',
 
     /**
      * ISO/TR 11548-1 format 6dot.
      */
-    Isobrl6 = 'ISOBRL6',
+    Isobrl6: 'ISOBRL6',
 
     /**
      * JPEG-2000 Code Stream Syntax.
      */
-    J2c = 'J2C',
+    J2c: 'J2C',
 
     /**
      * JPEG-2000 Code Stream Syntax.
      */
-    J2k = 'J2K',
+    J2k: 'J2K',
 
     /**
      * JPEG Network Graphics.
      */
-    Jng = 'JNG',
+    Jng: 'JNG',
 
     /**
      * Garmin tile format.
      */
-    Jnx = 'JNX',
+    Jnx: 'JNX',
 
     /**
      * JPEG-2000 File Format Syntax.
      */
-    Jp2 = 'JP2',
+    Jp2: 'JP2',
 
     /**
      * JPEG-2000 Code Stream Syntax.
      */
-    Jpc = 'JPC',
+    Jpc: 'JPC',
 
     /**
      * Joint Photographic Experts Group JFIF format.
      */
-    Jpe = 'JPE',
+    Jpe: 'JPE',
 
     /**
      * Joint Photographic Experts Group JFIF format.
      */
-    Jpeg = 'JPEG',
+    Jpeg: 'JPEG',
 
     /**
      * Joint Photographic Experts Group JFIF format.
      */
-    Jpg = 'JPG',
+    Jpg: 'JPG',
 
     /**
      * JPEG-2000 File Format Syntax.
      */
-    Jpm = 'JPM',
+    Jpm: 'JPM',
 
     /**
      * Joint Photographic Experts Group JFIF format.
      */
-    Jps = 'JPS',
+    Jps: 'JPS',
 
     /**
      * JPEG-2000 File Format Syntax.
      */
-    Jpt = 'JPT',
+    Jpt: 'JPT',
 
     /**
      * The image format and characteristics.
      */
-    Json = 'JSON',
+    Json: 'JSON',
 
     /**
      * JPEG XL Lossless JPEG1 Recompression.
      */
-    Jxl = 'JXL',
+    Jxl: 'JXL',
 
     /**
      * Raw black samples.
      */
-    K = 'K',
+    K: 'K',
 
     /**
      * Kodak Digital Camera Raw Format.
      */
-    K25 = 'K25',
+    K25: 'K25',
 
     /**
      * Kodak Digital Camera Raw Format.
      */
-    Kdc = 'KDC',
+    Kdc: 'KDC',
 
     /**
      * Image label.
      */
-    Label = 'LABEL',
+    Label: 'LABEL',
 
     /**
      * Raw magenta samples.
      */
-    M = 'M',
+    M: 'M',
 
     /**
      * MPEG Video Stream.
      */
-    M2v = 'M2V',
+    M2v: 'M2V',
 
     /**
      * Raw MPEG-4 Video.
      */
-    M4v = 'M4V',
+    M4v: 'M4V',
 
     /**
      * MAC Paint.
      */
-    Mac = 'MAC',
+    Mac: 'MAC',
 
     /**
      * Colormap intensities and indices.
      */
-    Map = 'MAP',
+    Map: 'MAP',
 
     /**
      * Image Clip Mask.
      */
-    Mask = 'MASK',
+    Mask: 'MASK',
 
     /**
      * MATLAB level 5 image format.
      */
-    Mat = 'MAT',
+    Mat: 'MAT',
 
     /**
      * MATTE format.
      */
-    Matte = 'MATTE',
+    Matte: 'MATTE',
 
     /**
      * Minolta Digital Camera Raw Format.
      */
-    Mdc = 'MDC',
+    Mdc: 'MDC',
 
     /**
      * Mamiya Raw Format.
      */
-    Mef = 'MEF',
+    Mef: 'MEF',
 
     /**
      * Magick Image File Format.
      */
-    Miff = 'MIFF',
+    Miff: 'MIFF',
 
     /**
      * Multimedia Container.
      */
-    Mkv = 'MKV',
+    Mkv: 'MKV',
 
     /**
      * Multiple-image Network Graphics.
      */
-    Mng = 'MNG',
+    Mng: 'MNG',
 
     /**
      * Raw bi-level bitmap.
      */
-    Mono = 'MONO',
+    Mono: 'MONO',
 
     /**
      * MPEG Video Stream.
      */
-    Mov = 'MOV',
+    Mov: 'MOV',
 
     /**
      * Aptus Leaf Raw Format.
      */
-    Mos = 'MOS',
+    Mos: 'MOS',
 
     /**
      * MPEG-4 Video Stream.
      */
-    Mp4 = 'MP4',
+    Mp4: 'MP4',
 
     /**
      * Magick Persistent Cache image format.
      */
-    Mpc = 'MPC',
+    Mpc: 'MPC',
 
     /**
      * MPEG Video Stream.
      */
-    Mpeg = 'MPEG',
+    Mpeg: 'MPEG',
 
     /**
      * MPEG Video Stream.
      */
-    Mpg = 'MPG',
+    Mpg: 'MPG',
 
     /**
      * Joint Photographic Experts Group JFIF format (Jpeg).
      */
-    Mpo = 'MPO',
+    Mpo: 'MPO',
 
     /**
      * Sony (Minolta) Raw Format.
      */
-    Mrw = 'MRW',
+    Mrw: 'MRW',
 
     /**
      * Magick Scripting Language.
      */
-    Msl = 'MSL',
+    Msl: 'MSL',
 
     /**
      * ImageMagick's own SVG internal renderer.
      */
-    Msvg = 'MSVG',
+    Msvg: 'MSVG',
 
     /**
      * MTV Raytracing image format.
      */
-    Mtv = 'MTV',
+    Mtv: 'MTV',
 
     /**
      * Magick Vector Graphics.
      */
-    Mvg = 'MVG',
+    Mvg: 'MVG',
 
     /**
      * Nikon Digital SLR Camera Raw Format.
      */
-    Nef = 'NEF',
+    Nef: 'NEF',
 
     /**
      * Nikon Digital SLR Camera Raw Format.
      */
-    Nrw = 'NRW',
+    Nrw: 'NRW',
 
     /**
      * Constant image of uniform color.
      */
-    Null = 'NULL',
+    Null: 'NULL',
 
     /**
      * Raw opacity samples.
      */
-    O = 'O',
+    O: 'O',
 
     /**
      * OpenRaster format.
      */
-    Ora = 'ORA',
+    Ora: 'ORA',
 
     /**
      * Olympus Digital Camera Raw Format.
      */
-    Orf = 'ORF',
+    Orf: 'ORF',
 
     /**
      * On-the-air bitmap.
      */
-    Otb = 'OTB',
+    Otb: 'OTB',
 
     /**
      * Open Type font.
      */
-    Otf = 'OTF',
+    Otf: 'OTF',
 
     /**
      * 16bit/pixel interleaved YUV.
      */
-    Pal = 'PAL',
+    Pal: 'PAL',
 
     /**
      * Palm pixmap.
      */
-    Palm = 'PALM',
+    Palm: 'PALM',
 
     /**
      * Common 2-dimensional bitmap format.
      */
-    Pam = 'PAM',
+    Pam: 'PAM',
 
     /**
      * Pango Markup Language.
      */
-    Pango = 'PANGO',
+    Pango: 'PANGO',
 
     /**
      * Predefined pattern.
      */
-    Pattern = 'PATTERN',
+    Pattern: 'PATTERN',
 
     /**
      * Portable bitmap format (black and white).
      */
-    Pbm = 'PBM',
+    Pbm: 'PBM',
 
     /**
      * Photo CD.
      */
-    Pcd = 'PCD',
+    Pcd: 'PCD',
 
     /**
      * Photo CD.
      */
-    Pcds = 'PCDS',
+    Pcds: 'PCDS',
 
     /**
      * Printer Control Language.
      */
-    Pcl = 'PCL',
+    Pcl: 'PCL',
 
     /**
      * Apple Macintosh QuickDraw/PICT.
      */
-    Pct = 'PCT',
+    Pct: 'PCT',
 
     /**
      * ZSoft IBM PC Paintbrush.
      */
-    Pcx = 'PCX',
+    Pcx: 'PCX',
 
     /**
      * Palm Database ImageViewer Format.
      */
-    Pdb = 'PDB',
+    Pdb: 'PDB',
 
     /**
      * Portable Document Format.
      */
-    Pdf = 'PDF',
+    Pdf: 'PDF',
 
     /**
      * Portable Document Archive Format.
      */
-    Pdfa = 'PDFA',
+    Pdfa: 'PDFA',
 
     /**
      * Pentax Electronic Raw Format.
      */
-    Pef = 'PEF',
+    Pef: 'PEF',
 
     /**
      * Embrid Embroidery Format.
      */
-    Pes = 'PES',
+    Pes: 'PES',
 
     /**
      * Postscript Type 1 font (ASCII).
      */
-    Pfa = 'PFA',
+    Pfa: 'PFA',
 
     /**
      * Postscript Type 1 font (binary).
      */
-    Pfb = 'PFB',
+    Pfb: 'PFB',
 
     /**
      * Portable float format.
      */
-    Pfm = 'PFM',
+    Pfm: 'PFM',
 
     /**
      * Portable graymap format (gray scale).
      */
-    Pgm = 'PGM',
+    Pgm: 'PGM',
 
     /**
      * JPEG 2000 uncompressed format.
      */
-    Pgx = 'PGX',
+    Pgx: 'PGX',
 
     /**
      * Portable half float format.
      */
-    Phm = 'PHM',
+    Phm: 'PHM',
 
     /**
      * Personal Icon.
      */
-    Picon = 'PICON',
+    Picon: 'PICON',
 
     /**
      * Apple Macintosh QuickDraw/PICT.
      */
-    Pict = 'PICT',
+    Pict: 'PICT',
 
     /**
      * Alias/Wavefront RLE image format.
      */
-    Pix = 'PIX',
+    Pix: 'PIX',
 
     /**
      * Joint Photographic Experts Group JFIF format.
      */
-    Pjpeg = 'PJPEG',
+    Pjpeg: 'PJPEG',
 
     /**
      * Plasma fractal image.
      */
-    Plasma = 'PLASMA',
+    Plasma: 'PLASMA',
 
     /**
      * Portable Network Graphics.
      */
-    Png = 'PNG',
+    Png: 'PNG',
 
     /**
      * PNG inheriting bit-depth and color-type from original.
      */
-    Png00 = 'PNG00',
+    Png00: 'PNG00',
 
     /**
      * opaque or binary transparent 24-bit RGB.
      */
-    Png24 = 'PNG24',
+    Png24: 'PNG24',
 
     /**
      * opaque or transparent 32-bit RGBA.
      */
-    Png32 = 'PNG32',
+    Png32: 'PNG32',
 
     /**
      * opaque or binary transparent 48-bit RGB.
      */
-    Png48 = 'PNG48',
+    Png48: 'PNG48',
 
     /**
      * opaque or transparent 64-bit RGBA.
      */
-    Png64 = 'PNG64',
+    Png64: 'PNG64',
 
     /**
      * 8-bit indexed with optional binary transparency.
      */
-    Png8 = 'PNG8',
+    Png8: 'PNG8',
 
     /**
      * Portable anymap.
      */
-    Pnm = 'PNM',
+    Pnm: 'PNM',
 
     /**
      * Pocketmod Personal Organizer (Pdf).
      */
-    Pocketmod = 'POCKETMOD',
+    Pocketmod: 'POCKETMOD',
 
     /**
      * Portable pixmap format (color).
      */
-    Ppm = 'PPM',
+    Ppm: 'PPM',
 
     /**
      * PostScript.
      */
-    Ps = 'PS',
+    Ps: 'PS',
 
     /**
      * Level II PostScript.
      */
-    Ps2 = 'PS2',
+    Ps2: 'PS2',
 
     /**
      * Level III PostScript.
      */
-    Ps3 = 'PS3',
+    Ps3: 'PS3',
 
     /**
      * Adobe Large Document Format.
      */
-    Psb = 'PSB',
+    Psb: 'PSB',
 
     /**
      * Adobe Photoshop bitmap.
      */
-    Psd = 'PSD',
+    Psd: 'PSD',
 
     /**
      * Pyramid encoded TIFF.
      */
-    Ptif = 'PTIF',
+    Ptif: 'PTIF',
 
     /**
      * Seattle Film Works.
      */
-    Pwp = 'PWP',
+    Pwp: 'PWP',
 
     /**
      * Quite OK image format.
      */
-    Qoi = 'QOI',
+    Qoi: 'QOI',
 
     /**
      * Raw red samples.
      */
-    R = 'R',
+    R: 'R',
 
     /**
      * Gradual radial passing from one shade to another.
      */
-    RadialGradient = 'RADIAL-GRADIENT',
+    RadialGradient: 'RADIAL-GRADIENT',
 
     /**
      * Fuji CCD-RAW Graphic File.
      */
-    Raf = 'RAF',
+    Raf: 'RAF',
 
     /**
      * SUN Rasterfile.
      */
-    Ras = 'RAS',
+    Ras: 'RAS',
 
     /**
      * Raw.
      */
-    Raw = 'RAW',
+    Raw: 'RAW',
 
     /**
      * Raw red, green, and blue samples.
      */
-    Rgb = 'RGB',
+    Rgb: 'RGB',
 
     /**
      * Raw red, green, blue samples in 565 format.
      */
-    Rgb565 = 'RGB565',
+    Rgb565: 'RGB565',
 
     /**
      * Raw red, green, blue, and alpha samples.
      */
-    Rgba = 'RGBA',
+    Rgba: 'RGBA',
 
     /**
      * Raw red, green, blue, and opacity samples.
      */
-    Rgbo = 'RGBO',
+    Rgbo: 'RGBO',
 
     /**
      * LEGO Mindstorms EV3 Robot Graphic Format (black and white).
      */
-    Rgf = 'RGF',
+    Rgf: 'RGF',
 
     /**
      * Alias/Wavefront image.
      */
-    Rla = 'RLA',
+    Rla: 'RLA',
 
     /**
      * Utah Run length encoded image.
      */
-    Rle = 'RLE',
+    Rle: 'RLE',
 
     /**
      * Raw Media Format.
      */
-    Rmf = 'RMF',
+    Rmf: 'RMF',
 
     /**
      * Panasonic Lumix Raw Format.
      */
-    Rw2 = 'RW2',
+    Rw2: 'RW2',
 
     /**
      * Leica Raw Format.
      */
-    Rwl = 'RWL',
+    Rwl: 'RWL',
 
     /**
      * ZX-Spectrum SCREEN$.
      */
-    Scr = 'SCR',
+    Scr: 'SCR',
 
     /**
      * Screen shot.
      */
-    Screenshot = 'SCREENSHOT',
+    Screenshot: 'SCREENSHOT',
 
     /**
      * Scitex HandShake.
      */
-    Sct = 'SCT',
+    Sct: 'SCT',
 
     /**
      * Seattle Film Works.
      */
-    Sfw = 'SFW',
+    Sfw: 'SFW',
 
     /**
      * Irix RGB image.
      */
-    Sgi = 'SGI',
+    Sgi: 'SGI',
 
     /**
      * Hypertext Markup Language and a client-side image map.
      */
-    Shtml = 'SHTML',
+    Shtml: 'SHTML',
 
     /**
      * DEC SIXEL Graphics Format.
      */
-    Six = 'SIX',
+    Six: 'SIX',
 
     /**
      * DEC SIXEL Graphics Format.
      */
-    Sixel = 'SIXEL',
+    Sixel: 'SIXEL',
 
     /**
      * Sparse Color.
      */
-    SparseColor = 'SPARSE-COLOR',
+    SparseColor: 'SPARSE-COLOR',
 
     /**
      * Sony Raw Format 2.
      */
-    Sr2 = 'SR2',
+    Sr2: 'SR2',
 
     /**
      * Sony Raw Format.
      */
-    Srf = 'SRF',
+    Srf: 'SRF',
 
     /**
      * Samsung Raw Format.
      */
-    Srw = 'SRW',
+    Srw: 'SRW',
 
     /**
      * Steganographic image.
      */
-    Stegano = 'STEGANO',
+    Stegano: 'STEGANO',
 
     /**
      * Sinar CaptureShop Raw Format.
      */
-    Sti = 'STI',
+    Sti: 'STI',
 
     /**
      * String to image and back.
      */
-    StrImg = 'STRIMG',
+    StrImg: 'STRIMG',
 
     /**
      * SUN Rasterfile.
      */
-    Sun = 'SUN',
+    Sun: 'SUN',
 
     /**
      * Scalable Vector Graphics.
      */
-    Svg = 'SVG',
+    Svg: 'SVG',
 
     /**
      * Compressed Scalable Vector Graphics.
      */
-    Svgz = 'SVGZ',
+    Svgz: 'SVGZ',
 
     /**
      * Text.
      */
-    Text = 'TEXT',
+    Text: 'TEXT',
 
     /**
      * Truevision Targa image.
      */
-    Tga = 'TGA',
+    Tga: 'TGA',
 
     /**
      * EXIF Profile Thumbnail.
      */
-    Thumbnail = 'THUMBNAIL',
+    Thumbnail: 'THUMBNAIL',
 
     /**
      * Tagged Image File Format.
      */
-    Tif = 'TIF',
+    Tif: 'TIF',
 
     /**
      * Tagged Image File Format.
      */
-    Tiff = 'TIFF',
+    Tiff: 'TIFF',
 
     /**
      * Tagged Image File Format (64-bit).
      */
-    Tiff64 = 'TIFF64',
+    Tiff64: 'TIFF64',
 
     /**
      * Tile image with a texture.
      */
-    Tile = 'TILE',
+    Tile: 'TILE',
 
     /**
      * PSX TIM.
      */
-    Tim = 'TIM',
+    Tim: 'TIM',
 
     /**
      * PS2 TIM2.
      */
-    Tm2 = 'TM2',
+    Tm2: 'TM2',
 
     /**
      * TrueType font collection.
      */
-    Ttc = 'TTC',
+    Ttc: 'TTC',
 
     /**
      * TrueType font.
      */
-    Ttf = 'TTF',
+    Ttf: 'TTF',
 
     /**
      * Text.
      */
-    Txt = 'TXT',
+    Txt: 'TXT',
 
     /**
      * Unicode Text format.
      */
-    Ubrl = 'UBRL',
+    Ubrl: 'UBRL',
 
     /**
      * Unicode Text format 6dot.
      */
-    Ubrl6 = 'UBRL6',
+    Ubrl6: 'UBRL6',
 
     /**
      * X-Motif UIL table.
      */
-    Uil = 'UIL',
+    Uil: 'UIL',
 
     /**
      * 16bit/pixel interleaved YUV.
      */
-    Uyvy = 'UYVY',
+    Uyvy: 'UYVY',
 
     /**
      * Truevision Targa image.
      */
-    Vda = 'VDA',
+    Vda: 'VDA',
 
     /**
      * VICAR rasterfile format.
      */
-    Vicar = 'VICAR',
+    Vicar: 'VICAR',
 
     /**
      * Visual Image Directory.
      */
-    Vid = 'VID',
+    Vid: 'VID',
 
     /**
      * Khoros Visualization image.
      */
-    Viff = 'VIFF',
+    Viff: 'VIFF',
 
     /**
      * VIPS image.
      */
-    Vips = 'VIPS',
+    Vips: 'VIPS',
 
     /**
      * Truevision Targa image.
      */
-    Vst = 'VST',
+    Vst: 'VST',
 
     /**
      * Open Web Media.
      */
-    WebM = 'WEBM',
+    WebM: 'WEBM',
 
     /**
      * WebP Image Format.
      */
-    WebP = 'WEBP',
+    WebP: 'WEBP',
 
     /**
      * Wireless Bitmap (level 0) image.
      */
-    Wbmp = 'WBMP',
+    Wbmp: 'WBMP',
 
     /**
      * Windows Media Video.
      */
-    Wmv = 'WMV',
+    Wmv: 'WMV',
 
     /**
      * Word Perfect Graphics.
      */
-    Wpg = 'WPG',
+    Wpg: 'WPG',
 
     /**
      * Sigma Camera RAW Format.
      */
-    X3f = 'X3F',
+    X3f: 'X3F',
 
     /**
      * X Windows system bitmap (black and white).
      */
-    Xbm = 'XBM',
+    Xbm: 'XBM',
 
     /**
      * Constant image uniform color.
      */
-    Xc = 'XC',
+    Xc: 'XC',
 
     /**
      * GIMP image.
      */
-    Xcf = 'XCF',
+    Xcf: 'XCF',
 
     /**
      * X Windows system pixmap (color).
      */
-    Xpm = 'XPM',
+    Xpm: 'XPM',
 
     /**
      * Microsoft XML Paper Specification.
      */
-    Xps = 'XPS',
+    Xps: 'XPS',
 
     /**
      * Khoros Visualization image.
      */
-    Xv = 'XV',
+    Xv: 'XV',
 
     /**
      * Raw yellow samples.
      */
-    Y = 'Y',
+    Y: 'Y',
 
     /**
      * The image format and characteristics.
      */
-    Yaml = 'YAML',
+    Yaml: 'YAML',
 
     /**
      * Raw Y, Cb, and Cr samples.
      */
-    Ycbcr = 'YCBCR',
+    Ycbcr: 'YCBCR',
 
     /**
      * Raw Y, Cb, Cr, and alpha samples.
      */
-    Ycbcra = 'YCBCRA',
+    Ycbcra: 'YCBCRA',
 
     /**
      * CCIR 601 4:1:1 or 4:2:2.
      */
-    Yuv = 'YUV',
-}
+    Yuv: 'YUV',
+} as const;
+
+export type MagickFormat = typeof MagickFormat[keyof typeof MagickFormat];
