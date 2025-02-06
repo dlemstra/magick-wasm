@@ -6,119 +6,121 @@
 /**
  *  Specifies the morphology methods.
  */
-export enum MorphologyMethod {
+export const MorphologyMethod = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Convolve.
      */
-    Convolve,
+    Convolve: 1,
 
     /**
      * Correlate.
      */
-    Correlate,
+    Correlate: 2,
 
     /**
      * Erode.
      */
-    Erode,
+    Erode: 3,
 
     /**
      * Dilate.
      */
-    Dilate,
+    Dilate: 4,
 
     /**
      * Erode intensity.
      */
-    ErodeIntensity,
+    ErodeIntensity: 5,
 
     /**
      * Dilate intensity.
      */
-    DilateIntensity,
+    DilateIntensity: 6,
 
     /**
      * Iterative distance.
      */
-    IterativeDistance,
+    IterativeDistance: 7,
 
     /**
      * Open.
      */
-    Open,
+    Open: 8,
 
     /**
      * Close.
      */
-    Close,
+    Close: 9,
 
     /**
      * Open intensity.
      */
-    OpenIntensity,
+    OpenIntensity: 10,
 
     /**
      * Close intensity.
      */
-    CloseIntensity,
+    CloseIntensity: 11,
 
     /**
      * Smooth.
      */
-    Smooth,
+    Smooth: 12,
 
     /**
      * Edge in.
      */
-    EdgeIn,
+    EdgeIn: 13,
 
     /**
      * Edge out.
      */
-    EdgeOut,
+    EdgeOut: 14,
 
     /**
      * Edge.
      */
-    Edge,
+    Edge: 15,
 
     /**
      * Top hat.
      */
-    TopHat,
+    TopHat: 16,
 
     /**
      * Bottom hat.
      */
-    BottomHat,
+    BottomHat: 17,
 
     /**
      * Hit and miss.
      */
-    HitAndMiss,
+    HitAndMiss: 18,
 
     /**
      * Thinning.
      */
-    Thinning,
+    Thinning: 19,
 
     /**
      * Thicken.
      */
-    Thicken,
+    Thicken: 20,
 
     /**
      * Distance.
      */
-    Distance,
+    Distance: 21,
 
     /**
      * Voronoi.
      */
-    Voronoi,
-}
+    Voronoi: 22
+} as const;
+
+export type MorphologyMethod = typeof MorphologyMethod[keyof typeof MorphologyMethod];
