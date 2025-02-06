@@ -2077,7 +2077,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get classType(): ClassType {
-        return ImageMagick._api._MagickImage_ClassType_Get(this._instance);
+        return <ClassType> ImageMagick._api._MagickImage_ClassType_Get(this._instance);
     }
     set classType(value: ClassType) {
         this.useExceptionPointer(exception => {
