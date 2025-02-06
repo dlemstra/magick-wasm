@@ -2077,7 +2077,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get classType(): ClassType {
-        return <ClassType> ImageMagick._api._MagickImage_ClassType_Get(this._instance);
+        return <ClassType>ImageMagick._api._MagickImage_ClassType_Get(this._instance);
     }
     set classType(value: ClassType) {
         this.useExceptionPointer(exception => {
@@ -3479,7 +3479,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     transformColorSpace(sourceOrTarget: IColorProfile, targetModeOrUndefined?: IColorProfile | ColorTransformMode, modeOrUndefined?: ColorTransformMode): boolean {
         const source = sourceOrTarget;
         let target: IColorProfile | undefined;
-        let mode = ColorTransformMode.Quantum;
+        let mode: ColorTransformMode = ColorTransformMode.Quantum;
         if (targetModeOrUndefined !== undefined) {
             if (typeof targetModeOrUndefined === 'number')
                 mode = targetModeOrUndefined;

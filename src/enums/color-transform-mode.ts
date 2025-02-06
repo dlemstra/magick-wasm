@@ -6,14 +6,16 @@
 /**
  * Specifies color transform modes.
  */
-export enum ColorTransformMode {
+export const ColorTransformMode = {
     /**
      * High resolution (double).
      */
-    HighRes,
+    HighRes: 0,
 
     /**
      * Quantum.
      */
-    Quantum,
-}
+    Quantum: 1
+} as const;
+
+export type ColorTransformMode = typeof ColorTransformMode[keyof typeof ColorTransformMode];
