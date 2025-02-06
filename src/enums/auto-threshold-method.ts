@@ -6,24 +6,26 @@
 /**
  * Specifies the auto threshold methods.
  */
-export enum AutoThresholdMethod {
+export const AutoThresholdMethod = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Kapur.
      */
-    Kapur,
+    Kapur: 1,
 
     /**
      * OTSU.
      */
-    OTSU,
+    OTSU: 2,
 
     /**
      * Triangle.
      */
-    Triangle
-}
+    Triangle: 3,
+} as const;
+
+export type AutoThresholdMethod = typeof AutoThresholdMethod[keyof typeof AutoThresholdMethod];
