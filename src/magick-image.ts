@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { AlphaOption } from './enums/alpha-option';
 import { AsyncImageCallback, AsyncImageCollectionCallback, ImageCallback, ImageCollectionCallback, SyncImageCallback, SyncImageCollectionCallback } from './types/callbacks';
 import { AutoThresholdMethod } from './enums/auto-threshold-method';
 import { ByteArray, _isByteArray } from './byte-array';
@@ -42,6 +41,7 @@ import { IDrawable } from './drawing/drawable';
 import { ImageMagick } from './image-magick';
 import { ImageProfile, IImageProfile } from './profiles/image-profile';
 import { Interlace } from './enums/interlace';
+import { MagickAlphaOption } from './enums/magick-alpha-option';
 import { MagickColor, IMagickColor } from './magick-color';
 import { MagickError } from './magick-error';
 import { MagickErrorInfo } from './types/magick-error-info';
@@ -442,7 +442,7 @@ export interface IMagickImage extends IDisposable {
      * Applies the specified alpha option.
      * @param value The option to use.
      */
-    alpha(value: AlphaOption): void;
+    alpha(value: MagickAlphaOption): void;
 
     /**
      * Annotate using specified text, and bounding area.
@@ -2176,7 +2176,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     set hasAlpha(value: boolean) {
         this.useExceptionPointer(exception => {
             if (value)
-                this.alpha(AlphaOption.Opaque);
+                this.alpha(MagickAlphaOption.Opaque);
 
             ImageMagick._api._MagickImage_HasAlpha_Set(this._instance, this.fromBool(value), exception);
         });
@@ -2371,7 +2371,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    alpha(value: AlphaOption): void {
+    alpha(value: MagickAlphaOption): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_SetAlpha(this._instance, value, exception);
         });

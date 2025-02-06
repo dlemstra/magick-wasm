@@ -3,7 +3,7 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { AlphaOption } from '@src/enums/alpha-option';
+import { MagickAlphaOption } from '@src/enums/magick-alpha-option';
 import { PixelChannel } from '@src/enums/pixel-channel';
 import { TestFiles } from '@test/test-files';
 
@@ -21,7 +21,7 @@ describe('MagickImage#channels', () => {
 
     it('should return the correct channels for a cmyk image', () => {
         TestFiles.Images.cmykJpg.use(image => {
-            image.alpha(AlphaOption.Activate);
+            image.alpha(MagickAlphaOption.Activate);
 
             const channels = image.channels;
 

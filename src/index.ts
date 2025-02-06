@@ -34,7 +34,7 @@ export * from './drawing/drawable-text';
 export * from './drawing/drawable';
 export * from './drawing/drawables';
 export * from './drawing/drawing-wand';
-export * from './enums/alpha-option';
+export * from './enums/magick-alpha-option';
 export * from './enums/auto-threshold-method';
 export * from './enums/channels';
 export * from './enums/class-type';
