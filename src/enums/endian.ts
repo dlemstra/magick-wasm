@@ -6,19 +6,21 @@
 /**
  * Specifies endian.
  */
-export enum Endian {
+export const Endian = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Least significant bit, byte 0 is least significant.
      */
-    LSB,
+    LSB: 1,
 
     /**
      * Most significant bit, byte 0 is most significant.
      */
-    MSB,
-}
+    MSB: 2
+} as const;
+
+export type Endian = typeof Endian[keyof typeof Endian];

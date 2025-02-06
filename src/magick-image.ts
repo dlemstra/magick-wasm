@@ -2150,8 +2150,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     get depth(): number { return ImageMagick._api._MagickImage_Depth_Get(this._instance); }
     set depth(value: number) { ImageMagick._api._MagickImage_Depth_Set(this._instance, value); }
 
-    get endian(): number { return ImageMagick._api._MagickImage_Endian_Get(this._instance); }
-    set endian(value: number) { ImageMagick._api._MagickImage_Endian_Set(this._instance, value); }
+    get endian(): Endian { return <Endian>ImageMagick._api._MagickImage_Endian_Get(this._instance); }
+    set endian(value: Endian) { ImageMagick._api._MagickImage_Endian_Set(this._instance, value); }
 
     get fileName(): string | null {
         const fileName = ImageMagick._api._MagickImage_FileName_Get(this._instance);
