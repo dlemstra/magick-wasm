@@ -6,24 +6,26 @@
 /**
  * Specifies dither methods.
  */
-export enum DitherMethod {
+export const DitherMethod = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * No.
      */
-    No,
+    No: 1,
 
     /**
      * Riemersma.
      */
-    Riemersma,
+    Riemersma: 2,
 
     /**
      * FloydSteinberg.
      */
-    FloydSteinberg,
-}
+    FloydSteinberg: 3
+} as const;
+
+export type DitherMethod = typeof DitherMethod[keyof typeof DitherMethod];
