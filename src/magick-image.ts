@@ -2132,7 +2132,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     get compose(): CompositeOperator { return <CompositeOperator>ImageMagick._api._MagickImage_Compose_Get(this._instance); }
     set compose(value: CompositeOperator) { ImageMagick._api._MagickImage_Compose_Set(this._instance, value); }
 
-    get compression(): CompressionMethod { return ImageMagick._api._MagickImage_Compression_Get(this._instance); }
+    get compression(): CompressionMethod { return <CompressionMethod>ImageMagick._api._MagickImage_Compression_Get(this._instance); }
 
     get density(): Density {
         return new Density(
