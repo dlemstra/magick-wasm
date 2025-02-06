@@ -6,64 +6,66 @@
 /**
  * Specifies the color type of the image.
  */
-export enum ColorType {
+export const ColorType = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Bilevel.
      */
-    Bilevel,
+    Bilevel: 1,
 
     /**
      * Grayscale.
      */
-    Grayscale,
+    Grayscale: 2,
 
     /**
      * Grayscale alpha.
      */
-    GrayscaleAlpha,
+    GrayscaleAlpha: 3,
 
     /**
      * Palette.
      */
-    Palette,
+    Palette: 4,
 
     /**
      * Palette alpha.
      */
-    PaletteAlpha,
+    PaletteAlpha: 5,
 
     /**
      * Truecolor.
      */
-    TrueColor,
+    TrueColor: 6,
 
     /**
      * Truecolor alpha.
      */
-    TrueColorAlpha,
+    TrueColorAlpha: 7,
 
     /**
      * Color separation.
      */
-    ColorSeparation,
+    ColorSeparation: 8,
 
     /**
      * Color separation alpha.
      */
-    ColorSeparationAlpha,
+    ColorSeparationAlpha: 9,
 
     /**
      * Optimize.
      */
-    Optimize,
+    Optimize: 10,
 
     /**
      * Palette bilevel alpha.
      */
-    PaletteBilevelAlpha
-}
+    PaletteBilevelAlpha: 11
+} as const;
+
+export type ColorType = typeof ColorType[keyof typeof ColorType];
