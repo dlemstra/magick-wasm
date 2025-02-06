@@ -6,44 +6,46 @@
 /**
  * Specifies a kind of complex operator.
  */
-export enum ComplexOperator {
+export const ComplexOperator = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Add.
      */
-    Add,
+    Add: 1,
 
     /**
      * Conjugate.
      */
-    Conjugate,
+    Conjugate: 2,
 
     /**
      * Divide.
      */
-    Divide,
+    Divide: 3,
 
     /**
      * Magnitude phase.
      */
-    MagnitudePhase,
+    MagnitudePhase: 4,
 
     /**
      * Multiply.
      */
-    Multiply,
+    Multiply: 5,
 
     /**
      * Real imaginary.
      */
-    RealImaginary,
+    RealImaginary: 6,
 
     /**
      * Subtract.
      */
-    Subtract,
-}
+    Subtract: 7
+} as const;
+
+export type ComplexOperator = typeof ComplexOperator[keyof typeof ComplexOperator];
