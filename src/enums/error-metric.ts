@@ -6,69 +6,71 @@
 /**
  * Specifies the error metric types.
  */
-export enum ErrorMetric {
+export const ErrorMetric = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Absolute.
      */
-    Absolute,
+    Absolute: 1,
 
     /**
      * Fuzz.
      */
-    Fuzz,
+    Fuzz: 2,
 
     /**
      * Mean absolute.
      */
-    MeanAbsolute,
+    MeanAbsolute: 3,
 
     /**
      * Mean error per pixel.
      */
-    MeanErrorPerPixel,
+    MeanErrorPerPixel: 4,
 
     /**
      * Mean squared.
      */
-    MeanSquared,
+    MeanSquared: 5,
 
     /**
      * Normalized cross correlation.
      */
-    NormalizedCrossCorrelation,
+    NormalizedCrossCorrelation: 6,
 
     /**
      * Peak absolute.
      */
-    PeakAbsolute,
+    PeakAbsolute: 7,
 
     /**
      * Peak signal to noise ratio.
      */
-    PeakSignalToNoiseRatio,
+    PeakSignalToNoiseRatio: 8,
 
     /**
      * Perceptual hash.
      */
-    PerceptualHash,
+    PerceptualHash: 9,
 
     /**
      * Root mean squared.
      */
-    RootMeanSquared,
+    RootMeanSquared: 10,
 
     /**
      * Structural similarity.
      */
-    StructuralSimilarity,
+    StructuralSimilarity: 11,
 
     /**
      * Structural dissimilarity.
      */
-    StructuralDissimilarity,
-}
+    StructuralDissimilarity: 12
+} as const;
+
+export type ErrorMetric = typeof ErrorMetric[keyof typeof ErrorMetric];
