@@ -15,52 +15,52 @@ export const Gravity = {
     /**
      * Forget.
      */
-    Forget: 1,
+    Forget: 0,
 
     /**
      * Northwest
      */
-    Northwest: 2,
+    Northwest: 1,
 
     /**
      * North
      */
-    North: 3,
+    North: 2,
 
     /**
      * Northeast
      */
-    Northeast: 4,
+    Northeast: 3,
 
     /**
      * West
      */
-    West: 5,
+    West: 4,
 
     /**
      * Center
      */
-    Center: 6,
+    Center: 5,
 
     /**
      * East
      */
-    East: 7,
+    East: 6,
 
     /**
      * Southwest
      */
-    Southwest: 8,
+    Southwest: 7,
 
     /**
      * South
      */
-    South: 9,
+    South: 8,
 
     /**
      * Southeast
      */
-    Southeast: 10
+    Southeast: 9
 } as const;
 
 export type Gravity = typeof Gravity[keyof typeof Gravity];
