@@ -2129,7 +2129,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.setAttribute('comment', value);
     }
 
-    get compose(): CompositeOperator { return ImageMagick._api._MagickImage_Compose_Get(this._instance); }
+    get compose(): CompositeOperator { return <CompositeOperator>ImageMagick._api._MagickImage_Compose_Get(this._instance); }
     set compose(value: CompositeOperator) { ImageMagick._api._MagickImage_Compose_Set(this._instance, value); }
 
     get compression(): CompressionMethod { return ImageMagick._api._MagickImage_Compression_Get(this._instance); }
@@ -2612,7 +2612,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     composite(image: IMagickImage, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?: Channels | string, channelsOrUndefined?: Channels): void {
         let x = 0;
         let y = 0;
-        let compose = CompositeOperator.In;
+        let compose: CompositeOperator = CompositeOperator.In;
         let channels: Channels = Channels.All;
         let args: string | null = null;
 
@@ -2665,7 +2665,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     compositeGravity(image: IMagickImage, gravity: Gravity, composeOrPoint?: CompositeOperator | Point, pointOrArgsOrChannels?: Point | string | Channels, channelsOrArgs?: Channels | string, channelsOrUndefined?: Channels): void {
         let x = 0;
         let y = 0;
-        let compose = CompositeOperator.In;
+        let compose: CompositeOperator = CompositeOperator.In;
         let channels: Channels = Channels.All;
         let args: string | null = null;
 

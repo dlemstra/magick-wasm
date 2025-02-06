@@ -6,414 +6,416 @@
 /**
  * Specifies the composite operators.
  */
-export enum CompositeOperator {
+export const CompositeOperator = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Alpha.
      */
-    Alpha,
+    Alpha: 1,
 
     /**
      * Atop.
      */
-    Atop,
+    Atop: 2,
 
     /**
      * Blend.
      */
-    Blend,
+    Blend: 3,
 
     /**
      * Blur.
      */
-    Blur,
+    Blur: 4,
 
     /**
      * Bumpmap.
      */
-    Bumpmap,
+    Bumpmap: 5,
 
     /**
      * Change mask.
      */
-    ChangeMask,
+    ChangeMask: 6,
 
     /**
      * Clear.
      */
-    Clear,
+    Clear: 7,
 
     /**
      * Color burn.
      */
-    ColorBurn,
+    ColorBurn: 8,
 
     /**
      * Color dodge.
      */
-    ColorDodge,
+    ColorDodge: 9,
 
     /**
      * Colorize.
      */
-    Colorize,
+    Colorize: 10,
 
     /**
      * Copy black.
      */
-    CopyBlack,
+    CopyBlack: 11,
 
     /**
      * Copy blue.
      */
-    CopyBlue,
+    CopyBlue: 12,
 
     /**
      * Copy.
      */
-    Copy,
+    Copy: 13,
 
     /**
      * Copy cyan.
      */
-    CopyCyan,
+    CopyCyan: 14,
 
     /**
      * Copy green.
      */
-    CopyGreen,
+    CopyGreen: 15,
 
     /**
      * Copy magenta.
      */
-    CopyMagenta,
+    CopyMagenta: 16,
 
     /**
      * Copy alpha.
      */
-    CopyAlpha,
+    CopyAlpha: 17,
 
     /**
      * Copy red.
      */
-    CopyRed,
+    CopyRed: 18,
 
     /**
      * Copy yellow.
      */
-    CopyYellow,
+    CopyYellow: 19,
 
     /**
      * Darken.
      */
-    Darken,
+    Darken: 20,
 
     /**
      * Darken intensity.
      */
-    DarkenIntensity,
+    DarkenIntensity: 21,
 
     /**
      * Difference.
      */
-    Difference,
+    Difference: 22,
 
     /**
      * Displace.
      */
-    Displace,
+    Displace: 23,
 
     /**
      * Dissolve.
      */
-    Dissolve,
+    Dissolve: 24,
 
     /**
      * Distort.
      */
-    Distort,
+    Distort: 25,
 
     /**
      * Divide dst.
      */
-    DivideDst,
+    DivideDst: 26,
 
     /**
      * Divide src.
      */
-    DivideSrc,
+    DivideSrc: 27,
 
     /**
      * Dst atop.
      */
-    DstAtop,
+    DstAtop: 28,
 
     /**
      * Dst.
      */
-    Dst,
+    Dst: 29,
 
     /**
      * Dst in.
      */
-    DstIn,
+    DstIn: 30,
 
     /**
      * Dst out.
      */
-    DstOut,
+    DstOut: 31,
 
     /**
      * Dst over.
      */
-    DstOver,
+    DstOver: 32,
 
     /**
      * Exclusion.
      */
-    Exclusion,
+    Exclusion: 33,
 
     /**
      * Hard light.
      */
-    HardLight,
+    HardLight: 34,
 
     /**
      * Hard mix.
      */
-    HardMix,
+    HardMix: 35,
 
     /**
      * Hue.
      */
-    Hue,
+    Hue: 36,
 
     /**
      * In.
      */
-    In,
+    In: 37,
 
     /**
      * Intensity.
      */
-    Intensity,
+    Intensity: 38,
 
     /**
      * Lighten.
      */
-    Lighten,
+    Lighten: 39,
 
     /**
      * Lighten intensity.
      */
-    LightenIntensity,
+    LightenIntensity: 40,
 
     /**
      * Linear burn.
      */
-    LinearBurn,
+    LinearBurn: 41,
 
     /**
      * Linear dodge.
      */
-    LinearDodge,
+    LinearDodge: 42,
 
     /**
      * Linear light.
      */
-    LinearLight,
+    LinearLight: 43,
 
     /**
      * Luminize.
      */
-    Luminize,
+    Luminize: 44,
 
     /**
      * Mathematics.
      */
-    Mathematics,
+    Mathematics: 45,
 
     /**
      * Minus dst.
      */
-    MinusDst,
+    MinusDst: 46,
 
     /**
      * Minus src.
      */
-    MinusSrc,
+    MinusSrc: 47,
 
     /**
      * Modulate.
      */
-    Modulate,
+    Modulate: 48,
 
     /**
      * Modulus add.
      */
-    ModulusAdd,
+    ModulusAdd: 49,
 
     /**
      * Modulus subtract.
      */
-    ModulusSubtract,
+    ModulusSubtract: 50,
 
     /**
      * Multiply.
      */
-    Multiply,
+    Multiply: 51,
 
     /**
      * No.
      */
-    No,
+    No: 52,
 
     /**
      * Out.
      */
-    Out,
+    Out: 53,
 
     /**
      * Over.
      */
-    Over,
+    Over: 54,
 
     /**
      * Overlay.
      */
-    Overlay,
+    Overlay: 55,
 
     /**
      * Pegtop light.
      */
-    PegtopLight,
+    PegtopLight: 56,
 
     /**
      * Pin light.
      */
-    PinLight,
+    PinLight: 57,
 
     /**
      * Plus.
      */
-    Plus,
+    Plus: 58,
 
     /**
      * Replace.
      */
-    Replace,
+    Replace: 59,
 
     /**
      * Saturate.
      */
-    Saturate,
+    Saturate: 60,
 
     /**
      * Screen.
      */
-    Screen,
+    Screen: 61,
 
     /**
      * Soft light.
      */
-    SoftLight,
+    SoftLight: 62,
 
     /**
      * Src atop.
      */
-    SrcAtop,
+    SrcAtop: 63,
 
     /**
      * Src.
      */
-    Src,
+    Src: 64,
 
     /**
      * Src in.
      */
-    SrcIn,
+    SrcIn: 65,
 
     /**
      * Src out.
      */
-    SrcOut,
+    SrcOut: 66,
 
     /**
      * Src over.
      */
-    SrcOver,
+    SrcOver: 67,
 
     /**
      * Threshold.
      */
-    Threshold,
+    Threshold: 68,
 
     /**
      * Vivid light.
      */
-    VividLight,
+    VividLight: 69,
 
     /**
      * Xor.
      */
-    Xor,
+    Xor: 70,
 
     /**
      * Stereo.
      */
-    Stereo,
+    Stereo: 71,
 
     /**
      * Freeze.
      */
-    Freeze,
+    Freeze: 72,
 
     /**
      * Interpolate.
      */
-    Interpolate,
+    Interpolate: 73,
 
     /**
      * Negate.
      */
-    Negate,
+    Negate: 74,
 
     /**
      * Reflect.
      */
-    Reflect,
+    Reflect: 75,
 
     /**
      * Soft burn.
      */
-    SoftBurn,
+    SoftBurn: 76,
 
     /**
      * Soft dodge.
      */
-    SoftDodge,
+    SoftDodge: 77,
 
     /**
      * Stamp.
      */
-    Stamp,
+    Stamp: 78,
 
     /**
      * Root-mean-square error.
      */
-    RMSE,
+    RMSE: 79,
 
     /**
      * Saliency blend.
      */
-    SaliencyBlend,
+    SaliencyBlend: 80,
 
     /**
      * Seamless blend.
      */
-    SeamlessBlend,
-}
+    SeamlessBlend: 81
+} as const;
+
+export type CompositeOperator = typeof CompositeOperator[keyof typeof CompositeOperator];
