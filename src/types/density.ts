@@ -39,7 +39,7 @@ export class Density {
         } else {
             this.x = xyOrXOrValue;
             this.y = xyOrXOrValue;
-            this.units = unitsOrNumber;
+            this.units = <DensityUnit>unitsOrNumber;
         }
     }
 

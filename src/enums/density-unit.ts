@@ -6,19 +6,21 @@
 /**
  * Units of image resolution.
  */
-export enum DensityUnit {
+export const DensityUnit = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Pixels per inch.
      */
-    PixelsPerInch,
+    PixelsPerInch: 1,
 
     /**
      * Pixels per centimeter.
      */
-    PixelsPerCentimeter
-}
+    PixelsPerCentimeter: 2
+} as const;
+
+export type DensityUnit = typeof DensityUnit[keyof typeof DensityUnit];

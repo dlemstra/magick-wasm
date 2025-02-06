@@ -21,6 +21,7 @@ import { ConnectedComponent } from './types/connected-component';
 import { ConnectedComponentsSettings, Connectivity } from './settings/connected-components-settings';
 import { DelegateRegistry } from './helpers/delegate-registry';
 import { Density } from './types/density';
+import { DensityUnit } from './enums/density-unit';
 import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './enums/distort-method';
@@ -2138,7 +2139,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return new Density(
             ImageMagick._api._MagickImage_ResolutionX_Get(this._instance),
             ImageMagick._api._MagickImage_ResolutionY_Get(this._instance),
-            ImageMagick._api._MagickImage_ResolutionUnits_Get(this._instance));
+            <DensityUnit>ImageMagick._api._MagickImage_ResolutionUnits_Get(this._instance));
     }
     set density(value: Density) {
         ImageMagick._api._MagickImage_ResolutionX_Set(this._instance, value.x);
