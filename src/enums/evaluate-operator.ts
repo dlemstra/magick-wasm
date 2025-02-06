@@ -6,174 +6,176 @@
 /**
  * Specifies the evaluate operator.
  */
-export enum EvaluateOperator {
+export const EvaluateOperator = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Abs.
      */
-    Abs,
+    Abs: 1,
 
     /**
      * Add.
      */
-    Add,
+    Add: 2,
 
     /**
      * Add modulus.
      */
-    AddModulus,
+    AddModulus: 3,
 
     /**
      * And.
      */
-    And,
+    And: 4,
 
     /**
      * Cosine.
      */
-    Cosine,
+    Cosine: 5,
 
     /**
      * Divide.
      */
-    Divide,
+    Divide: 6,
 
     /**
      * Exponential.
      */
-    Exponential,
+    Exponential: 7,
 
     /**
      * Gaussian noise.
      */
-    GaussianNoise,
+    GaussianNoise: 8,
 
     /**
      * Impulse noise.
      */
-    ImpulseNoise,
+    ImpulseNoise: 9,
 
     /**
      * Laplacian noise.
      */
-    LaplacianNoise,
+    LaplacianNoise: 10,
 
     /**
      * Left shift.
      */
-    LeftShift,
+    LeftShift: 11,
 
     /**
      * Log.
      */
-    Log,
+    Log: 12,
 
     /**
      * Max.
      */
-    Max,
+    Max: 13,
 
     /**
      * Mean.
      */
-    Mean,
+    Mean: 14,
 
     /**
      * Median.
      */
-    Median,
+    Median: 15,
 
     /**
      * Min.
      */
-    Min,
+    Min: 16,
 
     /**
      * Multiplicative noise.
      */
-    MultiplicativeNoise,
+    MultiplicativeNoise: 17,
 
     /**
      * Multiply.
      */
-    Multiply,
+    Multiply: 18,
 
     /**
      * Or.
      */
-    Or,
+    Or: 19,
 
     /**
      * Poisson noise.
      */
-    PoissonNoise,
+    PoissonNoise: 20,
 
     /**
      * Pow.
      */
-    Pow,
+    Pow: 21,
 
     /**
      * Right shift.
      */
-    RightShift,
+    RightShift: 22,
 
     /**
      * Root mean square.
      */
-    RootMeanSquare,
+    RootMeanSquare: 23,
 
     /**
      * Set.
      */
-    Set,
+    Set: 24,
 
     /**
      * Sine.
      */
-    Sine,
+    Sine: 25,
 
     /**
      * Subtract.
      */
-    Subtract,
+    Subtract: 26,
 
     /**
      * Sum.
      */
-    Sum,
+    Sum: 27,
 
     /**
      * Threshold black.
      */
-    ThresholdBlack,
+    ThresholdBlack: 28,
 
     /**
      * Threshold.
      */
-    Threshold,
+    Threshold: 29,
 
     /**
      * Threshold white.
      */
-    ThresholdWhite,
+    ThresholdWhite: 30,
 
     /**
      * Uniform noise.
      */
-    UniformNoise,
+    UniformNoise: 31,
 
     /**
      * Xor.
      */
-    Xor,
+    Xor: 32,
 
     /**
      * Inverse log.
      */
-    InverseLog
-}
+    InverseLog: 33
+} as const;
+
+export type EvaluateOperator = typeof EvaluateOperator[keyof typeof EvaluateOperator];
