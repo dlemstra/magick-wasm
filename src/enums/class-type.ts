@@ -6,19 +6,21 @@
 /**
  * Specifies the image class type.
  */
-export enum ClassType {
+export const ClassType = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Direct.
      */
-    Direct,
+    Direct: 1,
 
     /**
      * Pseudo.
      */
-    Pseudo
-}
+    Pseudo: 2
+} as const;
+
+export type ClassType = typeof ClassType[keyof typeof ClassType];
