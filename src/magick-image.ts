@@ -2185,7 +2185,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
 
-    get interlace(): Interlace { return ImageMagick._api._MagickImage_Interlace_Get(this._instance); }
+    get interlace(): Interlace { return <Interlace>ImageMagick._api._MagickImage_Interlace_Get(this._instance); }
 
     get isOpaque(): boolean {
         return this.useExceptionPointer(exception => {

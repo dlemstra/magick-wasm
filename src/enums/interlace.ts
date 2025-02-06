@@ -6,44 +6,46 @@
 /**
  * Specifies the interlace types.
  */
-export enum Interlace {
+export const Interlace = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * No interlacing.
      */
-    NoInterlace,
+    NoInterlace: 1,
 
     /**
      * Line.
      */
-    Line,
+    Line: 2,
 
     /**
      * Plane.
      */
-    Plane,
+    Plane: 3,
 
     /**
      * Partition.
      */
-    Partition,
+    Partition: 4,
 
     /**
      * Gif.
      */
-    Gif,
+    Gif: 5,
 
     /**
      * Jpeg.
      */
-    Jpeg,
+    Jpeg: 6,
 
     /**
      * Png.
      */
-    Png,
-}
+    Png: 7
+} as const;
+
+export type Interlace = typeof Interlace[keyof typeof Interlace];
