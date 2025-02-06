@@ -2168,7 +2168,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get gamma(): number { return ImageMagick._api._MagickImage_Gamma_Get(this._instance); }
 
-    get gifDisposeMethod(): GifDisposeMethod { return ImageMagick._api._MagickImage_GifDisposeMethod_Get(this._instance); }
+    get gifDisposeMethod(): GifDisposeMethod { return <GifDisposeMethod>ImageMagick._api._MagickImage_GifDisposeMethod_Get(this._instance); }
     set gifDisposeMethod(value: GifDisposeMethod) { ImageMagick._api._MagickImage_GifDisposeMethod_Set(this._instance, value); }
 
     get hasAlpha(): boolean {

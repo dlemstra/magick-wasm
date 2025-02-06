@@ -6,24 +6,26 @@
 /**
  * Specifies gif disposal methods.
  */
-export enum GifDisposeMethod {
+export const GifDisposeMethod = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * None.
      */
-    None,
+    None: 1,
 
     /**
      * Background.
      */
-    Background,
+    Background: 2,
 
     /**
      * Previous.
      */
-    Previous,
-}
+    Previous: 3
+} as const;
+
+export type GifDisposeMethod = typeof GifDisposeMethod[keyof typeof GifDisposeMethod];
