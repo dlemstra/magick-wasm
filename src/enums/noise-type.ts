@@ -6,44 +6,46 @@
 /**
  *  Specified the type of noise that should be added to the image.
  */
-export enum NoiseType {
+export const NoiseType = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Uniform.
      */
-    Uniform,
+    Uniform: 1,
 
     /**
      * Gaussian.
      */
-    Gaussian,
+    Gaussian: 2,
 
     /**
      * Multiplicative Gaussian.
      */
-    MultiplicativeGaussian,
+    MultiplicativeGaussian: 3,
 
     /**
      * Impulse.
      */
-    Impulse,
+    Impulse: 4,
 
     /**
      * Laplacian.
      */
-    Laplacian,
+    Laplacian: 5,
 
-    /// <summary>
-    /// Poisson.
-    /// </summary>
-    Poisson,
+    /**
+     * Poisson.
+     */
+    Poisson: 6,
 
-    /// <summary>
-    /// Random.
-    /// </summary>
-    Random,
-}
+    /**
+     * Random.
+     */
+    Random: 7
+} as const;
+
+export type NoiseType = typeof NoiseType[keyof typeof NoiseType];
