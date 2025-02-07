@@ -2193,7 +2193,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get interpolate(): PixelInterpolateMethod { return ImageMagick._api._MagickImage_Interpolate_Get(this._instance); }
+    get interpolate(): PixelInterpolateMethod { return <PixelInterpolateMethod>ImageMagick._api._MagickImage_Interpolate_Get(this._instance); }
     set interpolate(value: PixelInterpolateMethod) { ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value); }
 
     get label(): string | null {

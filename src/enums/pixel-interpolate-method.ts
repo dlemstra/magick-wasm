@@ -6,64 +6,66 @@
 /**
  * Specifies the pixel interpolate methods.
  */
-export enum PixelInterpolateMethod {
+export const PixelInterpolateMethod = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Average.
      */
-    Average,
+    Average: 1,
 
     /**
      * Average9.
      */
-    Average9,
+    Average9: 2,
 
     /**
      * Average16.
      */
-    Average16,
+    Average16: 3,
 
     /**
      * Background.
      */
-    Background,
+    Background: 4,
 
     /**
      * Bilinear.
      */
-    Bilinear,
+    Bilinear: 5,
 
     /**
      * Blend.
      */
-    Blend,
+    Blend: 6,
 
     /**
      * Catrom.
      */
-    Catrom,
+    Catrom: 7,
 
     /**
      * Integer.
      */
-    Integer,
+    Integer: 8,
 
     /**
      * Mesh.
      */
-    Mesh,
+    Mesh: 9,
 
     /**
      * Nearest.
      */
-    Nearest,
+    Nearest: 10,
 
     /**
      * Spline.
      */
-    Spline,
-}
+    Spline: 11
+} as const;
+
+export type PixelInterpolateMethod = typeof PixelInterpolateMethod[keyof typeof PixelInterpolateMethod];
