@@ -6,34 +6,36 @@
 /**
  * Specifies the paint methods.
  */
-export enum PaintMethod {
+export const PaintMethod = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Select the target pixel.
      */
-    Point,
+    Point: 1,
 
     /**
      * Select any pixel that matches the target pixel.
      */
-    Replace,
+    Replace: 2,
 
     /**
      * Select the target pixel and matching neighbors.
      */
-    Floodfill,
+    Floodfill: 3,
 
     /**
      * Select the target pixel and neighbors not matching border color.
      */
-    FillToBorder,
+    FillToBorder: 4,
 
     /**
      * Select all pixels.
      */
-    Reset,
-}
+    Reset: 5
+} as const;
+
+export type PaintMethod = typeof PaintMethod[keyof typeof PaintMethod];
