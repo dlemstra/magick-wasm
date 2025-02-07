@@ -6,89 +6,91 @@
 /**
  * Specifies the types of virtual pixel methods.
  */
-export enum VirtualPixelMethod {
+export const VirtualPixelMethod = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Background.
      */
-    Background,
+    Background: 1,
 
     /**
      * Dither.
      */
-    Dither,
+    Dither: 2,
 
     /**
      * Edge.
      */
-    Edge,
+    Edge: 3,
 
     /**
      * Mirror.
      */
-    Mirror,
+    Mirror: 4,
 
     /**
      * Random.
      */
-    Random,
+    Random: 5,
 
     /**
      * Tile.
      */
-    Tile,
+    Tile: 6,
 
     /**
      * Transparent.
      */
-    Transparent,
+    Transparent: 7,
 
     /**
      * Mask.
      */
-    Mask,
+    Mask: 8,
 
     /**
      * Black.
      */
-    Black,
+    Black: 9,
 
     /**
      * Gray.
      */
-    Gray,
+    Gray: 10,
 
     /**
      * White.
      */
-    White,
+    White: 11,
 
     /**
      * Horizontal tile.
      */
-    HorizontalTile,
+    HorizontalTile: 12,
 
     /**
      * Vertical tile.
      */
-    VerticalTile,
+    VerticalTile: 13,
 
     /**
      * Horizontal tile edge.
      */
-    HorizontalTileEdge,
+    HorizontalTileEdge: 14,
 
     /**
      * Vertical tile edge.
      */
-    VerticalTileEdge,
+    VerticalTileEdge: 15,
 
     /**
      * Checker tile.
      */
-    CheckerTile
-}
+    CheckerTile: 16
+} as const;
+
+export type VirtualPixelMethod = typeof VirtualPixelMethod[keyof typeof VirtualPixelMethod];

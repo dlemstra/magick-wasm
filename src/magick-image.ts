@@ -2296,7 +2296,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get virtualPixelMethod(): VirtualPixelMethod {
-        return ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance);
+        return <VirtualPixelMethod>ImageMagick._api._MagickImage_VirtualPixelMethod_Get(this._instance);
     }
     set virtualPixelMethod(value: VirtualPixelMethod) {
         this.useExceptionPointer(exception => {
