@@ -6,24 +6,26 @@
 /**
  * Specifies the types of text alignment.
  */
-export enum TextAlignment {
+export const TextAlignment = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Left.
      */
-    Left,
+    Left: 1,
 
     /**
      * Center.
      */
-    Center,
+    Center: 2,
 
     /**
      * Right.
      */
-    Right,
-}
+    Right: 3
+} as const;
+
+export type TextAlignment = typeof TextAlignment[keyof typeof TextAlignment];
