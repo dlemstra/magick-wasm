@@ -6,29 +6,31 @@
 /**
  * Specifies the types of text decoration.
  */
-export enum TextDecoration {
+export const TextDecoration = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * None.
      */
-    None,
+    None: 1,
 
     /**
      * Underline.
      */
-    Underline,
+    Underline: 2,
 
     /**
      * Overline.
      */
-    Overline,
+    Overline: 3,
 
     /**
      * Line through.
      */
-    LineThrough,
-}
+    LineThrough: 4
+} as const;
+
+export type TextDecoration = typeof TextDecoration[keyof typeof TextDecoration];
