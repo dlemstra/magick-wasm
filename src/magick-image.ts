@@ -1971,14 +1971,26 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this._settings = settings;
     }
 
-    get animationDelay(): number { return ImageMagick._api._MagickImage_AnimationDelay_Get(this._instance); }
-    set animationDelay(value: number) { ImageMagick._api._MagickImage_AnimationDelay_Set(this._instance, value); }
+    get animationDelay(): number {
+        return ImageMagick._api._MagickImage_AnimationDelay_Get(this._instance);
+    }
+    set animationDelay(value: number) {
+        ImageMagick._api._MagickImage_AnimationDelay_Set(this._instance, value);
+    }
 
-    get animationIterations(): number { return ImageMagick._api._MagickImage_AnimationIterations_Get(this._instance); }
-    set animationIterations(value: number) { ImageMagick._api._MagickImage_AnimationIterations_Set(this._instance, value); }
+    get animationIterations(): number {
+        return ImageMagick._api._MagickImage_AnimationIterations_Get(this._instance);
+    }
+    set animationIterations(value: number) {
+        ImageMagick._api._MagickImage_AnimationIterations_Set(this._instance, value);
+    }
 
-    get animationTicksPerSecond(): number { return ImageMagick._api._MagickImage_AnimationTicksPerSecond_Get(this._instance); }
-    set animationTicksPerSecond(value: number) { ImageMagick._api._MagickImage_AnimationTicksPerSecond_Set(this._instance, value); }
+    get animationTicksPerSecond(): number {
+        return ImageMagick._api._MagickImage_AnimationTicksPerSecond_Get(this._instance);
+    }
+    set animationTicksPerSecond(value: number) {
+        ImageMagick._api._MagickImage_AnimationTicksPerSecond_Set(this._instance, value);
+    }
 
     get artifactNames(): ReadonlyArray<string> {
         const artifactNames: string[] = [];
@@ -2051,7 +2063,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get channelCount(): number { return ImageMagick._api._MagickImage_ChannelCount_Get(this._instance); }
+    get channelCount(): number {
+        return ImageMagick._api._MagickImage_ChannelCount_Get(this._instance);
+    }
 
     get channels(): ReadonlyArray<PixelChannel> {
         const channels: PixelChannel[] = [];
@@ -2086,8 +2100,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get colorFuzz(): Percentage { return Percentage._fromQuantum(ImageMagick._api._MagickImage_ColorFuzz_Get(this._instance)); }
-    set colorFuzz(value: Percentage) { ImageMagick._api._MagickImage_ColorFuzz_Set(this._instance, value._toQuantum()); }
+    get colorFuzz(): Percentage {
+        return Percentage._fromQuantum(ImageMagick._api._MagickImage_ColorFuzz_Get(this._instance));
+    }
+    set colorFuzz(value: Percentage) {
+        ImageMagick._api._MagickImage_ColorFuzz_Set(this._instance, value._toQuantum());
+    }
 
     get colormapSize(): number {
         return ImageMagick._api._MagickImage_ColormapSize_Get(this._instance);
@@ -2130,10 +2148,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.setAttribute('comment', value);
     }
 
-    get compose(): CompositeOperator { return <CompositeOperator>ImageMagick._api._MagickImage_Compose_Get(this._instance); }
-    set compose(value: CompositeOperator) { ImageMagick._api._MagickImage_Compose_Set(this._instance, value); }
+    get compose(): CompositeOperator {
+        return <CompositeOperator>ImageMagick._api._MagickImage_Compose_Get(this._instance);
+    }
+    set compose(value: CompositeOperator) {
+        ImageMagick._api._MagickImage_Compose_Set(this._instance, value);
+    }
 
-    get compression(): CompressionMethod { return <CompressionMethod>ImageMagick._api._MagickImage_Compression_Get(this._instance); }
+    get compression(): CompressionMethod {
+        return <CompressionMethod>ImageMagick._api._MagickImage_Compression_Get(this._instance);
+    }
 
     get density(): Density {
         return new Density(
@@ -2160,16 +2184,28 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return ImageMagick._api.UTF8ToString(fileName);
     }
 
-    get filterType(): FilterType { return <FilterType>ImageMagick._api._MagickImage_FilterType_Get(this._instance); }
-    set filterType(value: FilterType) { ImageMagick._api._MagickImage_FilterType_Set(this._instance, value); }
+    get filterType(): FilterType {
+        return <FilterType>ImageMagick._api._MagickImage_FilterType_Get(this._instance);
+    }
+    set filterType(value: FilterType) {
+        ImageMagick._api._MagickImage_FilterType_Set(this._instance, value);
+    }
 
-    get format(): MagickFormat { return _createString(ImageMagick._api._MagickImage_Format_Get(this._instance), '') as MagickFormat; }
-    set format(value: MagickFormat) { _withString(value.toString(), instance => ImageMagick._api._MagickImage_Format_Set(this._instance, instance)); }
+    get format(): MagickFormat {
+        return _createString(ImageMagick._api._MagickImage_Format_Get(this._instance), '') as MagickFormat;
+    }
+    set format(value: MagickFormat) {
+        _withString(value.toString(), instance => ImageMagick._api._MagickImage_Format_Set(this._instance, instance));
+    }
 
     get gamma(): number { return ImageMagick._api._MagickImage_Gamma_Get(this._instance); }
 
-    get gifDisposeMethod(): GifDisposeMethod { return <GifDisposeMethod>ImageMagick._api._MagickImage_GifDisposeMethod_Get(this._instance); }
-    set gifDisposeMethod(value: GifDisposeMethod) { ImageMagick._api._MagickImage_GifDisposeMethod_Set(this._instance, value); }
+    get gifDisposeMethod(): GifDisposeMethod {
+        return <GifDisposeMethod>ImageMagick._api._MagickImage_GifDisposeMethod_Get(this._instance);
+    }
+    set gifDisposeMethod(value: GifDisposeMethod) {
+        ImageMagick._api._MagickImage_GifDisposeMethod_Set(this._instance, value);
+    }
 
     get hasAlpha(): boolean {
         return this.toBool(ImageMagick._api._MagickImage_HasAlpha_Get(this._instance));
@@ -2183,9 +2219,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get height(): number { return ImageMagick._api._MagickImage_Height_Get(this._instance); }
+    get height(): number {
+        return ImageMagick._api._MagickImage_Height_Get(this._instance);
+    }
 
-    get interlace(): Interlace { return <Interlace>ImageMagick._api._MagickImage_Interlace_Get(this._instance); }
+    get interlace(): Interlace {
+        return <Interlace>ImageMagick._api._MagickImage_Interlace_Get(this._instance);
+    }
 
     get isOpaque(): boolean {
         return this.useExceptionPointer(exception => {
@@ -2193,8 +2233,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get interpolate(): PixelInterpolateMethod { return <PixelInterpolateMethod>ImageMagick._api._MagickImage_Interpolate_Get(this._instance); }
-    set interpolate(value: PixelInterpolateMethod) { ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value); }
+    get interpolate(): PixelInterpolateMethod {
+        return <PixelInterpolateMethod>ImageMagick._api._MagickImage_Interpolate_Get(this._instance);
+    }
+    set interpolate(value: PixelInterpolateMethod) {
+        ImageMagick._api._MagickImage_Interpolate_Set(this._instance, value);
+    }
 
     get label(): string | null {
         return this.getAttribute('label');
@@ -2225,10 +2269,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get orientation(): MagickOrientationType { return <MagickOrientationType>ImageMagick._api._MagickImage_Orientation_Get(this._instance); }
-    set orientation(value: MagickOrientationType) { ImageMagick._api._MagickImage_Orientation_Set(this._instance, value); }
+    get orientation(): MagickOrientationType {
+        return <MagickOrientationType>ImageMagick._api._MagickImage_Orientation_Get(this._instance);
+    }
+    set orientation(value: MagickOrientationType) {
+        ImageMagick._api._MagickImage_Orientation_Set(this._instance, value);
+    }
 
-    get onProgress(): ((event: ProgressEvent) => number) | undefined { return this._progress; }
+    get onProgress(): ((event: ProgressEvent) => number) | undefined {
+        return this._progress;
+    }
     set onProgress(value: ((event: ProgressEvent) => number) | undefined) {
         if (value !== undefined)
             DelegateRegistry.setProgressDelegate(this);
@@ -2238,8 +2288,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this._progress = value;
     }
 
-    get onWarning(): ((event: WarningEvent) => number) | undefined { return this._warning; }
-    set onWarning(value: ((event: WarningEvent) => number) | undefined) { this._warning = value; }
+    get onWarning(): ((event: WarningEvent) => number) | undefined {
+        return this._warning;
+    }
+    set onWarning(value: ((event: WarningEvent) => number) | undefined) {
+        this._warning = value;
+    }
 
     get page(): IMagickGeometry {
         const rectangle = ImageMagick._api._MagickImage_Page_Get(this._instance);
@@ -2263,7 +2317,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return profileNames;
     }
 
-    get quality(): number { return ImageMagick._api._MagickImage_Quality_Get(this._instance); }
+    get quality(): number {
+        return ImageMagick._api._MagickImage_Quality_Get(this._instance);
+    }
     set quality(value: number) {
         let quality = value < 1 ? 1 : value;
         quality = quality > 100 ? 100 : quality;
@@ -2304,7 +2360,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get width(): number { return ImageMagick._api._MagickImage_Width_Get(this._instance); }
+    get width(): number {
+        return ImageMagick._api._MagickImage_Width_Get(this._instance);
+    }
 
     adaptiveBlur(): void;
     adaptiveBlur(radius: number): void;
