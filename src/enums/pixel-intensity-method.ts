@@ -6,54 +6,56 @@
 /**
  * Specifies the pixel intensity methods.
  */
-export enum PixelIntensityMethod {
+export const PixelIntensityMethod = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Average.
      */
-    Average,
+    Average: 1,
 
     /**
      * Brightness.
      */
-    Brightness,
+    Brightness: 2,
 
     /**
      * Lightness.
      */
-    Lightness,
+    Lightness: 3,
 
     /**
      * MS.
      */
-    MS,
+    MS: 4,
 
     /**
      * Rec601Luma.
      */
-    Rec601Luma,
+    Rec601Luma: 5,
 
     /**
      * Rec601Luminance.
      */
-    Rec601Luminance,
+    Rec601Luminance: 6,
 
     /**
      * Rec709Luma.
      */
-    Rec709Luma,
+    Rec709Luma: 7,
 
     /**
      * Rec709Luminance.
      */
-    Rec709Luminance,
+    Rec709Luminance: 8,
 
     /**
      * RMS.
      */
-    RMS
-}
+    RMS: 9
+} as const;
+
+export type PixelIntensityMethod = typeof PixelIntensityMethod[keyof typeof PixelIntensityMethod];
