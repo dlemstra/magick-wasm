@@ -2273,7 +2273,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get renderingIntent(): RenderingIntent {
-        return ImageMagick._api._MagickImage_RenderingIntent_Get(this._instance);
+        return <RenderingIntent>ImageMagick._api._MagickImage_RenderingIntent_Get(this._instance);
     }
     set renderingIntent(value: RenderingIntent) {
         ImageMagick._api._MagickImage_RenderingIntent_Set(this._instance, value);

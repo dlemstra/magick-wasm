@@ -6,29 +6,31 @@
 /**
  * Specifies the types of rendering intent.
  */
-export enum RenderingIntent {
+export const RenderingIntent = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Saturation.
      */
-    Saturation,
+    Saturation: 1,
 
     /**
      * Perceptual.
      */
-    Perceptual,
+    Perceptual: 2,
 
     /**
      * Absolute.
      */
-    Absolute,
+    Absolute: 3,
 
     /**
      * Relative.
      */
-    Relative,
-}
+    Relative: 4
+} as const;
+
+export type RenderingIntent = typeof RenderingIntent[keyof typeof RenderingIntent];
