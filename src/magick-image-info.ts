@@ -9,9 +9,9 @@ import { CompressionMethod } from "./enums/compression-method";
 import { Density } from "./types/density";
 import { Interlace } from "./enums/interlace";
 import { MagickFormat } from "./enums/magick-format";
-import { MagickReadSettings } from "./settings/magick-read-settings";
 import { MagickImage } from "./magick-image";
-import { OrientationType } from "./enums/orientation-type";
+import { MagickOrientationType } from "./enums/magick-orientation-type";
+import { MagickReadSettings } from "./settings/magick-read-settings";
 
 export interface IMagickImageInfo {
     /**
@@ -47,7 +47,7 @@ export interface IMagickImageInfo {
     /**
      * Gets the orientation of the image.
      */
-    readonly orientation: OrientationType;
+    readonly orientation: MagickOrientationType;
 
     /**
      * Gets the JPEG/MIFF/PNG compression level.
@@ -74,7 +74,7 @@ export class MagickImageInfo implements IMagickImageInfo {
     private _format: MagickFormat = MagickFormat.Unknown;
     private _height: number = 0;
     private _interlace: Interlace = Interlace.Undefined;
-    private _orientation: OrientationType = OrientationType.Undefined;
+    private _orientation: MagickOrientationType = MagickOrientationType.Undefined;
     private _quality: number = 0;
     private _width: number = 0;
 
@@ -102,7 +102,7 @@ export class MagickImageInfo implements IMagickImageInfo {
         return this._interlace;
     }
 
-    get orientation(): OrientationType {
+    get orientation(): MagickOrientationType {
         return this._orientation;
     }
 

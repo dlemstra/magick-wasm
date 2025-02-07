@@ -6,49 +6,51 @@
 /**
  * Specified the photo orientation of the image.
  */
-export enum OrientationType {
+export const MagickOrientationType = {
     /**
      * Undefined.
      */
-    Undefined,
+    Undefined: 0,
 
     /**
      * Top left.
      */
-    TopLeft,
+    TopLeft: 1,
 
     /**
      * Top right.
      */
-    TopRight,
+    TopRight: 2,
 
     /**
      * Bottom right.
      */
-    BottomRight,
+    BottomRight: 3,
 
     /**
      * Bottom left.
      */
-    BottomLeft,
+    BottomLeft: 4,
 
     /**
      * Left top.
      */
-    LeftTop,
+    LeftTop: 5,
 
     /**
      * Right top.
      */
-    RightTop,
+    RightTop: 6,
 
     /**
      * Right bottom.
      */
-    RightBottom,
+    RightBottom: 7,
 
     /**
      * Left bottom.
      */
-    LeftBottom,
-}
+    LeftBottom: 8
+} as const;
+
+export type MagickOrientationType = typeof MagickOrientationType[keyof typeof MagickOrientationType];
