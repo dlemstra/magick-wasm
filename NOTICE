@@ -7,7 +7,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-43 (2024-12-22) ] copyright:
+[ ImageMagick 7.1.1-44 beta (2025-02-08) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -3312,7 +3312,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ png 1.6.44 (2024-09-12) ] copyright:
+[ png 1.6.46 (2025-01-23) ] copyright:
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
@@ -3320,8 +3320,8 @@ COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 PNG Reference Library License version 2
 ---------------------------------------
 
- * Copyright (c) 1995-2024 The PNG Reference Library Authors.
- * Copyright (c) 2018-2024 Cosmin Truta.
+ * Copyright (c) 1995-2025 The PNG Reference Library Authors.
+ * Copyright (c) 2018-2025 Cosmin Truta.
  * Copyright (c) 2000-2002, 2004, 2006-2018 Glenn Randers-Pehrson.
  * Copyright (c) 1996-1997 Andreas Dilger.
  * Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
@@ -3451,11 +3451,11 @@ be appreciated.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ raw 0.21.3 (2024-09-24) ] copyright:
+[ raw 0.22.0-Devel202403 (2024-03-30) ] copyright:
 
  ** LibRaw: Raw images processing library **
 
-Copyright (C) 2008-2021 LibRaw LLC (http://www.libraw.org, info@libraw.org)
+Copyright (C) 2008-2024 LibRaw LLC (http://www.libraw.org, info@libraw.org)
  
 LibRaw is free software; you can redistribute it and/or modify
 it under the terms of the one of two licenses as you choose:
