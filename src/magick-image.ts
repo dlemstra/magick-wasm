@@ -49,7 +49,7 @@ import { MagickErrorInfo } from './types/magick-error-info';
 import { MagickFormat } from './enums/magick-format';
 import { MagickGeometry as MagickGeometry, IMagickGeometry } from './types/magick-geometry';
 import { MagickImageCollection, IMagickImageCollection } from './magick-image-collection';
-import { MagickOrientationType } from './enums/magick-orientation-type';
+import { MagickOrientation } from './enums/magick-orientation';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickRectangle } from './internal/magick-rectangle';
 import { MagickSettings } from './settings/magick-settings';
@@ -289,7 +289,7 @@ export interface IMagickImage extends IDisposable {
     /**
      * Gets or sets the photo orientation of the image.
      */
-    orientation: MagickOrientationType;
+    orientation: MagickOrientation;
 
     /**
      * Event that will be raised when progress is reported by this image.
@@ -2269,10 +2269,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get orientation(): MagickOrientationType {
-        return <MagickOrientationType>ImageMagick._api._MagickImage_Orientation_Get(this._instance);
+    get orientation(): MagickOrientation {
+        return <MagickOrientation>ImageMagick._api._MagickImage_Orientation_Get(this._instance);
     }
-    set orientation(value: MagickOrientationType) {
+    set orientation(value: MagickOrientation) {
         ImageMagick._api._MagickImage_Orientation_Set(this._instance, value);
     }
 

@@ -9,7 +9,7 @@ import { DensityUnit } from '@src/enums/density-unit';
 import { Interlace } from '@src/enums/interlace';
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickImageInfo } from '@src/magick-image-info';
-import { MagickOrientationType } from '@src/enums/magick-orientation-type';
+import { MagickOrientation } from '@src/enums/magick-orientation';
 
 describe('MagickImageInfo#constructor', () => {
     it('should create empty uninitialized instance', () => {
@@ -22,7 +22,7 @@ describe('MagickImageInfo#constructor', () => {
         expect(magickImageInfo.format).toBe(MagickFormat.Unknown);
         expect(magickImageInfo.height).toBe(0);
         expect(magickImageInfo.interlace).toBe(Interlace.Undefined);
-        expect(magickImageInfo.orientation).toBe(MagickOrientationType.Undefined);
+        expect(magickImageInfo.orientation).toBe(MagickOrientation.Undefined);
         expect(magickImageInfo.quality).toBe(0);
         expect(magickImageInfo.width).toBe(0);
     });

@@ -6,7 +6,7 @@
 /**
  * Specified the photo orientation of the image.
  */
-export const MagickOrientationType = {
+export const MagickOrientation = {
     /**
      * Undefined.
      */
@@ -53,4 +53,4 @@ export const MagickOrientationType = {
     LeftBottom: 8
 } as const;
 
-export type MagickOrientationType = typeof MagickOrientationType[keyof typeof MagickOrientationType];
+export type MagickOrientation = typeof MagickOrientation[keyof typeof MagickOrientation];
