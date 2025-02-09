@@ -9,7 +9,7 @@ import { DensityUnit } from '@src/enums/density-unit';
 import { Interlace } from '@src/enums/interlace';
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickImageInfo } from '@src/magick-image-info';
-import { MagickOrientation } from '@src/enums/magick-orientation';
+import { Orientation } from '@src/enums/orientation';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImageInfo#constructor', () => {
@@ -24,7 +24,7 @@ describe('MagickImageInfo#constructor', () => {
         expect(magickImageInfo.format).toBe(MagickFormat.Jpeg);
         expect(magickImageInfo.height).toBe(400);
         expect(magickImageInfo.interlace).toBe(Interlace.NoInterlace);
-        expect(magickImageInfo.orientation).toBe(MagickOrientation.TopLeft);
+        expect(magickImageInfo.orientation).toBe(Orientation.TopLeft);
         expect(magickImageInfo.quality).toBe(70);
         expect(magickImageInfo.width).toBe(600);
     });

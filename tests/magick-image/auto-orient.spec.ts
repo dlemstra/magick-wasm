@@ -3,16 +3,16 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { MagickOrientation } from '@src/enums/magick-orientation';
+import { Orientation } from '@src/enums/orientation';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#autoOrient', () => {
     it('should rotate the image', () => {
         TestFiles.Images.Builtin.logo.use(image => {
-            image.orientation = MagickOrientation.LeftTop;
+            image.orientation = Orientation.LeftTop;
             image.autoOrient();
 
-            expect(image.orientation).toBe(MagickOrientation.TopLeft);
+            expect(image.orientation).toBe(Orientation.TopLeft);
             expect(image.width).toBe(480);
             expect(image.height).toBe(640);
         });
