@@ -205,7 +205,12 @@ export const ColorSpace = {
     /**
      * Oklch.
      */
-    Oklch: 39
+    Oklch: 39,
+
+    /**
+     * CAT02LMS.
+     */
+    CAT02LMSC: 40,
 } as const;
 
 export type ColorSpace = typeof ColorSpace[keyof typeof ColorSpace];
@@ -251,5 +256,6 @@ export const ColorSpaceNames: { [key in ColorSpace]: string } = {
     [ColorSpace.Adobe98]: 'Adobe98',
     [ColorSpace.ProPhoto]: 'ProPhoto',
     [ColorSpace.Oklab]: 'Oklab',
-    [ColorSpace.Oklch]: 'Oklch'
+    [ColorSpace.Oklch]: 'Oklch',
+    [ColorSpace.CAT02LMSC]: 'CAT02LMS',
 };
