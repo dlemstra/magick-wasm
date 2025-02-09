@@ -5,7 +5,7 @@
 
 import { DistortMethod } from '@src/enums/distort-method';
 import { DistortSettings } from '@src/settings/distort-settings';
-import { MagickAlphaOption } from '@src/enums/magick-alpha-option';
+import { AlphaAction } from '@src/enums/alpha-action';
 import { VirtualPixelMethod } from '@src/enums/virtual-pixel-method';
 import { TestFiles } from '@test/test-files';
 
@@ -20,7 +20,7 @@ describe('MagickImage#distort', () => {
 
     it('should distort the image', () => {
         TestFiles.Images.Builtin.rose.use(image => {
-            image.alpha(MagickAlphaOption.Set);
+            image.alpha(AlphaAction.Set);
             image.virtualPixelMethod = VirtualPixelMethod.Transparent;
             image.distort(DistortMethod.PerspectiveProjection, [1.40, 0.25, 3.0, 0.15, 1.30, 0.0, 0.007, 0.009]);
 
@@ -34,7 +34,7 @@ describe('MagickImage#distort', () => {
 
     it('should distort the image with the settings', () => {
         TestFiles.Images.Builtin.rose.use(image => {
-            image.alpha(MagickAlphaOption.Set);
+            image.alpha(AlphaAction.Set);
             image.virtualPixelMethod = VirtualPixelMethod.Transparent;
 
             const settings = new DistortSettings(DistortMethod.PerspectiveProjection);

@@ -4,7 +4,7 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { MagickAlphaOption } from '@src/enums/magick-alpha-option';
+import { AlphaAction } from '@src/enums/alpha-action';
 import { MagickColors } from '@src/magick-colors';
 import { TestFiles } from '@test/test-files';
 
@@ -27,7 +27,7 @@ describe('MagickImage#negateGrayScale', () => {
     it('should only negate grascale on specified channels', () => {
         TestFiles.Images.empty.use((image) => {
             image.read(MagickColors.White, 2, 1);
-            image.alpha(MagickAlphaOption.Opaque);
+            image.alpha(AlphaAction.Opaque);
 
             image.getPixels(pixels => {
                 pixels.setPixel(1, 0, [255, 0, 0]);

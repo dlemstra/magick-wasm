@@ -3,13 +3,13 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { MagickAlphaOption } from '@src/enums/magick-alpha-option';
+import { AlphaAction } from '@src/enums/alpha-action';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#alpha', () => {
     it('should enable alpha channel', () => {
         TestFiles.Images.Builtin.logo.use(image => {
-            image.alpha(MagickAlphaOption.On);
+            image.alpha(AlphaAction.On);
             expect(image.channelCount).toBe(5);
             expect(image.hasAlpha).toBe(true);
         });

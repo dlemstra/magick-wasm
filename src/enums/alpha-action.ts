@@ -4,9 +4,9 @@
 */
 
 /**
- * Specifies alpha options.
+ * Specifies alpha actions.
  */
-export const MagickAlphaOption = {
+export const AlphaAction = {
     /**
      * Undefined.
      */
@@ -107,4 +107,4 @@ export const MagickAlphaOption = {
     OffIfOpaque: 16
 } as const;
 
-export type MagickAlphaOption = typeof MagickAlphaOption[keyof typeof MagickAlphaOption];
+export type AlphaAction = typeof AlphaAction[keyof typeof AlphaAction];
