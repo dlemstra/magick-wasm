@@ -412,6 +412,44 @@ export interface IMagickImage extends IDisposable {
     adaptiveSharpen(radius: number, sigma: number, channels: Channels): void;
 
     /**
+     * Local adaptive threshold image.
+     * http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
+     * @param width The width of the pixel neighborhood.
+     * @param height The height of the pixel neighborhood.
+     */
+    adaptiveThreshold(width: number, height: number): void;
+
+    /**
+     * Local adaptive threshold image.
+     * http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
+     * @param width The width of the pixel neighborhood.
+     * @param height The height of the pixel neighborhood.
+     * @param channels The channel(s) to threshold.
+     */
+    adaptiveThreshold(width: number, height: number, channels: Channels): void;
+
+    /**
+     * Local adaptive threshold image.
+     * http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
+     * @param width The width of the pixel neighborhood.
+     * @param height The height of the pixel neighborhood.
+     * @param channels The channel(s) to threshold.
+     * @param bias Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).
+     */
+    adaptiveThreshold(width: number, height: number, bias: Percentage,): void;
+
+    /**
+     * Local adaptive threshold image.
+     * http://www.dai.ed.ac.uk/HIPR2/adpthrsh.htm.
+     * @param width The width of the pixel neighborhood.
+     * @param height The height of the pixel neighborhood.
+     * @param channels The channel(s) to threshold.
+     * @param bias Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).
+     * @param channels The channel(s) to threshold.
+     */
+    adaptiveThreshold(width: number, height: number, bias: Percentage, channels: Channels): void;
+
+    /**
      * Add noise to image with the specified noise type.
      * @param noiseType The type of noise that should be added to the image.
      */
@@ -2405,6 +2443,22 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_AdaptiveSharpen(this._instance, radius, sigma, channels, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    adaptiveThreshold(width: number, height: number): void;
+    adaptiveThreshold(width: number, height: number, channels: Channels): void;
+    adaptiveThreshold(width: number, height: number, bias: Percentage,): void;
+    adaptiveThreshold(width: number, height: number, bias: Percentage, channels: Channels): void;
+    adaptiveThreshold(width: number, height: number, biasChannelsOrUndefined?: Percentage | Channels, channelsOrUndefined?: Channels): void {
+        const bias = biasChannelsOrUndefined instanceof Percentage ? biasChannelsOrUndefined._toQuantum() : 0.0;
+        let channels = channelsOrUndefined ?? Channels.Undefined;
+        if (typeof biasChannelsOrUndefined === 'number')
+            channels = biasChannelsOrUndefined;
+
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_AdaptiveThreshold(this._instance, width, height, bias, channels, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
