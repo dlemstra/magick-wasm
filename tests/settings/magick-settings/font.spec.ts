@@ -13,6 +13,6 @@ describe('MagickSettings#font', () => {
 
         expect(() => {
             ImageMagick.read('label:magick-wasm', settings, () => { /* never reached */ });
-        }).toThrowError('Unable to find a font with the name \'missing\', add it with Magick.addFont.');
+        }).toThrowError('Unable to find a font with the name \'missing\', register it with the addFont method of the Magick class.');
     });
 });

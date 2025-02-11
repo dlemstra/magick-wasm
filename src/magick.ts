@@ -87,7 +87,7 @@ export class Magick {
         const fileName = `/fonts/${name}`;
         const stats = ImageMagick._api.FS.analyzePath(fileName);
         if (!stats.exists) {
-            throw `Unable to find a font with the name '${name}', add it with Magick.addFont.`
+            throw `Unable to find a font with the name '${name}', register it with the addFont method of the Magick class.`
         }
 
         return fileName;
