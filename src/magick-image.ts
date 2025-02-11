@@ -590,6 +590,17 @@ export interface IMagickImage extends IDisposable {
     blackThreshold(threshold: Percentage, channels: Channels): void;
 
     /**
+     * Simulate a scene at nighttime in the moonlight.
+     */
+    blueShift(): void;
+
+    /**
+     * Simulate a scene at nighttime in the moonlight.
+     * @param factor The factor to use.
+     */
+    blueShift(factor: number): void;
+
+    /**
      * Blur image with the default blur factor (0x1).
      */
     blur(): void;
@@ -2571,6 +2582,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             _withString(threshold.toString(), thresholdPtr => {
                 ImageMagick._api._MagickImage_BlackThreshold(this._instance, thresholdPtr, channels, exception.ptr);
             });
+        });
+    }
+
+    blueShift(): void
+    blueShift(factor: number): void
+    blueShift(factorOrUndefined?: number): void {
+        const factor = this.valueOrDefault(factorOrUndefined, 1.5);
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_BlueShift(this._instance, factor, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
