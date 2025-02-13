@@ -17,8 +17,8 @@ describe('MagickImage#setWriteMask', () => {
                     mask = expectToNotBeNull(mask);
                     expect(mask.width).toBe(640);
                     expect(mask.height).toBe(480);
-                    expect(mask).toHavePixelWithColor(9, 14, '#ffff');
-                    expect(mask).toHavePixelWithColor(10, 15, '#00ff');
+                    expect(mask).toHavePixelWithColor(9, 14, '#fff');
+                    expect(mask).toHavePixelWithColor(10, 15, '#000');
                 });
             });
         });

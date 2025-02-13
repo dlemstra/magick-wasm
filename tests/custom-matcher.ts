@@ -49,6 +49,10 @@ export const CustomMatchers = {
     toHavePixelWithColor: ((image: IMagickImage, x: number, y: number, colorOrString: IMagickColor | string) => {
         const actualColor = pixelColor(image, x, y);
         let expectedColor = colorOrString.toString();
+        if (expectedColor.length === 4)
+        {
+            expectedColor = '#' + expectedColor[1] + expectedColor[1] + expectedColor[2] + expectedColor[2] + expectedColor[3] + expectedColor[3];
+        }
         if (expectedColor.length === 7)
             expectedColor += 'ff';
 
@@ -86,16 +90,22 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
 
         switch (channelCount) {
             case 1:
-                result += toHex(pixel[0]);
-                result += toHex(Quantum.max);
-                break;
-            case 2:
-                result += toHex(pixel[image._channelOffset(PixelChannel.Red)]);
-                if (image.hasAlpha)
-                    result += toHex(pixel[image._channelOffset(PixelChannel.Alpha)]);
-                else
+                {
+                    const value = toHex(pixel[0]);
+                    result += value + value + value;
                     result += toHex(Quantum.max);
-                break;
+                    break;
+                }
+            case 2:
+                {
+                    const value = toHex(pixel[image._channelOffset(PixelChannel.Red)]);
+                    result += value + value + value;
+                    if (image.hasAlpha)
+                        result += toHex(pixel[image._channelOffset(PixelChannel.Alpha)]);
+                    else
+                        result += toHex(Quantum.max);
+                    break;
+                }
             case 3:
                 result += toHex(pixel[image._channelOffset(PixelChannel.Red)]);
                 result += toHex(pixel[image._channelOffset(PixelChannel.Green)]);
