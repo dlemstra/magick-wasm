@@ -659,6 +659,16 @@ export interface IMagickImage extends IDisposable {
     brightnessContrast(brightness: Percentage, contrast: Percentage, channels: Channels): void;
 
     /**
+     * Uses a multi-stage algorithm to detect a wide range of edges in images.
+     */
+    cannyEdge(): void;
+
+    /**
+     * Uses a multi-stage algorithm to detect a wide range of edges in images.
+     */
+    cannyEdge(radius: number, sigma: number, lower: Percentage, upper: Percentage): void;
+
+    /**
      * Charcoal effect image (looks like charcoal sketch).
      */
     charcoal(): void;
@@ -2639,6 +2649,20 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         this.useException(exception => {
             ImageMagick._api._MagickImage_BrightnessContrast(this._instance, brightness.toDouble(), contrast.toDouble(), channels, exception.ptr);
+        });
+    }
+
+    cannyEdge(): void;
+    cannyEdge(radius: number, sigma: number, lower: Percentage, upper: Percentage): void;
+    cannyEdge(radiusOrUndefined?: number, sigmaOrUndefined?: number, lowerOrUndefined?: Percentage, upperOrUndefined?: Percentage): void {
+        const radius = this.valueOrDefault(radiusOrUndefined, 0);
+        const sigma = this.valueOrDefault(sigmaOrUndefined, 1);
+        const lower = this.valueOrDefault(lowerOrUndefined, new Percentage(10)).toDouble() / 100;
+        const upper = this.valueOrDefault(upperOrUndefined, new Percentage(30)).toDouble() / 100;
+
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_CannyEdge(this._instance, radius, sigma, lower, upper, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
