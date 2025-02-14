@@ -681,6 +681,11 @@ export interface IMagickImage extends IDisposable {
     charcoal(radius: number, sigma: number): void;
 
     /**
+     * Chop image (remove vertical or horizontal subregion of image) using the specified geometry.
+     */
+    chop(geometry: MagickGeometry): void;
+
+    /**
      * A variant of adaptive histogram equalization in which the contrast amplification is limited,
      * so as to reduce this problem of noise amplification.
      * @param xTiles The number of tile divisions to use in horizontal direction
@@ -2674,6 +2679,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Charcoal(this._instance, radius, sigma, exception.ptr);
             this._setInstance(instance, exception);
+        });
+    }
+
+    chop(geometry: MagickGeometry): void {
+        this.useException(exception => {
+            geometry._toRectangle(rectangle => {
+                const instance = ImageMagick._api._MagickImage_Chop(this._instance, rectangle, exception.ptr);
+                this._setInstance(instance, exception);
+            });
         });
     }
 
