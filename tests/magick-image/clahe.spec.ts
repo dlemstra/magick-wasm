@@ -12,7 +12,7 @@ describe('MagickImage#clache', () => {
             image.clone(clone => {
                 clone.clahe(50, 100, 128, 3);
 
-                expect(image).toEqualImage(clone, 0.01744);
+                expect(image).toEqualImage(clone, 0.01773);
             });
         });
     });
@@ -22,7 +22,7 @@ describe('MagickImage#clache', () => {
             image.clone(clone => {
                 clone.clahe(new Percentage(50), new Percentage(10), 128, 3);
 
-                expect(image).toEqualImage(clone, 0.01227);
+                expect(image).toEqualImage(clone, 0.01232);
             });
         });
     });
