@@ -49,10 +49,10 @@ jobs:
 
       - run: npm run demo
 
-      - if: matrix.node == env.LATEST_NODE_VERSION && matrix.os == 'ubuntu-latest'
+      - if: matrix.node == env.LATEST_NODE_VERSION && matrix.os == 'ubuntu-24.04'
         run: npm pack
 
-      - if: matrix.node == env.LATEST_NODE_VERSION && matrix.os == 'ubuntu-latest'
+      - if: matrix.node == env.LATEST_NODE_VERSION && matrix.os == 'ubuntu-24.04'
         name: Upload package
         uses: actions/upload-artifact@v4
         with:
