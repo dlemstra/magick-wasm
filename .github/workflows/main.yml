@@ -33,7 +33,7 @@ jobs:
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
 
-      - run: npm install
+      - run: npm ci
 
       - run: npm run lint
 
@@ -42,6 +42,8 @@ jobs:
       - run: npm run test
 
       - run: npm run build
+
+      - run: npm run prepare
 
       - run: npm run test-dist
 
@@ -75,11 +77,11 @@ jobs:
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
 
-      - run: npm install
+      - run: npm ci
 
       - run: npm run build
 
-      - run: npm install
+      - run: npm ci
 
       - run: ./example.sh
         working-directory: deno
