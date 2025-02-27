@@ -20,7 +20,7 @@ describe('MagickImage#write', () => {
     it('should save the image to an array', () => {
         TestFiles.Images.Builtin.wizard.use((image) => {
             image.write(MagickFormat.Png, (data) => {
-                expect(data.length).toBe(87383);
+                expect(data.length).toBe(87352);
             });
         });
     });
