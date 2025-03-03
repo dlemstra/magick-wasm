@@ -686,6 +686,20 @@ export interface IMagickImage extends IDisposable {
     chop(geometry: MagickGeometry): void;
 
     /**
+     * Chop image (remove vertical or horizontal subregion of image).
+     * @param x The X offset from origin.
+     * @param width The width of the part to chop horizontally.
+     */
+    chopHorizontal(x: number, width: number): void;
+
+    /**
+     * Chop image (remove vertical or horizontal subregion of image).
+     * @param y The Y offset from origin.
+     * @param height The height of the part to chop vertically.
+     */
+    chopVertical(y: number, height: number): void;
+
+    /**
      * A variant of adaptive histogram equalization in which the contrast amplification is limited,
      * so as to reduce this problem of noise amplification.
      * @param xTiles The number of tile divisions to use in horizontal direction
@@ -2689,6 +2703,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 this._setInstance(instance, exception);
             });
         });
+    }
+
+    chopHorizontal(x: number, width: number): void {
+        this.chop(new MagickGeometry(x, 0, width, 0));
+    }
+
+    chopVertical(y: number, height: number): void {
+        this.chop(new MagickGeometry(0, y, 0, height));
     }
 
     clahe(xTiles: number, yTiles: number, numberBins: number, clipLimit: number): void;
