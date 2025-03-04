@@ -22,7 +22,7 @@ export default [{
         "issue/*.js",
         "tools/*.js",
         "**/dist",
-        "**/vite.config.ts",
+        "**/vite.config.mts",
         "*.mjs",
     ],
 }, ...compat.extends(
