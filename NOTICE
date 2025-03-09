@@ -7,7 +7,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-45 beta (2025-02-26) ] copyright:
+[ ImageMagick 7.1.1-45 beta (2025-03-08) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -118,7 +118,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ aom 3.11.0 (2024-11-14) ] copyright:
+[ aom 3.12.0 (2025-02-07) ] copyright:
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -1814,10 +1814,10 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.19.5 (2024-11-19) ] copyright:
+[ heif 1.19.7 (2025-03-03) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
-* The sample applications are distributed under the terms of the MIT License.
+* The sample applications and the Go and C++ wrappers are distributed under the terms of the MIT License.
 
 License texts below and in the `COPYING` files of the corresponding subfolders.
 
@@ -3312,7 +3312,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ png 1.6.46 (2025-01-23) ] copyright:
+[ png 1.6.47 (2025-02-18) ] copyright:
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
@@ -3546,7 +3546,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.13.5 (2024-11-12) ] copyright:
+[ xml 2.13.6 (2025-02-18) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files dict.c and
 list.c, which are covered by a similar licence but with different Copyright
