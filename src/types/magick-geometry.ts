@@ -229,7 +229,7 @@ export class MagickGeometry implements IMagickGeometry {
     }
 
     /** @internal */
-    _toRectangle(func: (rectangle: number) => void) {
+    _toRectangle<TReturnType>(func: (rectangle: number) => TReturnType | Promise<TReturnType>) {
         const rectangle = ImageMagick._api._MagickRectangle_Create();
         if (rectangle === 0)
             throw new MagickError('unable to allocate memory');
@@ -239,7 +239,7 @@ export class MagickGeometry implements IMagickGeometry {
             ImageMagick._api._MagickRectangle_Height_Set(rectangle, this._height);
             ImageMagick._api._MagickRectangle_X_Set(rectangle, this._x);
             ImageMagick._api._MagickRectangle_Y_Set(rectangle, this._y);
-            func(rectangle);
+            return func(rectangle);
         } finally {
             ImageMagick._api._MagickRectangle_Dispose(rectangle);
         }
