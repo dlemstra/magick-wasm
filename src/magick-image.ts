@@ -54,6 +54,7 @@ import { MagickRectangle } from './internal/magick-rectangle';
 import { MagickSettings } from './settings/magick-settings';
 import { MorphologySettings } from './settings/morphology-settings';
 import { NativeInstance } from './native-instance';
+import { OffsetInfo } from './types/offset-info';
 import { Orientation } from './enums/orientation';
 import { NoiseType } from './enums/noise-type';
 import { Percentage } from './types/percentage';
@@ -730,6 +731,20 @@ export interface IMagickImage extends IDisposable {
      * @param func The async function to execute with the image.
      */
     clone<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+
+    /**
+     * Creates a clone of the current image with the specified geometry.
+     * @param geometry The area to clone.
+     * @param func The function to execute with the image.
+     */
+    cloneArea<TReturnType>(geometry: MagickGeometry, func: SyncImageCallback<TReturnType>): TReturnType;
+
+    /**
+     * Creates a clone of the current image with the specified geometry.
+     * @param geometry The area to clone.
+     * @param func The function to execute with the image.
+     */
+    cloneArea<TReturnType>(geometry: MagickGeometry, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
      * Sets the alpha channel to the specified color.
@@ -2728,6 +2743,21 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     clone<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         const image = MagickImage._clone(this);
         return image._use(func);
+    }
+
+    cloneArea<TReturnType>(geometry: MagickGeometry, func: SyncImageCallback<TReturnType>): TReturnType;
+    cloneArea<TReturnType>(geometry: MagickGeometry, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    cloneArea<TReturnType>(geometry: MagickGeometry, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
+        return Exception.usePointer(exception => {
+            return geometry._toRectangle(rectangle => {
+                return OffsetInfo._use(0, 0, offset => {
+                    const instance = ImageMagick._api._MagickImage_CloneArea(this._instance, geometry.width, geometry.height, exception);
+                    ImageMagick._api._MagickImage_CopyPixels(instance, this._instance, rectangle, offset, Channels.Undefined, exception);
+                    const image = new MagickImage(instance, this._settings);
+                    return func(image);
+                });
+            });
+        });
     }
 
     colorAlpha(color: IMagickColor): void {
