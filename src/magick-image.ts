@@ -3536,7 +3536,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, heightOrUndefined as number) : widthOrGeometry;
         this.useException(exception => {
             _withString(geometry.toString(), geometryPtr => {
-                const instance = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, exception.ptr);
+                const instance = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, this.filterType, exception.ptr);
                 this._setInstance(instance, exception);
             });
         });
