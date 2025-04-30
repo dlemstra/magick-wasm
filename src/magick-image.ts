@@ -1686,10 +1686,25 @@ export interface IMagickImage extends IDisposable {
 
     /**
      * Resize image in terms of its pixel size.
+     * @param geometry The geometry to use.
+     * @param filterType The filter type to use.
+     */
+    resize(geometry: IMagickGeometry, filterType: FilterType): void;
+
+    /**
+     * Resize image in terms of its pixel size.
      * @param width The new width.
      * @param height The new height.
      */
     resize(width: number, height: number): void;
+
+    /**
+     * Resize image in terms of its pixel size.
+     * @param width The new width.
+     * @param height The new height.
+     * @param filterType The filter type to use.
+     */
+    resize(width: number, height: number, filterType: FilterType): void;
 
     /**
      * Rotate image clockwise by specified number of degrees.
@@ -3531,12 +3546,25 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     resize(geometry: IMagickGeometry): void;
+    resize(geometry: IMagickGeometry, filterType: FilterType): void;
     resize(width: number, height: number): void;
-    resize(widthOrGeometry: number | IMagickGeometry, heightOrUndefined?: number): void {
-        const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, heightOrUndefined as number) : widthOrGeometry;
+    resize(width: number, height: number, filterType: FilterType): void;
+    resize(widthOrGeometry: number | IMagickGeometry, heightOrFilterTypeOrUndefined?: number | FilterType, filterTypeOrUndefined?: FilterType): void {
+        let filterType = this.filterType;
+        let geometry: IMagickGeometry;
+        if (typeof widthOrGeometry === 'number') {
+            geometry = new MagickGeometry(widthOrGeometry, heightOrFilterTypeOrUndefined as number);
+            if (filterTypeOrUndefined !== undefined)
+                filterType = filterTypeOrUndefined;
+        } else {
+            geometry = widthOrGeometry;
+            if (heightOrFilterTypeOrUndefined !== undefined)
+                filterType = heightOrFilterTypeOrUndefined as FilterType;
+        }
+
         this.useException(exception => {
             _withString(geometry.toString(), geometryPtr => {
-                const instance = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, this.filterType, exception.ptr);
+                const instance = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, filterType, exception.ptr);
                 this._setInstance(instance, exception);
             });
         });

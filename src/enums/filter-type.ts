@@ -165,7 +165,17 @@ export const FilterType = {
     /**
      * Cubic spline.
      */
-    CubicSpline: 31
+    CubicSpline: 31,
+
+    /**
+     * Magic kernel sharp 2013.
+     */
+    MagicKernelSharp2013: 32,
+
+    /**
+     * Magic kernel sharp 2021.
+     */
+    MagicKernelSharp2021: 33,
 } as const;
 
 export type FilterType = typeof FilterType[keyof typeof FilterType];

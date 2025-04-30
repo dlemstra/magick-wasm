@@ -23,6 +23,14 @@ describe('MagickImage#resize', () => {
         });
     });
 
+    it('should use the filter type', () => {
+        TestFiles.Images.Builtin.logo.use((image) => {
+            image.resize(0, 400);
+            expect(image.width).toBe(533);
+            expect(image.height).toBe(400);
+        });
+    });
+
     it('with geometry should change the width of the image', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
             image.resize(new MagickGeometry(300, 0));
