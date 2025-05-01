@@ -16,12 +16,29 @@ interface MatcherResult {
 }
 
 export interface ICustomMatchers {
+    toEqualColor: (colorOrString: IMagickColor | string) => void;
     toEqualImage: (other: IMagickImage, expectedDistortion?: number) => void;
     toHavePixelWithColor: (x: number, y: number, colorOrString: IMagickColor | string) => void;
     toNotBeUnknown: (message: string) => void;
 }
 
 export const CustomMatchers = {
+    toEqualColor: ((color: IMagickColor, colorOrString: IMagickColor | string) => {
+        const actualColor = color.toString();
+        const expectedColor = toColorString(colorOrString);
+
+        if (actualColor === expectedColor)
+            return {
+                pass: true,
+                message: () => ''
+            }
+
+        return {
+            pass: false,
+            message: () => `Excepted color to be '${expectedColor}', but the color is '${actualColor}'.`
+        };
+    }) as () => MatcherResult,
+
     toEqualImage: ((image: IMagickImage, other: IMagickImage, expectedDistortion: number = 0) => {
         const distortion = image.compare(other, ErrorMetric.RootMeanSquared);
         if (expectedDistortion === 0) {
@@ -48,17 +65,13 @@ export const CustomMatchers = {
 
     toHavePixelWithColor: ((image: IMagickImage, x: number, y: number, colorOrString: IMagickColor | string) => {
         const actualColor = pixelColor(image, x, y);
-        let expectedColor = colorOrString.toString();
-        if (expectedColor.length === 4)
-        {
-            expectedColor = '#' + expectedColor[1] + expectedColor[1] + expectedColor[2] + expectedColor[2] + expectedColor[3] + expectedColor[3];
-        }
-        if (expectedColor.length === 7)
-            expectedColor += 'ff';
+        const expectedColor = toColorString(colorOrString);
 
-        if (expectedColor === actualColor) {
-            return { pass: true, message: () => '' }
-        }
+        if (actualColor === expectedColor)
+            return {
+                pass: true,
+                message: () => ''
+            }
 
         return {
             pass: false,
@@ -125,4 +138,15 @@ function pixelColor(image: IMagickImage, x: number, y: number): string {
 
         return result;
     });
+}
+
+function toColorString(colorOrString: IMagickColor | string): string {
+    let expectedColor = colorOrString.toString();
+    if (expectedColor.length === 4)
+        expectedColor = '#' + expectedColor[1] + expectedColor[1] + expectedColor[2] + expectedColor[2] + expectedColor[3] + expectedColor[3];
+
+    if (expectedColor.length === 7)
+        expectedColor += 'ff';
+
+    return expectedColor;
 }
