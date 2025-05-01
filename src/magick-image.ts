@@ -1326,6 +1326,12 @@ export interface IMagickImage extends IDisposable {
     getAttribute(name: string): string | null;
 
     /**
+     * Returns the color at colormap position index.
+     * @param index The position index.
+     */
+    getColormapColor(index: number): IMagickColor | null;
+
+    /**
      *  Retrieve the color profile from the image.
      */
     getColorProfile(): IColorProfile | null;
@@ -3254,6 +3260,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 return _createString(value);
             });
         });
+    }
+
+    getColormapColor(index: number): IMagickColor | null {
+        const colorPtr = ImageMagick._api._MagickImage_GetColormapColor(this._instance, index);
+        if (colorPtr === 0)
+            return null;
+
+        return MagickColor._create(colorPtr);
     }
 
     getColorProfile(): IColorProfile | null {
