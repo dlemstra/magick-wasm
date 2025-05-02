@@ -12,6 +12,7 @@ import { NativeInstance } from '../native-instance';
 import { quantumArray } from '@dlemstra/magick-native/magick';
 import { _withQuantumArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
+import { PixelChannel } from '../enums/pixel-channel';
 
 /**
  * Interface that can be used to access the individual pixels of an image.
@@ -26,6 +27,13 @@ export interface IPixelCollection extends IDisposable {
      * @returns The quantum array of the area.
      */
     getArea(x: number, y: number, width: number, height: number): quantumArray;
+
+    /**
+     * Returns the index of the specified channel. Returns null if not found.
+     * @param channel The channel to get the index o.
+     * @returns The index of the specified channel. Returns null if not found.
+     */
+    getChannelIndex(channel: PixelChannel): number | null;
 
     /**
      * Returns the pixel at the specified coordinate.
@@ -130,6 +138,11 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
             return ImageMagick._api.HEAPU8.subarray(instance, instance + count);
         });
     }
+
+    getChannelIndex(channel: PixelChannel): number {
+        return this.image._channelOffset(channel);
+    }
+
 
     getPixel(x: number, y: number): quantumArray {
         return this.getArea(x, y, 1, 1);
