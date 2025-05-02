@@ -33,7 +33,7 @@ export interface IPixelCollection extends IDisposable {
      * @param channel The channel to get the index o.
      * @returns The index of the specified channel. Returns null if not found.
      */
-    getChannelIndex(channel: PixelChannel): number | null;
+    getChannelIndex(channel: PixelChannel): number;
 
     /**
      * Returns the pixel at the specified coordinate.
