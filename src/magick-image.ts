@@ -1131,6 +1131,12 @@ export interface IMagickImage extends IDisposable {
     cropToTiles<TReturnType>(width: number, height: number, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
+     * Displaces an image's colormap by a given number of positions.
+     * @param amount The amount to displace the colormap.
+     */
+    cycleColormap(amount: number): void;
+
+    /**
      * Removes skew from the image. Skew is an artifact that occurs in scanned images because of
      * the camera being misaligned, imperfections in the scanning or surface, or simply because
      * the paper was not placed completely flat when scanned. The value of threshold ranges
@@ -3074,6 +3080,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 const collection = MagickImageCollection._createFromImages(images, this._settings);
                 return collection._use(func);
             });
+        });
+    }
+
+    cycleColormap(amount: number): void {
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_CycleColormap(this._instance, amount, exception);
         });
     }
 
