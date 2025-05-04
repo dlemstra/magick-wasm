@@ -241,7 +241,7 @@ export interface IMagickImage extends IDisposable {
      */
     gamma: number;
 
-    /***
+    /**
      * Gets or sets the gif disposal method.
      */
     gifDisposeMethod: GifDisposeMethod;

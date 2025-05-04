@@ -19,7 +19,7 @@ export class ConnectedComponentsSettings {
     /**
      * The threshold that merges any object not within the min and max angle
      * threshold.
-     **/
+     */
     angleThreshold?: Threshold;
 
     /**

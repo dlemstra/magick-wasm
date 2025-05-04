@@ -18,14 +18,14 @@ export class ComplexSettings {
         this.complexOperator = complexOperator;
     }
 
-    /**F
+    /**
      * Gets or sets the complex operator.
-     **/
+     */
     readonly complexOperator: ComplexOperator;
 
     /**
      * Gets or sets the signal to noise ratio.
-     **/
+     */
     signalToNoiseRatio?: number;
 
 
