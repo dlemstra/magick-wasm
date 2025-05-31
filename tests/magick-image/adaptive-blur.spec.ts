@@ -6,7 +6,7 @@
 import { ErrorMetric } from '@src/enums/error-metric';
 import { TestFiles } from '@test/test-files';
 
-describe('MagickImage#blur', () => {
+describe('MagickImage#adaptiveBulr', () => {
     it('should change pixels of the image', () => {
         TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             image.adaptiveBlur(4, 2);
