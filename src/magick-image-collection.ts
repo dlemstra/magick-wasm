@@ -397,10 +397,6 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
      * Creates a new {@link IMagickImageCollection} instance.
      */
     static create(): IMagickImageCollection;
-
-    /**
-     * Creates a new {@link IMagickImageCollection} instance from the specified byte array.
-     */
     static create(array: ByteArray): IMagickImageCollection;
     static create(arrayOrUndefined?: ByteArray): IMagickImageCollection {
         const images = MagickImageCollection.createObject();
