@@ -281,8 +281,7 @@ export class ImageMagick {
      */
     static readCollection<TReturnType>(fileName: string, func: AsyncImageCollectionCallback<TReturnType>): Promise<TReturnType>;
     static readCollection<TReturnType>(arrayOrFileName: ByteArray | string, formatOrSettingsOrFunc: MagickFormat | MagickReadSettings | ImageCollectionCallback<TReturnType>, func?: ImageCollectionCallback<TReturnType>): TReturnType | Promise<TReturnType> {
-        const collection = MagickImageCollection.create();
-        return collection._use(images => {
+        return MagickImageCollection.use(images => {
             let callback = func;
             let settings: MagickReadSettings | undefined = undefined;
             if (formatOrSettingsOrFunc instanceof MagickReadSettings) {
