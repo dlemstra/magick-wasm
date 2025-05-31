@@ -30,11 +30,6 @@ import { _withDoubleArray } from './internal/native/array';
 import { _withString } from './internal/native/string';
 
 export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable {
-    /** @internal */
-    _use<TReturnType>(func: SyncImageCollectionCallback<TReturnType>): TReturnType;
-    /** @internal */
-    _use<TReturnType>(func: AsyncImageCollectionCallback<TReturnType>): Promise<TReturnType>;
-
     /**
      * Creates a single image, by appending all the images in the collection horizontally (+append).
      * @param func The function to execute with the image.
@@ -432,11 +427,12 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     clone<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     clone<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     clone<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        const images = MagickImageCollection.create();
-        for (let i = 0; i < this.length; i++)
-            images.push(MagickImage._clone(this[i]));
+        return MagickImageCollection.use((collection) => {
+            for (let i = 0; i < this.length; i++)
+                collection.push(MagickImage._clone(this[i]));
 
-        return images._use(func);
+            return func(collection);
+        });
     }
 
     coalesce(): void {
@@ -533,7 +529,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                 });
             });
 
-            return MagickImageCollection._createFromImages(result, this.getSettings())._use((collection) => {
+            return MagickImageCollection._createFromImages(result, this.getSettings(), (collection) => {
                 const transparentColor = settings.transparentColor;
                 if (transparentColor !== undefined) {
                     collection.forEach(image => {
@@ -660,6 +656,13 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         this.mergeImages(LayerMethod.Trimbounds, () => { /* special case where the returned image is null */ });
     }
 
+    static use<TReturnType>(func: SyncImageCollectionCallback<TReturnType>): TReturnType;
+    static use<TReturnType>(func: AsyncImageCollectionCallback<TReturnType>): Promise<TReturnType>;
+    static use<TReturnType>(func: ImageCollectionCallback<TReturnType>): TReturnType | Promise<TReturnType> {
+        const collection = MagickImageCollection.create();
+        return Disposable._disposeAfterExecution(collection, func);
+    }
+
     write<TReturnType>(func: (data: Uint8Array) => TReturnType): TReturnType;
     write<TReturnType>(format: MagickFormat, func: (data: Uint8Array) => TReturnType): TReturnType;
     write<TReturnType>(func: (data: Uint8Array) => Promise<TReturnType>): Promise<TReturnType>;
@@ -695,20 +698,11 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     /** @internal */
-    static _createFromImages(images: number, settings: MagickSettings): IMagickImageCollection {
+    static _createFromImages<TReturnType>(images: number, settings: MagickSettings, func: ImageCollectionCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         const collection = MagickImageCollection.createObject();
-
         collection.addImages(images, settings._clone());
 
-        return collection;
-    }
-
-    /** @internal */
-    _use<TReturnType>(func: SyncImageCollectionCallback<TReturnType>): TReturnType;
-    /** @internal */
-    _use<TReturnType>(func: AsyncImageCollectionCallback<TReturnType>): Promise<TReturnType>;
-    _use<TReturnType>(func: ImageCollectionCallback<TReturnType>): TReturnType | Promise<TReturnType> {
-        return Disposable._disposeAfterExecution(this, func);
+        return func(collection);
     }
 
     private addImages(images: number, settings: MagickSettings) {

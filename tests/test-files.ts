@@ -102,7 +102,7 @@ class EmptyTestImageCollection {
     use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType): TReturnType;
     use<TReturnType>(func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
     use<TReturnType>(func: (images: IMagickImageCollection) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
-        return MagickImageCollection.create()._use(func);
+        return MagickImageCollection.use(func);
     }
 }
 

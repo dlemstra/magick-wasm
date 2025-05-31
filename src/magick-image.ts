@@ -3077,8 +3077,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return this.useException(exception => {
             return _withString(geometry.toString(), geometryPtr => {
                 const images = ImageMagick._api._MagickImage_CropToTiles(this._instance, geometryPtr, exception.ptr);
-                const collection = MagickImageCollection._createFromImages(images, this._settings);
-                return collection._use(func);
+                return MagickImageCollection._createFromImages(images, this._settings, (collection) => {
+                    return func(collection);
+                });
             });
         });
     }
@@ -3621,8 +3622,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             }
 
             const images = ImageMagick._api._MagickImage_Separate(this._instance, channels, exception.ptr);
-            const collection = MagickImageCollection._createFromImages(images, this._settings);
-            return collection._use(func);
+            return MagickImageCollection._createFromImages(images, this._settings, (collection) => {
+                return func(collection);
+            });
         });
     }
 
