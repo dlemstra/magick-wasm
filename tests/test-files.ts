@@ -144,6 +144,7 @@ export class TestFiles {
         emptyCollection: new EmptyTestImageCollection(),
         empty150x150Canvas: new TestImageFromColor(MagickColors.White, 150, 150),
         cmykJpg: new TestImage('tests/files/images/cmyk.jpg'),
+        blurredShapeJpg: new TestImage('tests/files/images/blurred-shape.jpg'),
         connectedComponentsPng: new TestImage('tests/files/images/connected-components.png'),
         fujiFilmFinePixS1ProJpg: new TestImage('tests/files/images/fuji-film-fine-pix-s1-pro.jpg'),
         imageMagickJpg: new TestImage('tests/files/images/image-magick.jpg'),

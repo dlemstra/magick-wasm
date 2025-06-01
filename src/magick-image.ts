@@ -747,6 +747,27 @@ export interface IMagickImage extends IDisposable {
     cloneArea<TReturnType>(geometry: MagickGeometry, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
 
     /**
+     * Apply a color lookup table (CLUT) to the image.
+     * @param image The image to use.
+     */
+    clut(image: IMagickImage): void;
+
+    /**
+     * Apply a color lookup table (CLUT) to the image.
+     * @param image The image to use.
+     * @param method Pixel interpolate method.
+     */
+    clut(image: IMagickImage, method: PixelInterpolateMethod): void;
+
+    /**
+     * Apply a color lookup table (CLUT) to the image.
+     * @param image The image to use.
+     * @param method Pixel interpolate method.
+     * @param channels The channel(s) to clut.
+     */
+    clut(image: IMagickImage, method: PixelInterpolateMethod, channels: Channels): void;
+
+    /**
      * Sets the alpha channel to the specified color.
      * @param color The color to use
      */
@@ -2784,6 +2805,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                     return func(image);
                 });
             });
+        });
+    }
+
+    clut(image: IMagickImage): void;
+    clut(image: IMagickImage, method: PixelInterpolateMethod): void;
+    clut(image: IMagickImage, method: PixelInterpolateMethod, channels: Channels): void;
+    clut(image: IMagickImage, methodOrUndefined?: PixelInterpolateMethod, channelsOrUndefined?: Channels): void {
+       const method = this.valueOrDefault(methodOrUndefined, PixelInterpolateMethod.Undefined);
+       const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_Clut(this._instance, image._instance, method, channels, exception);
         });
     }
 
