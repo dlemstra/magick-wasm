@@ -5,7 +5,7 @@
 
 import { TestFiles } from '@test/test-files';
 
-describe('MagickImage#threshold', () => {
+describe('MagickImage#totalColors', () => {
     it('should tbe zero for an empty image', () => {
         TestFiles.Images.empty.use((image) => {
             expect(image.totalColors).toBe(0);

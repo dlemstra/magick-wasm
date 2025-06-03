@@ -7,7 +7,7 @@ import { MagickColors } from '@src/magick-colors';
 import { MagickImage } from '@src/magick-image';
 import { TestFiles } from '@test/test-files';
 
-describe('MagickImageCollection#evaluate', () => {
+describe('MagickImageCollection#optimize', () => {
     it('should throw exception when collection is empty', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {

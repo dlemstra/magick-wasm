@@ -7,7 +7,7 @@ import { ChromaticityInfo } from '@src/types/chromaticity-info';
 import { PrimaryInfo } from '@src/types/primary-info';
 import { TestFiles } from '@test/test-files';
 
-describe('MagickImage#chromaBluePrimary', () => {
+describe('MagickImage#chromaticity', () => {
     it('should return the chromaticity', async () => {
         TestFiles.Images.redPng.use(image => {
             const chromaticity = image.chromaticity;

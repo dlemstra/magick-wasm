@@ -6,7 +6,7 @@
 import { PixelChannel } from '@src/enums/pixel-channel';
 import { TestFiles } from '@test/test-files';
 
-describe('ChannelPerceptualHash#sumSquaredDistance', () => {
+describe('PerceptualHash#sumSquaredDistance', () => {
     it('should return the distance', () => {
         TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             const phash = image.perceptualHash();
