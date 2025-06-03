@@ -12,7 +12,7 @@ import { MagickImageInfo } from '@src/magick-image-info';
 import { Orientation } from '@src/enums/orientation';
 import { TestFiles } from '@test/test-files';
 
-describe('MagickImageInfo#constructor', () => {
+describe('MagickImageInfo#read', () => {
     it('should read the information of the image', () => {
         const magickImageInfo = new MagickImageInfo();
         magickImageInfo.read(TestFiles.Images.fujiFilmFinePixS1ProJpg.data);

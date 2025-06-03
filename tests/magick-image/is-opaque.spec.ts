@@ -5,7 +5,7 @@
 
 import { TestFiles } from '@test/test-files';
 
-describe('MagickImage#hasAlpha', () => {
+describe('MagickImage#isOpaque', () => {
     it('should return true when the image is fully opaque', async () => {
         TestFiles.Images.imageMagickJpg.use(image => {
             expect(image.isOpaque).toBe(true);

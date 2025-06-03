@@ -6,7 +6,7 @@
 import { QuantizeSettings } from '@src/settings/quantize-settings';
 import { TestFiles } from '@test/test-files';
 
-describe('MagickImageCollection#flatten', () => {
+describe('MagickImageCollection#quantize', () => {
     it('should throw exception when collection is empty', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {

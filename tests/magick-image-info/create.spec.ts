@@ -12,7 +12,7 @@ import { MagickImageInfo } from '@src/magick-image-info';
 import { Orientation } from '@src/enums/orientation';
 import { TestFiles } from '@test/test-files';
 
-describe('MagickImageInfo#constructor', () => {
+describe('MagickImageInfo#create', () => {
     it('should read the information of the image', () => {
         const magickImageInfo = MagickImageInfo.create(TestFiles.Images.cmykJpg.data);
         expect(magickImageInfo.colorSpace).toBe(ColorSpace.CMYK);
