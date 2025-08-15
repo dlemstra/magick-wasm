@@ -35,7 +35,7 @@ if (!global.native) {
 
     const bytes = readFileSync('node_modules/@dlemstra/magick-native/magick.wasm');
     if (Math.random() >= 0.5) {
-        const module = await WebAssembly.compile(bytes);
+        const module = await WebAssembly.compile(new Uint8Array(bytes));
         await initializeImageMagick(module);
     } else {
         await initializeImageMagick(bytes);
