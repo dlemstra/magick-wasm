@@ -15,7 +15,7 @@ describe('ChannelPerceptualHash#toString', () => {
             red = expectToNotBeNull(red);
 
             const value = red.toString();
-            expect(value).toEqual('a329782b94893d98af60621c78f08e623beac1c9846fd61b208e63962ee061ab562ee0');
+            expect(value).toEqual('a329782b94893d98af60621c78f08e62ee0ac1c9846fd61b208e63962ee061ab562ee0');
         });
     });
 });

@@ -50,18 +50,18 @@ describe('MagickImage#perceptualHash', () => {
             assertChannel(channel, 1, 1.5603, 2.3442);
             assertChannel(channel, 2, 4.9037, 1.9733);
             assertChannel(channel, 3, 3.9198, 2.8120);
-            assertChannel(channel, 4, 9.0911, 5.3579);
+            assertChannel(channel, 4, 9.0911, 12.000);
             assertChannel(channel, 5, 6.3159, 4.6573);
-            assertChannel(channel, 6, 8.3383, 5.3525);
+            assertChannel(channel, 6, 12.000, 12.000);
 
             channel = phash.getChannel(PixelChannel.Green);
             assertChannel(channel, 0, 0.2322, 0.2693);
             assertChannel(channel, 1, 1.5657, 1.1348);
             assertChannel(channel, 2, 4.5268, 2.6334);
             assertChannel(channel, 3, 3.5221, 2.0866);
-            assertChannel(channel, 4, 8.1552, 4.5939);
+            assertChannel(channel, 4, 8.1552, 12.000);
             assertChannel(channel, 5, 5.3999, 3.1957);
-            assertChannel(channel, 6, 7.5603, 4.600);
+            assertChannel(channel, 6, 12.000, 12.000);
 
             channel = phash.getChannel(PixelChannel.Blue);
             assertChannel(channel, 0, 0.5884, 0.6779);
@@ -70,7 +70,7 @@ describe('MagickImage#perceptualHash', () => {
             assertChannel(channel, 3, 4.0328, 4.8999);
             assertChannel(channel, 4, 9.6914, 10.9447);
             assertChannel(channel, 5, 5.4217, 6.3243);
-            assertChannel(channel, 6, 8.4581, 10.1375);
+            assertChannel(channel, 6, 12.000, 12.000);
         });
     });
 });

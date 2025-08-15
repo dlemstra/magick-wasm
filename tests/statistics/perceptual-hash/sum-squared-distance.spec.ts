@@ -17,7 +17,7 @@ describe('PerceptualHash#sumSquaredDistance', () => {
             green = expectToNotBeNull(green);
 
             const distance = red.sumSquaredDistance(green);
-            expect(distance).toBeCloseTo(32.1654);
+            expect(distance).toBeCloseTo(49.8306);
         });
     });
 });

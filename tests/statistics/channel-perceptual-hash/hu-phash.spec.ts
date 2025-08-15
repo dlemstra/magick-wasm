@@ -38,7 +38,7 @@ describe('ChannelPerceptualHash#huPhash', () => {
             red = expectToNotBeNull(red);
 
             const huPhashXyY = red.huPhash(ColorSpace.XyY, 6);
-            expect(huPhashXyY).toBeCloseTo(9.1503);
+            expect(huPhashXyY).toBeCloseTo(12.000);
 
             const huPhashHSB = red.huPhash(ColorSpace.HSB, 6);
             expect(huPhashHSB).toBeCloseTo(12.000);

@@ -24,7 +24,7 @@ describe('MagickImageCollection#complex', () => {
 
         TestFiles.Images.roseSparkleGif.use(images => {
             images.complex(settings, (image) => {
-                expect(image).toEqualImage(images[0], 0.56843);
+                expect(image).toEqualImage(images[0], 0.56664);
             });
         });
     });
