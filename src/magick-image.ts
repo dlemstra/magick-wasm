@@ -2812,8 +2812,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     clut(image: IMagickImage, method: PixelInterpolateMethod): void;
     clut(image: IMagickImage, method: PixelInterpolateMethod, channels: Channels): void;
     clut(image: IMagickImage, methodOrUndefined?: PixelInterpolateMethod, channelsOrUndefined?: Channels): void {
-       const method = this.valueOrDefault(methodOrUndefined, PixelInterpolateMethod.Undefined);
-       const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+        const method = this.valueOrDefault(methodOrUndefined, PixelInterpolateMethod.Undefined);
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
 
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Clut(this._instance, image._instance, method, channels, exception);
@@ -3759,9 +3759,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     splice(geometry: IMagickGeometry): void {
-        MagickRectangle.use(this, geometry, geometryPtr => {
+        _withString(geometry.toString(), geometryPtr => {
             this.useException(exception => {
-                const instance = ImageMagick._api._MagickImage_Splice(this._instance, geometryPtr, exception.ptr);
+                const instance = ImageMagick._api._MagickImage_Splice(this._instance, geometryPtr, Gravity.Undefined, exception.ptr);
                 this._setInstance(instance, exception);
             });
         });
