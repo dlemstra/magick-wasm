@@ -1909,6 +1909,13 @@ export interface IMagickImage extends IDisposable {
     splice(geometry: IMagickGeometry): void;
 
     /**
+     * Splice the background color into the image.
+     * @param geometry The geometry to use.
+     * @param gravity The gravity to use.
+     */
+    splice(geometry: IMagickGeometry, gravity: Gravity): void;
+
+    /**
      * Returns the image statistics.
      */
     statistics(): IStatistics;
@@ -3758,10 +3765,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    splice(geometry: IMagickGeometry): void {
+    splice(geometry: IMagickGeometry): void;
+    splice(geometry: IMagickGeometry, gravity: Gravity): void;
+    splice(geometry: IMagickGeometry, gravityOrUndefined?: Gravity): void {
+        const gravity = this.valueOrDefault(gravityOrUndefined, Gravity.Undefined);
         _withString(geometry.toString(), geometryPtr => {
             this.useException(exception => {
-                const instance = ImageMagick._api._MagickImage_Splice(this._instance, geometryPtr, Gravity.Undefined, exception.ptr);
+                const instance = ImageMagick._api._MagickImage_Splice(this._instance, geometryPtr, gravity, exception.ptr);
                 this._setInstance(instance, exception);
             });
         });
