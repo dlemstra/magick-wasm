@@ -11,8 +11,8 @@ import { Magick } from '@src/magick';
 import { TestFiles } from './test-files';
 
 declare global {
-    var native: ImageMagickApi; /* eslint-disable-line no-var */
-    var expectToNotBeNull: <T>(value: T) => NonNullable<T>; /* eslint-disable-line no-var */
+    var native: ImageMagickApi;
+    var expectToNotBeNull: <T>(value: T) => NonNullable<T>;
 
     namespace Chai { /* eslint-disable-line @typescript-eslint/no-namespace */
         /* eslint-disable @typescript-eslint/no-empty-object-type */
