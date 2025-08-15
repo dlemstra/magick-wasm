@@ -498,6 +498,11 @@ export const MagickFormat = {
     Icon: 'ICON',
 
     /**
+     * Microsoft icon.
+     */
+    Icn: 'ICN',
+
+    /**
      * Phase One Raw Format.
      */
     Iiq: 'IIQ',
@@ -1101,6 +1106,11 @@ export const MagickFormat = {
      * Scitex HandShake.
      */
     Sct: 'SCT',
+
+    /**
+     * Simple File Format Family Images.
+     */
+    Sf3: 'SF3',
 
     /**
      * Seattle Film Works.
