@@ -20,10 +20,10 @@ import { NativeMagickSettings } from './native-magick-settings';
  */
 export class MagickSettings {
     /** @internal */
-    _options: Record<string, string> = {};
+    _fileName?: string;
 
     /** @internal */
-    _fileName?: string;
+    _options: Record<string, string> = {};
 
     /** @internal */
     _ping = false;
