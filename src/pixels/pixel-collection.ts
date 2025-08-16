@@ -29,6 +29,16 @@ export interface IPixelCollection extends IDisposable {
     getArea(x: number, y: number, width: number, height: number): quantumArray;
 
     /**
+     * Returns the pixels at the specified area.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     * @param width The width of the area.
+     * @param height The height of the area.
+     * @returns The readonly quantum array of the area.
+     */
+    getReadOnlyArea(x: number, y: number, width: number, height: number): Readonly<quantumArray>;
+
+    /**
      * Returns the index of the specified channel. Returns null if not found.
      * @param channel The channel to get the index o.
      * @returns The index of the specified channel. Returns null if not found.
@@ -132,6 +142,14 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
     }
 
     getArea(x: number, y: number, width: number, height: number): quantumArray {
+        return Exception.usePointer(exception => {
+            const instance = ImageMagick._api._PixelCollection_GetArea(this._instance, x, y, width, height, exception);
+            const count = width * height * this.image.channelCount;
+            return ImageMagick._api.HEAPU8.subarray(instance, instance + count);
+        });
+    }
+
+    getReadOnlyArea(x: number, y: number, width: number, height: number): Readonly<quantumArray> {
         return Exception.usePointer(exception => {
             const instance = ImageMagick._api._PixelCollection_GetArea(this._instance, x, y, width, height, exception);
             const count = width * height * this.image.channelCount;
