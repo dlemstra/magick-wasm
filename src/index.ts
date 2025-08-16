@@ -11,6 +11,7 @@ export * from './defines/defines-creator';
 export * from './defines/defines';
 export * from './defines/magick-define';
 export * from './disposable';
+export * from './drawing/drawable-affine';
 export * from './drawing/drawable-color';
 export * from './drawing/drawable-fill-color';
 export * from './drawing/drawable-fill-opacity';
