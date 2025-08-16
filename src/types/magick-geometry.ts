@@ -69,6 +69,11 @@ export interface IMagickGeometry {
      * Gets or sets the Y offset from origin.
      */
     y: number;
+
+    /**
+     * Returns a string that represents the current @see IMagickGeometry.
+     */
+    toString(): string;
 }
 
 export class MagickGeometry implements IMagickGeometry {
