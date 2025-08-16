@@ -88,6 +88,12 @@ export class NativeMagickSettings extends NativeInstance {
         if (settings.interlace !== undefined)
             ImageMagick._api._MagickSettings_Interlace_Set(this._instance, settings.interlace);
 
+        if (settings.page !== undefined) {
+            _withString(settings.page.toString(), pagePtr => {
+                ImageMagick._api._MagickSettings_SetPage(this._instance, pagePtr);
+            });
+        }
+
         if (settings.strokeColor !== undefined)
             this.setOption('stroke', settings.strokeColor.toString());
 

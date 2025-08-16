@@ -12,6 +12,7 @@ import { Endian } from '../enums/endian';
 import { IDefines } from '../defines/defines';
 import { Interlace } from '../enums/interlace';
 import { IMagickColor } from '../magick-color';
+import { IMagickGeometry } from '../types/magick-geometry';
 import { MagickFormat } from '../enums/magick-format';
 import { NativeMagickSettings } from './native-magick-settings';
 
@@ -104,6 +105,11 @@ export class MagickSettings {
      * Gets or sets the interlace method.
      */
     interlace?: Interlace;
+
+    /**
+     * Gets or sets the preferred size and location of an image canvas.
+     */
+    page?: IMagickGeometry;
 
     /**
      * Gets or sets the color to use when drawing object outlines.
