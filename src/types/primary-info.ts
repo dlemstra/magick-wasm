@@ -55,7 +55,7 @@ export class PrimaryInfo {
             ImageMagick._api._PrimaryInfo_Z_Set(instance, this.z);
             func(instance);
         } finally {
-            ImageMagick._api._free(instance);
+            ImageMagick._api._PrimaryInfo_Dispose(instance);
         }
     }
 }
