@@ -3538,7 +3538,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
             return this.useExceptionPointer(exception => {
                 const listInstance = ImageMagick._api._MagickImage_PerceptualHash(this._instance, exception);
-                return PerceptualHash._create(this, colorSpaces, listInstance);
+                try {
+                    return PerceptualHash._create(this, colorSpaces, listInstance);
+                } finally {
+                    ImageMagick._api._PerceptualHash_DisposeList(listInstance);
+                }
             });
         });
     }
