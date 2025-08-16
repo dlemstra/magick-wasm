@@ -24,6 +24,7 @@ import { TypeMetric } from '../types/type-metric';
  * Interface for drawing on an wand.
  */
 export interface IDrawingWand extends IDisposable {
+    affine(scaleX: number, scaleY: number, shearX: number, shearY: number, translateX: number, translateY: number): void;
     color(x: number, y: number, paintMethod: number): void;
     draw(drawables: IDrawable[]): void;
     fillColor(value: IMagickColor): void;
@@ -55,6 +56,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
         });
         const disposeMethod = ImageMagick._api._DrawingWand_Dispose;
         super(instance, disposeMethod);
+    }
+
+    affine(scaleX: number, scaleY: number, shearX: number, shearY: number, translateX: number, translateY: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_Affine(this._instance, scaleX, scaleY, shearX, shearY, translateX, translateY, exception);
+        });
     }
 
     color(x: number, y: number, paintMethod: PaintMethod): void {
