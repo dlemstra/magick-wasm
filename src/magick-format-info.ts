@@ -21,6 +21,11 @@ export interface IMagickFormatInfo {
     readonly format: MagickFormat;
 
     /**
+     * Gets the mime type.
+     */
+    readonly mimeType: string | null;
+
+    /**
      * Gets a value indicating whether the format supports multiple frames.
      */
     readonly supportsMultipleFrames: boolean;
@@ -40,9 +45,10 @@ export interface IMagickFormatInfo {
 export class MagickFormatInfo implements IMagickFormatInfo {
     private static _allFormats: ReadonlyArray<IMagickFormatInfo>;
 
-    private constructor(format: MagickFormat, description: string, supportsMultipleFrames: boolean, supportsReading: boolean, supportsWriting: boolean) {
+    private constructor(format: MagickFormat, description: string, mimeType: string | null, supportsMultipleFrames: boolean, supportsReading: boolean, supportsWriting: boolean) {
         this.format = format;
         this.description = description;
+        this.mimeType = mimeType;
         this.supportsMultipleFrames = supportsMultipleFrames;
         this.supportsReading = supportsReading;
         this.supportsWriting = supportsWriting;
@@ -51,6 +57,8 @@ export class MagickFormatInfo implements IMagickFormatInfo {
     readonly description: string;
 
     readonly format: MagickFormat;
+
+    readonly mimeType: string | null;
 
     readonly supportsMultipleFrames: boolean;
 
@@ -78,10 +86,11 @@ export class MagickFormatInfo implements IMagickFormatInfo {
 
                         const format = MagickFormatInfo.convertFormat(formatName, values);
                         const description = _createString(ImageMagick._api._MagickFormatInfo_Description_Get(info), '');
+                        const mimeType = _createString(ImageMagick._api._MagickFormatInfo_MimeType_Get(info));
                         const supportsMultipleFrames = ImageMagick._api._MagickFormatInfo_SupportsMultipleFrames_Get(info) == 1;
                         const supportsReading = ImageMagick._api._MagickFormatInfo_SupportsReading_Get(info) == 1;
                         const supportsWriting = ImageMagick._api._MagickFormatInfo_SupportsWriting_Get(info) == 1;
-                        result[i] = new MagickFormatInfo(format, description, supportsMultipleFrames, supportsReading, supportsWriting);
+                        result[i] = new MagickFormatInfo(format, description, mimeType, supportsMultipleFrames, supportsReading, supportsWriting);
                     }
                     return result;
                 } finally {

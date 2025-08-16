@@ -19,6 +19,20 @@ describe('Magick#supportedFormats', () => {
         });
     });
 
+    it('should set mimeType to the correct value', () => {
+        let index = Magick.supportedFormats.findIndex(formatInfo => formatInfo.format === MagickFormat.Tiff);
+        expect(index).toBeGreaterThan(-1);
+
+        const tiffFormat = Magick.supportedFormats[index];
+        expect(tiffFormat.mimeType).toBe('image/tiff');
+
+        index = Magick.supportedFormats.findIndex(formatInfo => formatInfo.format === MagickFormat.Psd);
+        expect(index).toBeGreaterThan(-1);
+
+        const psdFormat = Magick.supportedFormats[index];
+        expect(psdFormat.mimeType).toBeNull();
+    });
+
     it('should set supportsMultipleFrames to the correct value', () => {
         let index = Magick.supportedFormats.findIndex(formatInfo => formatInfo.format === MagickFormat.Tiff);
         expect(index).toBeGreaterThan(-1);
