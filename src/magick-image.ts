@@ -40,6 +40,7 @@ import { Gravity } from './enums/gravity';
 import { IntPointer } from './internal/pointer/int-pointer';
 import { IDisposable } from './disposable';
 import { IDrawable } from './drawing/drawable';
+import { IDrawableAffine } from './drawing/drawable-affine';
 import { ImageMagick } from './image-magick';
 import { ImageProfile, IImageProfile } from './profiles/image-profile';
 import { Interlace } from './enums/interlace';
@@ -477,6 +478,12 @@ export interface IMagickImage extends IDisposable {
      * @param channels The channel(s) where the noise should be added.
      */
     addNoise(noiseType: NoiseType, attenuate: number, channels: Channels): void;
+
+    /**
+     * Applies an affine transformation to the image.
+     * @param affineMatrix The affine matrix to use.
+     */
+    affineTransform(affineMatrix: IDrawableAffine): void;
 
     /**
      * Applies the specified alpha action.
@@ -2590,6 +2597,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_AddNoise(this._instance, noiseType, attenuate, channels, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    affineTransform(affineMatrix: IDrawableAffine): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_AffineTransform(this._instance, affineMatrix.scaleX, affineMatrix.scaleY, affineMatrix.shearX, affineMatrix.shearY, affineMatrix.translateX, affineMatrix.translateY, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
