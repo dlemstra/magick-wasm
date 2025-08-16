@@ -33,6 +33,20 @@ describe('Magick#supportedFormats', () => {
         expect(psdFormat.mimeType).toBeNull();
     });
 
+    it('should set moduleFormat to the correct value', () => {
+        let index = Magick.supportedFormats.findIndex(formatInfo => formatInfo.format === MagickFormat.Tiff);
+        expect(index).toBeGreaterThan(-1);
+
+        const tiffFormat = Magick.supportedFormats[index];
+        expect(tiffFormat.moduleFormat).toBe(MagickFormat.Tiff);
+
+        index = Magick.supportedFormats.findIndex(formatInfo => formatInfo.format === MagickFormat.Jpe);
+        expect(index).toBeGreaterThan(-1);
+
+        const jpeFormat = Magick.supportedFormats[index];
+        expect(jpeFormat.moduleFormat).toBe(MagickFormat.Jpeg);
+    });
+
     it('should set supportsMultipleFrames to the correct value', () => {
         let index = Magick.supportedFormats.findIndex(formatInfo => formatInfo.format === MagickFormat.Tiff);
         expect(index).toBeGreaterThan(-1);
