@@ -16,6 +16,9 @@ export class NativeMagickSettings extends NativeInstance {
         const disposeMethod = ImageMagick._api._MagickSettings_Dispose;
         super(instance, disposeMethod);
 
+        if (settings._colorFuzz !== undefined)
+            ImageMagick._api._MagickSettings_SetColorFuzz(this._instance, settings._colorFuzz);
+
         if (settings._fileName !== undefined) {
             _withString(settings._fileName, ptr => {
                 ImageMagick._api._MagickSettings_SetFileName(this._instance, ptr);

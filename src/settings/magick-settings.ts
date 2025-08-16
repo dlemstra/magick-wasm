@@ -20,6 +20,9 @@ import { NativeMagickSettings } from './native-magick-settings';
  */
 export class MagickSettings {
     /** @internal */
+    _colorFuzz?: number;
+
+    /** @internal */
     _fileName?: string;
 
     /** @internal */
