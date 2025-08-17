@@ -48,8 +48,8 @@ export interface IDrawingWand extends IDisposable {
 }
 
 export class DrawingWand extends NativeInstance implements IDrawingWand {
-    private constructor(image: IMagickImage, magickSettings: MagickSettings) {
-        const instance = magickSettings._drawing._use(settings => {
+    private constructor(image: IMagickImage) {
+        const instance = image.settings._drawing._use(settings => {
             return ImageMagick._api._DrawingWand_Create(image._instance, settings._instance);
         });
         const disposeMethod = ImageMagick._api._DrawingWand_Dispose;
@@ -214,7 +214,7 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
 
     /** @internal */
     static _use<TReturnValue>(image: IMagickImage, func: (wand: DrawingWand) => TReturnValue): TReturnValue {
-        const wand = new DrawingWand(image, image.settings);
+        const wand = new DrawingWand(image);
         return Disposable._disposeAfterExecution(wand, func);
     }
 }
