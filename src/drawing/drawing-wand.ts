@@ -4,7 +4,6 @@
 */
 
 import { Disposable } from '../internal/disposable';
-import { DrawingSettings } from '../internal/settings/drawing-settings';
 import { Exception } from '../internal/exception/exception';
 import { Gravity } from '../enums/gravity';
 import { IDisposable } from '../disposable';
@@ -50,8 +49,7 @@ export interface IDrawingWand extends IDisposable {
 
 export class DrawingWand extends NativeInstance implements IDrawingWand {
     private constructor(image: IMagickImage, magickSettings: MagickSettings) {
-        const drawingSettings = DrawingSettings._create(magickSettings);
-        const instance = drawingSettings._use(settings => {
+        const instance = magickSettings._drawing._use(settings => {
             return ImageMagick._api._DrawingWand_Create(image._instance, settings._instance);
         });
         const disposeMethod = ImageMagick._api._DrawingWand_Dispose;

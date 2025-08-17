@@ -15,6 +15,7 @@ import { IMagickColor } from '../magick-color';
 import { IMagickGeometry } from '../types/magick-geometry';
 import { MagickFormat } from '../enums/magick-format';
 import { NativeMagickSettings } from './native-magick-settings';
+import { DrawingSettings } from '../internal/settings/drawing-settings';
 
 /**
  * Class that contains various settings.
@@ -22,6 +23,9 @@ import { NativeMagickSettings } from './native-magick-settings';
 export class MagickSettings {
     /** @internal */
     _colorFuzz?: number;
+
+    /** @internal */
+    _drawing: DrawingSettings = new DrawingSettings();
 
     /** @internal */
     _fileName?: string;
@@ -84,17 +88,32 @@ export class MagickSettings {
     /**
      * Gets or sets the fill color.
      */
-    fillColor?: IMagickColor;
+    get fillColor(): IMagickColor | undefined {
+        return this._drawing.fillColor;
+    }
+    set fillColor(value: IMagickColor | undefined) {
+        this._drawing.fillColor = value;
+    }
 
     /**
      * Gets or sets the text rendering font.
      */
-    font?: string;
+    get font(): string | undefined {
+        return this._drawing.font;
+    }
+    set font(value: string | undefined) {
+        this._drawing.font = value;
+    }
 
     /**
      * Gets or sets the font point size.
      */
-    fontPointsize?: number;
+    get fontPointsize(): number | undefined {
+        return this._drawing.fontPointsize;
+    }
+    set fontPointsize(value: number | undefined) {
+        this._drawing.fontPointsize = value;
+    }
 
     /**
      * Gets or sets the the format of the image.
@@ -114,12 +133,22 @@ export class MagickSettings {
     /**
      * Gets or sets the color to use when drawing object outlines.
      */
-    strokeColor?: IMagickColor;
+    get strokeColor(): IMagickColor | undefined {
+        return this._drawing.strokeColor;
+    }
+    set strokeColor(value: IMagickColor | undefined) {
+        this._drawing.strokeColor = value;
+    }
 
     /**
      * Gets or sets the stroke width for drawing lines, circles, ellipses, etc.
      */
-    strokeWidth?: number;
+    get strokeWidth(): number | undefined {
+        return this._drawing.strokeWidth;
+    }
+    set strokeWidth(value: number | undefined) {
+        this._drawing.strokeWidth = value;
+    }
 
     /**
      * Gets or sets the text inter-line spacing.

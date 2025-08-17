@@ -27,7 +27,6 @@ import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './enums/distort-method';
 import { DistortSettings } from './settings/distort-settings';
-import { DrawingSettings } from './internal/settings/drawing-settings';
 import { DrawingWand } from './drawing/drawing-wand';
 import { DoublePointer } from './internal/pointer/double-pointer';
 import { Endian } from './enums/endian';
@@ -2622,9 +2621,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     annotate(text: string, gravity: Gravity): void;
     annotate(text: string, gravity: Gravity, angle: number): void;
     annotate(text: string, boundingAreaOrGravity: MagickGeometry | Gravity, gravityOrAngleOrUndefined?: Gravity | number, angleOrUndefined?: number): void {
-        const drawingSettings = DrawingSettings._create(this._settings);
         return this.useExceptionPointer(exception => {
-            return drawingSettings._use(settings => {
+            return this._settings._drawing._use(settings => {
                 _withString(text, textPtr => {
                     let boundingArea: string | null = null;
                     let gravity: Gravity = Gravity.Undefined;
