@@ -2123,6 +2123,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     private constructor(instance: number, settings: MagickSettings) {
         super(instance, ImageMagick._api._MagickImage_Dispose);
         this._settings = settings;
+        this._settings._onArtifact = this.onSettingsArtifactChanged;
     }
 
     get animationDelay(): number {
@@ -3275,10 +3276,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    /**
-     * Formats the specified expression (more info can be found here: https://imagemagick.org/script/escape.php).
-     * @param expression The expression.
-     */
     formatExpression(expression: string): string | null {
         return this.useExceptionPointer(exception => {
             return this._settings._use(settings => {
@@ -4134,6 +4131,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     private disposeProgressDelegate(): void {
         DelegateRegistry.removeProgressDelegate(this);
         this._progress = undefined;
+    }
+
+    private onSettingsArtifactChanged(name: string, value: string | undefined): void {
+        if (value === undefined)
+            this.removeArtifact(name);
+        else
+            this.setArtifact(name, value);
     }
 
     private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | ByteArray | IMagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {

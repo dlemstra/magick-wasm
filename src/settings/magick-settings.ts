@@ -31,6 +31,9 @@ export class MagickSettings {
     _fileName?: string;
 
     /** @internal */
+    _onArtifact?: (key: string, value: string | undefined) => void;
+
+    /** @internal */
     _options: Record<string, string> = {};
 
     /** @internal */
@@ -92,6 +95,7 @@ export class MagickSettings {
         return this._drawing.fillColor;
     }
     set fillColor(value: IMagickColor | undefined) {
+        this.setDefineAndArtifact('fill', value?.toString());
         this._drawing.fillColor = value;
     }
 
@@ -147,6 +151,7 @@ export class MagickSettings {
         return this._drawing.strokeWidth;
     }
     set strokeWidth(value: number | undefined) {
+        this.setDefineAndArtifact('stroke', value?.toString());
         this._drawing.strokeWidth = value;
     }
 
@@ -181,6 +186,26 @@ export class MagickSettings {
     /**
      * Sets a format-specific option.
      * @param name The name of the define.
+     */
+    removeDefine(name: string): void;
+    /**
+     * Sets a format-specific option.
+     * @param format The format to set the define for.
+     * @param name The name of the define.
+     */
+    removeDefine(format: MagickFormat, name: string): void;
+    removeDefine(nameOrFormat: MagickFormat | string, nameOrUndefined?: string): void {
+        if (nameOrUndefined === undefined) {
+            delete this._options[nameOrFormat];
+        } else {
+            const key = this.parseDefine(<MagickFormat>nameOrFormat, nameOrUndefined);
+            delete this._options[key];
+        }
+    }
+
+    /**
+     * Sets a format-specific option.
+     * @param name The name of the define.
      * @param value The value of the define.
      */
     setDefine(name: string, value: string): void;
@@ -205,17 +230,17 @@ export class MagickSettings {
      * @param value The value of the define.
      */
     setDefine(format: MagickFormat, name: string, value: boolean): void;
-    setDefine(nameOrFormat: MagickFormat | string, nameOrValue: string, value?: string | number | boolean): void {
-        if (value === undefined) {
+    setDefine(nameOrFormat: MagickFormat | string, nameOrValue: string, valueOrUndefined?: string | number | boolean): void {
+        if (valueOrUndefined === undefined) {
             this._options[nameOrFormat] = nameOrValue;
         } else {
             const key = this.parseDefine(<MagickFormat>nameOrFormat, nameOrValue);
-            if (typeof value === 'string')
-                this._options[key] = value;
-            else if (typeof value === 'number')
-                this._options[key] = value.toString();
+            if (typeof valueOrUndefined === 'string')
+                this._options[key] = valueOrUndefined;
+            else if (typeof valueOrUndefined === 'number')
+                this._options[key] = valueOrUndefined.toString();
             else
-                this._options[key] = value ? 'true' : 'false';
+                this._options[key] = valueOrUndefined ? 'true' : 'false';
         }
     }
 
@@ -247,5 +272,15 @@ export class MagickSettings {
             return name;
 
         return `${format}:${name}`;
+    }
+
+    private setDefineAndArtifact(name: string, value: string | undefined): void {
+        if (value === undefined)
+            this.removeDefine(name);
+        else
+            this.setDefine(name, value);
+
+        if (this._onArtifact !== undefined)
+            this._onArtifact(name, value);
     }
 }
