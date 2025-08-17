@@ -151,7 +151,7 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
 
     getReadOnlyArea(x: number, y: number, width: number, height: number): Readonly<quantumArray> {
         return Exception.usePointer(exception => {
-            const instance = ImageMagick._api._PixelCollection_GetArea(this._instance, x, y, width, height, exception);
+            const instance = ImageMagick._api._PixelCollection_GetReadOnlyArea(this.image._instance, x, y, width, height, exception);
             const count = width * height * this.image.channelCount;
             return ImageMagick._api.HEAPU8.subarray(instance, instance + count);
         });
