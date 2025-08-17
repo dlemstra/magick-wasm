@@ -6,7 +6,7 @@
 import { Disposable } from '../disposable';
 import { IMagickColor } from '../../magick-color';
 import { MagickSettings } from '../../settings/magick-settings';
-import { NativeDrawingSettings } from '../../settings/native-drawing-settings';
+import { NativeDrawingSettings } from './native-drawing-settings';
 
 /** @internal */
 export class DrawingSettings {
