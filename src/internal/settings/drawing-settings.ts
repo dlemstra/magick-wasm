@@ -5,7 +5,6 @@
 
 import { Disposable } from '../disposable';
 import { IMagickColor } from '../../magick-color';
-import { MagickSettings } from '../../settings/magick-settings';
 import { NativeDrawingSettings } from './native-drawing-settings';
 
 /** @internal */
@@ -21,18 +20,6 @@ export class DrawingSettings {
     strokeColor?: IMagickColor;
 
     strokeWidth?: number;
-
-    static _create(settings: MagickSettings): DrawingSettings {
-        const instance = new DrawingSettings();
-
-        instance.fillColor = settings.fillColor;
-        instance.font = settings.font;
-        instance.fontPointsize = settings.fontPointsize;
-        instance.strokeColor = settings.strokeColor;
-        instance.strokeWidth = settings.strokeWidth;
-
-        return instance;
-    }
 
     _use<TReturnType>(func: (settings: NativeDrawingSettings) => TReturnType): TReturnType {
         const settings = new NativeDrawingSettings(this);
