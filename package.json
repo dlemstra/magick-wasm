@@ -47,7 +47,7 @@
         "update-index": "cd tools && tsc && node update-index.js ../src"
     },
     "devDependencies": {
-        "@dlemstra/magick-native": "2025.814.1830",
+        "@dlemstra/magick-native": "2025.824.1624",
         "@types/jsdom": "21.1.7",
         "@typescript-eslint/eslint-plugin": "8.41.0",
         "@typescript-eslint/parser": "8.41.0",
