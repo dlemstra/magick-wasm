@@ -11,7 +11,6 @@ import { IDrawable } from './drawable';
 import { ImageMagick } from '../image-magick';
 import { IMagickImage } from '../magick-image';
 import { IMagickColor } from '../magick-color';
-import { MagickSettings } from '../settings/magick-settings';
 import { NativeInstance } from '../native-instance';
 import { PaintMethod } from '../enums/paint-method';
 import { TextAlignment } from '../enums/text-alignment';
