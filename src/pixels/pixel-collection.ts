@@ -161,7 +161,6 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
         return this.image._channelOffset(channel);
     }
 
-
     getPixel(x: number, y: number): quantumArray {
         return this.getArea(x, y, 1, 1);
     }
