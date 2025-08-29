@@ -8,11 +8,13 @@ import { Exception } from '../internal/exception/exception';
 import { IDisposable } from '../disposable';
 import { ImageMagick } from '../image-magick';
 import { IMagickImage } from '../magick-image';
+import { MagickColor, IMagickColor } from '../magick-color';
 import { NativeInstance } from '../native-instance';
+import { PixelChannel } from '../enums/pixel-channel';
+import { Quantum } from '../quantum';
 import { quantumArray } from '@dlemstra/magick-native/magick';
 import { _withQuantumArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
-import { PixelChannel } from '../enums/pixel-channel';
 
 /**
  * Interface that can be used to access the individual pixels of an image.
@@ -44,6 +46,14 @@ export interface IPixelCollection extends IDisposable {
      * @returns The index of the specified channel. Returns null if not found.
      */
     getChannelIndex(channel: PixelChannel): number;
+
+    /**
+     * Returns the color at the specified coordinate.
+     * @param x The X coordinate of the pixel.
+     * @param y The Y coordinate of the pixel.
+     * @returns The color of the pixel.
+     */
+    getColor(x: number, y: number): IMagickColor | null;
 
     /**
      * Returns the pixel at the specified coordinate.
@@ -159,6 +169,40 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
 
     getChannelIndex(channel: PixelChannel): number {
         return this.image._channelOffset(channel);
+    }
+
+    getColor(x: number, y: number): IMagickColor | null {
+        const area = this.getArea(x, y, 1, 1);
+        const data = Array.from(area);
+        const index = this.image._channelOffset(PixelChannel.Index);
+
+        if (index >= 0)
+            data.splice(index, 1);
+
+        if (data.length === 0)
+            return null;
+
+        if (data.length === 1)
+            return new MagickColor(data[0], data[0], data[0]);
+
+        if (data.length === 2)
+            return new MagickColor(data[0], data[0], data[0], data[1]);
+
+        const hasBlackChannel = this.image._channelOffset(PixelChannel.Black) >= 0;
+        const hasAlphaChannel = this.image._channelOffset(PixelChannel.Alpha) >= 0;
+
+        if (hasBlackChannel)
+        {
+            if (data.length === 4 || !hasAlphaChannel)
+                return new MagickColor(data[0], data[1], data[2], data[3], Quantum.max);
+
+            return new MagickColor(data[0], data[1], data[2], data[3], data[4]);
+        }
+
+        if (data.length === 3 || !hasAlphaChannel)
+            return new MagickColor(data[0], data[1], data[2]);
+
+        return new MagickColor(data[0], data[1], data[2], data[3]);
     }
 
     getPixel(x: number, y: number): quantumArray {
