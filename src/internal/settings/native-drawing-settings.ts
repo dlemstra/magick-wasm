@@ -16,6 +16,12 @@ export class NativeDrawingSettings extends NativeInstance {
         const disposeMethod = ImageMagick._api._DrawingSettings_Dispose;
         super(instance, disposeMethod);
 
+        if (settings.borderColor !== undefined) {
+            settings.borderColor._use(valuePtr => {
+                ImageMagick._api._DrawingSettings_BorderColor_Set(this._instance, valuePtr);
+            });
+        }
+
         if (settings.fillColor !== undefined) {
             settings.fillColor._use(valuePtr => {
                 ImageMagick._api._DrawingSettings_FillColor_Set(this._instance, valuePtr);
@@ -41,5 +47,11 @@ export class NativeDrawingSettings extends NativeInstance {
 
         if (settings.strokeWidth !== undefined)
             ImageMagick._api._DrawingSettings_StrokeWidth_Set(this._instance, settings.strokeWidth);
+
+        if (settings.textUnderColor !== undefined) {
+            settings.textUnderColor._use(valuePtr => {
+                ImageMagick._api._DrawingSettings_TextUnderColor_Set(this._instance, valuePtr);
+            });
+        }
     }
 }
