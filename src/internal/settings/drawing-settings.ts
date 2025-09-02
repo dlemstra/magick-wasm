@@ -9,6 +9,8 @@ import { NativeDrawingSettings } from './native-drawing-settings';
 
 /** @internal */
 export class DrawingSettings {
+    borderColor?: IMagickColor;
+
     backgroundColor?: IMagickColor;
 
     fillColor?: IMagickColor;

@@ -53,6 +53,16 @@ export class MagickSettings {
     backgroundColor?: IMagickColor;
 
     /**
+     * Gets or sets the border color.
+     */
+    get borderColor(): IMagickColor | undefined {
+        return this._drawing.borderColor;
+    }
+    set borderColor(value: IMagickColor | undefined) {
+        this._drawing.borderColor = value;
+    }
+
+    /**
      * Gets or sets the color space.
      */
     colorSpace?: ColorSpace;
