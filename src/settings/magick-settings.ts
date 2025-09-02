@@ -173,7 +173,13 @@ export class MagickSettings {
     /**
      * Gets or sets the text inter-character kerning.
      */
-    textKerning?: number;
+    get textKerning(): number | undefined {
+        return this._drawing.textKerning;
+    }
+    set textKerning(value: number | undefined) {
+        this.setDefineAndArtifact('kerning', value?.toString());
+        this._drawing.textKerning = value;
+    }
 
     /**
      * Gets or sets the text undercolor box.

@@ -103,9 +103,6 @@ export class NativeMagickSettings extends NativeInstance {
         if (settings.textInterlineSpacing !== undefined)
             this.setOption('interline-spacing', settings.textInterlineSpacing.toString());
 
-        if (settings.textKerning !== undefined)
-            this.setOption('kerning', settings.textKerning.toString());
-
         for (const option in settings._options)
             this.setOption(option, settings._options[option]);
     }

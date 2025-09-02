@@ -48,6 +48,9 @@ export class NativeDrawingSettings extends NativeInstance {
         if (settings.strokeWidth !== undefined)
             ImageMagick._api._DrawingSettings_StrokeWidth_Set(this._instance, settings.strokeWidth);
 
+        if (settings.textKerning !== undefined)
+            ImageMagick._api._DrawingSettings_TextKerning_Set(this._instance, settings.textKerning);
+
         if (settings.textUnderColor !== undefined) {
             settings.textUnderColor._use(valuePtr => {
                 ImageMagick._api._DrawingSettings_TextUnderColor_Set(this._instance, valuePtr);

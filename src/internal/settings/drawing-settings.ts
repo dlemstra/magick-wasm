@@ -23,6 +23,8 @@ export class DrawingSettings {
 
     strokeWidth?: number;
 
+    textKerning?: number;
+
     textUnderColor?: IMagickColor;
 
     _use<TReturnType>(func: (settings: NativeDrawingSettings) => TReturnType): TReturnType {
