@@ -176,6 +176,16 @@ export class MagickSettings {
     textKerning?: number;
 
     /**
+     * Gets or sets the text undercolor box.
+     */
+    get textUnderColor(): IMagickColor | undefined {
+        return this._drawing.textUnderColor;
+    }
+    set textUnderColor(value: IMagickColor | undefined) {
+        this._drawing.textUnderColor = value;
+    }
+
+    /**
      * Returns the value of a format-specific option.
      * @param name The name of the option.
      */

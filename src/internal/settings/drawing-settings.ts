@@ -23,6 +23,8 @@ export class DrawingSettings {
 
     strokeWidth?: number;
 
+    textUnderColor?: IMagickColor;
+
     _use<TReturnType>(func: (settings: NativeDrawingSettings) => TReturnType): TReturnType {
         const settings = new NativeDrawingSettings(this);
         return Disposable._disposeAfterExecution(settings, func);
