@@ -2190,7 +2190,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     private constructor(instance: number, settings: MagickSettings) {
         super(instance, ImageMagick._api._MagickImage_Dispose);
         this._settings = settings;
-        this._settings._onArtifact = this.onSettingsArtifactChanged;
+        this._settings._onArtifact = this.onSettingsArtifactChanged.bind(this);
     }
 
     get animationDelay(): number {
