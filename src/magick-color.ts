@@ -150,6 +150,8 @@ export class MagickColor implements IMagickColor {
         this.b = ImageMagick._api._MagickColor_Blue_Get(instance);
         this.a = ImageMagick._api._MagickColor_Alpha_Get(instance);
         this.isCmyk = ImageMagick._api._MagickColor_IsCMYK_Get(instance) === 1;
+        if (this.isCmyk)
+            this.k = ImageMagick._api._MagickColor_Black_Get(instance);
     }
 
     private toHex(value: number) {
