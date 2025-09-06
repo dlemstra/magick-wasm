@@ -39,4 +39,19 @@ describe('DrawableTextUnderColor', () => {
             expect(image).toHavePixelWithColor(39, 50, '#ffffff');
         });
     });
+
+    it('should write text with text under color to the image', () => {
+        TestFiles.Images.empty150x150Canvas.use((image) => {
+            image.settings.textUnderColor = MagickColors.Pink;
+            image.draw([
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
+                new DrawableFontPointSize(80),
+                new DrawableText(0, 100, 'I'),
+            ]);
+
+            expect(image).toHavePixelWithColor(37, 50, '#ffc0cb');
+            expect(image).toHavePixelWithColor(38, 50, '#fffcfd');
+            expect(image).toHavePixelWithColor(39, 50, '#ffffff');
+        });
+    });
 });
