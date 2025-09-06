@@ -5,6 +5,7 @@
 
 import { Disposable } from '../internal/disposable';
 import { Exception } from '../internal/exception/exception';
+import { FillRule } from '../enums/fill-rule';
 import { Gravity } from '../enums/gravity';
 import { IDisposable } from '../disposable';
 import { IDrawable } from './drawable';
@@ -15,8 +16,8 @@ import { NativeInstance } from '../native-instance';
 import { PaintMethod } from '../enums/paint-method';
 import { TextAlignment } from '../enums/text-alignment';
 import { TextDecoration } from '../enums/text-decoration';
-import { _withString } from '../internal/native/string';
 import { TypeMetric } from '../types/type-metric';
+import { _withString } from '../internal/native/string';
 
 /**
  * Interface for drawing on an wand.
@@ -28,6 +29,7 @@ export interface IDrawingWand extends IDisposable {
     draw(drawables: IDrawable[]): void;
     fillColor(value: IMagickColor): void;
     fillOpacity(value: number): void;
+    fillRule(value: FillRule): void;
     font(family: string): void;
     fontPointSize(value: number): void;
     gravity(value: Gravity): void;
@@ -103,6 +105,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     fillOpacity(value: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_FillOpacity(this._instance, value, exception);
+        });
+    }
+
+    fillRule(value: FillRule): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_FillRule(this._instance, value, exception);
         });
     }
 

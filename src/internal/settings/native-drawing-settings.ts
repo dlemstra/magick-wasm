@@ -31,6 +31,9 @@ export class NativeDrawingSettings extends NativeInstance {
             });
         }
 
+        if (settings.fillRule !== undefined)
+            ImageMagick._api._DrawingSettings_FillRule_Set(this._instance, settings.fillRule);
+
         if (settings.font !== undefined) {
             const fileName = Magick._getFontFileName(settings.font);
 

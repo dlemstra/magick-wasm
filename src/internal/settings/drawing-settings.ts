@@ -4,6 +4,7 @@
 */
 
 import { Disposable } from '../disposable';
+import { FillRule } from '../../enums/fill-rule';
 import { IMagickColor } from '../../magick-color';
 import { NativeDrawingSettings } from './native-drawing-settings';
 
@@ -14,6 +15,8 @@ export class DrawingSettings {
     backgroundColor?: IMagickColor;
 
     fillColor?: IMagickColor;
+
+    fillRule?: FillRule;
 
     font?: string;
 

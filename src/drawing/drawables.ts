@@ -5,6 +5,7 @@
 
 import { DrawableFillColor } from "./drawable-fill-color";
 import { DrawableFillOpacity } from "./drawable-fill-opacity";
+import { DrawableFillRule } from "./drawable-fill-rule";
 import { DrawableFont } from "./drawable-font";
 import { DrawableFontPointSize } from "./drawable-font-point-size";
 import { DrawableGravity } from "./drawable-gravity";
@@ -24,6 +25,7 @@ import { DrawableTextInterwordSpacing } from "./drawable-text-interword-spacing"
 import { DrawableTextKerning } from "./drawable-text-kerning";
 import { DrawableTextUnderColor } from "./drawable-text-under-color";
 import { DrawingWand } from "./drawing-wand";
+import { FillRule } from "../enums/fill-rule";
 import { Gravity } from "../enums/gravity";
 import { IDrawable } from "./drawable";
 import { IMagickImage, MagickImage } from "../magick-image";
@@ -69,6 +71,11 @@ export class Drawables {
      */
     fillOpacity(opacity: Percentage): Drawables {
         this._drawables.push(new DrawableFillOpacity(opacity));
+        return this;
+    }
+
+    fillRule(value: FillRule): Drawables {
+        this._drawables.push(new DrawableFillRule(value));
         return this;
     }
 

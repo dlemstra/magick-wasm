@@ -8,14 +8,15 @@ import { ColorType } from '../enums/color-type';
 import { CompressionMethod } from '../enums/compression-method';
 import { Density } from '../types/density';
 import { Disposable } from '../internal/disposable';
+import { DrawingSettings } from '../internal/settings/drawing-settings';
 import { Endian } from '../enums/endian';
+import { FillRule } from '../enums/fill-rule';
 import { IDefines } from '../defines/defines';
 import { Interlace } from '../enums/interlace';
 import { IMagickColor } from '../magick-color';
 import { IMagickGeometry } from '../types/magick-geometry';
 import { MagickFormat } from '../enums/magick-format';
 import { NativeMagickSettings } from './native-magick-settings';
-import { DrawingSettings } from '../internal/settings/drawing-settings';
 
 /**
  * Class that contains various settings.
@@ -107,6 +108,16 @@ export class MagickSettings {
     set fillColor(value: IMagickColor | undefined) {
         this.setDefineAndArtifact('fill', value?.toString());
         this._drawing.fillColor = value;
+    }
+
+    /**
+     * Gets or sets the rule to use when filling drawn objects.
+     */
+    get fillRule(): FillRule {
+        return this._drawing.fillRule ?? FillRule.Undefined;
+    }
+    set fillRule(value: FillRule) {
+        this._drawing.fillRule = value;
     }
 
     /**
