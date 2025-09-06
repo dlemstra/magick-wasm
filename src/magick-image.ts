@@ -1474,6 +1474,26 @@ export interface IMagickImage extends IDisposable {
     inverseContrast(): void;
 
     /**
+     * Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
+     * alpha value using method.
+     * @param color The color to use.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     * @param target The target color.
+     */
+    inverseFloodFill(color: IMagickColor, x: number, y: number, target: IMagickColor): void;
+
+    /**
+     * Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
+     * alpha value using method.
+     * @param image The image to use.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     * @param target The target color.
+     */
+    inverseFloodFill(image: IMagickImage, x: number, y: number, target: IMagickColor): void;
+
+    /**
      * Applies the reversed level operation to just the specific channels specified. It compresses
      * the full range of color values, so that they lie between the given black and white points.
      * @param blackPoint The darkest color in the image. Colors darker are set to zero.
@@ -3321,8 +3341,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     floodFill(color: IMagickColor, x: number, y: number, target: IMagickColor): void;
     floodFill(image: IMagickImage, x: number, y: number): void;
     floodFill(image: IMagickImage, x: number, y: number, target: IMagickColor): void;
-    floodFill(alphaOrColorOrImage: number | IMagickColor | IMagickImage, x: number, y: number, targetModeOrUndefined?: IMagickColor): void {
-        this.floodFillPrivate(alphaOrColorOrImage, x, y, targetModeOrUndefined, false);
+    floodFill(alphaOrColorOrImage: number | IMagickColor | IMagickImage, x: number, y: number, targetOrUndefined?: IMagickColor): void {
+        this.floodFillPrivate(alphaOrColorOrImage, x, y, targetOrUndefined, false);
     }
 
     flop(): void {
@@ -3469,6 +3489,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     inverseContrast = () => this._contrast(false);
+
+    inverseFloodFill(color: IMagickColor, x: number, y: number, target: IMagickColor): void;
+    inverseFloodFill(image: IMagickImage, x: number, y: number, target: IMagickColor): void;
+    inverseFloodFill(colorOrImage: IMagickColor | IMagickImage, x: number, y: number, target: IMagickColor): void {
+        this.floodFillPrivate(colorOrImage, x, y, target, true);
+    }
 
     inverseLevel(blackPoint: Percentage, whitePoint: Percentage): void;
     inverseLevel(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
