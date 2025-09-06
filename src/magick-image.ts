@@ -1307,6 +1307,53 @@ export interface IMagickImage extends IDisposable {
     flop(): void;
 
     /**
+     * Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
+     * alpha value using method.
+     * @param alpha The alpha to use.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     */
+    floodFill(alpha: number, x: number, y: number): void;
+
+    /**
+     * Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
+     * alpha value using method.
+     * @param color The color to use.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     */
+    floodFill(color: IMagickColor, x: number, y: number): void;
+
+    /**
+     * Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
+     * alpha value using method.
+     * @param color The color to use.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     * @param target The target color.
+     */
+    floodFill(color: IMagickColor, x: number, y: number, target: IMagickColor): void;
+
+    /**
+     * Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
+     * alpha value using method.
+     * @param image The image to use.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     */
+    floodFill(image: IMagickImage, x: number, y: number): void;
+
+    /**
+     * Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
+     * alpha value using method.
+     * @param image The image to use.
+     * @param x The X coordinate.
+     * @param y The Y coordinate.
+     * @param target The target color.
+     */
+    floodFill(image: IMagickImage, x: number, y: number, target: IMagickColor): void;
+
+    /**
      * Formats the specified expression (more info can be found here: https://imagemagick.org/script/escape.php).
      * @param expression The expression.
      */
@@ -3269,6 +3316,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    floodFill(alpha: number, x: number, y: number): void;
+    floodFill(color: IMagickColor, x: number, y: number): void;
+    floodFill(color: IMagickColor, x: number, y: number, target: IMagickColor): void;
+    floodFill(image: IMagickImage, x: number, y: number): void;
+    floodFill(image: IMagickImage, x: number, y: number, target: IMagickColor): void;
+    floodFill(alphaOrColorOrImage: number | IMagickColor | IMagickImage, x: number, y: number, targetModeOrUndefined?: IMagickColor): void {
+        this.floodFillPrivate(alphaOrColorOrImage, x, y, targetModeOrUndefined, false);
+    }
+
     flop(): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Flop(this._instance, exception.ptr);
@@ -4070,6 +4126,42 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     private _contrast(enhance: boolean) {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Contrast(this._instance, this.fromBool(enhance), exception);
+        });
+    }
+
+    private floodFillPrivate(alphaOrColorOrImage: number | IMagickColor | IMagickImage, x: number, y: number, targetModeOrUndefined: IMagickColor | undefined, invert: boolean): void {
+        let target = targetModeOrUndefined;
+        if (target === undefined) {
+            this.getPixels(pixels => {
+                const targetColor = pixels.getColor(x, y);
+                if (targetColor !== null)
+                    target = targetColor;
+            });
+        }
+
+        if (typeof alphaOrColorOrImage === 'number') {
+            if (target !== undefined)
+                target.a = alphaOrColorOrImage;
+        }
+
+        this.settings._drawing._use(nativeSettings => {
+            if (alphaOrColorOrImage instanceof MagickColor) {
+                nativeSettings.setFillColor(alphaOrColorOrImage);
+                nativeSettings.setFillPattern();
+            } else if (alphaOrColorOrImage instanceof MagickImage) {
+                nativeSettings.setFillColor();
+                nativeSettings.setFillPattern(alphaOrColorOrImage);
+            }
+
+            this.useExceptionPointer(exception => {
+                if (target !== undefined) {
+                    target._use(targetPtr => {
+                        ImageMagick._api._MagickImage_FloodFill(this._instance, nativeSettings._instance, x, y, targetPtr, this.fromBool(invert), exception);
+                    });
+                } else {
+                    ImageMagick._api._MagickImage_FloodFill(this._instance, nativeSettings._instance, x, y, 0, this.fromBool(invert), exception);
+                }
+            });
         });
     }
 
