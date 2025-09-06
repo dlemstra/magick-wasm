@@ -16,12 +16,10 @@ describe('DrawableRectangle', () => {
                 new DrawableRectangle(1, 1, 3, 2),
             ]);
 
-            // Check a corner
             expect(image).toHavePixelWithColor(0, 0, '#ffffff');
             expect(image).toHavePixelWithColor(0, 3, '#ffffff');
             expect(image).toHavePixelWithColor(3, 0, '#ffffff');
 
-            // Check the inside
             expect(image).toHavePixelWithColor(1, 1, '#008000');
             expect(image).toHavePixelWithColor(3, 2, '#008000');
         });
