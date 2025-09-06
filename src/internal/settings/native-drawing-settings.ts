@@ -4,7 +4,10 @@
 */
 
 import { DrawingSettings } from './drawing-settings';
+import { Exception } from '../exception/exception';
 import { ImageMagick } from '../../image-magick';
+import { IMagickColor } from '../../magick-color';
+import { IMagickImage } from '../../magick-image';
 import { Magick } from '../../magick';
 import { NativeInstance } from '../../native-instance';
 import { _withString } from '../native/string';
@@ -56,5 +59,24 @@ export class NativeDrawingSettings extends NativeInstance {
                 ImageMagick._api._DrawingSettings_TextUnderColor_Set(this._instance, valuePtr);
             });
         }
+    }
+
+    setFillColor(color?: IMagickColor) {
+        if (color !== undefined) {
+            color._use(valuePtr => {
+                ImageMagick._api._DrawingSettings_FillColor_Set(this._instance, valuePtr);
+            });
+        } else {
+            ImageMagick._api._DrawingSettings_FillColor_Set(this._instance, 0);
+        }
+    }
+
+    setFillPattern(image?: IMagickImage) {
+        Exception.usePointer(exception => {
+            if (image !== undefined)
+                ImageMagick._api._DrawingSettings_SetFillPattern(this._instance, image._instance, exception);
+            else
+                ImageMagick._api._DrawingSettings_SetFillPattern(this._instance, 0, exception);
+        });
     }
 }
