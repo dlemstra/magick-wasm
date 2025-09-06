@@ -4,7 +4,9 @@
 */
 
 import { PathLineToAbs } from '@src/drawing/paths/path-line-to-abs';
+import { PathLineToRel } from '@src/drawing/paths/path-line-to-rel';
 import { PathMoveToAbs } from '@src/drawing/paths/path-move-to-abs';
+import { PathMoveToRel } from '@src/drawing/paths/path-move-to-rel';
 import { DrawableFillRule } from '@src/drawing/drawable-fill-rule';
 import { MagickColors } from '@src/magick-colors';
 import { TestFiles } from '@test/test-files';
@@ -12,7 +14,6 @@ import { DrawablePath } from '@src/drawing/drawable-path';
 import { FillRule } from '@src/enums/fill-rule';
 import { DrawableFillColor } from '@src/drawing/drawable-fill-color';
 import { DrawableStrokeColor } from '@src/drawing/drawable-stroke-color';
-import { saveImage } from '@test/save-image';
 
 describe('DrawableFillRule', () => {
     it('should use the even odd fill rule when drawing', () => {
@@ -23,10 +24,10 @@ describe('DrawableFillRule', () => {
                 new PathLineToAbs(140, 100),
                 new PathLineToAbs(40, 10),
 
-                new PathMoveToAbs(40, 80),
-                new PathLineToAbs(100, 20),
-                new PathLineToAbs(140, 80),
-                new PathLineToAbs(40, 80),
+                new PathMoveToRel(0, 70), // (40, 80)
+                new PathLineToRel(60, -60), // (100, 20)
+                new PathLineToRel(40, 60), // (140, 80)
+                new PathLineToRel(-100, 0), // (40, 80)
             ];
 
             image.draw([
@@ -48,10 +49,10 @@ describe('DrawableFillRule', () => {
                 new PathLineToAbs(140, 100),
                 new PathLineToAbs(40, 10),
 
-                new PathMoveToAbs(40, 80),
-                new PathLineToAbs(100, 20),
-                new PathLineToAbs(140, 80),
-                new PathLineToAbs(40, 80),
+                new PathMoveToRel(0, 70),
+                new PathLineToRel(60, -60),
+                new PathLineToRel(40, 60),
+                new PathLineToRel(-100, 0),
             ];
 
             image.settings.fillRule = FillRule.EvenOdd;
@@ -73,10 +74,10 @@ describe('DrawableFillRule', () => {
                 new PathLineToAbs(140, 100),
                 new PathLineToAbs(40, 10),
 
-                new PathMoveToAbs(40, 80),
-                new PathLineToAbs(100, 20),
-                new PathLineToAbs(140, 80),
-                new PathLineToAbs(40, 80),
+                new PathMoveToRel(0, 70),
+                new PathLineToRel(60, -60),
+                new PathLineToRel(40, 60),
+                new PathLineToRel(-100, 0),
             ];
 
             image.draw([
@@ -85,8 +86,6 @@ describe('DrawableFillRule', () => {
                 new DrawableFillRule(FillRule.NonZero),
                 new DrawablePath(paths)
             ]);
-
-            saveImage(image, 'i:/test.png');
 
             expect(image).toHavePixelWithColor(90, 60, MagickColors.White);
         });
@@ -100,10 +99,10 @@ describe('DrawableFillRule', () => {
                 new PathLineToAbs(140, 100),
                 new PathLineToAbs(40, 10),
 
-                new PathMoveToAbs(40, 80),
-                new PathLineToAbs(100, 20),
-                new PathLineToAbs(140, 80),
-                new PathLineToAbs(40, 80),
+                new PathMoveToRel(0, 70),
+                new PathLineToRel(60, -60),
+                new PathLineToRel(40, 60),
+                new PathLineToRel(-100, 0),
             ];
 
             image.settings.fillRule = FillRule.NonZero;
