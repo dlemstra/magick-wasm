@@ -33,6 +33,8 @@ export interface IDrawingWand extends IDisposable {
     gravity(value: Gravity): void;
     line(startX: number, startY: number, endX: number, endY: number): void;
     pathFinish(): void;
+    pathLineToAbs(x: number, y: number): void;
+    pathLineToRel(x: number, y: number): void;
     pathMoveToAbs(x: number, y: number): void;
     pathMoveToRel(x: number, y: number): void;
     pathStart(): void;
@@ -143,6 +145,18 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     pathFinish(): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_PathFinish(this._instance, exception);
+        });
+    }
+
+    pathLineToAbs(x: number, y: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_PathLineToAbs(this._instance, x, y, exception);
+        });
+    }
+
+    pathLineToRel(x: number, y: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_PathLineToRel(this._instance, x, y, exception);
         });
     }
 
