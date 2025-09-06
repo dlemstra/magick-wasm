@@ -9,6 +9,7 @@ import { DrawableFont } from "./drawable-font";
 import { DrawableFontPointSize } from "./drawable-font-point-size";
 import { DrawableGravity } from "./drawable-gravity";
 import { DrawableLine } from "./drawable-line";
+import { DrawablePath } from "./drawable-path";
 import { DrawablePoint } from "./drawable-point";
 import { DrawableRectangle } from "./drawable-rectangle";
 import { DrawableRoundRectangle } from "./drawable-round-rectangle";
@@ -27,6 +28,7 @@ import { Gravity } from "../enums/gravity";
 import { IDrawable } from "./drawable";
 import { IMagickImage, MagickImage } from "../magick-image";
 import { IMagickColor } from "../magick-color";
+import { IPath } from "./path";
 import { MagickColors } from "../magick-colors";
 import { Percentage } from "../types/percentage";
 import { TextAlignment } from "../enums/text-alignment";
@@ -121,6 +123,15 @@ export class Drawables {
      */
     line(startX: number, startY: number, endX: number, endY: number): Drawables {
         this._drawables.push(new DrawableLine(startX, startY, endX, endY));
+        return this;
+    }
+
+    /**
+     * Draws a set of paths.
+     * @param paths The paths to draw.
+     */
+    path(paths: IPath[]): Drawables {
+        this._drawables.push(new DrawablePath(paths));
         return this;
     }
 
