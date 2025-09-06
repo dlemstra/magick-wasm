@@ -132,7 +132,12 @@ export class MagickColor implements IMagickColor {
             ImageMagick._api._MagickColor_Green_Set(instance, this.g);
             ImageMagick._api._MagickColor_Blue_Set(instance, this.b);
             ImageMagick._api._MagickColor_Alpha_Set(instance, this.a);
-            ImageMagick._api._MagickColor_IsCMYK_Set(instance, this.isCmyk ? 1 : 0);
+            if (this.isCmyk) {
+                ImageMagick._api._MagickColor_Black_Set(instance, this.k);
+                ImageMagick._api._MagickColor_IsCMYK_Set(instance, 1);
+            } else {
+                ImageMagick._api._MagickColor_IsCMYK_Set(instance, 0);
+            }
             func(instance);
         } finally {
             ImageMagick._api._free(instance);
