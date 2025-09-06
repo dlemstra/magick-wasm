@@ -38,6 +38,8 @@ export * from './drawing/drawable';
 export * from './drawing/drawables';
 export * from './drawing/drawing-wand';
 export * from './drawing/path';
+export * from './drawing/paths/path-move-to-abs';
+export * from './drawing/paths/path-move-to-rel';
 export * from './enums/alpha-action';
 export * from './enums/auto-threshold-method';
 export * from './enums/channels';
