@@ -140,7 +140,7 @@ export class MagickColor implements IMagickColor {
             }
             func(instance);
         } finally {
-            ImageMagick._api._free(instance);
+            ImageMagick._api._MagickColor_Dispose(instance);
         }
     }
 
