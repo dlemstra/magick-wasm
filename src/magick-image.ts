@@ -3103,7 +3103,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return connectedComponents;
     }
 
-    contrast = () => this._contrast(true);
+    contrast = () => this.contrastPrivate(true);
 
     contrastStretch(blackPoint: Percentage): void;
     contrastStretch(blackPoint: Percentage, channnels: Channels): void;
@@ -3414,7 +3414,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const names = ['icc', 'icm'];
 
         for (const name of names) {
-            const data = this._getProfile(name);
+            const data = this.getProfilePrivate(name);
             if (data !== null) {
                 return new ColorProfile(data);
             }
@@ -3433,7 +3433,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     getProfile(name: string): IImageProfile | null {
-        const data = this._getProfile(name);
+        const data = this.getProfilePrivate(name);
         if (data === null)
             return null;
 
@@ -3488,7 +3488,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return result;
     }
 
-    inverseContrast = () => this._contrast(false);
+    inverseContrast = () => this.contrastPrivate(false);
 
     inverseFloodFill(color: IMagickColor, x: number, y: number, target: IMagickColor): void;
     inverseFloodFill(image: IMagickImage, x: number, y: number, target: IMagickColor): void;
@@ -3507,17 +3507,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    inverseOpaque = (target: IMagickColor, fill: IMagickColor) => this._opaque(target, fill, true);
+    inverseOpaque = (target: IMagickColor, fill: IMagickColor) => this.opaquePrivate(target, fill, true);
 
     inverseSigmoidalContrast(contrast: number): void;
     inverseSigmoidalContrast(contrast: number, midpoint: Percentage): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number): void;
     inverseSigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     inverseSigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
-        this._sigmoidalContrast(false, contrast, midpointOrPercentage, channelsOrUndefined)
+        this.sigmoidalContrastPrivate(false, contrast, midpointOrPercentage, channelsOrUndefined)
     }
 
-    inverseTransparent = (color: IMagickColor) => this._transparent(color, true);
+    inverseTransparent = (color: IMagickColor) => this.transparentPrivate(color, true);
 
     level(blackPoint: Percentage, whitePoint: Percentage): void;
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
@@ -3611,7 +3611,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    opaque = (target: IMagickColor, fill: IMagickColor) => this._opaque(target, fill, false);
+    opaque = (target: IMagickColor, fill: IMagickColor) => this.opaquePrivate(target, fill, false);
 
     ping(fileName: string, settings?: MagickReadSettings): void;
     ping(array: ByteArray, settings?: MagickReadSettings): void;
@@ -3851,7 +3851,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     sigmoidalContrast(contrast: number, midpoint: number): void;
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     sigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
-        this._sigmoidalContrast(true, contrast, midpointOrPercentage, channelsOrUndefined)
+        this.sigmoidalContrastPrivate(true, contrast, midpointOrPercentage, channelsOrUndefined)
     }
 
     solarize(): void
@@ -4149,10 +4149,21 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.disposeProgressDelegate();
     }
 
-    private _contrast(enhance: boolean) {
+    private contrastPrivate(enhance: boolean) {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Contrast(this._instance, this.fromBool(enhance), exception);
         });
+    }
+
+    private static createInstance(): number {
+        return Exception.usePointer(exception => {
+            return ImageMagick._api._MagickImage_Create(0, exception);
+        });
+    }
+
+    private disposeProgressDelegate(): void {
+        DelegateRegistry.removeProgressDelegate(this);
+        this._progress = undefined;
     }
 
     private floodFillPrivate(alphaOrColorOrImage: number | IMagickColor | IMagickImage, x: number, y: number, targetModeOrUndefined: IMagickColor | undefined, invert: boolean): void {
@@ -4191,7 +4202,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    private _getProfile(name: string): Uint8Array | null {
+    private fromBool(value: boolean): number {
+        return value ? 1 : 0;
+    }
+
+    private getProfilePrivate(name: string): Uint8Array | null {
         return _withString(name, namePtr => {
             const value = ImageMagick._api._MagickImage_GetProfile(this._instance, namePtr);
             const data = StringInfo.toArray(value);
@@ -4202,7 +4217,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    private _opaque(target: IMagickColor, fill: IMagickColor, invert: boolean) {
+    private onSettingsArtifactChanged(name: string, value: string | undefined): void {
+        if (value === undefined)
+            this.removeArtifact(name);
+        else
+            this.setArtifact(name, value);
+    }
+
+    private opaquePrivate(target: IMagickColor, fill: IMagickColor, invert: boolean) {
         this.useExceptionPointer(exception => {
             target._use(targetPtr => {
                 fill._use(filltPtr => {
@@ -4210,52 +4232,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 });
             });
         });
-    }
-
-    private _sigmoidalContrast(sharpen: boolean, contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
-        let midpoint: number;
-        if (midpointOrPercentage !== undefined) {
-            if (typeof midpointOrPercentage === 'number')
-                midpoint = midpointOrPercentage;
-            else
-                midpoint = midpointOrPercentage.multiply(Quantum.max);
-        } else {
-            midpoint = Quantum.max * 0.5;
-        }
-        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-        this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, this.fromBool(sharpen), contrast, midpoint, channels, exception);
-        });
-    }
-
-    private _transparent(color: IMagickColor, invert: boolean) {
-        color._use(valuePtr => {
-            this.useExceptionPointer(exception => {
-                ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, this.fromBool(invert), exception);
-            });
-        });
-    }
-
-    private static createInstance(): number {
-        return Exception.usePointer(exception => {
-            return ImageMagick._api._MagickImage_Create(0, exception);
-        });
-    }
-
-    private fromBool(value: boolean): number {
-        return value ? 1 : 0;
-    }
-
-    private disposeProgressDelegate(): void {
-        DelegateRegistry.removeProgressDelegate(this);
-        this._progress = undefined;
-    }
-
-    private onSettingsArtifactChanged(name: string, value: string | undefined): void {
-        if (value === undefined)
-            this.removeArtifact(name);
-        else
-            this.setArtifact(name, value);
     }
 
     private readOrPing(ping: boolean, fileNameOrArrayOrColor: string | ByteArray | IMagickColor, settingsOrWidthOrUndefined?: MagickReadSettings | number, heightOrUndefined?: number): void {
@@ -4293,8 +4269,32 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    private sigmoidalContrastPrivate(sharpen: boolean, contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
+        let midpoint: number;
+        if (midpointOrPercentage !== undefined) {
+            if (typeof midpointOrPercentage === 'number')
+                midpoint = midpointOrPercentage;
+            else
+                midpoint = midpointOrPercentage.multiply(Quantum.max);
+        } else {
+            midpoint = Quantum.max * 0.5;
+        }
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, this.fromBool(sharpen), contrast, midpoint, channels, exception);
+        });
+    }
+
     private toBool(value: number): boolean {
         return value === 1;
+    }
+
+    private transparentPrivate(color: IMagickColor, invert: boolean) {
+        color._use(valuePtr => {
+            this.useExceptionPointer(exception => {
+                ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, this.fromBool(invert), exception);
+            });
+        });
     }
 
     private valueOrDefault<TType>(value: TType | undefined, defaultValue: TType): TType {
