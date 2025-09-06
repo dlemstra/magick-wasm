@@ -23,6 +23,7 @@ import { TypeMetric } from '../types/type-metric';
  */
 export interface IDrawingWand extends IDisposable {
     affine(scaleX: number, scaleY: number, shearX: number, shearY: number, translateX: number, translateY: number): void;
+    borderColor(value: IMagickColor): void;
     color(x: number, y: number, paintMethod: number): void;
     draw(drawables: IDrawable[]): void;
     fillColor(value: IMagickColor): void;
@@ -58,6 +59,14 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     affine(scaleX: number, scaleY: number, shearX: number, shearY: number, translateX: number, translateY: number): void {
         Exception.usePointer(exception => {
             ImageMagick._api._DrawingWand_Affine(this._instance, scaleX, scaleY, shearX, shearY, translateX, translateY, exception);
+        });
+    }
+
+    borderColor(value: IMagickColor): void {
+        Exception.usePointer(exception => {
+            value._use(valuePtr => {
+                ImageMagick._api._DrawingWand_BorderColor(this._instance, valuePtr, exception);
+            });
         });
     }
 
