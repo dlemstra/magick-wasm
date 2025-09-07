@@ -5,11 +5,14 @@
 
 import { Disposable } from '../disposable';
 import { FillRule } from '../../enums/fill-rule';
+import { IDrawableAffine } from '../../drawing/drawable-affine';
 import { IMagickColor } from '../../magick-color';
 import { NativeDrawingSettings } from './native-drawing-settings';
 
 /** @internal */
 export class DrawingSettings {
+    affine?: IDrawableAffine;
+
     borderColor?: IMagickColor;
 
     backgroundColor?: IMagickColor;

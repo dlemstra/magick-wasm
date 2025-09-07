@@ -12,6 +12,7 @@ import { DrawingSettings } from '../internal/settings/drawing-settings';
 import { Endian } from '../enums/endian';
 import { FillRule } from '../enums/fill-rule';
 import { IDefines } from '../defines/defines';
+import { IDrawableAffine } from '../drawing/drawable-affine';
 import { Interlace } from '../enums/interlace';
 import { IMagickColor } from '../magick-color';
 import { IMagickGeometry } from '../types/magick-geometry';
@@ -42,6 +43,16 @@ export class MagickSettings {
 
     /** @internal */
     _quality?: number;
+
+    /**
+     * Gets or sets the affine to use when annotating with text or drawing.
+     */
+    get affine(): IDrawableAffine | undefined {
+        return this._drawing.affine;
+    }
+    set affine(value: IDrawableAffine | undefined) {
+        this._drawing.affine = value;
+    }
 
     /**
      * Gets or sets a value indicating whether anti-aliasing should be enabled (default true).

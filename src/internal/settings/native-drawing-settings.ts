@@ -19,6 +19,11 @@ export class NativeDrawingSettings extends NativeInstance {
         const disposeMethod = ImageMagick._api._DrawingSettings_Dispose;
         super(instance, disposeMethod);
 
+        const affine = settings.affine;
+        if (affine !== undefined) {
+            ImageMagick._api._DrawingSettings_SetAffine(this._instance, affine.scaleX, affine.scaleY, affine.shearX, affine.shearY, affine.translateX, affine.translateY);
+        }
+
         if (settings.borderColor !== undefined) {
             settings.borderColor._use(valuePtr => {
                 ImageMagick._api._DrawingSettings_BorderColor_Set(this._instance, valuePtr);
