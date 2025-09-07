@@ -3,6 +3,7 @@
   Licensed under the Apache License, Version 2.0.
 */
 
+import { DrawableAffine } from "./drawable-affine";
 import { DrawableFillColor } from "./drawable-fill-color";
 import { DrawableFillOpacity } from "./drawable-fill-opacity";
 import { DrawableFillRule } from "./drawable-fill-rule";
@@ -41,10 +42,27 @@ export class Drawables {
     private _drawables: IDrawable[] = [];
 
     /**
+     * Adds a {@link DrawableAffine} to the drawables.
+     */
+    affine(scaleX: number = 1, scaleY: number = 1, shearX: number = 0, shearY: number = 0, translateX: number = 0, translateY: number = 0) {
+        this._drawables.push(new DrawableAffine(scaleX, scaleY, shearX, shearY, translateX, translateY));
+        return this;
+    }
+
+    /**
      * Adds {@link DrawableTextAntialias.enabled} to the drawables.
      */
     disableStrokeAntialias(): Drawables {
         this._drawables.push(DrawableTextAntialias.disabled);
+        return this;
+    }
+
+    /**
+     * Draw on the specified image.
+     * @param image The image to draw on.
+     */
+    draw(image: IMagickImage): Drawables {
+        image.draw(this._drawables);
         return this;
     }
 
@@ -258,15 +276,6 @@ export class Drawables {
      */
     textUnderColor(color: IMagickColor): Drawables {
         this._drawables.push(new DrawableTextUnderColor(color));
-        return this;
-    }
-
-    /**
-     * Draw on the specified image.
-     * @param image The image to draw on.
-     */
-    draw(image: IMagickImage): Drawables {
-        image.draw(this._drawables);
         return this;
     }
 }
