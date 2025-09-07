@@ -16,7 +16,7 @@ describe('Drawables#strokeColor', () => {
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableStrokeColor);
 
-        const drawableFillColor = drawable as DrawableStrokeColor;
-        expect(drawableFillColor.color).toStrictEqual(MagickColors.Purple);
+        const drawableStrokeColor = drawable as DrawableStrokeColor;
+        expect(drawableStrokeColor.color).toStrictEqual(MagickColors.Purple);
     });
 });
