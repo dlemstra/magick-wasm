@@ -7,10 +7,10 @@ import { DrawableTextAntialias } from '@src/drawing/drawable-text-antialias';
 import { Drawables } from '@src/drawing/drawables';
 import { IDrawable } from '@src/drawing/drawable';
 
-describe('Drawables#enableStrokeAntialias', () => {
+describe('Drawables#enableTextAntialias', () => {
     it('should add the drawable', () => {
         const drawables = new Drawables()
-            .enableStrokeAntialias();
+            .enableTextAntialias();
 
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableTextAntialias);

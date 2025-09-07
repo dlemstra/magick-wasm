@@ -75,7 +75,7 @@ export class Drawables {
     /**
      * Adds {@link DrawableTextAntialias.enabled} to the drawables.
      */
-    disableStrokeAntialias(): Drawables {
+    disableTextAntialias(): Drawables {
         this._drawables.push(DrawableTextAntialias.disabled);
         return this;
     }
@@ -92,7 +92,7 @@ export class Drawables {
     /**
      * Adds {@link DrawableTextAntialias.enabled} to the drawables.
      */
-    enableStrokeAntialias(): Drawables {
+    enableTextAntialias(): Drawables {
         this._drawables.push(DrawableTextAntialias.enabled);
         return this;
     }
