@@ -23,6 +23,16 @@ export class DrawablePoint implements IDrawable {
         this._y = y;
     }
 
+    /**
+     * Gets the X coordinate.
+     */
+    get x(): number { return this._x; }
+
+    /**
+     * Gets the Y coordinate.
+     */
+    get y(): number { return this._y; }
+
     draw(wand: IDrawingWand): void {
         wand.point(this._x, this._y);
     }
