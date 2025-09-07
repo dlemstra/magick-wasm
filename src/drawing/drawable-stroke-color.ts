@@ -21,6 +21,11 @@ export class DrawableStrokeColor implements IDrawable {
         this._color = color;
     }
 
+    /**
+     * Gets the color to use.
+     */
+    get color(): IMagickColor { return this._color; }
+
     draw(wand: IDrawingWand): void {
         wand.strokeColor(this._color);
     }
