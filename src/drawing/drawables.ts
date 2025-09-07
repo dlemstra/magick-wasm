@@ -5,6 +5,7 @@
 
 import { DrawableAffine } from "./drawable-affine";
 import { DrawableBorderColor } from "./drawable-border-color";
+import { DrawableColor } from "./drawable-color";
 import { DrawableFillColor } from "./drawable-fill-color";
 import { DrawableFillOpacity } from "./drawable-fill-opacity";
 import { DrawableFillRule } from "./drawable-fill-rule";
@@ -34,6 +35,7 @@ import { IMagickImage, MagickImage } from "../magick-image";
 import { IMagickColor } from "../magick-color";
 import { IPath } from "./path";
 import { MagickColors } from "../magick-colors";
+import { PaintMethod } from "../enums/paint-method";
 import { Percentage } from "../types/percentage";
 import { TextAlignment } from "../enums/text-alignment";
 import { TextDecoration } from "../enums/text-decoration";
@@ -53,6 +55,11 @@ export class Drawables {
      */
     affine(scaleX: number = 1, scaleY: number = 1, shearX: number = 0, shearY: number = 0, translateX: number = 0, translateY: number = 0) {
         this._drawables.push(new DrawableAffine(scaleX, scaleY, shearX, shearY, translateX, translateY));
+        return this;
+    }
+
+    color(x: number, y: number, paintMethod: PaintMethod): Drawables {
+        this._drawables.push(new DrawableColor(x, y, paintMethod));
         return this;
     }
 

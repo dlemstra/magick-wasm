@@ -28,6 +28,21 @@ export class DrawableColor implements IDrawable {
         this._paintMethod = paintMethod;
     }
 
+    /**
+     * Gets the X coordinate.
+     */
+    get x(): number { return this._x; }
+
+    /**
+     * Gets the Y coordinate.
+     */
+    get y(): number { return this._y; }
+
+    /**
+     * Gets the paint method to use.
+     */
+    get paintMethod(): PaintMethod { return this._paintMethod; }
+
     draw(wand: IDrawingWand): void {
         wand.color(this._x, this._y, this._paintMethod);
     }
