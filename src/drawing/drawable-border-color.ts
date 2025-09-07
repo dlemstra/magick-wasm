@@ -21,6 +21,11 @@ export class DrawableBorderColor implements IDrawable {
         this._color = color;
     }
 
+    /**
+     * Gets the color to use.
+     */
+    get color(): IMagickColor { return this._color; }
+
     draw(wand: IDrawingWand): void {
         wand.borderColor(this._color);
     }

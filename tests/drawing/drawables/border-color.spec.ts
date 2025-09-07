@@ -14,5 +14,8 @@ describe('Drawables#borderColor', () => {
 
         const drawable = (drawables as any)._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableBorderColor);
+
+        const drawableBorderColor = drawable as DrawableBorderColor;
+        expect(drawableBorderColor.color).toStrictEqual(MagickColors.Purple);
     });
 });
