@@ -11,6 +11,7 @@ import { IMagickImage } from '../../magick-image';
 import { Magick } from '../../magick';
 import { NativeInstance } from '../../native-instance';
 import { _withString } from '../native/string';
+import { _withDoubleArray } from '../native/array';
 
 /** @internal */
 export class NativeDrawingSettings extends NativeInstance {
@@ -53,6 +54,13 @@ export class NativeDrawingSettings extends NativeInstance {
         if (settings.strokeColor !== undefined) {
             settings.strokeColor._use(valuePtr => {
                 ImageMagick._api._DrawingSettings_StrokeColor_Set(this._instance, valuePtr);
+            });
+        }
+
+        const strokeDashArray = settings.strokeDashArray;
+        if (strokeDashArray !== undefined) {
+            _withDoubleArray(strokeDashArray, strokeDashArrayPtr => {
+                ImageMagick._api._DrawingSettings_SetStrokeDashArray(this._instance, strokeDashArrayPtr, strokeDashArray.length);
             });
         }
 

@@ -17,6 +17,7 @@ import { PaintMethod } from '../enums/paint-method';
 import { TextAlignment } from '../enums/text-alignment';
 import { TextDecoration } from '../enums/text-decoration';
 import { TypeMetric } from '../types/type-metric';
+import { _withDoubleArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
 
 /**
@@ -44,6 +45,7 @@ export interface IDrawingWand extends IDisposable {
     rectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number): void;
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
     strokeColor(value: IMagickColor): void;
+    strokeDashArray(value: number[]): void;
     strokeWidth(value: number): void
     text(x: number, y: number, value: string): void;
     textAlignment(value: TextAlignment): void;
@@ -208,6 +210,14 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
         Exception.usePointer(exception => {
             value._use(valuePtr => {
                 ImageMagick._api._DrawingWand_StrokeColor(this._instance, valuePtr, exception);
+            });
+        });
+    }
+
+    strokeDashArray(value: number[]): void {
+        Exception.usePointer(exception => {
+            _withDoubleArray(value, valuePtr => {
+                ImageMagick._api._DrawingWand_StrokeDashArray(this._instance, valuePtr, value.length, exception);
             });
         });
     }

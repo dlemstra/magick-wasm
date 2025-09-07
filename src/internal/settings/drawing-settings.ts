@@ -27,6 +27,8 @@ export class DrawingSettings {
 
     strokeColor?: IMagickColor;
 
+    strokeDashArray?: number[];
+
     strokeWidth?: number;
 
     textKerning?: number;

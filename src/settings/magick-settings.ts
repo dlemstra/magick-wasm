@@ -177,6 +177,19 @@ export class MagickSettings {
     }
 
     /**
+     * Gets or sets the pattern of dashes and gaps used to stroke paths. This represents a
+     * zero-terminated array of numbers that specify the lengths of alternating dashes and gaps
+     * in pixels. If a zero value is not found it will be added. If an odd number of values is
+     * provided, then the list of values is repeated to yield an even number of values.
+     */
+    get strokeDashArray(): number[] | undefined {
+        return this._drawing.strokeDashArray;
+    }
+    set strokeDashArray(value: number[] | undefined) {
+        this._drawing.strokeDashArray = value;
+    }
+
+    /**
      * Gets or sets the stroke width for drawing lines, circles, ellipses, etc.
      */
     get strokeWidth(): number | undefined {

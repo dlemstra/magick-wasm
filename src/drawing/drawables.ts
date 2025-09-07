@@ -18,6 +18,7 @@ import { DrawablePoint } from "./drawable-point";
 import { DrawableRectangle } from "./drawable-rectangle";
 import { DrawableRoundRectangle } from "./drawable-round-rectangle";
 import { DrawableStrokeColor } from "./drawable-stroke-color";
+import { DrawableStrokeDashArray } from "./drawable-stroke-dash-array";
 import { DrawableStrokeWidth } from "./drawable-stroke-width";
 import { DrawableText } from "./drawable-text";
 import { DrawableTextAlignment } from "./drawable-text-alignment";
@@ -232,6 +233,15 @@ export class Drawables {
      */
     strokeColor(color: IMagickColor): Drawables {
         this._drawables.push(new DrawableStrokeColor(color));
+        return this;
+    }
+
+    /**
+     * Adds a {@link DrawableStrokeDashArray} to the drawables.
+     * @param dash An array containing the dash information.
+     */
+    strokeDashArray(dash: number[]): Drawables {
+        this._drawables.push(new DrawableStrokeDashArray(dash));
         return this;
     }
 
