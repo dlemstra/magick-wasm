@@ -29,6 +29,26 @@ export class DrawableLine implements IDrawable {
         this._endY = endY;
     }
 
+    /**
+     * Gets the starting X coordinate.
+     */
+    get startX(): number { return this._startX; }
+
+    /**
+     * Gets the starting Y coordinate.
+     */
+    get startY(): number { return this._startY; }
+
+    /**
+     * Gets the ending X coordinate.
+     */
+    get endX(): number { return this._endX; }
+
+    /**
+     * Gets the ending Y coordinate.
+     */
+    get endY(): number { return this._endY; }
+
     draw(wand: IDrawingWand): void {
         wand.line(this._startX, this._startY, this._endX, this._endY);
     }
