@@ -19,18 +19,17 @@ export class DrawableTextAntialias implements IDrawable {
     /**
      * Initializes a new instance of the {@link DrawableTextAntialias} class with antialias disabled.
      */
-    static get disabled(): DrawableTextAntialias
-    {
-        return new DrawableTextAntialias(false);
-    }
+    static get disabled(): DrawableTextAntialias { return new DrawableTextAntialias(false); }
 
     /**
      * Initializes a new instance of the {@link DrawableTextAntialias} class with antialias enabled.
      */
-    static get enabled(): DrawableTextAntialias
-    {
-        return new DrawableTextAntialias(true);
-    }
+    static get enabled(): DrawableTextAntialias { return new DrawableTextAntialias(true); }
+
+    /**
+     * Gets a value indicating whether antialias is enabled.
+     */
+    get isEnabled(): boolean { return this._isEnabled; }
 
     draw(wand: IDrawingWand): void {
         wand.textAntialias(this._isEnabled);
