@@ -21,6 +21,11 @@ export class DrawableTextAlignment implements IDrawable {
         this._alignment = alignment;
     }
 
+    /**
+     * Gets the text alignment.
+     */
+    get alignment(): TextAlignment { return this._alignment; }
+
     draw(wand: IDrawingWand): void {
         wand.textAlignment(this._alignment);
     }
