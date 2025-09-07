@@ -20,6 +20,11 @@ export class DrawableFontPointSize implements IDrawable {
         this._pointSize = pointSize;
     }
 
+    /**
+     * Gets the point size.
+     */
+    get pointSize(): number { return this._pointSize; }
+
     draw(wand: IDrawingWand): void {
         wand.fontPointSize(this._pointSize);
     }
