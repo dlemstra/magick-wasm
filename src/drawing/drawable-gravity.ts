@@ -21,6 +21,11 @@ export class DrawableGravity implements IDrawable {
         this._gravity = gravity;
     }
 
+    /**
+     * Gets the gravity to use.
+     */
+    get gravity(): Gravity { return this._gravity; }
+
     draw(wand: IDrawingWand): void {
         wand.gravity(this._gravity);
     }
