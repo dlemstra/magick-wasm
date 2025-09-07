@@ -115,6 +115,10 @@ export class Drawables {
         return this;
     }
 
+    /**
+     * Adds a {@link DrawableFillRule} to the drawables.
+     * @param fillRule The rule to use when filling drawn objects.
+     */
     fillRule(value: FillRule): Drawables {
         this._drawables.push(new DrawableFillRule(value));
         return this;

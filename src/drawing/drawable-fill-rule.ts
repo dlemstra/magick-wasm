@@ -15,11 +15,16 @@ export class DrawableFillRule implements IDrawable {
 
     /**
      * Initializes a new instance of the {@link DrawableFillRule} class.
-     * @param opacity The opacity.
+     * @param fillRule The rule to use when filling drawn objects.
      */
     constructor(fillRule: FillRule) {
         this._fillRule = fillRule;
     }
+
+    /**
+     * Gets the rule to use when filling drawn objects.
+     */
+    get fillRule(): FillRule { return this._fillRule; }
 
     draw(wand: IDrawingWand): void {
         wand.fillRule(this._fillRule);
