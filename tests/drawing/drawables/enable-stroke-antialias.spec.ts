@@ -15,7 +15,7 @@ describe('Drawables#enableStrokeAntialias', () => {
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableTextAntialias);
 
-        const drawableColor = drawable as DrawableTextAntialias;
-        expect(drawableColor.isEnabled).toBe(true);
+        const drawableTextAntialias = drawable as DrawableTextAntialias;
+        expect(drawableTextAntialias.isEnabled).toBe(true);
     });
 });

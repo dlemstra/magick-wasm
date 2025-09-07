@@ -16,7 +16,7 @@ describe('Drawables#fillOpacity', () => {
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableFillOpacity);
 
-        const drawableFillColor = drawable as DrawableFillOpacity;
-        expect(drawableFillColor.opacity.toDouble()).toBe(42);
+        const drawableFillOpacity = drawable as DrawableFillOpacity;
+        expect(drawableFillOpacity.opacity.toDouble()).toBe(42);
     });
 });

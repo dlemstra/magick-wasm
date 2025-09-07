@@ -16,7 +16,7 @@ describe('Drawables#fillColor', () => {
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableFillRule);
 
-        const drawableFillColor = drawable as DrawableFillRule;
-        expect(drawableFillColor.fillRule).toBe(FillRule.EvenOdd);
+        const drawableFillRule = drawable as DrawableFillRule;
+        expect(drawableFillRule.fillRule).toBe(FillRule.EvenOdd);
     });
 });

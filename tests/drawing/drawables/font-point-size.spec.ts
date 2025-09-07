@@ -15,7 +15,7 @@ describe('Drawables#fontPointSize', () => {
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableFontPointSize);
 
-        const drawableFillColor = drawable as DrawableFontPointSize;
-        expect(drawableFillColor.pointSize).toBe(42);
+        const drawableFontPointSize = drawable as DrawableFontPointSize;
+        expect(drawableFontPointSize.pointSize).toBe(42);
     });
 });

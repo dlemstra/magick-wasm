@@ -15,7 +15,7 @@ describe('Drawables#font', () => {
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableFont);
 
-        const drawableFillColor = drawable as DrawableFont;
-        expect(drawableFillColor.font).toBe('foobar');
+        const drawableFont = drawable as DrawableFont;
+        expect(drawableFont.font).toBe('foobar');
     });
 });

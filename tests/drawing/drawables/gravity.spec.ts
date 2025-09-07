@@ -16,7 +16,7 @@ describe('Drawables#gravity', () => {
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableGravity);
 
-        const drawableFillColor = drawable as DrawableGravity;
-        expect(drawableFillColor.gravity).toBe(Gravity.Center);
+        const drawableGravity = drawable as DrawableGravity;
+        expect(drawableGravity.gravity).toBe(Gravity.Center);
     });
 });
