@@ -20,6 +20,11 @@ export class DrawableTextInterwordSpacing implements IDrawable {
         this._spacing = spacing;
     }
 
+    /**
+     * Gets the spacing to use.
+     */
+    get spacing(): number { return this._spacing; }
+
     draw(wand: IDrawingWand): void {
         wand.textInterwordspacing(this._spacing);
     }
