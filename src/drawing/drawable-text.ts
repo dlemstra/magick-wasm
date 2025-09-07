@@ -26,6 +26,21 @@ export class DrawableText implements IDrawable {
         this._value = value;
     }
 
+    /**
+     * Gets the X coordinate.
+     */
+    get x(): number { return this._x; }
+
+    /**
+     * Gets the Y coordinate.
+     */
+    get y(): number { return this._y; }
+
+    /**
+     * Gets the text to draw.
+     */
+    get value(): string { return this._value; }
+
     draw(wand: IDrawingWand): void {
         wand.text(this._x, this._y, this._value);
     }
