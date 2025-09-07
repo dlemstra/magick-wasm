@@ -21,6 +21,11 @@ export class DrawableFont implements IDrawable {
         this._font = font;
     }
 
+    /**
+     * Gets the name of the font that was registered.
+     */
+    get font(): string { return this._font; }
+
     draw(wand: IDrawingWand): void {
         const fileName = Magick._getFontFileName(this._font);
 
