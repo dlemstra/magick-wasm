@@ -21,6 +21,11 @@ export class DrawableFillOpacity implements IDrawable {
         this._opacity = opacity;
     }
 
+    /**
+     * Gets the opacity.
+     */
+    get opacity(): Percentage { return this._opacity; }
+
     draw(wand: IDrawingWand): void {
         wand.fillOpacity(this._opacity.toDouble() / 100);
     }
