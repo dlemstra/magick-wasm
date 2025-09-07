@@ -20,6 +20,11 @@ export class DrawableStrokeWidth implements IDrawable {
         this._width = width;
     }
 
+    /**
+     * Gets the width.
+     */
+    get width(): number { return this._width; }
+
     draw(wand: IDrawingWand): void {
         wand.strokeWidth(this._width);
     }
