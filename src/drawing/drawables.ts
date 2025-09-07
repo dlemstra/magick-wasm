@@ -36,13 +36,14 @@ import { IMagickColor } from "../magick-color";
 import { IPath } from "./path";
 import { MagickColors } from "../magick-colors";
 import { PaintMethod } from "../enums/paint-method";
+import { Paths } from "./paths";
 import { Percentage } from "../types/percentage";
 import { TextAlignment } from "../enums/text-alignment";
 import { TextDecoration } from "../enums/text-decoration";
 import { TypeMetric } from "../types/type-metric";
 
 export class Drawables {
-    private _drawables: IDrawable[] = [];
+    private readonly _drawables: IDrawable[] = [];
 
     /**
      * Adds a {@link DrawableAffine} to the drawables.
@@ -186,6 +187,8 @@ export class Drawables {
         this._drawables.push(new DrawablePath(paths));
         return this;
     }
+
+    paths(): Paths { return new Paths(this); }
 
     /**
      * Adds a {@link DrawablePoint} to the drawables.
