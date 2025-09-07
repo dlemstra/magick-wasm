@@ -4,8 +4,8 @@
 */
 
 import { Drawables } from '@src/drawing/drawables';
-import { IDrawable } from '@src/drawing/drawable';
 import { DrawableTextInterwordSpacing } from '@src/drawing/drawable-text-interword-spacing';
+import { IDrawable } from '@src/drawing/drawable';
 
 describe('Drawables#textInterwordSpacing', () => {
     it('should add the drawable', () => {

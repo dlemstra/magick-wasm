@@ -4,8 +4,8 @@
 */
 
 import { Drawables } from '@src/drawing/drawables';
-import { IDrawable } from '@src/drawing/drawable';
 import { DrawableText } from '@src/drawing/drawable-text';
+import { IDrawable } from '@src/drawing/drawable';
 
 describe('Drawables#text', () => {
     it('should add the drawable', () => {

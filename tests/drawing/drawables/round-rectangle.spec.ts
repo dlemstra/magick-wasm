@@ -15,12 +15,12 @@ describe('Drawables#roundRectangle', () => {
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableRoundRectangle);
 
-        const drawableRectangle = drawable as DrawableRoundRectangle;
-        expect(drawableRectangle.upperLeftX).toBe(1);
-        expect(drawableRectangle.upperLeftY).toBe(2);
-        expect(drawableRectangle.lowerRightX).toBe(3);
-        expect(drawableRectangle.lowerRightY).toBe(4);
-        expect(drawableRectangle.cornerWidth).toBe(5);
-        expect(drawableRectangle.cornerHeight).toBe(6);
+        const drawableRoundRectangle = drawable as DrawableRoundRectangle;
+        expect(drawableRoundRectangle.upperLeftX).toBe(1);
+        expect(drawableRoundRectangle.upperLeftY).toBe(2);
+        expect(drawableRoundRectangle.lowerRightX).toBe(3);
+        expect(drawableRoundRectangle.lowerRightY).toBe(4);
+        expect(drawableRoundRectangle.cornerWidth).toBe(5);
+        expect(drawableRoundRectangle.cornerHeight).toBe(6);
     });
 });

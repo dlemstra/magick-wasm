@@ -4,9 +4,9 @@
 */
 
 import { Drawables } from '@src/drawing/drawables';
+import { DrawableTextAlignment } from '@src/drawing/drawable-text-alignment';
 import { IDrawable } from '@src/drawing/drawable';
 import { TextAlignment } from '@src/enums/text-alignment';
-import { DrawableTextAlignment } from '@src/drawing/drawable-text-alignment';
 
 describe('Drawables#textAlignment', () => {
     it('should add the drawable', () => {

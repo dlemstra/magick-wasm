@@ -4,9 +4,8 @@
 */
 
 import { Drawables } from '@src/drawing/drawables';
-import { IDrawable } from '@src/drawing/drawable';
-import { TextAlignment } from '@src/enums/text-alignment';
 import { DrawableTextDecoration } from '@src/drawing/drawable-text-decoration';
+import { IDrawable } from '@src/drawing/drawable';
 import { TextDecoration } from '@src/enums/text-decoration';
 
 describe('Drawables#textDecoration', () => {
@@ -17,7 +16,7 @@ describe('Drawables#textDecoration', () => {
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableTextDecoration);
 
-        const drawableTextAlignment = drawable as DrawableTextDecoration;
-        expect(drawableTextAlignment.decoration).toBe(TextDecoration.Overline);
+        const drawableTextDecoration = drawable as DrawableTextDecoration;
+        expect(drawableTextDecoration.decoration).toBe(TextDecoration.Overline);
     });
 });

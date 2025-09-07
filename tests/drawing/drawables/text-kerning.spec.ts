@@ -4,8 +4,8 @@
 */
 
 import { Drawables } from '@src/drawing/drawables';
-import { IDrawable } from '@src/drawing/drawable';
 import { DrawableTextKerning } from '@src/drawing/drawable-text-kerning';
+import { IDrawable } from '@src/drawing/drawable';
 
 describe('Drawables#textKerning', () => {
     it('should add the drawable', () => {
@@ -15,7 +15,7 @@ describe('Drawables#textKerning', () => {
         const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableTextKerning);
 
-        const drawableTextKerning = drawable as DrawableTextKerning;
-        expect(drawableTextKerning.kerning).toBe(42);
+        const drawableTextInterwordSpacing = drawable as DrawableTextKerning;
+        expect(drawableTextInterwordSpacing.kerning).toBe(42);
     });
 });
