@@ -4,6 +4,7 @@
 */
 
 import { DrawableAffine } from "./drawable-affine";
+import { DrawableBorderColor } from "./drawable-border-color";
 import { DrawableFillColor } from "./drawable-fill-color";
 import { DrawableFillOpacity } from "./drawable-fill-opacity";
 import { DrawableFillRule } from "./drawable-fill-rule";
@@ -43,9 +44,24 @@ export class Drawables {
 
     /**
      * Adds a {@link DrawableAffine} to the drawables.
+     * @param scaleX The X coordinate scaling element.
+     * @param scaleY The Y coordinate scaling element.
+     * @param shearX The X coordinate shearing element.
+     * @param shearY The Y coordinate shearing element.
+     * @param translateX The X coordinate of the translation element.
+     * @param translateY The Y coordinate of the translation element.
      */
     affine(scaleX: number = 1, scaleY: number = 1, shearX: number = 0, shearY: number = 0, translateX: number = 0, translateY: number = 0) {
         this._drawables.push(new DrawableAffine(scaleX, scaleY, shearX, shearY, translateX, translateY));
+        return this;
+    }
+
+    /**
+     * Adds a {@link DrawableBorderColor} to the drawables.
+     * @param color The color to use.
+     */
+    borderColor(color: IMagickColor): Drawables {
+        this._drawables.push(new DrawableBorderColor(color));
         return this;
     }
 
