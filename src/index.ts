@@ -43,6 +43,7 @@ export * from './drawing/paths/path-line-to-abs';
 export * from './drawing/paths/path-line-to-rel';
 export * from './drawing/paths/path-move-to-abs';
 export * from './drawing/paths/path-move-to-rel';
+export * from './drawing/paths';
 export * from './enums/alpha-action';
 export * from './enums/auto-threshold-method';
 export * from './enums/channels';
