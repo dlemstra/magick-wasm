@@ -190,6 +190,17 @@ export class MagickSettings {
     }
 
     /**
+     * Gets or sets the distance into the dash pattern to start the dash (default 0) while
+     * drawing using a dash pattern.
+    */
+    get strokeDashOffset(): number | undefined {
+        return this._drawing.strokeDashOffset;
+    }
+    set strokeDashOffset(value: number | undefined) {
+        this._drawing.strokeDashOffset = value;
+    }
+
+    /**
      * Gets or sets the stroke width for drawing lines, circles, ellipses, etc.
      */
     get strokeWidth(): number | undefined {

@@ -29,6 +29,8 @@ export class DrawingSettings {
 
     strokeDashArray?: number[];
 
+    strokeDashOffset?: number;
+
     strokeWidth?: number;
 
     textKerning?: number;

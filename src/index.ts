@@ -26,6 +26,8 @@ export * from './drawing/drawable-point';
 export * from './drawing/drawable-rectangle';
 export * from './drawing/drawable-round-rectangle';
 export * from './drawing/drawable-stroke-color';
+export * from './drawing/drawable-stroke-dash-array';
+export * from './drawing/drawable-stroke-dash-offset';
 export * from './drawing/drawable-stroke-width';
 export * from './drawing/drawable-text-alignment';
 export * from './drawing/drawable-text-antialias';

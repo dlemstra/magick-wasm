@@ -46,6 +46,7 @@ export interface IDrawingWand extends IDisposable {
     roundRectangle(upperLeftX: number, upperLeftY: number, lowerRightX: number, lowerRightY: number, cornerWidth: number, cornerHeight: number): void;
     strokeColor(value: IMagickColor): void;
     strokeDashArray(value: number[]): void;
+    strokeDashOffset(value: number): void;
     strokeWidth(value: number): void
     text(x: number, y: number, value: string): void;
     textAlignment(value: TextAlignment): void;
@@ -219,6 +220,12 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
             _withDoubleArray(value, valuePtr => {
                 ImageMagick._api._DrawingWand_StrokeDashArray(this._instance, valuePtr, value.length, exception);
             });
+        });
+    }
+
+    strokeDashOffset(value: number): void {
+        Exception.usePointer(exception => {
+            ImageMagick._api._DrawingWand_StrokeDashOffset(this._instance, value, exception);
         });
     }
 

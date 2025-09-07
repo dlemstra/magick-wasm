@@ -19,6 +19,7 @@ import { DrawableRectangle } from "./drawable-rectangle";
 import { DrawableRoundRectangle } from "./drawable-round-rectangle";
 import { DrawableStrokeColor } from "./drawable-stroke-color";
 import { DrawableStrokeDashArray } from "./drawable-stroke-dash-array";
+import { DrawableStrokeDashOffset } from "./drawable-stroke-dash-offset";
 import { DrawableStrokeWidth } from "./drawable-stroke-width";
 import { DrawableText } from "./drawable-text";
 import { DrawableTextAlignment } from "./drawable-text-alignment";
@@ -242,6 +243,15 @@ export class Drawables {
      */
     strokeDashArray(dash: number[]): Drawables {
         this._drawables.push(new DrawableStrokeDashArray(dash));
+        return this;
+    }
+
+    /**
+     * Adds a {@link DrawableStrokeDashOffset} to the drawables.
+     * @param offset The dash offset.
+     */
+    strokeDashOffset(offset: number): Drawables {
+        this._drawables.push(new DrawableStrokeDashOffset(offset));
         return this;
     }
 

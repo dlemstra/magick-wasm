@@ -64,6 +64,9 @@ export class NativeDrawingSettings extends NativeInstance {
             });
         }
 
+        if (settings.strokeDashOffset !== undefined)
+            ImageMagick._api._DrawingSettings_StrokeDashOffset_Set(this._instance, settings.strokeDashOffset);
+
         if (settings.strokeWidth !== undefined)
             ImageMagick._api._DrawingSettings_StrokeWidth_Set(this._instance, settings.strokeWidth);
 
