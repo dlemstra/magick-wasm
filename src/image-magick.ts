@@ -61,6 +61,7 @@ export class ImageMagick {
                     _withNativeString(api, 'MAGICK_CONFIGURE_PATH', name => {
                         _withNativeString(api, '/xml', value => {
                             api._Environment_SetEnv(name, value);
+                            api._Environment_Initialize();
                             this.api = api;
                             resolve();
                         });
