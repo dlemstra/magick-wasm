@@ -21,6 +21,11 @@ export class DrawableTextDecoration implements IDrawable {
         this._decoration = decoration;
     }
 
+    /**
+     * Gets the text decoration.
+     */
+    get decoration(): TextDecoration { return this._decoration; }
+
     draw(wand: IDrawingWand): void {
         wand.textDecoration(this._decoration);
     }
