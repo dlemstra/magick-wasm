@@ -36,6 +36,36 @@ export class DrawableRoundRectangle implements IDrawable {
         this._cornerHeight = cornerHeight;
     }
 
+    /**
+     * Gets the upper left X coordinate.
+     */
+    get upperLeftX(): number { return this._upperLeftX; }
+
+    /**
+     * Gets the upper left Y coordinate.
+     */
+    get upperLeftY(): number { return this._upperLeftY; }
+
+    /**
+     * Gets the lower right X coordinate.
+     */
+    get lowerRightX(): number { return this._lowerRightX; }
+
+    /**
+     * Gets the lower right Y coordinate.
+     */
+    get lowerRightY(): number { return this._lowerRightY; }
+
+    /**
+     * Gets the corner width.
+     */
+    get cornerWidth(): number { return this._cornerWidth; }
+
+    /**
+     * Gets the corner height.
+     */
+    get cornerHeight(): number { return this._cornerHeight; }
+
     draw(wand: IDrawingWand): void {
         wand.roundRectangle(this._upperLeftX, this._upperLeftY, this._lowerRightX, this._lowerRightY, this._cornerWidth, this._cornerHeight);
     }
