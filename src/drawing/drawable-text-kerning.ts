@@ -20,6 +20,11 @@ export class DrawableTextKerning implements IDrawable {
         this._kerning = kerning;
     }
 
+    /**
+     * Gets the kerning to use.
+     */
+    get kerning(): number { return this._kerning; }
+
     draw(wand: IDrawingWand): void {
         wand.textKerning(this._kerning);
     }
