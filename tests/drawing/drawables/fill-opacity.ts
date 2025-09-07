@@ -5,6 +5,7 @@
 
 import { DrawableFillOpacity } from '@src/drawing/drawable-fill-opacity';
 import { Drawables } from '@src/drawing/drawables';
+import { IDrawable } from '@src/drawing/drawable';
 import { Percentage } from '@src/types/percentage';
 
 describe('Drawables#fillOpacity', () => {
@@ -12,7 +13,7 @@ describe('Drawables#fillOpacity', () => {
         const drawables = new Drawables()
             .fillOpacity(new Percentage(42));
 
-        const drawable = (drawables as any)._drawables[0];
+        const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableFillOpacity);
 
         const drawableFillColor = drawable as DrawableFillOpacity;

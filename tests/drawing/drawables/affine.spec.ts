@@ -5,13 +5,14 @@
 
 import { DrawableAffine } from '@src/drawing/drawable-affine';
 import { Drawables } from '@src/drawing/drawables';
+import { IDrawable } from '@src/drawing/drawable';
 
 describe('Drawables#affine', () => {
     it('should add the drawable', () => {
         const drawables = new Drawables()
             .affine(1, 2, 3, 4, 5, 6);
 
-        const drawable = (drawables as any)._drawables[0];
+        const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableAffine);
 
         const drawableAffine = drawable as DrawableAffine;

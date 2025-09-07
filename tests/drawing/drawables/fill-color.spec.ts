@@ -5,6 +5,7 @@
 
 import { DrawableFillColor } from '@src/drawing/drawable-fill-color';
 import { Drawables } from '@src/drawing/drawables';
+import { IDrawable } from '@src/drawing/drawable';
 import { MagickColors } from '@src/magick-colors';
 
 describe('Drawables#fillColor', () => {
@@ -12,7 +13,7 @@ describe('Drawables#fillColor', () => {
         const drawables = new Drawables()
             .fillColor(MagickColors.Purple);
 
-        const drawable = (drawables as any)._drawables[0];
+        const drawable = (drawables as unknown as { _drawables: IDrawable[] })._drawables[0];
         expect(drawable).toBeInstanceOf(DrawableFillColor);
 
         const drawableFillColor = drawable as DrawableFillColor;
