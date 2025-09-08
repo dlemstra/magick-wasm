@@ -34,8 +34,22 @@ describe('DrawableGravity', () => {
                 new DrawableText(0, 0, 'Magick'),
             ])
 
-            // Check for the dot on the `i` at the expected position
             expect(image).toHavePixelWithColor(x, y, '#108810');
+        });
+    });
+
+    it('should draw text at the expected gravity using the settings', () => {
+        TestFiles.Images.empty.use(image => {
+            image.read(MagickColors.White, 50, 50);
+            image.settings.textGravity = Gravity.Center;
+            image.draw([
+                new DrawableFillColor(MagickColors.Green),
+                new DrawableFont(TestFiles.Fonts.kaushanScriptRegularTtf.name),
+                new DrawableFontPointSize(10),
+                new DrawableText(0, 0, 'Magick'),
+            ])
+
+            expect(image).toHavePixelWithColor(31, 21, '#108810');
         });
     });
 });

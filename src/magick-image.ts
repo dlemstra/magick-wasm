@@ -75,7 +75,7 @@ import { TemporaryDefines } from './helpers/temporary-defines';
 import { VirtualPixelMethod } from './enums/virtual-pixel-method';
 import { WarningEvent } from './events/warning-event';
 import { _createString, _createStringAndRelinquish, _withString } from './internal/native/string';
-import { _getEdges } from './enums/gravity';
+import { _getGravityEdges } from './enums/gravity';
 import { _withByteArray, _withDoubleArray } from './internal/native/array';
 
 export interface IMagickImage extends IDisposable {
@@ -3978,7 +3978,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 this.setArtifact('trim:percent-background', percentage.toDouble().toString());
             } else {
                 const edges = args as Gravity[];
-                const value = [...new Set(_getEdges(edges))].join(',');
+                const value = [...new Set(_getGravityEdges(edges))].join(',');
                 this.setArtifact('trim:edges', value);
             }
         }

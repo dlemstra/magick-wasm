@@ -5,6 +5,7 @@
 
 import { Disposable } from '../disposable';
 import { FillRule } from '../../enums/fill-rule';
+import { Gravity } from '../../enums/gravity';
 import { IDrawableAffine } from '../../drawing/drawable-affine';
 import { IMagickColor } from '../../magick-color';
 import { NativeDrawingSettings } from './native-drawing-settings';
@@ -32,6 +33,8 @@ export class DrawingSettings {
     strokeDashOffset?: number;
 
     strokeWidth?: number;
+
+    textGravity?: Gravity;
 
     textKerning?: number;
 

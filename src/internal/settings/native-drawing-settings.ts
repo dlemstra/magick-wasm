@@ -70,6 +70,9 @@ export class NativeDrawingSettings extends NativeInstance {
         if (settings.strokeWidth !== undefined)
             ImageMagick._api._DrawingSettings_StrokeWidth_Set(this._instance, settings.strokeWidth);
 
+        if (settings.textGravity !== undefined)
+            ImageMagick._api._DrawingSettings_TextGravity_Set(this._instance, settings.textGravity);
+
         if (settings.textKerning !== undefined)
             ImageMagick._api._DrawingSettings_TextKerning_Set(this._instance, settings.textKerning);
 

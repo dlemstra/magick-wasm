@@ -66,7 +66,7 @@ export const Gravity = {
 export type Gravity = typeof Gravity[keyof typeof Gravity];
 
 /** @internal */
-export function* _getEdges(gravities: Gravity[]): Generator<string> {
+export function* _getGravityEdges(gravities: Gravity[]): Generator<string> {
     for (const gravity of gravities) {
         switch (gravity) {
             case Gravity.North:
@@ -97,5 +97,31 @@ export function* _getEdges(gravities: Gravity[]): Generator<string> {
                 yield 'south'
                 yield 'west'
         }
+    }
+}
+
+/** @internal */
+export function _getGravityName(gravity?: Gravity): string | undefined {
+    switch (gravity) {
+        case Gravity.North:
+            return 'north';
+        case Gravity.Northeast:
+            return 'northeast';
+        case Gravity.Northwest:
+            return 'northwest';
+        case Gravity.East:
+            return 'east';
+        case Gravity.West:
+            return 'west';
+        case Gravity.South:
+            return 'south';
+        case Gravity.Southeast:
+            return 'southeast';
+        case Gravity.Southwest:
+            return 'southwest';
+        case Gravity.Center:
+            return 'center';
+        default:
+            return undefined;
     }
 }

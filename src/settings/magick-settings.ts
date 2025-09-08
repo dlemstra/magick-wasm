@@ -11,6 +11,7 @@ import { Disposable } from '../internal/disposable';
 import { DrawingSettings } from '../internal/settings/drawing-settings';
 import { Endian } from '../enums/endian';
 import { FillRule } from '../enums/fill-rule';
+import { Gravity } from '../enums/gravity';
 import { IDefines } from '../defines/defines';
 import { IDrawableAffine } from '../drawing/drawable-affine';
 import { Interlace } from '../enums/interlace';
@@ -18,6 +19,7 @@ import { IMagickColor } from '../magick-color';
 import { IMagickGeometry } from '../types/magick-geometry';
 import { MagickFormat } from '../enums/magick-format';
 import { NativeMagickSettings } from './native-magick-settings';
+import { _getGravityName } from '../enums/gravity';
 
 /**
  * Class that contains various settings.
@@ -225,6 +227,17 @@ export class MagickSettings {
     set textKerning(value: number | undefined) {
         this.setDefineAndArtifact('kerning', value?.toString());
         this._drawing.textKerning = value;
+    }
+
+    /**
+     * Gets or sets the text annotation gravity.
+     */
+    get textGravity(): Gravity | undefined {
+        return this._drawing.textGravity;
+    }
+    set textGravity(value: Gravity | undefined) {
+        this.setDefineAndArtifact('gravity', _getGravityName(value));
+        this._drawing.textGravity = value;
     }
 
     /**
