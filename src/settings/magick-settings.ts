@@ -214,6 +214,16 @@ export class MagickSettings {
     }
 
     /**
+     * Gets or sets a value indicating whether text anti-aliasing should be enabled (default true).
+     */
+    get textAntiAlias(): boolean | undefined {
+        return this._drawing.textAntiAlias;
+    }
+    set textAntiAlias(value: boolean | undefined) {
+        this._drawing.textAntiAlias = value;
+    }
+
+    /**
      * Gets or sets the text inter-line spacing.
      */
     textInterlineSpacing?: number;

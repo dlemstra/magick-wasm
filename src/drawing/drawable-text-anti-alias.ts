@@ -9,7 +9,7 @@ import { IDrawingWand } from './drawing-wand';
 /**
  * Controls whether text is antialiased. Text is antialiased by default.
  */
-export class DrawableTextAntialias implements IDrawable {
+export class DrawableTextAntiAlias implements IDrawable {
     private readonly _isEnabled: boolean;
 
     private constructor(isEnabled: boolean) {
@@ -17,14 +17,14 @@ export class DrawableTextAntialias implements IDrawable {
     }
 
     /**
-     * Initializes a new instance of the {@link DrawableTextAntialias} class with antialias disabled.
+     * Initializes a new instance of the {@link DrawableTextAntiAlias} class with antialias disabled.
      */
-    static get disabled(): DrawableTextAntialias { return new DrawableTextAntialias(false); }
+    static get disabled(): DrawableTextAntiAlias { return new DrawableTextAntiAlias(false); }
 
     /**
-     * Initializes a new instance of the {@link DrawableTextAntialias} class with antialias enabled.
+     * Initializes a new instance of the {@link DrawableTextAntiAlias} class with antialias enabled.
      */
-    static get enabled(): DrawableTextAntialias { return new DrawableTextAntialias(true); }
+    static get enabled(): DrawableTextAntiAlias { return new DrawableTextAntiAlias(true); }
 
     /**
      * Gets a value indicating whether antialias is enabled.

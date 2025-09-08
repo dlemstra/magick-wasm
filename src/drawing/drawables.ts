@@ -23,7 +23,7 @@ import { DrawableStrokeDashOffset } from "./drawable-stroke-dash-offset";
 import { DrawableStrokeWidth } from "./drawable-stroke-width";
 import { DrawableText } from "./drawable-text";
 import { DrawableTextAlignment } from "./drawable-text-alignment";
-import { DrawableTextAntialias } from "./drawable-text-antialias";
+import { DrawableTextAntiAlias } from "./drawable-text-anti-alias";
 import { DrawableTextDecoration } from "./drawable-text-decoration";
 import { DrawableTextInterlineSpacing } from "./drawable-text-interline-spacing";
 import { DrawableTextInterwordSpacing } from "./drawable-text-interword-spacing";
@@ -76,10 +76,10 @@ export class Drawables {
     }
 
     /**
-     * Adds {@link DrawableTextAntialias.enabled} to the drawables.
+     * Adds {@link DrawableTextAntiAlias.enabled} to the drawables.
      */
-    disableTextAntialias(): Drawables {
-        this._drawables.push(DrawableTextAntialias.disabled);
+    disableTextAntiAlias(): Drawables {
+        this._drawables.push(DrawableTextAntiAlias.disabled);
         return this;
     }
 
@@ -93,10 +93,10 @@ export class Drawables {
     }
 
     /**
-     * Adds {@link DrawableTextAntialias.enabled} to the drawables.
+     * Adds {@link DrawableTextAntiAlias.enabled} to the drawables.
      */
-    enableTextAntialias(): Drawables {
-        this._drawables.push(DrawableTextAntialias.enabled);
+    enableTextAntiAlias(): Drawables {
+        this._drawables.push(DrawableTextAntiAlias.enabled);
         return this;
     }
 

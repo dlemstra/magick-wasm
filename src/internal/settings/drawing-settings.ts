@@ -34,6 +34,8 @@ export class DrawingSettings {
 
     strokeWidth?: number;
 
+    textAntiAlias?: boolean;
+
     textGravity?: Gravity;
 
     textKerning?: number;

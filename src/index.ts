@@ -30,7 +30,7 @@ export * from './drawing/drawable-stroke-dash-array';
 export * from './drawing/drawable-stroke-dash-offset';
 export * from './drawing/drawable-stroke-width';
 export * from './drawing/drawable-text-alignment';
-export * from './drawing/drawable-text-antialias';
+export * from './drawing/drawable-text-anti-alias';
 export * from './drawing/drawable-text-decoration';
 export * from './drawing/drawable-text-interline-spacing';
 export * from './drawing/drawable-text-interword-spacing';
