@@ -21,4 +21,12 @@ describe('MagickSettings#textKerning', () => {
             expect(image.height).toBe(height);
         });
     });
+
+    it('should set the kerning attribute', () => {
+        TestFiles.Images.empty.use(image => {
+            image.settings.textKerning = 30;
+
+            expect(image.getArtifact('kerning')).toBe('30');
+        });
+    });
 });
