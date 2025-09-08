@@ -1,13 +1,4 @@
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ Magick.Native ] copyright:
-
-Copyright Dirk Lemstra https://github.com/dlemstra/Magick.Native.
-Licensed under the Apache License, Version 2.0.
-
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ ImageMagick 7.1.1-48 beta (2025-04-12) ] copyright:
+[ ImageMagick 7.1.2-3 (2025-08-30) ]
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -116,9 +107,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
    License for the specific language governing permissions and limitations
    under the License.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ aom 3.12.0 (2025-02-07) ] copyright:
+[ aom 3.12.1 (2025-04-11) ]
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -148,9 +137,7 @@ ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ brotli 1.1.0 (2023-08-31) ] copyright:
+[ brotli 1.1.0 (2023-08-31) ]
 
 Copyright (c) 2009, 2010, 2013-2016 by the Brotli Authors.
 
@@ -172,9 +159,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ de265 1.0.15 (2023-12-20) ] copyright:
+[ de265 1.0.16 (2025-05-04) ]
 
 * The library `libde265` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT license.
@@ -1048,9 +1033,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ deflate 1.23.0 (2024-12-15) ] copyright:
+[ deflate 1.24.0 (2025-05-11) ]
 
 Copyright 2016 Eric Biggers
 Copyright 2024 Google LLC
@@ -1075,9 +1058,7 @@ ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ openexr 3.3.3 (2025-03-24) ] copyright:
+[ exr 3.3.5 (2025-07-26) ]
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -1091,25 +1072,9 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[ imath 3.1.12 (2024-09-11) ] copyright:
+[ ffi 3.5.2 (2025-08-02) ]
 
-Copyright Contributors to the OpenEXR Project. All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ ffi 3.4.7 (2025-02-08) ] copyright:
-
-libffi - Copyright (c) 1996-2024  Anthony Green, Red Hat, Inc and others.
+libffi - Copyright (c) 1996-2025  Anthony Green, Red Hat, Inc and others.
 See source files for details.
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -1131,9 +1096,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ freetype 2.13.3 (2024-08-12) ] copyright:
+[ freetype 2.13.3 (2024-08-12) ]
 
                     The FreeType Project LICENSE
                     ----------------------------
@@ -1305,9 +1268,7 @@ Legal Terms
 
 --- end of FTL.TXT ---
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ glib 2.64.3 (2020-05-20) ] copyright:
+[ glib 2.64.3 (2020-05-20) ]
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
@@ -1812,9 +1773,7 @@ necessary.  Here is a sample; alter the names:
 
 That's all there is to it!
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ heif 1.19.7 (2025-03-03) ] copyright:
+[ heif 1.20.2 (2025-08-05) ]
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications and the Go and C++ wrappers are distributed under the terms of the MIT License.
@@ -2688,9 +2647,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ highway 1.2.0 (2024-05-31) ] copyright:
+[ highway 1.3.0 (2025-08-14) ]
 
                                  Apache License
                            Version 2.0, January 2004
@@ -2893,9 +2850,21 @@ SOFTWARE.
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+[ imath 3.2.1 (2025-08-15) ]
 
-[ jpeg-turbo 3.1.0 (2024-12-12) ] copyright:
+Copyright Contributors to the OpenEXR Project. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+[ jpeg-turbo 3.1.1 (2025-06-10) ]
 
 libjpeg-turbo Licenses
 ======================
@@ -3033,13 +3002,7 @@ attribution and endorsement protections to other entities.  Thus, it was
 desirable to choose a license that granted us the same protections for new code
 that were granted to the IJG for code derived from their software.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ jpeg-xl 0.11.1 (2024-11-26) ] copyright:
+[ jpeg-xl 0.11.1 (2024-11-26) ]
 
 Copyright (c) the JPEG XL Project Authors.
 All rights reserved.
@@ -3069,9 +3032,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ lcms 2.17.0 (2025-02-09) ] copyright:
+[ lcms 2.17.0 (2025-02-09) ]
 
 MIT License
 
@@ -3096,9 +3057,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ lqr 0.4.2 (2012-12-04) ] copyright:
+[ lqr 0.4.2 (2012-12-04) ]
 
 		   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
@@ -3266,9 +3225,7 @@ apply, that proxy's public statement of acceptance of any version is
 permanent authorization for you to choose that version for the
 Library.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ openjpeg 2.5.3 (2024-12-09) ] copyright:
+[ openjpeg 2.5.3 (2024-12-09) ]
 
 /*
  * The copyright in this software is being made available under the 2-clauses 
@@ -3310,9 +3267,7 @@ Library.
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ png 1.6.47 (2025-02-18) ] copyright:
+[ png 1.6.50 (2025-07-02) ]
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
@@ -3449,9 +3404,7 @@ to supporting the PNG file format in commercial products.  If you use
 this source code in a product, acknowledgment is not required but would
 be appreciated.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ raw 0.22.0-Devel202403 (2024-03-30) ] copyright:
+[ raw 0.22.0-Devel202502 (2024-02-24) ]
 
  ** LibRaw: Raw images processing library **
 
@@ -3481,9 +3434,7 @@ LibRaw uses pieces of code from Adobe DNG SDK 1.4,
 Copyright (c) 2005 Adobe Systems Incorporated, licensed under MIT license
 
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ tiff 4.7.0 (2024-09-11) ] copyright:
+[ tiff 4.7.0 (2024-09-11) ]
 
 # LibTIFF license
 
@@ -3509,9 +3460,7 @@ WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF
 LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
 OF THIS SOFTWARE.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ webp 1.5.0 (2024-12-20) ] copyright:
+[ webp 1.6.0 (2025-07-09) ]
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
@@ -3544,15 +3493,14 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ xml 2.13.6 (2025-02-18) ] copyright:
+[ xml 2.14.5 (2025-07-10) ]
 
 Except where otherwise noted in the source code (e.g. the files dict.c and
 list.c, which are covered by a similar licence but with different Copyright
 notices) all the files are:
 
  Copyright (C) 1998-2012 Daniel Veillard.  All Rights Reserved.
+ Copyright (C) The Libxml2 Contributors.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -3572,9 +3520,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-[ zlib 1.3.1 (2023-01-24) ] copyright:
+[ zlib 1.3.1 (2023-01-24) ]
 
 Copyright notice:
 
