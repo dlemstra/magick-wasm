@@ -12,6 +12,8 @@ env:
   LATEST_NODE_VERSION: 22
 
 name: main
+permissions:
+  contents: read
 jobs:
   test:
     name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
