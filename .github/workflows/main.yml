@@ -14,6 +14,7 @@ env:
 name: main
 permissions:
   contents: read
+  packages: read
 jobs:
   test:
     name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
