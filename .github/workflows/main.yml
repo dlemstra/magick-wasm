@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  LATEST_NODE_VERSION: 22
+  LATEST_NODE_VERSION: 24
 
 name: main
 permissions:
@@ -22,7 +22,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [18, 20, 22]
+        node: [20, 22, 24]
         os: [ubuntu-24.04, macOS-14, windows-2022]
 
     steps:
