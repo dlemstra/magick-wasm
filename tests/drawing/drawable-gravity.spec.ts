@@ -14,15 +14,15 @@ import { TestFiles } from '@test/test-files';
 
 describe('DrawableGravity', () => {
     it.each([
-        [Gravity.Northwest, 22, 4],
-        [Gravity.North, 31, 4],
-        [Gravity.Northeast, 40, 4],
-        [Gravity.West, 22, 21],
-        [Gravity.Center, 31, 21],
-        [Gravity.East, 40, 21],
-        [Gravity.Southwest, 22, 39],
-        [Gravity.South, 31, 39],
-        [Gravity.Southeast, 40, 39],
+        [Gravity.Northwest, 29, 3],
+        [Gravity.North, 38, 3],
+        [Gravity.Northeast, 47, 3],
+        [Gravity.West, 29, 20],
+        [Gravity.Center, 38, 20],
+        [Gravity.East, 47, 20],
+        [Gravity.Southwest, 29, 38],
+        [Gravity.South, 38, 38],
+        [Gravity.Southeast, 47, 38],
     ])('should draw text at the expected gravity %s', (gravity: Gravity, x: number, y: number) => {
         TestFiles.Images.empty.use(image => {
             image.read(MagickColors.White, 50, 50);
@@ -49,7 +49,7 @@ describe('DrawableGravity', () => {
                 new DrawableText(0, 0, 'Magick'),
             ])
 
-            expect(image).toHavePixelWithColor(31, 21, '#108810');
+            expect(image).toHavePixelWithColor(38, 20, '#108810');
         });
     });
 });
