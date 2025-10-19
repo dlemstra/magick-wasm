@@ -1813,6 +1813,13 @@ export interface IMagickImage extends IDisposable {
     resize(width: number, height: number, filterType: FilterType): void;
 
     /**
+     * Roll image (rolls image vertically and horizontally).
+     * @param x The number of columns to roll in the horizontal direction.
+     * @param y The number of rows to roll in the vertical direction.
+     */
+    roll(x: number, y: number): void;
+
+    /**
      * Rotate image clockwise by specified number of degrees.
      * Specify a negative number for <paramref name="degrees"/> to rotate counter-clockwise.
      * @param degrees The number of degrees to rotate (positive to rotate clockwise, negative to rotate counter-clockwise).
@@ -3731,6 +3738,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 const instance = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, filterType, exception.ptr);
                 this._setInstance(instance, exception);
             });
+        });
+    }
+
+    roll(x: number, y: number): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Roll(this._instance, x, y, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
