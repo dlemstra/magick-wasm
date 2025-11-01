@@ -129,10 +129,18 @@ jobs:
 
       - run: npm run build
 
-      - run: npm run prepare
+      - if: needs.check.outputs.publish != 'true'
+        run: |
+          set +e
+          output=$(npm publish --registry https://registry.npmjs.org/ --dry-run 2>&1)
+          exit_code=$?
+          echo "$output"
+          if [ $exit_code -ne 0 ] && echo "$output" | grep -q "You cannot publish over the previously published versions:"; then
+            echo "Version already published, continuing..."
+            exit 0
+          fi
+          exit $exit_code
 
-      - run: npm publish --registry https://registry.npmjs.org/ --dry-run
-        if: needs.check.outputs.publish != 'true'
+      - if: needs.check.outputs.publish == 'true'
+        run: npm publish --registry https://registry.npmjs.org/
 
-      - run: npm publish --registry https://registry.npmjs.org/
-        if: needs.check.outputs.publish == 'true'
