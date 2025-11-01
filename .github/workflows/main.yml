@@ -130,6 +130,7 @@ jobs:
       - run: npm run build
 
       - if: needs.check.outputs.publish != 'true'
+        name: Run npm publish --dry-run
         run: |
           set +e
           output=$(npm publish --registry https://registry.npmjs.org/ --dry-run 2>&1)
@@ -142,5 +143,6 @@ jobs:
           exit $exit_code
 
       - if: needs.check.outputs.publish == 'true'
+        name: Run npm publish
         run: npm publish --registry https://registry.npmjs.org/
 
