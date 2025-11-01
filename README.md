@@ -21,7 +21,7 @@ Follow me on bluesky ([@dirk.lemstra.org](https://bsky.app/profile/dirk.lemstra.
 
 ## Release notes
 
-The release notes can be found on [GitHub](https://github.com/dlemstra/magick-wasm/releases/tag/0.0.36).
+The release notes can be found on [GitHub](https://github.com/dlemstra/magick-wasm/releases/tag/0.0.37).
 
 ## Donate
 
