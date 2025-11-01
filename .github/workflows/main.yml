@@ -85,20 +85,20 @@ jobs:
       publish: ${{steps.check.outputs.publish}}
 
     steps:
-    - uses: actions/checkout@v5
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
-    - name: Check publish
-      id: check
-      run: |
-        version=$(grep -oP "\"version\": \"\K[0-9\.]*" package.json)
-        echo "version=$version"
-        tag=$(git describe --tags HEAD --exact-match || true)
-        if [[ "$tag" == "$version" ]]; then
-          echo "publish=true" >> $GITHUB_OUTPUT
-          echo "publish=true"
-        fi
+      - name: Check publish
+        id: check
+        run: |
+          version=$(grep -oP "\"version\": \"\K[0-9\.]*" package.json)
+          echo "version=$version"
+          tag=$(git describe --tags HEAD --exact-match || true)
+          if [[ "$tag" == "$version" ]]; then
+            echo "publish=true" >> $GITHUB_OUTPUT
+            echo "publish=true"
+          fi
 
   publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -122,6 +122,8 @@ jobs:
 
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> ~/.npmrc
+
+      - uses: actions/checkout@v5
 
       - run: npm ci
 
