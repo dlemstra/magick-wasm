@@ -2,8 +2,6 @@ on:
   push:
     branches:
       - main
-    tags:
-      - '!*'
   pull_request:
     branches:
       - main
@@ -17,8 +15,8 @@ permissions:
   packages: read
 jobs:
   test:
-    name: Test on node ${{ matrix.node }} and ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Test on node ${{matrix.node}} and ${{matrix.os}}
+    runs-on: ${{matrix.os}}
 
     strategy:
       matrix:
@@ -28,13 +26,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Use node ${{ matrix.node }}
+      - name: Use node ${{matrix.node}}
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{matrix.node}}
 
       - name: Authenticate with GitHub package registry
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> ~/.npmrc
 
       - run: npm ci
 
@@ -52,16 +50,6 @@ jobs:
 
       - run: npm run demo
 
-      - if: matrix.node == env.LATEST_NODE_VERSION && matrix.os == 'ubuntu-24.04'
-        run: npm pack
-
-      - if: matrix.node == env.LATEST_NODE_VERSION && matrix.os == 'ubuntu-24.04'
-        name: Upload package
-        uses: actions/upload-artifact@v5
-        with:
-          name: imagemagick-magick-wasm
-          path: ./*.tgz
-
   deno:
     name: Test on deno
     container:
@@ -71,14 +59,14 @@ jobs:
     steps:
       - run: apt update && apt install -y curl
 
-      - run: curl -fsSL https://deb.nodesource.com/setup_${{ env.LATEST_NODE_VERSION }}.x | bash -
+      - run: curl -fsSL https://deb.nodesource.com/setup_${{env.LATEST_NODE_VERSION}}.x | bash -
 
       - run: apt install -y nodejs
 
       - uses: actions/checkout@v5
 
       - name: Authenticate with GitHub package registry
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> ~/.npmrc
 
       - run: npm ci
 
@@ -88,3 +76,61 @@ jobs:
 
       - run: ./example.sh
         working-directory: deno
+
+  check:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    name: Check for publish
+    runs-on: ubuntu-24.04
+    outputs:
+      publish: ${{steps.check.outputs.publish}}
+
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
+
+    - name: Check publish
+      id: check
+      run: |
+        version=$(grep -oP "\"version\": \"\K[0-9\.]*" package.json)
+        echo "version=$version"
+        tag=$(git describe --tags HEAD --exact-match || true)
+        if [[ "$tag" == "$version" ]]; then
+          echo "publish=true" >> $GITHUB_OUTPUT
+          echo "publish=true"
+        fi
+
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    name: Publish package
+    needs:
+      - test
+      - deno
+      - check
+    runs-on: ubuntu-24.04
+    environment: npmjs
+    permissions:
+      contents: read
+      packages: read
+      id-token: write
+
+    steps:
+      - name: Use node ${{env.LATEST_NODE_VERSION}}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{env.LATEST_NODE_VERSION}}
+
+      - name: Authenticate with GitHub package registry
+        run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> ~/.npmrc
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - run: npm run prepare
+
+      - run: npm publish --registry https://registry.npmjs.org/ --dry-run
+        if: needs.check.outputs.publish != 'true'
+
+      - run: npm publish --registry https://registry.npmjs.org/
+        if: needs.check.outputs.publish == 'true'
