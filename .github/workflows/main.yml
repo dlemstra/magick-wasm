@@ -101,7 +101,6 @@ jobs:
           fi
 
   publish:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     name: Publish package
     needs:
       - test
