@@ -25,6 +25,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - name: Use node ${{matrix.node}}
         uses: actions/setup-node@v6
@@ -64,6 +66,8 @@ jobs:
       - run: apt install -y nodejs
 
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> ~/.npmrc
@@ -88,6 +92,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Check publish
         id: check
@@ -123,6 +128,8 @@ jobs:
         run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> ~/.npmrc
 
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - run: npm ci
 
