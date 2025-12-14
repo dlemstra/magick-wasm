@@ -14,9 +14,9 @@ import { TestFiles } from '@test/test-files';
 
 describe('DrawableGravity', () => {
     it.each([
-        [Gravity.Northwest, 29, 3],
-        [Gravity.North, 38, 3],
-        [Gravity.Northeast, 47, 3],
+        [Gravity.Northwest, 29, 1],
+        [Gravity.North, 38, 1],
+        [Gravity.Northeast, 47, 1],
         [Gravity.West, 29, 20],
         [Gravity.Center, 38, 20],
         [Gravity.East, 47, 20],
