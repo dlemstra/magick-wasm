@@ -5,6 +5,7 @@
 
 import { ImageMagick } from './image-magick';
 import { MagickError } from './magick-error';
+import { Percentage } from './types/percentage';
 import { Quantum } from './quantum';
 import { _withString } from './internal/native/string';
 
@@ -13,7 +14,7 @@ import { _withString } from './internal/native/string';
  */
 export interface IMagickColor {
     /** @internal */
-    _use(func: (colorPtr: number) => void): void;
+    _use<TReturnType>(func: (colorPtr: number) => TReturnType): TReturnType;
 
     /**
      * Gets or sets the red component value of this color.
@@ -44,6 +45,13 @@ export interface IMagickColor {
      * Gets a value indicating whether this color is a CMYK color.
      */
     isCmyk: boolean;
+
+    /**
+     * Determines whether the specified color is fuzzy equal to the current color.
+     * @param other The color to compare this color with.
+     * @param fuzz The fuzz factor.
+     */
+    fuzzyEquals(other: IMagickColor, fuzz: Percentage): boolean;
 
     /**
      * Converts the value of this instance to a string representation that will not include the alpha channel if it is opaque.
@@ -106,6 +114,17 @@ export class MagickColor implements IMagickColor {
         return color;
     }
 
+    fuzzyEquals(other: IMagickColor, fuzz: Percentage): boolean {
+        if (other == this)
+            return true;
+
+        return this._use(instance => {
+            return other._use(otherInstance => {
+                return ImageMagick._api._MagickColor_FuzzyEquals(instance, otherInstance, fuzz._toQuantum()) === 1;
+            });
+        });
+    }
+
     toShortString(): string {
         if (this.a !== Quantum.max)
             return this.toString();
@@ -124,7 +143,7 @@ export class MagickColor implements IMagickColor {
     }
 
     /** @internal */
-    _use(func: (colorPtr: number) => void): void {
+    _use<TReturnType>(func: (colorPtr: number) => TReturnType): TReturnType {
         let instance = 0;
         try {
             instance = ImageMagick._api._MagickColor_Create();
@@ -138,7 +157,7 @@ export class MagickColor implements IMagickColor {
             } else {
                 ImageMagick._api._MagickColor_IsCMYK_Set(instance, 0);
             }
-            func(instance);
+            return func(instance);
         } finally {
             ImageMagick._api._MagickColor_Dispose(instance);
         }
