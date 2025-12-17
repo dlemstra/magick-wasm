@@ -1887,6 +1887,13 @@ export interface IMagickImage extends IDisposable {
     setAttribute(name: string, value: string): void;
 
     /**
+     * Sets the compression of the image. This method should only be used when the encoder uses the compression of the image. For
+     * most usecases setting.compression should be used instead.
+     * @param compression The compression method.
+     */
+    setCompression(compression: CompressionMethod): void;
+
+    /**
      * Set the specified profile of the image. If a profile with the same name already exists it will be overwritten.
      * @param profile The profile to set.
      */
@@ -3812,6 +3819,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 });
             });
         });
+    }
+
+    setCompression(compression: CompressionMethod): void {
+        ImageMagick._api._MagickImage_Compression_Set(this._instance, compression);
     }
 
     setProfile(profile: IImageProfile): void
