@@ -1183,6 +1183,19 @@ export interface IMagickImage extends IDisposable {
     deskew(threshold: Percentage, autoCrop: boolean): number;
 
     /**
+     * Determines the bit depth (bits allocated to red/green/blue components). Use the depth
+     * property to get the current value.
+     */
+    determineBitDepth(): number;
+
+    /**
+     * Determines the bit depth (bits allocated to red/green/blue components). Use the depth
+     * property to get the current value.
+     * @param channels The channel(s) to get the depth for.
+     */
+    determineBitDepth(channels: Channels): number;
+
+    /**
      * Distorts an image using various distortion methods, by mapping color lookups of the source
      * image to a new destination image of the same size as the source image.
      * @param method The distortion method to use.
@@ -3241,6 +3254,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             const angle = Number(this.getArtifact('deskew:angle'));
             return isNaN(angle) ? 0.0 : angle;
         })
+    }
+
+    determineBitDepth(): number;
+    determineBitDepth(channels: Channels): number
+    determineBitDepth(channelsOrUndefined?: Channels): number
+    {
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+        return this.useExceptionPointer(exception => {
+            return ImageMagick._api._MagickImage_DetermineBitDepth(this._instance, channels, exception);
+        });
     }
 
     distort(method: DistortMethod, params: number[]): void;
