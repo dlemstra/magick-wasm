@@ -20,7 +20,7 @@ describe('MagickImage#quality', () => {
         });
     });
 
-    it('should return the image quality', async () => {
+    it('should return the image quality', () => {
         TestFiles.Images.imageMagickJpg.use(image => {
             expect(image.quality).toBe(100);
         });

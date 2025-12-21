@@ -6,13 +6,13 @@
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#hasAlpha', () => {
-    it('should return true when image has alpha channel', async () => {
+    it('should return true when image has alpha channel', () => {
         TestFiles.Images.redPng.use(image => {
             expect(image.hasAlpha).toBe(true);
         });
     });
 
-    it('should should disable the alpha channel', async () => {
+    it('should should disable the alpha channel', () => {
         TestFiles.Images.redPng.use(image => {
             image.hasAlpha = false;
 

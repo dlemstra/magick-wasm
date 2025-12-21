@@ -7,7 +7,7 @@ import { CompressionMethod } from '@src/enums/compression-method';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#compression', () => {
-    it('should return the compression method', async () => {
+    it('should return the compression method', () => {
         TestFiles.Images.redPng.use(image => {
             expect(image.compression).toBe(CompressionMethod.Zip);
         });

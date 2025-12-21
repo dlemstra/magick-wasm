@@ -19,7 +19,7 @@ describe('MagickImage#boundingBox', () => {
         });
     });
 
-    it('should return null when there is no bounding box', async () => {
+    it('should return null when there is no bounding box', () => {
         TestFiles.Images.Builtin.wizard.use(image => {
             image.inverseOpaque(MagickColors.Purple, MagickColors.Black);
 
