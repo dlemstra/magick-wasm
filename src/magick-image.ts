@@ -775,9 +775,15 @@ export interface IMagickImage extends IDisposable {
 
     /**
      * Sets the alpha channel to the specified color.
-     * @param color The color to use
+     * @param color The color to use.
      */
     colorAlpha(color: IMagickColor): void;
+
+    /**
+     * Applies the color decision list from the specified ASC CDL data.
+     * @param colorCorrectionCollection The ASC CDL information.
+     */
+    colorDecisionList(colorCorrectionCollection: string): void;
 
     /**
      * Returns the distortion based on the specified metric.
@@ -2944,6 +2950,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         canvas.read(color, this.width, this.height);
         canvas.composite(this, CompositeOperator.SrcOver, new Point(0, 0));
         this._instance = canvas._instance;
+    }
+
+    colorDecisionList(colorCorrectionCollection: string): void {
+        this.useExceptionPointer(exception => {
+            _withString(colorCorrectionCollection, colorCorrectionCollectionPtr => {
+                ImageMagick._api._MagickImage_ColorDecisionList(this._instance, colorCorrectionCollectionPtr, exception);
+            });
+        });
     }
 
     compare(image: IMagickImage, metric: ErrorMetric): number;
