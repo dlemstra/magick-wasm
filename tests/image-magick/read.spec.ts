@@ -128,7 +128,7 @@ describe('ImageMagick#read', () => {
         });
     });
 
-    it('should throw error when image is returned', async () => {
+    it('should throw error when image is returned', () => {
         expect(() => {
             ImageMagick.read('logo:', (image) => {
                 return image;
