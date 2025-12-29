@@ -49,7 +49,7 @@
     "devDependencies": {
         "@dlemstra/magick-native": "2025.1209.1812",
         "@types/jsdom": "27.0.0",
-        "@typescript-eslint/eslint-plugin": "8.49.0",
+        "@typescript-eslint/eslint-plugin": "8.50.0",
         "@typescript-eslint/parser": "8.49.0",
         "dts-bundle-generator": "9.5.1",
         "eslint": "9.39.2",
