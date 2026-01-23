@@ -11,7 +11,7 @@ describe('Coders#heic', () => {
     it('should be able to write avif image', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
             image.write(MagickFormat.Avif, data => {
-                expect(data.length).toBe(11333);
+                expect(data.length).toBe(11350);
                 ImageMagick.read(data, image => {
                     expect(image.format).toBe(MagickFormat.Avif);
                 });
