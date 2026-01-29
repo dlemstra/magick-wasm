@@ -55,7 +55,7 @@ jobs:
   deno:
     name: Test on deno
     container:
-      image: denoland/deno:debian
+      image: denoland/deno:debian:2.5.7
     runs-on: ubuntu-24.04
 
     steps:
@@ -76,7 +76,7 @@ jobs:
 
       - run: npm run build
 
-      - run: npm ci
+      - run: npm run prepare
 
       - run: ./example.sh
         working-directory: deno
