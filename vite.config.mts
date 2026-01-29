@@ -15,11 +15,7 @@ export default defineConfig({
         setupFiles: './tests/custom-environment.ts',
         logHeapUsage: true,
         testTimeout: 60000,
-        poolOptions: {
-            threads: {
-                isolate: false,
-            },
-        },
+        isolate: true,
     },
     resolve: {
         alias: {
