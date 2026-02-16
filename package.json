@@ -54,7 +54,7 @@
         "dts-bundle-generator": "9.5.1",
         "eslint": "9.39.2",
         "eslint-plugin-license-header": "0.8.0",
-        "jsdom": "27.4.0",
+        "jsdom": "28.0.0",
         "set-value": "4.1.0",
         "typescript": "5.9.3",
         "vite": "7.3.1",
