@@ -1,39 +1,28 @@
-import js from "@eslint/js";
-import path from "node:path";
+import { defineConfig } from "eslint/config";
 import pluginLicenseHeader from "eslint-plugin-license-header";
 import pluginTypescriptEslint from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
-import { fileURLToPath } from "node:url";
-import { FlatCompat } from "@eslint/eslintrc";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
-
-export default [{
-    ignores: [
-        "deno/*.ts",
-        "demo/*.js",
-        "issue/*.ts",
-        "issue/*.js",
-        "tools/*.js",
-        "**/dist",
-        "**/vite.config.mts",
-        "*.mjs",
+export default defineConfig([{
+    files: [
+        "**/*.ts"
     ],
-}, ...compat.extends(
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-), {
+
+    ignores: [
+        "deno/*",
+        "dist/*",
+        "issue/*",
+    ],
+
     plugins: {
         "@eslint-plugin-license-header": pluginLicenseHeader,
         "@typescript-eslint": pluginTypescriptEslint,
     },
+
+    extends: [
+        "@typescript-eslint/eslint-recommended",
+        "@typescript-eslint/recommended",
+    ],
 
     languageOptions: {
         parser: tsParser,
@@ -62,4 +51,4 @@ export default [{
         ],
         "@typescript-eslint/no-duplicate-enum-values": "off",
     },
-}];
+}]);
