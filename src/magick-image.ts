@@ -4111,9 +4111,10 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                     try {
                         data = ImageMagick._api._MagickImage_WriteBlob(this._instance, settings._instance, pointer.ptr, exception.ptr);
                         length = pointer.value;
-                    } catch {
+                    } catch (error) {
                         if (data !== 0)
                             data = ImageMagick._api._MagickMemory_Relinquish(data);
+                        throw error;
                     }
                 });
             });
