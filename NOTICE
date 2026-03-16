@@ -1,4 +1,4 @@
-[ ImageMagick 7.1.2-13 (2026-01-19) ]
+[ ImageMagick 7.1.2-17 (2026-03-15) ]
 
                          ImageMagick License
              https://imagemagick.org/license/
@@ -1032,7 +1032,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[ exr 3.4.4 (2025-11-19) ]
+[ exr 3.4.6 (2026-03-01) ]
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -1070,7 +1070,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[ freetype 2.14.1 (2024-09-11) ]
+[ freetype 2.14.2 (2026-03-01) ]
 
                     The FreeType Project LICENSE
                     ----------------------------
@@ -1747,7 +1747,7 @@ necessary.  Here is a sample; alter the names:
 
 That's all there is to it!
 
-[ heif 1.21.1 (2025-12-31) ]
+[ heif 1.21.2 (2026-01-16) ]
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications and the Go and C++ wrappers are distributed under the terms of the MIT License.
@@ -2976,7 +2976,7 @@ attribution and endorsement protections to other entities.  Thus, it was
 desirable to choose a license that granted us the same protections for new code
 that were granted to the IJG for code derived from their software.
 
-[ jpeg-xl 0.11.1 (2024-11-26) ]
+[ jpeg-xl 0.11.2 (2026-02-10) ]
 
 Copyright (c) the JPEG XL Project Authors.
 All rights reserved.
@@ -3241,7 +3241,7 @@ Library.
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-[ openjph 0.26.0 (2025-12-24) ]
+[ openjph 0.26.3 (2026-02-17) ]
 
 BSD 2-Clause License
 
@@ -3271,7 +3271,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[ png 1.6.53 (2025-12-05) ]
+[ png 1.6.55 (2026-02-09) ]
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
@@ -3279,8 +3279,8 @@ COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 PNG Reference Library License version 2
 ---------------------------------------
 
- * Copyright (c) 1995-2025 The PNG Reference Library Authors.
- * Copyright (c) 2018-2025 Cosmin Truta.
+ * Copyright (c) 1995-2026 The PNG Reference Library Authors.
+ * Copyright (c) 2018-2026 Cosmin Truta.
  * Copyright (c) 2000-2002, 2004, 2006-2018 Glenn Randers-Pehrson.
  * Copyright (c) 1996-1997 Andreas Dilger.
  * Copyright (c) 1995-1996 Guy Eric Schalnat, Group 42, Inc.
@@ -3953,7 +3953,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[ xml 2.15.1 (2025-10-16) ]
+[ xml 2.15.2 (2026-03-03) ]
 
 Except where otherwise noted in the source code (e.g. the files dict.c and
 list.c, which are covered by a similar licence but with different Copyright
@@ -3980,11 +3980,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[ zlib 1.3.1 (2024-01-22) ]
+[ zlib 1.3.2 (2026-02-17) ]
 
 Copyright notice:
 
- (C) 1995-2022 Jean-loup Gailly and Mark Adler
+ (C) 1995-2026 Jean-loup Gailly and Mark Adler
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
