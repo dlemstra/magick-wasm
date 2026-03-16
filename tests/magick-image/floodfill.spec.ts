@@ -8,7 +8,7 @@ import { Percentage } from '@src/types/percentage';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#floodFill', () => {
-    it.skip('should floodfill pixels with the specified alpha channel at the specified position', () => {
+    it('should floodfill pixels with the specified alpha channel at the specified position', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.hasAlpha = true;
             image.colorFuzz = new Percentage(42);
