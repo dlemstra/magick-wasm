@@ -6,7 +6,6 @@
 import { MagickGeometry } from '@src/types/magick-geometry';
 import { MontageSettings } from '@src/settings/montage-settings';
 import { TestFiles } from '@test/test-files';
-import { TestFiles } from '@test/test-files';
 
 describe('MagickImageCollection#montage', () => {
     it('should throw exception when collection is empty', () => {
