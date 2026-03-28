@@ -8,14 +8,17 @@ on:
     paths:
     - .github/workflows/codeql-analysis.yml
 
+permissions: {}
+
 name: codeql analysis
-permissions:
-  contents: read
-  security-events: write
 jobs:
   actions:
     name: CodeQL analysis (GitHub Actions)
     runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
+      security-events: write
 
     steps:
       - uses: actions/checkout@v6
@@ -33,6 +36,10 @@ jobs:
   typescript:
     name: CodeQL analysis (typescript)
     runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
+      security-events: write
 
     steps:
       - uses: actions/checkout@v6
