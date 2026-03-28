@@ -9,10 +9,11 @@ on:
 env:
   LATEST_NODE_VERSION: 24
 
-name: main
 permissions:
   contents: read
   packages: read
+
+name: main
 jobs:
   test:
     name: Test on node ${{matrix.node}} and ${{matrix.os}}
@@ -24,17 +25,17 @@ jobs:
         os: [ubuntu-24.04, macOS-14, windows-2022]
 
     steps:
-      - uses: actions/checkout@v6
-        with:
-          persist-credentials: false
-
       - name: Use node ${{matrix.node}}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f #v6.3.0
         with:
           node-version: ${{matrix.node}}
 
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> ~/.npmrc
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
+        with:
+          persist-credentials: false
 
       - run: npm ci
 
@@ -65,7 +66,7 @@ jobs:
 
       - run: apt install -y nodejs
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
         with:
           persist-credentials: false
 
@@ -89,7 +90,7 @@ jobs:
       publish: ${{steps.check.outputs.publish}}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -120,14 +121,14 @@ jobs:
 
     steps:
       - name: Use node ${{env.LATEST_NODE_VERSION}}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f #v6.3.0
         with:
           node-version: ${{env.LATEST_NODE_VERSION}}
 
       - name: Authenticate with GitHub package registry
         run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" >> ~/.npmrc
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
         with:
           persist-credentials: false
 
