@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
-        "module": "Node16",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "types": ["node"],
         "rootDir": ".",
-        "outDir": ".",
         "strict": true
     },
     "exclude": []
