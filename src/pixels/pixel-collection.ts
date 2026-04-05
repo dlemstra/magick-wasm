@@ -12,7 +12,7 @@ import { MagickColor, IMagickColor } from '../magick-color';
 import { NativeInstance } from '../native-instance';
 import { PixelChannel } from '../enums/pixel-channel';
 import { Quantum } from '../quantum';
-import { quantumArray } from '@dlemstra/magick-native/magick';
+import { quantumArray } from '@dlemstra/magick-native';
 import { _withQuantumArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
 
