@@ -6,7 +6,7 @@
 [![Donate](https://img.shields.io/badge/%24-donate-ff00ff.svg)](https://github.com/sponsors/dlemstra)
 
 ImageMagick is a powerful image manipulation library that supports over [100 major file formats](https://www.imagemagick.org/script/formats.php) (not including sub-formats).
-With magick-wasm you can use ImageMagick in your web application without doing a callback to an api.
+With magick-wasm you can use ImageMagick in your web application without doing a callback to an api. And this library also allows you to use ImageMagick in Node.js or Deno without installing ImageMagick on the system.
 
 ## Documentation
 
