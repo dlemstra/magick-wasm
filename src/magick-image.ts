@@ -1934,6 +1934,36 @@ export interface IMagickImage extends IDisposable {
     setWriteMask(image: IMagickImage): void;
 
     /**
+     * Simulate an image shadow.
+     */
+    shadow(): void;
+
+    /**
+     * Simulate an image shadow.
+     * @param color The color of the shadow.
+     */
+    shadow(color: IMagickColor): void;
+
+    /**
+     * Simulate an image shadow.
+     * @param x The shadow x-offset.
+     * @param y The shadow y-offset.
+     * @param sigma The standard deviation of the Gaussian, in pixels.
+     * @param alpha Transparency percentage.
+     */
+    shadow(x: number, y: number, sigma: number, alpha: Percentage): void;
+
+    /**
+     * Simulate an image shadow.
+     * @param x The shadow x-offset.
+     * @param y The shadow y-offset.
+     * @param sigma The standard deviation of the Gaussian, in pixels.
+     * @param alpha Transparency percentage.
+     * @param color The color of the shadow.
+     */
+    shadow(x: number, y: number, sigma: number, alpha: Percentage, color: IMagickColor): void;
+
+    /**
      * Sharpen pixels in image.
      */
     sharpen(): void;
@@ -3272,8 +3302,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     determineBitDepth(): number;
     determineBitDepth(channels: Channels): number
-    determineBitDepth(channelsOrUndefined?: Channels): number
-    {
+    determineBitDepth(channelsOrUndefined?: Channels): number {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
         return this.useExceptionPointer(exception => {
             return ImageMagick._api._MagickImage_DetermineBitDepth(this._instance, channels, exception);
@@ -3885,6 +3914,33 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_SetWriteMask(this._instance, image._instance, exception);
         });
+    }
+
+    shadow(): void;
+    shadow(color: IMagickColor): void;
+    shadow(x: number, y: number, sigma: number, alpha: Percentage): void;
+    shadow(xColorOrUndefined?: number | IMagickColor, yOrUndefined?: number, sigmaOrUndefined?: number, alphaOrUndefined?: Percentage, colorOrUndefined?: IMagickColor): void {
+        let oldBackgroundColor: IMagickColor | undefined;
+        const x = typeof xColorOrUndefined === 'number' ? xColorOrUndefined : 5;
+        const y = this.valueOrDefault(yOrUndefined, 5);
+        const sigma = this.valueOrDefault(sigmaOrUndefined, 0.5);
+        const alpha = this.valueOrDefault(alphaOrUndefined, new Percentage(80));
+        const color = typeof xColorOrUndefined !== 'number' ? xColorOrUndefined : colorOrUndefined;
+        if (color !== undefined) {
+            oldBackgroundColor = this.backgroundColor;
+            this.backgroundColor = color;
+        }
+
+        try {
+            this.useException(exception => {
+                const instance = ImageMagick._api._MagickImage_Shadow(this._instance, x, y, sigma, alpha.toDouble(), exception.ptr);
+                this._setInstance(instance, exception);
+            });
+        }
+        finally {
+            if (oldBackgroundColor !== undefined)
+                this.backgroundColor = oldBackgroundColor;
+        }
     }
 
     sharpen(): void;
