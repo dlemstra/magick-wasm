@@ -1,4 +1,4 @@
-[ ImageMagick 7.1.2-17 (2026-03-15) ]
+[ ImageMagick 7.1.2-19 (2026-04-12) ]
 
                          ImageMagick License
              https://imagemagick.org/license/
@@ -107,7 +107,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
    License for the specific language governing permissions and limitations
    under the License.
 
-[ aom 3.13.1 (2025-09-05) ]
+[ aom 3.13.3 (2026-04-02) ]
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -1032,7 +1032,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[ exr 3.4.6 (2026-03-01) ]
+[ exr 3.4.9 (2026-04-03) ]
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -1070,7 +1070,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[ freetype 2.14.2 (2026-03-01) ]
+[ freetype 2.14.3 (2026-03-22) ]
 
                     The FreeType Project LICENSE
                     ----------------------------
@@ -3271,7 +3271,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[ png 1.6.55 (2026-02-09) ]
+[ png 1.6.56 (2026-03-25) ]
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
