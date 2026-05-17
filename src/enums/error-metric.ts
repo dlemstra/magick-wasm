@@ -70,7 +70,12 @@ export const ErrorMetric = {
     /**
      * Structural dissimilarity.
      */
-    StructuralDissimilarity: 12
+    StructuralDissimilarity: 12,
+
+   /**
+     * Pixel difference count.
+     */
+    PixelDifferenceCount: 13
 } as const;
 
 export type ErrorMetric = typeof ErrorMetric[keyof typeof ErrorMetric];
