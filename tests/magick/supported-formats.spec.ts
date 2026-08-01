@@ -88,4 +88,18 @@ describe('Magick#supportedFormats', () => {
         const infoFormat = Magick.supportedFormats[index];
         expect(infoFormat.supportsReading).toBe(false);
     });
+
+    it('should set version to the correct value', () => {
+        let index = Magick.supportedFormats.findIndex(formatInfo => formatInfo.format === MagickFormat.Dng);
+        expect(index).toBeGreaterThan(-1);
+
+        const dngFormat = Magick.supportedFormats[index];
+        expect(dngFormat.version).toBe('0.22.2-Release');
+
+        index = Magick.supportedFormats.findIndex(formatInfo => formatInfo.format === MagickFormat.Psd);
+        expect(index).toBeGreaterThan(-1);
+
+        const psdFormat = Magick.supportedFormats[index];
+        expect(psdFormat.version).toBeNull();
+    });
 });

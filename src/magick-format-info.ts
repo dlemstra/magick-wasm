@@ -44,13 +44,18 @@ export interface IMagickFormatInfo {
      * Gets a value indicating whether the format can be written.
      */
     readonly supportsWriting: boolean;
+
+    /**
+     * Gets the version.
+     */
+    readonly version: string | null;
 }
 
 /** @internal */
 export class MagickFormatInfo implements IMagickFormatInfo {
     private static _allFormats: ReadonlyArray<IMagickFormatInfo>;
 
-    private constructor(format: MagickFormat, description: string, mimeType: string | null, moduleFormat: MagickFormat, supportsMultipleFrames: boolean, supportsReading: boolean, supportsWriting: boolean) {
+    private constructor(format: MagickFormat, description: string, mimeType: string | null, moduleFormat: MagickFormat, supportsMultipleFrames: boolean, supportsReading: boolean, supportsWriting: boolean, version: string | null) {
         this.format = format;
         this.description = description;
         this.mimeType = mimeType;
@@ -58,6 +63,7 @@ export class MagickFormatInfo implements IMagickFormatInfo {
         this.supportsMultipleFrames = supportsMultipleFrames;
         this.supportsReading = supportsReading;
         this.supportsWriting = supportsWriting;
+        this.version = version;
     }
 
     readonly description: string;
@@ -73,6 +79,8 @@ export class MagickFormatInfo implements IMagickFormatInfo {
     readonly supportsReading: boolean;
 
     readonly supportsWriting: boolean;
+
+    readonly version: string | null;
 
     static get all(): ReadonlyArray<IMagickFormatInfo> {
         if (MagickFormatInfo._allFormats === undefined)
@@ -100,7 +108,8 @@ export class MagickFormatInfo implements IMagickFormatInfo {
                         const supportsMultipleFrames = ImageMagick._api._MagickFormatInfo_SupportsMultipleFrames_Get(info) == 1;
                         const supportsReading = ImageMagick._api._MagickFormatInfo_SupportsReading_Get(info) == 1;
                         const supportsWriting = ImageMagick._api._MagickFormatInfo_SupportsWriting_Get(info) == 1;
-                        result[i] = new MagickFormatInfo(format, description, mimeType, moduleFormat, supportsMultipleFrames, supportsReading, supportsWriting);
+                        const version = _createString(ImageMagick._api._MagickFormatInfo_Version_Get(info));
+                        result[i] = new MagickFormatInfo(format, description, mimeType, moduleFormat, supportsMultipleFrames, supportsReading, supportsWriting, version);
                     }
                     return result;
                 } finally {
