@@ -1540,6 +1540,25 @@ export interface IMagickImage extends IDisposable {
     inverseLevel(blackPoint: Percentage, whitePoint: Percentage, gamma: number, channels: Channels): void;
 
     /**
+     * Maps the given color to "black" and "white" values, linearly spreading out the colors, and
+     * level values on a channel by channel bases, as per level(). The given colors allows you to
+     * specify different level ranges for each of the color channels separately.
+     * @param blackColor The color to map black to/from.
+     * @param whiteColor The color to map white to/from.
+     */
+    inverseLevelColors(blackColor: IMagickColor, whiteColor: IMagickColor): void;
+
+    /**
+     * Maps the given color to "black" and "white" values, linearly spreading out the colors, and
+     * level values on a channel by channel bases, as per level(). The given colors allows you to
+     * specify different level ranges for each of the color channels separately.
+     * @param blackColor The color to map black to/from.
+     * @param whiteColor The color to map white to/from.
+     * @param channels The channel(s) to level.
+     */
+    inverseLevelColors(blackColor: IMagickColor, whiteColor: IMagickColor, channels: Channels): void;
+
+    /**
      * Changes any pixel that does not match the target with the color defined by fill.
      * @param target The color to replace.
      * @param fill The color to replace opaque color with.
@@ -1606,6 +1625,25 @@ export interface IMagickImage extends IDisposable {
      * @param channels The channel(s) to level.
      */
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number, channels: Channels): void;
+
+    /**
+     * Maps the given color to "black" and "white" values, linearly spreading out the colors, and
+     * level values on a channel by channel bases, as per level(). The given colors allows you to
+     * specify different level ranges for each of the color channels separately.
+     * @param blackColor The color to map black to/from.
+     * @param whiteColor The color to map white to/from.
+     */
+    levelColors(blackColor: IMagickColor, whiteColor: IMagickColor): void;
+
+    /**
+     * Maps the given color to "black" and "white" values, linearly spreading out the colors, and
+     * level values on a channel by channel bases, as per level(). The given colors allows you to
+     * specify different level ranges for each of the color channels separately.
+     * @param blackColor The color to map black to/from.
+     * @param whiteColor The color to map white to/from.
+     * @param channels The channel(s) to level.
+     */
+    levelColors(blackColor: IMagickColor, whiteColor: IMagickColor, channels: Channels): void;
 
     /**
      * Discards any pixels below the black point and above the white point and levels the remaining pixels.
@@ -3587,6 +3625,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    inverseLevelColors(blackColor: IMagickColor, whiteColor: IMagickColor): void;
+    inverseLevelColors(blackColor: IMagickColor, whiteColor: IMagickColor, channels: Channels): void;
+    inverseLevelColors(blackColor: IMagickColor, whiteColor: IMagickColor, channelsOrUndefined?: Channels): void {
+        this.levelColorsPrivate(true, blackColor, whiteColor, channelsOrUndefined)
+    }
+
+
     inverseOpaque = (target: IMagickColor, fill: IMagickColor) => this.opaquePrivate(target, fill, true);
 
     inverseSigmoidalContrast(contrast: number): void;
@@ -3608,6 +3653,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, channels, exception);
         });
+    }
+
+    levelColors(blackColor: IMagickColor, whiteColor: IMagickColor): void;
+    levelColors(blackColor: IMagickColor, whiteColor: IMagickColor, channels: Channels): void;
+    levelColors(blackColor: IMagickColor, whiteColor: IMagickColor, channelsOrUndefined?: Channels): void {
+        this.levelColorsPrivate(false, blackColor, whiteColor, channelsOrUndefined)
     }
 
     linearStretch(blackPoint: Percentage, whitePoint: Percentage): void {
@@ -4333,6 +4384,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 return null;
 
             return data;
+        });
+    }
+
+    private levelColorsPrivate(invert: boolean, blackColor: IMagickColor, whiteColor: IMagickColor, channelsOrUndefined?: Channels): void {
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.RGB);
+        this.useExceptionPointer(exception => {
+            blackColor._use(blackPtr => {
+                whiteColor._use(whitePtr => {
+                    ImageMagick._api._MagickImage_LevelColors(this._instance, blackPtr, whitePtr, channels, this.fromBool(invert), exception);
+                });
+            });
         });
     }
 
