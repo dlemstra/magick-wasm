@@ -9,6 +9,12 @@ export default defineConfig({
             name: 'magick-wasm',
             fileName: 'index',
         },
+        rolldownOptions: {
+            transform: {
+                // import.meta.url is unused; WASM is loaded via WasmLocator
+                define: { 'import.meta': '{}' },
+            },
+        },
     },
     test: {
         globals: true,
