@@ -10,7 +10,7 @@ describe('MagickImageCollection#appendVertically', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.appendVertically(() => { /* never reached */ });
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

@@ -12,7 +12,7 @@ describe('MagickImageCollection#optimizePlus', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.optimizePlus();
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 
@@ -23,7 +23,7 @@ describe('MagickImageCollection#optimizePlus', () => {
 
             expect(() => {
                 images.optimizePlus();
-            }).toThrowError('ImagesAreNotTheSameSize');
+            }).toThrow('ImagesAreNotTheSameSize');
         });
     });
 

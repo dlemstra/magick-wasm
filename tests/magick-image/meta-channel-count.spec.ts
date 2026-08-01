@@ -21,7 +21,7 @@ describe('MagickImage#metaChannelCount', () => {
 
     it('should raise error when value is higher than 53', () => {
         TestFiles.Images.Builtin.logo.use(image => {
-            expect(() => image.metaChannelCount = 54).toThrowError('MaximumChannelsExceeded');
+            expect(() => image.metaChannelCount = 54).toThrow('MaximumChannelsExceeded');
         })
     });
 

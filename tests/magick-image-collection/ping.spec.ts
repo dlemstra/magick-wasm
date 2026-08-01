@@ -17,7 +17,7 @@ describe('MagickImageCollection#ping', () => {
 
             expect(() => {
                 images[0].getPixels(() => { /* never reached */ });
-            }).toThrowError('image contains no pixel data');
+            }).toThrow('image contains no pixel data');
         });
     });
 
@@ -33,7 +33,7 @@ describe('MagickImageCollection#ping', () => {
 
                 expect(() => {
                     images[0].getPixels(() => { /* never reached */ });
-                }).toThrowError('image contains no pixel data');
+                }).toThrow('image contains no pixel data');
             });
         });
     });

@@ -51,6 +51,6 @@ describe('MagickReadSettings#frameCount', () => {
         expect(() => {
             ImageMagick.read(TestFiles.Images.roseSparkleGif.data, settings, () => {});
         })
-        .toThrowError('The frame count can only be set to 1 when a single image is being read.');
+        .toThrow('The frame count can only be set to 1 when a single image is being read.');
     });
 });

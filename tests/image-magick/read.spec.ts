@@ -55,7 +55,7 @@ describe('ImageMagick#read', () => {
             });
         })
         .rejects
-        .toThrowError('ReadPNGImage');
+        .toThrow('ReadPNGImage');
     });
 
     it('should read image from array with specified format', () => {
@@ -64,7 +64,7 @@ describe('ImageMagick#read', () => {
                 console.log(image);
             });
         })
-        .toThrowError('ReadPNGImage');
+        .toThrow('ReadPNGImage');
     });
 
     it('should read image from filename with specified format async', async () => {
@@ -74,7 +74,7 @@ describe('ImageMagick#read', () => {
             });
         })
         .rejects
-        .toThrowError('ReadPNGImage');
+        .toThrow('ReadPNGImage');
     });
 
     it('should read image from filename with specified format', () => {
@@ -83,7 +83,7 @@ describe('ImageMagick#read', () => {
                 console.log(image);
             });
         })
-        .toThrowError('ReadPNGImage');
+        .toThrow('ReadPNGImage');
     });
 
     it('should read correct image when width and height are specified', () => {
@@ -134,7 +134,7 @@ describe('ImageMagick#read', () => {
                 return image;
             });
         })
-        .toThrowError('The result of the function cannot be the instance that has been disposed.');
+        .toThrow('The result of the function cannot be the instance that has been disposed.');
     });
 
     it('should throw error when image is returned async', async () => {
@@ -145,6 +145,6 @@ describe('ImageMagick#read', () => {
             });
         })
         .rejects
-        .toThrowError('The result of the function cannot be the instance that has been disposed.');
+        .toThrow('The result of the function cannot be the instance that has been disposed.');
     });
 });

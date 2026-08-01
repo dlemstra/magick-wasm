@@ -13,7 +13,7 @@ describe('MagickImageCollection#deconstruct', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.deconstruct();
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

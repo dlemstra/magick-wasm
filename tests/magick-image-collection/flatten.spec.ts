@@ -11,7 +11,7 @@ describe('MagickImageCollection#flatten', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.flatten(() => { /* never reached */ });
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

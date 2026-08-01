@@ -44,7 +44,7 @@ describe('MagickImage#compare', () => {
                     return compareResult;
                 });
 
-                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
+                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrow('instance is disposed');
                 expect(result.distortion).toBeCloseTo(0.48235, 4);
             });
         });
@@ -68,7 +68,7 @@ describe('MagickImage#compare', () => {
                     return compareResult;
                 });
 
-                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
+                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrow('instance is disposed');
                 expect(result.distortion).toBeCloseTo(0.48235, 4);
             });
         });
@@ -111,7 +111,7 @@ describe('MagickImage#compare', () => {
                     return compareResult;
                 });
 
-                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
+                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrow('instance is disposed');
                 expect(result.distortion).toBeCloseTo(0.48235, 4);
             });
         });
@@ -138,7 +138,7 @@ describe('MagickImage#compare', () => {
                     return compareResult;
                 });
 
-                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
+                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrow('instance is disposed');
                 expect(result.distortion).toBeCloseTo(0.48235, 4);
             });
         });
@@ -169,7 +169,7 @@ describe('MagickImage#compare', () => {
                     return compareResult;
                 });
 
-                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
+                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrow('instance is disposed');
                 expect(result.distortion).toBeCloseTo(0.26274, 4);
             });
         });
@@ -193,7 +193,7 @@ describe('MagickImage#compare', () => {
                     return compareResult;
                 });
 
-                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
+                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrow('instance is disposed');
                 expect(result.distortion).toBeCloseTo(0.26274, 4);
             });
         });
@@ -218,7 +218,7 @@ describe('MagickImage#compare', () => {
                     return compareResult;
                 });
 
-                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
+                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrow('instance is disposed');
                 expect(result.distortion).toBeCloseTo(0.26274, 4);
             });
         });
@@ -246,7 +246,7 @@ describe('MagickImage#compare', () => {
                     return compareResult;
                 });
 
-                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
+                expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrow('instance is disposed');
                 expect(result.distortion).toBeCloseTo(0.26274, 4);
             });
         });

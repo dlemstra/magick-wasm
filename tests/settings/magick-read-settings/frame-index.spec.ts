@@ -26,6 +26,6 @@ describe('MagickReadSettings#frameIndex', () => {
         expect(() => {
             ImageMagick.read(TestFiles.Images.roseSparkleGif.data, settings, () => {});
         })
-        .toThrowError('InvalidImageIndex');
+        .toThrow('InvalidImageIndex');
     });
 });

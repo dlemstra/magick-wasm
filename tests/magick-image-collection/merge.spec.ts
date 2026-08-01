@@ -10,7 +10,7 @@ describe('MagickImageCollection#merge', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.merge(() => { /* never reached */ });
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

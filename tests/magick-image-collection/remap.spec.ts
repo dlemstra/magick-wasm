@@ -13,7 +13,7 @@ describe('MagickImageCollection#remap', () => {
             TestFiles.Images.empty.use((image) => {
                 expect(() => {
                     images.remap(image);
-                }).toThrowError('operation requires at least one image');
+                }).toThrow('operation requires at least one image');
             });
         });
     });

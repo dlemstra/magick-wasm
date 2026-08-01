@@ -11,7 +11,7 @@ describe('MagickImage#setProfile', () => {
             TestFiles.Images.empty.use(image => {
                 image.setProfile('icc', new Uint8Array());
             });
-        }).toThrowError('The specified array cannot be empty');
+        }).toThrow('The specified array cannot be empty');
     });
 
     it('should add the profile by name', () => {

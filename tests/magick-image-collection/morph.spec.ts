@@ -11,7 +11,7 @@ describe('MagickImageCollection#morph', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.morph(1);
-            }).toThrowError('operation requires at least two images');
+            }).toThrow('operation requires at least two images');
         });
     });
 
@@ -20,7 +20,7 @@ describe('MagickImageCollection#morph', () => {
             images.push(TestFiles.Images.imageMagickJpg.load());
             expect(() => {
                 images.morph(1);
-            }).toThrowError('operation requires at least two images');
+            }).toThrow('operation requires at least two images');
         });
     });
 

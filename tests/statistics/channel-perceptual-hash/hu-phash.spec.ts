@@ -15,7 +15,7 @@ describe('ChannelPerceptualHash#huPhash', () => {
             let red = phash.getChannel(PixelChannel.Red);
             red = expectToNotBeNull(red);
 
-            expect(() => red.huPhash(ColorSpace.HCL, 0)).toThrowError('Invalid color space specified');
+            expect(() => red.huPhash(ColorSpace.HCL, 0)).toThrow('Invalid color space specified');
         });
     });
 
@@ -26,7 +26,7 @@ describe('ChannelPerceptualHash#huPhash', () => {
             let red = phash.getChannel(PixelChannel.Red);
             red = expectToNotBeNull(red);
 
-            expect(() => red.huPhash(ColorSpace.XyY, 7)).toThrowError('Invalid index specified');
+            expect(() => red.huPhash(ColorSpace.XyY, 7)).toThrow('Invalid index specified');
         });
     });
 

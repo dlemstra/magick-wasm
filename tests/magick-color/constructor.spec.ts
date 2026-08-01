@@ -9,7 +9,7 @@ describe('MagickColor#constructor', () => {
     it('should set throw error when color is invalid', () => {
         expect(() => {
             new MagickColor('foobar');
-        }).toThrowError('invalid color specified');
+        }).toThrow('invalid color specified');
     });
 
     it('should set the properties', () => {

@@ -15,7 +15,7 @@ describe('MagickImage#distort', () => {
             TestFiles.Images.empty.use(image => {
                 image.distort(DistortMethod.PerspectiveProjection, []);
             });
-        }).toThrowError('The specified array cannot be empty');
+        }).toThrow('The specified array cannot be empty');
     });
 
     it('should distort the image', () => {

@@ -9,19 +9,19 @@ describe('MagickGeometry#constructor', () => {
     it('should throw exception when value is invalid', () => {
         expect(() => {
             new MagickGeometry('foobar');
-        }).toThrowError('invalid geometry specified')
+        }).toThrow('invalid geometry specified')
     });
 
     it('should throw exception when width is negative', () => {
         expect(() => {
             new MagickGeometry(-1, 0);
-        }).toThrowError('negative width is not allowed')
+        }).toThrow('negative width is not allowed')
     });
 
     it('should throw exception when height is negative', () => {
         expect(() => {
             new MagickGeometry(0, -1);
-        }).toThrowError('negative height is not allowed')
+        }).toThrow('negative height is not allowed')
     });
 
     it('should set the properties', () => {

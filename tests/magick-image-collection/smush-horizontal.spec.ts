@@ -10,7 +10,7 @@ describe('MagickImageCollection#smushHorizontal', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.smushHorizontal(3, () => { /* never reached */ });
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

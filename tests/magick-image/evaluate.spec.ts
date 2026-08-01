@@ -17,7 +17,7 @@ describe('MagickImage#evaluate', () => {
         TestFiles.Images.Color.red.use(image => {
             expect(() => {
                 image.evaluate(Channels.Composite, new MagickGeometry('10%'), EvaluateOperator.Set, 1);
-            }).toThrowError('percentage is not supported');
+            }).toThrow('percentage is not supported');
         });
     });
 

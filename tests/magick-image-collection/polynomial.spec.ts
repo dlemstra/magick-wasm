@@ -10,7 +10,7 @@ describe('MagickImageCollection#polynomial', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.polynomial([1], () => { /* never reached */ });
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 
@@ -18,7 +18,7 @@ describe('MagickImageCollection#polynomial', () => {
         TestFiles.Images.roseSparkleGif.use((images) => {
             expect(() => {
                 images.polynomial([], () => { /* never reached */ });
-            }).toThrowError('The specified array cannot be empty');
+            }).toThrow('The specified array cannot be empty');
         });
     });
 

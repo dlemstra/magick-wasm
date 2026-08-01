@@ -55,7 +55,7 @@ describe('ImageMagick#readCollection', () => {
             });
         })
         .rejects
-        .toThrowError('ReadPNGImage');
+        .toThrow('ReadPNGImage');
     });
 
     it('should read image from array with specified format', () => {
@@ -64,7 +64,7 @@ describe('ImageMagick#readCollection', () => {
                 console.log(image);
             });
         })
-        .toThrowError('ReadPNGImage');
+        .toThrow('ReadPNGImage');
     });
 
     it('should read image from array with settings async', async () => {
@@ -78,7 +78,7 @@ describe('ImageMagick#readCollection', () => {
             });
         })
         .rejects
-        .toThrowError('ImproperImageHeader');
+        .toThrow('ImproperImageHeader');
     });
 
     it('should read image from array with settings', () => {
@@ -90,6 +90,6 @@ describe('ImageMagick#readCollection', () => {
             ImageMagick.readCollection(TestFiles.Images.roseSparkleGif.data, settings, () => {
                 // will never be reached
             });
-        }).toThrowError('ImproperImageHeader');
+        }).toThrow('ImproperImageHeader');
     });
 });

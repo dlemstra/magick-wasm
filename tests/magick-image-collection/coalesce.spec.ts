@@ -11,7 +11,7 @@ describe('MagickImageCollection#coalesce', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.coalesce();
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

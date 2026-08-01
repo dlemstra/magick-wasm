@@ -20,7 +20,7 @@ describe('MagickImage#perceptualHash', () => {
         TestFiles.Images.Builtin.wizard.use((image) => {
             expect(() => {
                 image.perceptualHash([]);
-            }).toThrowError('Invalid number of colorspaces, the minimum is 1 and the maximum is 6');
+            }).toThrow('Invalid number of colorspaces, the minimum is 1 and the maximum is 6');
         });
     });
 
@@ -28,7 +28,7 @@ describe('MagickImage#perceptualHash', () => {
         TestFiles.Images.Builtin.wizard.use((image) => {
             expect(() => {
                 image.perceptualHash([ColorSpace.XyY, ColorSpace.HCL, ColorSpace.CMY, ColorSpace.Luv, ColorSpace.Gray, ColorSpace.RGB, ColorSpace.YCC]);
-            }).toThrowError('Invalid number of colorspaces, the minimum is 1 and the maximum is 6');
+            }).toThrow('Invalid number of colorspaces, the minimum is 1 and the maximum is 6');
         });
     });
 
@@ -36,7 +36,7 @@ describe('MagickImage#perceptualHash', () => {
         TestFiles.Images.Builtin.wizard.use((image) => {
             expect(() => {
                 image.perceptualHash([ColorSpace.HCL, ColorSpace.HCL]);
-            }).toThrowError('Specifying the same colorspace more than once is not allowed');
+            }).toThrow('Specifying the same colorspace more than once is not allowed');
         });
     });
 

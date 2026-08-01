@@ -13,7 +13,7 @@ describe('MagickImageCollection#montage', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.montage(settings, () => { /* never reached */ });
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

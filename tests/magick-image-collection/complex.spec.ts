@@ -14,7 +14,7 @@ describe('MagickImageCollection#complex', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.complex(settings, () => { /* never reached */ });
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

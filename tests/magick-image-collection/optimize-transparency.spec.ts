@@ -12,7 +12,7 @@ describe('MagickImageCollection#optimizeTransparency', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.optimizeTransparency();
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

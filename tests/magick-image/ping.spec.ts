@@ -9,7 +9,7 @@ import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#ping', () => {
     const exceptImageToNotHavePixelData = (image: IMagickImage) => {
-        expect(() => { image.getPixels(pixels => { expect(pixels).toBeUndefined() }) }).toThrowError('image contains no pixel data')
+        expect(() => { image.getPixels(pixels => { expect(pixels).toBeUndefined() }) }).toThrow('image contains no pixel data')
     }
 
     it('should ping built-in image', () => {

@@ -11,6 +11,6 @@ describe('MagickImage#dispose', () => {
         image.dispose();
         expect(() => {
             image.resize(1, 1);
-        }).toThrowError('instance is disposed');
+        }).toThrow('instance is disposed');
     });
 });

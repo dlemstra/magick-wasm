@@ -10,7 +10,7 @@ describe('MagickImage#constructor', () => {
         TestFiles.Images.empty.use(image => {
             expect(() => {
                 image.resize(1, 1);
-            }).toThrowError('NegativeOrZeroImageSize `\' @ error/image.c/CloneImage');
+            }).toThrow('NegativeOrZeroImageSize `\' @ error/image.c/CloneImage');
         });
     });
 });

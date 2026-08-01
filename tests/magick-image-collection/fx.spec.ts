@@ -14,7 +14,7 @@ describe('MagickImageCollection#fx', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.fx('test', () => { /* never reached */ });
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

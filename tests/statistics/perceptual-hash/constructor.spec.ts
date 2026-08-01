@@ -11,7 +11,7 @@ describe('PerceptualHash#constructor', () => {
     it('should throw error when hash is empty', () => {
         expect(() => {
             new PerceptualHash('');
-        }).toThrowError('Invalid hash size');
+        }).toThrow('Invalid hash size');
     });
 
     it('should parse the hash', () => {

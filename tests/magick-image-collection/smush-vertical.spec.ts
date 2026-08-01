@@ -11,7 +11,7 @@ describe('MagickImageCollection#smushVertical', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.smushVertical(3, () => { /* never reached */ });
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 

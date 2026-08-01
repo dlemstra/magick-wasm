@@ -10,7 +10,7 @@ describe('MagickImageCollection#appendHorizontally', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             expect(() => {
                 images.appendHorizontally(() => { /* never reached */ });
-            }).toThrowError('operation requires at least one image');
+            }).toThrow('operation requires at least one image');
         });
     });
 
