@@ -3554,13 +3554,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 if (histogram !== 0) {
                     const length = lengthPointer.value;
                     for (let i = 0; i < length; i++) {
-                        const colorPtr = ImageMagick._api._MagickColorCollection_GetInstance(histogram, i);
+                        const colorPtr = ImageMagick._api._MagickColorCollection_Get(histogram, i);
                         const color = MagickColor._create(colorPtr);
                         const count = ImageMagick._api._MagickColor_Count_Get(colorPtr);
                         result.set(color.toString(), count);
                     }
 
-                    ImageMagick._api._MagickColorCollection_DisposeList(histogram);
+                    ImageMagick._api._MagickColorCollection_Dispose(histogram);
                 }
             });
         });
