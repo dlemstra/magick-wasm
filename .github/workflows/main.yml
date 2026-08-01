@@ -13,7 +13,7 @@ permissions:
   contents: read
   packages: read
 
-name: main
+name: Main
 jobs:
   test:
     name: Test on node ${{matrix.node}} and ${{matrix.os}}
