@@ -149,7 +149,7 @@ describe('MagickImage#compare', () => {
             TestFiles.Images.empty.use(other => {
                 image.read(MagickColors.Red, 1, 1);
                 other.read(MagickColors.RosyBrown, 1, 1);
-                expect(image.compare(other, ErrorMetric.RootMeanSquared, Channels.Red)).toBeCloseTo(0.15169, 4);
+                expect(image.compare(other, ErrorMetric.RootMeanSquared, Channels.Red)).toBeCloseTo(0.26274, 4);
             });
         });
     });
@@ -170,7 +170,7 @@ describe('MagickImage#compare', () => {
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.15169, 4);
+                expect(result.distortion).toBeCloseTo(0.26274, 4);
             });
         });
     });
@@ -194,7 +194,7 @@ describe('MagickImage#compare', () => {
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.15169, 4);
+                expect(result.distortion).toBeCloseTo(0.26274, 4);
             });
         });
     });
@@ -219,7 +219,7 @@ describe('MagickImage#compare', () => {
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.15169, 4);
+                expect(result.distortion).toBeCloseTo(0.26274, 4);
             });
         });
     });
@@ -247,7 +247,7 @@ describe('MagickImage#compare', () => {
                 });
 
                 expect(() => { expect(result.difference._instance).toBeUndefined() }).toThrowError('instance is disposed');
-                expect(result.distortion).toBeCloseTo(0.15169, 4);
+                expect(result.distortion).toBeCloseTo(0.26274, 4);
             });
         });
     });

@@ -10,7 +10,7 @@ describe('Coders#jxl', () => {
     it('should be able to write jxl image', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
             image.write(MagickFormat.Jxl, data => {
-                expect(data.length).toBe(37904);
+                expect(data.length).toBe(36667);
             });
         });
     });

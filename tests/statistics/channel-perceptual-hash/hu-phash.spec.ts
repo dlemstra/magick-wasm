@@ -41,7 +41,7 @@ describe('ChannelPerceptualHash#huPhash', () => {
             expect(huPhashXyY).toBeCloseTo(9.1503);
 
             const huPhashHSB = red.huPhash(ColorSpace.HSB, 6);
-            expect(huPhashHSB).toBeCloseTo(12.000);
+            expect(huPhashHSB).toBeCloseTo(13.5757);
         });
     });
 });

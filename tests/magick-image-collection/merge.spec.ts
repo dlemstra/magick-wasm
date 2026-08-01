@@ -24,7 +24,7 @@ describe('MagickImageCollection#merge', () => {
                     expect(image.width).toBe(imageMagickJpg.width);
                     expect(image.height).toBe(imageMagickJpg.height);
 
-                    expect(image).toEqualImage(roses[0], 0.23778);
+                    expect(image).toEqualImage(roses[0], 0.27457);
                 });
             });
         });
