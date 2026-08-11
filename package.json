@@ -50,7 +50,7 @@
         "@dlemstra/magick-native": "2026.727.1945",
         "@types/jsdom": "28.0.3",
         "@types/node": "26.1.2",
-        "@typescript-eslint/eslint-plugin": "8.65.0",
+        "@typescript-eslint/eslint-plugin": "8.66.0",
         "@typescript-eslint/parser": "8.65.0",
         "dts-bundle-generator": "9.5.1",
         "eslint": "10.8.0",
