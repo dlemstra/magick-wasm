@@ -6,7 +6,9 @@
 import { ColorSpace } from "../enums/color-space";
 import { ImageMagick } from "../image-magick";
 import { MagickError } from "../magick-error";
+import { NativePointer } from '@dlemstra/magick-native';
 import { PixelChannel } from "../enums/pixel-channel";
+import { _castToSize } from "../internal/native/size";
 
 /**
  * Contains the perceptual hash of one image channel.
@@ -59,21 +61,21 @@ export class ChannelPerceptualHash implements IChannelPerceptualHash {
 
     /** @internal */
     constructor(channel: PixelChannel, colorSpaces: ReadonlyArray<ColorSpace>, hash: string);
-    constructor(channel: PixelChannel, colorSpaces: ReadonlyArray<ColorSpace>, instance: number);
-    constructor(channel: PixelChannel, colorSpaces: ReadonlyArray<ColorSpace>, hashOrInstance: string | number) {
+    constructor(channel: PixelChannel, colorSpaces: ReadonlyArray<ColorSpace>, instance: NativePointer);
+    constructor(channel: PixelChannel, colorSpaces: ReadonlyArray<ColorSpace>, hashOrInstance: string | NativePointer) {
         this.channel = channel;
-        if (typeof hashOrInstance == 'number') {
+        if (typeof hashOrInstance == 'string') {
+            this.parseHash(colorSpaces, hashOrInstance);
+        } else {
             for (let colorSpaceIndex = 0; colorSpaceIndex < colorSpaces.length; colorSpaceIndex++) {
                 const huPhashList = new HuPhashList();
                 for (let i = 0; i < 7; i++) {
-                    const huPhash = ImageMagick._api._ChannelPerceptualHash_GetHuPhash(hashOrInstance, colorSpaceIndex, i);
+                    const huPhash = ImageMagick._api._ChannelPerceptualHash_GetHuPhash(hashOrInstance, _castToSize(colorSpaceIndex), _castToSize(i));
                     huPhashList.set(i, huPhash);
                 }
 
                 this._huPhashes.set(colorSpaces[colorSpaceIndex], huPhashList);
             }
-        } else {
-            this.parseHash(colorSpaces, hashOrInstance);
         }
     }
 

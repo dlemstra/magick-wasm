@@ -12,6 +12,7 @@ import { Magick } from '../../magick';
 import { NativeInstance } from '../../native-instance';
 import { _withString } from '../native/string';
 import { _withDoubleArray } from '../native/array';
+import { _castToSize } from '../native/size';
 
 /** @internal */
 export class NativeDrawingSettings extends NativeInstance {
@@ -60,7 +61,7 @@ export class NativeDrawingSettings extends NativeInstance {
         const strokeDashArray = settings.strokeDashArray;
         if (strokeDashArray !== undefined) {
             _withDoubleArray(strokeDashArray, strokeDashArrayPtr => {
-                ImageMagick._api._DrawingSettings_SetStrokeDashArray(this._instance, strokeDashArrayPtr, strokeDashArray.length);
+                ImageMagick._api._DrawingSettings_SetStrokeDashArray(this._instance, strokeDashArrayPtr, _castToSize(strokeDashArray.length));
             });
         }
 
@@ -92,7 +93,7 @@ export class NativeDrawingSettings extends NativeInstance {
                 ImageMagick._api._DrawingSettings_FillColor_Set(this._instance, valuePtr);
             });
         } else {
-            ImageMagick._api._DrawingSettings_FillColor_Set(this._instance, 0);
+            ImageMagick._api._DrawingSettings_FillColor_Set(this._instance, ImageMagick._api._NullPointer);
         }
     }
 
@@ -101,7 +102,7 @@ export class NativeDrawingSettings extends NativeInstance {
             if (image !== undefined)
                 ImageMagick._api._DrawingSettings_SetFillPattern(this._instance, image._instance, exception);
             else
-                ImageMagick._api._DrawingSettings_SetFillPattern(this._instance, 0, exception);
+                ImageMagick._api._DrawingSettings_SetFillPattern(this._instance, ImageMagick._api._NullPointer, exception);
         });
     }
 }

@@ -5,17 +5,18 @@
 
 import { IDisposable } from '../disposable';
 import { ImageMagick } from '../image-magick';
+import { NativePointer } from '@dlemstra/magick-native';
 
 /** @internal */
 export class DisposableArray<TReturnType> implements IDisposable {
-    private _pointer: number;
+    private _pointer: NativePointer;
     private readonly _bytes?: Uint8Array;
     private readonly _func: (data: Uint8Array) => TReturnType | Promise<TReturnType>;
 
-    constructor(pointer: number, length: number, func: (data: Uint8Array) => TReturnType | Promise<TReturnType>) {
+    constructor(pointer: NativePointer, length: number, func: (data: Uint8Array) => TReturnType | Promise<TReturnType>) {
         this._pointer = pointer;
         this._func = func;
-        this._bytes = ImageMagick._api.HEAPU8.subarray(pointer, pointer + length);
+        this._bytes = ImageMagick._api.HEAPU8.subarray(Number(pointer), Number(pointer) + length);
     }
 
     func(array: DisposableArray<TReturnType>): TReturnType | Promise<TReturnType> {

@@ -7,6 +7,7 @@ import { ImageMagick } from '../image-magick';
 import { Magick } from '../magick';
 import { MagickSettings } from './magick-settings';
 import { NativeInstance } from '../native-instance';
+import { _castToSize } from '../internal/native/size';
 import { _withString } from '../internal/native/string';
 
 /** @internal */
@@ -29,7 +30,7 @@ export class NativeMagickSettings extends NativeInstance {
             ImageMagick._api._MagickSettings_SetPing(this._instance, 1);
 
         if (settings._quality !== undefined)
-            ImageMagick._api._MagickSettings_SetQuality(this._instance, settings._quality);
+            ImageMagick._api._MagickSettings_SetQuality(this._instance, _castToSize(settings._quality));
 
         if (settings.antiAlias !== undefined)
             ImageMagick._api._MagickSettings_AntiAlias_Set(this._instance, settings.antiAlias ? 1 : 0);
@@ -60,7 +61,7 @@ export class NativeMagickSettings extends NativeInstance {
         }
 
         if (settings.depth !== undefined)
-            ImageMagick._api._MagickSettings_Depth_Set(this._instance, settings.depth);
+            ImageMagick._api._MagickSettings_Depth_Set(this._instance, _castToSize(settings.depth));
 
         if (settings.endian !== undefined)
             ImageMagick._api._MagickSettings_Endian_Set(this._instance, settings.endian);

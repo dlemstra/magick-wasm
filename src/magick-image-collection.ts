@@ -22,10 +22,12 @@ import { MagickFormat } from './enums/magick-format';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
-import { NativePointerPointer } from './internal/pointer/native-pointer-pointer';
 import { MontageSettings } from './settings/montage-settings';
+import { NativePointer } from '@dlemstra/magick-native';
+import { NativePointerPointer } from './internal/pointer/native-pointer-pointer';
 import { QuantizeSettings } from './settings/quantize-settings';
 import { TemporaryDefines } from './helpers/temporary-defines';
+import { _castToSize } from './internal/native/size';
 import { _withDoubleArray } from './internal/native/array';
 import { _withString } from './internal/native/string';
 
@@ -479,7 +481,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
     evaluate<TReturnType>(evaluateOperator: EvaluateOperator, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.createImage((instance, exception) => {
-            return ImageMagick._api._MagickImageCollection_Evaluate(instance, evaluateOperator, exception.ptr);
+            return ImageMagick._api._MagickImageCollection_Evaluate(instance, _castToSize(evaluateOperator), exception.ptr);
         }, func);
     }
 
@@ -505,7 +507,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
         return _withString(expression, expressionPtr => {
             return this.createImage((instance, exception) => {
-                return ImageMagick._api._MagickImageCollection_Fx(instance, expressionPtr, channels, exception.ptr);
+                return ImageMagick._api._MagickImageCollection_Fx(instance, expressionPtr, _castToSize(channels), exception.ptr);
             }, callback!);
         });
     }
@@ -546,7 +548,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
             throw new MagickError('operation requires at least two images');
 
         this.replaceImages((instance, exception) => {
-            return ImageMagick._api._MagickImageCollection_Morph(instance, frames, exception.ptr);
+            return ImageMagick._api._MagickImageCollection_Morph(instance, _castToSize(frames), exception.ptr);
         });
     }
 
@@ -589,7 +591,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     polynomial<TReturnType>(terms: number[], func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.createImage((instance, exception) => {
             return _withDoubleArray(terms, termsPtr => {
-                return ImageMagick._api._MagickImageCollection_Polynomial(instance, termsPtr, terms.length, exception.ptr);
+                return ImageMagick._api._MagickImageCollection_Polynomial(instance, termsPtr, _castToSize(terms.length), exception.ptr);
             });
         }, func);
     }
@@ -670,7 +672,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     write<TReturnType>(funcOrFormat: ((data: Uint8Array) => TReturnType | Promise<TReturnType>) | MagickFormat, func?: (data: Uint8Array) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
         this.throwIfEmpty();
 
-        let data = 0;
+        let data = ImageMagick._api._NullPointer;
         let length = 0;
         const image = this[0];
         const settings = this.getSettings();
@@ -687,7 +689,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                 settings._use(nativeSettings => {
                     this.attachImages((instance) => {
                         data = ImageMagick._api._MagickImage_WriteBlob(instance, nativeSettings._instance, pointer.ptr, exception.ptr);
-                        length = pointer.value;
+                        length = Number(pointer.value);
                     });
                 });
             });
@@ -698,20 +700,20 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
     }
 
     /** @internal */
-    static _createFromImages<TReturnType>(images: number, settings: MagickSettings, func: ImageCollectionCallback<TReturnType>): TReturnType | Promise<TReturnType> {
+    static _createFromImages<TReturnType>(images: NativePointer, settings: MagickSettings, func: ImageCollectionCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         const collection = MagickImageCollection.createObject();
         collection.addImages(images, settings._clone());
 
         return func(collection);
     }
 
-    private addImages(images: number, settings: MagickSettings) {
+    private addImages(images: NativePointer, settings: MagickSettings) {
         settings.format = MagickFormat.Unknown;
 
         let image = images;
-        while (image !== 0) {
+        while (image !== ImageMagick._api._NullPointer) {
             const next = ImageMagick._api._MagickImage_GetNext(image);
-            ImageMagick._api._MagickImage_SetNext(image, 0);
+            ImageMagick._api._MagickImage_SetNext(image, ImageMagick._api._NullPointer);
 
             this.push(MagickImage._createFromImage(image, settings));
 
@@ -719,7 +721,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
     }
 
-    private attachImages<TReturnType>(func: (instance: number) => TReturnType): TReturnType {
+    private attachImages<TReturnType>(func: (instance: NativePointer) => TReturnType): TReturnType {
         try {
             for (let i = 0; i < this.length - 1; i++)
                 ImageMagick._api._MagickImage_SetNext(this[i]._instance, this[i + 1]._instance);
@@ -728,16 +730,16 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
         finally {
             for (let i = 0; i < this.length - 1; i++)
-                ImageMagick._api._MagickImage_SetNext(this[i]._instance, 0);
+                ImageMagick._api._MagickImage_SetNext(this[i]._instance, ImageMagick._api._NullPointer);
         }
     }
 
-    private checkResult(images: number, exception: Exception): number {
+    private checkResult(images: NativePointer, exception: Exception): NativePointer {
         return exception.check(() => {
             return images;
         }, () => {
             ImageMagick._api._MagickImageCollection_Dispose(images);
-            return 0;
+            return ImageMagick._api._NullPointer;
         });
     }
 
@@ -745,7 +747,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         return Object.create(MagickImageCollection.prototype);
     }
 
-    private createImage<TReturnType>(createImage: (instance: number, exception: Exception) => number, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
+    private createImage<TReturnType>(createImage: (instance: NativePointer, exception: Exception) => NativePointer, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         this.throwIfEmpty();
 
         const result = this.attachImages((instance) => {
@@ -765,7 +767,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
     private mergeImages<TReturnType>(layerMethod: LayerMethod, func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
         return this.createImage((instance, exception) => {
-            return ImageMagick._api._MagickImageCollection_Merge(instance, layerMethod, exception.ptr);
+            return ImageMagick._api._MagickImageCollection_Merge(instance, _castToSize(layerMethod), exception.ptr);
         }, func);
     }
 
@@ -790,7 +792,8 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
                     try {
                         data = ImageMagick._api._malloc(length);
                         ImageMagick._api.HEAPU8.set(fileNameOrArray, data);
-                        const instances = ImageMagick._api._MagickImageCollection_ReadBlob(settings._instance, data, 0, length, exception.ptr);
+                        const nativeData = _castToSize(data);
+                        const instances = ImageMagick._api._MagickImageCollection_ReadBlob(settings._instance, nativeData, ImageMagick._api._NullPointer, _castToSize(length), exception.ptr);
                         this.addImages(instances, readSettings);
                     } finally {
                         if (data !== 0)
@@ -801,7 +804,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         });
     }
 
-    private replaceImages(createImages: (instance: number, exception: Exception) => number) {
+    private replaceImages(createImages: (instance: NativePointer, exception: Exception) => NativePointer) {
         this.throwIfEmpty();
 
         const result = this.attachImages((instance) => {
@@ -818,7 +821,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
     private smush<TReturnType>(offset: number, stack: boolean, func: ImageCallback<TReturnType>): Promise<TReturnType> | TReturnType {
         return this.createImage((instance, exception) => {
-            return ImageMagick._api._MagickImageCollection_Smush(instance, offset, stack ? 1 : 0, exception.ptr);
+            return ImageMagick._api._MagickImageCollection_Smush(instance, _castToSize(offset), stack ? 1 : 0, exception.ptr);
         }, func);
     }
 

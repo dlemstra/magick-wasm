@@ -27,7 +27,8 @@
             "import": "./dist/index.js",
             "require": "./dist/index.umd.cjs"
         },
-        "./magick.wasm": "./dist/magick.wasm"
+        "./x64/magick.wasm": "./dist/x64/magick.wasm",
+        "./magick.wasm": "./dist/x86/magick.wasm"
     },
     "main": "./dist/index.umd.cjs",
     "module": "./dist/index.js",
@@ -47,7 +48,7 @@
         "update-index": "cd tools && tsc && node update-index.js ../src"
     },
     "devDependencies": {
-        "@dlemstra/magick-native": "2026.727.1945",
+        "@dlemstra/magick-native": "2026.817.1950",
         "@types/jsdom": "30.0.0",
         "@types/node": "26.2.0",
         "@typescript-eslint/eslint-plugin": "8.67.0",

@@ -10,9 +10,10 @@ import { ImageMagick } from '../image-magick';
 import { IMagickImage } from '../magick-image';
 import { MagickColor, IMagickColor } from '../magick-color';
 import { NativeInstance } from '../native-instance';
+import { NativePointer, quantumArray } from '@dlemstra/magick-native';
 import { PixelChannel } from '../enums/pixel-channel';
 import { Quantum } from '../quantum';
-import { quantumArray } from '@dlemstra/magick-native';
+import { _castToSize } from '../internal/native/size';
 import { _withQuantumArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
 
@@ -143,7 +144,7 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
         const pixels = new PixelCollection(image);
         try {
             pixels.use(0, 0, image.width, image.height, mapping, instance => {
-                func(instance);
+                func(Number(instance));
             });
         }
         finally {
@@ -153,16 +154,16 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
 
     getArea(x: number, y: number, width: number, height: number): quantumArray {
         return Exception.usePointer(exception => {
-            const instance = ImageMagick._api._PixelCollection_GetArea(this._instance, x, y, width, height, exception);
-            const count = width * height * this.image.channelCount;
+            const instance = Number(ImageMagick._api._PixelCollection_GetArea(this._instance, _castToSize(x), _castToSize(y), _castToSize(width), _castToSize(height), exception));
+            const count = Number(width * height * this.image.channelCount);
             return ImageMagick._api.HEAPU8.subarray(instance, instance + count);
         });
     }
 
     getReadOnlyArea(x: number, y: number, width: number, height: number): Readonly<quantumArray> {
         return Exception.usePointer(exception => {
-            const instance = ImageMagick._api._PixelCollection_GetReadOnlyArea(this.image._instance, x, y, width, height, exception);
-            const count = width * height * this.image.channelCount;
+            const instance = Number(ImageMagick._api._PixelCollection_GetReadOnlyArea(this.image._instance, _castToSize(x), _castToSize(y), _castToSize(width), _castToSize(height), exception));
+            const count = Number(width * height * this.image.channelCount);
             return ImageMagick._api.HEAPU8.subarray(instance, instance + count);
         });
     }
@@ -215,7 +216,8 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
         Exception.usePointer(exception => {
             const pixels = (quantumPixelsOrNumberPixels instanceof Uint8Array) ? quantumPixelsOrNumberPixels : new Uint8Array(quantumPixelsOrNumberPixels);
             _withQuantumArray(pixels, pixelsPtr => {
-                ImageMagick._api._PixelCollection_SetArea(this._instance, x, y, width, height, pixelsPtr, pixels.length, exception);
+                const length = _castToSize(pixels.length);
+                ImageMagick._api._PixelCollection_SetArea(this._instance, _castToSize(x), _castToSize(y), _castToSize(width), _castToSize(height), pixelsPtr, length, exception);
             });
         });
     }
@@ -231,18 +233,19 @@ export class PixelCollection extends NativeInstance implements IPixelCollection 
 
     toByteArray(x: number, y: number, width: number, height: number, mapping: string): Uint8Array | null {
         return this.use(x, y, width, height, mapping, instance => {
-            if (instance === 0)
+            if (instance === ImageMagick._api._NullPointer)
                 return null;
 
-            const count = width * height * mapping.length;
-            return ImageMagick._api.HEAPU8.slice(instance, instance + count);
+            const count = Number(width * height * mapping.length);
+            const nativeInstance = Number(instance);
+            return ImageMagick._api.HEAPU8.slice(nativeInstance, nativeInstance + count);
         });
     }
 
-    private use<TReturnType>(x: number, y: number, width: number, height: number, mapping: string, func: (instance: number) => TReturnType): TReturnType | null {
+    private use<TReturnType>(x: number, y: number, width: number, height: number, mapping: string, func: (instance: NativePointer) => TReturnType): TReturnType | null {
         return _withString(mapping, mappingPtr => {
             return Exception.use(exception => {
-                let instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, x, y, width, height, mappingPtr, exception.ptr);
+                let instance = ImageMagick._api._PixelCollection_ToByteArray(this._instance, _castToSize(x), _castToSize(y), _castToSize(width), _castToSize(height), mappingPtr, exception.ptr);
 
                 return exception.check(() => {
                     const result = func(instance);

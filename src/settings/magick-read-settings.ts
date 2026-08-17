@@ -8,6 +8,7 @@ import { ImageMagick } from '../image-magick';
 import { MagickGeometry } from '../types/magick-geometry';
 import { MagickSettings } from './magick-settings';
 import { NativeMagickSettings } from './native-magick-settings';
+import { _castToSize } from '../internal/native/size';
 import { _withString } from '../internal/native/string';
 
 /**
@@ -90,13 +91,13 @@ export class MagickReadSettings extends MagickSettings {
         }
 
         if (this.frameIndex !== undefined || this.frameCount !== undefined) {
-            const frame = this.frameIndex ?? 0;
-            const count = this.frameCount ?? 1;
+            const frame = _castToSize(this.frameIndex ?? 0);
+            const count = _castToSize(this.frameCount ?? 1);
 
             ImageMagick._api._MagickSettings_SetScene(settings._instance, frame);
             ImageMagick._api._MagickSettings_SetNumberScenes(settings._instance, count);
 
-            const scenes = this.frameCount !== undefined ? `${frame}-${frame + count}` : frame.toString();
+            const scenes = this.frameCount !== undefined ? `${frame}-${Number(frame) + Number(count)}` : frame.toString();
             _withString(scenes.toString(), scenesPtr => {
                 ImageMagick._api._MagickSettings_SetScenes(settings._instance, scenesPtr);
             });

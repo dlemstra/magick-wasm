@@ -17,6 +17,7 @@ import { PaintMethod } from '../enums/paint-method';
 import { TextAlignment } from '../enums/text-alignment';
 import { TextDecoration } from '../enums/text-decoration';
 import { TypeMetric } from '../types/type-metric';
+import { _castToSize } from '../internal/native/size';
 import { _withDoubleArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
 
@@ -218,7 +219,7 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     strokeDashArray(value: number[]): void {
         Exception.usePointer(exception => {
             _withDoubleArray(value, valuePtr => {
-                ImageMagick._api._DrawingWand_StrokeDashArray(this._instance, valuePtr, value.length, exception);
+                ImageMagick._api._DrawingWand_StrokeDashArray(this._instance, valuePtr, _castToSize(value.length), exception);
             });
         });
     }

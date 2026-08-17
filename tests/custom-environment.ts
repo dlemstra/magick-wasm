@@ -33,7 +33,7 @@ if (!global.native) {
     if (exceptionRaised === false)
         throw new Error('The initializeImageMagick method should have thrown an exception.');
 
-    const bytes = readFileSync('node_modules/@dlemstra/magick-native/magick.wasm');
+    const bytes = readFileSync('node_modules/@dlemstra/magick-native/x86/magick.wasm');
     if (Math.random() >= 0.5) {
         const module = await WebAssembly.compile(new Uint8Array(bytes));
         await initializeImageMagick(module);

@@ -15,5 +15,6 @@ function copyFile(src, dest) {
     console.log(`Copied ${src} to ${dest}`);
 };
 
-copyFile('node_modules/@dlemstra/magick-native/NOTICE', 'NOTICE');
-copyFile('node_modules/@dlemstra/magick-native/magick.wasm', 'dist/magick.wasm');
+copyFile('node_modules/@dlemstra/magick-native/x64/NOTICE', 'NOTICE');
+copyFile('node_modules/@dlemstra/magick-native/x64/magick.wasm', 'dist/x64/magick.wasm');
+copyFile('node_modules/@dlemstra/magick-native/x86/magick.wasm', 'dist/x86/magick.wasm');

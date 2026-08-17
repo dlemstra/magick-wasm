@@ -5,7 +5,7 @@ import {
     MagickFormat
 } from '../dist/index.js'
 
-const wasm = await Deno.readFile('../dist/magick.wasm');
+const wasm = await Deno.readFile('../dist/x86/magick.wasm');
 await initializeImageMagick(wasm);
 
 const inFile = '../tests/files/images/image-magick.jpg';

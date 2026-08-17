@@ -13,7 +13,7 @@ import {
 } from '@imagemagick/magick-wasm';
 
 // Remove '../' and use '@imagemagick/magick-wasm' when using this in your project.
-const wasmLocation = '../node_modules/@dlemstra/magick-native/magick.wasm';
+const wasmLocation = '../node_modules/@dlemstra/magick-native/x86/magick.wasm';
 const wasmBytes = readFileSync(wasmLocation);
 initializeImageMagick(wasmBytes).then(() => {
     console.log(Magick.imageMagickVersion);

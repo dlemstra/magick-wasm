@@ -6,15 +6,17 @@
 import { ImageMagick } from '../image-magick';
 import { IMagickGeometry } from '../types/magick-geometry';
 import { MagickImage } from '../magick-image';
+import { NativePointer } from '@dlemstra/magick-native';
 import { Percentage } from '../types/percentage';
+import { _castToSize } from './native/size';
 
 /** @internal */
 export class MagickRectangle {
-    static use<TReturnType>(image: MagickImage, geometry: IMagickGeometry, func: (rectangle: number) => TReturnType): TReturnType {
+    static use<TReturnType>(image: MagickImage, geometry: IMagickGeometry, func: (rectangle: NativePointer) => TReturnType): TReturnType {
         const rectangle = ImageMagick._api._MagickRectangle_Create();
         try {
-            ImageMagick._api._MagickRectangle_X_Set(rectangle, geometry.x);
-            ImageMagick._api._MagickRectangle_Y_Set(rectangle, geometry.y);
+            ImageMagick._api._MagickRectangle_X_Set(rectangle, _castToSize(geometry.x));
+            ImageMagick._api._MagickRectangle_Y_Set(rectangle, _castToSize(geometry.y));
 
             let width = geometry.width;
             let height = geometry.height;
@@ -23,8 +25,8 @@ export class MagickRectangle {
                 height = new Percentage(geometry.height).multiply(image.height);
             }
 
-            ImageMagick._api._MagickRectangle_Width_Set(rectangle, width);
-            ImageMagick._api._MagickRectangle_Height_Set(rectangle, height);
+            ImageMagick._api._MagickRectangle_Width_Set(rectangle, _castToSize(width));
+            ImageMagick._api._MagickRectangle_Height_Set(rectangle, _castToSize(height));
 
             return func(rectangle);
         } finally {

@@ -12,7 +12,7 @@ export class Quantum {
     /**
      * Gets the quantum depth.
      */
-    static get depth(): number { return ImageMagick._api._Quantum_Depth_Get(); }
+    static get depth(): number { return Number(ImageMagick._api._Quantum_Depth_Get()); }
 
     /**
      * Gets the maximum value of the quantum.

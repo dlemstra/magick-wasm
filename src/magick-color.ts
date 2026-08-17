@@ -5,6 +5,7 @@
 
 import { ImageMagick } from './image-magick';
 import { MagickError } from './magick-error';
+import { NativePointer } from '@dlemstra/magick-native';
 import { Percentage } from './types/percentage';
 import { Quantum } from './quantum';
 import { _withString } from './internal/native/string';
@@ -14,7 +15,7 @@ import { _withString } from './internal/native/string';
  */
 export interface IMagickColor {
     /** @internal */
-    _use<TReturnType>(func: (colorPtr: number) => TReturnType): TReturnType;
+    _use<TReturnType>(func: (colorPtr: NativePointer) => TReturnType): TReturnType;
 
     /**
      * Gets or sets the red component value of this color.
@@ -74,7 +75,7 @@ export class MagickColor implements IMagickColor {
             return;
 
         if (typeof colorOrRed === 'string') {
-            let instance = 0;
+            let instance = ImageMagick._api._NullPointer;
             try {
                 instance = ImageMagick._api._MagickColor_Create();
                 _withString(colorOrRed, colorPtr => {
@@ -83,7 +84,7 @@ export class MagickColor implements IMagickColor {
                     this.initialize(instance);
                 });
             } finally {
-                ImageMagick._api._free(instance);
+                ImageMagick._api._free(Number(instance));
             }
         } else {
             this.r = colorOrRed;
@@ -107,7 +108,7 @@ export class MagickColor implements IMagickColor {
     isCmyk = false;
 
     /** @internal */
-    static _create(colorPtr: number): IMagickColor {
+    static _create(colorPtr: NativePointer): IMagickColor {
         const color = new MagickColor();
         color.initialize(colorPtr);
 
@@ -143,8 +144,8 @@ export class MagickColor implements IMagickColor {
     }
 
     /** @internal */
-    _use<TReturnType>(func: (colorPtr: number) => TReturnType): TReturnType {
-        let instance = 0;
+    _use<TReturnType>(func: (colorPtr: NativePointer) => TReturnType): TReturnType {
+        let instance = ImageMagick._api._NullPointer;
         try {
             instance = ImageMagick._api._MagickColor_Create();
             ImageMagick._api._MagickColor_Red_Set(instance, this.r);
@@ -163,7 +164,7 @@ export class MagickColor implements IMagickColor {
         }
     }
 
-    private initialize(instance: number) {
+    private initialize(instance: NativePointer) {
         this.r = ImageMagick._api._MagickColor_Red_Get(instance);
         this.g = ImageMagick._api._MagickColor_Green_Get(instance);
         this.b = ImageMagick._api._MagickColor_Blue_Get(instance);

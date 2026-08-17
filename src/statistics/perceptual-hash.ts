@@ -8,7 +8,9 @@ import { ChannelPerceptualHash, IChannelPerceptualHash } from "./channel-percept
 import { IMagickImage } from "../magick-image";
 import { ImageMagick } from "../image-magick";
 import { MagickError } from "../magick-error";
+import { NativePointer } from "@dlemstra/magick-native";
 import { PixelChannel } from "../enums/pixel-channel";
+import { _castToSize } from "../internal/native/size";
 
 /**
  * Contains the perceptual hash of one or more image channels.
@@ -61,8 +63,8 @@ export class PerceptualHash implements IPerceptualHash {
     }
 
     /** @internal */
-    static _create(image: IMagickImage, colorSpaces: ReadonlyArray<ColorSpace>, listInstance: number) {
-        if (listInstance === 0)
+    static _create(image: IMagickImage, colorSpaces: ReadonlyArray<ColorSpace>, listInstance: NativePointer): PerceptualHash {
+        if (listInstance === ImageMagick._api._NullPointer)
             throw new MagickError('The native operation failed to create an instance');
 
         const red = PerceptualHash.createChannel(image, colorSpaces, listInstance, PixelChannel.Red);
@@ -118,8 +120,8 @@ export class PerceptualHash implements IPerceptualHash {
             this._blue.toString();
     }
 
-    private static createChannel(image: IMagickImage, colorSpaces: ReadonlyArray<ColorSpace>, list: number, channel: PixelChannel): ChannelPerceptualHash {
-        const nativeInstance = ImageMagick._api._PerceptualHash_GetInstance(image._instance, list, channel);
+    private static createChannel(image: IMagickImage, colorSpaces: ReadonlyArray<ColorSpace>, list: NativePointer, channel: PixelChannel): ChannelPerceptualHash {
+        const nativeInstance = ImageMagick._api._PerceptualHash_GetInstance(image._instance, list, _castToSize(channel));
         return new ChannelPerceptualHash(channel, colorSpaces, nativeInstance);
     }
 }

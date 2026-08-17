@@ -4,6 +4,7 @@
 */
 
 import { ImageMagick } from '../image-magick';
+import { NativePointer } from '@dlemstra/magick-native';
 
 /**
  * Class for a point with doubles.
@@ -36,8 +37,8 @@ export class Point {
     readonly y: number;
 
     /** @internal */
-    static _create(instance: number): Point {
-        if (instance === 0)
+    static _create(instance: NativePointer): Point {
+        if (instance === ImageMagick._api._NullPointer)
             return new Point(0, 0);
 
         return new Point(ImageMagick._api._PointInfo_X_Get(instance), ImageMagick._api._PointInfo_Y_Get(instance));

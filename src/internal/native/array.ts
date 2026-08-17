@@ -5,11 +5,12 @@
 
 import { ByteArray } from '../../byte-array';
 import { ImageMagick } from '../../image-magick';
-import { quantumArray } from '@dlemstra/magick-native';
 import { MagickError } from '../../magick-error';
+import { NativePointer, quantumArray } from '@dlemstra/magick-native';
+import { _castToSize } from './size';
 
 /** @internal */
-export function _withByteArray<TReturnType>(array: ByteArray, func: (instance: number) => TReturnType): TReturnType {
+export function _withByteArray<TReturnType>(array: ByteArray, func: (instance: NativePointer) => TReturnType): TReturnType {
     if (array.byteLength === 0)
         throw new MagickError('The specified array cannot be empty');
 
@@ -17,7 +18,7 @@ export function _withByteArray<TReturnType>(array: ByteArray, func: (instance: n
     try {
         instance = ImageMagick._api._malloc(array.byteLength);
         ImageMagick._api.HEAPU8.set(array, instance);
-        return func(instance);
+        return func(_castToSize(instance));
     }
     finally {
         if (instance !== 0)
@@ -26,7 +27,7 @@ export function _withByteArray<TReturnType>(array: ByteArray, func: (instance: n
 }
 
 /** @internal */
-export function _withDoubleArray<TReturnType>(array: number[], func: (instance: number) => TReturnType): TReturnType {
+export function _withDoubleArray<TReturnType>(array: number[], func: (instance: NativePointer) => TReturnType): TReturnType {
     if (array.length === 0)
         throw new MagickError('The specified array cannot be empty');
 
@@ -40,7 +41,7 @@ export function _withDoubleArray<TReturnType>(array: number[], func: (instance: 
         for (let i = 0; i < array.length; i++)
             doubleArray[i] = array[i];
         ImageMagick._api.HEAPU8.set(new Int8Array(buffer), instance);
-        return func(instance);
+        return func(_castToSize(instance));
     }
     finally {
         if (instance !== 0)
@@ -49,7 +50,7 @@ export function _withDoubleArray<TReturnType>(array: number[], func: (instance: 
 }
 
 /** @internal */
-export function _withQuantumArray<TReturnType>(array: quantumArray, func: (instance: number) => TReturnType): TReturnType {
+export function _withQuantumArray<TReturnType>(array: quantumArray, func: (instance: NativePointer) => TReturnType): TReturnType {
     if (array.byteLength === 0)
         throw new MagickError('The specified array cannot be empty');
 
@@ -57,7 +58,7 @@ export function _withQuantumArray<TReturnType>(array: quantumArray, func: (insta
     try {
         instance = ImageMagick._api._malloc(array.byteLength);
         ImageMagick._api.HEAPU8.set(array, instance);
-        return func(instance);
+        return func(_castToSize(instance));
     }
     finally {
         if (instance !== 0)

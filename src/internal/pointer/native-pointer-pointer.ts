@@ -4,11 +4,12 @@
 */
 
 import { Pointer } from './pointer';
+import { ImageMagick } from '../../image-magick';
 
 /** @internal */
 export class NativePointerPointer extends Pointer {
     private constructor() {
-        super(4, 'i32');
+        super(ImageMagick._api._PointerSize, '*');
     }
 
     static use<TReturnType>(func: (pointer: NativePointerPointer) => TReturnType): TReturnType {

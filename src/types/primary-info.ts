@@ -4,6 +4,7 @@
 */
 
 import { ImageMagick } from '../image-magick';
+import { NativePointer } from '@dlemstra/magick-native';
 
 /**
  *  PrimaryInfo information.
@@ -35,8 +36,8 @@ export class PrimaryInfo {
     readonly z;
 
     /** @internal */
-    static _create(instance: number): PrimaryInfo {
-        if (instance === 0)
+    static _create(instance: NativePointer): PrimaryInfo {
+        if (instance === ImageMagick._api._NullPointer)
             return new PrimaryInfo(0, 0, 0);
 
         return new PrimaryInfo(
@@ -46,8 +47,8 @@ export class PrimaryInfo {
     }
 
     /** @internal */
-    _use(func: (primaryInfoPtr: number) => void): void {
-        let instance = 0;
+    _use(func: (primaryInfoPtr: NativePointer) => void): void {
+        let instance = ImageMagick._api._NullPointer;
         try {
             instance = ImageMagick._api._PrimaryInfo_Create();
             ImageMagick._api._PrimaryInfo_X_Set(instance, this.x);

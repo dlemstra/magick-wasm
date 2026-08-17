@@ -4,6 +4,7 @@
 */
 
 import { ImageMagick } from '../../image-magick';
+import { NativePointer } from '@dlemstra/magick-native';
 
 /** @internal */
 export abstract class Pointer {
@@ -20,7 +21,7 @@ export abstract class Pointer {
         ImageMagick._api._free(this.instance);
     }
 
-    get ptr(): number { return this.instance; }
+    get ptr(): NativePointer { return ImageMagick._api._CastToSize(this.instance); }
 
-    get value(): number { return ImageMagick._api.getValue(this.instance, this.type); }
+    get value(): NativePointer { return ImageMagick._api._CastToSize(ImageMagick._api.getValue(this.instance, this.type)); }
 }

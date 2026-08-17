@@ -4,6 +4,7 @@
 */
 
 import { ImageMagick } from "../image-magick";
+import { NativePointer } from '@dlemstra/magick-native';
 
 /**
 * Used to obtain font metrics for text string given current font, pointsize, and density settings.
@@ -57,8 +58,8 @@ export class TypeMetric {
     readonly underlineThickness: number;
 
     /** @internal */
-    static _create(instance: number): TypeMetric | null {
-        if (instance == 0)
+    static _create(instance: NativePointer): TypeMetric | null {
+        if (instance === ImageMagick._api._NullPointer)
             return null;
 
         try {

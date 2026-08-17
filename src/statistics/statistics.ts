@@ -7,7 +7,9 @@ import { ChannelStatistics, IChannelStatistics } from './channel-statistics';
 import { Channels } from '../enums/channels';
 import { ImageMagick } from '../image-magick';
 import { MagickImage } from '../magick-image';
+import { NativePointer } from '@dlemstra/magick-native';
 import { PixelChannel } from '../enums/pixel-channel';
+import { _castToSize } from '../internal/native/size';
 
 /**
  * Encapsulation of the ImageMagick ImageStatistics object.
@@ -47,7 +49,7 @@ export class Statistics implements IStatistics {
         return channelStatistics !== undefined ? channelStatistics : null;
     }
 
-    static _create(image: MagickImage, list: number, channels: Channels): Statistics {
+    static _create(image: MagickImage, list: NativePointer, channels: Channels): Statistics {
         const instance = new Statistics();
 
         image.channels.forEach(channel => {
@@ -60,9 +62,9 @@ export class Statistics implements IStatistics {
         return instance;
     }
 
-    private addChannel(list: number, channel: PixelChannel) {
-        const instance = ImageMagick._api._Statistics_GetInstance(list, channel);
-        if (instance !== 0) {
+    private addChannel(list: NativePointer, channel: PixelChannel) {
+        const instance = ImageMagick._api._Statistics_GetInstance(list, _castToSize(channel));
+        if (instance !== ImageMagick._api._NullPointer) {
             this._channels.set(channel, new ChannelStatistics(channel, instance));
         }
     }

@@ -4,12 +4,13 @@
 */
 
 import { IMagickImage } from '../magick-image';
+import { NativePointer } from '@dlemstra/magick-native';
 
 /**
  *  Compare result.
  */
 export class CompareResult {
-    private constructor(distortion: number, difference: IMagickImage) {
+    private constructor(distortion: NativePointer, difference: IMagickImage) {
         this.distortion = distortion;
         this.difference = difference;
     }
@@ -24,7 +25,7 @@ export class CompareResult {
     readonly distortion;
 
     /** @internal */
-    static _create(distortion: number, difference: IMagickImage): CompareResult {
+    static _create(distortion: NativePointer, difference: IMagickImage): CompareResult {
         return new CompareResult(distortion, difference);
     }
 }

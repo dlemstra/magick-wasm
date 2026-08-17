@@ -10,7 +10,7 @@ const inputFile = '';
 const outputFile = '';
 const bytes = readFileSync(inputFile);
 
-const wasmLocation = '../node_modules/@dlemstra/magick-native/magick.wasm';
+const wasmLocation = '../node_modules/@dlemstra/magick-native/x86/magick.wasm';
 const wasmBytes = readFileSync(wasmLocation);
 initializeImageMagick(wasmBytes).then(() => {
     ImageMagick.read(bytes, (image) => {

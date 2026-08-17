@@ -6,8 +6,10 @@
 import { ImageMagick } from '../../image-magick';
 import { MagickError } from '../../magick-error';
 import { MagickErrorSeverity } from '../../enums/magick-error-severity';
+import { NativePointer } from '@dlemstra/magick-native';
 import { NativePointerPointer } from '../pointer/native-pointer-pointer';
-import { _createString } from '../native/string';
+import { _castToSize } from '../native/size';
+import { _createString, _createRequiredString } from '../native/string';
 
 /** @internal */
 export class Exception {
@@ -17,7 +19,7 @@ export class Exception {
         this.pointer = pointer;
     }
 
-    get ptr(): number { return this.pointer.ptr }
+    get ptr(): NativePointer { return this.pointer.ptr; }
 
     check<TReturnType>(success: () => TReturnType, error: () => TReturnType): TReturnType {
         if (this.isError())
@@ -26,7 +28,7 @@ export class Exception {
         return success();
     }
 
-    static usePointer<TReturnType>(func: (exception: number) => TReturnType, onWarning?: (error: MagickError) => void): TReturnType {
+    static usePointer<TReturnType>(func: (exception: NativePointer) => TReturnType, onWarning?: (error: MagickError) => void): TReturnType {
         return NativePointerPointer.use(pointer => {
             const result = func(pointer.ptr);
 
@@ -67,12 +69,12 @@ export class Exception {
         return severity >= MagickErrorSeverity.Error
     }
 
-    private static getErrorSeverity(exception: number): MagickErrorSeverity {
+    private static getErrorSeverity(exception: NativePointer): MagickErrorSeverity {
         return ImageMagick._api._MagickExceptionHelper_Severity(exception) as MagickErrorSeverity;
     }
 
     private static isRaised(exception: NativePointerPointer): boolean {
-        return exception.value !== 0;
+        return exception.value !== ImageMagick._api._NullPointer;
     }
 
     private static throw(exception: NativePointerPointer, severity: MagickErrorSeverity): void {
@@ -83,17 +85,17 @@ export class Exception {
         throw error;
     }
 
-    private static createError(exception: number, severity: MagickErrorSeverity): MagickError {
+    private static createError(exception: NativePointer, severity: MagickErrorSeverity): MagickError {
         const errorMessage = Exception.getMessage(exception);
         const error = new MagickError(errorMessage, severity);
 
         const nestedCount = ImageMagick._api._MagickExceptionHelper_RelatedCount(exception);
-        if (nestedCount === 0)
+        if (nestedCount === ImageMagick._api._NullPointer)
             return error;
 
         const relatedErrors: MagickError[] = [];
         for (let i = 0; i < nestedCount; i++) {
-            const related = ImageMagick._api._MagickExceptionHelper_Related(exception, i);
+            const related = ImageMagick._api._MagickExceptionHelper_Related(exception, _castToSize(i));
             const relatedSeverity = Exception.getErrorSeverity(related);
             const relatedError = Exception.createError(related, relatedSeverity);
             relatedErrors.push(relatedError);
@@ -104,13 +106,13 @@ export class Exception {
         return error;
     }
 
-    private static getMessage(exception: number): string {
+    private static getMessage(exception: NativePointer): string {
         const message = ImageMagick._api._MagickExceptionHelper_Message(exception);
         const description = ImageMagick._api._MagickExceptionHelper_Description(exception);
 
         let errorMessage = _createString(message, 'Unknown error');
-        if (description !== 0) {
-            errorMessage += `(${ImageMagick._api.UTF8ToString(description)})`;
+        if (description !== ImageMagick._api._NullPointer) {
+            errorMessage += `(${_createRequiredString(description)})`;
         }
 
         return errorMessage;

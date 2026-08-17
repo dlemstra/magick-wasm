@@ -6,14 +6,16 @@
 import { ImageMagick } from '../image-magick';
 import { GeometryFlags } from '../internal/geometry-flags';
 import { MagickError } from '../magick-error';
+import { NativePointer } from '@dlemstra/magick-native';
 import { _withString } from '../internal/native/string';
+import { _castToSize } from '../internal/native/size';
 
 /**
  * Encapsulation of the ImageMagick geometry object.
  */
 export interface IMagickGeometry {
     /** @internal */
-    _toRectangle(func: (rectangle: number) => void): void;
+    _toRectangle(func: (rectangle: NativePointer) => void): void;
 
     /**
      * Gets a value indicating whether the value is an aspect ratio.
@@ -95,25 +97,7 @@ export class MagickGeometry implements IMagickGeometry {
     constructor(width: number, height: number);
     constructor(x: number, y: number, width: number, height: number);
     constructor(widthOrValueOrX: number | string, heightOrY?: number, width?: number, height?: number) {
-        if (typeof widthOrValueOrX === 'number') {
-            if (width !== undefined && height !== undefined) {
-                this._width = width;
-                this._height = height;
-                this._x = widthOrValueOrX;
-                this._y = heightOrY ?? 0;
-                this._includeXyInToString = true;
-            } else {
-                this._width = widthOrValueOrX;
-                this._height = heightOrY ?? this._width;
-                this._x = 0;
-                this._y = 0;
-                this._includeXyInToString = false;
-            }
-            if (this._width < 0)
-                throw new MagickError('negative width is not allowed');
-            if (this._height < 0)
-                throw new MagickError('negative height is not allowed');
-        } else {
+        if (typeof widthOrValueOrX === 'string') {
             this._includeXyInToString = widthOrValueOrX.indexOf('+') >= 0 || widthOrValueOrX.indexOf('-') >= 0;
             const instance = ImageMagick._api._MagickGeometry_Create();
             try {
@@ -131,6 +115,24 @@ export class MagickGeometry implements IMagickGeometry {
             finally {
                 ImageMagick._api._MagickGeometry_Dispose(instance);
             }
+        } else {
+            if (width !== undefined && height !== undefined) {
+                this._width = width;
+                this._height = height;
+                this._x = widthOrValueOrX;
+                this._y = heightOrY ?? 0;
+                this._includeXyInToString = true;
+            } else {
+                this._width = widthOrValueOrX;
+                this._height = heightOrY ?? this._width;
+                this._x = 0;
+                this._y = 0;
+                this._includeXyInToString = false;
+            }
+            if (this._width < 0)
+                throw new MagickError('negative width is not allowed');
+            if (this._height < 0)
+                throw new MagickError('negative height is not allowed');
         }
     }
 
@@ -218,15 +220,15 @@ export class MagickGeometry implements IMagickGeometry {
     }
 
     /** @internal */
-    static _fromRectangle(rectangle: number): IMagickGeometry {
-        if (rectangle === 0)
+    static _fromRectangle(rectangle: NativePointer): IMagickGeometry {
+        if (rectangle === ImageMagick._api._NullPointer)
             throw new MagickError('unable to allocate memory');
 
         try {
-            const width = ImageMagick._api._MagickRectangle_Width_Get(rectangle);
-            const height = ImageMagick._api._MagickRectangle_Height_Get(rectangle);
-            const x = ImageMagick._api._MagickRectangle_X_Get(rectangle);
-            const y = ImageMagick._api._MagickRectangle_Y_Get(rectangle);
+            const width = Number(ImageMagick._api._MagickRectangle_Width_Get(rectangle));
+            const height = Number(ImageMagick._api._MagickRectangle_Height_Get(rectangle));
+            const x = Number(ImageMagick._api._MagickRectangle_X_Get(rectangle));
+            const y = Number(ImageMagick._api._MagickRectangle_Y_Get(rectangle));
             return new MagickGeometry(x, y, width, height);
         } finally {
             ImageMagick._api._MagickRectangle_Dispose(rectangle);
@@ -234,27 +236,27 @@ export class MagickGeometry implements IMagickGeometry {
     }
 
     /** @internal */
-    _toRectangle<TReturnType>(func: (rectangle: number) => TReturnType | Promise<TReturnType>) {
+    _toRectangle<TReturnType>(func: (rectangle: NativePointer) => TReturnType | Promise<TReturnType>) {
         const rectangle = ImageMagick._api._MagickRectangle_Create();
-        if (rectangle === 0)
+        if (rectangle === ImageMagick._api._NullPointer)
             throw new MagickError('unable to allocate memory');
 
         try {
-            ImageMagick._api._MagickRectangle_Width_Set(rectangle, this._width);
-            ImageMagick._api._MagickRectangle_Height_Set(rectangle, this._height);
-            ImageMagick._api._MagickRectangle_X_Set(rectangle, this._x);
-            ImageMagick._api._MagickRectangle_Y_Set(rectangle, this._y);
+            ImageMagick._api._MagickRectangle_Width_Set(rectangle, _castToSize(this._width));
+            ImageMagick._api._MagickRectangle_Height_Set(rectangle, _castToSize(this._height));
+            ImageMagick._api._MagickRectangle_X_Set(rectangle, _castToSize(this._x));
+            ImageMagick._api._MagickRectangle_Y_Set(rectangle, _castToSize(this._y));
             return func(rectangle);
         } finally {
             ImageMagick._api._MagickRectangle_Dispose(rectangle);
         }
     }
 
-    private initialize(instance: number, flags: number) {
-        this._width = ImageMagick._api._MagickGeometry_Width_Get(instance);
-        this._height = ImageMagick._api._MagickGeometry_Height_Get(instance);
-        this._x = ImageMagick._api._MagickGeometry_X_Get(instance);
-        this._y = ImageMagick._api._MagickGeometry_Y_Get(instance);
+    private initialize(instance: NativePointer, flags: number) {
+        this._width = Number(ImageMagick._api._MagickGeometry_Width_Get(instance));
+        this._height = Number(ImageMagick._api._MagickGeometry_Height_Get(instance));
+        this._x = Number(ImageMagick._api._MagickGeometry_X_Get(instance));
+        this._y = Number(ImageMagick._api._MagickGeometry_Y_Get(instance));
         this._ignoreAspectRatio = this.hasFlag(flags, GeometryFlags.IgnoreAspectRatio);
         this._isPercentage = this.hasFlag(flags, GeometryFlags.PercentValue);
         this._fillArea = this.hasFlag(flags, GeometryFlags.FillArea);
@@ -263,15 +265,15 @@ export class MagickGeometry implements IMagickGeometry {
         this._limitPixels = this.hasFlag(flags, GeometryFlags.LimitPixels);
     }
 
-    private initializeFromAspectRation(instance: number, value: string) {
+    private initializeFromAspectRation(instance: NativePointer, value: string) {
         this._aspectRatio = true;
 
         const ratio = value.split(':');
         this._width = this.parseNumber(ratio[0]);
         this._height = this.parseNumber(ratio[1]);
 
-        this._x = ImageMagick._api._MagickGeometry_X_Get(instance);
-        this._y = ImageMagick._api._MagickGeometry_Y_Get(instance);
+        this._x = Number(ImageMagick._api._MagickGeometry_X_Get(instance));
+        this._y = Number(ImageMagick._api._MagickGeometry_Y_Get(instance));
     }
 
     private parseNumber(value: string): number {

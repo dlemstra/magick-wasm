@@ -7,6 +7,7 @@ import { ImageMagick } from '../image-magick';
 import { Magick } from '../magick';
 import { MontageSettings } from './montage-settings';
 import { NativeInstance } from '../native-instance';
+import { _castToSize } from '../internal/native/size';
 import { _withString } from '../internal/native/string';
 
 /** @internal */
@@ -29,7 +30,7 @@ export class NativeMontageSettings extends NativeInstance {
         }
 
         if (settings.borderWidth !== undefined)
-            ImageMagick._api._MontageSettings_SetBorderWidth(this._instance, settings.borderWidth);
+            ImageMagick._api._MontageSettings_SetBorderWidth(this._instance, _castToSize(settings.borderWidth));
 
         if (settings.fillColor !== undefined) {
             settings.fillColor._use(valuePtr => {
@@ -61,7 +62,7 @@ export class NativeMontageSettings extends NativeInstance {
         }
 
         if (settings.gravity !== undefined)
-            ImageMagick._api._MontageSettings_SetGravity(this._instance, settings.gravity);
+            ImageMagick._api._MontageSettings_SetGravity(this._instance, _castToSize(settings.gravity));
 
         if (settings.shadow !== undefined)
             ImageMagick._api._MontageSettings_SetShadow(this._instance, settings.shadow ? 1 : 0);

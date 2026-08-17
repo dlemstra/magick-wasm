@@ -6,21 +6,23 @@
 import { ImageMagick } from '../image-magick';
 import { MagickColor, IMagickColor } from '../magick-color';
 import { MagickGeometry, IMagickGeometry } from './magick-geometry';
+import { NativePointer } from '@dlemstra/magick-native';
 import { Point } from './point';
+import { _castToSize } from '../internal/native/size';
 
 /**
  * An ImageMagick connected component object.
  */
 export class ConnectedComponent {
-    private constructor(instance: number) {
-        this.area = ImageMagick._api._ConnectedComponent_GetArea(instance);
+    private constructor(instance: NativePointer) {
+        this.area = Number(ImageMagick._api._ConnectedComponent_GetArea(instance));
         this.centroid = Point._create(ImageMagick._api._ConnectedComponent_GetCentroid(instance));
         this.color = MagickColor._create(ImageMagick._api._ConnectedComponent_GetColor(instance));
-        this.height = ImageMagick._api._ConnectedComponent_GetHeight(instance);
-        this.id = ImageMagick._api._ConnectedComponent_GetId(instance);
-        this.width = ImageMagick._api._ConnectedComponent_GetWidth(instance);
-        this.x = ImageMagick._api._ConnectedComponent_GetX(instance);
-        this.y = ImageMagick._api._ConnectedComponent_GetY(instance);
+        this.height = Number(ImageMagick._api._ConnectedComponent_GetHeight(instance));
+        this.id = Number(ImageMagick._api._ConnectedComponent_GetId(instance));
+        this.width = Number(ImageMagick._api._ConnectedComponent_GetWidth(instance));
+        this.x = Number(ImageMagick._api._ConnectedComponent_GetX(instance));
+        this.y = Number(ImageMagick._api._ConnectedComponent_GetY(instance));
     }
 
     /**
@@ -64,17 +66,17 @@ export class ConnectedComponent {
     readonly y: number;
 
     /** @internal */
-    static _create(list: number, length: number): ConnectedComponent[] {
+    static _create(list: NativePointer, length: number): ConnectedComponent[] {
         const result: ConnectedComponent[] = [];
 
-        if (list === 0) {
+        if (list === ImageMagick._api._NullPointer) {
             return result;
         }
 
         for (let i = 0; i < length; i++) {
-            const instance = ImageMagick._api._ConnectedComponent_GetInstance(list, i);
+            const instance = ImageMagick._api._ConnectedComponent_GetInstance(list, _castToSize(i));
 
-            if (instance === 0 || ImageMagick._api._ConnectedComponent_GetArea(instance) < Number.EPSILON) {
+            if (instance === ImageMagick._api._NullPointer || ImageMagick._api._ConnectedComponent_GetArea(instance) < Number.EPSILON) {
                 continue;
             }
 

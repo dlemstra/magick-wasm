@@ -4,6 +4,7 @@
 */
 
 import { ImageMagick } from '../image-magick';
+import { NativePointer } from '@dlemstra/magick-native';
 import { PixelChannel } from '../enums/pixel-channel';
 
 /**
@@ -68,9 +69,9 @@ export class ChannelStatistics implements IChannelStatistics {
     skewness: number;
     standardDeviation: number;
 
-    constructor(channel: PixelChannel, instance: number) {
+    constructor(channel: PixelChannel, instance: NativePointer) {
         this.channel = channel;
-        this.depth = ImageMagick._api._ChannelStatistics_Depth_Get(instance);
+        this.depth = Number(ImageMagick._api._ChannelStatistics_Depth_Get(instance));
         this.entropy = ImageMagick._api._ChannelStatistics_Entropy_Get(instance);
         this.kurtosis = ImageMagick._api._ChannelStatistics_Kurtosis_Get(instance);
         this.maximum = ImageMagick._api._ChannelStatistics_Maximum_Get(instance);

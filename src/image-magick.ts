@@ -5,15 +5,17 @@
 
 import { AsyncImageCallback, AsyncImageCollectionCallback, ImageCallback, ImageCollectionCallback, SyncImageCallback, SyncImageCollectionCallback } from './types/callbacks';
 import { ByteArray, _isByteArray } from './byte-array';
-import { IConfigurationFiles, ConfigurationFiles } from './configuration/configuration-files';
+import { ConfigurationFiles, IConfigurationFiles } from './configuration/configuration-files';
 import { MagickImage } from './magick-image';
 import { MagickImageCollection } from './magick-image-collection';
+import { ImageMagickApi, MagickNativeApi, IWasmLocator } from '@dlemstra/magick-native';
 import { IMagickColor } from './magick-color';
 import { MagickError } from './magick-error';
 import { MagickFormat } from './enums/magick-format';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { _withNativeString } from './internal/native/string';
-import MagickNative, { ImageMagickApi, IWasmLocator } from '@dlemstra/magick-native';
+import MagickNativex64 from '@dlemstra/magick-native/x64';
+import MagickNativex86 from '@dlemstra/magick-native/x86';
 
 class WasmLocator implements IWasmLocator {
     constructor(wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module) {
@@ -42,40 +44,29 @@ class WasmLocator implements IWasmLocator {
 }
 
 export class ImageMagick {
-    private readonly loader: (wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module, configurationFiles: IConfigurationFiles) => Promise<void>;
     private api?: ImageMagickApi;
 
     /** @internal */
-    constructor() {
-        this.loader = (wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module, configurationFiles: IConfigurationFiles) => new Promise((resolve, reject) => {
-            if (this.api !== undefined) {
-                resolve();
-                return;
-            }
-
-            const wasmLocator = new WasmLocator(wasmLocationDataOrAssembly);
-            MagickNative(wasmLocator).then(api => {
-                try {
-                    this.writeConfigurationFiles(api, configurationFiles);
-
-                    _withNativeString(api, 'MAGICK_CONFIGURE_PATH', name => {
-                        _withNativeString(api, '/xml', value => {
-                            api._Environment_SetEnv(name, value);
-                            api._Environment_Initialize();
-                            this.api = api;
-                            resolve();
-                        });
-                    });
-                } catch (error) {
-                    reject(error);
-                }
-            });
-        });
-    }
+    constructor() { }
 
     /** @internal */
-    async _initialize(wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module, configurationFiles: IConfigurationFiles): Promise<void> {
-        await this.loader(wasmLocationDataOrAssembly, configurationFiles);
+    async _initialize(nativeLibrary: MagickNativeApi, wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module, configurationFiles: IConfigurationFiles): Promise<void> {
+        if (this.api !== undefined) {
+            return;
+        }
+
+        const wasmLocator = new WasmLocator(wasmLocationDataOrAssembly);
+        const api = await nativeLibrary(wasmLocator);
+
+        this.writeConfigurationFiles(api, configurationFiles);
+
+        _withNativeString(api, 'MAGICK_CONFIGURE_PATH', name => {
+            _withNativeString(api, '/xml', value => {
+                api._Environment_SetEnv(name, value);
+                api._Environment_Initialize();
+                this.api = api;
+            });
+        });
     }
 
     /** @internal */
@@ -342,5 +333,9 @@ export class ImageMagick {
 const _instance = new ImageMagick();
 
 export async function initializeImageMagick(wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module, configurationFiles?: IConfigurationFiles): Promise<void> {
-    await _instance._initialize(wasmLocationDataOrAssembly, configurationFiles ?? ConfigurationFiles.default);
+    await _instance._initialize(MagickNativex86, wasmLocationDataOrAssembly, configurationFiles ?? ConfigurationFiles.default);
+}
+
+export async function initializeImageMagickx64(wasmLocationDataOrAssembly: URL | ByteArray | WebAssembly.Module, configurationFiles?: IConfigurationFiles): Promise<void> {
+    await _instance._initialize(MagickNativex64, wasmLocationDataOrAssembly, configurationFiles ?? ConfigurationFiles.default);
 }
