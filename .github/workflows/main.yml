@@ -150,6 +150,10 @@ jobs:
           exit $exit_code
 
       - if: needs.check.outputs.publish != 'true'
+        name: Create package tarball
+        run: npm pack
+
+      - if: needs.check.outputs.publish != 'true'
         name: Upload dry-run artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
