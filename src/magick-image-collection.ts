@@ -15,7 +15,6 @@ import { Exception } from './internal/exception/exception';
 import { IDisposable } from './disposable';
 import { ImageMagick } from './image-magick';
 import { IMagickImage } from './magick-image';
-import { IntPointer } from './internal/pointer/int-pointer';
 import { LayerMethod } from './enums/layer-method';
 import { MagickError } from './magick-error';
 import { MagickErrorInfo } from './types/magick-error-info';
@@ -23,6 +22,7 @@ import { MagickFormat } from './enums/magick-format';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
 import { MagickSettings } from './settings/magick-settings';
+import { NativePointerPointer } from './internal/pointer/native-pointer-pointer';
 import { MontageSettings } from './settings/montage-settings';
 import { QuantizeSettings } from './settings/quantize-settings';
 import { TemporaryDefines } from './helpers/temporary-defines';
@@ -683,7 +683,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }
 
         Exception.use(exception => {
-            IntPointer.use(pointer => {
+            NativePointerPointer.use(pointer => {
                 settings._use(nativeSettings => {
                     this.attachImages((instance) => {
                         data = ImageMagick._api._MagickImage_WriteBlob(instance, nativeSettings._instance, pointer.ptr, exception.ptr);

@@ -36,7 +36,6 @@ import { Exception } from './internal/exception/exception';
 import { FilterType } from './enums/filter-type';
 import { GifDisposeMethod } from './enums/gif-dispose-method';
 import { Gravity } from './enums/gravity';
-import { IntPointer } from './internal/pointer/int-pointer';
 import { IDisposable } from './disposable';
 import { IDrawable } from './drawing/drawable';
 import { IDrawableAffine } from './drawing/drawable-affine';
@@ -54,6 +53,7 @@ import { MagickRectangle } from './internal/magick-rectangle';
 import { MagickSettings } from './settings/magick-settings';
 import { MorphologySettings } from './settings/morphology-settings';
 import { NativeInstance } from './native-instance';
+import { NativePointerPointer } from './internal/pointer/native-pointer-pointer';
 import { OffsetInfo } from './types/offset-info';
 import { Orientation } from './enums/orientation';
 import { NoiseType } from './enums/noise-type';
@@ -3195,7 +3195,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             settings._setArtifacts(temporaryDefines);
 
             return this.useException((exception) => {
-                return IntPointer.use((objects) => {
+                return NativePointerPointer.use((objects) => {
                     try {
                         const instance = ImageMagick._api._MagickImage_ConnectedComponents(this._instance, settings.connectivity, objects.ptr, exception.ptr);
                         this._setInstance(instance, exception)
@@ -3587,7 +3587,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const result = new Map<string, number>();
 
         this.useExceptionPointer(exception => {
-            IntPointer.use(lengthPointer => {
+            NativePointerPointer.use(lengthPointer => {
                 const histogram = ImageMagick._api._MagickImage_Histogram(this._instance, lengthPointer.ptr, exception);
                 if (histogram !== 0) {
                     const length = lengthPointer.value;
@@ -4213,7 +4213,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             func = funcOrFormat as (data: Uint8Array) => TReturnType | Promise<TReturnType>;
 
         this.useException(exception => {
-            IntPointer.use(pointer => {
+            NativePointerPointer.use(pointer => {
                 this._settings._use(settings => {
                     try {
                         data = ImageMagick._api._MagickImage_WriteBlob(this._instance, settings._instance, pointer.ptr, exception.ptr);

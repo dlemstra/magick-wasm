@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ImageMagick } from '../../image-magick';
 import { Pointer } from './pointer';
 
 /** @internal */
@@ -17,7 +16,7 @@ export class DoublePointer extends Pointer {
         try {
             return func(pointer);
         } finally {
-            ImageMagick._api._free(pointer.ptr);
+            pointer.free();
         }
     }
 }

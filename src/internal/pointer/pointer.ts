@@ -16,6 +16,10 @@ export abstract class Pointer {
         ImageMagick._api.setValue(this.instance, 0, this.type);
     }
 
+    protected free(): void {
+        ImageMagick._api._free(this.instance);
+    }
+
     get ptr(): number { return this.instance; }
 
     get value(): number { return ImageMagick._api.getValue(this.instance, this.type); }

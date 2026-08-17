@@ -5,8 +5,8 @@
 
 import { Exception } from './internal/exception/exception';
 import { ImageMagick } from './image-magick';
-import { IntPointer } from './internal/pointer/int-pointer';
 import { MagickFormat } from './enums/magick-format';
+import { NativePointerPointer } from './internal/pointer/native-pointer-pointer';
 import { _createString } from './internal/native/string';
 
 export interface IMagickFormatInfo {
@@ -90,7 +90,7 @@ export class MagickFormatInfo implements IMagickFormatInfo {
 
     private static loadFormats() {
         return Exception.usePointer(exception => {
-            return IntPointer.use(pointer => {
+            return NativePointerPointer.use(pointer => {
                 const list = ImageMagick._api._MagickFormatInfo_CreateList(pointer.ptr, exception);
                 const count = pointer.value;
                 try {
