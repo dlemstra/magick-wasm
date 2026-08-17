@@ -63,6 +63,16 @@ export const MagickFormat = {
     Ashlar: 'ASHLAR',
 
     /**
+     * Aseprite Sprite Format.
+     */
+    Ase: 'ASE',
+
+    /**
+     * Aseprite Sprite Format.
+     */
+    Aseprite: 'ASEPRITE',
+
+    /**
      * AVC Image File Format.
      */
     Avci: 'AVCI',
