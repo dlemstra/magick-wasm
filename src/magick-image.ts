@@ -3595,7 +3595,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                         const colorPtr = ImageMagick._api._MagickColorCollection_Get(histogram, _castToSize(i));
                         const color = MagickColor._create(colorPtr);
                         const count = ImageMagick._api._MagickColor_Count_Get(colorPtr);
-                        result.set(color.toString(), count);
+                        result.set(color.toString(), Number(count));
                     }
 
                     ImageMagick._api._MagickColorCollection_Dispose(histogram);
