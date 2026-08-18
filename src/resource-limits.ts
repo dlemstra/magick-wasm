@@ -105,14 +105,16 @@ export class ResourceLimits {
     }
 
     /**
-     * Gets the number of threads used in multithreaded operations.
+     * Gets the pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
+     * operations are to/from disk.
      */
     static get memory(): bigint {
         return ImageMagick._api._ResourceLimits_Memory_Get();
     }
 
     /**
-     * Sets the number of threads used in multithreaded operations.
+     * Sets the pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
+     * operations are to/from disk.
      */
     static set memory(value: bigint) {
         ImageMagick._api._ResourceLimits_Memory_Set(value);
