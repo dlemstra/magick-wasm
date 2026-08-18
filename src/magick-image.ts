@@ -1487,7 +1487,7 @@ export interface IMagickImage extends IDisposable {
     /**
      * Creates a color histogram.
      */
-    histogram(): Map<string, number>;
+    histogram(): Map<string, bigint>;
 
     /**
      * Inverse contrast image (diminish intensity differences in image).
@@ -3583,8 +3583,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    histogram(): Map<string, number> {
-        const result = new Map<string, number>();
+    histogram(): Map<string, bigint> {
+        const result = new Map<string, bigint>();
 
         this.useExceptionPointer(exception => {
             NativePointerPointer.use(lengthPointer => {
@@ -3595,7 +3595,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                         const colorPtr = ImageMagick._api._MagickColorCollection_Get(histogram, _castToSize(i));
                         const color = MagickColor._create(colorPtr);
                         const count = ImageMagick._api._MagickColor_Count_Get(colorPtr);
-                        result.set(color.toString(), Number(count));
+                        result.set(color.toString(), count);
                     }
 
                     ImageMagick._api._MagickColorCollection_Dispose(histogram);
