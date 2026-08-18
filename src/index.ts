@@ -102,6 +102,7 @@ export * from './pixels/pixel-collection';
 export * from './profiles/color/color-profile';
 export * from './profiles/image-profile';
 export * from './quantum';
+export * from './resource-limits';
 export * from './settings/compare-settings';
 export * from './settings/complex-settings';
 export * from './settings/connected-components-settings';
