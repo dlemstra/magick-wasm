@@ -1323,6 +1323,11 @@ export const MagickFormat = {
     Wbmp: 'WBMP',
 
     /**
+     * Amiga Workbench Icon.
+     */
+    Wbinfo: 'WBINFO',
+
+    /**
      * Windows Media Video.
      */
     Wmv: 'WMV',
