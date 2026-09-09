@@ -148,6 +148,11 @@ export const MagickFormat = {
     C: 'C',
 
     /**
+     * C2PA Provenance Metadata.
+     */
+    C2pa: 'C2PA',
+
+    /**
      * Continuous Acquisition and Life-cycle Support Type 1.
      */
     Cal: 'CAL',
@@ -626,6 +631,11 @@ export const MagickFormat = {
      * Kodak Digital Camera Raw Format.
      */
     Kdc: 'KDC',
+
+    /**
+     * Morphology Kernel.
+     */
+    Kernel: 'KERNEL',
 
     /**
      * Image label.

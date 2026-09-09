@@ -1,4 +1,4 @@
-[ ImageMagick 7.1.2-30 (2026-08-23) ]
+[ ImageMagick 7.1.2-31 (2026-09-03) ]
 
                          ImageMagick License
              https://imagemagick.org/license/
@@ -107,7 +107,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
    License for the specific language governing permissions and limitations
    under the License.
 
-[ aom 3.14.1 (2026-05-22) ]
+[ aom 3.15.0 (2026-08-25) ]
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -1077,7 +1077,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[ exr 3.4.14 (2026-08-07) ]
+[ exr 3.4.15 (2026-08-22) ]
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -1792,7 +1792,7 @@ necessary.  Here is a sample; alter the names:
 
 That's all there is to it!
 
-[ heif 1.23.1 (2026-06-26) ]
+[ heif 1.23.2 (2026-08-25) ]
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications and the Go and C++ wrappers are distributed under the terms of the MIT License.
