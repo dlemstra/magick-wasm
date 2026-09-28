@@ -1,4 +1,4 @@
-[ ImageMagick 7.1.2-31 (2026-09-03) ]
+[ ImageMagick 7.1.2-32 (2026-09-27) ]
 
                          ImageMagick License
              https://imagemagick.org/license/
@@ -107,7 +107,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
    License for the specific language governing permissions and limitations
    under the License.
 
-[ aom 3.15.0 (2026-08-25) ]
+[ aom 3.15.1 (2026-09-22) ]
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -203,7 +203,7 @@ bzip2/libbzip2 version 1.0.8 of 13 July 2019
 
 --------------------------------------------------------------------------
 
-[ de265 1.1.1 (2026-06-03) ]
+[ de265 1.1.3 (2026-09-14) ]
 
 * The library `libde265` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT license.
@@ -1077,7 +1077,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[ exr 3.4.15 (2026-08-22) ]
+[ exr 3.5.1 (2026-09-26) ]
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -1792,7 +1792,7 @@ necessary.  Here is a sample; alter the names:
 
 That's all there is to it!
 
-[ heif 1.23.2 (2026-08-25) ]
+[ heif 1.23.5 (2026-09-21) ]
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications and the Go and C++ wrappers are distributed under the terms of the MIT License.
@@ -3468,7 +3468,7 @@ Library.
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-[ openjph 0.31.0 (2026-07-27) ]
+[ openjph 0.32.0 (2026-09-17) ]
 
 BSD 2-Clause License
 
@@ -4180,7 +4180,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[ xml 2.15.3 (2026-04-15) ]
+[ xml 2.15.4 (2026-09-01) ]
 
 Except where otherwise noted in the source code (e.g. the files dict.c and
 list.c, which are covered by a similar licence but with different Copyright
@@ -4231,4 +4231,37 @@ Copyright notice:
 
   Jean-loup Gailly        Mark Adler
   jloup@gzip.org          madler@alumni.caltech.edu
+
+[ zstd 1.5.7 (2025-02-19) ]
+
+BSD License
+
+For Zstandard software
+
+Copyright (c) Meta Platforms, Inc. and affiliates. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+ * Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+ * Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+ * Neither the name Facebook, nor Meta, nor the names of its contributors may
+   be used to endorse or promote products derived from this software without
+   specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
