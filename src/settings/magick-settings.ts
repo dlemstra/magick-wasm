@@ -261,6 +261,11 @@ export class MagickSettings {
     }
 
     /**
+     * Gets or sets a value indicating whether verbose output is turned on or off.
+     */
+    verbose?: boolean;
+
+    /**
      * Returns the value of a format-specific option.
      * @param name The name of the option.
      */
