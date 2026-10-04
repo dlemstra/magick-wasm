@@ -8,6 +8,7 @@ import { MagickError } from './magick-error';
 import { NativePointer } from '@dlemstra/magick-native';
 import { Percentage } from './types/percentage';
 import { Quantum } from './quantum';
+import { _toBoolean } from './internal/native/boolean';
 import { _withString } from './internal/native/string';
 
 /**
@@ -121,7 +122,7 @@ export class MagickColor implements IMagickColor {
 
         return this._use(instance => {
             return other._use(otherInstance => {
-                return ImageMagick._api._MagickColor_FuzzyEquals(instance, otherInstance, fuzz._toQuantum()) === 1;
+                return _toBoolean(ImageMagick._api._MagickColor_FuzzyEquals(instance, otherInstance, fuzz._toQuantum()));
             });
         });
     }
@@ -169,7 +170,7 @@ export class MagickColor implements IMagickColor {
         this.g = ImageMagick._api._MagickColor_Green_Get(instance);
         this.b = ImageMagick._api._MagickColor_Blue_Get(instance);
         this.a = ImageMagick._api._MagickColor_Alpha_Get(instance);
-        this.isCmyk = ImageMagick._api._MagickColor_IsCMYK_Get(instance) === 1;
+        this.isCmyk = _toBoolean(ImageMagick._api._MagickColor_IsCMYK_Get(instance));
         if (this.isCmyk)
             this.k = ImageMagick._api._MagickColor_Black_Get(instance);
     }

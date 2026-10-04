@@ -18,6 +18,7 @@ import { TextAlignment } from '../enums/text-alignment';
 import { TextDecoration } from '../enums/text-decoration';
 import { TypeMetric } from '../types/type-metric';
 import { _castToSize } from '../internal/native/size';
+import { _fromBoolean } from '../internal/native/boolean';
 import { _withDoubleArray } from '../internal/native/array';
 import { _withString } from '../internal/native/string';
 
@@ -136,7 +137,7 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     fontTypeMetrics(value: string, ignoreNewlines: boolean): TypeMetric | null {
         return Exception.usePointer(exception => {
             return _withString(value, (valuePtr) => {
-                const instance = ImageMagick._api._DrawingWand_FontTypeMetrics(this._instance, valuePtr, ignoreNewlines ? 1 : 0, exception);
+                const instance = ImageMagick._api._DrawingWand_FontTypeMetrics(this._instance, valuePtr, _fromBoolean(ignoreNewlines), exception);
                 return TypeMetric._create(instance);
             });
         });
@@ -252,7 +253,7 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
 
     textAntialias(value: boolean): void {
         Exception.usePointer(exception => {
-            ImageMagick._api._DrawingWand_TextAntialias(this._instance, value ? 1 : 0, exception);
+            ImageMagick._api._DrawingWand_TextAntialias(this._instance, _fromBoolean(value), exception);
         });
     }
 

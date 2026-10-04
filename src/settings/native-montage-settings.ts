@@ -8,6 +8,7 @@ import { Magick } from '../magick';
 import { MontageSettings } from './montage-settings';
 import { NativeInstance } from '../native-instance';
 import { _castToSize } from '../internal/native/size';
+import { _fromBoolean } from '../internal/native/boolean';
 import { _withString } from '../internal/native/string';
 
 /** @internal */
@@ -65,7 +66,7 @@ export class NativeMontageSettings extends NativeInstance {
             ImageMagick._api._MontageSettings_SetGravity(this._instance, _castToSize(settings.gravity));
 
         if (settings.shadow !== undefined)
-            ImageMagick._api._MontageSettings_SetShadow(this._instance, settings.shadow ? 1 : 0);
+            ImageMagick._api._MontageSettings_SetShadow(this._instance, _fromBoolean(settings.shadow));
 
         if (settings.strokeColor !== undefined) {
             settings.strokeColor._use(valuePtr => {

@@ -9,6 +9,7 @@ import { MagickSettings } from './magick-settings';
 import { NativeInstance } from '../native-instance';
 import { _castToSize } from '../internal/native/size';
 import { _withString } from '../internal/native/string';
+import { _fromBoolean } from '../internal/native/boolean';
 
 /** @internal */
 export class NativeMagickSettings extends NativeInstance {
@@ -33,7 +34,7 @@ export class NativeMagickSettings extends NativeInstance {
             ImageMagick._api._MagickSettings_SetQuality(this._instance, _castToSize(settings._quality));
 
         if (settings.antiAlias !== undefined)
-            ImageMagick._api._MagickSettings_AntiAlias_Set(this._instance, settings.antiAlias ? 1 : 0);
+            ImageMagick._api._MagickSettings_AntiAlias_Set(this._instance, _fromBoolean(settings.antiAlias));
 
         if (settings.backgroundColor !== undefined) {
             settings.backgroundColor._use((ptr) => {
@@ -51,7 +52,7 @@ export class NativeMagickSettings extends NativeInstance {
             ImageMagick._api._MagickSettings_Compression_Set(this._instance, settings.compression);
 
         if (settings.debug !== undefined)
-            ImageMagick._api._MagickSettings_Debug_Set(this._instance, settings.debug ? 1 : 0);
+            ImageMagick._api._MagickSettings_Debug_Set(this._instance, _fromBoolean(settings.debug));
 
         if (settings.density !== undefined) {
             const density = settings.density.toString();

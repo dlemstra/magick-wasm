@@ -10,9 +10,10 @@ import { IMagickColor } from '../../magick-color';
 import { IMagickImage } from '../../magick-image';
 import { Magick } from '../../magick';
 import { NativeInstance } from '../../native-instance';
+import { _castToSize } from '../native/size';
+import { _fromBoolean } from '../native/boolean';
 import { _withString } from '../native/string';
 import { _withDoubleArray } from '../native/array';
-import { _castToSize } from '../native/size';
 
 /** @internal */
 export class NativeDrawingSettings extends NativeInstance {
@@ -72,7 +73,7 @@ export class NativeDrawingSettings extends NativeInstance {
             ImageMagick._api._DrawingSettings_StrokeWidth_Set(this._instance, settings.strokeWidth);
 
         if (settings.textAntiAlias !== undefined)
-            ImageMagick._api._DrawingSettings_TextAntiAlias_Set(this._instance, settings.textAntiAlias ? 1 : 0);
+            ImageMagick._api._DrawingSettings_TextAntiAlias_Set(this._instance, _fromBoolean(settings.textAntiAlias));
 
         if (settings.textGravity !== undefined)
             ImageMagick._api._DrawingSettings_TextGravity_Set(this._instance, settings.textGravity);

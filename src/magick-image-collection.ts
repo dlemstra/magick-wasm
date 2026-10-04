@@ -28,6 +28,7 @@ import { NativePointerPointer } from './internal/pointer/native-pointer-pointer'
 import { QuantizeSettings } from './settings/quantize-settings';
 import { TemporaryDefines } from './helpers/temporary-defines';
 import { _castToSize } from './internal/native/size';
+import { _fromBoolean } from './internal/native/boolean';
 import { _withDoubleArray } from './internal/native/array';
 import { _withString } from './internal/native/string';
 
@@ -821,7 +822,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
 
     private smush<TReturnType>(offset: number, stack: boolean, func: ImageCallback<TReturnType>): Promise<TReturnType> | TReturnType {
         return this.createImage((instance, exception) => {
-            return ImageMagick._api._MagickImageCollection_Smush(instance, _castToSize(offset), stack ? 1 : 0, exception.ptr);
+            return ImageMagick._api._MagickImageCollection_Smush(instance, _castToSize(offset), _fromBoolean(stack), exception.ptr);
         }, func);
     }
 

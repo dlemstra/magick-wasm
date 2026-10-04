@@ -75,6 +75,7 @@ import { StringInfo } from './internal/string-info';
 import { TemporaryDefines } from './helpers/temporary-defines';
 import { VirtualPixelMethod } from './enums/virtual-pixel-method';
 import { WarningEvent } from './events/warning-event';
+import { _fromBoolean, _toBoolean } from './internal/native/boolean';
 import { _castToSize } from './internal/native/size';
 import { _createString, _createRequiredString, _createStringAndRelinquish, _withString } from './internal/native/string';
 import { _getGravityEdges } from './enums/gravity';
@@ -2360,11 +2361,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get blackPointCompensation(): boolean {
-        return ImageMagick._api._MagickImage_BlackPointCompensation_Get(this._instance) === 1;
+        return _toBoolean(ImageMagick._api._MagickImage_BlackPointCompensation_Get(this._instance));
     }
 
     set blackPointCompensation(value: boolean) {
-        ImageMagick._api._MagickImage_BlackPointCompensation_Set(this._instance, value ? 1 : 0);
+        ImageMagick._api._MagickImage_BlackPointCompensation_Set(this._instance, _fromBoolean(value));
     }
 
     get borderColor(): IMagickColor {
@@ -2533,14 +2534,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     get hasAlpha(): boolean {
-        return this.toBool(ImageMagick._api._MagickImage_HasAlpha_Get(this._instance));
+        return _toBoolean(ImageMagick._api._MagickImage_HasAlpha_Get(this._instance));
     }
     set hasAlpha(value: boolean) {
         this.useExceptionPointer(exception => {
             if (value)
                 this.alpha(AlphaAction.Opaque);
 
-            ImageMagick._api._MagickImage_HasAlpha_Set(this._instance, this.fromBool(value), exception);
+            ImageMagick._api._MagickImage_HasAlpha_Set(this._instance, _fromBoolean(value), exception);
         });
     }
 
@@ -2554,7 +2555,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     get isOpaque(): boolean {
         return this.useExceptionPointer(exception => {
-            return this.toBool(ImageMagick._api._MagickImage_IsOpaque_Get(this._instance, exception));
+            return _toBoolean(ImageMagick._api._MagickImage_IsOpaque_Get(this._instance, exception));
         });
     }
 
@@ -3357,7 +3358,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 method = methodOrSettings;
             } else {
                 method = methodOrSettings.method;
-                bestFit = methodOrSettings.bestFit ? 1 : 0;
+                bestFit = _fromBoolean(methodOrSettings.bestFit);
                 methodOrSettings._setArtifacts(temporaryDefines);
             }
 
@@ -3579,7 +3580,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     hasProfile(name: string): boolean {
         return _withString(name, namePtr => {
-            return this.toBool(ImageMagick._api._MagickImage_HasProfile(this._instance, namePtr));
+            return _toBoolean(ImageMagick._api._MagickImage_HasProfile(this._instance, namePtr));
         });
     }
 
@@ -3917,7 +3918,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         if (typeof value === 'string')
             strValue = value;
         else if (typeof value === 'boolean')
-            strValue = this.fromBool(value).toString();
+            strValue = _fromBoolean(value).toString();
         else
             strValue = value.toString();
 
@@ -4321,7 +4322,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     private contrastPrivate(enhance: boolean) {
         this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_Contrast(this._instance, this.fromBool(enhance), exception);
+            ImageMagick._api._MagickImage_Contrast(this._instance, _fromBoolean(enhance), exception);
         });
     }
 
@@ -4363,17 +4364,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.useExceptionPointer(exception => {
                 if (target !== undefined) {
                     target._use(targetPtr => {
-                        ImageMagick._api._MagickImage_FloodFill(this._instance, nativeSettings._instance, _castToSize(x), _castToSize(y), targetPtr, this.fromBool(invert), exception);
+                        ImageMagick._api._MagickImage_FloodFill(this._instance, nativeSettings._instance, _castToSize(x), _castToSize(y), targetPtr, _fromBoolean(invert), exception);
                     });
                 } else {
-                    ImageMagick._api._MagickImage_FloodFill(this._instance, nativeSettings._instance, _castToSize(x), _castToSize(y), ImageMagick._api._NullPointer, this.fromBool(invert), exception);
+                    ImageMagick._api._MagickImage_FloodFill(this._instance, nativeSettings._instance, _castToSize(x), _castToSize(y), ImageMagick._api._NullPointer, _fromBoolean(invert), exception);
                 }
             });
         });
-    }
-
-    private fromBool(value: boolean): number {
-        return value ? 1 : 0;
     }
 
     private getProfilePrivate(name: string): Uint8Array | null {
@@ -4392,7 +4389,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useExceptionPointer(exception => {
             blackColor._use(blackPtr => {
                 whiteColor._use(whitePtr => {
-                    ImageMagick._api._MagickImage_LevelColors(this._instance, blackPtr, whitePtr, _castToSize(channels), this.fromBool(invert), exception);
+                    ImageMagick._api._MagickImage_LevelColors(this._instance, blackPtr, whitePtr, _castToSize(channels), _fromBoolean(invert), exception);
                 });
             });
         });
@@ -4409,7 +4406,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useExceptionPointer(exception => {
             target._use(targetPtr => {
                 fill._use(filltPtr => {
-                    ImageMagick._api._MagickImage_Opaque(this._instance, targetPtr, filltPtr, this.fromBool(invert), exception);
+                    ImageMagick._api._MagickImage_Opaque(this._instance, targetPtr, filltPtr, _fromBoolean(invert), exception);
                 });
             });
         });
@@ -4463,18 +4460,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         }
         const channels = _castToSize(this.valueOrDefault(channelsOrUndefined, Channels.Undefined));
         this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, this.fromBool(sharpen), contrast, midpoint, channels, exception);
+            ImageMagick._api._MagickImage_SigmoidalContrast(this._instance, _fromBoolean(sharpen), contrast, midpoint, channels, exception);
         });
-    }
-
-    private toBool(value: number): boolean {
-        return value === 1;
     }
 
     private transparentPrivate(color: IMagickColor, invert: boolean) {
         color._use(valuePtr => {
             this.useExceptionPointer(exception => {
-                ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, this.fromBool(invert), exception);
+                ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, _fromBoolean(invert), exception);
             });
         });
     }
