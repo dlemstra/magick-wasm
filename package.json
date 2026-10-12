@@ -50,16 +50,16 @@
     "devDependencies": {
         "@dlemstra/magick-native": "2026.927.1314",
         "@types/jsdom": "30.0.0",
-        "@types/node": "26.6.3",
-        "@typescript-eslint/eslint-plugin": "8.70.1",
-        "@typescript-eslint/parser": "8.70.1",
+        "@types/node": "26.6.5",
+        "@typescript-eslint/eslint-plugin": "8.71.2",
+        "@typescript-eslint/parser": "8.71.2",
         "dts-bundle-generator": "9.5.1",
-        "eslint": "10.11.0",
+        "eslint": "10.12.0",
         "eslint-plugin-license-header": "0.9.0",
-        "jsdom": "29.1.1",
+        "jsdom": "30.1.2",
         "set-value": "4.1.0",
         "typescript": "6.0.3",
-        "vite": "8.3.1",
-        "vitest": "5.0.2"
+        "vite": "8.3.4",
+        "vitest": "5.0.4"
     }
 }
