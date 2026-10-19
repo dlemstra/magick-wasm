@@ -1797,6 +1797,14 @@ export interface IMagickImage extends IDisposable {
     ping(array: ByteArray, settings?: MagickReadSettings): void;
 
     /**
+     * Simulates a polaroid picture.
+     * @param caption The caption to put on the image.
+     * @param angle The angle of image.
+     * @param method Pixel interpolate method.
+     */
+    polaroid(caption: string, angle: number, method: PixelInterpolateMethod): void;
+
+    /**
      * Quantize image (reduce number of colors).
      * @param settings The settings to use when quantizing the image.
      */
@@ -3864,6 +3872,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     ping(array: ByteArray, settings?: MagickReadSettings): void;
     ping(fileNameOrArray: string | ByteArray, settingsOrUndefined?: MagickReadSettings): void {
         this.readOrPing(true, fileNameOrArray, settingsOrUndefined);
+    }
+
+    polaroid(caption: string, angle: number, method: PixelInterpolateMethod): void {
+        this.useException(exception => {
+            this._settings._drawing._use(settings => {
+                _withString(caption, captionPtr => {
+                    const instance = ImageMagick._api._MagickImage_Polaroid(this._instance, settings._instance, captionPtr, angle, _castToSize(method), exception.ptr);
+                    this._setInstance(instance, exception);
+                });
+            });
+        });
     }
 
     perceptualHash(): IPerceptualHash;
