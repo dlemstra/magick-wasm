@@ -1719,6 +1719,12 @@ export interface IMagickImage extends IDisposable {
     lower(size: number): void;
 
     /**
+     * Raises the image by lightening its edges to give a 3-D raised effect.
+     * @param size The size of the edges.
+     */
+    raise(size: number): void;
+
+    /**
      * Rescales image with seam carving.
      * @param geometry The geometry to use.
      */
@@ -3927,6 +3933,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     lower(size: number): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_RaiseOrLower(this._instance, _castToSize(size), 0, exception);
+        });
+    }
+
+    raise(size: number): void {
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_RaiseOrLower(this._instance, _castToSize(size), 1, exception);
         });
     }
 
