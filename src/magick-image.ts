@@ -1713,6 +1713,12 @@ export interface IMagickImage extends IDisposable {
     linearStretch(blackPoint: Percentage, whitePoint: Percentage): void;
 
     /**
+     * Lowers the image by darkening its edges to give a 3-D lowered effect.
+     * @param size The size of the edges.
+     */
+    lower(size: number): void;
+
+    /**
      * Rescales image with seam carving.
      * @param geometry The geometry to use.
      */
@@ -3915,6 +3921,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Composite);
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, _castToSize(channels), exception);
+        });
+    }
+
+    lower(size: number): void {
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_RaiseOrLower(this._instance, _castToSize(size), 0, exception);
         });
     }
 
