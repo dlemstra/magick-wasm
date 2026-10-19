@@ -1840,6 +1840,34 @@ export interface IMagickImage extends IDisposable {
     removeWriteMask(): void;
 
     /**
+     * Resize image in terms of its pixel size.
+     * @param resolutionX The new X resolution.
+     * @param resolutionY The new Y resolution.
+     */
+    resample(resolutionX: number, resolutionY: number): void;
+
+    /**
+     * Resize image in terms of its pixel size.
+     * @param resolutionX The new X resolution.
+     * @param resolutionY The new Y resolution.
+     * @param filter The filter to use.
+     */
+    resample(resolutionX: number, resolutionY: number, filter: FilterType): void;
+
+    /**
+     * Resize image in terms of its pixel size.
+     * @param density The density to use.
+     */
+    resample(density: Point): void;
+
+    /**
+     * Resize image in terms of its pixel size.
+     * @param density The density to use.
+     * @param filter The filter to use.
+     */
+    resample(density: Point, filter: FilterType): void;
+
+    /**
      * Resets the page property of this image.
      */
     resetPage(): void;
@@ -3849,6 +3877,32 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     removeWriteMask(): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_SetWriteMask(this._instance, ImageMagick._api._NullPointer, exception);
+        });
+    }
+
+    resample(resolutionX: number, resolutionY: number): void;
+    resample(resolutionX: number, resolutionY: number, filter: FilterType): void;
+    resample(density: Point): void;
+    resample(density: Point, filter: FilterType): void;
+    resample(resolutionXOrDensity: number | Point, resolutionYOrFilter?: number | FilterType, filterOrUndefined?: FilterType): void {
+        let resolutionX: number;
+        let resolutionY: number;
+        let filter = this.filterType;
+        if (typeof resolutionXOrDensity === 'number') {
+            resolutionX = resolutionXOrDensity;
+            resolutionY = resolutionYOrFilter as number;
+            if (filterOrUndefined !== undefined)
+                filter = filterOrUndefined;
+        } else {
+            resolutionX = resolutionXOrDensity.x;
+            resolutionY = resolutionXOrDensity.y;
+            if (resolutionYOrFilter !== undefined)
+                filter = resolutionYOrFilter as FilterType;
+        }
+
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Resample(this._instance, resolutionX, resolutionY, filter, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
