@@ -4,7 +4,6 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { PixelInterpolateMethod } from '@src/enums/pixel-interpolate-method';
 import { TestFiles } from '@test/test-files';
 
@@ -20,8 +19,7 @@ describe('MagickImage#clut', () => {
                             image.clone(clone => {
                                 image.clut(clut);
                                 clone.clut(clut, PixelInterpolateMethod.Undefined);
-                                const difference = image.compare(clone, ErrorMetric.RootMeanSquared);
-                                expect(difference).toBe(0.0);
+                                expect(image).toEqualImage(clone);
                             });
                         });
                     });
@@ -41,8 +39,7 @@ describe('MagickImage#clut', () => {
                             image.clone(clone => {
                                 image.clut(clut, PixelInterpolateMethod.Integer);
                                 clone.clut(clut, PixelInterpolateMethod.Integer, Channels.Undefined);
-                                const difference = image.compare(clone, ErrorMetric.RootMeanSquared);
-                                expect(difference).toBe(0.0);
+                                expect(image).toEqualImage(clone);
                             });
                         });
                     });
@@ -61,8 +58,7 @@ describe('MagickImage#clut', () => {
                         collection.appendHorizontally(clut => {
                             image.clone(clone => {
                                 clone.clut(clut, PixelInterpolateMethod.Integer, Channels.Red);
-                                const difference = image.compare(clone, ErrorMetric.RootMeanSquared);
-                                expect(difference).toBeCloseTo(0.2934);
+                                expect(image).toEqualImage(clone, 0.29349);
                             });
                         });
                     });

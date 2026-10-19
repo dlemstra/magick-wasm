@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickColors } from '@src/magick-colors';
 import { TestFiles } from '@test/test-files';
 import { bogusAsyncMethod } from '@test/bogus-async';
@@ -13,8 +12,7 @@ describe('MagickImage#clone', () => {
         TestFiles.Images.empty.use(image => {
             image.read(MagickColors.Magenta, 1, 1);
             image.clone(clone => {
-                const difference = image.compare(clone, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(clone);
             });
         });
     });
@@ -23,8 +21,7 @@ describe('MagickImage#clone', () => {
         await TestFiles.Images.empty.use(async image => {
             image.read(MagickColors.Magenta, 1, 1);
             await image.clone(async clone => {
-                const difference = image.compare(clone, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(clone);
                 await bogusAsyncMethod();
             });
         });

@@ -4,7 +4,6 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#autoLevel', () => {
@@ -30,8 +29,7 @@ describe('MagickImage#autoLevel', () => {
                 image.autoLevel();
                 other.autoLevel(Channels.Undefined);
 
-                const distortion = image.compare(other, ErrorMetric.RootMeanSquared);
-                expect(distortion).toBe(0);
+                expect(image).toEqualImage(other);
             })
         });
     });
