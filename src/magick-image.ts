@@ -2059,6 +2059,25 @@ export interface IMagickImage extends IDisposable {
     separate<TReturnType>(channels: Channels, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
+     * Segments the image by analyzing the histograms of the color components and identifying
+     * homogeneous units with the fuzzy c-means technique. The image's quantize color space and
+     * verbose attributes are also used.
+     */
+    segment(): void;
+
+    /**
+     * Segments the image by analyzing the histograms of the color components and identifying
+     * homogeneous units with the fuzzy c-means technique. The image's quantize color space and
+     * verbose attributes are also used.
+     * @param colorSpace The color space to use.
+     * @param clusterThreshold The minimum number of pixels contained in a histogram cluster,
+     * expressed as a percentage.
+     * @param smoothingThreshold The smoothing threshold used to eliminate noise in the second
+     * derivative of the histogram.
+     */
+    segment(colorSpace: ColorSpace, clusterThreshold: number, smoothingThreshold: number): void;
+
+    /**
      * Applies a special effect to the image, similar to the effect achieved in a photo darkroom
      * by sepia toning.
      */
@@ -4186,6 +4205,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return MagickImageCollection._createFromImages(images, this._settings, (collection) => {
                 return func(collection);
             });
+        });
+    }
+
+    segment(): void;
+    segment(colorSpace: ColorSpace, clusterThreshold: number, smoothingThreshold: number): void;
+    segment(colorSpace: ColorSpace = ColorSpace.Undefined, clusterThreshold = 1.0, smoothingThreshold = 1.5): void {
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_Segment(this._instance, _castToSize(colorSpace), clusterThreshold, smoothingThreshold, exception);
         });
     }
 
