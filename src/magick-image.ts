@@ -1184,6 +1184,12 @@ export interface IMagickImage extends IDisposable {
     cycleColormap(amount: number): void;
 
     /**
+     * Deciphers the image with the specified passphrase.
+     * @param passphrase The passphrase to use.
+     */
+    decipher(passphrase: string): void;
+
+    /**
      * Removes skew from the image. Skew is an artifact that occurs in scanned images because of
      * the camera being misaligned, imperfections in the scanning or surface, or simply because
      * the paper was not placed completely flat when scanned. The value of threshold ranges
@@ -1242,6 +1248,12 @@ export interface IMagickImage extends IDisposable {
      * @param drawables The drawable(s) to draw on the image.
      */
     draw(...drawables: IDrawable[]): void;
+
+    /**
+     * Enciphers the image with the specified passphrase.
+     * @param passphrase The passphrase to use.
+     */
+    encipher(passphrase: string): void;
 
     /**
      * Apply an arithmetic or bitwise operator to the image pixel quantums.
@@ -3431,6 +3443,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    decipher(passphrase: string): void {
+        this.useExceptionPointer(exception => {
+            _withString(passphrase, passphrasePtr => {
+                ImageMagick._api._MagickImage_Decipher(this._instance, passphrasePtr, exception);
+            });
+        });
+    }
+
     deskew(threshold: Percentage): number
     deskew(threshold: Percentage, autoCrop: boolean): number;
     deskew(threshold: Percentage, autoCrop?: boolean): number {
@@ -3489,6 +3509,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         DrawingWand._use(this, (wand) => {
             wand.draw(items);
+        });
+    }
+
+    encipher(passphrase: string): void {
+        this.useExceptionPointer(exception => {
+            _withString(passphrase, passphrasePtr => {
+                ImageMagick._api._MagickImage_Encipher(this._instance, passphrasePtr, exception);
+            });
         });
     }
 
