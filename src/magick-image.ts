@@ -1669,6 +1669,11 @@ export interface IMagickImage extends IDisposable {
     liquidRescale(width: number, height: number): void;
 
     /**
+     * Magnify image by integral size.
+     */
+    magnify(): void;
+
+    /**
      * Modulate percent brightness of an image.
      * @param brightness The brightness percentage.
      */
@@ -3720,6 +3725,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 const instance = ImageMagick._api._MagickImage_LiquidRescale(this._instance, geometryPtr, Number(geometry.x), Number(geometry.y), exception.ptr);
                 this._setInstance(instance, exception);
             });
+        });
+    }
+
+    magnify(): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Magnify(this._instance, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
