@@ -1776,6 +1776,19 @@ export interface IMagickImage extends IDisposable {
     oilPaint(radius: number): void;
 
     /**
+     * Applies ordered dithering to the image.
+     * @param thresholdMap The threshold map to use.
+     */
+    orderedDither(thresholdMap: string): void;
+
+    /**
+     * Applies ordered dithering to the image.
+     * @param thresholdMap The threshold map to use.
+     * @param channels The channel(s) to dither.
+     */
+    orderedDither(thresholdMap: string, channels: Channels): void;
+
+    /**
      * Changes any pixel that matches target with the color defined by fill.
      * @param target The color to replace.
      * @param fill The color to replace opaque color with.
@@ -3891,6 +3904,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_OilPaint(this._instance, radius, sigma, exception.ptr);
             this._setInstance(instance, exception);
+        });
+    }
+
+    orderedDither(thresholdMap: string): void;
+    orderedDither(thresholdMap: string, channels: Channels): void;
+    orderedDither(thresholdMap: string, channelsOrUndefined?: Channels): void {
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+        this.useExceptionPointer(exception => {
+            _withString(thresholdMap, thresholdMapPtr => {
+                ImageMagick._api._MagickImage_OrderedDither(this._instance, thresholdMapPtr, _castToSize(channels), exception);
+            });
         });
     }
 
