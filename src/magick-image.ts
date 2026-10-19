@@ -1926,6 +1926,34 @@ export interface IMagickImage extends IDisposable {
     scale(width: number, height: number): void;
 
     /**
+     * Resize image by using pixel sampling algorithm.
+     * Resize will fit the image into the requested size. It does NOT fill the requested box size.
+     * Use the geometry overload for more control over the resulting size.
+     * @param width The new width.
+     * @param height The new height.
+     */
+    sample(width: number, height: number): void;
+
+    /**
+     * Resize image by using pixel sampling algorithm.
+     * @param geometry The geometry to use.
+     */
+    sample(geometry: IMagickGeometry): void;
+
+    /**
+     * Resize image by using pixel sampling algorithm to the specified percentage.
+     * @param percentage The percentage.
+     */
+    sample(percentage: Percentage): void;
+
+    /**
+     * Resize image by using pixel sampling algorithm to the specified percentage.
+     * @param percentageWidth The percentage of the width.
+     * @param percentageHeight The percentage of the height.
+     */
+    sample(percentageWidth: Percentage, percentageHeight: Percentage): void;
+
+    /**
      * Roll image (rolls image vertically and horizontally).
      * @param x The number of columns to roll in the horizontal direction.
      * @param y The number of rows to roll in the vertical direction.
@@ -3969,6 +3997,32 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             _withString(geometry.toString(), geometryPtr => {
                 const instance = ImageMagick._api._MagickImage_Scale(this._instance, geometryPtr, exception.ptr);
+                this._setInstance(instance, exception);
+            });
+        });
+    }
+
+    sample(width: number, height: number): void;
+    sample(geometry: IMagickGeometry): void;
+    sample(percentage: Percentage): void;
+    sample(percentageWidth: Percentage, percentageHeight: Percentage): void;
+    sample(widthOrGeometryOrPercentage: number | IMagickGeometry | Percentage, heightOrPercentage?: number | Percentage): void {
+        let geometry: IMagickGeometry;
+        if (typeof widthOrGeometryOrPercentage === 'number') {
+            geometry = new MagickGeometry(widthOrGeometryOrPercentage, heightOrPercentage as number);
+        } else if (widthOrGeometryOrPercentage instanceof Percentage) {
+            const percentageHeight = heightOrPercentage === undefined
+                ? widthOrGeometryOrPercentage
+                : heightOrPercentage as Percentage;
+            geometry = new MagickGeometry(widthOrGeometryOrPercentage.toDouble(), percentageHeight.toDouble());
+            geometry.isPercentage = true;
+        } else {
+            geometry = widthOrGeometryOrPercentage;
+        }
+
+        this.useException(exception => {
+            _withString(geometry.toString(), geometryPtr => {
+                const instance = ImageMagick._api._MagickImage_Sample(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(instance, exception);
             });
         });
