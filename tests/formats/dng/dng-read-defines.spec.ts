@@ -10,7 +10,7 @@ import { MagickFormat } from '@src/enums/magick-format';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
 
 describe('DngReadDefines', () => {
-    it('constructor should not set any defines', () => {
+    it('should not set any defines in the constructor', () => {
         const readSettings = new MagickReadSettings();
         readSettings.setDefines(new DngReadDefines());
 

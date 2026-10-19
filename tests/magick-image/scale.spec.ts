@@ -16,7 +16,7 @@ describe('MagickImage#scale', () => {
         });
     });
 
-    it('with geometry should preserve the aspect ratio', () => {
+    it('should preserve the aspect ratio with geometry', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.scale(new MagickGeometry(300, 0));
 

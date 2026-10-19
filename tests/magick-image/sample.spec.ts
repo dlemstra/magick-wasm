@@ -17,7 +17,7 @@ describe('MagickImage#sample', () => {
         });
     });
 
-    it('with geometry should resize the image', () => {
+    it('should resize the image with geometry', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.sample(new MagickGeometry(300, 0));
 

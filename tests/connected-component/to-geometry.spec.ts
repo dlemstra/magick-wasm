@@ -7,7 +7,7 @@ import { Percentage } from '@src/types/percentage';
 import { TestFiles } from '@test/test-files';
 
 describe('ConnectedComponent#toGeometry', () => {
-    it('converts the component to a geometry', () => {
+    it('should convert the component to a geometry', () => {
         TestFiles.Images.connectedComponentsPng.use((image) => {
             image.clone(other => {
                 other.blur(0, 10);

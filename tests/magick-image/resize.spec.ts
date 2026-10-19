@@ -35,7 +35,7 @@ describe('MagickImage#resize', () => {
         });
     });
 
-    it('with geometry should change the width of the image', () => {
+    it('should change the width of the image with geometry', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
             image.resize(new MagickGeometry(300, 0));
             expect(image.width).toBe(300);
@@ -43,7 +43,7 @@ describe('MagickImage#resize', () => {
         });
     });
 
-    it('with geometry should change the height of the image', () => {
+    it('should change the height of the image with geometry', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
             image.resize(new MagickGeometry(0, 300));
             expect(image.width).toBe(400);
@@ -51,7 +51,7 @@ describe('MagickImage#resize', () => {
         });
     });
 
-    it('with geometry should use the filter type', () => {
+    it('should use the filter type with geometry', () => {
         TestFiles.Images.Builtin.logo.use((image) => {
             image.clone((other) => {
                 const geometry = new MagickGeometry(0, 100);

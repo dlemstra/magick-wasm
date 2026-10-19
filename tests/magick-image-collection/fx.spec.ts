@@ -18,7 +18,7 @@ describe('MagickImageCollection#fx', () => {
         });
     });
 
-    it('apply a mathematical expression', () => {
+    it('should apply a mathematical expression', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             images.push(MagickImage.create(new MagickColor('#ff0040'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
@@ -28,7 +28,7 @@ describe('MagickImageCollection#fx', () => {
         });
     });
 
-    it('apply a mathematical expression async', async () => {
+    it('should apply a mathematical expression asynchronously', async () => {
         await TestFiles.Images.emptyCollection.use(async (images) => {
             images.push(MagickImage.create(new MagickColor('#ff0040'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
@@ -40,7 +40,7 @@ describe('MagickImageCollection#fx', () => {
         });
     });
 
-    it('apply a mathematical expression to the specified channels', () => {
+    it('should apply a mathematical expression to the specified channels', () => {
         TestFiles.Images.emptyCollection.use((images) => {
             images.push(MagickImage.create(new MagickColor('#ff0040'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
@@ -50,7 +50,7 @@ describe('MagickImageCollection#fx', () => {
         });
     });
 
-    it('apply a mathematical expression to the specified channels async', async () => {
+    it('should apply a mathematical expression to the specified channels asynchronously', async () => {
         await TestFiles.Images.emptyCollection.use(async (images) => {
             images.push(MagickImage.create(new MagickColor('#aa00bb'), 1, 1));
             images.push(MagickImage.create(new MagickColor('#00ff40'), 1, 1));
