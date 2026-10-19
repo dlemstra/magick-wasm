@@ -1822,6 +1822,27 @@ export interface IMagickImage extends IDisposable {
     ping(array: ByteArray, settings?: MagickReadSettings): void;
 
     /**
+     * Reduces the image to the specified number of color levels.
+     * @param levels The number of color levels.
+     */
+    posterize(levels: number): void;
+
+    /**
+     * Reduces the image to the specified number of color levels.
+     * @param levels The number of color levels.
+     * @param dither A value indicating whether dithering should be used.
+     */
+    posterize(levels: number, dither: boolean): void;
+
+    /**
+     * Reduces the image to the specified number of color levels.
+     * @param levels The number of color levels.
+     * @param dither A value indicating whether dithering should be used.
+     * @param channels The channel(s) to posterize.
+     */
+    posterize(levels: number, dither: boolean, channels: Channels): void;
+
+    /**
      * Simulates a polaroid picture.
      * @param caption The caption to put on the image.
      * @param angle The angle of image.
@@ -3934,6 +3955,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                     this._setInstance(instance, exception);
                 });
             });
+        });
+    }
+
+    posterize(levels: number): void;
+    posterize(levels: number, dither: boolean): void;
+    posterize(levels: number, dither: boolean, channels: Channels): void;
+    posterize(levels: number, ditherOrUndefined?: boolean, channelsOrUndefined?: Channels): void {
+        const dither = this.valueOrDefault(ditherOrUndefined, true);
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_Posterize(this._instance, _castToSize(levels), _castToSize(_fromBoolean(dither)), _castToSize(channels), exception);
         });
     }
 
