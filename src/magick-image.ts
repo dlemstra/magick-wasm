@@ -1674,6 +1674,11 @@ export interface IMagickImage extends IDisposable {
     magnify(): void;
 
     /**
+     * Reduce image by integral size.
+     */
+    minify(): void;
+
+    /**
      * Modulate percent brightness of an image.
      * @param brightness The brightness percentage.
      */
@@ -3731,6 +3736,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     magnify(): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Magnify(this._instance, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    minify(): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Minify(this._instance, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
