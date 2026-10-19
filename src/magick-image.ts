@@ -1873,6 +1873,21 @@ export interface IMagickImage extends IDisposable {
     resize(width: number, height: number, filterType: FilterType): void;
 
     /**
+     * Resize image by using simple ratio algorithm.
+     * @param geometry The geometry to use.
+     */
+    scale(geometry: IMagickGeometry): void;
+
+    /**
+     * Resize image by using simple ratio algorithm.
+     * Resize will fit the image into the requested size. It does NOT fill the requested box size.
+     * Use the geometry overload for more control over the resulting size.
+     * @param width The new width.
+     * @param height The new height.
+     */
+    scale(width: number, height: number): void;
+
+    /**
      * Roll image (rolls image vertically and horizontally).
      * @param x The number of columns to roll in the horizontal direction.
      * @param y The number of rows to roll in the vertical direction.
@@ -3861,6 +3876,21 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             _withString(geometry.toString(), geometryPtr => {
                 const instance = ImageMagick._api._MagickImage_Resize(this._instance, geometryPtr, filterType, exception.ptr);
+                this._setInstance(instance, exception);
+            });
+        });
+    }
+
+    scale(geometry: IMagickGeometry): void;
+    scale(width: number, height: number): void;
+    scale(widthOrGeometry: number | IMagickGeometry, heightOrUndefined?: number): void {
+        const geometry = typeof widthOrGeometry === 'number'
+            ? new MagickGeometry(widthOrGeometry, heightOrUndefined ?? 0)
+            : widthOrGeometry;
+
+        this.useException(exception => {
+            _withString(geometry.toString(), geometryPtr => {
+                const instance = ImageMagick._api._MagickImage_Scale(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(instance, exception);
             });
         });
