@@ -1353,6 +1353,33 @@ export interface IMagickImage extends IDisposable {
     flop(): void;
 
     /**
+     * Frames the image with the default geometry (25x25+6+6).
+     */
+    frame(): void;
+
+    /**
+     * Frames the image with the specified geometry.
+     * @param geometry The geometry of the frame.
+     */
+    frame(geometry: IMagickGeometry): void;
+
+    /**
+     * Frames the image with the specified width and height.
+     * @param width The width of the frame.
+     * @param height The height of the frame.
+     */
+    frame(width: number, height: number): void;
+
+    /**
+     * Frames the image with the specified width, height, inner bevel, and outer bevel.
+     * @param width The width of the frame.
+     * @param height The height of the frame.
+     * @param innerBevel The inner bevel of the frame.
+     * @param outerBevel The outer bevel of the frame.
+     */
+    frame(width: number, height: number, innerBevel: number, outerBevel: number): void;
+
+    /**
      * Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
      * alpha value using method.
      * @param alpha The alpha to use.
@@ -3665,6 +3692,33 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Flop(this._instance, exception.ptr);
             this._setInstance(instance, exception);
+        });
+    }
+
+    frame(): void;
+    frame(geometry: IMagickGeometry): void;
+    frame(width: number, height: number): void;
+    frame(width: number, height: number, innerBevel: number, outerBevel: number): void;
+    frame(geometryOrWidth?: IMagickGeometry | number, heightOrUndefined?: number, innerBevelOrUndefined?: number, outerBevelOrUndefined?: number): void {
+        let geometry: IMagickGeometry;
+        if (geometryOrWidth === undefined)
+            geometry = new MagickGeometry(6, 6, 25, 25);
+        else if (typeof geometryOrWidth !== 'number')
+            geometry = geometryOrWidth;
+        else if (heightOrUndefined === undefined)
+            throw new MagickError('invalid arguments');
+        else if (innerBevelOrUndefined === undefined)
+            geometry = new MagickGeometry(6, 6, geometryOrWidth, heightOrUndefined);
+        else if (outerBevelOrUndefined === undefined)
+            throw new MagickError('invalid arguments');
+        else
+            geometry = new MagickGeometry(innerBevelOrUndefined, outerBevelOrUndefined, geometryOrWidth, heightOrUndefined);
+
+        this.useException(exception => {
+            geometry._toRectangle(rectangle => {
+                const instance = ImageMagick._api._MagickImage_Frame(this._instance, rectangle, exception.ptr);
+                this._setInstance(instance, exception);
+            });
         });
     }
 
