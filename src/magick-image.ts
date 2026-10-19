@@ -557,6 +557,17 @@ export interface IMagickImage extends IDisposable {
     autoLevel(channels: Channels): void;
 
     /**
+     * Applies a histogram equalization to the image.
+     */
+    equalize(): void;
+
+    /**
+     * Applies a histogram equalization to the image.
+     * @param channels The channel(s) to apply the operator on.
+     */
+    equalize(channels: Channels): void;
+
+    /**
      * Adjusts an image so that its orientation is suitable for viewing.
      */
     autoOrient(): void;
@@ -2911,6 +2922,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useExceptionPointer(exception => {
             const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
             ImageMagick._api._MagickImage_AutoLevel(this._instance, _castToSize(channels), exception);
+        });
+    }
+
+    equalize(): void;
+    equalize(channels: Channels): void;
+    equalize(channelsOrUndefined?: Channels): void {
+        this.useExceptionPointer(exception => {
+            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+            ImageMagick._api._MagickImage_Equalize(this._instance, _castToSize(channels), exception);
         });
     }
 
