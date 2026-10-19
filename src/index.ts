@@ -107,6 +107,7 @@ export * from './settings/compare-settings';
 export * from './settings/complex-settings';
 export * from './settings/connected-components-settings';
 export * from './settings/distort-settings';
+export * from './settings/kmeans-settings';
 export * from './settings/magick-read-settings';
 export * from './settings/magick-settings';
 export * from './settings/montage-settings';

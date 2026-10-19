@@ -42,6 +42,7 @@ import { IDrawableAffine } from './drawing/drawable-affine';
 import { ImageMagick } from './image-magick';
 import { ImageProfile, IImageProfile } from './profiles/image-profile';
 import { Interlace } from './enums/interlace';
+import { KmeansSettings } from './settings/kmeans-settings';
 import { MagickColor, IMagickColor } from './magick-color';
 import { MagickError } from './magick-error';
 import { MagickErrorInfo } from './types/magick-error-info';
@@ -1618,6 +1619,12 @@ export interface IMagickImage extends IDisposable {
      * @param channels The channel(s) that should be adjusted.
      */
     inverseSigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
+
+    /**
+     * Applies k-means color reduction to the image. This is a color-space clustering or segmentation technique.
+     * @param settings The k-means settings.
+     */
+    kmeans(settings: KmeansSettings): void;
 
     /**
      * Add alpha channel to image, setting pixels that don't match the specified color to transparent.
@@ -3831,6 +3838,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     inverseSigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     inverseSigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
         this.sigmoidalContrastPrivate(false, contrast, midpointOrPercentage, channelsOrUndefined)
+    }
+
+    kmeans(settings: KmeansSettings): void {
+        TemporaryDefines.use(this, temporaryDefines => {
+            if (settings.seedColors !== undefined && settings.seedColors.length > 0)
+                temporaryDefines.setArtifact('kmeans:seed-colors', settings.seedColors);
+
+            this.useExceptionPointer(exception => {
+                ImageMagick._api._MagickImage_Kmeans(this._instance, _castToSize(settings.numberColors), _castToSize(settings.maxIterations), settings.tolerance, exception);
+            });
+        });
     }
 
     inverseTransparent = (color: IMagickColor) => this.transparentPrivate(color, true);
