@@ -1785,6 +1785,34 @@ export interface IMagickImage extends IDisposable {
     magnify(): void;
 
     /**
+     * Delineates arbitrarily shaped clusters in the image using a color distance of 10%.
+     * @param size The width and height of the pixel neighborhood.
+     */
+    meanShift(size: number): void;
+
+    /**
+     * Delineates arbitrarily shaped clusters in the image.
+     * @param size The width and height of the pixel neighborhood.
+     * @param colorDistance The color distance.
+     */
+    meanShift(size: number, colorDistance: Percentage): void;
+
+    /**
+     * Delineates arbitrarily shaped clusters in the image using a color distance of 10%.
+     * @param width The width of the pixel neighborhood.
+     * @param height The height of the pixel neighborhood.
+     */
+    meanShift(width: number, height: number): void;
+
+    /**
+     * Delineates arbitrarily shaped clusters in the image.
+     * @param width The width of the pixel neighborhood.
+     * @param height The height of the pixel neighborhood.
+     * @param colorDistance The color distance.
+     */
+    meanShift(width: number, height: number, colorDistance: Percentage): void;
+
+    /**
      * Reduce image by integral size.
      */
     minify(): void;
@@ -4075,6 +4103,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     magnify(): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Magnify(this._instance, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    meanShift(size: number): void;
+    meanShift(size: number, colorDistance: Percentage): void;
+    meanShift(width: number, height: number): void;
+    meanShift(width: number, height: number, colorDistance: Percentage): void;
+    meanShift(sizeOrWidth: number, heightOrColorDistance: number | Percentage = sizeOrWidth, colorDistance = new Percentage(10)): void {
+        const height = typeof heightOrColorDistance === 'number' ? heightOrColorDistance : sizeOrWidth;
+        const distance = heightOrColorDistance instanceof Percentage ? heightOrColorDistance : colorDistance;
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_MeanShift(this._instance, _castToSize(sizeOrWidth), _castToSize(height), distance._toQuantum(), exception.ptr);
             this._setInstance(instance, exception);
         });
     }
