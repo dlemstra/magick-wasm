@@ -1696,6 +1696,18 @@ export interface IMagickImage extends IDisposable {
     kmeans(settings: KmeansSettings): void;
 
     /**
+     * Applies an edge-preserving noise reduction filter with default values (0x1).
+     */
+    kuwahara(): void;
+
+    /**
+     * Applies an edge-preserving noise reduction filter.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Laplacian, in pixels.
+     */
+    kuwahara(radius: number, sigma: number): void;
+
+    /**
      * Adjust the levels of the image by scaling the colors falling between specified white and
      * black points to the full available quantum range.
      * @param blackPoint The darkest color in the image. Colors darker are set to zero.
@@ -4007,6 +4019,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.useExceptionPointer(exception => {
                 ImageMagick._api._MagickImage_Kmeans(this._instance, _castToSize(settings.numberColors), _castToSize(settings.maxIterations), settings.tolerance, exception);
             });
+        });
+    }
+
+    kuwahara(): void;
+    kuwahara(radius: number, sigma: number): void;
+    kuwahara(radius = 0, sigma = 1): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Kuwahara(this._instance, radius, sigma, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
