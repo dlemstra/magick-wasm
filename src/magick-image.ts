@@ -2433,6 +2433,18 @@ export interface IMagickImage extends IDisposable {
     trim(percentage: Percentage): void;
 
     /**
+     * Returns the unique colors of the image.
+     * @param func The function to execute with the image containing the unique colors.
+     */
+    uniqueColors<TReturnType>(func: (image: IMagickImage) => TReturnType): TReturnType;
+
+    /**
+     * Returns the unique colors of the image.
+     * @param func The async function to execute with the image containing the unique colors.
+     */
+    uniqueColors<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
      * Softens the edges of the image in vignette style.
      */
     vignette(): void;
@@ -4608,6 +4620,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.removeArtifact('trim:edges');
             this.removeArtifact('trim:percent-background');
         });
+    }
+
+    uniqueColors<TReturnType>(func: SyncImageCallback<TReturnType>): TReturnType;
+    uniqueColors<TReturnType>(func: AsyncImageCallback<TReturnType>): Promise<TReturnType>;
+    uniqueColors<TReturnType>(func: ImageCallback<TReturnType>): TReturnType | Promise<TReturnType> {
+        const instance = this.useExceptionPointer(exception => {
+            return ImageMagick._api._MagickImage_UniqueColors(this._instance, exception);
+        });
+        const image = MagickImage._createFromImage(instance, this._settings._clone());
+        return image._use(func);
     }
 
     vignette(): void;
