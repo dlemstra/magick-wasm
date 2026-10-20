@@ -2408,6 +2408,12 @@ export interface IMagickImage extends IDisposable {
     transpose(): void;
 
     /**
+     * Creates a vertical mirror image by reflecting the pixels around the central x-axis while
+     * rotating them by 270 degrees.
+     */
+    transverse(): void;
+
+    /**
      * Trim edges that are the background color from the image. The property {@link boundingBox} can be used to the
      * coordinates of the area that will be extracted.
      */
@@ -4569,6 +4575,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     transpose(): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Transpose(this._instance, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    transverse(): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Transverse(this._instance, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
