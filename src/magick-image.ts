@@ -1199,6 +1199,11 @@ export interface IMagickImage extends IDisposable {
     deskew(threshold: Percentage, autoCrop: boolean): number;
 
     /**
+     * Despeckles the image (reduces speckle noise).
+     */
+    despeckle(): void;
+
+    /**
      * Determines the bit depth (bits allocated to red/green/blue components). Use the depth
      * property to get the current value.
      */
@@ -3587,6 +3592,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             const angle = Number(this.getArtifact('deskew:angle'));
             return isNaN(angle) ? 0.0 : angle;
         })
+    }
+
+    despeckle(): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Despeckle(this._instance, exception.ptr);
+            this._setInstance(instance, exception);
+        });
     }
 
     determineBitDepth(): number;
