@@ -2371,6 +2371,27 @@ export interface IMagickImage extends IDisposable {
     shade(azimuth: number, elevation: number, channels: Channels): void;
 
     /**
+     * Shades the image using a distant light source and makes it grayscale, with an azimuth
+     * and elevation of 30 degrees.
+     */
+    shadeGrayscale(): void;
+
+    /**
+     * Shades the image using a distant light source and makes it grayscale.
+     * @param azimuth The azimuth of the light source direction.
+     * @param elevation The elevation of the light source direction.
+     */
+    shadeGrayscale(azimuth: number, elevation: number): void;
+
+    /**
+     * Shades the image using a distant light source and makes it grayscale.
+     * @param azimuth The azimuth of the light source direction.
+     * @param elevation The elevation of the light source direction.
+     * @param channels The channel(s) that should be shaded.
+     */
+    shadeGrayscale(azimuth: number, elevation: number, channels: Channels): void;
+
+    /**
      * Simulate an image shadow.
      */
     shadow(): void;
@@ -4691,6 +4712,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     shade(azimuth = 30, elevation = 30, channels: Channels = Channels.RGB): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Shade(this._instance, azimuth, elevation, 0, _castToSize(channels), exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    shadeGrayscale(): void;
+    shadeGrayscale(azimuth: number, elevation: number): void;
+    shadeGrayscale(azimuth: number, elevation: number, channels: Channels): void;
+    shadeGrayscale(azimuth = 30, elevation = 30, channels: Channels = Channels.RGB): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Shade(this._instance, azimuth, elevation, 1, _castToSize(channels), exception.ptr);
             this._setInstance(instance, exception);
         });
     }
