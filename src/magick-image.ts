@@ -2958,9 +2958,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     adaptiveBlur(): void;
     adaptiveBlur(radius: number): void;
     adaptiveBlur(radius: number, sigma: number): void;
-    adaptiveBlur(radiusOrUndefined?: number, sigmaOrUndefined?: number): void {
-        const radius = this.valueOrDefault(radiusOrUndefined, 0);
-        const sigma = this.valueOrDefault(sigmaOrUndefined, 1);
+    adaptiveBlur(radius = 0, sigma = 1): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_AdaptiveBlur(this._instance, radius, sigma, exception.ptr);
             this._setInstance(instance, exception);
@@ -3135,8 +3133,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     blueShift(): void
     blueShift(factor: number): void
-    blueShift(factorOrUndefined?: number): void {
-        const factor = this.valueOrDefault(factorOrUndefined, 1.5);
+    blueShift(factor = 1.5): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_BlueShift(this._instance, factor, exception.ptr);
             this._setInstance(instance, exception);
@@ -3206,9 +3203,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     charcoal(): void;
     charcoal(radius: number, sigma: number): void;
-    charcoal(radiusOrUndefined?: number, sigmaOrUndefined?: number): void {
-        const radius = radiusOrUndefined === undefined ? 0 : radiusOrUndefined;
-        const sigma = sigmaOrUndefined === undefined ? 1 : sigmaOrUndefined;
+    charcoal(radius = 0, sigma = 1): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Charcoal(this._instance, radius, sigma, exception.ptr);
             this._setInstance(instance, exception);
@@ -3835,10 +3830,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     gaussianBlur(radius: number): void;
     gaussianBlur(radius: number, sigma: number): void;
     gaussianBlur(radius: number, sigma: number, channels: Channels): void;
-    gaussianBlur(radius: number, sigmaOrUndefined?: number, channelsOrUndefined?: Channels): void {
-        const sigma = this.valueOrDefault(sigmaOrUndefined, 1.0);
-        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-
+    gaussianBlur(radius: number, sigma = 1.0, channels: Channels = Channels.Undefined): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_GaussianBlur(this._instance, radius, sigma, _castToSize(channels), exception.ptr);
             this._setInstance(instance, exception);
@@ -4105,8 +4097,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     oilPaint(): void;
     oilPaint(radius: number): void
-    oilPaint(radiusOrUndefined?: number): void {
-        const radius = this.valueOrDefault(radiusOrUndefined, 3);
+    oilPaint(radius = 3): void {
         const sigma = 0.0; // Not used due to precision issue in GetOptimalKernelWidth2D.
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_OilPaint(this._instance, radius, sigma, exception.ptr);
@@ -4118,8 +4109,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     orderedDither(thresholdMap: string): void;
     orderedDither(thresholdMap: string, channels: Channels): void;
-    orderedDither(thresholdMap: string, channelsOrUndefined?: Channels): void {
-        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+    orderedDither(thresholdMap: string, channels: Channels = Channels.Undefined): void {
         this.useExceptionPointer(exception => {
             _withString(thresholdMap, thresholdMapPtr => {
                 ImageMagick._api._MagickImage_OrderedDither(this._instance, thresholdMapPtr, _castToSize(channels), exception);
@@ -4168,9 +4158,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     posterize(levels: number): void;
     posterize(levels: number, dither: boolean): void;
     posterize(levels: number, dither: boolean, channels: Channels): void;
-    posterize(levels: number, ditherOrUndefined?: boolean, channelsOrUndefined?: Channels): void {
-        const dither = this.valueOrDefault(ditherOrUndefined, true);
-        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+    posterize(levels: number, dither = true, channels: Channels = Channels.Undefined): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Posterize(this._instance, _castToSize(levels), _castToSize(_fromBoolean(dither)), _castToSize(channels), exception);
         });
@@ -4483,11 +4471,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     sharpen(): void;
     sharpen(radius: number, sigma: number): void;
     sharpen(radius: number, sigma: number, channels: Channels): void;
-    sharpen(radiusOrUndefined?: number, sigmaOrUndefined?: number, channelsOrUndefined?: Channels): void {
-        const radius = this.valueOrDefault(radiusOrUndefined, 0.0);
-        const sigma = this.valueOrDefault(sigmaOrUndefined, 1.0);
-        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-
+    sharpen(radius = 0.0, sigma = 1.0, channels: Channels = Channels.Undefined): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Sharpen(this._instance, radius, sigma, _castToSize(channels), exception.ptr);
             this._setInstance(instance, exception);
