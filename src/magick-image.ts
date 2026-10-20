@@ -1565,6 +1565,19 @@ export interface IMagickImage extends IDisposable {
     histogram(): Map<string, bigint>;
 
     /**
+     * Identifies lines in the image.
+     */
+    houghLine(): void;
+
+    /**
+     * Identifies lines in the image.
+     * @param width The width of the neighborhood.
+     * @param height The height of the neighborhood.
+     * @param threshold The line count threshold.
+     */
+    houghLine(width: number, height: number, threshold: number): void;
+
+    /**
      * Inverse contrast image (diminish intensity differences in image).
      */
     inverseContrast(): void;
@@ -3937,6 +3950,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
 
         return result;
+    }
+
+    houghLine(): void;
+    houghLine(width: number, height: number, threshold: number): void;
+    houghLine(width = 0, height = 0, threshold = 40): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_HoughLine(this._instance, _castToSize(width), _castToSize(height), _castToSize(threshold), exception.ptr);
+            this._setInstance(instance, exception);
+        });
     }
 
     inverseContrast = () => this.contrastPrivate(false);
