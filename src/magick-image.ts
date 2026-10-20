@@ -2517,6 +2517,24 @@ export interface IMagickImage extends IDisposable {
     splice(geometry: IMagickGeometry, gravity: Gravity): void;
 
     /**
+     * Spreads pixels randomly within the image using the image's interpolation method and a radius of 3.
+     */
+    spread(): void;
+
+    /**
+     * Spreads pixels randomly within the image by the specified amount.
+     * @param radius Choose a random pixel in a neighborhood of this extent.
+     */
+    spread(radius: number): void;
+
+    /**
+     * Spreads pixels randomly within the image by the specified amount.
+     * @param method The pixel interpolation method.
+     * @param radius Choose a random pixel in a neighborhood of this extent.
+     */
+    spread(method: PixelInterpolateMethod, radius: number): void;
+
+    /**
      * Returns the image statistics.
      */
     statistics(): IStatistics;
@@ -4802,6 +4820,20 @@ export class MagickImage extends NativeInstance implements IMagickImage {
                 const instance = ImageMagick._api._MagickImage_Splice(this._instance, geometryPtr, _castToSize(gravity), exception.ptr);
                 this._setInstance(instance, exception);
             });
+        });
+    }
+
+    spread(): void;
+    spread(radius: number): void;
+    spread(method: PixelInterpolateMethod, radius: number): void;
+    spread(methodOrRadius?: PixelInterpolateMethod | number, radiusOrUndefined?: number): void {
+        let method: number = this.interpolate;
+        if (methodOrRadius !== undefined)
+            method = radiusOrUndefined === undefined ? PixelInterpolateMethod.Undefined : methodOrRadius;
+        const radius = radiusOrUndefined ?? methodOrRadius ?? 3;
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Spread(this._instance, _castToSize(method), radius, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
