@@ -30,8 +30,8 @@ describe('MagickImage#polaroid', () => {
                 return count;
             });
 
-            expect(image.width).toBeGreaterThan(width);
-            expect(image.height).toBeGreaterThan(height);
+            expect(image.width).toBe(180);
+            expect(image.height).toBe(208);
             expect(darkPixels).toBe(156);
         });
     });

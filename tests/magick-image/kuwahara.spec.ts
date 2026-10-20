@@ -35,9 +35,9 @@ describe('MagickImage#kuwahara', () => {
             expect(image.width).toBe(16);
             expect(image.height).toBe(16);
             image.getPixels(pixels => {
-                expect(pixels.getPixel(12, 8)[0]).toBeGreaterThan(230);
-                expect(pixels.getPixel(7, 8)[0]).toBeLessThan(64);
-                expect(pixels.getPixel(8, 8)[0]).toBeGreaterThan(191);
+                expect(pixels.getPixel(12, 8)[0]).toBe(242);
+                expect(pixels.getPixel(7, 8)[0]).toBe(47);
+                expect(pixels.getPixel(8, 8)[0]).toBe(246);
             });
         });
     });

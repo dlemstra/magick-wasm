@@ -48,7 +48,7 @@ describe('MagickImage#selectiveBlur', () => {
                 expect(image.height).toBe(9);
                 expect(other).toHavePixelWithColor(4, 4, '#808080');
                 image.getPixels(pixels => {
-                    expect(pixels.getPixel(4, 4)[0]).toBeGreaterThan(200);
+                    expect(pixels.getPixel(4, 4)[0]).toBe(234);
                 });
             });
         });
@@ -65,7 +65,7 @@ describe('MagickImage#selectiveBlur', () => {
 
             image.getPixels(pixels => {
                 const pixel = pixels.getPixel(4, 4);
-                expect(pixel[0]).toBeGreaterThan(200);
+                expect(pixel[0]).toBe(234);
                 expect(pixel[1]).toBe(128);
                 expect(pixel[2]).toBe(128);
             });

@@ -14,8 +14,8 @@ describe('MagickImage#shear', () => {
             image.virtualPixelMethod = VirtualPixelMethod.Background;
             image.shear(20, 40);
 
-            expect(image.width).toBeGreaterThan(640);
-            expect(image.height).toBeGreaterThan(480);
+            expect(image.width).toBe(815);
+            expect(image.height).toBe(870);
             expect(image).toHavePixelWithColor(10, 10, MagickColors.Firebrick);
         });
     });

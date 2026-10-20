@@ -33,9 +33,8 @@ describe('MagickImage#rotationalBlur', () => {
             expect(image.height).toBe(17);
             expect(image).toHavePixelWithColor(8, 8, MagickColors.White);
             image.getPixels(pixels => {
-                expect(pixels.getPixel(12, 8)[0]).toBeGreaterThan(0);
-                expect(pixels.getPixel(12, 8)[0]).toBeLessThan(255);
-                expect(pixels.getPixel(12, 9)[0]).toBeLessThan(255);
+                expect(pixels.getPixel(12, 8)[0]).toBe(213);
+                expect(pixels.getPixel(12, 9)[0]).toBe(213);
             });
         });
     });
