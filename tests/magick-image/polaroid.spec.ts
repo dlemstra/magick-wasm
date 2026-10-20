@@ -10,7 +10,6 @@ import { TestFiles } from '@test/test-files';
 describe('MagickImage#polaroid', () => {
     it('should simulate a polaroid picture', () => {
         TestFiles.Images.empty150x150Canvas.use(image => {
-            const width = image.width;
             const height = image.height;
             image.settings.borderColor = MagickColors.Red;
             image.backgroundColor = MagickColors.Fuchsia;
