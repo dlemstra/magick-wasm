@@ -292,11 +292,6 @@ export interface IMagickImage extends IDisposable {
     metaChannelCount: number;
 
     /**
-     * Gets or sets the photo orientation of the image.
-     */
-    orientation: Orientation;
-
-    /**
      * Event that will be raised when progress is reported by this image.
      */
     onProgress?: (event: ProgressEvent) => void;
@@ -305,6 +300,11 @@ export interface IMagickImage extends IDisposable {
      * Event that will we raised when a warning is raised by ImageMagick.
      */
     onWarning?: (event: WarningEvent) => void;
+
+    /**
+     * Gets or sets the photo orientation of the image.
+     */
+    orientation: Orientation;
 
     /**
      * Gets or sets the preferred size and location of an image canvas.
@@ -556,17 +556,6 @@ export interface IMagickImage extends IDisposable {
      * @param channels The channel(s) to level.
      */
     autoLevel(channels: Channels): void;
-
-    /**
-     * Applies a histogram equalization to the image.
-     */
-    equalize(): void;
-
-    /**
-     * Applies a histogram equalization to the image.
-     * @param channels The channel(s) to apply the operator on.
-     */
-    equalize(channels: Channels): void;
 
     /**
      * Adjusts an image so that its orientation is suitable for viewing.
@@ -1257,6 +1246,17 @@ export interface IMagickImage extends IDisposable {
     encipher(passphrase: string): void;
 
     /**
+     * Applies a histogram equalization to the image.
+     */
+    equalize(): void;
+
+    /**
+     * Applies a histogram equalization to the image.
+     * @param channels The channel(s) to apply the operator on.
+     */
+    equalize(channels: Channels): void;
+
+    /**
      * Apply an arithmetic or bitwise operator to the image pixel quantums.
      * @param channels The channel(s) to apply the operator on.
      * @param operator The operator to use.
@@ -1348,38 +1348,6 @@ export interface IMagickImage extends IDisposable {
     flip(): void;
 
     /**
-     * Flop image (reflect each scanline in the horizontal direction).
-     */
-    flop(): void;
-
-    /**
-     * Frames the image with the default geometry (25x25+6+6).
-     */
-    frame(): void;
-
-    /**
-     * Frames the image with the specified geometry.
-     * @param geometry The geometry of the frame.
-     */
-    frame(geometry: IMagickGeometry): void;
-
-    /**
-     * Frames the image with the specified width and height.
-     * @param width The width of the frame.
-     * @param height The height of the frame.
-     */
-    frame(width: number, height: number): void;
-
-    /**
-     * Frames the image with the specified width, height, inner bevel, and outer bevel.
-     * @param width The width of the frame.
-     * @param height The height of the frame.
-     * @param innerBevel The inner bevel of the frame.
-     * @param outerBevel The outer bevel of the frame.
-     */
-    frame(width: number, height: number, innerBevel: number, outerBevel: number): void;
-
-    /**
      * Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
      * alpha value using method.
      * @param alpha The alpha to use.
@@ -1427,10 +1395,42 @@ export interface IMagickImage extends IDisposable {
     floodFill(image: IMagickImage, x: number, y: number, target: IMagickColor): void;
 
     /**
+     * Flop image (reflect each scanline in the horizontal direction).
+     */
+    flop(): void;
+
+    /**
      * Formats the specified expression (more info can be found here: https://imagemagick.org/script/escape.php).
      * @param expression The expression.
      */
     formatExpression(expression: string): string | null;
+
+    /**
+     * Frames the image with the default geometry (25x25+6+6).
+     */
+    frame(): void;
+
+    /**
+     * Frames the image with the specified geometry.
+     * @param geometry The geometry of the frame.
+     */
+    frame(geometry: IMagickGeometry): void;
+
+    /**
+     * Frames the image with the specified width and height.
+     * @param width The width of the frame.
+     * @param height The height of the frame.
+     */
+    frame(width: number, height: number): void;
+
+    /**
+     * Frames the image with the specified width, height, inner bevel, and outer bevel.
+     * @param width The width of the frame.
+     * @param height The height of the frame.
+     * @param innerBevel The inner bevel of the frame.
+     * @param outerBevel The outer bevel of the frame.
+     */
+    frame(width: number, height: number, innerBevel: number, outerBevel: number): void;
 
     /**
      * Gamma correct image.
@@ -1648,16 +1648,16 @@ export interface IMagickImage extends IDisposable {
     inverseSigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
 
     /**
-     * Applies k-means color reduction to the image. This is a color-space clustering or segmentation technique.
-     * @param settings The k-means settings.
-     */
-    kmeans(settings: KmeansSettings): void;
-
-    /**
      * Add alpha channel to image, setting pixels that don't match the specified color to transparent.
      * @param color The color that should not be made transparent.
      */
     inverseTransparent(color: IMagickColor): void;
+
+    /**
+     * Applies k-means color reduction to the image. This is a color-space clustering or segmentation technique.
+     * @param settings The k-means settings.
+     */
+    kmeans(settings: KmeansSettings): void;
 
     /**
      * Adjust the levels of the image by scaling the colors falling between specified white and
@@ -1713,18 +1713,6 @@ export interface IMagickImage extends IDisposable {
     linearStretch(blackPoint: Percentage, whitePoint: Percentage): void;
 
     /**
-     * Lowers the image by darkening its edges to give a 3-D lowered effect.
-     * @param size The size of the edges.
-     */
-    lower(size: number): void;
-
-    /**
-     * Raises the image by lightening its edges to give a 3-D raised effect.
-     * @param size The size of the edges.
-     */
-    raise(size: number): void;
-
-    /**
      * Rescales image with seam carving.
      * @param geometry The geometry to use.
      */
@@ -1736,6 +1724,12 @@ export interface IMagickImage extends IDisposable {
      * @param height The new height.
      */
     liquidRescale(width: number, height: number): void;
+
+    /**
+     * Lowers the image by darkening its edges to give a 3-D lowered effect.
+     * @param size The size of the edges.
+     */
+    lower(size: number): void;
 
     /**
      * Magnify image by integral size.
@@ -1822,6 +1816,13 @@ export interface IMagickImage extends IDisposable {
     oilPaint(radius: number): void;
 
     /**
+     * Changes any pixel that matches target with the color defined by fill.
+     * @param target The color to replace.
+     * @param fill The color to replace opaque color with.
+     */
+    opaque(target: IMagickColor, fill: IMagickColor): void;
+
+    /**
      * Applies ordered dithering to the image.
      * @param thresholdMap The threshold map to use.
      */
@@ -1833,13 +1834,6 @@ export interface IMagickImage extends IDisposable {
      * @param channels The channel(s) to dither.
      */
     orderedDither(thresholdMap: string, channels: Channels): void;
-
-    /**
-     * Changes any pixel that matches target with the color defined by fill.
-     * @param target The color to replace.
-     * @param fill The color to replace opaque color with.
-     */
-    opaque(target: IMagickColor, fill: IMagickColor): void;
 
     /**
      * Returns the perceptual hash of this image with the colorspaces @see ColorSpace.XyY
@@ -1868,6 +1862,14 @@ export interface IMagickImage extends IDisposable {
     ping(array: ByteArray, settings?: MagickReadSettings): void;
 
     /**
+     * Simulates a polaroid picture.
+     * @param caption The caption to put on the image.
+     * @param angle The angle of image.
+     * @param method Pixel interpolate method.
+     */
+    polaroid(caption: string, angle: number, method: PixelInterpolateMethod): void;
+
+    /**
      * Reduces the image to the specified number of color levels.
      * @param levels The number of color levels.
      */
@@ -1889,18 +1891,16 @@ export interface IMagickImage extends IDisposable {
     posterize(levels: number, dither: boolean, channels: Channels): void;
 
     /**
-     * Simulates a polaroid picture.
-     * @param caption The caption to put on the image.
-     * @param angle The angle of image.
-     * @param method Pixel interpolate method.
-     */
-    polaroid(caption: string, angle: number, method: PixelInterpolateMethod): void;
-
-    /**
      * Quantize image (reduce number of colors).
      * @param settings The settings to use when quantizing the image.
      */
     quantize(settings?: QuantizeSettings): MagickErrorInfo | null;
+
+    /**
+     * Raises the image by lightening its edges to give a 3-D raised effect.
+     * @param size The size of the edges.
+     */
+    raise(size: number): void;
 
     /**
      * Read single image frame.
@@ -2022,19 +2022,18 @@ export interface IMagickImage extends IDisposable {
     resize(width: number, height: number, filterType: FilterType): void;
 
     /**
-     * Resize image by using simple ratio algorithm.
-     * @param geometry The geometry to use.
+     * Roll image (rolls image vertically and horizontally).
+     * @param x The number of columns to roll in the horizontal direction.
+     * @param y The number of rows to roll in the vertical direction.
      */
-    scale(geometry: IMagickGeometry): void;
+    roll(x: number, y: number): void;
 
     /**
-     * Resize image by using simple ratio algorithm.
-     * Resize will fit the image into the requested size. It does NOT fill the requested box size.
-     * Use the geometry overload for more control over the resulting size.
-     * @param width The new width.
-     * @param height The new height.
+     * Rotate image clockwise by specified number of degrees.
+     * Specify a negative number for <paramref name="degrees"/> to rotate counter-clockwise.
+     * @param degrees The number of degrees to rotate (positive to rotate clockwise, negative to rotate counter-clockwise).
      */
-    scale(width: number, height: number): void;
+    rotate(degrees: number): void;
 
     /**
      * Resize image by using pixel sampling algorithm.
@@ -2065,24 +2064,38 @@ export interface IMagickImage extends IDisposable {
     sample(percentageWidth: Percentage, percentageHeight: Percentage): void;
 
     /**
-     * Roll image (rolls image vertically and horizontally).
-     * @param x The number of columns to roll in the horizontal direction.
-     * @param y The number of rows to roll in the vertical direction.
+     * Resize image by using simple ratio algorithm.
+     * @param geometry The geometry to use.
      */
-    roll(x: number, y: number): void;
+    scale(geometry: IMagickGeometry): void;
 
     /**
-     * Rotate image clockwise by specified number of degrees.
-     * Specify a negative number for <paramref name="degrees"/> to rotate counter-clockwise.
-     * @param degrees The number of degrees to rotate (positive to rotate clockwise, negative to rotate counter-clockwise).
+     * Resize image by using simple ratio algorithm.
+     * Resize will fit the image into the requested size. It does NOT fill the requested box size.
+     * Use the geometry overload for more control over the resulting size.
+     * @param width The new width.
+     * @param height The new height.
      */
-    rotate(degrees: number): void;
+    scale(width: number, height: number): void;
 
     /**
-     * Creates a horizontal mirror image by reflecting the pixels around the central y-axis while
-     * rotating them by 90 degrees.
+     * Segments the image by analyzing the histograms of the color components and identifying
+     * homogeneous units with the fuzzy c-means technique. The image's quantize color space and
+     * verbose attributes are also used.
      */
-    transpose(): void;
+    segment(): void;
+
+    /**
+     * Segments the image by analyzing the histograms of the color components and identifying
+     * homogeneous units with the fuzzy c-means technique. The image's quantize color space and
+     * verbose attributes are also used.
+     * @param colorSpace The color space to use.
+     * @param clusterThreshold The minimum number of pixels contained in a histogram cluster,
+     * expressed as a percentage.
+     * @param smoothingThreshold The smoothing threshold used to eliminate noise in the second
+     * derivative of the histogram.
+     */
+    segment(colorSpace: ColorSpace, clusterThreshold: number, smoothingThreshold: number): void;
 
     /**
      * Separates the channels from the image and returns it as grayscale images.
@@ -2109,25 +2122,6 @@ export interface IMagickImage extends IDisposable {
      * @param func The async function to execute with the separated images.
      */
     separate<TReturnType>(channels: Channels, func: (images: IMagickImageCollection) => Promise<TReturnType>): Promise<TReturnType>;
-
-    /**
-     * Segments the image by analyzing the histograms of the color components and identifying
-     * homogeneous units with the fuzzy c-means technique. The image's quantize color space and
-     * verbose attributes are also used.
-     */
-    segment(): void;
-
-    /**
-     * Segments the image by analyzing the histograms of the color components and identifying
-     * homogeneous units with the fuzzy c-means technique. The image's quantize color space and
-     * verbose attributes are also used.
-     * @param colorSpace The color space to use.
-     * @param clusterThreshold The minimum number of pixels contained in a histogram cluster,
-     * expressed as a percentage.
-     * @param smoothingThreshold The smoothing threshold used to eliminate noise in the second
-     * derivative of the histogram.
-     */
-    segment(colorSpace: ColorSpace, clusterThreshold: number, smoothingThreshold: number): void;
 
     /**
      * Applies a special effect to the image, similar to the effect achieved in a photo darkroom
@@ -2333,6 +2327,37 @@ export interface IMagickImage extends IDisposable {
     strip(): void;
 
     /**
+     * Threshold image.
+     * @param percentage The threshold percentage.
+     */
+    threshold(percentage: Percentage): void;
+
+    /**
+     * Threshold image.
+     * @param percentage The threshold percentage.
+     * @param channels The channel(s) that should be thresholded.
+     */
+    threshold(percentage: Percentage, channels: Channels): void;
+
+    /**
+     * Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
+     * @param width The new width.
+     * @param height The new height.
+     */
+    thumbnail(width: number, height: number): void;
+
+    /**
+     * Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
+     * @param geometry The geometry to use.
+     */
+    thumbnail(geometry: IMagickGeometry): void;
+
+    /**
+     * Returns a string that represents the current image.
+     */
+    toString(): string;
+
+    /**
      * Transforms the image from the colorspace of the source profile to the target profile. This
      * requires the image to have a color profile. Nothing will happen if the image has no color profile.
      * @param target The target color profile.
@@ -2371,41 +2396,16 @@ export interface IMagickImage extends IDisposable {
     transformColorSpace(source: IColorProfile, target: IColorProfile, mode: ColorTransformMode): boolean;
 
     /**
-     * Threshold image.
-     * @param percentage The threshold percentage.
-     */
-    threshold(percentage: Percentage): void;
-
-    /**
-     * Threshold image.
-     * @param percentage The threshold percentage.
-     * @param channels The channel(s) that should be thresholded.
-     */
-    threshold(percentage: Percentage, channels: Channels): void;
-
-    /**
-     * Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
-     * @param width The new width.
-     * @param height The new height.
-     */
-    thumbnail(width: number, height: number): void;
-
-    /**
-     * Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
-     * @param geometry The geometry to use.
-     */
-    thumbnail(geometry: IMagickGeometry): void;
-
-    /**
-     * Returns a string that represents the current image.
-     */
-    toString(): string;
-
-    /**
      * Add alpha channel to image, setting pixels matching color to transparent.
      * @param color The color to make transparent.
      */
     transparent(color: IMagickColor): void;
+
+    /**
+     * Creates a horizontal mirror image by reflecting the pixels around the central y-axis while
+     * rotating them by 90 degrees.
+     */
+    transpose(): void;
 
     /**
      * Trim edges that are the background color from the image. The property {@link boundingBox} can be used to the
@@ -2777,17 +2777,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return <Interlace>Number(ImageMagick._api._MagickImage_Interlace_Get(this._instance));
     }
 
-    get isOpaque(): boolean {
-        return this.useExceptionPointer(exception => {
-            return _toBoolean(ImageMagick._api._MagickImage_IsOpaque_Get(this._instance, exception));
-        });
-    }
-
     get interpolate(): PixelInterpolateMethod {
         return <PixelInterpolateMethod>Number(ImageMagick._api._MagickImage_Interpolate_Get(this._instance));
     }
     set interpolate(value: PixelInterpolateMethod) {
         ImageMagick._api._MagickImage_Interpolate_Set(this._instance, _castToSize(value));
+    }
+
+    get isOpaque(): boolean {
+        return this.useExceptionPointer(exception => {
+            return _toBoolean(ImageMagick._api._MagickImage_IsOpaque_Get(this._instance, exception));
+        });
     }
 
     get label(): string | null {
@@ -2819,13 +2819,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    get orientation(): Orientation {
-        return <Orientation>Number(ImageMagick._api._MagickImage_Orientation_Get(this._instance));
-    }
-    set orientation(value: Orientation) {
-        ImageMagick._api._MagickImage_Orientation_Set(this._instance, _castToSize(value));
-    }
-
     get onProgress(): ((event: ProgressEvent) => number) | undefined {
         return this._progress;
     }
@@ -2843,6 +2836,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
     set onWarning(value: ((event: WarningEvent) => number) | undefined) {
         this._warning = value;
+    }
+
+    get orientation(): Orientation {
+        return <Orientation>Number(ImageMagick._api._MagickImage_Orientation_Get(this._instance));
+    }
+    set orientation(value: Orientation) {
+        ImageMagick._api._MagickImage_Orientation_Set(this._instance, _castToSize(value));
     }
 
     get page(): IMagickGeometry {
@@ -3054,15 +3054,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useExceptionPointer(exception => {
             const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
             ImageMagick._api._MagickImage_AutoLevel(this._instance, _castToSize(channels), exception);
-        });
-    }
-
-    equalize(): void;
-    equalize(channels: Channels): void;
-    equalize(channelsOrUndefined?: Channels): void {
-        this.useExceptionPointer(exception => {
-            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-            ImageMagick._api._MagickImage_Equalize(this._instance, _castToSize(channels), exception);
         });
     }
 
@@ -3632,6 +3623,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    equalize(): void;
+    equalize(channels: Channels): void;
+    equalize(channelsOrUndefined?: Channels): void {
+        this.useExceptionPointer(exception => {
+            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+            ImageMagick._api._MagickImage_Equalize(this._instance, _castToSize(channels), exception);
+        });
+    }
+
     evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
     evaluate(channels: Channels, operator: EvaluateOperator, value: Percentage): void;
     evaluate(channels: Channels, geometry: IMagickGeometry, operator: EvaluateOperator, value: number): void;
@@ -3720,6 +3720,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    formatExpression(expression: string): string | null {
+        return this.useExceptionPointer(exception => {
+            return this._settings._use(settings => {
+                return _withString(expression, expressionPtr => {
+                    const instance = ImageMagick._api._MagickImage_FormatExpression(this._instance, settings._instance, expressionPtr, exception);
+                    return _createStringAndRelinquish(ImageMagick._api, instance);
+                });
+            });
+        });
+    }
+
     frame(): void;
     frame(geometry: IMagickGeometry): void;
     frame(width: number, height: number): void;
@@ -3743,17 +3754,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             geometry._toRectangle(rectangle => {
                 const instance = ImageMagick._api._MagickImage_Frame(this._instance, rectangle, exception.ptr);
                 this._setInstance(instance, exception);
-            });
-        });
-    }
-
-    formatExpression(expression: string): string | null {
-        return this.useExceptionPointer(exception => {
-            return this._settings._use(settings => {
-                return _withString(expression, expressionPtr => {
-                    const instance = ImageMagick._api._MagickImage_FormatExpression(this._instance, settings._instance, expressionPtr, exception);
-                    return _createStringAndRelinquish(ImageMagick._api, instance);
-                });
             });
         });
     }
@@ -3919,6 +3919,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.sigmoidalContrastPrivate(false, contrast, midpointOrPercentage, channelsOrUndefined)
     }
 
+    inverseTransparent = (color: IMagickColor) => this.transparentPrivate(color, true);
+
     kmeans(settings: KmeansSettings): void {
         TemporaryDefines.use(this, temporaryDefines => {
             if (settings.seedColors !== undefined && settings.seedColors.length > 0)
@@ -3930,8 +3932,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    inverseTransparent = (color: IMagickColor) => this.transparentPrivate(color, true);
-
     level(blackPoint: Percentage, whitePoint: Percentage): void;
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number): void;
     level(blackPoint: Percentage, whitePoint: Percentage, gamma: number, channels: Channels): void;
@@ -3940,18 +3940,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Composite);
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, _castToSize(channels), exception);
-        });
-    }
-
-    lower(size: number): void {
-        this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_RaiseOrLower(this._instance, _castToSize(size), 0, exception);
-        });
-    }
-
-    raise(size: number): void {
-        this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_RaiseOrLower(this._instance, _castToSize(size), 1, exception);
         });
     }
 
@@ -3979,6 +3967,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    lower(size: number): void {
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_RaiseOrLower(this._instance, _castToSize(size), 0, exception);
+        });
+    }
+
     magnify(): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Magnify(this._instance, exception.ptr);
@@ -3990,28 +3984,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Minify(this._instance, exception.ptr);
             this._setInstance(instance, exception);
-        });
-    }
-
-    negate(): void;
-    negate(channelsOrUndefined?: Channels): void {
-        this.useExceptionPointer(exception => {
-            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-            ImageMagick._api._MagickImage_Negate(this._instance, 0, _castToSize(channels), exception);
-        });
-    }
-
-    negateGrayScale(): void;
-    negateGrayScale(channelsOrUndefined?: Channels): void {
-        this.useExceptionPointer(exception => {
-            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-            ImageMagick._api._MagickImage_Negate(this._instance, 1, _castToSize(channels), exception);
-        });
-    }
-
-    normalize(): void {
-        this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_Normalize(this._instance, exception);
         });
     }
 
@@ -4045,6 +4017,28 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    negate(): void;
+    negate(channelsOrUndefined?: Channels): void {
+        this.useExceptionPointer(exception => {
+            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+            ImageMagick._api._MagickImage_Negate(this._instance, 0, _castToSize(channels), exception);
+        });
+    }
+
+    negateGrayScale(): void;
+    negateGrayScale(channelsOrUndefined?: Channels): void {
+        this.useExceptionPointer(exception => {
+            const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+            ImageMagick._api._MagickImage_Negate(this._instance, 1, _castToSize(channels), exception);
+        });
+    }
+
+    normalize(): void {
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_Normalize(this._instance, exception);
+        });
+    }
+
     oilPaint(): void;
     oilPaint(radius: number): void
     oilPaint(radiusOrUndefined?: number): void {
@@ -4055,6 +4049,8 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this._setInstance(instance, exception);
         });
     }
+
+    opaque = (target: IMagickColor, fill: IMagickColor) => this.opaquePrivate(target, fill, false);
 
     orderedDither(thresholdMap: string): void;
     orderedDither(thresholdMap: string, channels: Channels): void;
@@ -4067,7 +4063,26 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    opaque = (target: IMagickColor, fill: IMagickColor) => this.opaquePrivate(target, fill, false);
+    perceptualHash(): IPerceptualHash;
+    perceptualHash(colorSpaces: ReadonlyArray<ColorSpace>): IPerceptualHash;
+    perceptualHash(colorSpacesOrUndefined?: ReadonlyArray<ColorSpace>): IPerceptualHash {
+        const colorSpaces = this.valueOrDefault(colorSpacesOrUndefined, PerceptualHash._defaultColorspaces());
+        PerceptualHash._validateColorSpaces(colorSpaces);
+
+        return TemporaryDefines.use(this, temporaryDefines => {
+            const colorSpaceName = colorSpaces.map(colorSpace => ColorSpaceNames[colorSpace]).join(',');
+            temporaryDefines.setArtifact('phash:colorspaces', colorSpaceName);
+
+            return this.useExceptionPointer(exception => {
+                const listInstance = ImageMagick._api._MagickImage_PerceptualHash(this._instance, exception);
+                try {
+                    return PerceptualHash._create(this, colorSpaces, listInstance);
+                } finally {
+                    ImageMagick._api._PerceptualHash_DisposeList(listInstance);
+                }
+            });
+        });
+    }
 
     ping(fileName: string, settings?: MagickReadSettings): void;
     ping(array: ByteArray, settings?: MagickReadSettings): void;
@@ -4097,27 +4112,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    perceptualHash(): IPerceptualHash;
-    perceptualHash(colorSpaces: ReadonlyArray<ColorSpace>): IPerceptualHash;
-    perceptualHash(colorSpacesOrUndefined?: ReadonlyArray<ColorSpace>): IPerceptualHash {
-        const colorSpaces = this.valueOrDefault(colorSpacesOrUndefined, PerceptualHash._defaultColorspaces());
-        PerceptualHash._validateColorSpaces(colorSpaces);
-
-        return TemporaryDefines.use(this, temporaryDefines => {
-            const colorSpaceName = colorSpaces.map(colorSpace => ColorSpaceNames[colorSpace]).join(',');
-            temporaryDefines.setArtifact('phash:colorspaces', colorSpaceName);
-
-            return this.useExceptionPointer(exception => {
-                const listInstance = ImageMagick._api._MagickImage_PerceptualHash(this._instance, exception);
-                try {
-                    return PerceptualHash._create(this, colorSpaces, listInstance);
-                } finally {
-                    ImageMagick._api._PerceptualHash_DisposeList(listInstance);
-                }
-            });
-        });
-    }
-
     quantize(settingsOrUndefined?: QuantizeSettings): MagickErrorInfo | null {
         const settings = this.valueOrDefault(settingsOrUndefined, new QuantizeSettings());
         this.useException(exception => {
@@ -4130,6 +4124,12 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return MagickErrorInfo._create(this);
 
         return null;
+    }
+
+    raise(size: number): void {
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_RaiseOrLower(this._instance, _castToSize(size), 1, exception);
+        });
     }
 
     read(color: IMagickColor, width: number, height: number): void;
@@ -4238,18 +4238,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    scale(geometry: IMagickGeometry): void;
-    scale(width: number, height: number): void;
-    scale(widthOrGeometry: number | IMagickGeometry, heightOrUndefined?: number): void {
-        const geometry = typeof widthOrGeometry === 'number'
-            ? new MagickGeometry(widthOrGeometry, heightOrUndefined ?? 0)
-            : widthOrGeometry;
-
+    roll(x: number, y: number): void {
         this.useException(exception => {
-            _withString(geometry.toString(), geometryPtr => {
-                const instance = ImageMagick._api._MagickImage_Scale(this._instance, geometryPtr, exception.ptr);
-                this._setInstance(instance, exception);
-            });
+            const instance = ImageMagick._api._MagickImage_Roll(this._instance, _castToSize(x), _castToSize(y), exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    rotate(degrees: number): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Rotate(this._instance, degrees, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
@@ -4279,24 +4278,26 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    roll(x: number, y: number): void {
+    scale(geometry: IMagickGeometry): void;
+    scale(width: number, height: number): void;
+    scale(widthOrGeometry: number | IMagickGeometry, heightOrUndefined?: number): void {
+        const geometry = typeof widthOrGeometry === 'number'
+            ? new MagickGeometry(widthOrGeometry, heightOrUndefined ?? 0)
+            : widthOrGeometry;
+
         this.useException(exception => {
-            const instance = ImageMagick._api._MagickImage_Roll(this._instance, _castToSize(x), _castToSize(y), exception.ptr);
-            this._setInstance(instance, exception);
+            _withString(geometry.toString(), geometryPtr => {
+                const instance = ImageMagick._api._MagickImage_Scale(this._instance, geometryPtr, exception.ptr);
+                this._setInstance(instance, exception);
+            });
         });
     }
 
-    rotate(degrees: number): void {
-        this.useException(exception => {
-            const instance = ImageMagick._api._MagickImage_Rotate(this._instance, degrees, exception.ptr);
-            this._setInstance(instance, exception);
-        });
-    }
-
-    transpose(): void {
-        this.useException(exception => {
-            const instance = ImageMagick._api._MagickImage_Transpose(this._instance, exception.ptr);
-            this._setInstance(instance, exception);
+    segment(): void;
+    segment(colorSpace: ColorSpace, clusterThreshold: number, smoothingThreshold: number): void;
+    segment(colorSpace: ColorSpace = ColorSpace.Undefined, clusterThreshold = 1.0, smoothingThreshold = 1.5): void {
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_Segment(this._instance, _castToSize(colorSpace), clusterThreshold, smoothingThreshold, exception);
         });
     }
 
@@ -4321,14 +4322,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             return MagickImageCollection._createFromImages(images, this._settings, (collection) => {
                 return func(collection);
             });
-        });
-    }
-
-    segment(): void;
-    segment(colorSpace: ColorSpace, clusterThreshold: number, smoothingThreshold: number): void;
-    segment(colorSpace: ColorSpace = ColorSpace.Undefined, clusterThreshold = 1.0, smoothingThreshold = 1.5): void {
-        this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_Segment(this._instance, _castToSize(colorSpace), clusterThreshold, smoothingThreshold, exception);
         });
     }
 
@@ -4497,6 +4490,29 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    threshold(percentage: Percentage): void
+    threshold(percentage: Percentage, channels: Channels): void
+    threshold(percentage: Percentage, channelsOrUndefined?: Channels): void {
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_Threshold(this._instance, percentage._toQuantum(), _castToSize(channels), exception);
+        });
+    }
+
+    thumbnail(width: number, height: number): void;
+    thumbnail(geometry: IMagickGeometry): void;
+    thumbnail(widthOrGeometry: number | IMagickGeometry, heightOrUndefined?: number): void {
+        const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, heightOrUndefined as number) : widthOrGeometry;
+        this.useException(exception => {
+            _withString(geometry.toString(), geometryPtr => {
+                const instance = ImageMagick._api._MagickImage_Thumbnail(this._instance, geometryPtr, exception.ptr);
+                this._setInstance(instance, exception);
+            });
+        });
+    }
+
+    toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpaceNames[this.colorSpace]}`
+
     transformColorSpace(target: IColorProfile): boolean;
     transformColorSpace(target: IColorProfile, mode: ColorTransformMode): boolean;
     transformColorSpace(source: IColorProfile, target: IColorProfile): boolean;
@@ -4542,34 +4558,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return true;
     }
 
-    threshold(percentage: Percentage): void
-    threshold(percentage: Percentage, channels: Channels): void
-    threshold(percentage: Percentage, channelsOrUndefined?: Channels): void {
-        const channels = this.valueOrDefault(channelsOrUndefined, Channels.Undefined);
-        this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_Threshold(this._instance, percentage._toQuantum(), _castToSize(channels), exception);
-        });
-    }
-
-    thumbnail(width: number, height: number): void;
-    thumbnail(geometry: IMagickGeometry): void;
-    thumbnail(widthOrGeometry: number | IMagickGeometry, heightOrUndefined?: number): void {
-        const geometry = typeof widthOrGeometry === 'number' ? new MagickGeometry(widthOrGeometry, heightOrUndefined as number) : widthOrGeometry;
-        this.useException(exception => {
-            _withString(geometry.toString(), geometryPtr => {
-                const instance = ImageMagick._api._MagickImage_Thumbnail(this._instance, geometryPtr, exception.ptr);
-                this._setInstance(instance, exception);
-            });
-        });
-    }
-
-    toString = (): string => `${this.format} ${this.width}x${this.height} ${this.depth}-bit ${ColorSpaceNames[this.colorSpace]}`
-
     transparent(color: IMagickColor): void {
         color._use(valuePtr => {
             this.useExceptionPointer(exception => {
                 ImageMagick._api._MagickImage_Transparent(this._instance, valuePtr, 0, exception);
             });
+        });
+    }
+
+    transpose(): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Transpose(this._instance, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
@@ -4597,19 +4597,6 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    wave(): void;
-    wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
-    wave(methodOrUndefined?: PixelInterpolateMethod, amplitudeOrUndefined?: number, lengthOrUndefined?: number): void {
-        const method = this.valueOrDefault(methodOrUndefined, this.interpolate);
-        const amplitude = this.valueOrDefault(amplitudeOrUndefined, 25);
-        const length = this.valueOrDefault(lengthOrUndefined, 150);
-
-        this.useException(exception => {
-            const instance = ImageMagick._api._MagickImage_Wave(this._instance, _castToSize(method), amplitude, length, exception.ptr);
-            this._setInstance(instance, exception);
-        });
-    }
-
     vignette(): void;
     vignette(radius: number, sigma: number, x: number, y: number): void
     vignette(radiusOrUndefined?: number, sigmaOrUndefined?: number, xOrUndefined?: number, yOrUndefined?: number): void {
@@ -4620,6 +4607,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Vignette(this._instance, radius, sigma, _castToSize(x), _castToSize(y), exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    wave(): void;
+    wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
+    wave(methodOrUndefined?: PixelInterpolateMethod, amplitudeOrUndefined?: number, lengthOrUndefined?: number): void {
+        const method = this.valueOrDefault(methodOrUndefined, this.interpolate);
+        const amplitude = this.valueOrDefault(amplitudeOrUndefined, 25);
+        const length = this.valueOrDefault(lengthOrUndefined, 150);
+
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Wave(this._instance, _castToSize(method), amplitude, length, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
