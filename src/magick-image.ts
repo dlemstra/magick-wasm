@@ -2351,6 +2351,26 @@ export interface IMagickImage extends IDisposable {
     setWriteMask(image: IMagickImage): void;
 
     /**
+     * Shades the image using a distant light source with an azimuth and elevation of 30 degrees.
+     */
+    shade(): void;
+
+    /**
+     * Shades the image using a distant light source.
+     * @param azimuth The azimuth of the light source direction.
+     * @param elevation The elevation of the light source direction.
+     */
+    shade(azimuth: number, elevation: number): void;
+
+    /**
+     * Shades the image using a distant light source.
+     * @param azimuth The azimuth of the light source direction.
+     * @param elevation The elevation of the light source direction.
+     * @param channels The channel(s) that should be shaded.
+     */
+    shade(azimuth: number, elevation: number, channels: Channels): void;
+
+    /**
      * Simulate an image shadow.
      */
     shadow(): void;
@@ -4662,6 +4682,16 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     setWriteMask(image: IMagickImage): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_SetWriteMask(this._instance, image._instance, exception);
+        });
+    }
+
+    shade(): void;
+    shade(azimuth: number, elevation: number): void;
+    shade(azimuth: number, elevation: number, channels: Channels): void;
+    shade(azimuth = 30, elevation = 30, channels: Channels = Channels.RGB): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Shade(this._instance, azimuth, elevation, 0, _castToSize(channels), exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
