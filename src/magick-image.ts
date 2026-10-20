@@ -2243,6 +2243,13 @@ export interface IMagickImage extends IDisposable {
     shave(leftRight: number, topBottom: number): void;
 
     /**
+     * Shears the image by sliding it along the X or Y axis to create a parallelogram.
+     * @param xAngle The number of degrees to shear the image along the X axis.
+     * @param yAngle The number of degrees to shear the image along the Y axis.
+     */
+    shear(xAngle: number, yAngle: number): void;
+
+    /**
      * Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
      * @param contrast The contrast to use.
      */
@@ -4420,6 +4427,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     shave(leftRight: number, topBottom: number) {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Shave(this._instance, _castToSize(leftRight), _castToSize(topBottom), exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    shear(xAngle: number, yAngle: number): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Shear(this._instance, xAngle, yAngle, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
