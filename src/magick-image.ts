@@ -2669,6 +2669,40 @@ export interface IMagickImage extends IDisposable {
     uniqueColors<TReturnType>(func: (image: IMagickImage) => Promise<TReturnType>): Promise<TReturnType>;
 
     /**
+     * Replaces the image with a sharpened version using the unsharp mask algorithm.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Laplacian, in pixels.
+     */
+    unsharpMask(radius: number, sigma: number): void;
+
+    /**
+     * Replaces the image with a sharpened version using the unsharp mask algorithm.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Laplacian, in pixels.
+     * @param channels The channel(s) that should be sharpened.
+     */
+    unsharpMask(radius: number, sigma: number, channels: Channels): void;
+
+    /**
+     * Replaces the image with a sharpened version using the unsharp mask algorithm.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Laplacian, in pixels.
+     * @param amount The fraction of the difference between the original and blurred image added back to the original.
+     * @param threshold The contrast threshold needed to apply the difference amount.
+     */
+    unsharpMask(radius: number, sigma: number, amount: number, threshold: number): void;
+
+    /**
+     * Replaces the image with a sharpened version using the unsharp mask algorithm.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Laplacian, in pixels.
+     * @param amount The fraction of the difference between the original and blurred image added back to the original.
+     * @param threshold The contrast threshold needed to apply the difference amount.
+     * @param channels The channel(s) that should be sharpened.
+     */
+    unsharpMask(radius: number, sigma: number, amount: number, threshold: number, channels: Channels): void;
+
+    /**
      * Softens the edges of the image in vignette style.
      */
     vignette(): void;
@@ -4977,6 +5011,20 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
         const image = MagickImage._createFromImage(instance, this._settings._clone());
         return image._use(func);
+    }
+
+    unsharpMask(radius: number, sigma: number): void;
+    unsharpMask(radius: number, sigma: number, channels: Channels): void;
+    unsharpMask(radius: number, sigma: number, amount: number, threshold: number): void;
+    unsharpMask(radius: number, sigma: number, amount: number, threshold: number, channels: Channels): void;
+    unsharpMask(radius: number, sigma: number, amountOrChannels?: number, thresholdOrUndefined?: number, channels: Channels = Channels.Undefined): void {
+        const amount = thresholdOrUndefined === undefined ? 1.0 : amountOrChannels ?? 1.0;
+        const threshold = thresholdOrUndefined ?? 0.05;
+        const selectedChannels = thresholdOrUndefined === undefined ? amountOrChannels ?? Channels.Undefined : channels;
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_UnsharpMask(this._instance, radius, sigma, amount, threshold, _castToSize(selectedChannels), exception.ptr);
+            this._setInstance(instance, exception);
+        });
     }
 
     vignette(): void;
