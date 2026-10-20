@@ -1245,6 +1245,12 @@ export interface IMagickImage extends IDisposable {
     draw(...drawables: IDrawable[]): void;
 
     /**
+     * Highlights edges in the image.
+     * @param radius The radius of the pixel neighborhood.
+     */
+    edge(radius: number): void;
+
+    /**
      * Enciphers the image with the specified passphrase.
      * @param passphrase The passphrase to use.
      */
@@ -3642,6 +3648,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         DrawingWand._use(this, (wand) => {
             wand.draw(items);
+        });
+    }
+
+    edge(radius: number): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Edge(this._instance, radius, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
