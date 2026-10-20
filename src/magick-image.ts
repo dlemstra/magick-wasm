@@ -2153,6 +2153,19 @@ export interface IMagickImage extends IDisposable {
     rotate(degrees: number): void;
 
     /**
+     * Rotationally blurs the image.
+     * @param angle The angle to use.
+     */
+    rotationalBlur(angle: number): void;
+
+    /**
+     * Rotationally blurs the image.
+     * @param angle The angle to use.
+     * @param channels The channel(s) to use.
+     */
+    rotationalBlur(angle: number, channels: Channels): void;
+
+    /**
      * Resize image by using pixel sampling algorithm.
      * Resize will fit the image into the requested size. It does NOT fill the requested box size.
      * Use the geometry overload for more control over the resulting size.
@@ -4455,6 +4468,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     rotate(degrees: number): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Rotate(this._instance, degrees, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    rotationalBlur(angle: number): void;
+    rotationalBlur(angle: number, channels: Channels): void;
+    rotationalBlur(angle: number, channels: Channels = Channels.Undefined): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_RotationalBlur(this._instance, angle, _castToSize(channels), exception.ptr);
             this._setInstance(instance, exception);
         });
     }
