@@ -1251,6 +1251,18 @@ export interface IMagickImage extends IDisposable {
     edge(radius: number): void;
 
     /**
+     * Embosses the image (highlights edges with a 3D effect) with default values (0x1).
+     */
+    emboss(): void;
+
+    /**
+     * Embosses the image (highlights edges with a 3D effect).
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Laplacian, in pixels.
+     */
+    emboss(radius: number, sigma: number): void;
+
+    /**
      * Enciphers the image with the specified passphrase.
      * @param passphrase The passphrase to use.
      */
@@ -3654,6 +3666,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     edge(radius: number): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Edge(this._instance, radius, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    emboss(): void;
+    emboss(radius: number, sigma: number): void;
+    emboss(radius = 0, sigma = 1): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Emboss(this._instance, radius, sigma, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
