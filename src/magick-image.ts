@@ -2079,6 +2079,12 @@ export interface IMagickImage extends IDisposable {
     rotate(degrees: number): void;
 
     /**
+     * Creates a horizontal mirror image by reflecting the pixels around the central y-axis while
+     * rotating them by 90 degrees.
+     */
+    transpose(): void;
+
+    /**
      * Separates the channels from the image and returns it as grayscale images.
      * @param func The function to execute with the separated images.
      */
@@ -4283,6 +4289,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     rotate(degrees: number): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Rotate(this._instance, degrees, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    transpose(): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Transpose(this._instance, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
