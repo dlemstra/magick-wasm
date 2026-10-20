@@ -2038,6 +2038,17 @@ export interface IMagickImage extends IDisposable {
     readFromCanvas(canvas: HTMLCanvasElement, settings?: CanvasRenderingContext2DSettings): void;
 
     /**
+     * Reduces noise in the image using a noise peak elimination filter with an order of 3.
+     */
+    reduceNoise(): void;
+
+    /**
+     * Reduces noise in the image using a noise peak elimination filter.
+     * @param order The order to use.
+     */
+    reduceNoise(order: number): void;
+
+    /**
      * Removes the artifact with the specified name.
      * @param name The name of the artifact.
      */
@@ -4340,6 +4351,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         this.useException(exception => {
             this.readFromArray(imageData.data, readSettings, exception);
+        });
+    }
+
+    reduceNoise(): void;
+    reduceNoise(order: number): void;
+    reduceNoise(order = 3): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Statistic(this._instance, _castToSize(StatisticType.Nonpeak), _castToSize(order), _castToSize(order), exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
