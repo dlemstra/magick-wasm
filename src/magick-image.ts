@@ -1991,6 +1991,24 @@ export interface IMagickImage extends IDisposable {
     raise(size: number): void;
 
     /**
+     * Applies soft and hard thresholding.
+     * @param lowBlack Defines the minimum black threshold value.
+     * @param lowWhite Defines the minimum white threshold value.
+     * @param highWhite Defines the maximum white threshold value.
+     * @param highBlack Defines the maximum black threshold value.
+     */
+    rangeThreshold(lowBlack: Percentage, lowWhite: Percentage, highWhite: Percentage, highBlack: Percentage): void;
+
+    /**
+     * Applies soft and hard thresholding.
+     * @param lowBlack Defines the minimum black threshold quantum value.
+     * @param lowWhite Defines the minimum white threshold quantum value.
+     * @param highWhite Defines the maximum white threshold quantum value.
+     * @param highBlack Defines the maximum black threshold quantum value.
+     */
+    rangeThreshold(lowBlack: number, lowWhite: number, highWhite: number, highBlack: number): void;
+
+    /**
      * Read single image frame.
      * @param color The color to fill the image with.
      * @param width The width of the image.
@@ -4286,6 +4304,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     raise(size: number): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_RaiseOrLower(this._instance, _castToSize(size), 1, exception);
+        });
+    }
+
+    rangeThreshold(lowBlack: Percentage, lowWhite: Percentage, highWhite: Percentage, highBlack: Percentage): void;
+    rangeThreshold(lowBlack: number, lowWhite: number, highWhite: number, highBlack: number): void;
+    rangeThreshold(lowBlack: number | Percentage, lowWhite: number | Percentage, highWhite: number | Percentage, highBlack: number | Percentage): void {
+        const lowBlackValue = typeof lowBlack === 'number' ? lowBlack : lowBlack._toQuantum();
+        const lowWhiteValue = typeof lowWhite === 'number' ? lowWhite : lowWhite._toQuantum();
+        const highWhiteValue = typeof highWhite === 'number' ? highWhite : highWhite._toQuantum();
+        const highBlackValue = typeof highBlack === 'number' ? highBlack : highBlack._toQuantum();
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_RangeThreshold(this._instance, lowBlackValue, lowWhiteValue, highWhiteValue, highBlackValue, exception);
         });
     }
 
