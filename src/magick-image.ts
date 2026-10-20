@@ -2228,6 +2228,41 @@ export interface IMagickImage extends IDisposable {
     segment(colorSpace: ColorSpace, clusterThreshold: number, smoothingThreshold: number): void;
 
     /**
+     * Selectively blurs pixels within a contrast threshold, unlike an unsharp mask which
+     * sharpens pixels with contrast above a threshold.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Gaussian, in pixels.
+     * @param threshold Only pixels within this contrast threshold are included in the blur operation.
+     */
+    selectiveBlur(radius: number, sigma: number, threshold: number): void;
+
+    /**
+     * Selectively blurs pixels within a contrast threshold.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Gaussian, in pixels.
+     * @param threshold Only pixels within this contrast threshold are included in the blur operation.
+     * @param channels The channel(s) to blur.
+     */
+    selectiveBlur(radius: number, sigma: number, threshold: number, channels: Channels): void;
+
+    /**
+     * Selectively blurs pixels within a contrast threshold.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Gaussian, in pixels.
+     * @param threshold Only pixels within this contrast threshold are included in the blur operation.
+     */
+    selectiveBlur(radius: number, sigma: number, threshold: Percentage): void;
+
+    /**
+     * Selectively blurs pixels within a contrast threshold.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Gaussian, in pixels.
+     * @param threshold Only pixels within this contrast threshold are included in the blur operation.
+     * @param channels The channel(s) to blur.
+     */
+    selectiveBlur(radius: number, sigma: number, threshold: Percentage, channels: Channels): void;
+
+    /**
      * Separates the channels from the image and returns it as grayscale images.
      * @param func The function to execute with the separated images.
      */
@@ -4527,6 +4562,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     segment(colorSpace: ColorSpace = ColorSpace.Undefined, clusterThreshold = 1.0, smoothingThreshold = 1.5): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Segment(this._instance, _castToSize(colorSpace), clusterThreshold, smoothingThreshold, exception);
+        });
+    }
+
+    selectiveBlur(radius: number, sigma: number, threshold: number): void;
+    selectiveBlur(radius: number, sigma: number, threshold: number, channels: Channels): void;
+    selectiveBlur(radius: number, sigma: number, threshold: Percentage): void;
+    selectiveBlur(radius: number, sigma: number, threshold: Percentage, channels: Channels): void;
+    selectiveBlur(radius: number, sigma: number, threshold: number | Percentage, channels: Channels = Channels.Undefined): void {
+        const thresholdValue = typeof threshold === 'number' ? threshold : threshold._toQuantum();
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_SelectiveBlur(this._instance, radius, sigma, thresholdValue, _castToSize(channels), exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
