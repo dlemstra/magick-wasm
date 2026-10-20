@@ -79,6 +79,7 @@ export * from './enums/pixel-channel';
 export * from './enums/pixel-intensity-method';
 export * from './enums/pixel-interpolate-method';
 export * from './enums/rendering-intent';
+export * from './enums/statistic-type';
 export * from './enums/text-alignment';
 export * from './enums/text-decoration';
 export * from './enums/virtual-pixel-method';

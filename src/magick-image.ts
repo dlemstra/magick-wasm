@@ -72,6 +72,7 @@ import { QuantizeSettings } from './settings/quantize-settings';
 import { Quantum } from './quantum';
 import { RenderingIntent } from './enums/rendering-intent';
 import { Statistics, IStatistics } from './statistics/statistics';
+import { StatisticType } from './enums/statistic-type';
 import { StringInfo } from './internal/string-info';
 import { TemporaryDefines } from './helpers/temporary-defines';
 import { VirtualPixelMethod } from './enums/virtual-pixel-method';
@@ -1811,6 +1812,17 @@ export interface IMagickImage extends IDisposable {
      * @param colorDistance The color distance.
      */
     meanShift(width: number, height: number, colorDistance: Percentage): void;
+
+    /**
+     * Filters the image by replacing each pixel component with the median color in a circular neighborhood.
+     */
+    medianFilter(): void;
+
+    /**
+     * Filters the image by replacing each pixel component with the median color in a circular neighborhood.
+     * @param radius The radius of the pixel neighborhood.
+     */
+    medianFilter(radius: number): void;
 
     /**
      * Reduce image by integral size.
@@ -4116,6 +4128,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const distance = heightOrColorDistance instanceof Percentage ? heightOrColorDistance : colorDistance;
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_MeanShift(this._instance, _castToSize(sizeOrWidth), _castToSize(height), distance._toQuantum(), exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    medianFilter(): void;
+    medianFilter(radius: number): void;
+    medianFilter(radius = 0): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Statistic(this._instance, _castToSize(StatisticType.Median), _castToSize(radius), _castToSize(radius), exception.ptr);
             this._setInstance(instance, exception);
         });
     }
