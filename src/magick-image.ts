@@ -2730,6 +2730,32 @@ export interface IMagickImage extends IDisposable {
     wave(method: PixelInterpolateMethod, amplitude: number, length: number): void;
 
     /**
+     * Removes noise from the image using a wavelet transform.
+     * @param threshold The quantum threshold for smoothing.
+     */
+    waveletDenoise(threshold: number): void;
+
+    /**
+     * Removes noise from the image using a wavelet transform.
+     * @param threshold The quantum threshold for smoothing.
+     * @param softness Attenuates the smoothing threshold.
+     */
+    waveletDenoise(threshold: number, softness: number): void;
+
+    /**
+     * Removes noise from the image using a wavelet transform.
+     * @param thresholdPercentage The threshold for smoothing.
+     */
+    waveletDenoise(thresholdPercentage: Percentage): void;
+
+    /**
+     * Removes noise from the image using a wavelet transform.
+     * @param thresholdPercentage The threshold for smoothing.
+     * @param softness Attenuates the smoothing threshold.
+     */
+    waveletDenoise(thresholdPercentage: Percentage, softness: number): void;
+
+    /**
      * Forces all pixels below the threshold into white while leaving all pixels at or above
      * the threshold unchanged.
      * @param threshold The threshold to use.
@@ -5050,6 +5076,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Wave(this._instance, _castToSize(method), amplitude, length, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    waveletDenoise(threshold: number): void;
+    waveletDenoise(threshold: number, softness: number): void;
+    waveletDenoise(thresholdPercentage: Percentage): void;
+    waveletDenoise(thresholdPercentage: Percentage, softness: number): void;
+    waveletDenoise(thresholdOrPercentage: number | Percentage, softness = 0): void {
+        const threshold = typeof thresholdOrPercentage === 'number' ? thresholdOrPercentage : thresholdOrPercentage._toQuantum();
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_WaveletDenoise(this._instance, threshold, softness, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
