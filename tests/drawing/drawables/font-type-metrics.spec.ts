@@ -4,6 +4,7 @@
 */
 
 import { Drawables } from '@src/drawing/drawables';
+import { ITypeMetric } from '@src/types/type-metric';
 import { TestFiles } from '@test/test-files';
 
 describe('Drawables#fontTypeMetrics', () => {
@@ -12,7 +13,7 @@ describe('Drawables#fontTypeMetrics', () => {
             .font(TestFiles.Fonts.kaushanScriptRegularTtf.name)
             .fontPointSize(15);
 
-        const typeMetric = drawables.fontTypeMetrics("magick-wasm")!;
+        const typeMetric: ITypeMetric = drawables.fontTypeMetrics("magick-wasm")!;
 
         expect(typeMetric).not.toBeNull();
         expect(typeMetric.ascent).toBe(17);

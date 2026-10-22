@@ -16,7 +16,7 @@ import { NativeInstance } from '../native-instance';
 import { PaintMethod } from '../enums/paint-method';
 import { TextAlignment } from '../enums/text-alignment';
 import { TextDecoration } from '../enums/text-decoration';
-import { TypeMetric } from '../types/type-metric';
+import { TypeMetric, ITypeMetric } from '../types/type-metric';
 import { _castToSize } from '../internal/native/size';
 import { _fromBoolean } from '../internal/native/boolean';
 import { _withDoubleArray } from '../internal/native/array';
@@ -134,7 +134,7 @@ export class DrawingWand extends NativeInstance implements IDrawingWand {
     }
 
     /** @internal */
-    fontTypeMetrics(value: string, ignoreNewlines: boolean): TypeMetric | null {
+    fontTypeMetrics(value: string, ignoreNewlines: boolean): ITypeMetric | null {
         return Exception.usePointer(exception => {
             return _withString(value, (valuePtr) => {
                 const instance = ImageMagick._api._DrawingWand_FontTypeMetrics(this._instance, valuePtr, _fromBoolean(ignoreNewlines), exception);

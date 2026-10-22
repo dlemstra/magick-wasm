@@ -13,7 +13,54 @@ import { _castToSize } from '../internal/native/size';
 /**
  * An ImageMagick connected component object.
  */
-export class ConnectedComponent {
+export interface IConnectedComponent {
+    /**
+     * The pixel count of the area.
+     */
+    readonly area: number;
+
+    /**
+     * The centroid of the area.
+     */
+    readonly centroid: Point;
+
+    /**
+     * The color of the area.
+     */
+    readonly color?: IMagickColor;
+
+    /**
+     * The height of the area.
+     */
+    readonly height: number;
+
+    /**
+     * The id of the area.
+     */
+    readonly id: number;
+
+    /**
+     * The width of the area.
+     */
+    readonly width: number;
+
+    /**
+     * The X offset from origin.
+     */
+    readonly x: number;
+
+    /**
+     * The Y offset from origin.
+     */
+    readonly y: number;
+
+    /**
+     * Returns the geometry of the area of the connected component.
+     */
+    toGeometry(): IMagickGeometry;
+}
+
+export class ConnectedComponent implements IConnectedComponent {
     private constructor(instance: NativePointer) {
         this.area = Number(ImageMagick._api._ConnectedComponent_GetArea(instance));
         this.centroid = Point._create(ImageMagick._api._ConnectedComponent_GetCentroid(instance));

@@ -17,7 +17,7 @@ import { ImageMagick } from './image-magick';
 import { IMagickImage } from './magick-image';
 import { LayerMethod } from './enums/layer-method';
 import { MagickError } from './magick-error';
-import { MagickErrorInfo } from './types/magick-error-info';
+import { MagickErrorInfo, IMagickErrorInfo } from './types/magick-error-info';
 import { MagickFormat } from './enums/magick-format';
 import { MagickImage } from './magick-image';
 import { MagickReadSettings } from './settings/magick-read-settings';
@@ -283,7 +283,7 @@ export interface IMagickImageCollection extends Array<IMagickImage>, IDisposable
     /**
      *  Quantize images (reduce number of colors).
      */
-    quantize(settings?: QuantizeSettings): MagickErrorInfo | null;
+    quantize(settings?: QuantizeSettings): IMagickErrorInfo | null;
 
     /**
      * Read all image frames.
@@ -597,7 +597,7 @@ export class MagickImageCollection extends Array<MagickImage> implements IMagick
         }, func);
     }
 
-    quantize(settingsOrUndefined?: QuantizeSettings): MagickErrorInfo | null {
+    quantize(settingsOrUndefined?: QuantizeSettings): IMagickErrorInfo | null {
         this.throwIfEmpty();
         const settings = settingsOrUndefined === undefined ? new QuantizeSettings() : settingsOrUndefined;
 

@@ -36,13 +36,13 @@ import { IDrawable } from "./drawable";
 import { IMagickImage, MagickImage } from "../magick-image";
 import { IMagickColor } from "../magick-color";
 import { IPath } from "./path";
+import { ITypeMetric } from "../types/type-metric";
 import { MagickColors } from "../magick-colors";
 import { PaintMethod } from "../enums/paint-method";
 import { Paths } from "./paths";
 import { Percentage } from "../types/percentage";
 import { TextAlignment } from "../enums/text-alignment";
 import { TextDecoration } from "../enums/text-decoration";
-import { TypeMetric } from "../types/type-metric";
 
 export class Drawables {
     private readonly _drawables: IDrawable[] = [];
@@ -150,7 +150,7 @@ export class Drawables {
      * @param text The text to get the metrics for.
      * @param ignoreNewlines A value indicating whether newlines should be ignored.
      */
-    fontTypeMetrics(text: string, ignoreNewlines = false): TypeMetric | null {
+    fontTypeMetrics(text: string, ignoreNewlines = false): ITypeMetric | null {
         return MagickImage._create((image) => {
             image.read(MagickColors.Transparent, 1, 1);
             return DrawingWand._use(image, (wand) => {

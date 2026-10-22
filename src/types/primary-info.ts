@@ -9,7 +9,24 @@ import { NativePointer } from '@dlemstra/magick-native';
 /**
  *  PrimaryInfo information.
  */
-export class PrimaryInfo {
+export interface IPrimaryInfo {
+    /**
+     * Gets the X value.
+     */
+    readonly x: number;
+
+    /**
+     * Gets the Y value.
+     */
+    readonly y: number;
+
+    /**
+     * Gets the Z value.
+     */
+    readonly z: number;
+}
+
+export class PrimaryInfo implements IPrimaryInfo {
     /**
      * Initializes a new instance of the {@link PrimaryInfo} class.
      * @param x The x,
@@ -25,15 +42,15 @@ export class PrimaryInfo {
     /**
      * Gets the X value.
      */
-    readonly x;
+    readonly x: number;
     /**
      * Gets the Y value.
      */
-    readonly y;
+    readonly y: number;
     /**
      * Gets the Z value.
      */
-    readonly z;
+    readonly z: number;
 
     /** @internal */
     static _create(instance: NativePointer): PrimaryInfo {

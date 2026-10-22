@@ -3,8 +3,7 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ChromaticityInfo } from '@src/types/chromaticity-info';
-import { PrimaryInfo } from '@src/types/primary-info';
+import { IChromaticityInfo } from '@src/types/chromaticity-info';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#chromaticity', () => {
@@ -29,11 +28,13 @@ describe('MagickImage#chromaticity', () => {
 
     it('should return the changed value', () => {
         TestFiles.Images.Builtin.wizard.use(image => {
-            image.chromaticity = new ChromaticityInfo(
-                new PrimaryInfo(1.2, 2.3, 3.4),
-                new PrimaryInfo(4.5, 5.6, 6.7),
-                new PrimaryInfo(7.6, 6.5, 5.4),
-                new PrimaryInfo(4.3, 3.2, 2.1));
+            const value: IChromaticityInfo = {
+                red: { x: 1.2, y: 2.3, z: 3.4 },
+                green: { x: 4.5, y: 5.6, z: 6.7 },
+                blue: { x: 7.6, y: 6.5, z: 5.4 },
+                white: { x: 4.3, y: 3.2, z: 2.1 },
+            };
+            image.chromaticity = value;
 
             const chromaticity = image.chromaticity;
 

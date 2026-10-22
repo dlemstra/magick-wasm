@@ -3,14 +3,14 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ConnectedComponent } from '@src/types/connected-component';
+import { IConnectedComponent } from '@src/types/connected-component';
 import { MagickColors } from '@src/magick-colors';
 import { IMagickImage } from '@src/magick-image';
 import { Percentage } from '@src/types/percentage';
 import { Point } from '@src/types/point';
 import { TestFiles } from '@test/test-files';
 
-type ComponentTestData = Required<Omit<ConnectedComponent, 'toGeometry'>>;
+type ComponentTestData = Required<Omit<IConnectedComponent, 'toGeometry'>>;
 
 describe('MagickImage#connectedComponents', () => {
     test('should return the connected components', () => {
@@ -90,7 +90,7 @@ describe('MagickImage#connectedComponents', () => {
     });
 });
 
-function assertComponent(image: IMagickImage, component: ConnectedComponent, { id, area, x, y, width, height, color, centroid }: ComponentTestData) {
+function assertComponent(image: IMagickImage, component: IConnectedComponent, { id, area, x, y, width, height, color, centroid }: ComponentTestData) {
     expect(component).toEqual({
         id,
         area,

@@ -5,6 +5,7 @@
 
 import { DitherMethod } from '@src/enums/dither-method';
 import { QuantizeSettings } from '@src/settings/quantize-settings';
+import { IMagickErrorInfo } from '@src/types/magick-error-info';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#quantize', () => {
@@ -25,7 +26,7 @@ describe('MagickImage#quantize', () => {
             settings.colors = 10;
             settings.ditherMethod = DitherMethod.FloydSteinberg;
 
-            const result = image.quantize(settings);
+            const result: IMagickErrorInfo | null = image.quantize(settings);
 
             expect(result).toBeNull();
             expect(image).toHavePixelWithColor(400, 200, '#aaa4a5');

@@ -8,7 +8,7 @@ import { AsyncImageCallback, AsyncImageCollectionCallback, ImageCallback, ImageC
 import { AutoThresholdMethod } from './enums/auto-threshold-method';
 import { ByteArray, _isByteArray } from './byte-array';
 import { Channels } from './enums/channels';
-import { ChromaticityInfo } from './types/chromaticity-info';
+import { ChromaticityInfo, IChromaticityInfo } from './types/chromaticity-info';
 import { ClassType } from './enums/class-type';
 import { ColorProfile, IColorProfile } from './profiles/color/color-profile';
 import { ColorSpace, ColorSpaceNames } from './enums/color-space';
@@ -18,7 +18,7 @@ import { CompareResult } from './types/compare-result';
 import { CompareSettings } from './settings/compare-settings';
 import { CompositeOperator } from './enums/composite-operator';
 import { CompressionMethod } from './enums/compression-method';
-import { ConnectedComponent } from './types/connected-component';
+import { ConnectedComponent, IConnectedComponent } from './types/connected-component';
 import { ConnectedComponentsSettings, Connectivity } from './settings/connected-components-settings';
 import { DelegateRegistry } from './helpers/delegate-registry';
 import { Density } from './types/density';
@@ -28,8 +28,8 @@ import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './enums/distort-method';
 import { DistortSettings } from './settings/distort-settings';
 import { DoubleMatrix } from './types/double-matrix';
-import { DrawingWand } from './drawing/drawing-wand';
 import { DoublePointer } from './internal/pointer/double-pointer';
+import { DrawingWand } from './drawing/drawing-wand';
 import { Endian } from './enums/endian';
 import { ErrorMetric } from './enums/error-metric';
 import { EvaluateOperator } from './enums/evaluate-operator';
@@ -47,7 +47,7 @@ import { Interlace } from './enums/interlace';
 import { KmeansSettings } from './settings/kmeans-settings';
 import { MagickColor, IMagickColor } from './magick-color';
 import { MagickError } from './magick-error';
-import { MagickErrorInfo } from './types/magick-error-info';
+import { MagickErrorInfo, IMagickErrorInfo } from './types/magick-error-info';
 import { MagickFormat } from './enums/magick-format';
 import { MagickGeometry as MagickGeometry, IMagickGeometry } from './types/magick-geometry';
 import { MagickImageCollection, IMagickImageCollection } from './magick-image-collection';
@@ -167,7 +167,7 @@ export interface IMagickImage extends IDisposable {
     /**
      * Gets or sets the chromaticity of the image.
      */
-    chromaticity: ChromaticityInfo;
+    chromaticity: IChromaticityInfo;
 
     /**
      * Gets or sets the image class (DirectClass or PseudoClass)
@@ -1059,7 +1059,7 @@ export interface IMagickImage extends IDisposable {
      * @param connectivity The number of neighbors to visit (4 or 8).
      * @see {@link https://imagemagick.org/script/connected-components.php}
      */
-    connectedComponents(connectivity: Connectivity): ConnectedComponent[];
+    connectedComponents(connectivity: Connectivity): IConnectedComponent[];
 
     /**
      * Determines the connected-components of the image.
@@ -1067,7 +1067,7 @@ export interface IMagickImage extends IDisposable {
      * @param settings The connected-components operation settings.
      * @see {@link https://imagemagick.org/script/connected-components.php}
      */
-    connectedComponents(settings: ConnectedComponentsSettings): ConnectedComponent[];
+    connectedComponents(settings: ConnectedComponentsSettings): IConnectedComponent[];
 
     /**
      * Contrast image (enhance intensity differences in image).
@@ -1990,7 +1990,7 @@ export interface IMagickImage extends IDisposable {
      * Quantize image (reduce number of colors).
      * @param settings The settings to use when quantizing the image.
      */
-    quantize(settings?: QuantizeSettings): MagickErrorInfo | null;
+    quantize(settings?: QuantizeSettings): IMagickErrorInfo | null;
 
     /**
      * Raises the image by lightening its edges to give a 3-D raised effect.
@@ -2937,18 +2937,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         return channels;
     }
 
-    get chromaticity(): ChromaticityInfo {
+    get chromaticity(): IChromaticityInfo {
         return new ChromaticityInfo(
             PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaRed_Get(this._instance)),
             PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaGreen_Get(this._instance)),
             PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaBlue_Get(this._instance)),
             PrimaryInfo._create(ImageMagick._api._MagickImage_ChromaWhite_Get(this._instance)));
     }
-    set chromaticity(value: ChromaticityInfo) {
-        value.blue._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaBlue_Set(this._instance, primaryInfoPtr));
-        value.green._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaGreen_Set(this._instance, primaryInfoPtr));
-        value.red._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaRed_Set(this._instance, primaryInfoPtr));
-        value.white._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaWhite_Set(this._instance, primaryInfoPtr));
+    set chromaticity(value: IChromaticityInfo) {
+        new PrimaryInfo(value.blue.x, value.blue.y, value.blue.z)._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaBlue_Set(this._instance, primaryInfoPtr));
+        new PrimaryInfo(value.green.x, value.green.y, value.green.z)._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaGreen_Set(this._instance, primaryInfoPtr));
+        new PrimaryInfo(value.red.x, value.red.y, value.red.z)._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaRed_Set(this._instance, primaryInfoPtr));
+        new PrimaryInfo(value.white.x, value.white.y, value.white.z)._use(primaryInfoPtr => ImageMagick._api._MagickImage_ChromaWhite_Set(this._instance, primaryInfoPtr));
     }
 
     get classType(): ClassType {
@@ -3725,9 +3725,9 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             this.removeArtifact('compose:args');
     }
 
-    connectedComponents(connectivity: Connectivity): ConnectedComponent[];
-    connectedComponents(settings: ConnectedComponentsSettings): ConnectedComponent[];
-    connectedComponents(connectivityOrSettings: Connectivity | ConnectedComponentsSettings): ConnectedComponent[] {
+    connectedComponents(connectivity: Connectivity): IConnectedComponent[];
+    connectedComponents(settings: ConnectedComponentsSettings): IConnectedComponent[];
+    connectedComponents(connectivityOrSettings: Connectivity | ConnectedComponentsSettings): IConnectedComponent[] {
         const settings = typeof connectivityOrSettings === 'number' ? new ConnectedComponentsSettings(connectivityOrSettings) : connectivityOrSettings;
 
         const connectedComponents = TemporaryDefines.use(this, temporaryDefines => {
@@ -4482,7 +4482,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    quantize(settingsOrUndefined?: QuantizeSettings): MagickErrorInfo | null {
+    quantize(settingsOrUndefined?: QuantizeSettings): IMagickErrorInfo | null {
         const settings = this.valueOrDefault(settingsOrUndefined, new QuantizeSettings());
         this.useException(exception => {
             settings._use((settings) => {

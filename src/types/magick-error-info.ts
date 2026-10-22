@@ -7,9 +7,26 @@ import { ImageMagick } from '../image-magick';
 import { IMagickImage } from '../magick-image';
 
 /**
- * An ImageMagick connected component object.
+ * Encapsulates the error information.
  */
-export class MagickErrorInfo {
+export interface IMagickErrorInfo {
+    /**
+     * Gets the mean error per pixel computed when an image is color reduced.
+     */
+    readonly meanErrorPerPixel: number;
+
+    /**
+     * Gets the normalized maximum error per pixel computed when an image is color reduced.
+     */
+    readonly normalizedMaximumError: number;
+
+    /**
+     * Gets the normalized mean error per pixel computed when an image is color reduced.
+     */
+    readonly normalizedMeanError: number;
+}
+
+export class MagickErrorInfo implements IMagickErrorInfo {
     private constructor(meanErrorPerPixel: number, normalizedMeanError: number, normalizedMaximumError: number) {
         this.meanErrorPerPixel = meanErrorPerPixel;
         this.normalizedMeanError = normalizedMeanError;
