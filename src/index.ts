@@ -123,6 +123,8 @@ export * from './types/chromaticity-info';
 export * from './types/compare-result';
 export * from './types/connected-component';
 export * from './types/density';
+export * from './types/double-matrix';
+export * from './types/magick-color-matrix';
 export * from './types/magick-error-info';
 export * from './types/magick-geometry';
 export * from './types/offset-info';

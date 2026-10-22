@@ -27,6 +27,7 @@ import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './enums/distort-method';
 import { DistortSettings } from './settings/distort-settings';
+import { DoubleMatrix } from './types/double-matrix';
 import { DrawingWand } from './drawing/drawing-wand';
 import { DoublePointer } from './internal/pointer/double-pointer';
 import { Endian } from './enums/endian';
@@ -39,6 +40,7 @@ import { Gravity } from './enums/gravity';
 import { IDisposable } from './disposable';
 import { IDrawable } from './drawing/drawable';
 import { IDrawableAffine } from './drawing/drawable-affine';
+import { IMagickColorMatrix } from './types/magick-color-matrix';
 import { ImageMagick } from './image-magick';
 import { ImageProfile, IImageProfile } from './profiles/image-profile';
 import { Interlace } from './enums/interlace';
@@ -789,6 +791,12 @@ export interface IMagickImage extends IDisposable {
      * @param colorCorrectionCollection The ASC CDL information.
      */
     colorDecisionList(colorCorrectionCollection: string): void;
+
+    /**
+     * Applies a color matrix to the image channels.
+     * @param matrix The color matrix to use.
+     */
+    colorMatrix(matrix: IMagickColorMatrix): void;
 
     /**
      * Returns the distortion based on the specified metric.
@@ -3546,6 +3554,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useExceptionPointer(exception => {
             _withString(colorCorrectionCollection, colorCorrectionCollectionPtr => {
                 ImageMagick._api._MagickImage_ColorDecisionList(this._instance, colorCorrectionCollectionPtr, exception);
+            });
+        });
+    }
+
+    colorMatrix(matrix: IMagickColorMatrix): void {
+        DoubleMatrix._use(matrix, kernel => {
+            this.useException(exception => {
+                const instance = ImageMagick._api._MagickImage_ColorMatrix(this._instance, kernel, exception.ptr);
+                this._setInstance(instance, exception);
             });
         });
     }
