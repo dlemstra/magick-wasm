@@ -2635,6 +2635,19 @@ export interface IMagickImage extends IDisposable {
     strip(): void;
 
     /**
+     * Swirl image (image pixels are rotated by degrees).
+     * @param degrees The number of degrees.
+     */
+    swirl(degrees: number): void;
+
+    /**
+     * Swirl image (image pixels are rotated by degrees).
+     * @param method Pixel interpolate method.
+     * @param degrees The number of degrees.
+     */
+    swirl(method: PixelInterpolateMethod, degrees: number): void;
+
+    /**
      * Threshold image.
      * @param percentage The threshold percentage.
      */
@@ -5076,6 +5089,18 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     strip(): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Strip(this._instance, exception);
+        });
+    }
+
+    swirl(degrees: number): void;
+    swirl(method: PixelInterpolateMethod, degrees: number): void;
+    swirl(methodOrDegrees: PixelInterpolateMethod | number, degreesOrUndefined?: number): void {
+        const method = degreesOrUndefined === undefined ? this.interpolate : methodOrDegrees;
+        const degrees = degreesOrUndefined ?? methodOrDegrees;
+
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Swirl(this._instance, _castToSize(method), degrees, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
