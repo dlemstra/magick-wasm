@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { PixelInterpolateMethod } from '@src/enums/pixel-interpolate-method';
 import { TestFiles } from '@test/test-files';
 
