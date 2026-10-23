@@ -1,4 +1,4 @@
-[ ImageMagick 7.1.2-33 (2026-10-10) ]
+[ ImageMagick 7.1.2-34 (Beta) (2026-10-14) ]
 
                          ImageMagick License
              https://imagemagick.org/license/
@@ -107,7 +107,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
    License for the specific language governing permissions and limitations
    under the License.
 
-[ aom 3.15.1 (2026-09-22) ]
+[ aom 3.15.2 (2026-10-09) ]
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
