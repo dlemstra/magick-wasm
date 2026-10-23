@@ -2617,6 +2617,12 @@ export interface IMagickImage extends IDisposable {
     statistics(channels: Channels): IStatistics;
 
     /**
+     * Add a digital watermark to the image (based on second image).
+     * @param watermark The image to use as a watermark.
+     */
+    stegano(watermark: IMagickImage): void;
+
+    /**
      * Strips an image of all profiles and comments.
      */
     strip(): void;
@@ -5043,6 +5049,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             const statistics = Statistics._create(this, list, channels);
             ImageMagick._api._Statistics_DisposeList(list);
             return statistics;
+        });
+    }
+
+    stegano(watermark: IMagickImage): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Stegano(this._instance, watermark._instance, exception.ptr);
+            this._setInstance(instance, exception);
         });
     }
 
