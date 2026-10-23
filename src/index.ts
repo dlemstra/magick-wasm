@@ -122,6 +122,7 @@ export * from './types/callbacks';
 export * from './types/chromaticity-info';
 export * from './types/compare-result';
 export * from './types/connected-component';
+export * from './types/convolve-matrix';
 export * from './types/density';
 export * from './types/double-matrix';
 export * from './types/magick-color-matrix';

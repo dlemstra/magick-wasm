@@ -37,6 +37,7 @@ import { Exception } from './internal/exception/exception';
 import { FilterType } from './enums/filter-type';
 import { GifDisposeMethod } from './enums/gif-dispose-method';
 import { Gravity } from './enums/gravity';
+import { IConvolveMatrix } from './types/convolve-matrix';
 import { IDisposable } from './disposable';
 import { IDrawable } from './drawing/drawable';
 import { IDrawableAffine } from './drawing/drawable-affine';
@@ -1113,6 +1114,12 @@ export interface IMagickImage extends IDisposable {
      * @param channels The channel(s) to use.
      */
     contrastStretch(blackPoint: Percentage, whitePoint: Percentage, channels: Channels): void;
+
+    /**
+     * Convolve image. Applies a user-specified convolution to the image.
+     * @param matrix The convolution matrix.
+     */
+    convolve(matrix: IConvolveMatrix): void;
 
     /**
      * Crop image (subregion of original image). {@link repage } should be called unless the
@@ -3772,6 +3779,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_ContrastStretch(this._instance, lower, upper, _castToSize(channels), exception);
+        });
+    }
+
+    convolve(matrix: IConvolveMatrix): void {
+        DoubleMatrix._use(matrix, kernel => {
+            this.useException(exception => {
+                const instance = ImageMagick._api._MagickImage_Convolve(this._instance, kernel, exception.ptr);
+                this._setInstance(instance, exception);
+            });
         });
     }
 
