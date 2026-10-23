@@ -1579,6 +1579,19 @@ export interface IMagickImage extends IDisposable {
     grayscale(method: PixelIntensityMethod): void;
 
     /**
+     * Apply a color lookup table (Hald CLUT) to the image.
+     * @param image The image to use.
+     */
+    haldClut(image: IMagickImage): void;
+
+    /**
+     * Apply a color lookup table (Hald CLUT) to the image.
+     * @param image The image to use.
+     * @param channels The channel(s) to hald clut.
+     */
+    haldClut(image: IMagickImage, channels: Channels): void;
+
+    /**
      * Gets a value indicating whether a profile with the specified name already exists on the image.
      * @param name The name of the profile.
      */
@@ -4221,6 +4234,14 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     grayscale(method: PixelIntensityMethod = PixelIntensityMethod.Undefined): void {
         this.useExceptionPointer(exception => {
             ImageMagick._api._MagickImage_Grayscale(this._instance, _castToSize(method), exception);
+        });
+    }
+
+    haldClut(image: IMagickImage): void;
+    haldClut(image: IMagickImage, channels: Channels): void;
+    haldClut(image: IMagickImage, channels: Channels = Channels.Undefined): void {
+        this.useExceptionPointer(exception => {
+            ImageMagick._api._MagickImage_HaldClut(this._instance, image._instance, _castToSize(channels), exception);
         });
     }
 
