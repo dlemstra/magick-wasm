@@ -4,6 +4,7 @@
 */
 
 import { ColorProfile } from '@src/profiles/color/color-profile';
+import { ImageMagick } from '@src/image-magick';
 import { IMagickColor } from '@src/magick-color';
 import { MagickColors } from '@src/magick-colors';
 import { MagickImage, IMagickImage } from '@src/magick-image';
@@ -172,6 +173,32 @@ export class TestFiles {
             SRGB: new TestColorProfile('tests/files/color-profiles/SRGB.icm'),
             USWebCoatedSWOP: new TestColorProfile('tests/files/color-profiles/USWebCoatedSWOP.icc'),
             CoatedFOGRA39: new TestColorProfile('tests/files/color-profiles/CoatedFOGRA39.icc'),
+        }
+    }
+
+    static useTemporaryFile<TReturnType>(fileName: string, data: Uint8Array, func: () => TReturnType): TReturnType;
+    static useTemporaryFile<TReturnType>(fileName: string, data: Uint8Array, func: () => Promise<TReturnType>): Promise<TReturnType>;
+    static useTemporaryFile<TReturnType>(fileName: string, data: Uint8Array, func: () => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        const removeFile = () => ImageMagick._api.FS.unlink(fileName);
+        const stream = ImageMagick._api.FS.open(fileName, 'w');
+        let pending = false;
+        try {
+            try {
+                ImageMagick._api.FS.write(stream, data, 0, data.length);
+            } finally {
+                ImageMagick._api.FS.close(stream);
+            }
+
+            const result = func();
+            if (result instanceof Promise) {
+                pending = true;
+                return result.finally(removeFile);
+            }
+
+            return result;
+        } finally {
+            if (!pending)
+                removeFile();
         }
     }
 }

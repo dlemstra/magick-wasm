@@ -10,13 +10,6 @@ import { MagickReadSettings } from '@src/settings/magick-read-settings';
 import { TestFiles } from '@test/test-files';
 import { bogusAsyncMethod } from '@test/bogus-async';
 
-const emptyFile = '/empty';
-
-beforeAll(() => {
-    const stream = ImageMagick._api.FS.open(emptyFile, 'w');
-    ImageMagick._api.FS.close(stream);
-});
-
 describe('ImageMagick#read', () => {
     it('should read built-in image async', async () => {
         await ImageMagick.read('logo:', async (image) => {
@@ -68,22 +61,28 @@ describe('ImageMagick#read', () => {
     });
 
     it('should read image from filename with specified format async', async () => {
-        await expect(async () => {
-            await ImageMagick.read(emptyFile, MagickFormat.Png, async () => {
-                await bogusAsyncMethod();
-            });
-        })
-        .rejects
-        .toThrow('ReadPNGImage');
+        const emptyFile = '/empty';
+        await TestFiles.useTemporaryFile(emptyFile, new Uint8Array(), async () => {
+            await expect(async () => {
+                await ImageMagick.read(emptyFile, MagickFormat.Png, async () => {
+                    await bogusAsyncMethod();
+                });
+            })
+            .rejects
+            .toThrow('ReadPNGImage');
+        });
     });
 
     it('should read image from filename with specified format', () => {
-        expect(() => {
-            ImageMagick.read(emptyFile, MagickFormat.Png, (image) => {
-                console.log(image);
-            });
-        })
-        .toThrow('ReadPNGImage');
+        const emptyFile = '/empty';
+        TestFiles.useTemporaryFile(emptyFile, new Uint8Array(), () => {
+            expect(() => {
+                ImageMagick.read(emptyFile, MagickFormat.Png, (image) => {
+                    console.log(image);
+                });
+            })
+            .toThrow('ReadPNGImage');
+        });
     });
 
     it('should read correct image when width and height are specified', () => {

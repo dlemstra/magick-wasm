@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ImageMagick } from '@src/image-magick';
 import { MagickColors } from '@src/magick-colors';
 import { MagickFormat } from '@src/enums/magick-format';
 import { MagickReadSettings } from '@src/settings/magick-read-settings';
@@ -31,15 +30,8 @@ describe('MagickImage#stegano', () => {
                         expect(watermark).toEqualImage(original);
 
                         image.write(MagickFormat.Png, data => {
-                            const fileName = '/tmp/stegano-test.png';
-                            const fs = ImageMagick._api.FS;
-                            const stream = fs.open(fileName, 'w');
-                            try {
-                                fs.write(stream, data, 0, data.length);
-                            } finally {
-                                fs.close(stream);
-                            }
-                            try {
+                            const fileName = '/tmp/stegano-test.png'
+                            TestFiles.useTemporaryFile(fileName, data, () => {
                                 TestFiles.Images.empty.use(hidden => {
                                     hidden.read(`stegano:${fileName}`, new MagickReadSettings({
                                         width: watermark.width,
@@ -50,9 +42,7 @@ describe('MagickImage#stegano', () => {
                                     expect(hidden.height).toBe(2);
                                     expect(hidden).toEqualImage(watermark, 0.00196);
                                 });
-                            } finally {
-                                //fs.unlink(fileName);
-                            }
+                            });
                         });
                     });
                 });
