@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#blueShift', () => {
@@ -22,8 +21,7 @@ describe('MagickImage#blueShift', () => {
                 image.blueShift();
                 other.blueShift(1.5);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             })
         });
     });

@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { PixelChannel } from '@src/enums/pixel-channel';
 import { PixelIntensityMethod } from '@src/enums/pixel-intensity-method';
 import { TestFiles } from '@test/test-files';
@@ -20,7 +19,7 @@ describe('MagickImage#grayscale', () => {
                 assert.equal(imageB.channelCount, 1);
                 assert.equal(PixelChannel.Red, imageB.channels.at(0));
 
-                assert.notEqual(0.0, imageA.compare(imageB, ErrorMetric.RootMeanSquared));
+                expect(imageA).toEqualImage(imageB, 0.36078);
             });
         });
     });

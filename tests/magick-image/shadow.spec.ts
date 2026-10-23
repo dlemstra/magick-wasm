@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickColors } from '@src/magick-colors';
 import { Percentage } from '@src/types/percentage';
 import { TestFiles } from '@test/test-files';
@@ -36,7 +35,7 @@ describe('MagickImage#shadow', () => {
                 expect(first.page.x).toBe(second.page.x);
                 expect(first.page.y).toBe(second.page.y);
 
-                expect(first.compare(second, ErrorMetric.RootMeanSquared)).toBe(0);
+                expect(first).toEqualImage(second);
             });
         });
     });

@@ -4,7 +4,6 @@
 */
 
 import { ColorSpace } from '@src/enums/color-space';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { MagickFormat } from '@src/enums/magick-format';
 import { TestFiles } from '@test/test-files';
 
@@ -25,7 +24,7 @@ describe('MagickImageCollection#combine', () => {
                     expect(combinedImage.width).toBe(image.width);
                     expect(combinedImage.height).toBe(image.height);
 
-                    expect(image.compare(combinedImage, ErrorMetric.RootMeanSquared)).toBe(0);
+                    expect(image).toEqualImage(combinedImage);
                 });
             })
         });
@@ -39,7 +38,7 @@ describe('MagickImageCollection#combine', () => {
                     expect(combinedImage.width).toBe(image.width);
                     expect(combinedImage.height).toBe(image.height);
 
-                    expect(image.compare(combinedImage, ErrorMetric.RootMeanSquared)).toBe(0);
+                    expect(image).toEqualImage(combinedImage);
                 });
             })
         });

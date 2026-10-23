@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#colorDecisionList', () => {
@@ -24,7 +23,7 @@ describe('MagickImage#colorDecisionList', () => {
         TestFiles.Images.imageMagickJpg.use(image => {
             image.colorDecisionList(colorCorrectionCollection);
             TestFiles.Images.imageMagickJpg.use(original => {
-                expect(image.compare(original, ErrorMetric.RootMeanSquared)).toBeCloseTo( 0.16576);
+                expect(image).toEqualImage(original, 0.16576);
             });
         });
     });

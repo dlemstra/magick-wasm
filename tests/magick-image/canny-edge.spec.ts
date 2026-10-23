@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { Percentage } from '@src/types/percentage';
 import { TestFiles } from '@test/test-files';
 
@@ -25,8 +24,7 @@ describe('MagickImage#cannyEdge', () => {
                 image.cannyEdge();
                 other.cannyEdge(0, 1, new Percentage(10), new Percentage(30));
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             })
         });
     });

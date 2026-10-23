@@ -4,7 +4,6 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#blur', () => {
@@ -21,8 +20,7 @@ describe('MagickImage#blur', () => {
                 image.blur(Channels.Blue);
                 other.blur(4, 1);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).not.toBe(0);
+                expect(image).toEqualImage(other, 0.03963);
             })
         });
     });

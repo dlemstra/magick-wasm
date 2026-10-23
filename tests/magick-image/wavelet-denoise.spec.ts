@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { Magick } from '@src/magick';
 import { NoiseType } from '@src/enums/noise-type';
 import { Percentage } from '@src/types/percentage';
@@ -52,16 +51,14 @@ describe('MagickImage#waveletDenoise', () => {
             Magick.setRandomSeed(12345);
             TestFiles.Images.Builtin.logo.use(image => {
                 image.resize(32, 24);
-                image.clone(clean => {
-                    image.addNoise(NoiseType.Gaussian);
-                    const noisyDistortion = image.compare(clean, ErrorMetric.RootMeanSquared);
+                image.addNoise(NoiseType.Gaussian);
 
+                image.clone(original => {
                     image.waveletDenoise(new Percentage(10), 0.5);
 
-                    const denoisedDistortion = image.compare(clean, ErrorMetric.RootMeanSquared);
-                    expect(image.width).toBe(clean.width);
-                    expect(image.height).toBe(clean.height);
-                    expect(denoisedDistortion).toBeLessThan(noisyDistortion);
+                    expect(image.width).toBe(original.width);
+                    expect(image.height).toBe(original.height);
+                    expect(image).toEqualImage(original, 0.03278);
                 });
             });
         } finally {

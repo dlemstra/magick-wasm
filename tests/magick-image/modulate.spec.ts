@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { Percentage } from '@src/types/percentage';
 import { TestFiles } from '@test/test-files';
 
@@ -14,8 +13,7 @@ describe('MagickImage#modulate', () => {
                 image.modulate(new Percentage(50));
                 other.modulate(new Percentage(50), new Percentage(100), new Percentage(100));
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             });
         });
     });
@@ -26,8 +24,7 @@ describe('MagickImage#modulate', () => {
                 image.modulate(new Percentage(50), new Percentage(25));
                 other.modulate(new Percentage(50), new Percentage(25), new Percentage(100));
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             });
         });
     });

@@ -3,7 +3,6 @@
   Licensed under the Apache License, Version 2.0.
 */
 
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#adaptiveBlur', () => {
@@ -20,8 +19,7 @@ describe('MagickImage#adaptiveBlur', () => {
                 image.adaptiveBlur(3);
                 other.adaptiveBlur(3, 1);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             })
         });
     });
@@ -32,8 +30,7 @@ describe('MagickImage#adaptiveBlur', () => {
                 image.adaptiveBlur();
                 other.adaptiveBlur(0, 1);
 
-                const difference = other.compare(image, ErrorMetric.RootMeanSquared);
-                expect(difference).toBe(0);
+                expect(image).toEqualImage(other);
             })
         });
     });

@@ -4,7 +4,6 @@
 */
 
 import { Channels } from '@src/enums/channels';
-import { ErrorMetric } from '@src/enums/error-metric';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#equalize', () => {
@@ -13,7 +12,7 @@ describe('MagickImage#equalize', () => {
             image.clone(original => {
                 image.equalize();
 
-                expect(image.compare(original, ErrorMetric.RootMeanSquared)).toBeGreaterThan(0);
+                expect(image).toEqualImage(original, 0.17011);
             });
         });
     });
@@ -24,7 +23,7 @@ describe('MagickImage#equalize', () => {
                 image.equalize();
                 other.equalize(Channels.Undefined);
 
-                expect(image.compare(other, ErrorMetric.RootMeanSquared)).toBe(0);
+                expect(image).toEqualImage(other);
             });
         });
     });
