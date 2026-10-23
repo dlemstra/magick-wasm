@@ -2674,6 +2674,15 @@ export interface IMagickImage extends IDisposable {
     thumbnail(geometry: IMagickGeometry): void;
 
     /**
+     * Applies a color vector to each pixel in the image. The length of the vector is 0 for black
+     * and white and at its maximum for the midtones. The vector weighting function is
+     * f(x)=(1-(4.0*((x-0.5)*(x-0.5)))).
+     * @param opacity An opacity value used for tinting.
+     * @param color A color value used for tinting.
+     */
+    tint(opacity: IMagickGeometry, color: IMagickColor): void;
+
+    /**
      * Returns a string that represents the current image.
      */
     toString(): string;
@@ -5121,6 +5130,17 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             _withString(geometry.toString(), geometryPtr => {
                 const instance = ImageMagick._api._MagickImage_Thumbnail(this._instance, geometryPtr, exception.ptr);
                 this._setInstance(instance, exception);
+            });
+        });
+    }
+
+    tint(opacity: IMagickGeometry, color: IMagickColor): void {
+        this.useException(exception => {
+            _withString(opacity.toString(), opacityPtr => {
+                color._use(colorPtr => {
+                    const instance = ImageMagick._api._MagickImage_Tint(this._instance, opacityPtr, colorPtr, exception.ptr);
+                    this._setInstance(instance, exception);
+                });
             });
         });
     }
