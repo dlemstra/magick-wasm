@@ -2540,6 +2540,21 @@ export interface IMagickImage extends IDisposable {
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
 
     /**
+     * Simulates a pencil sketch.
+     */
+    sketch(): void;
+
+    /**
+     * Simulates a pencil sketch. Convolves the image with a Gaussian operator of the given
+     * radius and standard deviation (sigma). For reasonable results, radius should be larger than sigma.
+     * Use a radius of 0 to select a suitable radius automatically.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Laplacian, in pixels.
+     * @param angle Apply the effect along this angle.
+     */
+    sketch(radius: number, sigma: number, angle: number): void;
+
+    /**
      * Solarize image (similar to effect seen when exposing a photographic film to light during
      * the development process).
      */
@@ -4974,6 +4989,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     sigmoidalContrast(contrast: number, midpoint: number, channels: Channels): void;
     sigmoidalContrast(contrast: number, midpointOrPercentage?: number | Percentage, channelsOrUndefined?: Channels): void {
         this.sigmoidalContrastPrivate(true, contrast, midpointOrPercentage, channelsOrUndefined)
+    }
+
+    sketch(): void;
+    sketch(radius: number, sigma: number, angle: number): void;
+    sketch(radius = 0, sigma = 1, angle = 0): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Sketch(this._instance, radius, sigma, angle, exception.ptr);
+            this._setInstance(instance, exception);
+        });
     }
 
     solarize(): void
