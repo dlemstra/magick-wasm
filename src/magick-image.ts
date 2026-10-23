@@ -32,6 +32,7 @@ import { DoublePointer } from './internal/pointer/double-pointer';
 import { DrawingWand } from './drawing/drawing-wand';
 import { Endian } from './enums/endian';
 import { ErrorMetric } from './enums/error-metric';
+import { EvaluateFunction } from './enums/evaluate-function';
 import { EvaluateOperator } from './enums/evaluate-operator';
 import { Exception } from './internal/exception/exception';
 import { FilterType } from './enums/filter-type';
@@ -1294,6 +1295,14 @@ export interface IMagickImage extends IDisposable {
      * @param channels The channel(s) to apply the operator on.
      */
     equalize(channels: Channels): void;
+
+    /**
+     * Apply a function to the image pixel quantums.
+     * @param channels The channel(s) to apply the function on.
+     * @param evaluateFunction The function to use.
+     * @param args The arguments for the function.
+     */
+    evaluate(channels: Channels, evaluateFunction: EvaluateFunction, args: number[]): void;
 
     /**
      * Apply an arithmetic or bitwise operator to the image pixel quantums.
@@ -3985,12 +3994,23 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
+    evaluate(channels: Channels, evaluateFunction: EvaluateFunction, args: number[]): void;
     evaluate(channels: Channels, operator: EvaluateOperator, value: number): void;
     evaluate(channels: Channels, operator: EvaluateOperator, value: Percentage): void;
     evaluate(channels: Channels, geometry: IMagickGeometry, operator: EvaluateOperator, value: number): void;
     evaluate(channels: Channels, geometry: IMagickGeometry, operator: EvaluateOperator, value: Percentage): void;
-    evaluate(channels: Channels, operatorOrGeometry: EvaluateOperator | IMagickGeometry, valueOrPercentageOrOperator: number | Percentage | EvaluateOperator, valueOrPercentage?: number | Percentage): void {
+    evaluate(channels: Channels, operatorOrGeometry: EvaluateFunction | EvaluateOperator | IMagickGeometry, valueOrPercentageOrOperator: number | Percentage | EvaluateOperator | number[], valueOrPercentage?: number | Percentage): void {
         if (typeof operatorOrGeometry === 'number') {
+            if (Array.isArray(valueOrPercentageOrOperator)) {
+                const args = valueOrPercentageOrOperator;
+                _withDoubleArray(args, values => {
+                    this.useExceptionPointer(exception => {
+                        ImageMagick._api._MagickImage_EvaluateFunction(this._instance, _castToSize(channels), _castToSize(operatorOrGeometry), values, _castToSize(args.length), exception);
+                    });
+                });
+                return;
+            }
+
             const operator = operatorOrGeometry;
             const value = typeof valueOrPercentageOrOperator === 'number' ? valueOrPercentageOrOperator : valueOrPercentageOrOperator._toQuantum();
             this.useExceptionPointer(exception => {

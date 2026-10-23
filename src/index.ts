@@ -61,6 +61,7 @@ export * from './enums/distort-method';
 export * from './enums/dither-method';
 export * from './enums/endian';
 export * from './enums/error-metric';
+export * from './enums/evaluate-function';
 export * from './enums/evaluate-operator';
 export * from './enums/fill-rule';
 export * from './enums/filter-type';

@@ -4,6 +4,7 @@
 */
 
 import { Channels } from '@src/enums/channels';
+import { EvaluateFunction } from '@src/enums/evaluate-function';
 import { EvaluateOperator } from '@src/enums/evaluate-operator';
 import { ImageMagick } from '@src/image-magick';
 import { MagickColor } from '@src/magick-color';
@@ -13,6 +14,43 @@ import { Quantum } from '@src/quantum';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#evaluate', () => {
+    it('should apply a polynomial function to the specified channels', () => {
+        TestFiles.Images.empty.use(image => {
+            image.read(new MagickColor('#804020'), 3, 3);
+
+            image.evaluate(Channels.Red, EvaluateFunction.Polynomial, [0, 0.25]);
+
+            expect(image.width).toBe(3);
+            expect(image.height).toBe(3);
+            expect(image).toHavePixelWithColor(1, 1, '#404020');
+        });
+    });
+
+    it('should preserve the image with an identity polynomial', () => {
+        TestFiles.Images.Builtin.logo.use(image => {
+            image.clone(original => {
+                image.evaluate(Channels.RGB, EvaluateFunction.Polynomial, [1, 0]);
+
+                expect(image).toEqualImage(original);
+            });
+        });
+    });
+
+    it('should apply an arcsin function', () => {
+        TestFiles.Images.Builtin.logo.use(image => {
+            image.evaluate(Channels.Red, EvaluateFunction.Arcsin, [5]);
+
+            expect(image).toHavePixelWithColor(100, 295, '#90ffff');
+        });
+    });
+
+    it('should reject an empty function argument array', () => {
+        TestFiles.Images.Color.red.use(image => {
+            expect(() => image.evaluate(Channels.Red, EvaluateFunction.Polynomial, []))
+                .toThrow('The specified array cannot be empty');
+        });
+    });
+
     it('should throw error when geometry is percentage', () => {
         TestFiles.Images.Color.red.use(image => {
             expect(() => {
