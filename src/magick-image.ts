@@ -1616,6 +1616,13 @@ export interface IMagickImage extends IDisposable {
     houghLine(width: number, height: number, threshold: number): void;
 
     /**
+     * Implode image (special effect).
+     * @param amount The extent of the implosion.
+     * @param method Pixel interpolate method.
+     */
+    implode(amount: number, method: PixelInterpolateMethod): void;
+
+    /**
      * Inverse contrast image (diminish intensity differences in image).
      */
     inverseContrast(): void;
@@ -4279,6 +4286,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     houghLine(width = 0, height = 0, threshold = 40): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_HoughLine(this._instance, _castToSize(width), _castToSize(height), _castToSize(threshold), exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    implode(amount: number, method: PixelInterpolateMethod): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Implode(this._instance, amount, _castToSize(method), exception.ptr);
             this._setInstance(instance, exception);
         });
     }
