@@ -1623,6 +1623,18 @@ export interface IMagickImage extends IDisposable {
     implode(amount: number, method: PixelInterpolateMethod): void;
 
     /**
+     * Returns the sum of values (pixel values) in the image.
+     * @param func The function to execute with the integral image, or null if no image is returned.
+     */
+    integral<TReturnType>(func: (image: IMagickImage | null) => TReturnType): TReturnType;
+
+    /**
+     * Returns the sum of values (pixel values) in the image.
+     * @param func The async function to execute with the integral image, or null if no image is returned.
+     */
+    integral<TReturnType>(func: (image: IMagickImage | null) => Promise<TReturnType>): Promise<TReturnType>;
+
+    /**
      * Inverse contrast image (diminish intensity differences in image).
      */
     inverseContrast(): void;
@@ -4295,6 +4307,19 @@ export class MagickImage extends NativeInstance implements IMagickImage {
             const instance = ImageMagick._api._MagickImage_Implode(this._instance, amount, _castToSize(method), exception.ptr);
             this._setInstance(instance, exception);
         });
+    }
+
+    integral<TReturnType>(func: (image: IMagickImage | null) => TReturnType): TReturnType;
+    integral<TReturnType>(func: (image: IMagickImage | null) => Promise<TReturnType>): Promise<TReturnType>;
+    integral<TReturnType>(func: (image: IMagickImage | null) => TReturnType | Promise<TReturnType>): TReturnType | Promise<TReturnType> {
+        const instance = this.useExceptionPointer(exception => {
+            return ImageMagick._api._MagickImage_Integral(this._instance, exception);
+        });
+        if (instance === ImageMagick._api._NullPointer)
+            return func(null);
+
+        const image = new MagickImage(instance, new MagickSettings());
+        return image._use(func);
     }
 
     inverseContrast = () => this.contrastPrivate(false);
