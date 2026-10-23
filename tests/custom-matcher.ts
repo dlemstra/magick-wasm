@@ -35,7 +35,7 @@ export const CustomMatchers = {
 
         return {
             pass: false,
-            message: () => `Excepted color to be '${expectedColor}', but the color is '${actualColor}'.`
+            message: () => `Excepted color to be '${expectedColor}', but the color is '${actualColor}'`
         };
     }) as () => MatcherResult,
 
@@ -46,7 +46,7 @@ export const CustomMatchers = {
                 const distortionString = distortion.toFixed(5);
                 return {
                     pass: false,
-                    message: () => `Excepted images to be equal but the distortion is ${distortionString}.`
+                    message: () => `Excepted images to be equal but the distortion is ${distortionString}`
                 };
             }
         } else {
@@ -55,7 +55,7 @@ export const CustomMatchers = {
             if (distortionString !== expectedDistortionString) {
                 return {
                     pass: false,
-                    message: () => `Excepted ${distortionString} to be ${expectedDistortionString}.`
+                    message: () => `Excepted ${distortionString} to be ${expectedDistortionString}`
                 };
             }
         }
@@ -75,7 +75,7 @@ export const CustomMatchers = {
 
         return {
             pass: false,
-            message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'.`
+            message: () => `Excepted color at position ${x}x${y} to be '${expectedColor}', but the color is '${actualColor}'`
         };
     }) as () => MatcherResult,
 
