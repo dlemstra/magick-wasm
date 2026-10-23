@@ -1481,6 +1481,19 @@ export interface IMagickImage extends IDisposable {
     frame(width: number, height: number, innerBevel: number, outerBevel: number): void;
 
     /**
+     * Applies a mathematical expression to the image.
+     * @param expression The expression to apply.
+     */
+    fx(expression: string): void;
+
+    /**
+     * Applies a mathematical expression to the image.
+     * @param expression The expression to apply.
+     * @param channels The channel(s) to apply the expression to.
+     */
+    fx(expression: string, channels: Channels): void;
+
+    /**
      * Gamma correct image.
      * @param gamma The image gamma.
      */
@@ -4208,6 +4221,21 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         this.useException(exception => {
             geometry._toRectangle(rectangle => {
                 const instance = ImageMagick._api._MagickImage_Frame(this._instance, rectangle, exception.ptr);
+                this._setInstance(instance, exception);
+            });
+        });
+    }
+
+    fx(expression: string): void;
+    fx(expression: string, channels: Channels): void;
+    fx(expression: string, channelsOrUndefined?: Channels): void {
+        if (expression.length === 0)
+            throw new MagickError('The specified expression cannot be empty');
+
+        const channels = this.valueOrDefault(channelsOrUndefined, Channels.All);
+        this.useException(exception => {
+            _withString(expression, expressionPtr => {
+                const instance = ImageMagick._api._MagickImage_Fx(this._instance, expressionPtr, _castToSize(channels), exception.ptr);
                 this._setInstance(instance, exception);
             });
         });
