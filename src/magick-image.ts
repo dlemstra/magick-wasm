@@ -2623,6 +2623,13 @@ export interface IMagickImage extends IDisposable {
     stegano(watermark: IMagickImage): void;
 
     /**
+     * Create an image which appears in stereo when viewed with red-blue glasses (red image on
+     * left, blue on right).
+     * @param rightImage The image to use as the right part of the resulting image.
+     */
+    stereo(rightImage: IMagickImage): void;
+
+    /**
      * Strips an image of all profiles and comments.
      */
     strip(): void;
@@ -5055,6 +5062,13 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     stegano(watermark: IMagickImage): void {
         this.useException(exception => {
             const instance = ImageMagick._api._MagickImage_Stegano(this._instance, watermark._instance, exception.ptr);
+            this._setInstance(instance, exception);
+        });
+    }
+
+    stereo(rightImage: IMagickImage): void {
+        this.useException(exception => {
+            const instance = ImageMagick._api._MagickImage_Stereo(this._instance, rightImage._instance, exception.ptr);
             this._setInstance(instance, exception);
         });
     }
