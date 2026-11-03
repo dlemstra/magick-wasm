@@ -1,4 +1,4 @@
-[ ImageMagick 7.1.2-34 (Beta) (2026-10-14) ]
+[ ImageMagick 7.1.2-35 (2026-10-31) ]
 
                          ImageMagick License
              https://imagemagick.org/license/
@@ -136,7 +136,7 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
-[ brotli 1.2.0 (2025-10-27) ]
+[ brotli 1.2.1 (2026-10-21) ]
 
 Copyright (c) 2009, 2010, 2013-2016 by the Brotli Authors.
 
@@ -1115,7 +1115,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[ freetype 2.14.3 (2026-03-22) ]
+[ freetype 2.15.0 (2026-10-11) ]
 
                     The FreeType Project LICENSE
                     ----------------------------
@@ -1792,7 +1792,7 @@ necessary.  Here is a sample; alter the names:
 
 That's all there is to it!
 
-[ heif 1.23.6 (2026-10-05) ]
+[ heif 1.23.7 (2026-10-26) ]
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications and the Go and C++ wrappers are distributed under the terms of the MIT License.
@@ -3053,7 +3053,7 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[ jpeg-turbo 3.2.0 (2025-06-30) ]
+[ jpeg-turbo 3.2.1 (2026-10-27) ]
 
 libjpeg-turbo Licenses
 ======================
@@ -3635,7 +3635,7 @@ to supporting the PNG file format in commercial products.  If you use
 this source code in a product, acknowledgment is not required but would
 be appreciated.
 
-[ raw 0.22.2 (2026-07-16) ]
+[ raw 0.22.3 (2026-10-26) ]
 
 		  GNU LESSER GENERAL PUBLIC LICENSE
 		       Version 2.1, February 1999
