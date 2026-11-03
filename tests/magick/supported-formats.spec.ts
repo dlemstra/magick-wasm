@@ -94,7 +94,7 @@ describe('Magick#supportedFormats', () => {
         expect(index).toBeGreaterThan(-1);
 
         const dngFormat = Magick.supportedFormats[index];
-        expect(dngFormat.version).toBe('0.22.2-Release');
+        expect(dngFormat.version).toBe('0.22.3-Release');
 
         index = Magick.supportedFormats.findIndex(formatInfo => formatInfo.format === MagickFormat.Psd);
         expect(index).toBeGreaterThan(-1);
