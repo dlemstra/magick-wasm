@@ -585,10 +585,28 @@ export interface IMagickImage extends IDisposable {
      * Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
      * @param width The width of the neighborhood in pixels.
      * @param height The height of the neighborhood in pixels.
+     * @param channels The channel(s) that should be blurred.
+     */
+    bilateralBlur(width: number, height: number, channels: Channels): void;
+
+    /**
+     * Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+     * @param width The width of the neighborhood in pixels.
+     * @param height The height of the neighborhood in pixels.
      * @param intensitySigma The sigma in the intensity space.
      * @param spatialSigma The sigma in the coordinate space.
      */
     bilateralBlur(width: number, height: number, intensitySigma: number, spatialSigma: number): void;
+
+    /**
+     * Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+     * @param width The width of the neighborhood in pixels.
+     * @param height The height of the neighborhood in pixels.
+     * @param intensitySigma The sigma in the intensity space.
+     * @param spatialSigma The sigma in the coordinate space.
+     * @param channels The channel(s) that should be blurred.
+     */
+    bilateralBlur(width: number, height: number, intensitySigma: number, spatialSigma: number, channels: Channels): void;
 
     /**
      * Forces all pixels below the threshold into black while leaving all pixels at or above
@@ -1934,6 +1952,15 @@ export interface IMagickImage extends IDisposable {
     motionBlur(radius: number, sigma: number, angle: number): void;
 
     /**
+     * Motion blur the specified channel(s) of the image with the specified blur factor.
+     * @param radius The radius of the Gaussian, in pixels, not counting the center pixel.
+     * @param sigma The standard deviation of the Laplacian, in pixels.
+     * @param angle The angle the object appears to be coming from (zero degrees is from the right).
+     * @param channels The channel(s) that should be blurred.
+     */
+    motionBlur(radius: number, sigma: number, angle: number, channels: Channels): void;
+
+    /**
      * Negate colors in image.
      */
     negate(): void;
@@ -1960,6 +1987,13 @@ export interface IMagickImage extends IDisposable {
      * of color values).
      */
     normalize(): void;
+
+    /**
+     * Normalize the specified channel(s) of the image (increase contrast by normalizing the pixel
+     * values to span the full range of color values).
+     * @param channels The channel(s) that should be normalized.
+     */
+    normalize(channels: Channels): void;
 
     /**
      * Oilpaint image (image looks like oil painting).
@@ -3490,12 +3524,15 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     bilateralBlur(width: number, height: number): void;
+    bilateralBlur(width: number, height: number, channels: Channels): void;
     bilateralBlur(width: number, height: number, intensitySigma: number, spatialSigma: number): void;
-    bilateralBlur(width: number, height: number, intensitySigmaOrUndefined?: number, spatialSigmaOrUndefined?: number): void {
-        const intensitySigma = this.valueOrComputedDefault(intensitySigmaOrUndefined, () => Math.sqrt(Number((width * width) + (height * height))));
+    bilateralBlur(width: number, height: number, intensitySigma: number, spatialSigma: number, channels: Channels): void;
+    bilateralBlur(width: number, height: number, intensitySigmaOrChannelsOrUndefined?: number | Channels, spatialSigmaOrUndefined?: number, channelsOrUndefined?: Channels): void {
+        const intensitySigma = this.valueOrComputedDefault(spatialSigmaOrUndefined === undefined ? undefined : intensitySigmaOrChannelsOrUndefined, () => Math.sqrt(Number((width * width) + (height * height))));
         const spatialSigma = this.valueOrDefault(spatialSigmaOrUndefined, intensitySigma * 0.25);
+        const channels = this.valueOrDefault(spatialSigmaOrUndefined === undefined ? intensitySigmaOrChannelsOrUndefined : channelsOrUndefined, Channels.Undefined);
         this.useException(exception => {
-            const instance = ImageMagick._api._MagickImage_BilateralBlur(this._instance, _castToSize(width), _castToSize(height), intensitySigma, spatialSigma, exception.ptr);
+            const instance = ImageMagick._api._MagickImage_BilateralBlur(this._instance, _castToSize(width), _castToSize(height), intensitySigma, spatialSigma, _castToSize(channels), exception.ptr);
             this._setInstance(instance, exception);
         });
     }
@@ -4558,9 +4595,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    motionBlur(radius: number, sigma: number, angle: number): void {
+    motionBlur(radius: number, sigma: number, angle: number): void;
+    motionBlur(radius: number, sigma: number, angle: number, channels: Channels): void;
+    motionBlur(radius: number, sigma: number, angle: number, channels: Channels = Channels.Undefined): void {
         this.useException(exception => {
-            const instance = ImageMagick._api._MagickImage_MotionBlur(this._instance, radius, sigma, angle, exception.ptr);
+            const instance = ImageMagick._api._MagickImage_MotionBlur(this._instance, radius, sigma, angle, _castToSize(channels), exception.ptr);
             this._setInstance(instance, exception);
         });
     }
@@ -4581,9 +4620,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         });
     }
 
-    normalize(): void {
+    normalize(): void;
+    normalize(channels: Channels): void;
+    normalize(channels: Channels = Channels.Undefined): void {
         this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_Normalize(this._instance, exception);
+            ImageMagick._api._MagickImage_Normalize(this._instance, _castToSize(channels), exception);
         });
     }
 
