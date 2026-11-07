@@ -4452,7 +4452,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const gamma = this.valueOrDefault(gammaOrUndefined, 1.0);
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Composite);
         this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_InverseLevel(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, _castToSize(channels), exception);
+            ImageMagick._api._MagickImage_InverseLevel(this._instance, blackPoint._toQuantum(), whitePoint._toQuantum(), gamma, _castToSize(channels), exception);
         });
     }
 
@@ -4502,7 +4502,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
         const gamma = this.valueOrDefault(gammaOrUndefined, 1.0);
         const channels = this.valueOrDefault(channelsOrUndefined, Channels.Composite);
         this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_Level(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), gamma, _castToSize(channels), exception);
+            ImageMagick._api._MagickImage_Level(this._instance, blackPoint._toQuantum(), whitePoint._toQuantum(), gamma, _castToSize(channels), exception);
         });
     }
 
@@ -4514,7 +4514,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
 
     linearStretch(blackPoint: Percentage, whitePoint: Percentage): void {
         this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_LinearStretch(this._instance, blackPoint.toDouble(), whitePoint._toQuantum(), exception);
+            ImageMagick._api._MagickImage_LinearStretch(this._instance, blackPoint._toQuantum(), whitePoint._toQuantum(), exception);
         });
     }
 

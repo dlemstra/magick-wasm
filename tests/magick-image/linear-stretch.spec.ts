@@ -11,10 +11,11 @@ describe('MagickImage#linearStretch', () => {
         TestFiles.Images.fujiFilmFinePixS1ProJpg.use(image => {
             image.resize(100, 100);
 
-            image.linearStretch(new Percentage(10), new Percentage(90));
+            image.clone(original => {
+                image.linearStretch(new Percentage(10), new Percentage(90));
 
-            const histogram = image.histogram();
-            expect(histogram.get('#66d4ffff')).toBe(88n);
+                expect(image).toEqualImage(original, 0.30340);
+            });
         });
     });
 });

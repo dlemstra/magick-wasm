@@ -25,9 +25,9 @@ describe('MagickImage#level', () => {
 
             expect(image).toHavePixelWithColor(244, 50, '#00ffff');
             expect(image).toHavePixelWithColor(230, 150, '#000000');
-            expect(image).toHavePixelWithColor(430, 150, '#a70000');
-            expect(image).toHavePixelWithColor(300, 250, '#b1bb00');
-            expect(image).toHavePixelWithColor(395, 440, '#00c692');
+            expect(image).toHavePixelWithColor(430, 150, '#eaa400');
+            expect(image).toHavePixelWithColor(300, 250, '#ecef51');
+            expect(image).toHavePixelWithColor(395, 440, '#00f1e5');
         });
     });
 });
