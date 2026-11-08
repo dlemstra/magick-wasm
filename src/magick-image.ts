@@ -4589,7 +4589,7 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     morphology(settings: MorphologySettings): void {
         this.useException(exception => {
             _withString(settings.kernel, kernelPtr => {
-                const instance = ImageMagick._api._MagickImage_Morphology(this._instance, _castToSize(settings.method), kernelPtr, _castToSize(settings.channels), _castToSize(settings.iterations), exception.ptr);
+                const instance = ImageMagick._api._MagickImage_Morphology(this._instance, _castToSize(settings.method), kernelPtr, _castToSize(settings.iterations), _castToSize(settings.channels), exception.ptr);
                 this._setInstance(instance, exception);
             });
         });
