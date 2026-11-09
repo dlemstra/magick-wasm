@@ -27,6 +27,7 @@ import { Disposable } from './internal/disposable';
 import { DisposableArray } from './internal/disposable-array';
 import { DistortMethod } from './enums/distort-method';
 import { DistortSettings } from './settings/distort-settings';
+import { DitherMethod } from './enums/dither-method';
 import { DoubleMatrix } from './types/double-matrix';
 import { DoublePointer } from './internal/pointer/double-pointer';
 import { DrawingWand } from './drawing/drawing-wand';
@@ -2061,25 +2062,25 @@ export interface IMagickImage extends IDisposable {
     polaroid(caption: string, angle: number, method: PixelInterpolateMethod): void;
 
     /**
-     * Reduces the image to the specified number of color levels.
-     * @param levels The number of color levels.
+     * Reduces the image to a limited number of colors for a "poster" effect.
+     * @param levels Number of color levels allowed in each channel.
      */
     posterize(levels: number): void;
 
     /**
-     * Reduces the image to the specified number of color levels.
-     * @param levels The number of color levels.
-     * @param dither A value indicating whether dithering should be used.
+     * Reduces the image to a limited number of colors for a "poster" effect.
+     * @param levels Number of color levels allowed in each channel.
+     * @param method Dither method to use.
      */
-    posterize(levels: number, dither: boolean): void;
+    posterize(levels: number, method: DitherMethod): void;
 
     /**
-     * Reduces the image to the specified number of color levels.
-     * @param levels The number of color levels.
-     * @param dither A value indicating whether dithering should be used.
+     * Reduces the image to a limited number of colors for a "poster" effect.
+     * @param levels Number of color levels allowed in each channel.
+     * @param method Dither method to use.
      * @param channels The channel(s) to posterize.
      */
-    posterize(levels: number, dither: boolean, channels: Channels): void;
+    posterize(levels: number, method: DitherMethod, channels: Channels): void;
 
     /**
      * Quantize image (reduce number of colors).
@@ -4689,11 +4690,11 @@ export class MagickImage extends NativeInstance implements IMagickImage {
     }
 
     posterize(levels: number): void;
-    posterize(levels: number, dither: boolean): void;
-    posterize(levels: number, dither: boolean, channels: Channels): void;
-    posterize(levels: number, dither = true, channels: Channels = Channels.Undefined): void {
+    posterize(levels: number, method: DitherMethod): void;
+    posterize(levels: number, method: DitherMethod, channels: Channels): void;
+    posterize(levels: number, method: DitherMethod = DitherMethod.No, channels: Channels = Channels.Undefined): void {
         this.useExceptionPointer(exception => {
-            ImageMagick._api._MagickImage_Posterize(this._instance, _castToSize(levels), _castToSize(_fromBoolean(dither)), _castToSize(channels), exception);
+            ImageMagick._api._MagickImage_Posterize(this._instance, _castToSize(levels), _castToSize(method), _castToSize(channels), exception);
         });
     }
 

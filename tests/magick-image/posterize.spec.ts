@@ -4,6 +4,7 @@
 */
 
 import { Channels } from '@src/enums/channels';
+import { DitherMethod } from '@src/enums/dither-method';
 import { TestFiles } from '@test/test-files';
 
 describe('MagickImage#posterize', () => {
@@ -15,31 +16,31 @@ describe('MagickImage#posterize', () => {
         });
     });
 
-    it('should use dithering by default', () => {
+    it('should use no dithering by default', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
                 image.posterize(4);
-                other.posterize(4, true);
+                other.posterize(4, DitherMethod.No);
 
                 expect(image).toEqualImage(other);
             });
         });
     });
 
-    it('should disable dithering when specified', () => {
+    it('should use the specified dither method', () => {
         TestFiles.Images.Builtin.logo.use(image => {
             image.clone(other => {
-                image.posterize(4, false);
-                other.posterize(4, true);
+                image.posterize(4, DitherMethod.FloydSteinberg);
+                other.posterize(4, DitherMethod.No);
 
-                expect(image).toEqualImage(other, 0.06148);
+                expect(image).not.toEqualImage(other);
             });
         });
     });
 
     it('should only posterize the specified channels', () => {
         TestFiles.Images.Builtin.logo.use(image => {
-            image.posterize(4, true, Channels.Red);
+            image.posterize(4, DitherMethod.No, Channels.Red);
 
             expect(image).toHavePixelWithColor(400, 200, '#ff9868');
         });
