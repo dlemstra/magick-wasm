@@ -129,7 +129,7 @@ export class ResourceLimits {
     }
 
     /**
-     * Sets or sets the maximum number of seconds that the process is permitted to execute.
+     * Gets or sets the maximum number of seconds that the process is permitted to execute.
      * Exceed this limit and an exception is thrown and processing stops.
      */
     static set time(value: bigint) {
@@ -144,7 +144,7 @@ export class ResourceLimits {
     }
 
     /**
-     * Sets the maximum height of an image.
+     * Gets or sets the maximum width of an image.
      */
     static set width(value: bigint) {
         ImageMagick._api._ResourceLimits_Width_Set(value);

@@ -186,7 +186,7 @@ export interface IMagickImage extends IDisposable {
     colorFuzz: Percentage;
 
     /**
-     * Gets or sets the color space of the image.
+     * Gets or sets the colormap size (number of colormap entries).
      */
     colormapSize: number;
 
