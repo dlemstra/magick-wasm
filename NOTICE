@@ -1,4 +1,4 @@
-[ ImageMagick 7.1.2-35 (2026-10-31) ]
+[ ImageMagick 7.1.2-36 (Beta) (2026-11-06) ]
 
                          ImageMagick License
              https://imagemagick.org/license/
@@ -107,7 +107,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
    License for the specific language governing permissions and limitations
    under the License.
 
-[ aom 3.15.2 (2026-10-09) ]
+[ aom 3.15.3 (2026-10-30) ]
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -1077,7 +1077,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[ exr 3.5.2 (2026-10-03) ]
+[ exr 3.5.3 (2026-10-31) ]
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -3233,7 +3233,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-[ lcms 2.19.1 (2026-05-06) ]
+[ lcms 2.20.0 (2026-10-31) ]
 
 MIT License
 
@@ -3468,7 +3468,7 @@ Library.
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-[ openjph 0.32.0 (2026-09-17) ]
+[ openjph 0.33.0 (2026-11-01) ]
 
 BSD 2-Clause License
 
@@ -4207,7 +4207,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-[ zlib 1.3.2 (2026-02-17) ]
+[ zlib 1.4.0 (2026-11-05) ]
 
 Copyright notice:
 
